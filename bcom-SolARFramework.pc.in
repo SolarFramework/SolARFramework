@@ -1,0 +1,12 @@
+libname=SolARFramework
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/interfaces
+Name: SolARFramework
+Description:
+Version: 1.0.0
+Requires:
+Libs: -L${libdir} -l${libname}
+Libs.private: ${libdir}/${pfx}${libname}.${lext}
+Cflags: -I${includedir} -I${includedir}/Eigen

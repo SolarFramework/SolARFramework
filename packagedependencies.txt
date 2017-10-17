@@ -1,0 +1,2 @@
+xpcf|1.0.0|xpcf|bcomBuild|http://repository.b-com.com/amc-generic
+boost|1.64.0|boost|thirdParties|http://repository.b-com.com/amc-generic
