@@ -1,6 +1,6 @@
 [submodule "builddefs/qmake"]
 	path = builddefs/qmake
-	url = https://github.com/SolarFramework/builddefs.git
+	url = https://github.com/b-com-software-basis/builddefs-qmake.git
 [submodule "libs/eigen"]
 	path = libs/eigen
 	url = https://github.com/SolarFramework/eigen.git
