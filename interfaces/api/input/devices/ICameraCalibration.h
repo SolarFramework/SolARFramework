@@ -38,8 +38,10 @@ public:
    ///
    virtual ~ICameraCalibration() {};
 
+   /// \brief Calibrate the camera device referenced relative to a captured video and output the result in the given file
+   virtual bool calibrate(std::string& inputVideo, std::string&output) = 0;
    /// \brief Calibrate the camera device referenced by its id and output the result in the given file
-   virtual bool calibrate(int camera_id, std::string&output)=0;
+   virtual bool calibrate(int camera_id, std::string&output) = 0;
    /// \brief Set the camera device calibration parameters
    virtual bool setParameters(std::string&config_file)=0;
    XPCF_DECLARE_UUID("0e83b228-b9ca-413d-9dc2-db45c427428b");
