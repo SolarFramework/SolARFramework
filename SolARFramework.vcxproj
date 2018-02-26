@@ -40,6 +40,7 @@
     <ClInclude Include="interfaces\api\features\IDescriptorsExtractorSBPattern.h" />
     <ClInclude Include="interfaces\api\features\IKeypointDetector.h" />
     <ClInclude Include="interfaces\api\features\IKeypointsReIndexer.h" />
+    <ClInclude Include="interfaces\api\features\IMatchesFilter.h" />
     <ClInclude Include="interfaces\api\features\ISBPatternReIndexer.h" />
     <ClInclude Include="interfaces\api\geom\I2DTransform.h" />
     <ClInclude Include="interfaces\api\geom\I3DTransform.h" />

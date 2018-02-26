@@ -218,5 +218,8 @@
     <ClInclude Include="interfaces\api\solver\map\ITriangulator.h">
       <Filter>interfaces\api\solver\map</Filter>
     </ClInclude>
+    <ClInclude Include="interfaces\api\features\IMatchesFilter.h">
+      <Filter>interfaces\api\features</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
