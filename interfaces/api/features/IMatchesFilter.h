@@ -23,9 +23,9 @@ public:
     /// @param[out] outputMatches: filtred matches based on redanduncy or geometric relations such as epipolar constraint
     /// @param[in] keypoints_1: The original keypoints associated to desc_1.
     /// @param[in] keypoints_2: The original keypoints associated to desc_2.
-     virtual void filter(std::vector<DescriptorMatch>&inputMatches,
+     virtual void filter(const std::vector<DescriptorMatch>&inputMatches,
                          std::vector<DescriptorMatch>&outputMatches,
-                         std::vector<SRef<Keypoint>>&keyPoints_1,
+                         const std::vector<SRef<Keypoint>>&keyPoints_1,
                          std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
 
       XPCF_DECLARE_UUID("e0d6cc82-6af2-493d-901a-2384fca0b16f");
