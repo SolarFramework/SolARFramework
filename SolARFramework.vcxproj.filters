@@ -72,6 +72,9 @@
     <Filter Include="interfaces\api\solver\pose">
       <UniqueIdentifier>{c74abce5-a44a-4c66-8075-c26b0cc36e5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="interfaces\api\solver\map">
+      <UniqueIdentifier>{736415b8-69bf-4d69-bbb3-b2123d72d2e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="interfaces\SharedBuffer.hpp">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="interfaces\api\sink\ThirdPartyConnector.h">
       <Filter>interfaces\api\sink</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces\api\solver\map\ITriangulator.h">
+      <Filter>interfaces\api\solver\map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
