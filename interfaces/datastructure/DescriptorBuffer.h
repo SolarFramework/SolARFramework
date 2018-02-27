@@ -38,10 +38,11 @@ class SOLARFRAMEWORK_API DescriptorBuffer{
 
 public :
     enum DescriptorType{
+        AKAZE, /**<AKAZE descriptor, assumes 32 elements per descriptor stores as one byte per element */
         SIFT,  /**<SIFT descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
         SURF_64 , /**<SURF descriptor, assumes 64 elements per descriptor stores as four bytes per element*/
         SURF_128, /**<SURF descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
-        ORB, /**<ORB descriptor, assumes 128 elements per descriptor stores as one byte per element */
+        ORB, /**<ORB descriptor, assumes 32 elements per descriptor stores as one byte per element */
         SBPATTERN /**<Squared Binary Pattern descriptor, assumes nxn elements per descriptor stores as one byte per element, n is the size of the pattern */
     };
 
