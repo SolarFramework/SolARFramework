@@ -58,6 +58,9 @@
     <ClInclude Include="interfaces\api\sink\IThirdPartyConnector.h" />
     <ClInclude Include="interfaces\api\sink\ThirdPartyConnector.h" />
     <ClInclude Include="interfaces\api\solver\map\ITriangulator.h" />
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixDecomposer.h" />
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixDecompositionValidation.h" />
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixEstimation.h" />
     <ClInclude Include="interfaces\api\solver\pose\IHomographyEstimation.h" />
     <ClInclude Include="interfaces\api\solver\pose\IHomographyValidation.h" />
     <ClInclude Include="interfaces\api\solver\pose\IPoseEstimation.h" />

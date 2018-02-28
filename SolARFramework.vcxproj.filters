@@ -221,5 +221,14 @@
     <ClInclude Include="interfaces\api\features\IMatchesFilter.h">
       <Filter>interfaces\api\features</Filter>
     </ClInclude>
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixDecomposer.h">
+      <Filter>interfaces\api\solver\pose</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixDecompositionValidation.h">
+      <Filter>interfaces\api\solver\pose</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces\api\solver\pose\IFundamentalMatrixEstimation.h">
+      <Filter>interfaces\api\solver\pose</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
