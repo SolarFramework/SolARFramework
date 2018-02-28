@@ -41,7 +41,7 @@ using namespace datastructure;
                     virtual ~IFundamentalMatrixDecomposer() = default;
 
                     /// @brief decompose the fundamental matrix to 4 pose possibilities ((R1,t1),(R1,t2), (R2,t1), (R2,t2))
-                    virtual bool decompose(const Transform2Df&F, const CamCalibration&K, std::vector<SRef<Pose>>& decomposedPoses)= 0;
+                    virtual bool decompose(const Transform2Df& F, const CamCalibration& K, const CamDistortion& dist, std::vector<SRef<Pose>>& decomposedPoses)= 0;
 
                     XPCF_DECLARE_UUID("1697e697-e6df-4e6a-b8e7-d78ddc03f3f6");
                 };
