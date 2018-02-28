@@ -21,8 +21,8 @@
 // part of Solar namespace //
 
 #include "IComponentIntrospect.h"
+#include "core/Messages.h"
 #include "datastructure/Image.h"
-
 
 namespace SolAR {
 using namespace datastructure;
@@ -40,8 +40,8 @@ public:
    /// \brief ~IImageConvertor
    ///
    virtual ~IImageConvertor() {};
-   virtual int convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
-   virtual int convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
+   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
+   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
 
    XPCF_DECLARE_UUID("9c982719-6cb4-4831-aa88-9e01afacbd16");
 };
