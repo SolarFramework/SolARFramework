@@ -30,50 +30,50 @@ class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
     virtual ~IImageFilter() = default;
-    virtual void threshold(SRef<Image>input,
-                           SRef<Image>output,
+    virtual FrameworkReturnCode threshold(SRef<Image>input,
+                           SRef<Image>& output,
                            int threshold) = 0;
 
-    virtual void binarize(SRef<Image>input,
-                          SRef<Image>output,
+    virtual FrameworkReturnCode binarize(SRef<Image>input,
+                          SRef<Image>& output,
                           int min,
                           int max) = 0;
 
-    virtual void adaptiveBinarize(SRef<Image>input,
-                   SRef<Image>output,
+    virtual FrameworkReturnCode adaptiveBinarize(SRef<Image>input,
+                   SRef<Image>& output,
                    int max,
                    int blockSize,
                    int C) = 0;
 
-    virtual void blur(SRef<Image>input,
-                    SRef<Image>output,
+    virtual FrameworkReturnCode blur(SRef<Image>input,
+                    SRef<Image>& output,
                     int kernerl_id,
                     int kernel_width,
                     int kernel_height,
                     int direction) = 0;
 
-   virtual  void gradient(SRef<Image>input,
-                          SRef<Image>output,
+   virtual  FrameworkReturnCode gradient(SRef<Image>input,
+                          SRef<Image>& output,
                           int x_order,
                           int y_order) = 0;
 
-  virtual  void laplacian(SRef<Image>input,
-                          SRef<Image>output,
+  virtual  FrameworkReturnCode laplacian(SRef<Image>input,
+                          SRef<Image>& output,
                           int method) = 0;
 
-  virtual  void erode(SRef<Image>input,
-                      SRef<Image>output,
+  virtual  FrameworkReturnCode erode(SRef<Image>input,
+                      SRef<Image>& output,
                       int erode_type,
                       int erode_size) = 0;
 
 
-  virtual   void dilate(SRef<Image>input,
-                        SRef<Image>output,
+  virtual   FrameworkReturnCode dilate(SRef<Image>input,
+                        SRef<Image>& output,
                         int dilate_type,
                         int dilate_size) = 0;
 
-  virtual   void equalize(SRef<Image>input,
-                          SRef<Image>output,
+  virtual   FrameworkReturnCode equalize(SRef<Image>input,
+                          SRef<Image>& output,
                           int method) = 0;
 
       XPCF_DECLARE_UUID("f7948ae2-e994-416f-be40-dd404ca03a83");
