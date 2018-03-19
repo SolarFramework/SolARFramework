@@ -21,6 +21,6 @@ include("macros.cmake")
 setup()
 # process packagedependencies.txt
 processPackagedependencies()
-# define targets (library, install and uninstall)
-defineTargets()
+# define targets (type library)
+defineTargets("library")
 

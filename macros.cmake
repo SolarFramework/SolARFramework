@@ -86,9 +86,23 @@ endmacro(processSources)
 ####################################################
 # macro to define targets
 ####################################################
-macro (defineTargets)
+macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	# define project target
-	add_library (${PROJECT_NAME} SHARED ${SOURCES})
+	if (${EXEORLIBRARY} STREQUAL "library")
+		add_library (${PROJECT_NAME} SHARED ${SOURCES})
+		set (CMAKE_SHARED_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
+	else()
+		add_executable(${PROJECT_NAME} ${SOURCES})
+		set (CMAKE_EXE_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
+		# do the copying of NECESSARY FILES
+		foreach( file_i ${FILES_TO_COPY})
+		    add_custom_command(
+			    TARGET ${PROJECT_NAME}
+			    POST_BUILD
+			    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${file_i}" $<TARGET_FILE_DIR:${PROJECT_NAME}>
+			)
+		endforeach()
+	endif()
 
 	message (STATUS "INCLUDE DIRS : ${INCLUDE_DIRS}")
 	message (STATUS "LIB_PATHS_LINKER_FLAGS : ${LIB_PATHS_LINKER_FLAGS}")
@@ -101,31 +115,35 @@ macro (defineTargets)
 	target_compile_options(${PROJECT_NAME} PUBLIC
 									${BOOST_CFLAGS_OTHER}								
 								)			
-	set (CMAKE_SHARED_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
 	target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES})
 
-	# install target
-	install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE})
-	if (WIN32)
-		if (MSVC)
-			install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE} OPTIONAL)
-		endif(MSVC)
-	endif(WIN32)
-	install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/interfaces/"        
-	         DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/interfaces)
-	install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/bcom-${PROJECT_NAME}.pc.in" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER} RENAME "bcom-${PROJECT_NAME}.pc")
-	install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER})
+	if (${EXEORLIBRARY} STREQUAL "library") # only for libraries
 
-	# uninstall target
-	if(NOT TARGET uninstall)
-	    configure_file(
-	        "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-	        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-	        IMMEDIATE @ONLY)
+		# install target
+		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE})
+		if (WIN32)
+			if (MSVC)
+				install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE} OPTIONAL)
+			endif(MSVC)
+		endif(WIN32)
+		# install interfaces
+		install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/interfaces/"        
+		         DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/interfaces)
+		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/bcom-${PROJECT_NAME}.pc.in" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER} RENAME "bcom-${PROJECT_NAME}.pc")
+		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER})
 
-	    add_custom_target(uninstall
-	        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
-	endif()         
+		# uninstall target
+		if(NOT TARGET uninstall)
+		    configure_file(
+		        "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+		        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+		        IMMEDIATE @ONLY)
+
+		    add_custom_target(uninstall
+		        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+		endif()        
+
+	endif() 
 endmacro(defineTargets)
 
 ####################################################
