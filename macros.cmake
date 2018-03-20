@@ -170,9 +170,12 @@ macro (setup)
 
 	# debug or release variable
 	string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_DEBUG_OR_RELEASE)
-	if (NOT (${CMAKE_DEBUG_OR_RELEASE} EQUAL "debug"))
+	if (${CMAKE_DEBUG_OR_RELEASE} STREQUAL "debug")
+		set (CMAKE_DEBUG_OR_RELEASE "debug")
+	else()
 		set (CMAKE_DEBUG_OR_RELEASE "release")
 	endif()
+	
 
 	# architecture detection
 	if (CMAKE_SIZEOF_VOID_P MATCHES 8)
