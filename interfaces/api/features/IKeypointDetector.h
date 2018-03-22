@@ -48,6 +48,7 @@ namespace features {
 		DAISY,
 		LATCH,
 		AKAZE,
+		AKAZE2,
 		AKAZEUP,
 		BRISK,
 		BRIEF,
