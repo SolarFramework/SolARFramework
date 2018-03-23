@@ -169,6 +169,12 @@ macro (setup)
 	endif()
 
 	# debug or release variable
+	if(NOT CMAKE_BUILD_TYPE)
+	  set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+	      "Choose the type of build, options are: Debug Release
+	RelWithDebInfo MinSizeRel."
+	      FORCE)
+	endif(NOT CMAKE_BUILD_TYPE)
 	string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_DEBUG_OR_RELEASE)
 	if (${CMAKE_DEBUG_OR_RELEASE} STREQUAL "debug")
 		set (CMAKE_DEBUG_OR_RELEASE "debug")
@@ -187,5 +193,9 @@ macro (setup)
 	set (INCLUDE_DIRS "")
 	set (LIB_PATHS_LINKER_FLAGS "")
 	set (LINK_LIBRARIES "")
-	set (CFLAGS_OTHER "")	
-endmacro(setup)
+	set (CFLAGS_OTHER "")
+
+	set (CMAKE_INSTALL_PREFIX "$ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE}" CACHE PATH "Cmake prefix" FORCE)
+	message(STATUS "installation to ${CMAKE_INSTALL_PREFIX}")
+
+	endmacro(setup)
