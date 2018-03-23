@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.7.2)
 
 ##################################################
-set (VERSION_NUMBER "0.3.1")
+set (VERSION_NUMBER "0.4.0")
 project("SolARFramework")
 set (SOURCES 
 		src/core/SolARFramework.cpp
@@ -13,6 +13,9 @@ set (SOURCES
 		src/datastructure/Pose.cpp
 		src/datastructure/SquaredBinaryPattern.cpp
 	)
+
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/macros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
+
 ##################################################
 
 # various macros
