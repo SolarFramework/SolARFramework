@@ -13,6 +13,9 @@ set (SOURCES
 		src/datastructure/Pose.cpp
 		src/datastructure/SquaredBinaryPattern.cpp
 	)
+
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/macros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
+
 ##################################################
 
 # various macros
