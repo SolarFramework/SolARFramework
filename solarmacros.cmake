@@ -131,7 +131,7 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 									${BOOST_CFLAGS_OTHER}								
 								)			
 	target_link_libraries(${PROJECT_NAME} debug ${LINK_LIBRARIES_DEBUG} optimized ${LINK_LIBRARIES_RELEASE})
-	message (STATUS "${LINK_LIBRARIES_RELEASE}")
+	# message (STATUS "${LINK_LIBRARIES_RELEASE}")
 	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
