@@ -5,7 +5,7 @@ set(CMAKE_INSTALL_PREFIX $ENV{BCOMDEVROOT}/bcomBuild CACHE INTERNAL "")
 # find PkgConfig
 find_package(PkgConfig)
 if (UNIX)
-	set (LINKLIBPREFIX ".lib")
+	set (LINKLIBPREFIX "lib")
 	set (LINKLIBEXTENSION ".so")
 endif(UNIX)
 macro (process3rdParty THIRDPARTY THIRDPARTY_PATH)
