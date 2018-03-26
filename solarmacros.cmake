@@ -135,10 +135,12 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
-		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/$<CONFIG>)
+		set (BUILDCONFIG $<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>)
+
+		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${BUILDCONFIG})
 		if (WIN32)
 			if (MSVC)
-				install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/$<CONFIG> OPTIONAL)
+				install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${BUILDCONFIG} OPTIONAL)
 			endif(MSVC)
 		endif(WIN32)
 		# install interfaces
