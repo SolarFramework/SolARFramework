@@ -1,22 +1,28 @@
-
+set(CMAKE_INSTALL_PREFIX $ENV{BCOMDEVROOT}/bcomBuild CACHE INTERNAL "")
 ####################################################
 # macro to parse 3rd parties via pkgconfig
 ####################################################
 # find PkgConfig
 find_package(PkgConfig)
+if (UNIX)
+	set (LINKLIBPREFIX "lib")
+	set (LINKLIBEXTENSION ".so")
+endif(UNIX)
 macro (process3rdParty THIRDPARTY THIRDPARTY_PATH)
 	message ("searching for ${THIRDPARTY} in ${THIRDPARTY_PATH}")
 	# string (TOLOWER ${THIRDPARTY} thirdparty_pc)
 
 	# set search path
 	set(ENV{PKG_CONFIG_PATH} ${THIRDPARTY_PATH})
-	# set lib directory variable
-	set (${THIRDPARTY}_LIB_DIR "${THIRDPARTY_PATH}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE}")
+	
+	# set lib directory variable for release and debug
+	set (THIRDPARTY_LIB_DIR_RELEASE "${THIRDPARTY_PATH}/lib/${PROJECT_ARCH}/shared/release" )
+	set (THIRDPARTY_LIB_DIR_DEBUG "${THIRDPARTY_PATH}/lib/${PROJECT_ARCH}/shared/debug" )
 
-	set (LIB_PATHS_LINKER_FLAGS "${LIB_PATHS_LINKER_FLAGS} ${LIBPATH_FLAG}${${THIRDPARTY}_LIB_DIR}")
+	#set (LIB_PATHS_LINKER_FLAGS "${LIB_PATHS_LINKER_FLAGS} ${LIBPATH_FLAG}${${THIRDPARTY}_LIB_DIR}")
 
 	message ("searching for bcom-${THIRDPARTY} in ${THIRDPARTY_PATH}")
-	message ("${THIRDPARTY}_LIB_DIR  is set to ${${THIRDPARTY}_LIB_DIR}")
+	#message ("${THIRDPARTY}_LIB_DIR  is set to ${${THIRDPARTY}_LIB_DIR}")
 
 	# INCLUDE DIRS
 	set (${THIRDPARTY}_INCLUDE_DIR "")
@@ -38,7 +44,14 @@ macro (process3rdParty THIRDPARTY THIRDPARTY_PATH)
 	if (${_cmp})
 	  string(REPLACE "-l" "" "${THIRDPARTY}_LIBS" ${${THIRDPARTY}_LIBS})	  
 	endif()
-	set (LINK_LIBRARIES "${${THIRDPARTY}_LIBS} ${LINK_LIBRARIES}")
+	
+	#set libraries with path for release and debug
+	set(LIBS_LIST "${${THIRDPARTY}_LIBS}" )
+	string(REGEX REPLACE " " ";" LIBS_LIST "${LIBS_LIST}")
+	foreach( library ${LIBS_LIST} )
+		set (LINK_LIBRARIES_RELEASE "optimized ${THIRDPARTY_LIB_DIR_RELEASE}/${LINKLIBPREFIX}${library}${LINKLIBEXTENSION} ${LINK_LIBRARIES_RELEASE}")
+		set (LINK_LIBRARIES_DEBUG "debug ${THIRDPARTY_LIB_DIR_DEBUG}/${LINKLIBPREFIX}${library}${LINKLIBEXTENSION} ${LINK_LIBRARIES_DEBUG}")
+	endforeach(library)
 
 endmacro (process3rdParty)
 
@@ -88,12 +101,12 @@ endmacro(processSources)
 ####################################################
 macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	# define project target
-	if (${EXEORLIBRARY} STREQUAL "library")
+	if ("${EXEORLIBRARY}" STREQUAL "library")
 		add_library (${PROJECT_NAME} SHARED ${SOURCES})
-		set (CMAKE_SHARED_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
+		#set (CMAKE_SHARED_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
 	else()
 		add_executable(${PROJECT_NAME} ${SOURCES})
-		set (CMAKE_EXE_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
+		#set (CMAKE_EXE_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
 		# do the copying of NECESSARY FILES
 		foreach( file_i ${FILES_TO_COPY})
 		    add_custom_command(
@@ -106,8 +119,9 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 
 	message (STATUS "INCLUDE DIRS : ${INCLUDE_DIRS}")
 	message (STATUS "LIB_PATHS_LINKER_FLAGS : ${LIB_PATHS_LINKER_FLAGS}")
-	string (REPLACE " " ";" LINK_LIBRARIES ${LINK_LIBRARIES})
-	message (STATUS "LINK_LIBRARIES : ${LINK_LIBRARIES}")
+	string (REPLACE " " ";" LINK_LIBRARIES_RELEASE ${LINK_LIBRARIES_RELEASE})
+	string (REPLACE " " ";" LINK_LIBRARIES_DEBUG ${LINK_LIBRARIES_DEBUG})
+	# message (STATUS "LINK_LIBRARIES : ${LINK_LIBRARIES}")
 	target_include_directories (${PROJECT_NAME} PUBLIC
 									${CMAKE_CURRENT_SOURCE_DIR}/interfaces
 									"${INCLUDE_DIRS}"
@@ -115,15 +129,17 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	target_compile_options(${PROJECT_NAME} PUBLIC
 									${BOOST_CFLAGS_OTHER}								
 								)			
-	target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES})
-
-	if (${EXEORLIBRARY} STREQUAL "library") # only for libraries
+	target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES_DEBUG} ${LINK_LIBRARIES_RELEASE})
+	# message (STATUS "${LINK_LIBRARIES_RELEASE}")
+	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
-		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE})
+		set (BUILDCONFIG $<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>)
+
+		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${BUILDCONFIG})
 		if (WIN32)
 			if (MSVC)
-				install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE} OPTIONAL)
+				install(FILES $<TARGET_PDB_FILE:${PROJECT_NAME}> DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${BUILDCONFIG} OPTIONAL)
 			endif(MSVC)
 		endif(WIN32)
 		# install interfaces
@@ -168,20 +184,7 @@ macro (setup)
 	    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 	endif()
 
-	# debug or release variable
-	if(NOT CMAKE_BUILD_TYPE)
-	  set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-	      "Choose the type of build, options are: Debug Release
-	RelWithDebInfo MinSizeRel."
-	      FORCE)
-	endif(NOT CMAKE_BUILD_TYPE)
-	string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_DEBUG_OR_RELEASE)
-	if (${CMAKE_DEBUG_OR_RELEASE} STREQUAL "debug")
-		set (CMAKE_DEBUG_OR_RELEASE "debug")
-	else()
-		set (CMAKE_DEBUG_OR_RELEASE "release")
-	endif()
-	
+
 
 	# architecture detection
 	if (CMAKE_SIZEOF_VOID_P MATCHES 8)
@@ -193,9 +196,5 @@ macro (setup)
 	set (INCLUDE_DIRS "")
 	set (LIB_PATHS_LINKER_FLAGS "")
 	set (LINK_LIBRARIES "")
-	set (CFLAGS_OTHER "")
-
-	set (CMAKE_INSTALL_PREFIX "$ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${CMAKE_DEBUG_OR_RELEASE}" CACHE PATH "Cmake prefix" FORCE)
-	message(STATUS "installation to ${CMAKE_INSTALL_PREFIX}")
-
-	endmacro(setup)
+	set (CFLAGS_OTHER "")	
+endmacro(setup)

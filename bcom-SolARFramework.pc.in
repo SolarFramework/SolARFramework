@@ -9,4 +9,4 @@ Version: 0.4.0
 Requires:
 Libs: -L${libdir} -l${libname}
 Libs.private: ${libdir}/${pfx}${libname}.${lext}
-Cflags: -I${includedir} -I${includedir}/Eigen
+Cflags: -I${includedir}

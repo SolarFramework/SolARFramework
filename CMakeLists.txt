@@ -14,12 +14,12 @@ set (SOURCES
 		src/datastructure/SquaredBinaryPattern.cpp
 	)
 
-install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/macros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/solarmacros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
 
 ##################################################
 
 # various macros
-include("macros.cmake")
+include("solarmacros.cmake")
 # config setup
 setup()
 # process packagedependencies.txt
