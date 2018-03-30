@@ -56,9 +56,10 @@ void Image::ImageInternal::setBufferSize(uint32_t size)
     m_bufferSize = size;
     if (m_bufferSize == 0) { // invalid size
         return;
-    }
+    }    
     m_storageData.reserve(m_bufferSize);
-    memset(m_storageData.data(),0,m_bufferSize);
+    m_storageData.resize(m_bufferSize);
+    //memset(m_storageData.data(),0,m_bufferSize); // Normally not useful
 }
 
 void Image::ImageInternal::setData(void * data, uint32_t size)
