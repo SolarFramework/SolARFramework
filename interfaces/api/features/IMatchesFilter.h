@@ -26,7 +26,7 @@ public:
      virtual void filter(const std::vector<DescriptorMatch>&inputMatches,
                          std::vector<DescriptorMatch>&outputMatches,
                          const std::vector<SRef<Keypoint>>&keyPoints_1,
-                         std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
+                         const std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
 
       XPCF_DECLARE_UUID("e0d6cc82-6af2-493d-901a-2384fca0b16f");
 };
