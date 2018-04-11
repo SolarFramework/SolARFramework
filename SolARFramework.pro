@@ -68,6 +68,7 @@ interfaces/api/solver/pose/IPoseEstimation.h \
 interfaces/api/solver/pose/IFundamentalMatrixEstimation.h \
 interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h \
 interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h \
+interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
