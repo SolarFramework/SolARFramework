@@ -32,7 +32,7 @@ namespace SolAR {
 				namespace HomographyEstimation {
 
 					///
-					/// \brief The HomographyEstimation return codes
+                    /// @brief The HomographyEstimation return codes
 					///
 					enum  RetCode {
 						HOMOGRAPHY_ESTIMATION_OK = 0, /**< the default OK code*/
@@ -40,16 +40,16 @@ namespace SolAR {
 					};
 
 				}    // end of namespace HomographyEstimation
-
+                /// @class IHomographyEstimation
 				class IHomographyEstimation : public virtual org::bcom::xpcf::IComponentIntrospect {
 				public:
 					IHomographyEstimation() = default;
 					virtual ~IHomographyEstimation() = default;
 
-					/// \brief find a Homography from 2 sets of 2D points
-					/// \param srcPoints: set of points of first image
-					/// \param dstPoints: set of points of second image
-					/// \param homography: output homography
+                    /// @brief find a Homography from 2 sets of 2D points.
+                    /// @param[in] Set of 2d_points in the template view.
+                    /// @param[in] Set of 2d_points in the current view.
+                    /// @param[out] Estimated homography matrix.
 					virtual HomographyEstimation::RetCode findHomography(const std::vector<SRef<Point2Df> >& srcPoints,
 						const std::vector< SRef<Point2Df> >& dstPoints,
 						Transform2Df & homography) = 0;

@@ -52,7 +52,7 @@ interfaces/api/features/IDescriptorsExtractorSBPattern.h \
 interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/ISBPatternReIndexer.h \
-interfaces/api/features/IMatcherFilter.h \
+interfaces/api/features/IMatchesFilter.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
 interfaces/api/geom/IImage2WorldMapper.h \
