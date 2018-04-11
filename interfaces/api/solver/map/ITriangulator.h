@@ -24,7 +24,7 @@ public:
     virtual ~ITriangulator() = default;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
-    virtual bool triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
+    virtual FrameworkReturnCode triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
                              const std::vector<SRef<Point2Df>>& pt2d_2,
                              const SRef<Pose>&p1,
                              const SRef<Pose>&p2,
