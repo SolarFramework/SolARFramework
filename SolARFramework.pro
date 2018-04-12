@@ -70,6 +70,7 @@ interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h \
 interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I3DTransformFinder.h \
+interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
