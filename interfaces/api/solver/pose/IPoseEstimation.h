@@ -41,12 +41,15 @@ public:
     virtual ~IPoseEstimation() = default;
 
     ///
-    /// \brief poseFromSolvePNP method provides an estimation of the camera pose from a set of 2D image points of their corresponding 3D  world points
-    ///
-    virtual FrameworkReturnCode poseFromSolvePNP( Pose & pose, const std::vector<SRef<Point2Df>> & imagePoints, const std::vector<SRef<Point3Df>> & worldPoints) =0;
-    ///
-    /// \brief this method is used to set intrinsic parameters and distorsion of the camera
-    ///
+    /// @brief poseFromSolvePNP method provides an estimation of the camera pose from a set of 2D image points of their corresponding 3D  world points.
+    /// @param[out] Camera pose in the world coordinates system of the view_1.
+    /// @param[in] Set of 2d_points seen in view_1.
+    /// @param[in]  Set of 3d_points corresponding to view_1.
+    virtual FrameworkReturnCode poseFromSolvePNP( Pose & pose, const std::vector<SRef<Point2Df>> & imagePoints,
+                                                  const std::vector<SRef<Point3Df>> & worldPoints) =0;    ///
+    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+    /// @param[in] Camera calibration matrix parameters.
+    /// @param[in] Camera calibration distorsion parameters..
     virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
     static constexpr const char * UUID = "a1c982ff-dbc4-4b67-b1d5-6a8cb0531a5d";

@@ -46,10 +46,10 @@ namespace SolAR {
                     IFundamentalMatrixEstimation() = default;
                     virtual ~IFundamentalMatrixEstimation() = default;
 
-                    /// \brief find a epipolar fundamental matrix from 2 sets of 2D points
-					/// \param srcPoints: set of points of first image
-					/// \param dstPoints: set of points of second image
-                    /// \param fundamental: output fundamental matrix
+                    /// @brief Find fundamental matrix from 2 sets of 2d_points.
+                    /// @param[in] Set of 2d_points seen in view_1.
+                    /// @param[in] Set of 2d_points seen in view_2.
+                    /// @param[out] Estimated fundamental matrix.
                     virtual FundamentalMatrixEstimation::RetCode findFundamental(const std::vector<SRef<Point2Df> >& srcPoints,
 						const std::vector< SRef<Point2Df> >& dstPoints,
                         Transform2Df & fundamental) = 0;
