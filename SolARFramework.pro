@@ -62,10 +62,7 @@ interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
-interfaces/api/solver/pose/IHomographyEstimation.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
-interfaces/api/solver/pose/IPoseEstimation.h \
-interfaces/api/solver/pose/IFundamentalMatrixEstimation.h \
 interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h \
 interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
