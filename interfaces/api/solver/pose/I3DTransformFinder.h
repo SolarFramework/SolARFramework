@@ -30,26 +30,28 @@ namespace SolAR {
     namespace api {
         namespace solver {
             namespace pose {
-                /**
-                 * @class I3DTransformerFinder
-                 * @brief Specifies the IPoseEstimation interface class.
-                 */
+            /**
+             * @class I3DransformFinder
+             * @brief Finds the 3D transform of 2D-3D points correspondaces.
+             */
                 class I3DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
+                    ///@brief I3DTransformFinder default constructor.
                     I3DTransformFinder() = default;
+                    ///@brief I3DTransformFinder default destructor.
                     virtual ~I3DTransformFinder() = default;
 
-                    ///
-                    /// @brief poseFromSolvePNP method provides an estimation of the camera pose from a set of 2D image points of their corresponding 3D  world points.
-                    /// @param[out] Camera pose in the world coordinates system of the view_1.
+
+                    /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                     /// @param[in] Set of 2d_points seen in view_1.
                     /// @param[in]  Set of 3d_points corresponding to view_1.
+                    /// @param[out] Camera pose in the world coordinates system of the view_1.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                                          Pose & pose) =0;    ///
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
-                    /// @param[in] Camera calibration distorsion parameters..
+                    /// @param[in] Camera distorsion parameters.
                     virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
                     static constexpr const char * UUID = "77281cda-47c2-4bb7-bde6-5b0d02e75dae";
                 };

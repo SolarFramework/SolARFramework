@@ -30,7 +30,7 @@ using namespace datastructure;
             namespace pose {
             namespace Transform2DFinder {
                 ///
-                /// \brief The HomographyEstimation return codes
+                /// @brief The 2DTransformFinder return codes.
                 ///
                 enum  RetCode {
                     TRANSFORM2D_ESTIMATION_OK = 0, /**< the default OK code*/
@@ -38,16 +38,21 @@ using namespace datastructure;
                 };
 
             }
-            // end of namespace HomographyEstimation
+            /**
+             * @class I2DransformFinder
+             * @brief Finds the 2D transform  of 2D-2D points correspondaces.
+             */
                 class I2DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
+                    ///@brief I2DTransformFinder default constructor.
                     I2DTransformFinder() = default;
+                    ///@brief I2DTransformFinder default deconstructor.
                     virtual ~I2DTransformFinder() = default;
-
-                    /// @brief Find fundamental matrix from 2 sets of 2d_points.
+                    /// @brief Find 2D transform matrix from 2 sets of 2d_points.
                     /// @param[in] Set of 2d_points seen in view_1.
                     /// @param[in] Set of 2d_points seen in view_2.
                     /// @param[out] Estimated 2D transform matrix.
+                    ///
                     virtual Transform2DFinder::RetCode find(const std::vector<SRef<Point2Df> >& srcPoints,
                         const std::vector< SRef<Point2Df> >& dstPoints,
                         Transform2Df & fundamental) = 0;
