@@ -29,17 +29,17 @@ using namespace datastructure;
     namespace api {
         namespace solver {
             namespace pose {
-
-                /// @class I2DTO3DTransformDecomposer
-
+            /**
+             * @class I2DTO3DTransformDecomposer
+             * @brief Decomposes 2D transform (ex Fundamental matrix) to 3D transform (ex camera pose).
+             */
                 class  I2DTO3DTransformDecomposer : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
-                    /// @brief I2DTO3DTransformDecomposer default constructor
+                    /// @brief I2DTO3DTransformDecomposer default constructor.
                     I2DTO3DTransformDecomposer() = default;
 
-                    /// @brief IFundamentalMatrixDecomposer default destructor
+                    /// @brief IFundamentalMatrixDecomposer default destructor.
                     virtual ~I2DTO3DTransformDecomposer() = default;
-
                     /// @brief decompose a transform 2d to a transform 3d (4  possible poses {R1,t1},{R1,t2}, {R2,t1}, {R2,t2}).
                     /// @param[in] Transform 2D (fundamental matrxi, homgraphy..).
                     /// @param[in] Camera calibration matrix parameters.
