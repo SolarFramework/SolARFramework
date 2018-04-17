@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IHOMOGRAPHYESTIMATION_H
-#define SOLAR_IHOMOGRAPHYESTIMATION_H
+#ifndef SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
+#define SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
 
 #include "IComponentIntrospect.h"
 
@@ -29,32 +29,32 @@ namespace SolAR {
 		namespace solver {
 			namespace pose {
 
-				namespace HomographyEstimation {
+                namespace FundamentalMatrixEstimation {
 
 					///
 					/// \brief The HomographyEstimation return codes
 					///
 					enum  RetCode {
-						HOMOGRAPHY_ESTIMATION_OK = 0, /**< the default OK code*/
-						HOMOGRAPHY_EMPTY,			  /**< Homgraphy matrix is empty*/
+                        FUNDAMENTALMATRIX_ESTIMATION_OK = 0, /**< the default OK code*/
+                        FUNDAMENTALMATRIX_EMPTY,			  /**< Homgraphy matrix is empty*/
 					};
 
 				}    // end of namespace HomographyEstimation
 
-				class IHomographyEstimation : public virtual org::bcom::xpcf::IComponentIntrospect {
+                class IFundamentalMatrixEstimation : public virtual org::bcom::xpcf::IComponentIntrospect {
 				public:
-					IHomographyEstimation() = default;
-					virtual ~IHomographyEstimation() = default;
+                    IFundamentalMatrixEstimation() = default;
+                    virtual ~IFundamentalMatrixEstimation() = default;
 
-					/// \brief find a Homography from 2 sets of 2D points
-					/// \param srcPoints: set of points of first image
-					/// \param dstPoints: set of points of second image
-					/// \param homography: output homography
-					virtual HomographyEstimation::RetCode findHomography(const std::vector<SRef<Point2Df> >& srcPoints,
+                    /// @brief Find fundamental matrix from 2 sets of 2d_points.
+                    /// @param[in] Set of 2d_points seen in view_1.
+                    /// @param[in] Set of 2d_points seen in view_2.
+                    /// @param[out] Estimated fundamental matrix.
+                    virtual FundamentalMatrixEstimation::RetCode findFundamental(const std::vector<SRef<Point2Df> >& srcPoints,
 						const std::vector< SRef<Point2Df> >& dstPoints,
-						Transform2Df & homography) = 0;
+                        Transform2Df & fundamental) = 0;
 
-					static constexpr const char * UUID = "188e4ca3-3dff-4dde-a381-c1724b3e312f";
+                    static constexpr const char * UUID = "1c93e091-831f-4af7-a7a2-26bd06826391";
 				};
 
 			}
