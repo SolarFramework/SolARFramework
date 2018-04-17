@@ -30,27 +30,14 @@ namespace datastructure {
  *
  * This class provides utilities to manipulate pose components and convertion to Euler angles or quaternion.
  */
-class SOLARFRAMEWORK_API Pose {
-
-    ///
-    /// \brief ~Pose
-
-    public:
+class SOLARFRAMEWORK_API Pose
+{
+public:
     Pose();
-    /// \brief constructs a Pose from a rotation matrix of size 3x3 and a translation vector of size 3
-    /// \param rotation_matrix3x3, rotation matrix of size 3x3
-    /// \param translation vector, translation vector of size 3
-    Pose( const float rotation_matrix3x3 [], const float translation_vector []);
-
-    /// \brief constructs a Pose from a rotation matrix of size 3x3 and a translation vector of size 3
-    /// \param r, rotation matrix of size 3x3
-    /// \param t, translation vector of size 3
-    Pose( const  RotationMatrixf &r, const  Vector3f & t);
-
+    
     /// \brief constructs a Pose from a pose matrix
     /// \param spm,
-    Pose( const  Transform3Df &s3dt );
-
+    Pose( const Transform3Df& s3dt );
 
     /// \brief extract a Pose having the rotation but no translation
     Pose extractRotation();
@@ -58,26 +45,21 @@ class SOLARFRAMEWORK_API Pose {
     /// \brief extract a Pose having the translation but no rotation
     Pose extractTranslation();
 
-    void setPoseTransform(const Transform3Df &s3dt);
+    void setPoseTransform(const Transform3Df& s3dt);
 
     /// \brief copy the pose in a specified array. The user has to be aware of its tab size.
     /// \param dest: array pointer
     /// \param offset: offset array
-    void toMatrix(float * dest, int offset =0);
+    void toMatrix(float* dest, int offset=0);
 
-    Transform3Df getPoseTransform(void) const;
+    const Transform3Df& getPoseTransform(void) const;
 
     /// \brief returns the pose matrix under a string chain
     std::string toString();
 
-    /// \brief returns the transformation of a 3D point p by the internal pose
-    Point3Df transformPoint(const Point3Df & point);
-
     /// \brief Return the invert pose
     Pose Inverse() const;
 
-    /// \brief returns the transformation of a 3D point p by the internal pose
-    Vector4f transformPoint(const Vector4f & point);
     /// \brief returns the X component of the pose translation vector
     float tx();
     /// \brief returns the X component of the pose translation vector
@@ -85,13 +67,10 @@ class SOLARFRAMEWORK_API Pose {
     /// \brief returns the X component of the pose translation vector
     float tz();
 
-    private:
+private:
 
     Transform3Df m_poseTransform;// a 4x4 matrix
-
 };
-
 }
 }
-
 #endif //SOLAR_POSE_H
