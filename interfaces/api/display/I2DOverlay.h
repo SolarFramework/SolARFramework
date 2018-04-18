@@ -82,10 +82,13 @@ public:
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
     virtual void drawSBPattern (SRef<SquaredBinaryPattern> pattern, SRef<Image> displayImage) = 0;
 
-    static constexpr const char * UUID = "62b8b0b5-9344-40e6-a288-e609eb3ff0f1";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I2DOverlay,
+                             "62b8b0b5-9344-40e6-a288-e609eb3ff0f1",
+                             "SolAR::I2DOverlay interface");
 
 #endif // SOLAR_I2DOVERLAY_H

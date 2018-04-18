@@ -38,11 +38,14 @@ public:
     ///
     virtual FrameworkReturnCode loadImage(const std::string & filename, SRef<Image> & img) = 0;
 
-    static constexpr const char * UUID = "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B";
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageLoader,
+                             "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B",
+                             "SolAR::IImageLoader interface");
 
 #endif // SOLAR_IIMAGELOADER_H

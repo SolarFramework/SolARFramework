@@ -53,10 +53,13 @@ public:
     /// @param[in] matches_number: number of matches to display. if negative, all matches are displayed.
     virtual void drawMatchesLines(SRef<Image> & image1, SRef<Image> & image2, SRef<Image> & outImage, std::vector <SRef<Point2Df>> & points_image1, std::vector <SRef<Point2Df>> & points_image2, int matches_number = -1)=0;
 
-    static constexpr const char * UUID = "a801354a-3e00-467c-b390-48c76fa8c53a";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::ISideBySideOverlay,
+                             "a801354a-3e00-467c-b390-48c76fa8c53a",
+                             "SolAR::ISideBySideOverlay interface");
 
 #endif // SOLAR_ISIDEBYSIDEDOVERLAY_H

@@ -53,13 +53,17 @@ namespace SolAR {
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera distorsion parameters.
                     virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
-                    static constexpr const char * UUID = "77281cda-47c2-4bb7-bde6-5b0d02e75dae";
                 };
 
             }
         }
     }
 }
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinder,
+                             "77281cda-47c2-4bb7-bde6-5b0d02e75dae",
+                             "SolAR::api::solver::pose::I3DTransformFinder");
 
 #endif // SOLAR_IPOSEESTIMATION_H
 

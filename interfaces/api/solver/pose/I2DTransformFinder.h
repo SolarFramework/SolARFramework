@@ -56,12 +56,15 @@ using namespace datastructure;
                     virtual Transform2DFinder::RetCode find(const std::vector<SRef<Point2Df> >& srcPoints,
                         const std::vector< SRef<Point2Df> >& dstPoints,
                         Transform2Df & fundamental) = 0;
-                    static constexpr const char * UUID = "45dd370a-0eab-4a7f-93d0-43453b4c7517";
                 };
 
             }
         }
     }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2DTransformFinder,
+                             "45dd370a-0eab-4a7f-93d0-43453b4c7517",
+                             "SolAR::api::solver::pose::I2DTransformFinder");
 
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H

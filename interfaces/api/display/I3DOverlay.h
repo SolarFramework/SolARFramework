@@ -56,10 +56,13 @@ public:
     /// @param[in,out] displayImage The image on which the box will be drawn
     virtual void drawBox (Pose & pose, const  float sizeX, const float sizeY, const float sizeZ, const Transform3Df transform, SRef<Image> displayImage) = 0;
 
-    static constexpr const char * UUID = "81a20f52-6bf9-4949-b914-df2f614bc945";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I3DOverlay,
+                             "81a20f52-6bf9-4949-b914-df2f614bc945",
+                             "SolAR::I3DOverlay interface");
 
 #endif // SOLAR_I3DOVERLAY_H

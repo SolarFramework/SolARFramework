@@ -88,6 +88,7 @@ interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
+    interfaces/api/sink/ThirdPartyConnector_traits.h
 
 SOURCES += src/core/SolARFramework.cpp \
 src/sink/ThirdPartyConnector.cpp \

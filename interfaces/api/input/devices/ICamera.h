@@ -78,13 +78,16 @@ public:
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
 
-     static constexpr const char * UUID = "5DDC7DF0-8377-437F-9C81-3643F7676A5B";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::input::devices::ICamera,
+                             "5DDC7DF0-8377-437F-9C81-3643F7676A5B",
+                             "SolAR::ICamera interface");
 
 #endif // SOLAR_ICAMERA_H
 

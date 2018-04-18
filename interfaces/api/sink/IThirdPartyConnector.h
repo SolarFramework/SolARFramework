@@ -49,11 +49,16 @@ public:
    virtual void get( SRef<Pose>& pose, SRef<Image>& image ) = 0;
    virtual bool tryGet( SRef<Pose>& pose, SRef<Image>& image ) = 0;
 
-   XPCF_DECLARE_UUID("c0d9fee4-d7d7-4866-a6cd-3bacac23316a");
 };
 
 }
 }
 }  // end of namespace SolAR
+
+template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::sink::IThirdPartyConnector>
+{
+    static constexpr const char * UUID = "c0d9fee4-d7d7-4866-a6cd-3bacac23316a";
+    static constexpr const char * DESCRIPTION = "SolAR::IThirdPartyConnector interface";
+};
 
 #endif // SOLAR_ITHIRDPARTYCONNECTOR_H
