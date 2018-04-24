@@ -47,12 +47,15 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode transform(const std::vector<SRef<Point2Df>> & inputPoints, const Transform2Df transformation, std::vector<SRef<Point2Df>> & outputPoints) = 0;
 
-    XPCF_DECLARE_UUID("dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::I2DTransform,
+                             "dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f",
+                             "SolAR::api::geom::I2DTransform");
 
 
 #endif //SOLAR_I2DTRANSFORM_H

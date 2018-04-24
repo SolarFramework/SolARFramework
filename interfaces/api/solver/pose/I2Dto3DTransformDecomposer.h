@@ -49,10 +49,15 @@ using namespace datastructure;
                                            const CamCalibration& K,
                                            const CamDistortion& dist,
                                            std::vector<SRef<Pose>>& decomposedPoses)= 0;
-                    XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }
         }
     }
 }  // end of namespace Solar
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2DTO3DTransformDecomposer,
+                             "0404e8b9-b824-4852-a34d-6eafa7563918",
+                             "SolAR::api::solver::pose::I2DTO3DTransformDecomposer interface");
+
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H

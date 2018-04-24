@@ -62,12 +62,14 @@ public:
    /// @return FrameworkReturnCode::_SUCCESS_ if the extraction succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode extract(const SRef<SquaredBinaryPattern> pattern, SRef<DescriptorBuffer> & descriptor) = 0;
 
-   XPCF_DECLARE_UUID("2e2bde18-ce39-11e7-abc4-cec278b6b50a");
-
 };
 
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorsExtractorSBPattern,
+                             "2e2bde18-ce39-11e7-abc4-cec278b6b50a",
+                             "SolAR::api::features::IDescriptorsExtractorSBPattern");
 
 #endif // SOLAR_IDESCRIPTORSEXTRACTORSBPATTERN_H

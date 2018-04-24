@@ -85,7 +85,7 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::input::devices::ICamera,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICamera,
                              "5DDC7DF0-8377-437F-9C81-3643F7676A5B",
                              "SolAR::ICamera interface");
 

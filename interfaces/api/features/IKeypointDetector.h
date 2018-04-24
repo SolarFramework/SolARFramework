@@ -83,11 +83,14 @@ public:
     /// @param[out] keypoints The keypoints detected from the image passed as first argument.
     virtual void detect (const SRef<Image> &image, std::vector<SRef<Keypoint>> &keypoints) = 0;
 
-    XPCF_DECLARE_UUID("0eadc8b7-1265-434c-a4c6-6da8a028e06e");
 };
 
 }
 }
 }  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointDetector,
+                             "0eadc8b7-1265-434c-a4c6-6da8a028e06e",
+                             "SolAR::api::features::IKeypointDetector");
 
 #endif // SOLAR_IKEYPOINTDETECTOR_H

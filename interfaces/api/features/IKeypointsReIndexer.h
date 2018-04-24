@@ -50,12 +50,14 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode reindex(const std::vector<SRef<Keypoint>>& keypoints1, const std::vector<SRef<Keypoint>>& keypoints2, std::vector<DescriptorMatch>& matches, std::vector<SRef<Point2Df>>& matchedKeypoints1, std::vector<SRef<Point2Df>>& matchedKeypoints2) = 0;
 
-    XPCF_DECLARE_UUID("920e64a2-df17-11e7-80c1-9a214cf093ae");
-
 };
 
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointsReIndexer,
+                             "920e64a2-df17-11e7-80c1-9a214cf093ae",
+                             "SolAR::api::features::IKeypointsReIndexer");
 
 #endif // SOLAR_IKEYPOINTSREINDEXER_H

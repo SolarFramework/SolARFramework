@@ -29,12 +29,14 @@ namespace SolAR {
                                      std::vector<DescriptorMatch>&outputMatches,
                                      const std::vector<SRef<Keypoint>>&keyPoints_1,
                                      const std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
-
-                  XPCF_DECLARE_UUID("e0d6cc82-6af2-493d-901a-2384fca0b16f");
             };
         }
     }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IMatchesFilter,
+                             "e0d6cc82-6af2-493d-901a-2384fca0b16f",
+                             "SolAR::api::features::IMatchesFilter");
 
 
 #endif // IMATCHESFILTER_H

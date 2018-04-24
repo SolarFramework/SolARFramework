@@ -44,12 +44,15 @@ public:
    virtual bool calibrate(int camera_id, std::string&output) = 0;
    /// \brief Set the camera device calibration parameters
    virtual bool setParameters(std::string&config_file)=0;
-   XPCF_DECLARE_UUID("0e83b228-b9ca-413d-9dc2-db45c427428b");
 };
 
 }
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICameraCalibration,
+                             "0e83b228-b9ca-413d-9dc2-db45c427428b",
+                             "SolAR::api::input::devices::ICameraCalibration interface");
 
 #endif // SOLAR_ICAMERACALIBRATION_H

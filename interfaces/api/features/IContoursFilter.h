@@ -52,10 +52,13 @@ public:
    /// @param[out] outContours The resulting vector of contours after filtering
    virtual FrameworkReturnCode filter(const std::vector<SRef<Contour2Df>> & inContours, std::vector<SRef<Contour2Df>> & outContours) = 0;
 
-   XPCF_DECLARE_UUID("6b3de3a0-cc72-11e7-abc4-cec278b6b50a");
 };
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IContoursFilter,
+                             "6b3de3a0-cc72-11e7-abc4-cec278b6b50a",
+                             "SolAR::api::features::IContoursFilter");
 
 #endif // SOLAR_ICONTOURSFILTER_H

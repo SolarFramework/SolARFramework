@@ -22,10 +22,8 @@ namespace SolAR {
     class ThirdPartyConnector;
 }
 
-template <> struct org::bcom::xpcf::ComponentTraits<SolAR::ThirdPartyConnector>
-{
-    static constexpr const char * UUID = "bb292de7-8f87-4a23-8b23-c4d9e8a64f8d";
-    static constexpr const char * DESCRIPTION = "ThirdPartyConnector component";
-};
+XPCF_DEFINE_COMPONENT_TRAITS(SolAR::ThirdPartyConnector,
+                             "bb292de7-8f87-4a23-8b23-c4d9e8a64f8d",
+                             "SolAR::ThirdPartyConnector component");
 
 #endif // SOLAR_THIRDPARTYCONNECTOR_H

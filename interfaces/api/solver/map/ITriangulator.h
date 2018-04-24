@@ -39,12 +39,15 @@ namespace SolAR {
                                          const CamDistortion&dist,
                                          std::vector<SRef<Point3Df>>& pt3d)=0;
 
-                XPCF_DECLARE_UUID("3a01b0e9-9a76-43f5-97b3-85bb6979b953");
             };
 
 }
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::ITriangulator,
+                             "3a01b0e9-9a76-43f5-97b3-85bb6979b953",
+                             "SolAR::api::solver::map::ITriangulator interface");
 
 #endif // ITRIANGULATOR_H

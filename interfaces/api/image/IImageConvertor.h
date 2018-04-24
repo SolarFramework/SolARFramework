@@ -43,11 +43,14 @@ public:
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
 
-   XPCF_DECLARE_UUID("9c982719-6cb4-4831-aa88-9e01afacbd16");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageConvertor,
+                             "9c982719-6cb4-4831-aa88-9e01afacbd16",
+                             "SolAR::api::image::IImageConvertor");
 
 #endif //SOLAR_IIMAGECONVERTOR_H

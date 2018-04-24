@@ -82,11 +82,14 @@ namespace features {
        /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
        ///
         virtual void extract (const SRef<Image> image, const std::vector< SRef<Keypoint> > &keypoints,   SRef<DescriptorBuffer>& descriptors) = 0;
-		XPCF_DECLARE_UUID("c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e");
 	};
 
 }
 }
 }  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorsExtractor,
+                             "c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e",
+                             "SolAR::api::features::IDescriptorsExtractor");
 
 #endif // SOLAR_IDESCRIPTORSEXTRACTOR_H

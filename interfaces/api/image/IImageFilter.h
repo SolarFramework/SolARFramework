@@ -75,12 +75,15 @@ public:
   virtual   FrameworkReturnCode equalize(SRef<Image>input,
                           SRef<Image>& output,
                           int method) = 0;
-
-      XPCF_DECLARE_UUID("f7948ae2-e994-416f-be40-dd404ca03a83");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageFilter,
+                             "f7948ae2-e994-416f-be40-dd404ca03a83",
+                             "SolAR::api::image::IImageFilter");
+
 
 #endif // SOLAR_IIMAGEFILTER_H

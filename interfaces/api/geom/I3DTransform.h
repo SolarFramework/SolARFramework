@@ -46,12 +46,15 @@ public:
     /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode transform(const std::vector<SRef<Point3Df>> & inputPoints, const Transform3Df transformation, std::vector<SRef<Point3Df>> & outputPoints) = 0;
-     XPCF_DECLARE_UUID("9c1052b2-46c0-467b-8363-36f19b6b445f");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::I3DTransform,
+                             "9c1052b2-46c0-467b-8363-36f19b6b445f",
+                             "SolAR::api::geom::I3DTransform");
 
 
 #endif //SOLAR_I3DTRANSFORM_H

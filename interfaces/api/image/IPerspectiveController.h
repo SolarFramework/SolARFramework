@@ -57,12 +57,15 @@ public:
    /// @param[out] pacthe the sub-image or patche resulting from the warping and cropping of the original image according to the 2D contour
    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode correct(const SRef<Image> inputImg, SRef<Contour2Df> & contour, SRef<Image> & patch) = 0;
-
-   XPCF_DECLARE_UUID("4a7d5c34-cd6e-11e7-abc4-cec278b6b50a");
 };
 
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IPerspectiveController,
+                             "4a7d5c34-cd6e-11e7-abc4-cec278b6b50a",
+                             "SolAR::api::image::IPerspectiveController");
+
 
 #endif // SOLAR_IPERSPECTIVECONTROLLER_H
