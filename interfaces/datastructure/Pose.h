@@ -47,6 +47,7 @@ public:
 
     void setPoseTransform(const Transform3Df& s3dt);
 
+
     /// \brief copy the pose in a specified array. The user has to be aware of its tab size.
     /// \param dest: array pointer
     /// \param offset: offset array
@@ -68,8 +69,8 @@ public:
     float tz();
 
 private:
-
     Transform3Df m_poseTransform;// a 4x4 matrix
+
 };
 }
 }
