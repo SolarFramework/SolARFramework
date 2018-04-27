@@ -62,6 +62,7 @@ interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
+interfaces/api/input/devices/IIMU.h \
 #interfaces/api/solver/pose/IHomographyEstimation.h \
 #interfaces/api/solver/pose/IHomographyValidation.h \
 #interfaces/api/solver/pose/IPoseEstimation.h \
