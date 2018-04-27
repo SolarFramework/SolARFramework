@@ -52,6 +52,7 @@ interfaces/api/features/IDescriptorsExtractorSBPattern.h \
 interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/ISBPatternReIndexer.h \
+interfaces/api/features/IMatchesFilter.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
 interfaces/api/geom/IImage2WorldMapper.h \
@@ -62,9 +63,16 @@ interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
-interfaces/api/solver/pose/IHomographyEstimation.h \
-interfaces/api/solver/pose/IHomographyValidation.h \
-interfaces/api/solver/pose/IPoseEstimation.h \
+#interfaces/api/solver/pose/IHomographyEstimation.h \
+#interfaces/api/solver/pose/IHomographyValidation.h \
+#interfaces/api/solver/pose/IPoseEstimation.h \
+#interfaces/api/solver/pose/IFundamentalMatrixEstimation.h \
+#interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h \
+#interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h \
+interfaces/api/solver/pose/I2DTransformFinder.h \
+interfaces/api/solver/pose/I3DTransformFinder.h \
+interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
+interfaces/api/solver/map/ITriangulator.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -80,7 +88,7 @@ interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h
+interfaces/api/input/files/IMarker2DSquaredBinary.h \
 
 SOURCES += src/core/SolARFramework.cpp \
 src/sink/ThirdPartyConnector.cpp \
@@ -129,6 +137,9 @@ header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
+header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
+header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
+
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 
@@ -147,6 +158,7 @@ INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_solver_pose
+INSTALLS += header_interfaces_solver_map
 
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure

@@ -84,6 +84,7 @@ Pose Pose::extractTranslation(){
     return Pose(tmp);
 }
 
+
 void Pose::setPoseTransform(const Transform3Df &s3dt){
     m_poseTransform=s3dt;
 }

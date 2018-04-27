@@ -60,6 +60,7 @@ class SOLARFRAMEWORK_API Pose {
 
     void setPoseTransform(const Transform3Df &s3dt);
 
+
     /// \brief copy the pose in a specified array. The user has to be aware of its tab size.
     /// \param dest: array pointer
     /// \param offset: offset array
@@ -85,9 +86,10 @@ class SOLARFRAMEWORK_API Pose {
     /// \brief returns the X component of the pose translation vector
     float tz();
 
+    Transform3Df m_poseTransform;// a 4x4 matrix
+
     private:
 
-    Transform3Df m_poseTransform;// a 4x4 matrix
 
 };
 
