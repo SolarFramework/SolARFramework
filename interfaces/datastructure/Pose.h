@@ -87,7 +87,7 @@ class SOLARFRAMEWORK_API Pose {
     float tz();
 
     Transform3Df m_poseTransform;// a 4x4 matrix
-
+    double m_data[4][4];
     private:
 
 

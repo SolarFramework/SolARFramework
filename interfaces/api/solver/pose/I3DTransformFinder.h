@@ -24,6 +24,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Pose.h"
+#include "datastructure/Image.h"
 
 namespace SolAR {
     using namespace datastructure;
@@ -48,7 +49,16 @@ namespace SolAR {
                     /// @param[out] Camera pose in the world coordinates system of the view_1.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
-                                                         Pose & pose) =0;    ///
+                                                         SRef<Pose> & pose) =0;    ///
+
+                    virtual FrameworkReturnCode reproject(SRef<Image>&input,
+                                                                  SRef<Pose> & pose,
+                                                                  const CamCalibration&cam,
+                                                                  const CamDistortion&dist,
+                                                                  std::vector<SRef<Point2Df>> & imagePoints,
+                                                                  std::vector<SRef<Point3Df>> & worldPoints) = 0;
+
+
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera distorsion parameters.

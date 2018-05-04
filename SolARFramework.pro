@@ -62,16 +62,12 @@ interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
-#interfaces/api/solver/pose/IHomographyEstimation.h \
-#interfaces/api/solver/pose/IHomographyValidation.h \
-#interfaces/api/solver/pose/IPoseEstimation.h \
-#interfaces/api/solver/pose/IFundamentalMatrixEstimation.h \
-#interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h \
-#interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I3DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
+interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/map/ITriangulator.h\
+interfaces/api/solver/map/IMapper.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -81,6 +77,7 @@ interfaces/datastructure/DescriptorMatch.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Image.h \
 interfaces/datastructure/Keypoint.h \
+interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/Pose.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
@@ -88,6 +85,7 @@ interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
+    interfaces/datastructure/CloudPoint.h
 
 SOURCES += src/core/SolARFramework.cpp \
 src/sink/ThirdPartyConnector.cpp \
@@ -95,8 +93,10 @@ src/sink/ThirdPartyConnector.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \
+    src/datastructure/Keyframe.cpp \
     src/datastructure/Pose.cpp \
-    src/datastructure/SquaredBinaryPattern.cpp
+    src/datastructure/SquaredBinaryPattern.cpp \
+    src/datastructure/CloudPoint.cpp
 
 unix {
 }
