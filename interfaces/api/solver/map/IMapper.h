@@ -44,7 +44,7 @@ namespace SolAR {
 
                        virtual bool initMap(SRef<Keyframe>&kframe_t0,
                                             SRef<Keyframe>&kframe_t1,
-                                            std::vector<SRef<ClouPoint>>&new_cloud,
+                                            std::vector<SRef<CloudPoint>>&new_cloud,
                                             std::vector<DescriptorMatch>&matches) = 0;
 
                        virtual void testMethod()=0;
