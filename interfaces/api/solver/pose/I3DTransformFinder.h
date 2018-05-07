@@ -52,11 +52,13 @@ namespace SolAR {
                                                          Transform3Df & pose) =0;    ///
 
                     virtual FrameworkReturnCode reproject(SRef<Image>&input,
-                                                                  Transform3Df & pose,
-                                                                  const CamCalibration&cam,
-                                                                  const CamDistortion&dist,
-                                                                  std::vector<SRef<Point2Df>> & imagePoints,
-                                                                  std::vector<SRef<Point3Df>> & worldPoints) = 0;
+                                                          Transform3Df & pose,
+                                                          const CamCalibration&cam,
+                                                          const CamDistortion&dist,
+                                                          std::vector<SRef<Point2Df>> & imagePoints,
+                                                          std::vector<SRef<Point3Df>> & worldPoints,
+                                                          SRef<Image>&output,
+                                                          bool verbose) = 0;
 
 
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
