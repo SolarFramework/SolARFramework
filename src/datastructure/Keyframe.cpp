@@ -35,6 +35,18 @@ namespace datastructure {
 
         }
 
+        SRef<DescriptorBuffer> Keyframe::getDescriptors()
+        {
+            return m_descriptor ;
+        }
+
+        std::vector<SRef<Keypoint>> Keyframe::getKeyPoints()
+        {
+            return m_keypoints ;
+        }
+
+
+
         Keyframe::~Keyframe(){
 
         }

@@ -49,6 +49,12 @@ class SOLARFRAMEWORK_API Keyframe {
              int idx,
              Transform3Df&pose,
              std::vector<SRef<Keypoint>>kpts);
+
+    SRef<DescriptorBuffer> getDescriptors() ;
+
+    std::vector<SRef<Keypoint>> getKeyPoints() ;
+
+
     SRef<Image> m_view;
     int m_idx;
     Transform3Df m_pose;

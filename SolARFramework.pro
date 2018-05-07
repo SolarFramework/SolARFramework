@@ -79,6 +79,7 @@ interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Image.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/Keyframe.h \
+interfaces/datastructure/Frame.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/Pose.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
@@ -95,6 +96,7 @@ src/sink/ThirdPartyConnector.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \
     src/datastructure/Keyframe.cpp \
+    src/datastructure/Frame.cpp \
     src/datastructure/Pose.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/CloudPoint.cpp
