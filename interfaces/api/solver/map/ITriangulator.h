@@ -39,8 +39,8 @@ namespace SolAR {
                                            const std::vector<SRef<Point2Df>>& pt2d_2,
                                            const std::vector<DescriptorMatch>&matches,
                                            const std::pair<int,int>&working_views,
-                                           const SRef<Pose>&p1,
-                                           const SRef<Pose>&p2,
+                                           const Transform3Df&p1,
+                                           const Transform3Df&p2,
                                            const CamCalibration&cam,
                                            const CamDistortion&dist,
                                          std::vector<SRef<CloudPoint>>& pcloud)=0;
@@ -58,11 +58,11 @@ namespace SolAR {
                                              const std::vector<SRef<Point2Df>>& pt2d_2,
                                              const std::vector<DescriptorMatch>&matches,
                                              const std::pair<int,int>&working_views,
-                                             const SRef<Pose>&p1,
-                                             const std::vector<SRef<Pose>>&p2,
+                                             const Transform3Df&p1,
+                                             const std::vector<Transform3Df>&p2,
                                              const CamCalibration&cam,
                                              const CamDistortion&dist,
-                                             SRef<Pose>&corrected_p,
+                                             Transform3Df&corrected_p,
                                              std::vector<SRef<CloudPoint>>& pcloud)=0;
 
                 XPCF_DECLARE_UUID("3a01b0e9-9a76-43f5-97b3-85bb6979b953");

@@ -26,7 +26,7 @@ namespace datastructure {
         Keyframe::Keyframe(SRef<Image>view,
                  SRef<DescriptorBuffer>desc,
                  int idx,
-                 SRef<Pose>pose,
+                 Transform3Df&pose,
                  std::vector<SRef<Keypoint>>kpts): m_view(view),
                                                    m_descriptor(desc),
                                                    m_idx(idx),
