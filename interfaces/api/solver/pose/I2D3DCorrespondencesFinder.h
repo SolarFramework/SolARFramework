@@ -26,6 +26,7 @@
 #include "datastructure/Pose.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Keypoint.h"
+#include "datastructure/DescriptorMatch.h"
 
 
 namespace SolAR {
@@ -52,11 +53,13 @@ using namespace datastructure;
                     /// @param[out].
                     /// @param[out].
                     virtual FrameworkReturnCode  find(const std::vector<SRef<CloudPoint>>&cloud,
-                                      const int keyframe_idx,
-                                      const std::vector<DescriptorMatch>&current_matches,
-                                      const std::vector<SRef<Keypoint>>&current_kpoints,
-                                      std::vector<SRef<Point3Df>>&shared_3dpoint,
-                                      std::vector<SRef<Point2Df>>&shared_2dpoint)=0;
+                                                      const int keyframe_idx,
+                                                      const std::vector<DescriptorMatch>&current_matches,
+                                                      const std::vector<SRef<Keypoint>>&current_kpoints,
+                                                      std::vector<SRef<CloudPoint>>&shared_mapPoint,
+                                                      std::vector<SRef<Point3Df>>&shared_3dpoint,
+                                                      std::vector<SRef<Point2Df>>&shared_2dpoint,
+                                                      std::vector<DescriptorMatch> & remaining_matches)=0;
                     XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }

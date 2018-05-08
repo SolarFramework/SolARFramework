@@ -21,6 +21,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
+#include "datastructure/CloudPoint.h"
 #include "datastructure/Pose.h"
 #include "datastructure/DescriptorBuffer.h"
 
@@ -50,6 +51,12 @@ class SOLARFRAMEWORK_API Keyframe {
              Transform3Df&pose,
              std::vector<SRef<Keypoint>>kpts);
 
+
+    void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>  & mapPoints) ;
+
+    std::vector<SRef<CloudPoint>> & getVisibleMapPoints() ; // give a pointer?
+
+
     SRef<DescriptorBuffer> getDescriptors() ;
 
     std::vector<SRef<Keypoint>> getKeyPoints() ;
@@ -62,6 +69,7 @@ class SOLARFRAMEWORK_API Keyframe {
     private:    
     SRef<DescriptorBuffer> m_descriptor;
     std::vector<SRef<Keypoint>> m_keypoints;
+    std::vector<SRef<CloudPoint>> m_mapPoints ;
 
 };
 

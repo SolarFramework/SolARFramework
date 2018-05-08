@@ -43,13 +43,14 @@ class SOLARFRAMEWORK_API Frame {
 
     unsigned int                    getNumberOfFramesSinceLastKeyFrame() const ;
 
-    void                            setMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches);
+    void                            setMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches); // match not yet associated with map points
 
-    std::vector<DescriptorMatch>    getMatchesWithReferenceKeyFrame() const ; // filtered matches
-
-    unsigned int                    getNumberOfMatchesWithReferenceKeyFrame() const ;
+    std::vector<DescriptorMatch> &  getMatchesWithReferenceKeyFrame()  ; // match  not yet associated with map points
 
 
+    void                            addCommonMapPointsWithReferenceKeyFrame(std::vector<SRef<CloudPoint>> & points) ;
+
+    std::vector<SRef<CloudPoint>> & getCommonMapPointsWithReferenceKeyFrame()  ;
 
 
     ///@brief pose of current frame
@@ -62,6 +63,7 @@ class SOLARFRAMEWORK_API Frame {
     SRef<DescriptorBuffer>          m_descriptor;
     std::vector<SRef<Keypoint>>     m_keypoints ;
     std::vector<DescriptorMatch>    m_matchesWithReferenceKeyFrame ;
+    std::vector<SRef<CloudPoint>>   m_trackedPoints;
     unsigned int                    m_countOfFramesSinceLastKframe ;
 
 

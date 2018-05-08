@@ -35,6 +35,17 @@ namespace datastructure {
 
         }
 
+        void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>> & mapPoints)
+        {
+            m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
+        }
+
+        std::vector<SRef<CloudPoint>> & Keyframe::getVisibleMapPoints()
+        {
+            return m_mapPoints ;
+        }
+
+
         SRef<DescriptorBuffer> Keyframe::getDescriptors()
         {
             return m_descriptor ;

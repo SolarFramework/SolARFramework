@@ -55,14 +55,25 @@ namespace datastructure {
         m_matchesWithReferenceKeyFrame = matches ;
     }
 
-    std::vector<DescriptorMatch>    Frame::getMatchesWithReferenceKeyFrame() const
+    std::vector<DescriptorMatch> &   Frame::getMatchesWithReferenceKeyFrame()
     {
         return m_matchesWithReferenceKeyFrame ; //
     }
 
-    unsigned int  Frame::getNumberOfMatchesWithReferenceKeyFrame() const
+    void Frame::addCommonMapPointsWithReferenceKeyFrame(std::vector<SRef<CloudPoint>> & points)
+    {
+        m_trackedPoints.insert(m_trackedPoints.end(), points.begin(), points.end());
+    }
+
+    std::vector<SRef<CloudPoint>> &  Frame::getCommonMapPointsWithReferenceKeyFrame()
+    {
+        return m_trackedPoints ;
+    }
+
+
+    /*unsigned int  Frame::getNumberOfMatchesWithReferenceKeyFrame()
     {
         return static_cast<unsigned int>(m_matchesWithReferenceKeyFrame.size()) ;
-    }
+    }*/
 }
 }
