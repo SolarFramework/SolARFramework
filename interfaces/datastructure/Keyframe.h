@@ -45,7 +45,7 @@ class SOLARFRAMEWORK_API Keyframe {
     ///@brief constructs a Pose from a rotation matrix of size 3x3 and a translation vector of size 3
     /// @param rotation_matrix3x3, rotation matrix of size 3x3
     /// @param translation vector, translation vector of size 3
-    Keyframe::Keyframe(SRef<Image>view,
+    Keyframe(SRef<Image>view,
              SRef<DescriptorBuffer>desc,
              int idx,
              Transform3Df&pose,
