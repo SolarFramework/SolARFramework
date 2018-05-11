@@ -87,7 +87,8 @@ interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
-interfaces/datastructure/CloudPoint.h
+interfaces/datastructure/CloudPoint.h \
+    interfaces/datastructure/Map.h
 
 SOURCES += src/core/SolARFramework.cpp \
 src/sink/ThirdPartyConnector.cpp \
@@ -99,7 +100,8 @@ src/sink/ThirdPartyConnector.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Pose.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
-    src/datastructure/CloudPoint.cpp
+    src/datastructure/CloudPoint.cpp \
+    src/datastructure/Map.cpp
 
 unix {
 }

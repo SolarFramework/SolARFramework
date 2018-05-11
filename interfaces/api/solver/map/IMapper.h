@@ -17,6 +17,7 @@
 #include "datastructure/Keypoint.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
+#include "datastructure/Map.h"
 
 namespace SolAR {
     using namespace datastructure;
@@ -46,7 +47,10 @@ namespace SolAR {
                                             std::vector<SRef<CloudPoint>>&new_cloud,
                                             std::vector<DescriptorMatch>&matches) = 0;
 
-                       virtual void AssociateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
+                        virtual SRef<Map> getMap() = 0 ;
+
+
+                       virtual void associateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
 
 
                        virtual bool tryToAddKeyFrame(SRef<Frame> frame) = 0;
