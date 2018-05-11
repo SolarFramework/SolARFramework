@@ -48,7 +48,7 @@ namespace SolAR {
                     /// @param[out] Camera pose in the world coordinates system of the view_1.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
-                                                         Pose & pose) =0;    ///
+                                                         Transform3Df & pose) =0;    ///
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera distorsion parameters.

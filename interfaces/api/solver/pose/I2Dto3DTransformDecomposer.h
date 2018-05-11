@@ -48,7 +48,7 @@ using namespace datastructure;
                     virtual bool decompose(const Transform2Df& F,
                                            const CamCalibration& K,
                                            const CamDistortion& dist,
-                                           std::vector<SRef<Pose>>& decomposedPoses)= 0;
+                                           std::vector<Transform3Df>& decomposedPoses)= 0;
                     XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }
