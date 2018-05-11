@@ -27,8 +27,8 @@ namespace SolAR {
                 /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
                 /// @param[in] Set of 2d_points seen in view_1.
                 /// @param[in] Set of 2d_points seen in view_2.
-                /// @param[in] Camera pose in the world coordinates system of the view_1.
-                /// @param[in] Camera pose in the world coordinates system of the view_2.
+                /// @param[in] Camera pose in the world coordinates system of the view_1 expressed as Transform3D.
+                /// @param[in] Camera pose in the world coordinates system of the view_2 expressed as Transform3D.
                 /// @param[in] Camera calibration matrix parameters.
                 /// @param[in] Camera calibration distorsion parameters.
                 /// @param[out] Set of triangulated 3d_points.
