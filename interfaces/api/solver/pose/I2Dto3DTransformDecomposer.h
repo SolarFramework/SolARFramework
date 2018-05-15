@@ -44,11 +44,11 @@ using namespace datastructure;
                     /// @param[in] Transform 2D (fundamental matrxi, homgraphy..).
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera calibration distorsion parameters.
-                    /// @param[out] Set (04 possibles cases) of the decomposed camera poses in the world coordinate system.
+                    /// @param[out] Set (04 possibles cases) of the decomposed camera poses in the world coordinate system expressed as Transform3D.
                     virtual bool decompose(const Transform2Df& F,
                                            const CamCalibration& K,
                                            const CamDistortion& dist,
-                                           std::vector<SRef<Pose>>& decomposedPoses)= 0;
+                                           std::vector<Transform3Df>& decomposedPoses)= 0;
                     XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }
