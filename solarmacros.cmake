@@ -102,10 +102,10 @@ endmacro(processSources)
 macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	# define project target
 	if ("${EXEORLIBRARY}" STREQUAL "library")
-		add_library (${PROJECT_NAME} SHARED ${SOURCES})
+		add_library (${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 		#set (CMAKE_SHARED_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
 	else()
-		add_executable(${PROJECT_NAME} ${SOURCES})
+		add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 		#set (CMAKE_EXE_LINKER_FLAGS ${LIB_PATHS_LINKER_FLAGS})
 		# do the copying of NECESSARY FILES
 		foreach( file_i ${FILES_TO_COPY})
