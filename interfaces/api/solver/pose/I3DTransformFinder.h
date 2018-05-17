@@ -49,6 +49,8 @@ namespace SolAR {
                     /// @param[out] Camera pose in the world coordinates system of the view_1.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
+                                                         std::vector<SRef<Point2Df>>&imagePoints_inlier,
+                                                         std::vector<SRef<Point3Df>>&worldPoints_inlier,
                                                          Transform3Df & pose,
                                                          bool verbose) =0;    ///
 

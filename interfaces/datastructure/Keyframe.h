@@ -69,7 +69,7 @@ class SOLARFRAMEWORK_API Keyframe {
     private:    
     SRef<DescriptorBuffer> m_descriptor;
     std::vector<SRef<Keypoint>> m_keypoints;
-    std::vector<SRef<CloudPoint>> m_mapPoints ;
+    std::vector<SRef<CloudPoint>> m_mapPoints;
 
 };
 

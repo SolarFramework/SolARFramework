@@ -36,16 +36,13 @@ namespace SolAR {
                        ///
                        virtual ~IMapper() {}
 
-                       virtual bool find2D3DCorrespondances(const int keyframe_id,
-                                                            const std::vector<DescriptorMatch>&current_matches,
-                                                            const std::vector<SRef<Keypoint>>&kp,
-                                                            std::vector<SRef<Point2Df>>&pt2d,
-                                                            std::vector<SRef<Point3Df>>&pt3d) = 0 ;
-
                        virtual bool initMap(SRef<Keyframe>&kframe_t0,
                                             SRef<Keyframe>&kframe_t1,
                                             std::vector<SRef<CloudPoint>>&new_cloud,
                                             std::vector<DescriptorMatch>&matches) = 0;
+
+                       virtual SRef<Keyframe> getCurrentKeyframe(int idx) = 0;
+
 
                         virtual SRef<Map> getMap() = 0 ;
 
