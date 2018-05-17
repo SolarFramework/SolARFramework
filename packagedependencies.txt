@@ -1,4 +1,4 @@
-xpcf|2.0.0|xpcf|thirdParties|http://repository.b-com.com/amc-generic
+xpcf|2.0.0_alpha|xpcf|thirdParties|http://repository.b-com.com/amc-generic
 boost|1.64.0|boost|thirdParties|http://repository.b-com.com/amc-generic
 eigen|3.3.4|eigen|thirdParties|http://repository.b-com.com/amc-generic
 spdlog|0.14.0|spdlog|thirdParties|http://repository.b-com.com/amc-generic
