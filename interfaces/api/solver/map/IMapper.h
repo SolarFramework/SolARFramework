@@ -41,6 +41,9 @@ namespace SolAR {
                                             std::vector<SRef<CloudPoint>>&new_cloud,
                                             std::vector<DescriptorMatch>&matches) = 0;
 
+					   virtual void addNewKeyFrame(const SRef<Keyframe> & kFrame) = 0 ;
+
+
                        virtual SRef<Keyframe> getCurrentKeyframe(int idx) = 0;
 
 
@@ -50,7 +53,7 @@ namespace SolAR {
                        virtual void associateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
 
 
-                       virtual bool tryToAddKeyFrame(SRef<Frame> frame) = 0;
+                       virtual int isKeyFrameCandidate(SRef<Frame> frame) = 0;
 
                        virtual void testMethod()=0;
                        XPCF_DECLARE_UUID("90075c1b-915b-469d-b92d-41c5d575bf15");

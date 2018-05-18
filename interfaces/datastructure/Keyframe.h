@@ -29,6 +29,7 @@
 namespace SolAR {
 namespace datastructure {
 
+
 /**
  * @class Keyframe
  * @brief Specifies the Keyframe class.
@@ -50,6 +51,13 @@ class SOLARFRAMEWORK_API Keyframe {
              int idx,
              Transform3Df&pose,
              std::vector<SRef<Keypoint>>kpts);
+
+	Keyframe(
+		SRef<DescriptorBuffer>desc,
+		int idx,
+		Transform3Df&pose,
+		std::vector<SRef<Keypoint>>kpts);
+
 
 
     void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>  & mapPoints) ;

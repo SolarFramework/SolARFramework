@@ -59,6 +59,7 @@ using namespace datastructure;
                                                       std::vector<SRef<CloudPoint>>&shared_mapPoint,
                                                       std::vector<SRef<Point3Df>>&shared_3dpoint,
                                                       std::vector<SRef<Point2Df>>&shared_2dpoint,
+													  std::vector<DescriptorMatch> & found_matches , 
                                                       std::vector<DescriptorMatch> & remaining_matches)=0;
                     XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
