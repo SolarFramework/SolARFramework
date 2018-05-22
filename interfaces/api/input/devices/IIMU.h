@@ -79,8 +79,11 @@ public:
     /// @return bool Whether the IMU can produce magnetometer data or not
     virtual bool isMagnetometerAvailable() = 0;
 
+	 
+	XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::IIMU,
+                             "9940fa48-10cf-11e8-b642-0ed5f89f718b",
+                             "SolAR::api::input::devices::IIMU Interface");
 
-     static constexpr const char * UUID = "9940fa48-10cf-11e8-b642-0ed5f89f718b";
 };
 
 }
