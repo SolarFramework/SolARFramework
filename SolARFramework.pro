@@ -68,6 +68,7 @@ interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
 interfaces/api/solver/map/ITriangulator.h\
+interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
