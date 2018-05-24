@@ -50,15 +50,25 @@ namespace datastructure {
         return m_countOfFramesSinceLastKframe ;
     }
 
-    void  Frame::setMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches)
+    void  Frame::setUnknownMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches)
     {
-        m_matchesWithReferenceKeyFrame = matches ;
+        m_unknownMatchesWithReferenceKeyFrame = matches ;
     }
 
-    std::vector<DescriptorMatch> &   Frame::getMatchesWithReferenceKeyFrame()
+    std::vector<DescriptorMatch> &   Frame::getUnknownMatchesWithReferenceKeyFrame()
     {
-        return m_matchesWithReferenceKeyFrame ; //
+        return m_unknownMatchesWithReferenceKeyFrame; //
     }
+
+	void  Frame::setKnownMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches)
+	{
+		m_knownMatchesWithReferenceKeyFrame = matches;
+	}
+
+	std::vector<DescriptorMatch> &   Frame::getKnownMatchesWithReferenceKeyFrame()
+	{
+		return m_knownMatchesWithReferenceKeyFrame; //
+	}
 
     void Frame::addCommonMapPointsWithReferenceKeyFrame(std::vector<SRef<CloudPoint>> & points)
     {
