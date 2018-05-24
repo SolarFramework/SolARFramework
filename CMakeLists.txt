@@ -60,6 +60,7 @@ set (HEADERS
 		interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/solver/map/IMapFilter.h
 		interfaces/datastructure/BufferInternal.hpp
 		interfaces/datastructure/CloudPoint.h
 		interfaces/datastructure/DescriptorBuffer.h
