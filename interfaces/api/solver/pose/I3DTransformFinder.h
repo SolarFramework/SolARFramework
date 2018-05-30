@@ -46,15 +46,19 @@ namespace SolAR {
                     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                     /// @param[in] Set of 2d_points seen in view_1.
                     /// @param[in]  Set of 3d_points corresponding to view_1.
-                    /// @param[out] Camera pose in the world coordinates system of the view_1.
+                    /// @param[out] Camera pose in the world coordinates system of the view_1 expressed as Transsform3D.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
+<<<<<<< HEAD
                                                          std::vector<SRef<Point2Df>>&imagePoints_inlier,
                                                          std::vector<SRef<Point3Df>>&worldPoints_inlier,
                                                          Transform3Df & pose,
                                                          bool verbose) =0;    ///
 
 
+=======
+                                                         Transform3Df & pose) =0;    ///
+>>>>>>> develop
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera distorsion parameters.
