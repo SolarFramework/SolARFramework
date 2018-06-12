@@ -51,8 +51,7 @@ namespace SolAR {
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                                          std::vector<SRef<Point2Df>>&imagePoints_inlier,
                                                          std::vector<SRef<Point3Df>>&worldPoints_inlier,
-                                                         Transform3Df & pose,
-                                                         bool verbose) =0;    ///
+                                                         Transform3Df & pose) =0;    ///
 
 
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera

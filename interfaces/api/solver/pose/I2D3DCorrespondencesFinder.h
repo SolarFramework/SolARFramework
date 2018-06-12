@@ -44,6 +44,7 @@ using namespace datastructure;
                     I2D3DCorrespondencesFinder() = default;
 
                     /// @brief IFundamentalMatrixDecomposer default destructor.
+                    ///
                     virtual ~I2D3DCorrespondencesFinder() = default;
                     /// @brief .
                     /// @param[in].
@@ -61,6 +62,7 @@ using namespace datastructure;
                                                       std::vector<SRef<Point2Df>>&shared_2dpoint,
 													  std::vector<DescriptorMatch> & found_matches , 
                                                       std::vector<DescriptorMatch> & remaining_matches)=0;
+
                     XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }
