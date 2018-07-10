@@ -12,13 +12,19 @@ set (SOURCES
 		src/datastructure/Keypoint.cpp
 		src/datastructure/Pose.cpp
 		src/datastructure/SquaredBinaryPattern.cpp
+		src/datastructure/CloudPoint.cpp
+		src/datastructure/Map.cpp
+		src/datastructure/Frame.cpp
+		src/datastructure/Keyframe.cpp
 	)
-
 set (HEADERS
 		interfaces/SharedBuffer.hpp
 		interfaces/SharedCircularBuffer.hpp
 		interfaces/SharedFifo.hpp
 		interfaces/core/SolARFrameworkDefinitions.h
+		interfaces/core/SolARFramework.h
+		interfaces/core/Messages.h
+		interfaces/core/Log.h
 		interfaces/api/sink/ThirdPartyConnector.h
 		interfaces/api/sink/IThirdPartyConnector.h
 		interfaces/api/display/I2DOverlay.h
@@ -36,6 +42,7 @@ set (HEADERS
 		interfaces/api/features/IMatchesFilter.h
 		interfaces/api/geom/I2DTransform.h
 		interfaces/api/geom/I3DTransform.h
+		interfaces/api/input/devices/IIMU.h
 		interfaces/api/geom/IImage2WorldMapper.h
 		interfaces/api/image/IImageConvertor.h
 		interfaces/api/image/IImageFilter.h
@@ -43,28 +50,34 @@ set (HEADERS
 		interfaces/api/image/IPerspectiveController.h
 		interfaces/api/input/devices/ICamera.h
 		interfaces/api/input/devices/ICameraCalibration.h
-		interfaces/api/input/devices/IIMU.h
 		interfaces/api/solver/pose/I2DTransformFinder.h
 		interfaces/api/solver/pose/I3DTransformFinder.h
+		interfaces/api/solver/pose/IHomographyValidation.h
+		interfaces/api/solver/pose/IFundamentalMatrixEstimation.h
+		interfaces/api/solver/pose/IFundamentalMatrixDecompositionValidation.h
+		interfaces/api/solver/pose/IFundamentalMatrixDecomposer.h
+		interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h
+		interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h
 		interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h
 		interfaces/api/solver/map/ITriangulator.h
-		interfaces/core/SolARFramework.h
-		interfaces/core/Messages.h
-		interfaces/core/Log.h
+		interfaces/api/solver/map/IMapper.h
+		interfaces/api/solver/map/IMapFilter.h
 		interfaces/datastructure/BufferInternal.hpp
+		interfaces/datastructure/CloudPoint.h
 		interfaces/datastructure/DescriptorBuffer.h
 		interfaces/datastructure/DescriptorMatch.h
+		interfaces/datastructure/Frame.h
 		interfaces/datastructure/GeometryDefinitions.h
 		interfaces/datastructure/Image.h
+		interfaces/datastructure/Keyframe.h
 		interfaces/datastructure/Keypoint.h
+		interfaces/datastructure/Map.h
 		interfaces/datastructure/MathDefinitions.h
 		interfaces/datastructure/Pose.h
-		interfaces/datastructure/SquaredBinaryPattern.h
-		interfaces/api/input/files/IMarker.h
-		interfaces/api/input/files/IMarker2DNaturalImage.h
-		interfaces/api/input/files/IMarker2DSquared.h
-		interfaces/api/input/files/IMarker2DSquaredBinary.h
-)
+		interfaces/datastructure/SquaredBinaryPattern.h	
+)	
+	
+
 
 install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/solarmacros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
 

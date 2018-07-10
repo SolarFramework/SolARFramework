@@ -7,6 +7,9 @@
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Pose.h"
+#include "datastructure/CloudPoint.h"
+#include "datastructure/DescriptorMatch.h"
+
 
 namespace SolAR {
     using namespace datastructure;
@@ -32,13 +35,17 @@ namespace SolAR {
                 /// @param[in] Camera calibration matrix parameters.
                 /// @param[in] Camera calibration distorsion parameters.
                 /// @param[out] Set of triangulated 3d_points.
-                virtual FrameworkReturnCode triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
-                                         const std::vector<SRef<Point2Df>>& pt2d_2,
-                                         const Transform3Df&p1,
-                                         const Transform3Df&p2,
-                                         const CamCalibration&cam,
-                                         const CamDistortion&dist,
-                                         std::vector<SRef<Point3Df>>& pt3d)=0;
+                /// @return Mean re-projection error.
+                virtual double triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
+                                           const std::vector<SRef<Point2Df>>& pt2d_2,
+                                           const std::vector<DescriptorMatch>&matches,
+                                           const std::pair<int,int>&working_views,
+                                           const Transform3Df&p1,
+                                           const Transform3Df&p2,
+                                           const CamCalibration&cam,
+                                           const CamDistortion&dist,
+                                         std::vector<SRef<CloudPoint>>& pcloud)=0;
+               
 
             };
 

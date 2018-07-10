@@ -40,7 +40,7 @@ namespace datastructure {
 
 
         Keypoint( float x,
-                    float  	y,
+                    float  y,
                     float  	size,
                     float  	angle,
                     float  	response,
