@@ -2,6 +2,9 @@
 QT       -= core gui
 CONFIG -= qt
 
+#Add support for clang compiler
+#QMAKE_CXX=clang
+
 ## global defintions : target lib name, version
 TARGET = SolARFramework
 INSTALLSUBDIR = bcomBuild
