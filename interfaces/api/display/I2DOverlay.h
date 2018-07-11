@@ -68,7 +68,7 @@ public:
 	/// @param[in] thickness The thickness in pixels of the circles to draw
 	/// @param[in] bgrValues The color of the circle to draw. This color is stored in a vector of 3 unsigned int for B, G and R color components.
 	/// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues,SRef<Image> displayImage) = 0;
+//    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues,SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
     /// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
@@ -86,7 +86,7 @@ public:
 	/// @param[in] bgrValues The color of the circle to draw. This color is stored in a vector of 3 unsigned int for B, G and R color components.
 	/// @param[in,out] displayImage The image on which the circles will be drawn.
 
-	virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues, SRef<Image> displayImage) = 0;
+//	virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues, SRef<Image> displayImage) = 0;
 
      /// @brief Draw Contours.
     /// Draw all the contours stored in the vector  std::vector <SRef<Contour2Df>> & contours on image displayImage
