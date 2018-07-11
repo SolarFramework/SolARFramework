@@ -29,7 +29,7 @@
 // Definition of IDescriptorMatcher Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
 using namespace datastructure;

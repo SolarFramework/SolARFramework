@@ -31,7 +31,7 @@
 // Definition of IDescriptorsExtractor Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/DescriptorBuffer.h"
 
 namespace SolAR {

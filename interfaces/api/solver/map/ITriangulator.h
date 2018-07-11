@@ -1,7 +1,7 @@
 #ifndef ITRIANGULATOR_H
 #define ITRIANGULATOR_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"

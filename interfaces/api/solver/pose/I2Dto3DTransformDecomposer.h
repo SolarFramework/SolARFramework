@@ -17,7 +17,7 @@
 #ifndef SOLAR_I2DTO3DTRANSFORMDECOMPOSER_H
 #define SOLAR_I2DTO3DTRANSFORMDECOMPOSER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"

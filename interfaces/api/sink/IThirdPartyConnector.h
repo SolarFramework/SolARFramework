@@ -24,7 +24,7 @@
 // Definition of IThirdPartyConnector Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Pose.h"
 #include "datastructure/Image.h"
 

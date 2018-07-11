@@ -2,7 +2,7 @@
 #define IMATCHESFILTER_H
 
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"

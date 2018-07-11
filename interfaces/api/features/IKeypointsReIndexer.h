@@ -17,7 +17,7 @@
 #ifndef SOLAR_IKEYPOINTSREINDEXER_H
 #define SOLAR_IKEYPOINTSREINDEXER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Keypoint.h"
 #include "api/features/IDescriptorMatcher.h"
 #include "core/Messages.h"

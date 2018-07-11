@@ -18,7 +18,7 @@
 #define SOLAR_IMARKER_H
 
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 
 namespace SolAR {

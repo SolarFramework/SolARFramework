@@ -17,7 +17,7 @@
 #ifndef SOLAR_IFUNDAMENTALMATRIXDECOMPOSER_H
 #define SOLAR_IFUNDAMENTALMATRIXDECOMPOSER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"

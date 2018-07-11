@@ -21,7 +21,6 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "XPCF_definitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 
