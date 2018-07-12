@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMAGEFILTER_H
 #define SOLAR_IIMAGEFILTER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 
@@ -30,57 +30,18 @@ class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
     virtual ~IImageFilter() = default;
-    virtual FrameworkReturnCode threshold(SRef<Image>input,
-                           SRef<Image>& output,
-                           int threshold) = 0;
 
-    virtual FrameworkReturnCode binarize(SRef<Image>input,
-                          SRef<Image>& output,
-                          int min,
-                          int max) = 0;
+    virtual FrameworkReturnCode filter(const SRef<Image>input, SRef<Image>& output) = 0;
 
-    virtual FrameworkReturnCode adaptiveBinarize(SRef<Image>input,
-                   SRef<Image>& output,
-                   int max,
-                   int blockSize,
-                   int C) = 0;
-
-    virtual FrameworkReturnCode blur(SRef<Image>input,
-                    SRef<Image>& output,
-                    int kernerl_id,
-                    int kernel_width,
-                    int kernel_height,
-                    int direction) = 0;
-
-   virtual  FrameworkReturnCode gradient(SRef<Image>input,
-                          SRef<Image>& output,
-                          int x_order,
-                          int y_order) = 0;
-
-  virtual  FrameworkReturnCode laplacian(SRef<Image>input,
-                          SRef<Image>& output,
-                          int method) = 0;
-
-  virtual  FrameworkReturnCode erode(SRef<Image>input,
-                      SRef<Image>& output,
-                      int erode_type,
-                      int erode_size) = 0;
-
-
-  virtual   FrameworkReturnCode dilate(SRef<Image>input,
-                        SRef<Image>& output,
-                        int dilate_type,
-                        int dilate_size) = 0;
-
-  virtual   FrameworkReturnCode equalize(SRef<Image>input,
-                          SRef<Image>& output,
-                          int method) = 0;
-
-      XPCF_DECLARE_UUID("f7948ae2-e994-416f-be40-dd404ca03a83");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageFilter,
+                             "f7948ae2-e994-416f-be40-dd404ca03a83",
+                             "SolAR::api::image::IImageFilter");
+
 
 #endif // SOLAR_IIMAGEFILTER_H

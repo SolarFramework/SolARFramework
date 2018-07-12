@@ -17,7 +17,7 @@
 #ifndef SOLAR_IHOMOGRAPHYVALIDATION_H
 #define SOLAR_IHOMOGRAPHYVALIDATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
@@ -43,12 +43,15 @@ public:
     /// @param[in] Set of 2d_points of the corners projected in the current view.
     virtual bool isValid(const std::vector<SRef<Point2Df>>& ref2DSquaredMarkerCorners,
                          const std::vector<SRef<Point2Df>>& projected2DSquaredMarkerCorners) = 0;
-    XPCF_DECLARE_UUID("e95e8f70-dd32-11e7-9296-cec278b6b50a");
 };
 
 }
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::IHomographyValidation,
+                             "e95e8f70-dd32-11e7-9296-cec278b6b50a",
+                             "SolAR::api::solver::pose::IHomographyValidation");
 
 #endif // SOLAR_IHOMOGRAPHYVALIDATION_H

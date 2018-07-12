@@ -51,12 +51,15 @@ protected:
     SquaredBinaryPattern m_pattern;
 
 public:
-     static constexpr const char * UUID = "12d592ff-aa46-40a6-8d65-7fbfb382d60b";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DSquaredBinary,
+                             "12d592ff-aa46-40a6-8d65-7fbfb382d60b",
+                             "SolAR::api::input::files::IMarker2DSquaredBinary interface");
 
 #endif // SOLAR_IMARKER2DSQUAREDBINARY_H

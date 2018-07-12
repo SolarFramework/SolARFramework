@@ -17,13 +17,14 @@
 #ifndef SOLAR_I3DTRANSFORMFINDER_H
 #define SOLAR_I3DTRANSFORMFINDER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Pose.h"
+#include "datastructure/Image.h"
 
 namespace SolAR {
     using namespace datastructure;
@@ -48,18 +49,25 @@ namespace SolAR {
                     /// @param[out] Camera pose in the world coordinates system of the view_1 expressed as Transsform3D.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
-                                                         Transform3Df & pose) =0;    ///
+                                                          Transform3Df & pose) =0;    ///
+
+
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
                     /// @param[in] Camera distorsion parameters.
                     virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
-                    static constexpr const char * UUID = "77281cda-47c2-4bb7-bde6-5b0d02e75dae";
                 };
 
             }
         }
     }
 }
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinder,
+                             "77281cda-47c2-4bb7-bde6-5b0d02e75dae",
+                             "SolAR::api::solver::pose::I3DTransformFinder");
+                            
 
 #endif // SOLAR_IPOSEESTIMATION_H
 

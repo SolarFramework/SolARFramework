@@ -18,7 +18,7 @@
 #define SOLAR_IIMAGEVIEWER_H
 
 #include "datastructure/Image.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -64,11 +64,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode display(const char * title, SRef<Image> img, uint32_t duration, int w_window=0, int h_window=0) = 0;
 
-
-
-    static constexpr const char * UUID = "B05F3DBB-F93D-465C-AEE1-FB58E1480C42";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::IImageViewer,
+                             "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "SolAR::IImageViewer interface");
+
 #endif

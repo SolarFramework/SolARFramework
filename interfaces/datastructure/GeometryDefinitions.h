@@ -18,7 +18,6 @@
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
 
-#include "XPCF_definitions.h"
 #include "MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 
@@ -48,12 +47,15 @@ public:
     inline float getY() const { return (this->data())[1];}
     inline float getZ() const { return (this->data())[2];}
 
+    inline float magnitude() const { return std::sqrt(this->getX()*this->getX()+ this->getY()*this->getY() +this->getZ()*this->getZ()) ;}
+
     inline void setX(float x) { this->data()[0]=x;}
     inline void setY(float y) { this->data()[1]=y;}
     inline void setZ(float z) { this->data()[2]=z;}
 
     inline Point3Df operator+(const Point3Df& a) const { return Point3Df(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Df operator-(const Point3Df& a) const { return Point3Df(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
+    inline Point3Df operator*(const float & f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
 };
 
 // class Point2Di;

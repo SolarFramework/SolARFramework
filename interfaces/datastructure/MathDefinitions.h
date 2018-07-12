@@ -40,6 +40,7 @@ typedef Maths::Matrix<float, 5, 1>  CamDistortion;
 //  0       0       0       1          | 1 |
 //
 // This defintion avoids to apply a tranpose...
+
 typedef Maths::Matrix<float,4,4> PoseMatrix ;
 
 

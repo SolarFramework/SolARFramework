@@ -24,8 +24,9 @@
 // Definition of ThirdPartyConnector Class //
 // part of SolAR namespace //
 
-#include "ComponentBase.h"
+#include "xpcf/component/ComponentBase.h"
 #include "SharedCircularBuffer.hpp"
+#include "ThirdPartyConnector_traits.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -42,13 +43,10 @@ public:
     void get( SRef<Pose>& pose, SRef<Image>& image ) override;
     bool tryGet( SRef<Pose>& pose, SRef<Image>& image ) override;
 
-    XPCF_DECLARE_UUID("bb292de7-8f87-4a23-8b23-c4d9e8a64f8d");
-
 protected:
     typedef std::pair<SRef<Pose>, SRef<Image>> connectorDataType;
 
     SharedCircularBuffer<connectorDataType> m_buffer;
-private:
 };
 
 }  // end of namespace SolAR

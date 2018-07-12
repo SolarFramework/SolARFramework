@@ -24,7 +24,7 @@
 // Definition of IThirdPartyConnector Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Pose.h"
 #include "datastructure/Image.h"
 
@@ -49,11 +49,15 @@ public:
    virtual void get( SRef<Pose>& pose, SRef<Image>& image ) = 0;
    virtual bool tryGet( SRef<Pose>& pose, SRef<Image>& image ) = 0;
 
-   XPCF_DECLARE_UUID("c0d9fee4-d7d7-4866-a6cd-3bacac23316a");
 };
 
 }
 }
 }  // end of namespace SolAR
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sink::IThirdPartyConnector,
+                             "c0d9fee4-d7d7-4866-a6cd-3bacac23316a",
+                             "SolAR::api::sink::IThirdPartyConnector interface");
 
 #endif // SOLAR_ITHIRDPARTYCONNECTOR_H

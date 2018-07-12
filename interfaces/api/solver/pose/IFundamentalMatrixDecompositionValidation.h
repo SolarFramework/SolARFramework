@@ -17,7 +17,7 @@
 #ifndef SOLAR_IFUNDAMENTALMATRIXDECOMPOSITIONVALIDATION_H
 #define SOLAR_IFUNDAMENTALMATRIXDECOMPOSITIONVALIDATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -47,8 +47,6 @@ using namespace datastructure;
                                          const Pose&P1,
                                          const Pose&P2,
                                          const std::vector<SRef<Point3Df>>&pt3d) = 0;
-
-                    XPCF_DECLARE_UUID("0f715b50-e0e5-4508-aaf0-cb252ea59ad4");
                 };
 
             }

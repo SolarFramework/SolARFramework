@@ -18,7 +18,7 @@
 #define SOLAR_IIMAGE2WORLDMAPPER_H
 
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -50,13 +50,15 @@ public:
     /// @param[out] worldPoints the resulting 3D poitns after 3D mapping
     /// @return FrameworkReturnCode::_SUCCESS_ if mapping succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode map(const std::vector<SRef<Point2Df>> & digitalPoints, std::vector<SRef<Point3Df>> & worldPoints) = 0;
-
-    XPCF_DECLARE_UUID("67bcd080-258d-4b16-b693-cd30c013eb05");
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::IImage2WorldMapper,
+                             "67bcd080-258d-4b16-b693-cd30c013eb05",
+                             "SolAR::api::geom::IImage2WorldMapper");
 
 
 #endif // SOLAR_IIMAGE2WORLDMAPPER_H

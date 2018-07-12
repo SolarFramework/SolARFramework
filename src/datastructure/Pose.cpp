@@ -31,12 +31,26 @@ Pose::Pose( const float rotation_matrix3x3 [], const float translation_vector []
     m_poseTransform(1,0) = rotation_matrix3x3[3];  m_poseTransform(1,1) = rotation_matrix3x3[4];   m_poseTransform(1,2) = rotation_matrix3x3[5];
     m_poseTransform(2,0) = rotation_matrix3x3[6];  m_poseTransform(2,1) = rotation_matrix3x3[7];   m_poseTransform(2,2) = rotation_matrix3x3[8];
 
+
+    m_data[0][0] = rotation_matrix3x3[0];  m_data[0][1] = rotation_matrix3x3[1];   m_data[0][2] = rotation_matrix3x3[2];
+    m_data[1][0] = rotation_matrix3x3[3];  m_data[1][1] = rotation_matrix3x3[4];   m_data[1][2] = rotation_matrix3x3[5];
+    m_data[2][0] = rotation_matrix3x3[6];  m_data[2][1] = rotation_matrix3x3[7];   m_data[2][2] = rotation_matrix3x3[8];
+
+
     //translation vector
     m_poseTransform(0,3) =   translation_vector[0];
     m_poseTransform(1,3) =   translation_vector[1];
     m_poseTransform(2,3) =   translation_vector[2];
 
+    m_data[0][3] =   translation_vector[0];
+    m_data[1][3] =   translation_vector[1];
+    m_data[2][3] =   translation_vector[2];
+
+
+
     m_poseTransform(3,0) = 0; m_poseTransform(3,1) = 0; m_poseTransform(3,2) = 0; m_poseTransform(3,3) = 1;
+    m_data[3][0] = 0; m_data[3][1] = 0; m_data[3][2] = 0; m_data[3][3] = 1;
+
 }
 
 
@@ -47,12 +61,22 @@ Pose::Pose( const  RotationMatrixf &r, const  Vector3f & t){
     m_poseTransform(1,0) =  r(1,0);  m_poseTransform(1,1) = r(1,1);   m_poseTransform(1,2) = r(1,2);
     m_poseTransform(2,0) =  r(2,0);  m_poseTransform(2,1) = r(2,1);   m_poseTransform(2,2) = r(2,2);
 
+    m_data[0][0] =  r(0,0);  m_data[0][1] = r(0,1);   m_data[0][2] = r(0,2);
+    m_data[1][0] =  r(1,0);  m_data[1][1] = r(1,1);   m_data[1][2] = r(1,2);
+    m_data[2][0] =  r(2,0);  m_data[2][1] = r(2,1);   m_data[2][2] = r(2,2);
+
+
     m_poseTransform(0,3) =   t[0];
     m_poseTransform(1,3) =   t[1];
     m_poseTransform(2,3) =   t[2];
 
-     m_poseTransform(3,0) = 0; m_poseTransform(3,1) = 0; m_poseTransform(3,2) = 0; m_poseTransform(3,3) = 1;
+    m_data[0][3] =   t[0];
+    m_data[1][3] =   t[1];
+    m_data[2][3] =   t[2];
 
+
+     m_poseTransform(3,0) = 0; m_poseTransform(3,1) = 0; m_poseTransform(3,2) = 0; m_poseTransform(3,3) = 1;
+     m_data[3][0] = 0; m_data[3][1] = 0; m_data[3][2] = 0;m_data[3][3] = 1;
 }
 
 Pose::Pose( const Transform3Df &s3dt ){

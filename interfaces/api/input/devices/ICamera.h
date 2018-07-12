@@ -17,7 +17,7 @@
 #ifndef SOLAR_ICAMERA_H
 #define SOLAR_ICAMERA_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
@@ -66,7 +66,7 @@ public:
     /// @brief Set the intrinsic camera parameters from a given file
     virtual FrameworkReturnCode loadCameraParameters (const std::string & filename) = 0;
 
-    /// @brief Set the intrinsic camera parameters from a given file
+    /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
@@ -78,13 +78,16 @@ public:
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
 
-     static constexpr const char * UUID = "5DDC7DF0-8377-437F-9C81-3643F7676A5B";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICamera,
+                             "5DDC7DF0-8377-437F-9C81-3643F7676A5B",
+                             "SolAR::ICamera interface");
 
 #endif // SOLAR_ICAMERA_H
 

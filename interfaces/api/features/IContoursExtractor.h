@@ -17,7 +17,7 @@
 #ifndef SOLAR_ICONTOURSEXTRACTOR_H
 #define SOLAR_ICONTOURSEXTRACTOR_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -52,10 +52,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if contours ar well extracted, else FrameworkReturnCode::_ERROR
     virtual FrameworkReturnCode extract(const SRef<Image> inputImg, std::vector<SRef<Contour2Df>> & contours) = 0;
 
-    XPCF_DECLARE_UUID("42d82ab6-cc62-11e7-abc4-cec278b6b50a");
 };
 }
 }
 }  // end of namespace SOLAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IContoursExtractor,
+                             "42d82ab6-cc62-11e7-abc4-cec278b6b50a",
+                             "SolAR::api::features::IContoursExtractor");
 
 #endif // SOLAR_ICONTOURSEXTRACTOR_H

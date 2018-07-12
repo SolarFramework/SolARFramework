@@ -17,7 +17,7 @@
 #ifndef SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
 #define SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -54,12 +54,15 @@ namespace SolAR {
 						const std::vector< SRef<Point2Df> >& dstPoints,
                         Transform2Df & fundamental) = 0;
 
-                    static constexpr const char * UUID = "1c93e091-831f-4af7-a7a2-26bd06826391";
 				};
 
 			}
 		}
 	}
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::IFundamentalMatrixEstimation,
+                             "1c93e091-831f-4af7-a7a2-26bd06826391",
+                             "SolAR::api::solver::pose::IFundamentalMatrixEstimation");
 
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H

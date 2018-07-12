@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMU_H
 #define SOLAR_IIMU_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
 
@@ -79,14 +79,18 @@ public:
     /// @return bool Whether the IMU can produce magnetometer data or not
     virtual bool isMagnetometerAvailable() = 0;
 
+	 
 
-     static constexpr const char * UUID = "9940fa48-10cf-11e8-b642-0ed5f89f718b";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::IIMU,
+                         "9940fa48-10cf-11e8-b642-0ed5f89f718b",
+                         "SolAR::api::input::devices::IIMU Interface");
 
 #endif // SOLAR_IIMU_H
 

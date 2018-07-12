@@ -29,7 +29,7 @@
 // Definition of IDescriptorMatcher Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -88,10 +88,13 @@ namespace features {
             )=0;            
 
 
-       XPCF_DECLARE_UUID("dda38a40-c50a-4e7d-8433-0f04c7c98518");
     };
 }
 }
 }  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcher,
+                             "dda38a40-c50a-4e7d-8433-0f04c7c98518",
+                             "SolAR::api::features::IDescriptorMatcher");
 
 #endif // SOLAR_IDESCRIPTORMATCHER_H

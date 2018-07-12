@@ -6,15 +6,15 @@
 
 XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::ThirdPartyConnector);
 
+namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
 
 ThirdPartyConnector::ThirdPartyConnector()
-    : IThirdPartyConnector()
+    : IThirdPartyConnector(),ComponentBase(xpcf::toUUID<ThirdPartyConnector>())
     , m_buffer( 1 ) //Replace with parameter passed to constructor when supported by XPCF
 {
-    setUUID(ThirdPartyConnector::UUID);
-    addInterface<IThirdPartyConnector>(this,IThirdPartyConnector::UUID, "interface ThirdPartyConnector");
+    addInterface<IThirdPartyConnector>(this);
 }
 
 

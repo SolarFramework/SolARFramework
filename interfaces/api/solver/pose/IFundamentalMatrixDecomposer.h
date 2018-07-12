@@ -17,7 +17,7 @@
 #ifndef SOLAR_IFUNDAMENTALMATRIXDECOMPOSER_H
 #define SOLAR_IFUNDAMENTALMATRIXDECOMPOSER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -48,7 +48,6 @@ using namespace datastructure;
                     /// @param[out] Set (04 possibles cases) of the decomposed camera poses in the world coordinate system.
                     virtual bool decompose(const Transform2Df& F, const CamCalibration& K, const CamDistortion& dist, std::vector<SRef<Pose>>& decomposedPoses)= 0;
 
-                    XPCF_DECLARE_UUID("1697e697-e6df-4e6a-b8e7-d78ddc03f3f6");
                 };
 
             }

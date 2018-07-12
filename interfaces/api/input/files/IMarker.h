@@ -18,7 +18,7 @@
 #define SOLAR_IMARKER_H
 
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -33,12 +33,16 @@ public:
 
     virtual FrameworkReturnCode loadMarker(const std::string & filename) = 0;
 
-     static constexpr const char * UUID = "3c9cee8a-e9ca-4c16-851a-669a94c2a68d";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker,
+                             "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "SolAR::api::input::files::IMarker interface");
+
 #endif // SOLAR_IMARKER_H
 

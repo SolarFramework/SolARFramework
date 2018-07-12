@@ -1,12 +1,15 @@
 #ifndef ITRIANGULATOR_H
 #define ITRIANGULATOR_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Pose.h"
+#include "datastructure/CloudPoint.h"
+#include "datastructure/DescriptorMatch.h"
+
 
 namespace SolAR {
     using namespace datastructure;
@@ -32,20 +35,24 @@ namespace SolAR {
                 /// @param[in] Camera calibration matrix parameters.
                 /// @param[in] Camera calibration distorsion parameters.
                 /// @param[out] Set of triangulated 3d_points.
+                /// @return Mean re-projection error.
                 virtual FrameworkReturnCode triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
-                                         const std::vector<SRef<Point2Df>>& pt2d_2,
-                                         const Transform3Df&p1,
-                                         const Transform3Df&p2,
-                                         const CamCalibration&cam,
-                                         const CamDistortion&dist,
-                                         std::vector<SRef<Point3Df>>& pt3d)=0;
-
-                XPCF_DECLARE_UUID("3a01b0e9-9a76-43f5-97b3-85bb6979b953");
+                                                       const std::vector<SRef<Point2Df>>& pt2d_2,
+                                                       const Transform3Df&pose_1,
+                                                       const Transform3Df&pose_2,
+                                                       const CamCalibration&cam,
+                                                       const CamDistortion&distorsion,
+                                                       std::vector<SRef<Point3Df>>& pt3d)=0;
+               
             };
 
 }
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::ITriangulator,
+                             "3a01b0e9-9a76-43f5-97b3-85bb6979b953",
+                             "SolAR::api::solver::map::ITriangulator interface");
 
 #endif // ITRIANGULATOR_H

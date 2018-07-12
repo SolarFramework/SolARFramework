@@ -18,7 +18,7 @@
 #define SOLAR_I2DOVERLAY_H
 
 #include "datastructure/MathDefinitions.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "datastructure/Pose.h"
 #include "datastructure/Keypoint.h"
@@ -60,7 +60,15 @@ public:
     /// @param[in] radius The radius in pixels of the circles to draw
     /// @param[in] thickness The thickness in pixels of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, unsigned int radius, int thickness, SRef<Image> displayImage) = 0;
+	virtual void drawCircles(std::vector<SRef<Point2Df>>& points, unsigned int radius, int thickness, SRef<Image> displayImage) = 0;
+	/// @brief Draw Circles.
+	/// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius and thickness (colors of points are randomized).
+	/// @param[in] point The positions of the circles to draw
+	/// @param[in] radius The radius in pixels of the circles to draw
+	/// @param[in] thickness The thickness in pixels of the circles to draw
+	/// @param[in] bgrValues The color of the circle to draw. This color is stored in a vector of 3 unsigned int for B, G and R color components.
+	/// @param[in,out] displayImage The image on which the circles will be drawn.
+//    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues,SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
     /// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
@@ -69,6 +77,16 @@ public:
     /// @param[in] thickness The thickness in pixels of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
     virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, unsigned int radius, int thickness, SRef<Image> displayImage) = 0;
+
+	/// @brief Draw Circles.
+	/// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
+	/// @param[in] point The positions of the circles to draw
+	/// @param[in] radius The radius in pixels of the circles to draw
+	/// @param[in] thickness The thickness in pixels of the circles to draw
+	/// @param[in] bgrValues The color of the circle to draw. This color is stored in a vector of 3 unsigned int for B, G and R color components.
+	/// @param[in,out] displayImage The image on which the circles will be drawn.
+
+//	virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, unsigned int radius, int thickness, std::vector<unsigned int> & bgrValues, SRef<Image> displayImage) = 0;
 
      /// @brief Draw Contours.
     /// Draw all the contours stored in the vector  std::vector <SRef<Contour2Df>> & contours on image displayImage
@@ -82,10 +100,13 @@ public:
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
     virtual void drawSBPattern (SRef<SquaredBinaryPattern> pattern, SRef<Image> displayImage) = 0;
 
-    static constexpr const char * UUID = "62b8b0b5-9344-40e6-a288-e609eb3ff0f1";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I2DOverlay,
+                             "62b8b0b5-9344-40e6-a288-e609eb3ff0f1",
+                             "SolAR::I2DOverlay interface");
 
 #endif // SOLAR_I2DOVERLAY_H
