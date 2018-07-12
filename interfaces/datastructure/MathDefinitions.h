@@ -28,10 +28,10 @@ namespace Maths = Eigen;
 template <class T, int Rows, int Cols>
 using Matrix = Maths::Matrix<T,Rows,Cols>;
 
-typedef Maths::Matrix<float,3,4,Eigen::StorageOptions::RowMajor> ProjectionMatrix ;
-typedef Maths::Matrix<float,3,3,Eigen::StorageOptions::RowMajor> RotationMatrixf;
-typedef Maths::Matrix<float,3,3,Eigen::StorageOptions::RowMajor>    CamCalibration;
-typedef Maths::Matrix<float, 5, 1,Eigen::StorageOptions::RowMajor>  CamDistortion;
+typedef Maths::Matrix<float,3,4> ProjectionMatrix ;
+typedef Maths::Matrix<float,3,3> RotationMatrixf;
+typedef Maths::Matrix<float,3,3>    CamCalibration;
+typedef Maths::Matrix<float, 5, 1>  CamDistortion;
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -40,6 +40,7 @@ typedef Maths::Matrix<float, 5, 1,Eigen::StorageOptions::RowMajor>  CamDistortio
 //  0       0       0       1          | 1 |
 //
 // This defintion avoids to apply a tranpose...
+
 typedef Maths::Matrix<float,4,4> PoseMatrix ;
 
 
