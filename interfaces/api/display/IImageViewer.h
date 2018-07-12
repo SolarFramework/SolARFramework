@@ -18,7 +18,7 @@
 #define SOLAR_IIMAGEVIEWER_H
 
 #include "datastructure/Image.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 
 namespace SolAR {

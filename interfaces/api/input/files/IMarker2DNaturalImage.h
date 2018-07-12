@@ -25,7 +25,7 @@
 #include "datastructure/Image.h"
 
 #include "IMarker2DSquared.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 
 namespace SolAR {

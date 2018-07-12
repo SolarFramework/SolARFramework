@@ -18,7 +18,6 @@
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
 
-#include "XPCF_definitions.h"
 #include "MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 

@@ -17,7 +17,7 @@
 #ifndef SOLAR_I3DTRANSFORMFINDER_H
 #define SOLAR_I3DTRANSFORMFINDER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 

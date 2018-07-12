@@ -17,7 +17,7 @@
 #ifndef SOLAR_ICAMERACALIBRATION_H
 #define SOLAR_ICAMERACALIBRATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 
 namespace SolAR {

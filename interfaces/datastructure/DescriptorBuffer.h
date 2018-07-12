@@ -21,7 +21,7 @@
 #include <map>
 #include <cstdint>
 
-#include "XPCF_definitions.h"
+#include "xpcf/core/refs.h"
 #include "../core/SolARFrameworkDefinitions.h"
 #include "BufferInternal.hpp"
 

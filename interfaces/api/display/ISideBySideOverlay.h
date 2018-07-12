@@ -18,7 +18,7 @@
 #define SOLAR_ISIDEBYSIDEDOVERLAY_H
 
 #include "datastructure/MathDefinitions.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "datastructure/Pose.h"
 #include "datastructure/Keypoint.h"

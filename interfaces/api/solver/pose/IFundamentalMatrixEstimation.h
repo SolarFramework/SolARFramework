@@ -17,7 +17,7 @@
 #ifndef SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
 #define SOLAR_IFUNDAMENTALMATRIXESTIMATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"

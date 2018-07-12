@@ -18,7 +18,7 @@
 #define SOLAR_I3DTRANSFORM_H
 
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 

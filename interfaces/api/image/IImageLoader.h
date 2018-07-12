@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMAGELOADER_H
 #define SOLAR_IIMAGELOADER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 #include "datastructure/Image.h"

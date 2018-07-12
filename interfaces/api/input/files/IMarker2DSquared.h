@@ -21,7 +21,7 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "IMarker.h"
 

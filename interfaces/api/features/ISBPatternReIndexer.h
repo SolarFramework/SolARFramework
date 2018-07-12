@@ -17,7 +17,7 @@
 #ifndef SOLAR_ISBPATTERNREINDEXER_H
 #define SOLAR_ISBPATTERNREINDEXER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "api/features/IDescriptorMatcher.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"

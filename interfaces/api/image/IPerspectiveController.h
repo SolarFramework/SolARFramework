@@ -17,7 +17,7 @@
 #ifndef SOLAR_IPERSPECTIVECONTROLLER_H
 #define SOLAR_IPERSPECTIVECONTROLLER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"

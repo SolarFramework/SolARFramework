@@ -24,7 +24,7 @@
 // Definition of ThirdPartyConnector Class //
 // part of SolAR namespace //
 
-#include "ComponentBase.h"
+#include "xpcf/component/ComponentBase.h"
 #include "SharedCircularBuffer.hpp"
 #include "ThirdPartyConnector_traits.h"
 

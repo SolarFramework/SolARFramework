@@ -17,7 +17,7 @@
 #ifndef SOLAR_IHOMOGRAPHYVALIDATION_H
 #define SOLAR_IHOMOGRAPHYVALIDATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
