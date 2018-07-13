@@ -8,7 +8,7 @@
 // Definition of IMapper Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -44,13 +44,14 @@ namespace SolAR {
 					   /// @param[out] filtered point cloud without z negative points and points with a large reprojection error
                        virtual void  filterPointCloud(const std::vector<SRef<CloudPoint>>& input, const std::vector<bool> & isFrontCamera,  std::vector<SRef<CloudPoint>>& output) = 0;
 
-                       virtual void testMethod()=0;
-                       XPCF_DECLARE_UUID("e0d6cc82-6af2-493d-901a-2384fca0b16f");
                     };
             }
         }
     }
 }
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapFilter,
+                             "e0d6cc82-6af2-493d-901a-2384fca0b16f",
+                             "SolAR::api::solver::map::IMapFilter interface");
 
 
 #endif // IMAPPER_H

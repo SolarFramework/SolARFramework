@@ -1,14 +1,10 @@
 #ifndef IMAPPER_H
 #define IMAPPER_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 // Definition of IMapper Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -55,13 +51,14 @@ namespace SolAR {
 
                        virtual int isKeyFrameCandidate(SRef<Frame> frame) = 0;
 
-                       virtual void testMethod()=0;
-                       XPCF_DECLARE_UUID("90075c1b-915b-469d-b92d-41c5d575bf15");
                     };
             }
         }
     }
 }
 
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
+                             "90075c1b-915b-469d-b92d-41c5d575bf15",
+                             "SolAR::api::solver::map::IMapper interface");
 
 #endif // IMAPPER_H
