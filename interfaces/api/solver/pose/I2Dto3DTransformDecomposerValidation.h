@@ -1,14 +1,11 @@
 #ifndef I2DTO3DTRANSFORMDECOMPOSERVALIDATION_H
 #define I2DTO3DTRANSFORMDECOMPOSERVALIDATION_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
 
 // Definition of I2Dto3DTransformDecomposerValidation Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
 
@@ -26,12 +23,12 @@ public:
 
    virtual void testMethod()=0;
 
-   XPCF_DECLARE_UUID("ee990fc4-ec74-4365-8fa8-b2c94845fde6");
 };
 
-_BCOM_SHARED sptrnms::shared_ptr<I2Dto3DTransformDecomposerValidation> getI2Dto3DTransformDecomposerValidationInstance();
-
-
 }  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2Dto3DTransformDecomposerValidation,
+                             "ee990fc4-ec74-4365-8fa8-b2c94845fde6",
+                             "SolAR::api::solver::pose::I2Dto3DTransformDecomposerValidation");
 
 #endif // I2DTO3DTRANSFORMDECOMPOSERVALIDATION_H

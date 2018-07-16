@@ -17,7 +17,7 @@
 #ifndef SOLAR_I2D3DCORRESPONDENCESFINDER_H
 #define SOLAR_I2D3DCORRESPONDENCESFINDER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 
@@ -63,10 +63,16 @@ using namespace datastructure;
 													  std::vector<DescriptorMatch> & found_matches , 
                                                       std::vector<DescriptorMatch> & remaining_matches)=0;
 
-                    XPCF_DECLARE_UUID("0404e8b9-b824-4852-a34d-6eafa7563918");
                 };
             }
         }
     }
 }  // end of namespace Solar
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2D3DCorrespondencesFinder,
+                             "0404e8b9-b824-4852-a34d-6eafa7563918",
+                             "SolAR::api::solver::pose::I2D3DCorrespondencesFinder");
+
+
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H
