@@ -40,6 +40,7 @@ set (HEADERS
 		interfaces/api/features/IKeypointsReIndexer.h
 		interfaces/api/features/ISBPatternReIndexer.h
 		interfaces/api/features/IMatchesFilter.h
+        interfaces/api/fusion/IVisualInertialFusion.h
 		interfaces/api/geom/I2DTransform.h
 		interfaces/api/geom/I3DTransform.h
 		interfaces/api/input/devices/IIMU.h
@@ -50,6 +51,7 @@ set (HEADERS
 		interfaces/api/image/IPerspectiveController.h
 		interfaces/api/input/devices/ICamera.h
 		interfaces/api/input/devices/ICameraCalibration.h
+        interfaces/api/input/devices/IIMU.h
 		interfaces/api/solver/pose/I2DTransformFinder.h
 		interfaces/api/solver/pose/I3DTransformFinder.h
 		interfaces/api/solver/pose/IHomographyValidation.h

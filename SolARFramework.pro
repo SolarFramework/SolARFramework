@@ -55,6 +55,7 @@ interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/ISBPatternReIndexer.h \
 interfaces/api/features/IMatchesFilter.h \
+interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
 interfaces/api/geom/IImage2WorldMapper.h \
@@ -134,6 +135,8 @@ header_interfaces_display.path  = $${PROJECTDEPLOYDIR}/interfaces/api/display/
 header_interfaces_display.files = $$files($${PWD}/interfaces/api/display/*.h*)
 header_interfaces_features.path = $${PROJECTDEPLOYDIR}/interfaces/api/features/
 header_interfaces_features.files = $$files($${PWD}/interfaces/api/features/*.h*)
+header_interfaces_fusion.path = $${PROJECTDEPLOYDIR}/interfaces/api/fusion/
+header_interfaces_fusion.files = $$files($${PWD}/interfaces/api/fusion/*.h*)
 header_interfaces_geom.path = $${PROJECTDEPLOYDIR}/interfaces/api/geom/
 header_interfaces_geom.files = $$files($${PWD}/interfaces/api/geom/*.h*)
 header_interfaces_image.path = $${PROJECTDEPLOYDIR}/interfaces/api/image/
@@ -163,6 +166,7 @@ INCLUDEPATH += $${PWD}/interfaces
 INSTALLS += header_interfaces
 INSTALLS += header_interfaces_display
 INSTALLS += header_interfaces_features  
+INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
