@@ -5,7 +5,6 @@ set (VERSION_NUMBER "0.4.0")
 project("SolARFramework")
 set (SOURCES 
 		src/core/SolARFramework.cpp
-		src/sink/ThirdPartyConnector.cpp
 		src/core/Log.cpp
 		src/datastructure/DescriptorBuffer.cpp
 		src/datastructure/Image.cpp
@@ -25,7 +24,6 @@ set (HEADERS
 		interfaces/core/SolARFramework.h
 		interfaces/core/Messages.h
 		interfaces/core/Log.h
-		interfaces/api/sink/ThirdPartyConnector.h
 		interfaces/api/sink/IThirdPartyConnector.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
