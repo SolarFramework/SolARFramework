@@ -40,7 +40,6 @@ interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/SolARMatches.h \
-interfaces/api/sink/ThirdPartyConnector.h \
 interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
@@ -93,11 +92,9 @@ interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
-interfaces/api/sink/ThirdPartyConnector_traits.h
+interfaces/api/input/files/IMarker2DSquaredBinary.h
 
 SOURCES += src/core/SolARFramework.cpp \
-src/sink/ThirdPartyConnector.cpp \
     src/core/Log.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
