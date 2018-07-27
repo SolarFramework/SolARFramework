@@ -43,7 +43,7 @@ public:
     /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
     /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, int w_window=0, int h_window=0) = 0;
+    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const int w_window=0, const int h_window=0) = 0;
 
 
     /// \brief this method displays an image contained in a Image object in a window, and close this window if the exit key is pressed
@@ -53,7 +53,7 @@ public:
     /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
     /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, FrameworkReturnCode::_STOP if the exit key is pressed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const char* exitKey,int w_window=0, int h_window=0) = 0;
+    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const char* exitKey,const int w_window=0, const int h_window=0) = 0;
 
     /// \brief this method displays an image contained in a Image object in a window, and close after a given delay
     /// @param[in] title The text that will be displayed in the title bar of the window.
@@ -62,7 +62,7 @@ public:
     /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
     /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, uint32_t duration, int w_window=0, int h_window=0) = 0;
+    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const uint32_t duration, const int w_window=0, const int h_window=0) = 0;
 
 };
 }
@@ -71,6 +71,6 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::IImageViewer,
                              "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
-                             "SolAR::IImageViewer interface");
+                             "SolAR::IImageViewer interface")
 
 #endif
