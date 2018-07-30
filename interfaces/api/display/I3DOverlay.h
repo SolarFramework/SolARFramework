@@ -54,7 +54,7 @@ public:
     /// @param[in] sizeZ The size of the box along the Z axis in world unit.
     /// @param[in] transform The transform (position and ortation) of the box according to the world coordinate system
     /// @param[in,out] displayImage The image on which the box will be drawn
-    virtual void drawBox (Transform3Df & pose, const  float sizeX, const float sizeY, const float sizeZ, const Transform3Df transform, SRef<Image> displayImage) = 0;
+    virtual void drawBox (const Transform3Df & pose, const  float sizeX, const float sizeY, const float sizeZ, const Transform3Df transform, SRef<Image> displayImage) = 0;
 
 };
 }
@@ -63,6 +63,6 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I3DOverlay,
                              "81a20f52-6bf9-4949-b914-df2f614bc945",
-                             "SolAR::I3DOverlay interface");
+                             "SolAR::I3DOverlay interface")
 
 #endif // SOLAR_I3DOVERLAY_H

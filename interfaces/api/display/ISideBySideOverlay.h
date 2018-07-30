@@ -51,7 +51,7 @@ public:
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in] matches_number: number of matches to display. if negative, all matches are displayed.
-    virtual void drawMatchesLines(SRef<Image> & image1, SRef<Image> & image2, SRef<Image> & outImage, std::vector <SRef<Point2Df>> & points_image1, std::vector <SRef<Point2Df>> & points_image2, int matches_number = -1)=0;
+    virtual void drawMatchesLines(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Point2Df>> & points_image1, const std::vector <SRef<Point2Df>> & points_image2, const int matches_number = -1)=0;
 
 };
 }
@@ -60,6 +60,6 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::ISideBySideOverlay,
                              "a801354a-3e00-467c-b390-48c76fa8c53a",
-                             "SolAR::ISideBySideOverlay interface");
+                             "SolAR::ISideBySideOverlay interface")
 
 #endif // SOLAR_ISIDEBYSIDEDOVERLAY_H
