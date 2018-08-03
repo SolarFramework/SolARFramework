@@ -48,11 +48,7 @@ public:
     
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start(uint32_t device_id)=0;
-    
-    /// @brief Simulate the acquisition device by using a given video file
-    /// @returns FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start(std::string inputFileName)=0;
+    virtual FrameworkReturnCode start()=0;
         
     /// @brief Set the acquisition device image resolution
     virtual void setResolution(Sizei resolution) = 0;
