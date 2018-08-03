@@ -42,10 +42,6 @@ public:
     /// @brief IContoursExtractor default destructor
     virtual ~IContoursExtractor() = default;
 
-    /// @brief Set the minimum contour size to detect 
-    /// @param[in] minContourSize The minimum number of edges defining the contour
-    virtual void setParameters (float minContourSize) = 0;
-
     /// @brief Extract the contours detected in a vector from a given input image
     /// @param[in] inputImg The image on which contours are extracted
     /// @param[out] contours The contours extracted from the image

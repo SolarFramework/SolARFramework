@@ -31,7 +31,7 @@ public:
     IMarker() = default;
     virtual ~IMarker() = default;
 
-    virtual FrameworkReturnCode loadMarker(const std::string & filename) = 0;
+    virtual FrameworkReturnCode loadMarker() = 0;
 
 };
 

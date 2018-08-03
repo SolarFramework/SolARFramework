@@ -47,7 +47,6 @@ namespace files {
 class IMarker2DSquared : public virtual IMarker {
 public:
     IMarker2DSquared() = default;
-    IMarker2DSquared(const float & width, const float & height) { m_size.width = width; m_size.height = height; };
 
     virtual ~IMarker2DSquared() = default;
 

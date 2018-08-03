@@ -63,9 +63,6 @@ public:
     /// @brief Set the distorsion intrinsic camera parameters
     virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
 
-    /// @brief Set the intrinsic camera parameters from a given file
-    virtual FrameworkReturnCode loadCameraParameters (const std::string & filename) = 0;
-
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
 

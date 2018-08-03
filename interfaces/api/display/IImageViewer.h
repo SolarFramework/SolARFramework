@@ -38,31 +38,9 @@ public:
 
 
     /// \brief this method displays an image contained in a Image object in a window
-    /// @param[in] title The text that will be displayed in the title bar of the window
     /// @param[in] img The image to display in the window
-    /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
-    /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const int w_window=0, const int h_window=0) = 0;
-
-
-    /// \brief this method displays an image contained in a Image object in a window, and close this window if the exit key is pressed
-    /// @param[in] title The text that will be displayed in the title bar of the window
-    /// @param[in] img The image to display in the window
-    /// @param[in] exitKey The key code to press to close the window
-    /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
-    /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
-    /// @return FrameworkReturnCode::_SUCCESS if the window is created, FrameworkReturnCode::_STOP if the exit key is pressed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const char* exitKey,const int w_window=0, const int h_window=0) = 0;
-
-    /// \brief this method displays an image contained in a Image object in a window, and close after a given delay
-    /// @param[in] title The text that will be displayed in the title bar of the window.
-    /// @param[in] img The image to display in the window.
-    /// @param[in] duration The duration in milliseconds before closing the window.
-    /// @param[in] width of the displayed window : if not specified or negative, input image dimensions will be used
-    /// @param[in] height of the displayed window: if not specified or negative, input image dimensions will be used
-    /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const uint32_t duration, const int w_window=0, const int h_window=0) = 0;
+    virtual FrameworkReturnCode display(SRef<Image> img) = 0;
 
 };
 }

@@ -40,10 +40,6 @@ public:
    /// @brief IPerspectiveController default destructor
    virtual ~IPerspectiveController() = default;
 
-   /// @brief Set the size in pixels of the output image
-   /// @param[in] outputImageSize the size in pixels of the output image
-   virtual void setParameters (const Sizei outputImageSize) = 0;
-
    /// @brief Warps and crops an image given a set of contour defined with four 2D points
    /// @param[in] inputImg the original image on which we want to extract sub-images aligned on the set of 2D contours
    /// @param[in] contours the set of contours each defined with four 2D points
