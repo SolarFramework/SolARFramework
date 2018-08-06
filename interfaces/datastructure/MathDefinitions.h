@@ -20,6 +20,10 @@
 #define EIGEN_DEFAULT_TO_ROW_MAJOR
 #include <Eigen>
 
+#define SOLAR_PI           3.14159265358979323846
+#define SOLAR_RAD2DEG      57.29577951308233
+#define SOLAR_DEG2RAD      0.0174532925199433
+
 namespace SolAR {
 namespace datastructure {
 
