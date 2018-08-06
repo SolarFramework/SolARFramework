@@ -40,11 +40,6 @@ public:
     /// @brief IImage2WorldMapper default destructor
     virtual ~IImage2WorldMapper() = default;
 
-    /// @brief Set the digital size of the 2D marker (in pixels for a natural image marker, or in cells for a squared binary marker) as well as the real size of the marker in a user-defined coordinate system (in meter, centimeters, etc.).
-    /// @param[in] digitalSize the size of the 2D marker in pixels for a natural image marker, or in cells for a squared binary marker.
-    /// @param[in] worldSize the size of the marker in a user-defined world coordinate system (meters, cenimeters, etc.)
-    virtual void setParameters(const Sizei digitalSize, const Sizef worldSize) = 0;
-
     /// @brief Map a set of 2D points to a 3D world coordinate system.
     /// @param[in] digitalPoints the 2D points we want to map in 3D world coordinate system.
     /// @param[out] worldPoints the resulting 3D poitns after 3D mapping
