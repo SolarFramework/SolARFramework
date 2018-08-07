@@ -34,9 +34,14 @@ class IImageLoader : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
     ///
-    /// \brief loadImage method loads an image from a filename into a Image object
+    /// \brief getImage method returns the image previously loaded
     ///
-    virtual FrameworkReturnCode loadImage(const std::string & filename, SRef<Image> & img) = 0;
+    virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
+
+    ///
+    /// \brief reloadImage method load a image if its path (set as a configuration parameter of the implemented component) has changed
+    ///
+    virtual FrameworkReturnCode reloadImage() = 0;
 
 };
 
