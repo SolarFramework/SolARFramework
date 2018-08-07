@@ -93,7 +93,8 @@ interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h
+interfaces/api/input/files/IMarker2DSquaredBinary.h \
+    interfaces/api/display/I3DPointsViewer.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
