@@ -27,6 +27,12 @@ namespace SolAR {
 
                 /// @brief ITriangulator default destructor
                 virtual ~ITriangulator() = default;
+
+                /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+                /// @param[in] Camera calibration matrix parameters.
+                /// @param[in] Camera distorsion parameters.
+                virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
+
                 /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
                 /// @param[in] Set of 2d_points seen in view_1.
                 /// @param[in] Set of 2d_points seen in view_2.
@@ -42,8 +48,6 @@ namespace SolAR {
                                                         const std::pair<int,int>&working_views,
                                                         const Transform3Df&p1,
                                                         const Transform3Df&p2,
-                                                        const CamCalibration&cam,
-                                                        const CamDistortion&dist,
                                                         std::vector<SRef<CloudPoint>>& pcloud)=0;
                
             };
