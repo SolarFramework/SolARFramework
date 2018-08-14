@@ -20,7 +20,7 @@
 #include "datastructure/MathDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
-#include "datastructure/Pose.h"
+#include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -50,7 +50,19 @@ public:
     /// @param[out] outImage: The resulting image merging image1 and image2 in side-by-side. If outImage has not been initialized, it will be done by this method. If it size is not the good one, it will be resized by this method.
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
-    virtual void drawMatchesLines(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Point2Df>> & points_image1, const std::vector <SRef<Point2Df>> & points_image2)=0;
+    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    virtual void drawMatchesLines(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Point2Df>> & points_image1, const std::vector <SRef<Point2Df>> & points_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+
+    /// @brief dra Match Lines.
+    /// Draw all the lines joining the keypoints that match between two images
+    /// @param[in] image1:  The first image on which have been extracted the first vector keypoints
+    /// @param[in] image2: The second image on which have been extracted the second vector of keypoints
+    /// @param[out] outImage: The resulting image merging image1 and image2 in side-by-side. If outImage has not been initialized, it will be done by this method. If it size is not the good one, it will be resized by this method.
+    /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
+    /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
+    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    virtual void drawMatchesLines(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Keypoint>> & keypoints_image1, const std::vector <SRef<Keypoint>> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+
 
 };
 }
