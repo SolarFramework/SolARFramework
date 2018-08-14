@@ -1,0 +1,90 @@
+/**
+ * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef SOLAR_I3DTRANSFORMFINDERFROM2D2D_H
+#define SOLAR_I3DTRANSFORMFINDERFROM2D2D_H
+
+#include "xpcf/api/IComponentIntrospect.h"
+
+#include "core/Messages.h"
+
+#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/Pose.h"
+#include "datastructure/Image.h"
+
+namespace SolAR {
+    using namespace datastructure;
+    namespace api {
+        namespace solver {
+            namespace pose {
+            /**
+             * @class I3DTransformFinderFrom2D2D
+             * @brief Finds the 3D transform between é cameras knowing the keypoints that match between them.
+             */
+                class I3DTransformFinderFrom2D2D : public virtual org::bcom::xpcf::IComponentIntrospect {
+                public:
+                    ///@brief I3DTransformFinderFrom2D2D default constructor.
+                    I3DTransformFinderFrom2D2D() = default;
+                    ///@brief I3DTransformFinderFrom2D2D default destructor.
+                    virtual ~I3DTransformFinderFrom2D2D() = default;
+
+                    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+                    /// @param[in] Camera calibration matrix parameters.
+                    /// @param[in] Camera distorsion parameters.
+                    virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
+
+                    /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
+                    /// @param[in] matchedPointsView1, Set of 2D points seen in view 1.
+                    /// @param[in] matchedPointsView2, Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
+                    /// @param[in] poseView1, Camera pose in the world coordinate system of the view 1 expressed as Transform3D.
+                    /// @param[out] poseView2, Camera pose in the world coordinates system of the view 2 expressed as Transform3D.
+                    virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & matchedPointsView1,
+                                                         const std::vector<SRef<Point2Df>> & matchedPointsView2,
+                                                         const Transform3Df& poseView1,
+                                                         Transform3Df & poseView2) =0;
+
+
+                    /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
+                    /// @param[in] matchedPointsView1, Set of 2D points seen in view 1.
+                    /// @param[in] matchedPointsView2, Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
+                    /// @param[in] poseView1, Camera pose in the world coordinate system of the view 1 expressed as Transform3D.
+                    /// @param[out] poseView2, Camera pose in the world coordinates system of the view 2 expressed as Transform3D.
+                    /// @param[out] pointsView1_inlier, image 2d points that are inliers
+                    /// @param[out] pointsView2_inlier, world 3d points that are inliers.
+                    virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & matchedPointsView1,
+                                                         const std::vector<SRef<Point2Df>> & matchedPointsView2,
+                                                         const Transform3Df& poseView1,
+                                                         Transform3Df & poseView2,
+                                                         std::vector<SRef<Point2Df>>& pointsView1_inlier,
+                                                         std::vector<SRef<Point2Df>>& pointsView2_inlier) =0;
+
+                };
+
+            }
+        }
+    }
+}
+
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinderFrom2D2D,
+                             "6063a606-9d30-11e8-98d0-529269fb1459",
+                             "SolAR::api::solver::pose::I3DTransformFinderFrom2D2D");
+
+
+#endif // SOLAR_I3DTRANSFORMFINDERFROM2D2D_H
+
+

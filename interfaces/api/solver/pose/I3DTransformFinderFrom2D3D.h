@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_I3DTRANSFORMFINDER_H
-#define SOLAR_I3DTRANSFORMFINDER_H
+#ifndef SOLAR_I3DTRANSFORMFINDERFROM2D3D_H
+#define SOLAR_I3DTRANSFORMFINDERFROM2D3D_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 
@@ -32,16 +32,20 @@ namespace SolAR {
         namespace solver {
             namespace pose {
             /**
-             * @class I3DransformFinder
+             * @class I3DTransformFinderFrom2D3D
              * @brief Finds the 3D transform of 2D-3D points correspondaces.
              */
-                class I3DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+                class I3DTransformFinderFrom2D3D : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
-                    ///@brief I3DTransformFinder default constructor.
-                    I3DTransformFinder() = default;
-                    ///@brief I3DTransformFinder default destructor.
-                    virtual ~I3DTransformFinder() = default;
+                    ///@brief I3DTransformFinderFrom2D3D default constructor.
+                    I3DTransformFinderFrom2D3D() = default;
+                    ///@brief I3DTransformFinderFrom2D3D default destructor.
+                    virtual ~I3DTransformFinderFrom2D3D() = default;
 
+                    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+                    /// @param[in] Camera calibration matrix parameters.
+                    /// @param[in] Camera distorsion parameters.
+                    virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
                     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                     /// @param[in] Set of 2d_points seen in view_1.
@@ -64,13 +68,6 @@ namespace SolAR {
                                                          std::vector<SRef<Point3Df>>&worldPoints_inlier,
                                                          Transform3Df & pose) =0;    ///
 
-
-
-
-                    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-                    /// @param[in] Camera calibration matrix parameters.
-                    /// @param[in] Camera distorsion parameters.
-                    virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
                 };
 
             }
@@ -79,10 +76,10 @@ namespace SolAR {
 }
 
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinder,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinderFrom2D3D,
                              "77281cda-47c2-4bb7-bde6-5b0d02e75dae",
-                             "SolAR::api::solver::pose::I3DTransformFinder");
+                             "SolAR::api::solver::pose::I3DTransformFinderFrom2D3D");
                             
 
-#endif // SOLAR_IPOSEESTIMATION_H
+#endif // SOLAR_I3DTRANSFORMFINDERFROM2D3D_H
 

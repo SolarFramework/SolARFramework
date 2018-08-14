@@ -67,7 +67,6 @@ interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
-interfaces/api/solver/pose/I3DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
@@ -94,7 +93,9 @@ interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
-    interfaces/api/display/I3DPointsViewer.h
+    interfaces/api/display/I3DPointsViewer.h \
+    interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+    interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
