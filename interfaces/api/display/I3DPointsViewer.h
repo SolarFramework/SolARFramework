@@ -40,12 +40,17 @@ public:
     /// @brief I3DPointsViewer default destructor
     virtual ~I3DPointsViewer() = default;
 
-    /// @brief Draw points on top of the given Image
+    /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
     /// The points are displayed according to the pose of a given viewpoint managed by the implementation of the component.
-    /// @param[in] points A vector of 3D cloud points to display.
-    /// @param[in] pose The pose of the camera which will be display.
+    /// @param[in] points, Set of 3D points to display in the 3D viewer.
+    /// @param[in] pose, poses of the current camera (transform from the world corrdinate system to the camera coordinate system).
+    /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform from the world corrdinate system to the keyframes coordinate system).
+    /// @param[in] framePoses (optional), poses of a set of frames (transform from the world corrdinate system to the frames coordinate system).
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display (const std::vector<SRef<CloudPoint>>& points, const Transform3Df & pose) = 0;
+    virtual FrameworkReturnCode display (const std::vector<SRef<CloudPoint>>& points,
+                                         const Transform3Df & pose,
+                                         const std::vector<Transform3Df>& keyframePoses = {},//std::vector<Transform3Df>(),
+                                         const std::vector<Transform3Df>& framePoses = {}/*std::vector<Transform3Df>()*/) = 0;
 
 };
 }
