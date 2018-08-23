@@ -50,8 +50,8 @@ namespace SolAR {
                     /// @brief Estimates camera pose from a set of 2D points of the first image which match with a set of 2D points of the second image.
                     /// @param[in] pointsView1, Set of 2D points seen in view 1.
                     /// @param[in] pointsView2, Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
-                    /// @param[in] poseView1, Camera pose in the world coordinate system of the view 1 expressed as Transform3D.
-                    /// @param[out] poseView2, Camera pose in the world coordinates system of the view 2 expressed as Transform3D.
+                    /// @param[in] poseView1, Camera pose (Transform3D from the world coordinates system to the camera coordinate system of the view 1).
+                    /// @param[out] poseView2, Camera pose (Transform3D from the world coordinates system to the camera coordinate system of the view 2).
                     /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & pointsView1,
                                                          const std::vector<SRef<Point2Df>> & pointsView2,
@@ -62,8 +62,8 @@ namespace SolAR {
                     /// @brief Estimates camera pose from a set of keypoints of the first image which match with a set of keypoints of the second image.
                     /// @param[in] pointsView1, Set of keypoints seen in view 1.
                     /// @param[in] pointsView2, Set of keypoints seen in view 2 and matching with the 2D points of the view 1.
-                    /// @param[in] poseView1, Camera pose in the world coordinate system of the view 1 expressed as Transform3D.
-                    /// @param[out] poseView2, Camera pose in the world coordinates system of the view 2 expressed as Transform3D.
+                    /// @param[in] poseView1, Camera pose (Transform3D from the world coordinates system to the camera coordinate system of the view 1).
+                    /// @param[out] poseView2, Camera pose (Transform3D from the world coordinates system to the camera coordinate system of the view 2).
                     /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Keypoint>> & pointsView1,
                                                          const std::vector<SRef<Keypoint>> & pointsView2,
