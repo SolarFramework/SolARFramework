@@ -2,23 +2,31 @@
 namespace SolAR {
 namespace datastructure {
 
+/*
     Frame::Frame()
     {
         m_countOfFramesSinceLastKframe = 0 ;
     }
-
+*/
+    Frame::Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view)
+    {
+        m_keypoints = keypoints ;
+        m_descriptor = descriptors ;
+        m_view = view;
+        m_countOfFramesSinceLastKframe = 0 ;
+    }
 
     Frame::~Frame()
     {
     }
 
-
+/*
     void Frame::InitKeyPointsAndDescriptors(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors)
     {
         m_keypoints = keypoints ;
         m_descriptor = descriptors ;
     }
-
+*/
     void Frame::setReferenceKeyFrame(SRef<Keyframe> kframe)
     {
         m_refrenceKeyFrame = kframe ;
