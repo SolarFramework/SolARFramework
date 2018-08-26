@@ -15,7 +15,7 @@ Map::~Map()
 
 }
 
-void Map::addCloudPoints(std::vector<SRef<CloudPoint>> & newMapPoints)
+void Map::addCloudPoints(const std::vector<SRef<CloudPoint>> & newMapPoints)
 {
      m_pointCloud->insert(m_pointCloud->end(), newMapPoints.begin()  , newMapPoints.end()) ;
 }
