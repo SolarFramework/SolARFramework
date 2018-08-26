@@ -49,8 +49,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode display (const std::vector<SRef<CloudPoint>>& points,
                                          const Transform3Df & pose,
-                                         const std::vector<Transform3Df>& keyframePoses = {},//std::vector<Transform3Df>(),
-                                         const std::vector<Transform3Df>& framePoses = {}/*std::vector<Transform3Df>()*/) = 0;
+                                         const std::vector<Transform3Df> keyframePoses = {},
+                                         const std::vector<Transform3Df> framePoses = {}) = 0;
 
 };
 }
