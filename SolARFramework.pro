@@ -39,7 +39,6 @@ HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/datastructure/SolARMatches.h \
 interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
