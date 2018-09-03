@@ -138,7 +138,8 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
-		set (BUILDCONFIG $<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>)
+		set (BUILDCONFIG $<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>)		
+
 
 		install (TARGETS ${PROJECT_NAME} DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/lib/${PROJECT_ARCH}/shared/${BUILDCONFIG})
 		if (WIN32)
@@ -180,6 +181,7 @@ macro (setup)
 	  	SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM} /MP")
 	  	add_definitions(-DWIN64 -DUNICODE -D_UNICODE)
 	  	add_definitions (-DBOOST_ALL_DYN_LINK -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_LOG_DYN_LINK)
+	  	add_definitions (-DFREEGLUT_LIB_PRAGMAS=0)
 	  endif()
 	ELSE()
 	  set (MSVC_SYNTAX "")	
