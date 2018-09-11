@@ -35,6 +35,9 @@ msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 }
 
+DEFINES += BOOST_ALL_NO_LIB
+DEFINES += BOOST_ALL_DYN_LINK
+
 HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
