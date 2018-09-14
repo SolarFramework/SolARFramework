@@ -20,7 +20,6 @@
 #include "datastructure/MathDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
-#include "datastructure/Pose.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/GeometryDefinitions.h"

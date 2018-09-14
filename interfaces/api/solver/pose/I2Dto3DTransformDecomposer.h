@@ -21,8 +21,6 @@
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
-#include "datastructure/Pose.h"
-
 
 namespace SolAR {
 using namespace datastructure;

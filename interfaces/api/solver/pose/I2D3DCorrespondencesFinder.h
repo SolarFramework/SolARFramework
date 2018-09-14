@@ -23,7 +23,6 @@
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
-#include "datastructure/Pose.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/DescriptorMatch.h"

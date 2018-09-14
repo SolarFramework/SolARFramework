@@ -6,7 +6,6 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
-#include "datastructure/Pose.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keyframe.h"

@@ -86,7 +86,6 @@ interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Frame.h \
 interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
-interfaces/datastructure/Pose.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
@@ -103,7 +102,6 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Keypoint.cpp \
     src/datastructure/Keyframe.cpp \
     src/datastructure/Frame.cpp \
-    src/datastructure/Pose.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/CloudPoint.cpp \
     src/datastructure/Map.cpp
