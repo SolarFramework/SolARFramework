@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_I2DTO3DTRANSFORMDECOMPOSER_H
-#define SOLAR_I2DTO3DTRANSFORMDECOMPOSER_H
+#ifndef SOLAR_I2Dto3DTransformDecomposer_H
+#define SOLAR_I2Dto3DTransformDecomposer_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 
@@ -30,16 +30,16 @@ using namespace datastructure;
         namespace solver {
             namespace pose {
             /**
-             * @class I2DTO3DTransformDecomposer
+             * @class I2Dto3DTransformDecomposer
              * @brief Decomposes 2D transform (ex Fundamental matrix) to 3D transform (ex camera pose).
              */
-                class  I2DTO3DTransformDecomposer : public virtual org::bcom::xpcf::IComponentIntrospect {
+                class  I2Dto3DTransformDecomposer : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
-                    /// @brief I2DTO3DTransformDecomposer default constructor.
-                    I2DTO3DTransformDecomposer() = default;
+                    /// @brief I2Dto3DTransformDecomposer default constructor.
+                    I2Dto3DTransformDecomposer() = default;
 
                     /// @brief IFundamentalMatrixDecomposer default destructor.
-                    virtual ~I2DTO3DTransformDecomposer() = default;
+                    virtual ~I2Dto3DTransformDecomposer() = default;
 
                     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                     /// @param[in] Camera calibration matrix parameters.
@@ -57,8 +57,8 @@ using namespace datastructure;
 }  // end of namespace Solar
 
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2DTO3DTransformDecomposer,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2Dto3DTransformDecomposer,
                              "0404e8b9-b824-4852-a34d-6eafa7563918",
-                             "SolAR::api::solver::pose::I2DTO3DTransformDecomposer interface");
+                             "SolAR::api::solver::pose::I2Dto3DTransformDecomposer interface");
 
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H
