@@ -8,11 +8,12 @@ namespace datastructure {
         m_countOfFramesSinceLastKframe = 0 ;
     }
 */
-    Frame::Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view)
+    Frame::Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view, Transform3Df pose)
     {
         m_keypoints = keypoints ;
         m_descriptor = descriptors ;
         m_view = view;
+        m_pose = pose;
         m_countOfFramesSinceLastKframe = 0 ;
     }
 
@@ -20,21 +21,14 @@ namespace datastructure {
     {
     }
 
-/*
-    void Frame::InitKeyPointsAndDescriptors(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors)
-    {
-        m_keypoints = keypoints ;
-        m_descriptor = descriptors ;
-    }
-*/
     void Frame::setReferenceKeyFrame(SRef<Keyframe> kframe)
     {
-        m_refrenceKeyFrame = kframe ;
+        m_referenceKeyFrame = kframe ;
     }
 
     SRef<Keyframe> Frame::getReferenceKeyFrame()
     {
-        return m_refrenceKeyFrame ;
+        return m_referenceKeyFrame ;
     }
 
 

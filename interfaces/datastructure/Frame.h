@@ -24,7 +24,7 @@ class SOLARFRAMEWORK_API Frame {
     ///
     /// @brief ~Frame
     public:
-    Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view);
+    Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view, Transform3Df pose);
 
     ~Frame();
 
@@ -65,7 +65,7 @@ class SOLARFRAMEWORK_API Frame {
 
     private:
     SRef<Image>                     m_view;
-    SRef<Keyframe>                  m_refrenceKeyFrame ;
+    SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptor;
     std::vector<SRef<Keypoint>>     m_keypoints ;
     std::vector<DescriptorMatch>    m_unknownMatchesWithReferenceKeyFrame ;

@@ -51,7 +51,7 @@ namespace SolAR {
                        virtual void associateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
 
 
-                       virtual int isKeyFrameCandidate(SRef<Frame> frame) = 0;
+                       virtual bool isKeyFrameCandidate(const std::vector<SRef<Keypoint>>& KeypointsRef, const std::vector<SRef<Keypoint>>& keypointsCurrent, const std::vector<DescriptorMatch>& matches) = 0;
 
                     };
             }
