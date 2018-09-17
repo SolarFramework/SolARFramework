@@ -42,7 +42,6 @@ interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
-interfaces/api/display/ISideBySideOverlay.h \
 interfaces/api/display/IImageViewer.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
@@ -93,7 +92,8 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
     interfaces/api/display/I3DPointsViewer.h \
     interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-    interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
+    interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+    interfaces/api/display/IMatchesOverlay.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
