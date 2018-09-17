@@ -23,7 +23,7 @@ set (HEADERS
 		interfaces/api/sink/IThirdPartyConnector.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
-		interfaces/api/display/ISideBySideOverlay.h
+		interfaces/api/display/IMatchesOverlay.h
 		interfaces/api/display/IImageViewer.h
 		interfaces/api/features/IContoursExtractor.h
 		interfaces/api/features/IDescriptorMatcher.h
