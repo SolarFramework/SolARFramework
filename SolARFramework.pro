@@ -39,7 +39,6 @@ HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/datastructure/SolARMatches.h \
 interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
@@ -67,7 +66,6 @@ interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
-interfaces/api/solver/pose/I3DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
@@ -88,12 +86,14 @@ interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Frame.h \
 interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
-interfaces/datastructure/Pose.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h
+interfaces/api/input/files/IMarker2DSquaredBinary.h \
+    interfaces/api/display/I3DPointsViewer.h \
+    interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+    interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
@@ -102,7 +102,6 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Keypoint.cpp \
     src/datastructure/Keyframe.cpp \
     src/datastructure/Frame.cpp \
-    src/datastructure/Pose.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/CloudPoint.cpp \
     src/datastructure/Map.cpp

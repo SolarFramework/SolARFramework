@@ -25,7 +25,6 @@
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "datastructure/Pose.h"
 #include "datastructure/Image.h"
 
 namespace SolAR {
@@ -45,9 +44,9 @@ public:
    /// \brief ~IThirdPartyConnector
    ///
    virtual ~IThirdPartyConnector() {};
-   virtual void set( const SRef<Pose>& pose, const SRef<Image>& image ) = 0;
-   virtual void get( SRef<Pose>& pose, SRef<Image>& image ) = 0;
-   virtual bool tryGet( SRef<Pose>& pose, SRef<Image>& image ) = 0;
+   virtual void set( const SRef<Transform3Df>& pose, const SRef<Image>& image ) = 0;
+   virtual void get( SRef<Transform3Df>& pose, SRef<Image>& image ) = 0;
+   virtual bool tryGet( SRef<Transform3Df>& pose, SRef<Image>& image ) = 0;
 
 };
 

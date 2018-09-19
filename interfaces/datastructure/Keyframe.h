@@ -22,7 +22,6 @@
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/CloudPoint.h"
-#include "datastructure/Pose.h"
 #include "datastructure/DescriptorBuffer.h"
 
 #include <memory>

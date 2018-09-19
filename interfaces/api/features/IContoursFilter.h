@@ -42,11 +42,6 @@ public:
    /// @brief IContoursFilter default destructor
    virtual ~IContoursFilter() = default;
 
-   /// @brief Set the minimum length of contours in pixels that will be filtered
-   /// Any contours that will have a length in pixel less than this value will be removed from the input filters
-   /// @param[in] minContourLength The minimum length in pixels of contours to remove
-   virtual void setParameters (float minContourLength) = 0;
-
    /// @brief Filter a set of contours
    /// @param[in] inContours The contours to filter
    /// @param[out] outContours The resulting vector of contours after filtering

@@ -22,7 +22,7 @@ public :
     /// \brief destructor
     ~Map() ;
 
-    void addCloudPoints(std::vector<SRef<CloudPoint>> & newMapPoints);
+    void addCloudPoints(const std::vector<SRef<CloudPoint>> & newMapPoints);
 
     SRef<std::vector<SRef<CloudPoint>>> getPointCloud() ;
 

@@ -37,14 +37,16 @@ namespace SolAR {
                                             std::vector<SRef<CloudPoint>>&new_cloud,
                                             std::vector<DescriptorMatch>&matches) = 0;
 
-					   virtual void addNewKeyFrame(const SRef<Keyframe> & kFrame) = 0 ;
-
+                       virtual void addNewKeyFrame(const SRef<Frame> & frame, SRef<Keyframe>& newKeyframe) = 0;
 
                        virtual SRef<Keyframe> getCurrentKeyframe(int idx) = 0;
 
+                       virtual SRef<Map> getMap() = 0 ;
 
-                        virtual SRef<Map> getMap() = 0 ;
-
+                       virtual bool updateMap(const SRef<Keyframe>&new_kframe,
+                                              const std::vector<DescriptorMatch>& found_matches,
+                                              const std::vector<DescriptorMatch>& new_matches,
+                                              const std::vector<SRef<CloudPoint>>& newCloud) = 0;
 
                        virtual void associateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
 
