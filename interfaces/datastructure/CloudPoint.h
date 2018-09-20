@@ -69,11 +69,6 @@ namespace datastructure {
         inline float getG() const {return m_g;}
         inline float getB() const {return m_b;}
 
-        inline float getX() const {return m_x;}
-        inline float getY() const {return m_y;}
-        inline float getZ() const {return m_z;}
-
-
     ///
     /// \brief This method returns the size of an Keypoint
     /// \return size
@@ -89,10 +84,6 @@ namespace datastructure {
         float             m_r;
         float             m_g;
         float             m_b;
-
-        double            m_x;
-        double            m_y;
-        double            m_z;
 
         double            m_reproj_error;
 	};
