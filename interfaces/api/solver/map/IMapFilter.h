@@ -11,7 +11,6 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Keyframe.h"
 #include "datastructure/CloudPoint.h"
 
 namespace SolAR {
@@ -31,11 +30,11 @@ class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
            virtual ~IMapFilter() {}
 
            /// @brief  Filter point cloud reconstructed from 2 viewpoints
-           /// @param[in] view1: the first keyframe used for building the point cloud.
-           /// @param[in] view2: the second keyframe used for building the point cloud.
-           /// @param[in] Set of triangulated 3d_points..
-           /// @param[out] filtered point cloud
-           virtual void  filter(const SRef<Keyframe> view1, const SRef<Keyframe> view2, const std::vector<SRef<CloudPoint>>& input,  std::vector<SRef<CloudPoint>>& output) = 0;
+           /// @param[in] pose1: the first pose used for building the point cloud.
+           /// @param[in] pose2: the second pose used for building the point cloud.
+           /// @param[in] input: The set of points to filter
+           /// @param[out] output: the filtered point cloud
+           virtual void  filter(const Transform3Df pose1, const Transform3Df pose2, const std::vector<SRef<CloudPoint>>& input,  std::vector<SRef<CloudPoint>>& output) = 0;
         };
 }
 
