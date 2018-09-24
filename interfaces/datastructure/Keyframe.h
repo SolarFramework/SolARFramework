@@ -19,15 +19,11 @@
 
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Image.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/CloudPoint.h"
-#include "datastructure/DescriptorBuffer.h"
+#include "Frame.h"
 
-#include <memory>
+//#include <memory>
 namespace SolAR {
 namespace datastructure {
-
 
 /**
  * @class Keyframe
@@ -35,49 +31,35 @@ namespace datastructure {
  *
  * This class provides Keyframe definition for slam utilities.
  */
-class SOLARFRAMEWORK_API Keyframe {
+class SOLARFRAMEWORK_API Keyframe : public Frame {
     ///
     /// @brief ~Keyframe
     public:
-    Keyframe();
-    ~Keyframe();
-    ///
-    ///@brief constructs a Pose from a rotation matrix of size 3x3 and a translation vector of size 3
-    /// @param rotation_matrix3x3, rotation matrix of size 3x3
-    /// @param translation vector, translation vector of size 3
-    Keyframe(SRef<Image>view,
-             SRef<DescriptorBuffer>desc,
-             int idx,
-             Transform3Df&pose,
-             std::vector<SRef<Keypoint>>kpts);
 
-	Keyframe(
-		SRef<DescriptorBuffer>desc,
-		int idx,
-		Transform3Df&pose,
-		std::vector<SRef<Keypoint>>kpts);
+    Keyframe(SRef<Frame> frame) : Frame(frame), m_idx(m_keyframeIdx++) {};
 
+    Keyframe(std::vector<SRef<Keypoint>> keypoints,
+             SRef<DescriptorBuffer> descriptors,
+             SRef<Image> view,
+             SRef<Keyframe> refKeyframe,
+             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose), m_idx(m_keyframeIdx++){};
 
+    Keyframe(std::vector<SRef<Keypoint>> keypoints,
+             SRef<DescriptorBuffer> descriptors,
+             SRef<Image> view,
+             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose), m_idx(m_keyframeIdx++){};
 
-    void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>  & mapPoints) ;
+    ~Keyframe() = default;
 
-    std::vector<SRef<CloudPoint>> & getVisibleMapPoints() ; // give a pointer?
+    void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
 
+    std::vector<SRef<CloudPoint>>& getVisibleMapPoints();
 
-    SRef<DescriptorBuffer> getDescriptors() ;
-
-    std::vector<SRef<Keypoint>> getKeyPoints() ;
-
-
-    SRef<Image> m_view;
     int m_idx;
-    Transform3Df m_pose;
 
-    private:    
-    SRef<DescriptorBuffer> m_descriptor;
-    std::vector<SRef<Keypoint>> m_keypoints;
+private:
+    static int m_keyframeIdx;
     std::vector<SRef<CloudPoint>> m_mapPoints;
-
 };
 
 }

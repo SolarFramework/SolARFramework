@@ -15,64 +15,23 @@
  */
 
 #include "datastructure/Keyframe.h"
+
 #include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
 namespace datastructure {
-        Keyframe::Keyframe(){
 
-        }
+int Keyframe::m_keyframeIdx = 0;
 
-        Keyframe::Keyframe(SRef<Image>view,
-                 SRef<DescriptorBuffer>desc,
-                 int idx,
-                 Transform3Df&pose,
-                 std::vector<SRef<Keypoint>>kpts): m_view(view),
-                                                   m_descriptor(desc),
-                                                   m_idx(idx),
-                                                   m_pose(pose),
-                                                   m_keypoints(kpts){
+void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints)
+{
+    m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
+}
 
-        }
+std::vector<SRef<CloudPoint>>& Keyframe::getVisibleMapPoints()
+{
+    return m_mapPoints;
+}
 
-		Keyframe::Keyframe(
-			SRef<DescriptorBuffer>desc,
-			int idx,
-			Transform3Df&pose,
-			std::vector<SRef<Keypoint>>kpts):
-			m_descriptor(desc),
-			m_idx(idx),
-			m_pose(pose),
-			m_keypoints(kpts) {
-			}
-
-
-
-        void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>> & mapPoints)
-        {
-            m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
-        }
-
-        std::vector<SRef<CloudPoint>> & Keyframe::getVisibleMapPoints()
-        {
-            return m_mapPoints ;
-        }
-
-
-        SRef<DescriptorBuffer> Keyframe::getDescriptors()
-        {
-            return m_descriptor ;
-        }
-
-        std::vector<SRef<Keypoint>> Keyframe::getKeyPoints()
-        {
-            return m_keypoints ;
-        }
-
-
-
-        Keyframe::~Keyframe(){
-
-        }
-    }
+}
 }
