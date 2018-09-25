@@ -66,7 +66,7 @@ public:
     virtual double triangulate(const std::vector<SRef<Point2Df>>& pointsView1,
                                const std::vector<SRef<Point2Df>>& pointView2,
                                const std::vector<DescriptorMatch>&matches,
-                               const std::pair<int,int>&working_views,
+                               const std::pair<unsigned int,unsigned int>&working_views,
                                const Transform3Df& poseView1,
                                const Transform3Df& poseView2,
                                std::vector<SRef<CloudPoint>>& pcloud)=0;
@@ -83,7 +83,7 @@ public:
     virtual double triangulate(const std::vector<SRef<Keypoint>>& keypointsView1,
                                const std::vector<SRef<Keypoint>>& keypointsView2,
                                const std::vector<DescriptorMatch>&matches,
-                               const std::pair<int,int>&working_views,
+                               const std::pair<unsigned int,unsigned int>&working_views,
                                const Transform3Df& poseView1,
                                const Transform3Df& poseView2,
                                std::vector<SRef<CloudPoint>>& pcloud)=0;
