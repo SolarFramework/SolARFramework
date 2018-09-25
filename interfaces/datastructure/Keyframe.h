@@ -20,6 +20,7 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "Frame.h"
+#include <map>
 
 //#include <memory>
 namespace SolAR {
@@ -51,15 +52,20 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 
     ~Keyframe() = default;
 
-    void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
+    //void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
+    void addVisibleMapPoints(const std::map<unsigned int, SRef<CloudPoint>>& mapPoints);
 
-    std::vector<SRef<CloudPoint>>& getVisibleMapPoints();
+    //std::vector<SRef<CloudPoint>>& getVisibleMapPoints();
+    std::map<unsigned int, SRef<CloudPoint>>& getVisibleMapPoints();
 
     int m_idx;
 
 private:
     static int m_keyframeIdx;
-    std::vector<SRef<CloudPoint>> m_mapPoints;
+
+    // @brief: A map storing the 3D points visibility, where the first element correspond to the index of the keypoint of the keyframe, and the second element to the corresponding cloudPoint.
+    std::map<unsigned int, SRef<CloudPoint>> m_mapVisibility;
+    //std::vector<SRef<CloudPoint>> m_mapPoints;
 };
 
 }
