@@ -50,6 +50,7 @@ namespace SolAR {
 
                        virtual void associateReferenceKeyFrameToFrame(SRef<Frame> frame) = 0 ;
 
+                       virtual std::vector<SRef<Keyframe>> getKeyframes() = 0;
 
                        virtual std::map<std::pair<int, int>, std::vector<DescriptorMatch> > getMatchesMatrix() = 0;
                        virtual int isKeyFrameCandidate(SRef<Frame> frame) = 0;
