@@ -79,6 +79,8 @@ namespace datastructure {
     /// \return size
     ///
         inline double getReprojError() const {return m_reproj_error;}
+        inline std::vector<int> getVisibility() const {return m_visibility;}
+
 
     ///
     /// \brief GetResponse
