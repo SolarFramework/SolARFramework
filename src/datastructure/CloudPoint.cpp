@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/CloudPoint.h"
-#include "datastructure/keyframe.h"
+#include "datastructure/Keyframe.h"
 #include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
