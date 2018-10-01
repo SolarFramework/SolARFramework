@@ -68,6 +68,8 @@ interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
