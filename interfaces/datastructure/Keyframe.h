@@ -63,7 +63,7 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 private:
     static int m_keyframeIdx;
 
-    // @brief: A map storing the 3D points visibility, where the first element correspond to the index of the keypoint of the keyframe, and the second element to the corresponding cloudPoint.
+    // @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the keyframe, and the second element to the corresponding cloudPoint.
     std::map<unsigned int, SRef<CloudPoint>> m_mapVisibility;
     //std::vector<SRef<CloudPoint>> m_mapPoints;
 };
