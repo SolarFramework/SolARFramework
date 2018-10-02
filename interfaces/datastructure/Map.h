@@ -26,8 +26,6 @@ public :
 
     SRef<std::vector<SRef<CloudPoint>>> getPointCloud() ;
 
-    void computeGravity(Point3Df &grav, float& maxDist) const ;
-
 private :
 
     SRef<std::vector<SRef<CloudPoint>>> m_pointCloud ;

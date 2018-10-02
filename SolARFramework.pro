@@ -42,7 +42,6 @@ interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
-interfaces/api/display/ISideBySideOverlay.h \
 interfaces/api/display/IImageViewer.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
@@ -69,9 +68,13 @@ interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
-interfaces/api/solver/map/IMapper.h\
+interfaces/api/solver/map/IMapper.h \
+interfaces/api/reloc/IKeyframeRetriever.h \
+interfaces/api/reloc/IRelocalizer.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -87,22 +90,16 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
-    interfaces/api/display/I3DPointsViewer.h \
-    interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-    interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
+interfaces/api/solver/map/IKeyframeSelector.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \
-    src/datastructure/Keyframe.cpp \
-    src/datastructure/Frame.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
+    src/datastructure/Frame.cpp \
+    src/datastructure/Keyframe.cpp \
     src/datastructure/CloudPoint.cpp \
     src/datastructure/Map.cpp
 
@@ -149,6 +146,9 @@ header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose
 header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
 
+header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
+header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
+
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 
@@ -169,7 +169,7 @@ INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
-
+INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 

@@ -23,9 +23,6 @@
 #include "datastructure/Image.h"
 #include "datastructure/SquaredBinaryPattern.h"
 
-#include "Geometry"
-#include "Dense"
-
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {

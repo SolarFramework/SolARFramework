@@ -23,7 +23,7 @@ set (HEADERS
 		interfaces/api/sink/IThirdPartyConnector.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
-		interfaces/api/display/ISideBySideOverlay.h
+		interfaces/api/display/IMatchesOverlay.h
 		interfaces/api/display/IImageViewer.h
 		interfaces/api/features/IContoursExtractor.h
 		interfaces/api/features/IDescriptorMatcher.h
@@ -53,6 +53,8 @@ set (HEADERS
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapFilter.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/reloc/IKeyframeRetriever.h
+		interfaces/api/reloc/IRelocalizer.h 
 		interfaces/core/SolARFramework.h
 		interfaces/core/Messages.h
 		interfaces/core/Log.h

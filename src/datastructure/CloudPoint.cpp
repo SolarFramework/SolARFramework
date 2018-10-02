@@ -15,6 +15,7 @@
  */
 
 #include "datastructure/CloudPoint.h"
+#include "datastructure/Keyframe.h"
 #include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
@@ -31,7 +32,7 @@ namespace SolAR {
                             float g,
                             float b,
                             double reproj_error,
-                            std::vector<int>&visibility): m_x(x),m_y(y), m_z(z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
+                            std::map<unsigned int, unsigned int> &visibility): Point3Df(x,y,z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
                                                           m_visibility(visibility){
     }
   }
