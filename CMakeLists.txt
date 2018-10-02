@@ -53,6 +53,8 @@ set (HEADERS
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapFilter.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/reloc/IKeyframeRetriever.h
+		interfaces/api/reloc/IRelocalizer.h 
 		interfaces/core/SolARFramework.h
 		interfaces/core/Messages.h
 		interfaces/core/Log.h
