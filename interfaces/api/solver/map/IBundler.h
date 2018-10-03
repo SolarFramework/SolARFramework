@@ -34,7 +34,9 @@ namespace SolAR {
 
                        virtual  bool adjustBundle(std::vector<SRef<Keyframe>>&framesToAdjust,
                                                   std::vector<SRef<CloudPoint>>&mapToAdjust,
-                                                  std::vector<int>&selectKeyframes) = 0;
+                                                  const CamCalibration &K,
+                                                  const CamDistortion &D,
+                                                  const std::vector<int>&selectKeyframes) = 0;
 
                        virtual  bool saveBundleProblem(std::string &path_ba) = 0;
 
