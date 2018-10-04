@@ -28,19 +28,12 @@ namespace SolAR {
                        ///
                        virtual ~IBundler() {}
 
-                       virtual  bool adjustBundle(const std::string&path_bundle,
-                                                  std::vector<SRef<CloudPoint>>& cloud_before,
-                                                  std::vector<SRef<CloudPoint>>& cloud_after) = 0;
 
                        virtual  bool adjustBundle(std::vector<SRef<Keyframe>>&framesToAdjust,
                                                   std::vector<SRef<CloudPoint>>&mapToAdjust,
                                                   const CamCalibration &K,
                                                   const CamDistortion &D,
                                                   const std::vector<int>&selectKeyframes) = 0;
-
-                       virtual  bool saveBundleProblem(std::string &path_ba) = 0;
-
-
             };
             }
         }
