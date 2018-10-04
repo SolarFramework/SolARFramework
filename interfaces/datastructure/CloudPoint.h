@@ -47,7 +47,7 @@ class Keyframe;
         /// @param[int] g-channel color value of the cloudpoint.
         /// @param[int] b-channel color value of the cloudpoint.
         /// @param[int] reprojection error of the cloudpoint.
-        /// @param[int] visibility pam of the cloudpoint.
+        /// @param[int] visibility map of the cloudpoint.
         ///
     CloudPoint( float x,
                 float y,

@@ -23,12 +23,13 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/Image.h"
+//#include "datastructure/GeometryDefinitions.h"
+//#include "datastructure/MathDefinitions.h"
+//#include "datastructure/Image.h"
+//#include "datastructure/Keyframe.h"
+//#include "datastructure/Keypoint.h"
+//#include "datastructure/CloudPoint.h"
 #include "datastructure/Keyframe.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/CloudPoint.h"
 #include "datastructure/DescriptorMatch.h"
 
 

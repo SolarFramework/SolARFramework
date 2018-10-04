@@ -77,10 +77,14 @@ interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
-interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h \
-interfaces/api/solver/map/ITriangulator.h \
-interfaces/api/solver/map/IMapFilter.h \
+interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/solver/map/ITriangulator.h\
+interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h \
+interfaces/api/reloc/IKeyframeRetriever.h \
+interfaces/api/reloc/IRelocalizer.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -154,6 +158,9 @@ header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose
 header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
 
+header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
+header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
+
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 
@@ -175,7 +182,7 @@ INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
-
+INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 
