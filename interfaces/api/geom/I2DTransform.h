@@ -55,6 +55,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::I2DTransform,
                              "dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f",
+                             "I2DTransform",
                              "SolAR::api::geom::I2DTransform");
 
 

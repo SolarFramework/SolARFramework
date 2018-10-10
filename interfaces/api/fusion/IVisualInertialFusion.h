@@ -83,6 +83,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::fusion::IVisualInertialFusion,
                          "3efaa1c6-85e4-11e8-adc0-fa7ae01bbebc",
+                         "IVisualInertialFusion",
                          "SolAR::api::fusion::IVisualInertialFusion Interface");
 
 #endif // SOLAR_IVISUALINERTIALFUSION_H

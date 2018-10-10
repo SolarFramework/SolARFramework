@@ -91,6 +91,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointDetector,
                              "0eadc8b7-1265-434c-a4c6-6da8a028e06e",
+                             "IKeypointDetector",
                              "SolAR::api::features::IKeypointDetector");
 
 #endif // SOLAR_IKEYPOINTDETECTOR_H

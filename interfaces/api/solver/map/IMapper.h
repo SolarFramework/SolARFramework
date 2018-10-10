@@ -66,6 +66,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
+                             "IMapper",
                              "SolAR::api::solver::map::IMapper interface");
 
 #endif // IMAPPER_H

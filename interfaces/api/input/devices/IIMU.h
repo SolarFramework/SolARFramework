@@ -90,6 +90,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::IIMU,
                          "9940fa48-10cf-11e8-b642-0ed5f89f718b",
+                         "IIMU",
                          "SolAR::api::input::devices::IIMU Interface");
 
 #endif // SOLAR_IIMU_H

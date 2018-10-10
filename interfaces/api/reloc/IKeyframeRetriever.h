@@ -61,6 +61,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::reloc::IKeyframeRetriever,
                              "f60980ce-bdbd-11e8-a355-529269fb1459",
+                             "IKeyframeRetriever",
                              "SolAR::api::reloc::IKeyframeRetriever");
 
 #endif // SOLAR_IKEYFRAMERETRIEVER_H

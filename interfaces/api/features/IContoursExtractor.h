@@ -55,6 +55,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IContoursExtractor,
                              "42d82ab6-cc62-11e7-abc4-cec278b6b50a",
+                             "IContoursExtractor",
                              "SolAR::api::features::IContoursExtractor");
 
 #endif // SOLAR_ICONTOURSEXTRACTOR_H

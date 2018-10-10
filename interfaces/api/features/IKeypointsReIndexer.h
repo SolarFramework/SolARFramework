@@ -58,6 +58,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointsReIndexer,
                              "920e64a2-df17-11e7-80c1-9a214cf093ae",
+                             "IKeypointsReIndexer",
                              "SolAR::api::features::IKeypointsReIndexer");
 
 #endif // SOLAR_IKEYPOINTSREINDEXER_H

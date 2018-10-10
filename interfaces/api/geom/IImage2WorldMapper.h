@@ -53,6 +53,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::IImage2WorldMapper,
                              "67bcd080-258d-4b16-b693-cd30c013eb05",
+                             "IImage2WorldMapper",
                              "SolAR::api::geom::IImage2WorldMapper");
 
 

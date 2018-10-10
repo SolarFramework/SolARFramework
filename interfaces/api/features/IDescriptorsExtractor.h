@@ -90,6 +90,7 @@ namespace features {
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorsExtractor,
                              "c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e",
+                             "IDescriptorsExtractor",
                              "SolAR::api::features::IDescriptorsExtractor");
 
 #endif // SOLAR_IDESCRIPTORSEXTRACTOR_H

@@ -61,6 +61,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::reloc::IRelocalizer,
                              "3531a734-be88-11e8-a355-529269fb1459",
+                             "IRelocalizer",
                              "SolAR::api::reloc::IRelocalizer");
 
 #endif // IRELOCALIZER_H

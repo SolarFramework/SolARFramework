@@ -69,6 +69,7 @@ using namespace datastructure;
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2D3DCorrespondencesFinder,
                              "0404e8b9-b824-4852-a34d-6eafa7563918",
+                             "I2D3DCorrespondencesFinder",
                              "SolAR::api::solver::pose::I2D3DCorrespondencesFinder");
 
 

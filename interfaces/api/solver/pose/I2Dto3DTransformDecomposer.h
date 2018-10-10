@@ -57,6 +57,7 @@ using namespace datastructure;
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2Dto3DTransformDecomposer,
                              "0404e8b9-b824-4852-a34d-6eafa7563918",
+                             "I2Dto3DTransformDecomposer",
                              "SolAR::api::solver::pose::I2Dto3DTransformDecomposer interface");
 
 #endif // SOLAR_IHOMOGRAPHYESTIMATION_H

@@ -51,6 +51,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageLoader,
                              "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B",
+                             "IImageLoader",
                              "SolAR::IImageLoader interface");
 
 #endif // SOLAR_IIMAGELOADER_H

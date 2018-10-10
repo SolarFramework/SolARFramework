@@ -53,6 +53,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICameraCalibration,
                              "0e83b228-b9ca-413d-9dc2-db45c427428b",
+                             "ICameraCalibration",
                              "SolAR::api::input::devices::ICameraCalibration interface");
 
 #endif // SOLAR_ICAMERACALIBRATION_H

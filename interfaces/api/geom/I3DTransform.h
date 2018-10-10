@@ -54,6 +54,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::I3DTransform,
                              "9c1052b2-46c0-467b-8363-36f19b6b445f",
+                             "I3DTransform",
                              "SolAR::api::geom::I3DTransform");
 
 

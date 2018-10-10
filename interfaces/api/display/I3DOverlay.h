@@ -58,6 +58,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I3DOverlay,
                              "81a20f52-6bf9-4949-b914-df2f614bc945",
+                             "I3DOverlay",
                              "SolAR::I3DOverlay interface")
 
 #endif // SOLAR_I3DOVERLAY_H

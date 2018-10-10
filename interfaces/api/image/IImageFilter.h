@@ -41,6 +41,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageFilter,
                              "f7948ae2-e994-416f-be40-dd404ca03a83",
+                             "IImageFilter",
                              "SolAR::api::image::IImageFilter");
 
 
