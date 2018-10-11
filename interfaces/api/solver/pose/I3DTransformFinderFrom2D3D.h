@@ -23,7 +23,6 @@
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
-#include "datastructure/Pose.h"
 #include "datastructure/Image.h"
 
 namespace SolAR {
@@ -50,8 +49,8 @@ namespace SolAR {
                     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                     /// @param[in] imagePoints, set of 2d_points seen in view_1.
                     /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
-                    /// @param[out] pose, camera pose (pose of the world in the coordinate system of the camera) expressed as a Transform3D.
-                    /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success).
+                    /// @param[out] pose, camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
+                    /// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                                          Transform3Df & pose,
@@ -63,8 +62,8 @@ namespace SolAR {
                     /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
                     /// @param[out] imagePoints_inlier, image 2d points that are inliers
                     /// @param[out] worldPoints_inlier, world 3d points that are inliers.
-                    /// @param[out] pose, camera pose (pose of the world in the coordinate system of the camera) expressed as a Transform3D.
-                    /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success).
+                    /// @param[out] pose, camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
+                    /// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
                     virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
                                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                                          std::vector<SRef<Point2Df>>&imagePoints_inlier,

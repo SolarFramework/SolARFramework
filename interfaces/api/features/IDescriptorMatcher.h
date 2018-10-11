@@ -71,8 +71,8 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer>& descriptors1,
-               SRef<DescriptorBuffer>& descriptors2,
+               SRef<DescriptorBuffer> descriptors1,
+               SRef<DescriptorBuffer> descriptors2,
                std::vector<DescriptorMatch>& matches
             )=0;
 
@@ -82,7 +82,7 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer>& descriptors1,
+               SRef<DescriptorBuffer> descriptors1,
                std::vector<SRef<DescriptorBuffer>>& descriptors2,
                std::vector<DescriptorMatch>& matches
             )=0;            

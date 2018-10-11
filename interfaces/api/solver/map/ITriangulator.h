@@ -1,13 +1,29 @@
+/**
+ * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef ITRIANGULATOR_H
 #define ITRIANGULATOR_H
 
+#ifndef _BCOM_SHARED
+#define _BCOM_SHARED
+#endif // _BCOM_SHARED
+
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/Image.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/CloudPoint.h"
+#include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
 
 
@@ -46,7 +62,7 @@ public:
     virtual double triangulate(const std::vector<SRef<Point2Df>>& pointsView1,
                                const std::vector<SRef<Point2Df>>& pointView2,
                                const std::vector<DescriptorMatch>&matches,
-                               const std::pair<int,int>&working_views,
+                               const std::pair<unsigned int,unsigned int>&working_views,
                                const Transform3Df& poseView1,
                                const Transform3Df& poseView2,
                                std::vector<SRef<CloudPoint>>& pcloud)=0;
@@ -63,10 +79,20 @@ public:
     virtual double triangulate(const std::vector<SRef<Keypoint>>& keypointsView1,
                                const std::vector<SRef<Keypoint>>& keypointsView2,
                                const std::vector<DescriptorMatch>&matches,
-                               const std::pair<int,int>&working_views,
+                               const std::pair<unsigned int,unsigned int>&working_views,
                                const Transform3Df& poseView1,
                                const Transform3Df& poseView2,
                                std::vector<SRef<CloudPoint>>& pcloud)=0;
+
+    /// @brief triangulate pairs of points 2d captured from current keyframe with its reference keyframe using their poses (with respect to the camera instrinsic parameters).
+    /// @param[in] curKeyframe, current keyframe.
+    /// @param[in] matches, the matches between the keypoints of the view1 and the keypoints of the view 2.
+    /// @param[out] pcloud, Set of triangulated 3d_points.
+    /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
+    virtual double triangulate(	const SRef<Keyframe> &curKeyframe,
+                                const std::vector<DescriptorMatch>&matches,
+                                std::vector<SRef<CloudPoint>>& pcloud)=0;
+
 };
 
 }

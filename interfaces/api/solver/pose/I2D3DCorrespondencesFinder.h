@@ -23,11 +23,7 @@
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
-#include "datastructure/Pose.h"
-#include "datastructure/CloudPoint.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/DescriptorMatch.h"
-
+#include "datastructure/Keyframe.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -36,7 +32,7 @@ using namespace datastructure;
             namespace pose {
             /**
              * @class I2D3DCorrespondencesFinder
-             * @brief Decomposes 2D transform (ex Fundamental matrix) to 3D transform (ex camera pose).
+             * @brief Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them eir relative matches, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
              */
                 class  I2D3DCorrespondencesFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:
@@ -47,20 +43,21 @@ using namespace datastructure;
                     ///
                     virtual ~I2D3DCorrespondencesFinder() = default;
                     /// @brief .
-                    /// @param[in].
-                    /// @param[in].
-                    /// @param[in].
-                    /// @param[in].
-                    /// @param[out].
-                    /// @param[out].
-                    virtual FrameworkReturnCode  find(const std::vector<SRef<CloudPoint>>&cloud,
-                                                      const int keyframe_idx,
+                    /// @param[in] referenceKeyfram: The reference keyframe which have both 2D-3D correspondences and matches with th ecurrent frame.
+                    /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
+                    /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
+                    /// @param[out] shared_mapPoint: The 3D cloud points visible from the current frame.
+                    /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
+                    /// @param[out] shared_2Dpoint: The 2D point in the current frame that correspond to a 3D point.
+                    /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
+                    /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
+                    virtual FrameworkReturnCode  find(const SRef<Keyframe> referenceKeyframe,
+                                                      const SRef<Frame> currentFrame,
                                                       const std::vector<DescriptorMatch>&current_matches,
-                                                      const std::vector<SRef<Keypoint>>&current_kpoints,
                                                       std::vector<SRef<CloudPoint>>&shared_mapPoint,
                                                       std::vector<SRef<Point3Df>>&shared_3dpoint,
                                                       std::vector<SRef<Point2Df>>&shared_2dpoint,
-													  std::vector<DescriptorMatch> & found_matches , 
+                                                      std::vector<DescriptorMatch> & found_matches,
                                                       std::vector<DescriptorMatch> & remaining_matches)=0;
 
                 };

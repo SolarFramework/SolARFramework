@@ -11,7 +11,6 @@ set (SOURCES
 		src/datastructure/Keypoint.cpp
 		src/datastructure/Keyframe.cpp
 		src/datastructure/Frame.cpp
-		src/datastructure/Pose.cpp
 		src/datastructure/SquaredBinaryPattern.cpp
 		src/datastructure/CloudPoint.cpp
 		src/datastructure/Map.cpp
@@ -24,7 +23,7 @@ set (HEADERS
 		interfaces/api/sink/IThirdPartyConnector.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
-		interfaces/api/display/ISideBySideOverlay.h
+		interfaces/api/display/IMatchesOverlay.h
 		interfaces/api/display/IImageViewer.h
 		interfaces/api/features/IContoursExtractor.h
 		interfaces/api/features/IDescriptorMatcher.h
@@ -54,6 +53,8 @@ set (HEADERS
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapFilter.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/reloc/IKeyframeRetriever.h
+		interfaces/api/reloc/IRelocalizer.h 
 		interfaces/core/SolARFramework.h
 		interfaces/core/Messages.h
 		interfaces/core/Log.h
@@ -68,7 +69,6 @@ set (HEADERS
 		interfaces/datastructure/Frame.h
 		interfaces/datastructure/Map.h
 		interfaces/datastructure/MathDefinitions.h
-		interfaces/datastructure/Pose.h
 		interfaces/datastructure/SquaredBinaryPattern.h
 		interfaces/api/input/files/IMarker.h
 		interfaces/api/input/files/IMarker2DNaturalImage.h

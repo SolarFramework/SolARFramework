@@ -1,97 +1,65 @@
+/**
+ * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "datastructure/Frame.h"
+#include "datastructure/Keyframe.h"
+
 namespace SolAR {
 namespace datastructure {
 
-/*
-    Frame::Frame()
-    {
-        m_countOfFramesSinceLastKframe = 0 ;
-    }
-*/
-    Frame::Frame(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view)
-    {
-        m_keypoints = keypoints ;
-        m_descriptor = descriptors ;
-        m_view = view;
-        m_countOfFramesSinceLastKframe = 0 ;
-    }
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()){}
 
-    Frame::~Frame()
-    {
-    }
+Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
 
-/*
-    void Frame::InitKeyPointsAndDescriptors(std::vector<SRef<Keypoint>> keypoints, SRef<DescriptorBuffer> descriptors)
-    {
-        m_keypoints = keypoints ;
-        m_descriptor = descriptors ;
-    }
-*/
-    void Frame::setReferenceKeyFrame(SRef<Keyframe> kframe)
-    {
-        m_refrenceKeyFrame = kframe ;
-    }
+Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
 
-    SRef<Keyframe> Frame::getReferenceKeyFrame()
-    {
-        return m_refrenceKeyFrame ;
-    }
+SRef<Image>  Frame::getView()
+{
+    return m_view;
+}
 
+Transform3Df Frame::getPose()
+{
+    return m_pose;
+}
 
-    SRef<DescriptorBuffer> Frame::getDescriptors()
-    {
-        return m_descriptor ;
-    }
+void Frame::setPose(Transform3Df& pose)
+{
+    m_pose = pose;
+}
 
-    std::vector<SRef<Keypoint>> Frame::getKeyPoints()
-    {
-        return m_keypoints ;
-    }
+SRef<DescriptorBuffer> Frame::getDescriptors() const
+{
+    return m_descriptors;
+}
 
-    void   Frame::setNumberOfFramesSinceLastKeyFrame(unsigned int nbFrames)
-    {
-       m_countOfFramesSinceLastKframe = nbFrames ;  ;
-    }
+std::vector<SRef<Keypoint>> Frame::getKeypoints() const
+{
+    return m_keypoints;
+}
 
-    unsigned int Frame::getNumberOfFramesSinceLastKeyFrame() const
-    {
-        return m_countOfFramesSinceLastKframe ;
-    }
+void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
+{
+    m_referenceKeyFrame = keyframe;
+}
 
-    void  Frame::setUnknownMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches)
-    {
-        m_unknownMatchesWithReferenceKeyFrame = matches ;
-    }
+SRef<Keyframe> Frame::getReferenceKeyframe()
+{
+    return m_referenceKeyFrame;
+}
 
-    std::vector<DescriptorMatch> &   Frame::getUnknownMatchesWithReferenceKeyFrame()
-    {
-        return m_unknownMatchesWithReferenceKeyFrame; //
-    }
-
-	void  Frame::setKnownMatchesWithReferenceKeyFrame(std::vector<DescriptorMatch> & matches)
-	{
-		m_knownMatchesWithReferenceKeyFrame = matches;
-	}
-
-	std::vector<DescriptorMatch> &   Frame::getKnownMatchesWithReferenceKeyFrame()
-	{
-		return m_knownMatchesWithReferenceKeyFrame; //
-	}
-
-    void Frame::addCommonMapPointsWithReferenceKeyFrame(std::vector<SRef<CloudPoint>> & points)
-    {
-        m_trackedPoints.insert(m_trackedPoints.end(), points.begin(), points.end());
-    }
-
-    std::vector<SRef<CloudPoint>> &  Frame::getCommonMapPointsWithReferenceKeyFrame()
-    {
-        return m_trackedPoints ;
-    }
-
-
-    /*unsigned int  Frame::getNumberOfMatchesWithReferenceKeyFrame()
-    {
-        return static_cast<unsigned int>(m_matchesWithReferenceKeyFrame.size()) ;
-    }*/
 }
 }
