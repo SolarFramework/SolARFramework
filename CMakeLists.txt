@@ -25,6 +25,7 @@ set (HEADERS
 		interfaces/api/display/I3DOverlay.h
 		interfaces/api/display/IMatchesOverlay.h
 		interfaces/api/display/IImageViewer.h
+		interfaces/api/display/I3DPointsViewer.h
 		interfaces/api/features/IContoursExtractor.h
 		interfaces/api/features/IDescriptorMatcher.h
 		interfaces/api/features/IContoursFilter.h

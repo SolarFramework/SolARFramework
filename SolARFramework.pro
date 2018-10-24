@@ -25,7 +25,7 @@ CONFIG(release,debug|release) {
     DEFINES += _NDEBUG=1
     DEFINES += NDEBUG=1
 }
-
+PROJECTDEPLOYDIR = $$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}/$${VERSION}
 DEPENDENCIESCONFIG = shared
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
@@ -43,6 +43,8 @@ interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
+interfaces/api/display/IMatchesOverlay.h \
+interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IContoursFilter.h \
@@ -75,6 +77,8 @@ interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
+interfaces/api/example/IInterface1.h \
+interfaces/api/example/IInterface2.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -149,6 +153,9 @@ header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 
+header_interfaces_example.path = $${PROJECTDEPLOYDIR}/interfaces/api/example/
+header_interfaces_example.files = $$files($${PWD}/interfaces/api/example/*.h*)
+
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 
@@ -172,6 +179,7 @@ INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
+INSTALLS += header_interfaces_example
 
 
 
