@@ -45,6 +45,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::example::IInterface1,
                              "b713caa4-832d-4d2e-9cc1-651e33fe49c2",
+                             "IInterface1",
                              "SolAR::IInterface1 interface");
 
 #endif // SOLAR_IINTERFACEEXAMPLE1_H
