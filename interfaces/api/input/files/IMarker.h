@@ -42,6 +42,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker,
                              "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "IMarker",
                              "SolAR::api::input::files::IMarker interface");
 
 #endif // SOLAR_IMARKER_H

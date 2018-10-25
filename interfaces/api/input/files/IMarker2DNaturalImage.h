@@ -64,6 +64,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DNaturalImage,
                              "8fed06f8-c54d-11e7-abc4-cec278b6b50a",
+                             "IMarker2DNaturalImage",
                              "SolAR::api::input::files::IMarker2DNaturalImage interface");
 
 #endif
