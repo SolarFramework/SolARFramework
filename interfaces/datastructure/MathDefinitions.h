@@ -18,7 +18,7 @@
 #define SOLAR_MATHSDEFINITIONS_H
 
 #define EIGEN_DEFAULT_TO_ROW_MAJOR
-#include "Eigen/Eigen"
+#include <Eigen>
 
 #define SOLAR_PI           3.14159265358979323846
 #define SOLAR_RAD2DEG      57.29577951308233
