@@ -18,7 +18,7 @@
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
 
-#include "MathDefinitions.h"
+#include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 
 namespace SolAR {

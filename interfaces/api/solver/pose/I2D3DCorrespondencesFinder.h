@@ -60,6 +60,15 @@ using namespace datastructure;
                                                       std::vector<DescriptorMatch> & found_matches,
                                                       std::vector<DescriptorMatch> & remaining_matches)=0;
 
+					virtual FrameworkReturnCode find(	const SRef<Frame> lastFrame,
+														const SRef<Frame> currentFrame,
+														const std::vector<DescriptorMatch>&current_matches,
+														std::vector<SRef<CloudPoint>>&shared_mapPoint,
+														std::vector<SRef<Point3Df>>&shared_3dpoint,
+														std::vector<SRef<Point2Df>>&shared_2dpoint,
+														std::vector<DescriptorMatch> & found_matches,
+														std::vector<DescriptorMatch> & remaining_matches) = 0;
+
                 };
             }
         }
