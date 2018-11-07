@@ -55,17 +55,6 @@ public:
                                         const std::vector<SRef<CloudPoint>>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
-    virtual FrameworkReturnCode displayClouds(const std::vector<SRef<CloudPoint>>&points_1,
-                                              const std::vector<SRef<CloudPoint>>&points_2,
-                                              std::vector<float>& color0,
-                                              std::vector<float>& color1)= 0;
-
-    virtual FrameworkReturnCode displayCloudsAndPoses(const std::vector<SRef<CloudPoint>>&points_1,
-                                              const std::vector<SRef<CloudPoint>>&points_2,
-                                              const std::vector<Transform3Df>&poses_1,
-                                              const std::vector<Transform3Df>&poses_2,
-                                              std::vector<float>& color0,
-                                              std::vector<float>& colo1) = 0;
 
 
 };
