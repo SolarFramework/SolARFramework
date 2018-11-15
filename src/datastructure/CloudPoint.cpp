@@ -25,9 +25,9 @@ namespace SolAR {
 
     }
 
-    CloudPoint::CloudPoint( double x,
-                            double y,
-                            double z,
+    CloudPoint::CloudPoint( float x,
+                            float y,
+                            float z,
                             float r,
                             float g,
                             float b,

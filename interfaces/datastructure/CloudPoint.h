@@ -49,9 +49,9 @@ class Keyframe;
         /// @param[int] reprojection error of the cloudpoint.
         /// @param[int] visibility map of the cloudpoint.
         ///
-    CloudPoint( double x,
-                double y,
-                double z,
+    CloudPoint( float x,
+                float y,
+                float z,
                 float r,
                 float g,
                 float b,

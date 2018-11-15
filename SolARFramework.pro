@@ -43,6 +43,8 @@ interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
+interfaces/api/display/IMatchesOverlay.h \
+interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IContoursFilter.h \
@@ -63,6 +65,14 @@ interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
+interfaces/api/input/files/IMarker.h \
+interfaces/api/input/files/IMarker2DNaturalImage.h \
+interfaces/api/input/files/IMarker2DSquared.h \
+interfaces/api/input/files/IMarker2DSquaredBinary.h \
+interfaces/api/reloc/IKeyframeRetriever.h \
+interfaces/api/reloc/IRelocalizer.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
@@ -91,7 +101,6 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
-<<<<<<< HEAD
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
@@ -99,9 +108,7 @@ interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
-=======
 interfaces/api/solver/map/IKeyframeSelector.h
->>>>>>> develop
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
@@ -149,6 +156,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
+header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
@@ -177,6 +186,7 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
