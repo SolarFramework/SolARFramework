@@ -1,6 +1,11 @@
 #ifndef IBUNDLER_H
 #define IBUNDLER_H
 
+#ifndef _BCOM_SHARED
+#define _BCOM_SHARED
+#endif // _BCOM_SHARED
+
+
 // Definition of IMapper Class //
 // part of SolAR namespace //
 
@@ -29,11 +34,15 @@ namespace SolAR {
                        virtual ~IBundler() {}
 
 
+
+
                        virtual  bool adjustBundle(std::vector<SRef<Keyframe>>&framesToAdjust,
                                                   std::vector<SRef<CloudPoint>>&mapToAdjust,
                                                   const CamCalibration &K,
                                                   const CamDistortion &D,
                                                   const std::vector<int>&selectKeyframes) = 0;
+
+
             };
             }
         }

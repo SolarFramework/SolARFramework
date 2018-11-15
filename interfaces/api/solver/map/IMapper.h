@@ -57,6 +57,10 @@ public:
                                        const std::vector<SRef<CloudPoint>>& newCloud = {},
                                        const std::vector<DescriptorMatch>& newPointsMatches = {},
                                        const std::vector<DescriptorMatch>& existingPointsMatches = {}) = 0;
+
+
+    virtual std::vector<SRef<Keyframe>> getKeyframes() = 0;
+    virtual SRef<Map> getMap() = 0;
 };
 
 }
