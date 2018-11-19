@@ -55,6 +55,8 @@ public:
                                         const std::vector<SRef<CloudPoint>>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
+
+
 };
 }
 }

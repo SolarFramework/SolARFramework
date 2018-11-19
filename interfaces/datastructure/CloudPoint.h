@@ -75,7 +75,8 @@ class Keyframe;
     /// \brief This method returns reprojection error of the PointCloud
     /// \return teh reprojection error
     ///
-    inline double getReprojError() const {return m_reproj_error;}
+      inline double getReprojError() const {return m_reproj_error;}
+      inline  std::map<unsigned int, unsigned int> getVisibility() const {return m_visibility;}
 
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
