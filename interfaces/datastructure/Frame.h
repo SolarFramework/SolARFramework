@@ -26,6 +26,8 @@ class SOLARFRAMEWORK_API Frame {
 
 public:
     Frame(const SRef<Frame> frame);
+	
+	Frame(const SRef<Keyframe> keyframe);
 
     Frame(const std::vector<SRef<Keypoint>> keypoints,
           const SRef<DescriptorBuffer> descriptors,
@@ -55,6 +57,10 @@ public:
 
     std::vector<SRef<Keypoint>> getKeypoints() const;
 
+	std::map<unsigned int, unsigned int> getVisibleKeypoints();
+
+	void addVisibleKeypoints(const std::map<unsigned int, unsigned int>& kpVisibility);
+
 protected:
     ///@brief pose of current frame
     Transform3Df                    m_pose;
@@ -62,6 +68,8 @@ protected:
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<SRef<Keypoint>>     m_keypoints ;
+
+	std::map<unsigned int, unsigned int > m_kpVisibility;
 
 };
 
