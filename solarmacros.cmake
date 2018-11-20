@@ -79,8 +79,9 @@ macro (processPackagedependencies)
 	  list(GET PKGDATA 3 PKGPARENTDIR)
 	  set (PKGPATH "$ENV{BCOMDEVROOT}/${PKGPARENTDIR}/${PKGNAME}/${PKGVERSION}")
 	  # save the version of packages in variables ; example : SOLARMODULEOPENCV_VERSION will be set to 0.4.0, OPENCV_VERSION will be set to 3.4.3, etc.
-	  set (${PKGNAME}_VERSION ${PKGVERSION})
-	  string (TOUPPER "${${PKGNAME}_VERSION}" ${PKGNAME}_VERSION)
+	  string (TOUPPER "${PKGNAME}" PKGNAME_UP)
+	  set (${PKGNAME_UP}_VERSION ${PKGVERSION})
+	  message (STATUS "##### ${PKGNAME_UP}_VERSION version is ${${PKGNAME_UP}_VERSION}")
 	  
 	  process3rdParty("${PKGNAME}" ${PKGPATH})
 	endforeach(file)
@@ -138,7 +139,7 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 									${BOOST_CFLAGS_OTHER}								
 								)			
 	target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES_DEBUG} ${LINK_LIBRARIES_RELEASE})
-	# message (STATUS "${LINK_LIBRARIES_RELEASE}")
+	message (STATUS "${LINK_LIBRARIES_RELEASE}")
 	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
