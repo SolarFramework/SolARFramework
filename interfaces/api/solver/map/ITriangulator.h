@@ -108,6 +108,6 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::ITriangulator,
                              "3a01b0e9-9a76-43f5-97b3-85bb6979b953",
                              "ITriangulator",
-                             "SolAR::api::solver::map::ITriangulator interface");
+                             "SolAR::api::solver::map::ITriangulator defines triangulation interface between 2 frames and 2D correspondences.");
 
 #endif // ITRIANGULATOR_H

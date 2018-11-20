@@ -60,7 +60,7 @@ class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapFilter,
                              "e0d6cc82-6af2-493d-901a-2384fca0b16f",
                              "IMapFilter",
-                             "SolAR::api::solver::map::IMapFilter interface");
+                             "SolAR::api::solver::map::IMapFilter interface defines how to filter a reconstructed point cloud from 2 viewpoints.");
 
 
 #endif // IMAPPER_H

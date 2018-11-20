@@ -71,6 +71,6 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
                              "IMapper",
-                             "SolAR::api::solver::map::IMapper interface");
+                             "SolAR::api::solver::map::IMapper defines the interface of a mapper that considered a map, keyframe, point cloud to update the map representation in the 3D scene.");
 
 #endif // IMAPPER_H

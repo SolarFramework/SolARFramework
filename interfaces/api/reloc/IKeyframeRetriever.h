@@ -62,6 +62,6 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::reloc::IKeyframeRetriever,
                              "f60980ce-bdbd-11e8-a355-529269fb1459",
                              "IKeyframeRetriever",
-                             "SolAR::api::reloc::IKeyframeRetriever");
+                             "SolAR::api::reloc::IKeyframeRetriever describes the interface to retrieve a set of keyframes corresponding to a given frame.");
 
 #endif // SOLAR_IKEYFRAMERETRIEVER_H
