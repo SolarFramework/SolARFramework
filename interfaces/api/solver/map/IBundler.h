@@ -52,6 +52,6 @@ namespace SolAR {
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IBundler,
                              "35b9bdb7-d23c-4909-984f-ae7f9a292e6c",
                              "IBundler",
-                             "SolAR::api::solver::map::IBundler interface");
+                             "SolAR::api::solver::map::IBundler interface for a bundle adjustement solver.");
 
 #endif // IMAPPER_H
