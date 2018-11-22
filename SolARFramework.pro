@@ -196,5 +196,7 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 
-
+solarmacros.path=$$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}
+solarmacros.files=$$files($${PWD}/solarmacros.cmake)
+INSTALLS += solarmacros
 
