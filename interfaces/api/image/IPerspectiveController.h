@@ -61,6 +61,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IPerspectiveController,
                              "4a7d5c34-cd6e-11e7-abc4-cec278b6b50a",
+                             "IPerspectiveController",
                              "SolAR::api::image::IPerspectiveController");
 
 

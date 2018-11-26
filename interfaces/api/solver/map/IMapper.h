@@ -57,6 +57,10 @@ public:
                                        const std::vector<SRef<CloudPoint>>& newCloud = {},
                                        const std::vector<DescriptorMatch>& newPointsMatches = {},
                                        const std::vector<DescriptorMatch>& existingPointsMatches = {}) = 0;
+
+
+    virtual std::vector<SRef<Keyframe>> getKeyframes() = 0;
+    virtual SRef<Map> getMap() = 0;
 };
 
 }
@@ -66,6 +70,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
-                             "SolAR::api::solver::map::IMapper interface");
+                             "IMapper",
+                             "SolAR::api::solver::map::IMapper defines the interface of a mapper that considered a map, keyframe, point cloud to update the map representation in the 3D scene.");
 
 #endif // IMAPPER_H

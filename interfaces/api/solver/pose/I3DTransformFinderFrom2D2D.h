@@ -80,6 +80,7 @@ namespace SolAR {
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinderFrom2D2D,
                              "6063a606-9d30-11e8-98d0-529269fb1459",
+                             "I3DTransformFinderFrom2D2D",
                              "SolAR::api::solver::pose::I3DTransformFinderFrom2D2D");
 
 

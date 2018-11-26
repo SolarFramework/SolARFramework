@@ -29,6 +29,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2Dto3DTransformDecomposerValidation,
                              "ee990fc4-ec74-4365-8fa8-b2c94845fde6",
+                             "I2Dto3DTransformDecomposerValidation",
                              "SolAR::api::solver::pose::I2Dto3DTransformDecomposerValidation");
 
 #endif // I2DTO3DTRANSFORMDECOMPOSERVALIDATION_H

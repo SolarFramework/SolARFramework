@@ -54,6 +54,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IContoursFilter,
                              "6b3de3a0-cc72-11e7-abc4-cec278b6b50a",
+                             "IContoursFilter",
                              "SolAR::api::features::IContoursFilter");
 
 #endif // SOLAR_ICONTOURSFILTER_H

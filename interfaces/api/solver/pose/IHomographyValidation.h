@@ -52,6 +52,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::IHomographyValidation,
                              "e95e8f70-dd32-11e7-9296-cec278b6b50a",
+                             "IHomographyValidation",
                              "SolAR::api::solver::pose::IHomographyValidation");
 
 #endif // SOLAR_IHOMOGRAPHYVALIDATION_H

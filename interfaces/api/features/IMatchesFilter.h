@@ -36,6 +36,7 @@ namespace features {
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IMatchesFilter,
                              "e0d6cc82-6af2-493d-901a-2384fca0b16f",
+                             "IMatchesFilter",
                              "SolAR::api::features::IMatchesFilter");
 
 

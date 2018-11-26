@@ -58,7 +58,8 @@ public:
 }
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IKeyframeSelector,
                              "4d5f2abe-beb7-11e8-a355-529269fb1459",
-                             "SolAR::api::solver::map::IKeyframeSelector interface");
+                             "IKeyframeSelector",
+                             "SolAR::api::solver::map::IKeyframeSelector interface to determine if a frame can be considered as a keyframe.");
 
 
 #endif // IKEYFRAMESELECTOR_H

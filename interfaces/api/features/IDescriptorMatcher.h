@@ -95,6 +95,7 @@ namespace features {
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcher,
                              "dda38a40-c50a-4e7d-8433-0f04c7c98518",
+                             "IDescriptorMatcher",
                              "SolAR::api::features::IDescriptorMatcher");
 
 #endif // SOLAR_IDESCRIPTORMATCHER_H

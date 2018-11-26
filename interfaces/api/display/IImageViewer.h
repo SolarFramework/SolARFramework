@@ -49,6 +49,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::IImageViewer,
                              "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "IImageViewer",
                              "SolAR::IImageViewer interface")
 
 #endif

@@ -56,6 +56,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::ISBPatternReIndexer,
                              "79c5b810-d557-11e7-9296-cec278b6b50a",
+                             "ISBPatternReIndexer",
                              "SolAR::api::features::ISBPatternReIndexer")
 
 

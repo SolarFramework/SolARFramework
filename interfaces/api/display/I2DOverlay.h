@@ -91,6 +91,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I2DOverlay,
                              "62b8b0b5-9344-40e6-a288-e609eb3ff0f1",
+                             "I2DOverlay",
                              "SolAR::I2DOverlay interface")
 
 #endif // SOLAR_I2DOVERLAY_H

@@ -55,6 +55,8 @@ public:
                                         const std::vector<SRef<CloudPoint>>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
+
+
 };
 }
 }
@@ -62,6 +64,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I3DPointsViewer,
                              "575d365a-9a27-11e8-9eb6-529269fb1459",
+                             "I3DPointsViewer",
                              "SolAR::I3DPointsViewer interface")
 
 #endif // I3DPOINTSVIEWER_H

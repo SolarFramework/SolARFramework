@@ -51,6 +51,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageConvertor,
                              "9c982719-6cb4-4831-aa88-9e01afacbd16",
+                             "IImageConvertor",
                              "SolAR::api::image::IImageConvertor");
 
 #endif //SOLAR_IIMAGECONVERTOR_H

@@ -88,6 +88,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::IMatchesOverlay,
                              "a801354a-3e00-467c-b390-48c76fa8c53a",
+                             "ISideBySideOverlay",
                              "SolAR::ISideBySideOverlay interface")
 
 #endif // SOLAR_IMATCHESOVERLAY_H

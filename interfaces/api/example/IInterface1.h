@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IIMAGEFILTER_H
-#define SOLAR_IIMAGEFILTER_H
+#ifndef SOLAR_IINTERFACEEXAMPLE1_H
+#define SOLAR_IINTERFACEEXAMPLE1_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+
 #include "core/Messages.h"
-#include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
-namespace image {
+namespace example {
 
-class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+///
+/// \brief The IInterface1 class
+///
+class IInterface1 : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
-    IImageFilter() = default;
-    virtual ~IImageFilter() = default;
+    virtual ~IInterface1() = default;
+    ///
+    /// \brief example interface # 1
+    ///
+    virtual FrameworkReturnCode function1(int var) = 0;
 
-    virtual FrameworkReturnCode filter(const SRef<Image>input, SRef<Image>& output) = 0;
 
 };
 
@@ -39,10 +43,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageFilter,
-                             "f7948ae2-e994-416f-be40-dd404ca03a83",
-                             "IImageFilter",
-                             "SolAR::api::image::IImageFilter");
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::example::IInterface1,
+                             "b713caa4-832d-4d2e-9cc1-651e33fe49c2",
+                             "IInterface1",
+                             "SolAR::IInterface1 interface");
 
-
-#endif // SOLAR_IIMAGEFILTER_H
+#endif // SOLAR_IINTERFACEEXAMPLE1_H

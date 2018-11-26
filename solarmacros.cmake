@@ -54,7 +54,6 @@ macro (process3rdParty THIRDPARTY THIRDPARTY_PATH)
 		set (LINK_LIBRARIES_RELEASE "optimized ${THIRDPARTY_LIB_DIR_RELEASE}/${LINKLIBPREFIX}${library}${LINKLIBEXTENSION} ${LINK_LIBRARIES_RELEASE}")
 		set (LINK_LIBRARIES_DEBUG "debug ${THIRDPARTY_LIB_DIR_DEBUG}/${LINKLIBPREFIX}${library}${LINKLIBEXTENSION} ${LINK_LIBRARIES_DEBUG}")
 	endforeach(library)
-
 endmacro (process3rdParty)
 
 ####################################################
@@ -77,9 +76,22 @@ macro (processPackagedependencies)
 	  list(GET PKGDATA 0 PKGNAME)
 	  list(GET PKGDATA 1 PKGVERSION)
 	  list(GET PKGDATA 3 PKGPARENTDIR)
-	  set (PKGPATH "$ENV{BCOMDEVROOT}/${PKGPARENTDIR}/${PKGNAME}/${PKGVERSION}") 
+	  set (PKGPATH "$ENV{BCOMDEVROOT}/${PKGPARENTDIR}/${PKGNAME}/${PKGVERSION}")
+	  # save the version of packages in variables ; example : SOLARMODULEOPENCV_VERSION will be set to 0.4.0, OPENCV_VERSION will be set to 3.4.3, etc.
+	  string (TOUPPER "${PKGNAME}" PKGNAME_UP)
+	  set (${PKGNAME_UP}_VERSION ${PKGVERSION})
+	  message (STATUS "##### ${PKGNAME_UP}_VERSION version is ${${PKGNAME_UP}_VERSION}")
 	  process3rdParty("${PKGNAME}" ${PKGPATH})
 	endforeach(file)
+
+	if (DEFINED OPENCV_VERSION)
+		if (UNIX)
+			set (OPENCVVERSIONSUFFIX "")
+		endif()
+		if (WIN32)
+			string(REPLACE "." "" OPENCVVERSIONSUFFIX ${OPENCV_VERSION})
+		endif()
+	endif()
 endmacro(processPackagedependencies)
 
 
@@ -134,7 +146,7 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 									${BOOST_CFLAGS_OTHER}								
 								)			
 	target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES_DEBUG} ${LINK_LIBRARIES_RELEASE})
-	# message (STATUS "${LINK_LIBRARIES_RELEASE}")
+	message (STATUS "${LINK_LIBRARIES_RELEASE}")
 	if ("${EXEORLIBRARY}" STREQUAL "library") # only for libraries
 
 		# install target
@@ -201,9 +213,27 @@ macro (setup)
 	else(CMAKE_SIZEOF_VOID_P MATCHES 8)
 		set( PROJECT_ARCH "x86" )
 	endif(CMAKE_SIZEOF_VOID_P MATCHES 8)
+	if (ANDROID_ABI)
+		set (PROJECT_ARCH ${ANDROID_ABI})
+	endif(ANDROID_ABI)
 	# initialize some variables
 	set (INCLUDE_DIRS "")
 	set (LIB_PATHS_LINKER_FLAGS "")
 	set (LINK_LIBRARIES "")
 	set (CFLAGS_OTHER "")	
+
+	if (UNIX)
+		set (LIBPREFIX "lib")
+		set (LIBEXTENSION "so")
+		set (LIBGLUT "")
+		set (FBOW_EXT "")
+		endif(UNIX)
+	if (WIN32)
+		set (LIBPREFIX "")
+		set (LIBEXTENSION "dll")
+		set (LIBGLUT "free")
+		set (FBOW_EXT "001")
+	endif(WIN32)
+	set (BUILDCONFIG $<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>)
+
 endmacro(setup)

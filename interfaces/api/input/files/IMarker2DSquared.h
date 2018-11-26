@@ -68,6 +68,7 @@ protected:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DSquared,
                              "e9cdcf6e-c54c-11e7-abc4-cec278b6b50a",
+                             "IMarker2DSquared",
                              "SolAR::api::input::files::IMarker2DSquared interface");
 
 #endif // SOLAR_IMARKER2DSQUARED_H

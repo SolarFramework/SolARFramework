@@ -57,6 +57,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sink::IThirdPartyConnector,
                              "c0d9fee4-d7d7-4866-a6cd-3bacac23316a",
+                             "IThirdPartyConnector",
                              "SolAR::api::sink::IThirdPartyConnector interface");
 
 #endif // SOLAR_ITHIRDPARTYCONNECTOR_H
