@@ -29,7 +29,7 @@
 // Definition of IDescriptorMatcher Class //
 // part of SolAR namespace //
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -71,8 +71,8 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer>& descriptors1,
-               SRef<DescriptorBuffer>& descriptors2,
+               SRef<DescriptorBuffer> descriptors1,
+               SRef<DescriptorBuffer> descriptors2,
                std::vector<DescriptorMatch>& matches
             )=0;
 
@@ -82,16 +82,20 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer>& descriptors1,
+               SRef<DescriptorBuffer> descriptors1,
                std::vector<SRef<DescriptorBuffer>>& descriptors2,
                std::vector<DescriptorMatch>& matches
             )=0;            
 
 
-       XPCF_DECLARE_UUID("dda38a40-c50a-4e7d-8433-0f04c7c98518");
     };
 }
 }
 }  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcher,
+                             "dda38a40-c50a-4e7d-8433-0f04c7c98518",
+                             "IDescriptorMatcher",
+                             "SolAR::api::features::IDescriptorMatcher");
 
 #endif // SOLAR_IDESCRIPTORMATCHER_H

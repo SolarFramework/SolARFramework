@@ -17,7 +17,7 @@
 #ifndef SOLAR_ICAMERACALIBRATION_H
 #define SOLAR_ICAMERACALIBRATION_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 
 namespace SolAR {
@@ -38,16 +38,22 @@ public:
    ///
    virtual ~ICameraCalibration() {};
 
+   /// \brief Calibrate the camera device referenced relative to a captured video and output the result in the given file
+   virtual bool calibrate(std::string& inputVideo, std::string&output) = 0;
    /// \brief Calibrate the camera device referenced by its id and output the result in the given file
-   virtual bool calibrate(int camera_id, std::string&output)=0;
+   virtual bool calibrate(int camera_id, std::string&output) = 0;
    /// \brief Set the camera device calibration parameters
    virtual bool setParameters(std::string&config_file)=0;
-   XPCF_DECLARE_UUID("0e83b228-b9ca-413d-9dc2-db45c427428b");
 };
 
 }
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICameraCalibration,
+                             "0e83b228-b9ca-413d-9dc2-db45c427428b",
+                             "ICameraCalibration",
+                             "SolAR::api::input::devices::ICameraCalibration interface");
 
 #endif // SOLAR_ICAMERACALIBRATION_H

@@ -17,7 +17,7 @@
 #ifndef SOLAR_IMAGE_H
 #define SOLAR_IMAGE_H
 
-#include "XPCF_definitions.h"
+#include "xpcf/core/refs.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "GeometryDefinitions.h"
 #include <memory>

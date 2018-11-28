@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMAGELOADER_H
 #define SOLAR_IIMAGELOADER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "core/Messages.h"
 #include "datastructure/Image.h"
@@ -34,15 +34,24 @@ class IImageLoader : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
     ///
-    /// \brief loadImage method loads an image from a filename into a Image object
+    /// \brief getImage method returns the image previously loaded
     ///
-    virtual FrameworkReturnCode loadImage(const std::string & filename, SRef<Image> & img) = 0;
+    virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
 
-    static constexpr const char * UUID = "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B";
+    ///
+    /// \brief reloadImage method load a image if its path (set as a configuration parameter of the implemented component) has changed
+    ///
+    virtual FrameworkReturnCode reloadImage() = 0;
+
 };
 
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageLoader,
+                             "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B",
+                             "IImageLoader",
+                             "SolAR::IImageLoader interface");
 
 #endif // SOLAR_IIMAGELOADER_H

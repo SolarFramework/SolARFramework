@@ -18,9 +18,8 @@
 #define SOLAR_I3DOVERLAY_H
 
 #include "datastructure/MathDefinitions.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
-#include "datastructure/Pose.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -48,18 +47,18 @@ public:
 
     /// @brief Draw a box on the given Image
     /// The box is displayed according to the pose given in parameter. The reference of the box is positionned on the center of its bottom face.
-    /// @param[in] pose The pose of the camera from which the box is viewed.
-    /// @param[in] sizeX The size of the box along the X axis in world unit.
-    /// @param[in] sizeY The size of the box along the Y axis in world unit.
-    /// @param[in] sizeZ The size of the box along the Z axis in world unit.
-    /// @param[in] transform The transform (position and ortation) of the box according to the world coordinate system
+    /// @param[in] Transfomr3Df The pose of the camera from which the box is viewed.
     /// @param[in,out] displayImage The image on which the box will be drawn
-    virtual void drawBox (Pose & pose, const  float sizeX, const float sizeY, const float sizeZ, const Transform3Df transform, SRef<Image> displayImage) = 0;
+    virtual void draw (const Transform3Df & pose, SRef<Image> displayImage) = 0;
 
-    static constexpr const char * UUID = "81a20f52-6bf9-4949-b914-df2f614bc945";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::I3DOverlay,
+                             "81a20f52-6bf9-4949-b914-df2f614bc945",
+                             "I3DOverlay",
+                             "SolAR::I3DOverlay interface")
 
 #endif // SOLAR_I3DOVERLAY_H

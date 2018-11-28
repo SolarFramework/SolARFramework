@@ -25,7 +25,7 @@
 #include "datastructure/Image.h"
 
 #include "IMarker2DSquared.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 
 namespace SolAR {
@@ -54,13 +54,18 @@ public:
     /// \param img: a shared reference to the image
     virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
 
-public:
-    XPCF_DECLARE_UUID("8fed06f8-c54d-11e7-abc4-cec278b6b50a");
+
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DNaturalImage,
+                             "8fed06f8-c54d-11e7-abc4-cec278b6b50a",
+                             "IMarker2DNaturalImage",
+                             "SolAR::api::input::files::IMarker2DNaturalImage interface");
+
 #endif
 

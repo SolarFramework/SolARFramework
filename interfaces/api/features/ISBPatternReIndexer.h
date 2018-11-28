@@ -17,7 +17,7 @@
 #ifndef SOLAR_ISBPATTERNREINDEXER_H
 #define SOLAR_ISBPATTERNREINDEXER_H
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "api/features/IDescriptorMatcher.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -40,11 +40,6 @@ public:
     /// @brief ISBPatternReIndexer default destructor
     virtual ~ISBPatternReIndexer() = default;
 
-    /// @brief Set the squared binary pattern size corresponding to horizontal or vertical cells
-    /// As this pattern is squared, it has the same number of vertical and horizontal cells (without marker borders)
-    /// @param[in] patternSize The number of horizontal or vertical cells of the squared binary pattern (without marker borders).
-    virtual void setParameters (const int sbPatternSize) = 0;
-
     /// @brief From a set of Squared Binary Pattern matches as well as the contours of the candidate patterns extracted from the current image, this method provides both the 4 corners of a pattern in its reference coordinate system (pixels, cells, etc.) and the 4 corners in pixels of this pattern in the current image.
     /// @param[in] candidateContours The set of candidate contours of the patterns extracted in the current image.
     /// @param[in] matches The set of matches describing which candidates contours defined in the first parameters correspond to the targetted squared binary pattern (here, only work with one squared binary pattern).
@@ -53,14 +48,16 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode reindex(const std::vector<SRef<Contour2Df>>& candidateContours, const std::vector<DescriptorMatch> & matches, std::vector<SRef<Point2Df>>& patternPoints, std::vector<SRef<Point2Df>>& imagePoints) = 0;
 
-    XPCF_DECLARE_UUID("79c5b810-d557-11e7-9296-cec278b6b50a");
-
-protected:
-   int m_sbPatternSize;
 };
 
 }
 }
 }  // end of namespace Solar
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::ISBPatternReIndexer,
+                             "79c5b810-d557-11e7-9296-cec278b6b50a",
+                             "ISBPatternReIndexer",
+                             "SolAR::api::features::ISBPatternReIndexer")
+
 
 #endif // SOLAR_ISBPATTERNREINDEXER_H

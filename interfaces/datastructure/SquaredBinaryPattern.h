@@ -17,7 +17,6 @@
 #ifndef SOLAR_BINARYPATTERN_H
 #define SOLAR_BINARYPATTERN_H
 
-#include "XPCF_definitions.h"
 #include "core/Messages.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/MathDefinitions.h"

@@ -23,9 +23,6 @@
 #include "datastructure/Image.h"
 #include "datastructure/SquaredBinaryPattern.h"
 
-#include "Geometry"
-#include "Dense"
-
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
@@ -51,12 +48,16 @@ protected:
     SquaredBinaryPattern m_pattern;
 
 public:
-     static constexpr const char * UUID = "12d592ff-aa46-40a6-8d65-7fbfb382d60b";
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DSquaredBinary,
+                             "12d592ff-aa46-40a6-8d65-7fbfb382d60b",
+                             "IMarker2DSquaredBinary",
+                             "SolAR::api::input::files::IMarker2DSquaredBinary interface");
 
 #endif // SOLAR_IMARKER2DSQUAREDBINARY_H

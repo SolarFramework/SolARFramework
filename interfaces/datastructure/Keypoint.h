@@ -21,7 +21,6 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "XPCF_definitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -40,7 +39,7 @@ namespace datastructure {
 
 
         Keypoint( float x,
-                    float  	y,
+                    float  y,
                     float  	size,
                     float  	angle,
                     float  	response,

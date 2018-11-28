@@ -189,7 +189,7 @@ class  Log{
 
       auto instance = std::make_shared<spdlog::logger>("Logs",sink());
       instance->set_pattern( "[%Y-%m-%d %H:%M:%S:%f] [%l] %v" );
-      #ifdef _DEBUG
+      #ifndef NDEBUG
            instance->set_level( spdlog::level::debug );
       #endif
       return instance;

@@ -21,7 +21,7 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 
 #include "IMarker.h"
 
@@ -47,7 +47,6 @@ namespace files {
 class IMarker2DSquared : public virtual IMarker {
 public:
     IMarker2DSquared() = default;
-    IMarker2DSquared(const float & width, const float & height) { m_size.width = width; m_size.height = height; };
 
     virtual ~IMarker2DSquared() = default;
 
@@ -60,12 +59,17 @@ public:
 protected:
     Sizef m_size;  ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
 
-     XPCF_DECLARE_UUID("e9cdcf6e-c54c-11e7-abc4-cec278b6b50a");
 };
 
 }
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker2DSquared,
+                             "e9cdcf6e-c54c-11e7-abc4-cec278b6b50a",
+                             "IMarker2DSquared",
+                             "SolAR::api::input::files::IMarker2DSquared interface");
+
 #endif // SOLAR_IMARKER2DSQUARED_H
 

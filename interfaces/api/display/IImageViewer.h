@@ -18,7 +18,7 @@
 #define SOLAR_IIMAGEVIEWER_H
 
 #include "datastructure/Image.h"
-#include "IComponentIntrospect.h"
+#include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -36,29 +36,20 @@ class IImageViewer : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;
 
+
     /// \brief this method displays an image contained in a Image object in a window
-    /// @param[in] title The text that will be displayed in the title bar of the window
     /// @param[in] img The image to display in the window
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img) = 0;
+    virtual FrameworkReturnCode display(SRef<Image> img) = 0;
 
-    /// \brief this method displays an image contained in a Image object in a window, and close this window if the exit key is pressed
-    /// @param[in] title The text that will be displayed in the title bar of the window
-    /// @param[in] img The image to display in the window
-    /// @param[in] exitKey The key code to press to close the window
-    /// @return FrameworkReturnCode::_SUCCESS if the window is created, FrameworkReturnCode::_STOP if the exit key is pressed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, const char* exitKey) = 0;
-
-    /// \brief this method displays an image contained in a Image object in a window, and close after a given delay
-    /// @param[in] title The text that will be displayed in the title bar of the window.
-    /// @param[in] img The image to display in the window.
-    /// @param[in] duration The duration in milliseconds before closing the window.
-    /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const char * title, SRef<Image> img, uint32_t duration) = 0;
-
-    static constexpr const char * UUID = "B05F3DBB-F93D-465C-AEE1-FB58E1480C42";
 };
 }
 }
 }
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::display::IImageViewer,
+                             "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "IImageViewer",
+                             "SolAR::IImageViewer interface")
+
 #endif
