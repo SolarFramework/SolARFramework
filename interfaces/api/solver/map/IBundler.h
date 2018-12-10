@@ -35,12 +35,20 @@ namespace SolAR {
 
 
 
-
-                       virtual  bool adjustBundle(std::vector<SRef<Keyframe>>&framesToAdjust,
-                                                  std::vector<SRef<CloudPoint>>&mapToAdjust,
-                                                  const CamCalibration &K,
-                                                  const CamDistortion &D,
-                                                  const std::vector<int>&selectKeyframes) = 0;
+                       /// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
+                       /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
+                       /// @param[in] framesToAdjust: contains a set of {2D points, camera extrinsics}.
+                       /// @param[in] mapToAjust: contains a set of of 3D points .
+                       /// @param[in] K: camera calibration parameters responsible of 3D points generation.
+                       /// @param[in] D: camera distorsion parameters responsible of 3D points generation
+                       /// K, D represent the camera intrinsic parameters
+                       /// @return[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
+                       /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
+                       virtual  double solve(std::vector<SRef<Keyframe>>&framesToAdjust,
+                                             std::vector<SRef<CloudPoint>>&mapToAdjust,
+                                             CamCalibration &K,
+                                             CamDistortion &D,
+                                             const std::vector<int>&selectKeyframes) = 0;
 
 
             };
