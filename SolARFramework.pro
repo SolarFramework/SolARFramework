@@ -9,7 +9,7 @@ CONFIG -= qt
 TARGET = SolARFramework
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.0
+VERSION=0.5.1
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -105,7 +105,14 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+    interfaces/api/input/devices/IDepthCamera.h \
+    interfaces/datastructure/PointCloud.h \
+    interfaces/api/input/devices/IRGBDCamera.h \
+    interfaces/api/input/files/IPointCloudLoader.h \
+    interfaces/api/pointCloud/IPCFilter.h \
+    interfaces/api/pointCloud/IPCFilterCentroid.h \
+    interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h
 interfaces/api/solver/map/IKeyframeSelector.h
 
 SOURCES += src/core/SolARFramework.cpp \
@@ -117,7 +124,8 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Keyframe.cpp \
     src/datastructure/CloudPoint.cpp \
-    src/datastructure/Map.cpp
+    src/datastructure/Map.cpp \
+    src/datastructure/PointCloud.cpp
 
 unix {
 }
@@ -154,6 +162,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCloud/
+header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
@@ -187,6 +197,7 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_solver_pose

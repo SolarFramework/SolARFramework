@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
 ##################################################
-set (VERSION_NUMBER "0.5.0")
+set (VERSION_NUMBER "0.5.1")
 project("SolARFramework")
 set (SOURCES 
 		src/core/SolARFramework.cpp
@@ -12,6 +12,7 @@ set (SOURCES
 		src/datastructure/Keyframe.cpp
 		src/datastructure/Frame.cpp
 		src/datastructure/SquaredBinaryPattern.cpp
+		src/datastructure/PointCloud.cpp
 		src/datastructure/CloudPoint.cpp
 		src/datastructure/Map.cpp
 	)
@@ -46,6 +47,8 @@ set (HEADERS
 		interfaces/api/input/devices/ICamera.h
 		interfaces/api/input/devices/ICameraCalibration.h
 		interfaces/api/input/devices/IIMU.h
+		interfaces/pointCloud/IPCFilter.h
+		interfaces/pointCloud/IPCFilterCentroid.h
 		interfaces/api/solver/pose/IHomographyValidation.h
 		interfaces/api/solver/pose/I2DTransformFinder.h
 		interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h
@@ -70,14 +73,17 @@ set (HEADERS
 		interfaces/datastructure/Frame.h
 		interfaces/datastructure/Map.h
 		interfaces/datastructure/MathDefinitions.h
+		interfaces/datastructure/PointCloud.h
 		interfaces/datastructure/SquaredBinaryPattern.h
 		interfaces/api/input/files/IMarker.h
 		interfaces/api/input/files/IMarker2DNaturalImage.h
 		interfaces/api/input/files/IMarker2DSquared.h
 		interfaces/api/input/files/IMarker2DSquaredBinary.h
+		interfaces/api/input/files/IPointCloudLoader.h		
 		interfaces/api/display/I3DPointsViewer.h
 		interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h
 		interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
+		interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h
 )	
 	
 
