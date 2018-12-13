@@ -44,7 +44,7 @@ public:
 
     /// @brief Fill the SRef img buffer with a new image captured by the camera device.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextImage(SRef<Image> & img) = 0;
+    virtual FrameworkReturnCode getNextImage(SRef<Image> & img) const = 0;
     
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.
@@ -63,10 +63,10 @@ public:
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual CamCalibration getIntrinsicsParameters() = 0;
+    virtual const CamCalibration& getIntrinsicsParameters() const = 0;
     
     /// @return Return the distorsion camera lens parameters
-    virtual CamDistortion getDistorsionParameters() = 0;
+    virtual const CamDistortion& getDistorsionParameters() const = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
