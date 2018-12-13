@@ -43,67 +43,32 @@ public:
     /// @brief Specify the IRGBDCamera destructor class
     virtual ~IRGBDCamera() = default;
 
-    /// @brief Fill the SRef img buffer with a new RGB image captured by the camera device.
-    /// @param img the image captured by the RGBD camera
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextImage(SRef<Image> & colorImg) const = 0;
-
-    /// @brief Provides the last depth image and corresponding 3D point cloud.
-    /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
-    /// @param depthImg the image captured by the RGBD camera
-    /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextDepthFrame(const SRef<Image>& depthImg, const SRef<PointCloud>& pc) const = 0;
-
     /// @brief Provides the last color image, depth image, corresponding 3D point cloud, and aligned images (RGB on depth and depth on RGB).
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
     /// @param colorImg the RGB image captured by the RGBD camera
     /// @param depthImg the depth image captured by the RGBD camera
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
-    /// @param alignedColorImg the RGB image captured by the RGBD camera and aligned on the depth image
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode getNextRGBDFrame(SRef<Image>& colorImg, SRef<Image>& depthImg, SRef<PointCloud>& pc) const = 0;
+
+
+    /// @brief Provides a depth image alingned on the color image
     /// @param alignedDepthImg the depth image captured by the RGBD camera and aligned on the color image
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextRGBDFrame(const SRef<Image>& colorImg, const SRef<Image>& depthImg, const SRef<PointCloud>& pc, const SRef<Image>& alignedColorImg, const SRef<Image>& alignedDepthImg) const = 0;
+    virtual FrameworkReturnCode alignDepthToColor (SRef<Image>& alignedDepthImg) const = 0;
 
-    /// @brief Start the acquisition device reference by its device_id
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start()=0;
+    /// @brief Provides a color image alingned on the depth image
+    /// @param alignedColorImg the RGB image captured by the RGBD camera and aligned on the depth image
+    virtual FrameworkReturnCode alignColorToDepth (SRef<Image>& alignedColorImg) const = 0;
 
-    /// @brief Set the color image resolution of the acquisition device
-    virtual void setResolution(Sizei resolution) = 0;
+    /// @brief Provides the 3D point in the depth sensor coordinate system corresponding to a given pixel of the color image
+    /// @param inPixel The pixel for which we want the 3 position
+    /// @return a 3D point corresponding to the input pixel
+    virtual Point3Df getPixelToWorld (const Point2Di& inPixel) const = 0;
 
-    /// @brief Set the depth image resolution of the acquisition device
-    virtual void setDepthResolution(Sizei resolution) = 0;
-
-    /// @brief Set the intrinsic RGB camera parameters
-    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
-
-    /// @brief Set the intrinsic parameters of the depth camera
-    virtual void setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
-
-    /// @brief Set the distorsion intrinsic parameters of the RGB camera
-    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
-
-    /// @brief Set the distorsion intrinsic parameters of the depth camera
-    virtual void setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
-
-    /// @brief Get the image resolution of the RGB acquisition device
-    virtual Sizei getResolution() = 0;
-
-    /// @brief Get the image resolution of the depth acquisition device
-    virtual Sizei getDepthResolution() = 0;
-
-    /// @return Return the intrinsic RGB camera parameters
-    virtual const CamCalibration& getIntrinsicsParameters() const = 0;
-
-    /// @return Return the intrinsic depth camera parameters
-    virtual const CamCalibration& getIntrinsicsDepthParameters() const = 0;
-
-    /// @return Return the distorsion RGB camera lens parameters
-    virtual const CamDistortion& getDistorsionParameters() const = 0;
-
-    /// @return Return the distorsion depth camera lens parameters
-    virtual const CamDistortion& getDistorsionDepthParameters() const = 0;
+    /// @brief Provides the pixel of the color image to the projection of a given 3D point
+    /// @param in3DPoint The 3Dpoint we want to project on the color image
+    /// @return a 2D point representing a pixel of the color image on which the 3D point in projected
+    virtual Point2Di getWorldToPixel (const Point3Df& in3DPoint) const = 0;
 };
 
 }
