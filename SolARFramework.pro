@@ -120,6 +120,8 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Map.cpp
 
 unix {
+	QMAKE_CXX = clang++
+	QMAKE_LINK=clang++
 }
 
 macx {
