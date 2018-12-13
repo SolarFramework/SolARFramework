@@ -54,6 +54,21 @@ public:
     /// @param[out] outputPointCLoud the resulting point cloud after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode transform(const SRef<PointCloud> inputPointCloud, const Transform3Df transformation, SRef<PointCloud>& outputPointCloud) const = 0;
+
+    /// @brief This method applies a transformation (4x4 float matrix) to a set of 3D points
+    /// @param[in] inputPoints the set of 3D points to transform
+    /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
+    /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
+    /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode transformInPlace(std::vector<SRef<Point3Df>> & inputPoints, const Transform3Df transformation) = 0;
+
+    /// @brief This method applies a transformation (4x4 float matrix) to a point cloud
+    /// @param[in] inputPointCloud the point cloud to transform
+    /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
+    /// @param[out] outputPointCLoud the resulting point cloud after 3D transformation
+    /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode transformInPlace(SRef<PointCloud> inputPointCloud, const Transform3Df transformation) const = 0;
+
 };
 
 }
