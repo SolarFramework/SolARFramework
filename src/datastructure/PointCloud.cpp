@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "datastructure/PointCLoud.h"
+#include "datastructure/PointCloud.h"
 
 namespace SolAR {
 namespace datastructure {
