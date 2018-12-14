@@ -47,8 +47,8 @@ set (HEADERS
 		interfaces/api/input/devices/ICamera.h
 		interfaces/api/input/devices/ICameraCalibration.h
 		interfaces/api/input/devices/IIMU.h
-		interfaces/pointCloud/IPCFilter.h
-		interfaces/pointCloud/IPCFilterCentroid.h
+		interfaces/api/pointCloud/IPCFilter.h
+		interfaces/api/pointCloud/IPCFilterCentroid.h
 		interfaces/api/solver/pose/IHomographyValidation.h
 		interfaces/api/solver/pose/I2DTransformFinder.h
 		interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h
