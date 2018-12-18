@@ -49,7 +49,7 @@ public:
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img) = 0;
 
-    /// @brief Provides the corresponding 3D point cloud to last depth image aquiered (getNextDepthFrame())
+    /// @brief Provides the corresponding 3D point cloud corresponding to last depth image aquiered (getNextDepthFrame())
     /// Should have no effect if the user didn't call getNextDepthFrame beforehand
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
@@ -60,13 +60,13 @@ public:
     virtual FrameworkReturnCode start()=0;
 
     /// @brief Set the depth image resolution of the acquisition device
-    virtual void setDepthResolution(Sizei resolution) = 0;
+    virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;
 
     /// @brief Set the intrinsic parameters of the depth camera
-    virtual void setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual FrameworkReturnCode setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
 
     /// @brief Set the distorsion intrinsic parameters of the depth camera
-    virtual void setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
+    virtual FrameworkReturnCode setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
 
     /// @brief Get the image resolution of the depth acquisition device
     virtual Sizei getDepthResolution() = 0;

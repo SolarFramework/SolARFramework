@@ -51,13 +51,13 @@ public:
     virtual FrameworkReturnCode start()=0;
         
     /// @brief Set the acquisition device image resolution
-    virtual void setResolution(Sizei resolution) = 0;
+    virtual FrameworkReturnCode setResolution(Sizei resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual FrameworkReturnCode setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
     
     /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
+    virtual FrameworkReturnCode setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
 
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;

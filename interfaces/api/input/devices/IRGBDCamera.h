@@ -47,7 +47,6 @@ public:
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
     /// @param colorImg the RGB image captured by the RGBD camera
     /// @param depthImg the depth image captured by the RGBD camera
-    /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextRGBDFrame(SRef<Image>& colorImg, SRef<Image>& depthImg) = 0;
 
