@@ -44,7 +44,7 @@ public:
 
     /// @brief Fill the SRef img buffer with a new image captured by the camera device.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextImage(SRef<Image> & img) const = 0;
+    virtual FrameworkReturnCode getNextImage(SRef<Image> & img) = 0;
     
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.

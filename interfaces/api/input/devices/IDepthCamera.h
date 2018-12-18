@@ -48,7 +48,7 @@ public:
     /// @param img the image captured by the RGBD camera
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img, SRef<PointCloud>& pc) const = 0;
+    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img, SRef<PointCloud>& pc) = 0;
 
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.
