@@ -39,12 +39,12 @@ class I3DTransformFinderFrom3D3D : public virtual org::bcom::xpcf::IComponentInt
         virtual ~I3DTransformFinderFrom3D3D() = default;
 
         /// @brief Estimates depth sensor pose from a set of 3D points captured by the depth sensor and defined in the depth sensor coordinate and a point cloud representing the real world geometry.
-        /// @param[in] sensorPointCloud, a point cloud captured by the depth sensor defined in the depth sensor coordinate system.
-        /// @param[in] worldPoints, a point cloud repreenting the geometry of teh real world.
-        /// @param[out] pose, depth camera pose (pose of the depth camera defined in world corrdinate system) expressed as a Transform3D.
+        /// @param[in] sourcePointCloud, a point cloud captured by the depth sensor defined in the depth sensor coordinate system.
+        /// @param[in] targetPointCloud, a point cloud representing the geometry of the real world.
+        /// @param[out] pose, depth camera pose (pose of the depth camera defined in world coordinate system) expressed as a Transform3D.
         /// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
-        virtual FrameworkReturnCode estimate(const SRef<PointCloud> sensorPointCloud,
-                                             const SRef<PointCloud> worldPointCloud,
+        virtual FrameworkReturnCode estimate(const SRef<PointCloud> sourcePointCloud,
+                                             const SRef<PointCloud> targetPointCloud,
                                              Transform3Df& pose,
                                              const Transform3Df& initialPose = Transform3Df::Identity()) =0;
 
