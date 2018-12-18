@@ -34,8 +34,21 @@ using Matrix = Maths::Matrix<T,Rows,Cols>;
 
 typedef Maths::Matrix<float,3,4> ProjectionMatrix ;
 typedef Maths::Matrix<float,3,3> RotationMatrixf;
+
+// Camera Calibration matrix (intrinsic parameters)
+//  f_x  0    c_x
+//  0    f_y  c_y
+//  0    0    1
+// Where f_x and f_y are the focal length and c_x and c_y the optical center (based on Opencv implementation).
 typedef Maths::Matrix<float,3,3>    CamCalibration;
+
+// Camera Distortion parameters
+// (k_1 k_2 p_1 p_2 k_3)
+// where x_corrected = x + [2*p_1*x*y + p_2*(r^2 + 2*x^2)]
+//       y_corrected = y + [p_1*(r^2+2*y^2)+ 2*p_2*x*y]
+//       r^2 = x^2 + y^2
 typedef Maths::Matrix<float, 5, 1>  CamDistortion;
+
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -44,7 +57,6 @@ typedef Maths::Matrix<float, 5, 1>  CamDistortion;
 //  0       0       0       1          | 1 |
 //
 // This defintion avoids to apply a tranpose...
-
 typedef Maths::Matrix<float,4,4> PoseMatrix ;
 
 
