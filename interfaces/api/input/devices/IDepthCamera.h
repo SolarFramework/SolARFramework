@@ -55,13 +55,13 @@ public:
     virtual FrameworkReturnCode start()=0;
 
     /// @brief Set the depth image resolution of the acquisition device
-    virtual void setDepthResolution(Sizei resolution) = 0;
+    virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;
 
     /// @brief Set the intrinsic parameters of the depth camera
-    virtual void setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual FrameworkReturnCode setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
 
     /// @brief Set the distorsion intrinsic parameters of the depth camera
-    virtual void setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
+    virtual FrameworkReturnCode setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
 
     /// @brief Get the image resolution of the depth acquisition device
     virtual Sizei getDepthResolution() = 0;

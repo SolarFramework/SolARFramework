@@ -29,6 +29,9 @@ enum class FrameworkReturnCode:long{
   // error codes
     _ERROR_=-1,               /** unknown error, better stop!! */
 
+  // Not implemented interface
+    _NOT_IMPLEMENTED = -2,
+
   // for IImage
     _ERROR_LOAD_IMAGE=-10,    /** Cannot load Image */
     _ERROR_ACCESS_IMAGE=-11,  /** Cannot acces Image */
