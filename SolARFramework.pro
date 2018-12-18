@@ -106,13 +106,13 @@ interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
-    interfaces/api/input/devices/IDepthCamera.h \
-    interfaces/datastructure/PointCloud.h \
-    interfaces/api/input/devices/IRGBDCamera.h \
-    interfaces/api/input/files/IPointCloudLoader.h \
-    interfaces/api/pointCloud/IPCFilter.h \
-    interfaces/api/pointCloud/IPCFilterCentroid.h \
-    interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h
+interfaces/api/input/devices/IDepthCamera.h \
+interfaces/datastructure/PointCloud.h \
+interfaces/api/input/devices/IRGBDCamera.h \
+interfaces/api/input/files/IPointCloudLoader.h \
+interfaces/api/pointCloud/IPCFilter.h \
+interfaces/api/pointCloud/IPCFilterCentroid.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h
 
 SOURCES += src/core/SolARFramework.cpp \

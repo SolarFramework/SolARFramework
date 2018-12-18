@@ -43,12 +43,17 @@ public:
     /// @brief Specify the IDepthCamera destructor class
     virtual ~IDepthCamera() = default;
 
-    /// @brief Provides the last depth image and corresponding 3D point cloud.
+    /// @brief Provides the last depth image.
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
     /// @param img the image captured by the RGBD camera
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img) = 0;
+
+    /// @brief Provides the corresponding 3D point cloud corresponding to last depth image aquiered (getNextDepthFrame())
+    /// Should have no effect if the user didn't call getNextDepthFrame beforehand
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img, SRef<PointCloud>& pc) = 0;
+    virtual FrameworkReturnCode getPointCloud(SRef<PointCloud>& pc) = 0;
 
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.

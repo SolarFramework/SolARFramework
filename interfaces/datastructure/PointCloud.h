@@ -113,7 +113,8 @@ class  SOLARFRAMEWORK_API PointCloud {
 //       return m_nbPoints * 3 ;
 //   }
 
-   const std::vector<Point3Df>& getPointCloud() const;
+   const std::vector<Point3Df>& getConstPointCloud() const;
+   std::vector<Point3Df>& getPointCloud();
 
     private:
 //        PointType m_pointType;
