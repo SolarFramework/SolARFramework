@@ -46,7 +46,7 @@ class I3DTransformFinderFrom3D3D : public virtual org::bcom::xpcf::IComponentInt
         virtual FrameworkReturnCode estimate(const SRef<PointCloud> sensorPointCloud,
                                              const SRef<PointCloud> worldPointCloud,
                                              Transform3Df& pose,
-                                             const Transform3Df initialPose = Transform3Df::Identity()) =0;
+                                             const Transform3Df& initialPose = Transform3Df::Identity()) =0;
 
 };
 
@@ -63,4 +63,3 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformFinderFrom3D3
 
 
 #endif // SOLAR_I3DTRANSFORMFINDERFROM3D3D_H
-
