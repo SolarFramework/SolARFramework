@@ -74,7 +74,7 @@ class  SOLARFRAMEWORK_API PointCloud {
    ///
    /// \brief ~PointCloud
    ///
-    ~PointCloud();
+   ~PointCloud() = default;
 
 //   /** @brief  return the number of points stored in the structure
 //   */

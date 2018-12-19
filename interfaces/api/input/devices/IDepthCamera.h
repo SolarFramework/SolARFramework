@@ -65,8 +65,8 @@ public:
     /// @brief Set the intrinsic parameters of the depth camera
     virtual FrameworkReturnCode setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
 
-    /// @brief Set the distorsion intrinsic parameters of the depth camera
-    virtual FrameworkReturnCode setDistorsionDepthParameters(const CamDistortion & distorsion_parameters) =0;
+    /// @brief Set the distortion intrinsic parameters of the depth camera
+    virtual FrameworkReturnCode setDistortionDepthParameters(const CamDistortion & distortion_parameters) =0;
 
     /// @brief Get the image resolution of the depth acquisition device
     virtual Sizei getDepthResolution() = 0;
@@ -74,8 +74,8 @@ public:
     /// @return Return the intrinsic depth camera parameters
     virtual const CamCalibration& getIntrinsicsDepthParameters() const = 0;
 
-    /// @return Return the distorsion depth camera lens parameters
-    virtual const CamDistortion& getDistorsionDepthParameters() const = 0;
+    /// @return Return the distortion depth camera lens parameters
+    virtual const CamDistortion& getDistortionDepthParameters() const = 0;
 };
 
 }

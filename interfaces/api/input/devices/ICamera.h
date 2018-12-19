@@ -56,8 +56,8 @@ public:
     /// @brief Set the intrinsic camera parameters
     virtual FrameworkReturnCode setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
     
-    /// @brief Set the distorsion intrinsic camera parameters
-    virtual FrameworkReturnCode setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
+    /// @brief Set the distortion intrinsic camera parameters
+    virtual FrameworkReturnCode setDistortionParameters(const CamDistortion & distorsion_parameters) =0;
 
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
@@ -66,7 +66,7 @@ public:
     virtual const CamCalibration& getIntrinsicsParameters() const = 0;
     
     /// @return Return the distorsion camera lens parameters
-    virtual const CamDistortion& getDistorsionParameters() const = 0;
+    virtual const CamDistortion& getDistortionParameters() const = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
