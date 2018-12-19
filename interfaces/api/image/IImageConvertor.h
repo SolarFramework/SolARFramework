@@ -40,8 +40,8 @@ public:
    /// \brief ~IImageConvertor
    ///
    virtual ~IImageConvertor() {};
-   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
-   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
+   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, const float scale = 1.f) = 0;
+   virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout, const float scale = 1.f) = 0;
 
 };
 
