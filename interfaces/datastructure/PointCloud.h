@@ -113,8 +113,8 @@ class  SOLARFRAMEWORK_API PointCloud {
 //       return m_nbPoints * 3 ;
 //   }
 
-   const std::vector<Point3Df>& getConstPointCloud() const;
-   std::vector<Point3Df>& getPointCloud();
+   const std::vector<SRef<Point3Df>>& getConstPointCloud() const;
+   std::vector<SRef<Point3Df>>& getPointCloud();
 
     private:
 //        PointType m_pointType;
@@ -125,7 +125,7 @@ class  SOLARFRAMEWORK_API PointCloud {
 //        SRef<BufferInternal> m_normals;
 //        SRef<BufferInternal> m_colors;
 //
-        std::vector<Point3Df> m_points;
+        std::vector<SRef<Point3Df>> m_points;
 
 };
 
