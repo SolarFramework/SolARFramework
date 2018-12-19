@@ -40,15 +40,15 @@ class Keyframe;
     CloudPoint() = default;
 
     /// @brief Cloudpoint constructor.
-        /// @param[int] x-coordinate of the cloudpoint.
-        /// @param[int] y-coordinate of the cloudpoint.
-        /// @param[int] z-coordinate of the cloudpoint.
-        /// @param[int] r-channel color value of the cloudpoint.
-        /// @param[int] g-channel color value of the cloudpoint.
-        /// @param[int] b-channel color value of the cloudpoint.
-        /// @param[int] reprojection error of the cloudpoint.
-        /// @param[int] visibility map of the cloudpoint.
-        ///
+    /// @param[int] x-coordinate of the cloudpoint.
+    /// @param[int] y-coordinate of the cloudpoint.
+    /// @param[int] z-coordinate of the cloudpoint.
+    /// @param[int] r-channel color value of the cloudpoint.
+    /// @param[int] g-channel color value of the cloudpoint.
+    /// @param[int] b-channel color value of the cloudpoint.
+    /// @param[int] reprojection error of the cloudpoint.
+    /// @param[int] visibility map of the cloudpoint.
+    ///
     CloudPoint( float x,
                 float y,
                 float z,
@@ -57,6 +57,11 @@ class Keyframe;
                 float b,
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
+
+    /// @brief CloudPoint constructor with a Point3Df.
+    /// @param point a Point3Df
+    ///
+    CloudPoint(const Point3Df& point) : Point3Df(point), m_r(0.0), m_g(0.0), m_b(0.0), m_reproj_error(0.0) {};
 
    ///
    /// \brief ~CloudPoint
