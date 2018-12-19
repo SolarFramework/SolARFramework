@@ -46,7 +46,7 @@ public:
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextImage(SRef<Image> & img) = 0;
     
-    /// @brief Start the acquisition device reference by its device_id
+    /// @brief Start the acquisition device
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode start()=0;
         

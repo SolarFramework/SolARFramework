@@ -57,7 +57,7 @@ public:
 
     /// @brief Start the acquisition device reference by its device_id
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start()=0;
+    virtual FrameworkReturnCode start() = 0;
 
     /// @brief Set the depth image resolution of the acquisition device
     virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;
