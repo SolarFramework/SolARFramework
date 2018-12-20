@@ -21,7 +21,7 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "xpcf/core/refs.h"
-#include "datastructure/BufferInternal.hpp"
+//#include "datastructure/BufferInternal.hpp"
 #include <map>
 
 // Definition of PointCloud Class //
