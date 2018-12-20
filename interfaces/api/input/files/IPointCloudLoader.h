@@ -32,7 +32,7 @@ public:
     IPointCloudLoader() = default;
     virtual ~IPointCloudLoader() = default;
 
-    virtual FrameworkReturnCode load(const std::string filepath, SRef<PointCloud> pointCloud) = 0;
+    virtual FrameworkReturnCode load(const std::string filepath, SRef<PointCloud>& pointCloud) = 0;
 
 };
 
