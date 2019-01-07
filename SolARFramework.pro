@@ -107,6 +107,7 @@ interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
 interfaces/api/solver/map/IKeyframeSelector.h
+interfaces/api/pipeline/IPipeline.h \
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
