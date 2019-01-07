@@ -39,7 +39,6 @@ HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
@@ -105,9 +104,11 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
-interfaces/api/solver/map/IKeyframeSelector.h
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/pipeline/IPipeline.h \
+interfaces/api/sink/ISinkPoseImage.h \
+interfaces/api/sink/ISinkPoseTextureBuffer.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
@@ -171,6 +172,9 @@ header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_example.path = $${PROJECTDEPLOYDIR}/interfaces/api/example/
 header_interfaces_example.files = $$files($${PWD}/interfaces/api/example/*.h*)
 
+header_interfaces_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/api/pipeline/
+header_interfaces_pipeline.files = $$files($${PWD}/interfaces/api/pipeline/*.h*)
+
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 
@@ -183,7 +187,7 @@ INCLUDEPATH += $${PWD}/interfaces
 
 INSTALLS += header_interfaces
 INSTALLS += header_interfaces_display
-INSTALLS += header_interfaces_features  
+INSTALLS += header_interfaces_features
 INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
@@ -196,6 +200,7 @@ INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
+INSTALLS += header_interfaces_pipeline
 
 solarmacros.path=$$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}
 solarmacros.files=$$files($${PWD}/solarmacros.cmake)

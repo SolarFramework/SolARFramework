@@ -20,7 +20,8 @@ set (HEADERS
 		interfaces/SharedCircularBuffer.hpp
 		interfaces/SharedFifo.hpp
 		interfaces/core/SolARFrameworkDefinitions.h
-		interfaces/api/sink/IThirdPartyConnector.h
+		interfaces/api/sink/ISinkPoseImage.h
+		interfaces/api/sink/ISinkPoseTextureBuffer.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
 		interfaces/api/display/IMatchesOverlay.h
