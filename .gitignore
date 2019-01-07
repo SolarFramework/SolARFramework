@@ -15,7 +15,7 @@
 *.o
 *.obj
 
-.\build
+build/
 
 # Precompiled Headers
 *.gch
@@ -60,5 +60,8 @@ x64*
 *.tlog
 *.TMP
 *.tmp
+
+# documentation
+doc/
 
 
