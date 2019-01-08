@@ -71,6 +71,9 @@ class  SOLARFRAMEWORK_API PointCloud {
 //   PointCloud(DataType dataType, PointType pointType, uint32_t nbPoints);
 
    PointCloud() = default;
+   PointCloud(const PointCloud& other) = default;
+   PointCloud& operator=(const PointCloud& other) = default;
+
    ///
    /// \brief ~PointCloud
    ///
