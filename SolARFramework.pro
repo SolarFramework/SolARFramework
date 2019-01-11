@@ -108,7 +108,8 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
-interfaces/api/sink/ISinkPoseTextureBuffer.h
+interfaces/api/sink/ISinkPoseTextureBuffer.h \
+    interfaces/api/sink/ISinkReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \

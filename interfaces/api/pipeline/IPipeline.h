@@ -18,6 +18,7 @@
 #define SOLAR_PIPELINE_H
 
 #include "datastructure/GeometryDefinitions.h"
+#include "api/sink/ISinkReturnCode.h"
 #include "core/Messages.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "xpcf/api/IComponentManager.h"
@@ -25,6 +26,7 @@
 namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace api {
+using namespace sink;
 namespace pipeline {
 
 struct CameraParameters
@@ -68,7 +70,7 @@ public:
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed
-    virtual FrameworkReturnCode update(datastructure::Transform3Df& pose) = 0;
+    virtual SinkReturnCode update(datastructure::Transform3Df& pose) = 0;
 
 };
 }
