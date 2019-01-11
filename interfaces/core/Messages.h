@@ -17,8 +17,6 @@
 #ifndef SOLAR_MESSAGES_H
 #define SOLAR_MESSAGES_H
 
-#include "Log.h"
-
 namespace SolAR {
 
 enum class FrameworkReturnCode:long{
