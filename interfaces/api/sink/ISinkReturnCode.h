@@ -23,6 +23,7 @@ namespace sink {
 
 enum class SinkReturnCode: int {
 
+    _NOT_IMPLEMENTED= -2,
     _ERROR= -1,
     _NOTHING = 0,
     _NEW_IMAGE= 0x01,
