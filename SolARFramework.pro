@@ -104,8 +104,9 @@ interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
+interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h
 
 SOURCES += src/core/SolARFramework.cpp \
@@ -120,8 +121,11 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Map.cpp
 
 unix {
-	QMAKE_CXX = clang++
-	QMAKE_LINK=clang++
+#
+#   if buidling with clang
+#	    QMAKE_CXX = clang++
+#   	QMAKE_LINK= clang++
+#
 }
 
 macx {
