@@ -22,6 +22,8 @@
 #include "core/Messages.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "xpcf/api/IComponentManager.h"
+#include "datastructure/Image.h"
+
 
 namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
