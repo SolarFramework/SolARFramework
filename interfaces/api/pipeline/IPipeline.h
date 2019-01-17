@@ -37,6 +37,8 @@ struct CameraParameters
     int height = 0;
     float focalX = 0.0f;
     float focalY = 0.0f;
+    int centerX = 320;
+    int centerY = 240;
 };
 
 /**
