@@ -76,8 +76,6 @@ public:
     /// Get the new pose and update the texture buffer with the image that has to be displayed
     virtual SinkReturnCode update(datastructure::Transform3Df& pose) = 0;
 
-    virtual void updateFrameDataOGL(int eventID) = 0;
-
 };
 }
 }
