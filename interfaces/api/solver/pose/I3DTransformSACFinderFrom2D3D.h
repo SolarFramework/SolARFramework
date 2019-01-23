@@ -38,7 +38,7 @@ namespace SolAR {
                 public:
                     ///@brief I3DTransformSACFinderFrom2D3D default constructor.
                     I3DTransformSACFinderFrom2D3D() = default;
-                    
+
                     ///@brief I3DTransformSACFinderFrom2D3D default destructor.
                     virtual ~I3DTransformSACFinderFrom2D3D() = default;
 
@@ -73,5 +73,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I3DTransformSACFinderFrom
                              "I3DTransformSACFinderFrom2D3D",
                              "SolAR::api::solver::pose::I3DTransformSACFinderFrom2D3D");
                             
-
 #endif // SOLAR_I3DTransformSACFinderFrom2D3D_H
