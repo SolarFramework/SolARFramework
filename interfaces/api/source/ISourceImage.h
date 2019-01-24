@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ISINKPOSEIMAGE_H
-#define SOLAR_ISINKPOSEIMAGE_H
+#ifndef SOLAR_ISOURCEIMAGE_H
+#define SOLAR_ISOURCEIMAGE_H
 
 #ifndef _BCOM_SHARED
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "TakingInReturnCode.h"
+#include "ISourceReturnCode.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 
 namespace SolAR {
 using namespace datastructure;
 namespace api {
-namespace takingIn {
+namespace source {
 
 /**
- * @class ISinkPoseImage
- * @brief A Sink for a synchronized pose and image useful for AR video see-through pipelines.
+ * @class ISourceImage
+ * @brief A Source for an image, useful for AR video see-through pipelines.
  *
  * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
  */
 
-class  ITakingInImage : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  ISourceImage : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
 
-   ITakingInImage() = default;
+   ISourceImage() = default;
 
    ///
-   /// \brief ~ISinkPoseImage
+   /// \brief ~ISourceImage
    ///
-   virtual ~ITakingInImage() = default;
+   virtual ~ISourceImage() = default;
 
    /// @brief Set a new image and pose coming from the pipeline.
    /// @param[in] pose The new pose to be made available to a third party application.
@@ -67,14 +67,14 @@ public:
    /// @param[in] pose the new pose made available by the pipeline.
    /// @param[in,out] image The new image made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode get( Transform3Df& pose ) = 0;
+   virtual SourceReturnCode get( Transform3Df& pose ) = 0;
 
    /// @brief Provide an access to the new image and pose made available by the pipeline only if they have been updated by the pipeline.
    /// The implementation of this interface must be thread safe
    /// @param[in] pose the new pose made available by the pipeline.
    /// @param[in,out] image The new image made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image are available, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode tryGet( Transform3Df& pose ) = 0;
+   virtual SourceReturnCode tryGet( Transform3Df& pose ) = 0;
 
 };
 
@@ -83,9 +83,9 @@ public:
 }  // end of namespace SolAR
 
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sink::ITakingInImage,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::source::ISourceImage,
                              "c0d9fee4-d7d7-4866-a6cd-3bacac23316a",
-                             "ITakingInImage",
-                             "An interface allowing to give an image to the pipeline to make it available to it");
+                             "ISourceImage",
+                             "An interface allowing to store an image from extern source to make it available to the pipeline");
 
-#endif // SOLAR_ISINKPOSEIMAGE_H
+#endif // SOLAR_ISOURCEIMAGE_H

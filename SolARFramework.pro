@@ -109,7 +109,9 @@ interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
-    interfaces/api/sink/ISinkReturnCode.h
+interfaces/api/sink/ISinkReturnCode.h \
+interfaces/api/source/ISourceImage.h \
+interfaces/api/source/ISourceReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
@@ -161,6 +163,8 @@ header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
+header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
+header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
@@ -195,6 +199,7 @@ INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
+INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_reloc
