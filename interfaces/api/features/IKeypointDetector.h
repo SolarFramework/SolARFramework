@@ -81,7 +81,7 @@ public:
     /// @brief This method detects keypoints in an input Image
     /// @param[in] image input image on which we are extracting keypoints.
     /// @param[out] keypoints The keypoints detected from the image passed as first argument.
-    virtual void detect (const SRef<Image> &image, std::vector<SRef<Keypoint>> &keypoints, bool m_haveToBeFlip) = 0;
+    virtual void detect (const SRef<Image> &image, std::vector<SRef<Keypoint>> &keypoints) = 0;
 
 };
 
