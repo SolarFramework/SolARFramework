@@ -22,6 +22,7 @@ set (HEADERS
 		interfaces/core/SolARFrameworkDefinitions.h
 		interfaces/api/sink/ISinkPoseImage.h
 		interfaces/api/sink/ISinkPoseTextureBuffer.h
+		interfaces/api/sink/ISinkReturnCode.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
 		interfaces/api/display/IMatchesOverlay.h
