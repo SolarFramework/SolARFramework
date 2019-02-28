@@ -48,7 +48,7 @@ public:
     Transform3Df getPose();
 
     void setPose(Transform3Df& pose);
-
+    void setKeypoints( std::vector<SRef<Keypoint>>& kpts);
     void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
     SRef<Keyframe> getReferenceKeyframe();
@@ -63,7 +63,7 @@ public:
 
 protected:
     ///@brief pose of current frame
-    Transform3Df                    m_pose;
+    Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
