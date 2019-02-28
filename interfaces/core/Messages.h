@@ -21,7 +21,7 @@ namespace SolAR {
 
 enum class FrameworkReturnCode:long{
 
-    _STOP=1, /** means stop the process */
+  _STOP=1, /** means stop the process */
   _SUCCESS=0, /** Successfull operation */
 
   // error codes

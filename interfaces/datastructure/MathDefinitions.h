@@ -17,7 +17,7 @@
 #ifndef SOLAR_MATHSDEFINITIONS_H
 #define SOLAR_MATHSDEFINITIONS_H
 
-#define EIGEN_DEFAULT_TO_ROW_MAJOR
+//#define EIGEN_DEFAULT_TO_ROW_MAJOR
 #include <Eigen/Eigen>
 
 #define SOLAR_PI           3.14159265358979323846
@@ -29,13 +29,13 @@ namespace datastructure {
 
 namespace Maths = Eigen;
 
-template <class T, int Rows, int Cols>
-using Matrix = Maths::Matrix<T,Rows,Cols>;
+template <class T, int Rows, int Cols, int ColOrRowMajor =Eigen::RowMajor>
+using Matrix = Maths::Matrix<T, Rows, Cols, Eigen::RowMajor>;
 
-typedef Maths::Matrix<float,3,4> ProjectionMatrix ;
-typedef Maths::Matrix<float,3,3> RotationMatrixf;
-typedef Maths::Matrix<float,3,3>    CamCalibration;
-typedef Maths::Matrix<float, 5, 1>  CamDistortion;
+typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
+typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
+typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> CamCalibration;
+typedef Maths::Matrix<float, 5, 1> CamDistortion;
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -45,23 +45,26 @@ typedef Maths::Matrix<float, 5, 1>  CamDistortion;
 //
 // This defintion avoids to apply a tranpose...
 
-typedef Maths::Matrix<float,4,4> PoseMatrix ;
+typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
 
 
 template <class T, int Rows>
 using Vector = Maths::Matrix<T,Rows,1>;
 
 typedef Vector<float,4> Vector4f ;
-typedef Vector<float,3> Vector3f ;
-typedef Vector<double,3>Vector3d ;
+//typedef Vector<float,3> Vector3f ;
+//typedef Vector<double,3>Vector3d ;
+
+typedef Maths::Vector4f Vector4f ;
+typedef Maths::Vector3f Vector3f;
+typedef Maths::Vector3d Vector3d;
 
 
 template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
 
-
-template <class T, int Dim>
-using Transform = Maths::Transform<T,Dim,Maths::Projective>;
+template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Projective, int ColOrRowMajor =Eigen::RowMajor>
+using Transform = Maths::Transform<T,Dim,Maths::Projective,Eigen::RowMajor>;
 typedef Transform<float,3> Transform3Df;
 typedef Transform<float,2> Transform2Df;
 
