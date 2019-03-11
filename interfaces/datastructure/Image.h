@@ -173,6 +173,8 @@ public:
      */
     inline uint32_t getHeight() const { return m_size.height; }
 
+    inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
+
 private:
     class ImageInternal;
     SRef<ImageInternal> m_internalImpl;

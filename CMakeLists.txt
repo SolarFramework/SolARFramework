@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
 ##################################################
-set (VERSION_NUMBER "0.5.0")
+set (VERSION_NUMBER "0.5.1")
 project("SolARFramework")
 set (SOURCES 
 		src/core/SolARFramework.cpp
@@ -20,7 +20,9 @@ set (HEADERS
 		interfaces/SharedCircularBuffer.hpp
 		interfaces/SharedFifo.hpp
 		interfaces/core/SolARFrameworkDefinitions.h
-		interfaces/api/sink/IThirdPartyConnector.h
+		interfaces/api/sink/ISinkPoseImage.h
+		interfaces/api/sink/ISinkPoseTextureBuffer.h
+		interfaces/api/sink/ISinkReturnCode.h
 		interfaces/api/display/I2DOverlay.h
 		interfaces/api/display/I3DOverlay.h
 		interfaces/api/display/IMatchesOverlay.h
@@ -39,6 +41,7 @@ set (HEADERS
 		interfaces/api/geom/I2DTransform.h
 		interfaces/api/geom/I3DTransform.h
 		interfaces/api/geom/IImage2WorldMapper.h
+		interfaces/api/geom/IUndistortPoints.h
 		interfaces/api/image/IImageConvertor.h
 		interfaces/api/image/IImageFilter.h
 		interfaces/api/image/IImageLoader.h
@@ -56,6 +59,7 @@ set (HEADERS
 		interfaces/api/solver/map/IMapper.h
 		interfaces/api/reloc/IKeyframeRetriever.h
 		interfaces/api/reloc/IRelocalizer.h 
+		interfaces/api/pipeline/IPipeline.h
 		interfaces/core/SolARFramework.h
 		interfaces/core/Messages.h
 		interfaces/core/Log.h

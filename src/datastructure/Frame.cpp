@@ -47,6 +47,10 @@ void Frame::setPose(Transform3Df& pose)
     m_pose = pose;
 }
 
+void Frame::setKeypoints( std::vector<SRef<Keypoint>>& kpts){
+    m_keypoints  = kpts;
+}
+
 SRef<DescriptorBuffer> Frame::getDescriptors() const
 {
     return m_descriptors;

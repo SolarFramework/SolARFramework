@@ -15,6 +15,7 @@
  */
 
 #include "datastructure/SquaredBinaryPattern.h"
+#include "core/Log.h"
 #include <iostream>
 
 namespace SolAR {

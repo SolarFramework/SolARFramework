@@ -9,7 +9,7 @@ CONFIG -= qt
 TARGET = SolARFramework
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.0
+VERSION=0.5.1
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -39,7 +39,6 @@ HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
@@ -60,6 +59,7 @@ interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
 interfaces/api/geom/IImage2WorldMapper.h \
+interfaces/api/geom/IUndistortPoints.h \
 interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
@@ -104,9 +104,17 @@ interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h
-interfaces/api/solver/map/IKeyframeSelector.h
+interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/solver/map/IKeyframeSelector.h \
+interfaces/api/pipeline/IPipeline.h \
+interfaces/api/sink/ISinkPoseImage.h \
+interfaces/api/sink/ISinkPoseTextureBuffer.h \
+interfaces/api/sink/ISinkReturnCode.h \
+interfaces/api/source/ISourceImage.h \
+interfaces/api/source/ISourceReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
@@ -120,8 +128,11 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Map.cpp
 
 unix {
-	QMAKE_CXX = clang++
-	QMAKE_LINK=clang++
+#
+#   if buidling with clang
+#	    QMAKE_CXX = clang++
+#   	QMAKE_LINK= clang++
+#
 }
 
 macx {
@@ -160,6 +171,8 @@ header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
+header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
+header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
@@ -171,6 +184,9 @@ header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 
 header_interfaces_example.path = $${PROJECTDEPLOYDIR}/interfaces/api/example/
 header_interfaces_example.files = $$files($${PWD}/interfaces/api/example/*.h*)
+
+header_interfaces_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/api/pipeline/
+header_interfaces_pipeline.files = $$files($${PWD}/interfaces/api/pipeline/*.h*)
 
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
@@ -184,19 +200,21 @@ INCLUDEPATH += $${PWD}/interfaces
 
 INSTALLS += header_interfaces
 INSTALLS += header_interfaces_display
-INSTALLS += header_interfaces_features  
+INSTALLS += header_interfaces_features
 INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
+INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
+INSTALLS += header_interfaces_pipeline
 
 solarmacros.path=$$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}
 solarmacros.files=$$files($${PWD}/solarmacros.cmake)
