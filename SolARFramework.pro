@@ -109,6 +109,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
+interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
