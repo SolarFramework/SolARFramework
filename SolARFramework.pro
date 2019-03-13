@@ -9,7 +9,7 @@ CONFIG -= qt
 TARGET = SolARFramework
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.1
+VERSION=0.5.2
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -174,6 +174,8 @@ header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
 header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
+header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
+header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
@@ -209,6 +211,7 @@ INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_source
+INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_reloc
