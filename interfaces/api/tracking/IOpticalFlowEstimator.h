@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
+#include "datastructure/Keypoint.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -47,18 +48,18 @@ public:
    /// @param[in] currentImage The current image for which we want to estimate the optical flow relative to the previous image
    /// @param[in] pointsToTrack The pixels to track in the previous image
    /// @param[out] trackedPoints The position of the pointsToTrack in the current image
-   /// @param[out] status Specify for each point if it has been tracked
+   /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<KeyPoint>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<bool> & status, std::vector<float> & error) = 0;
+   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<Keypoint>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
    /// @brief estimate the optical flow between two images
    /// @param[in] previousImage The previous image
    /// @param[in] currentImage The current image for which we want to estimate the optical flow relative to the previous image
    /// @param[in] pointsToTrack The pixels to track in the previous image
    /// @param[out] trackedPoints The position of the pointsToTrack in the current image
-   /// @param[out] status Specify for each point if it has been tracked
+   /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<Point2Df>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<bool> & status, std::vector<float> & error) = 0;
+   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<Point2Df>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
 
 };
