@@ -59,6 +59,8 @@ interfaces/api/features/IMatchesFilter.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
+interfaces/api/geom/IProject.h \
+interfaces/api/geom/IUnproject.h \
 interfaces/api/geom/IImage2WorldMapper.h \
 interfaces/api/geom/IUndistortPoints.h \
 interfaces/api/image/IImageConvertor.h \
