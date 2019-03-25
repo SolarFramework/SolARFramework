@@ -56,6 +56,16 @@ public:
     inline float getHeight() const { return m_size.height; };
     inline Sizef getSize() const { return m_size; };
 
+    /// @brief Provide the position of 2D corners in image coordinate system
+    /// @param[out] imageCorners the 2D corners of the marker in image coordinate system
+    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    virtual FrameworkReturnCode getImageCorners(std::vector<SRef<Point2Df>>& imageCorners) const = 0;
+
+    /// @brief Provide the position of 3D corners in world coordinate system
+    /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
+    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    virtual FrameworkReturnCode getWorldCorners(std::vector<SRef<Point3Df>>& worldCorners) const = 0;
+
 protected:
     Sizef m_size;  ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
 
