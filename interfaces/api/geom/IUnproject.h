@@ -50,7 +50,7 @@ public:
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode unproject(const std::vector<SRef<Point2Df>> & imagePoints, const Transform3Df& pose, std::vector<SRef<Point3Df>> & worldPoints) = 0;
+    virtual FrameworkReturnCode unproject(const std::vector<SRef<Point2Df>> & imagePoints, std::vector<SRef<Point3Df>> & worldPoints, const Transform3Df& pose = Transform3Df::Identity()) = 0;
 };
 
 }
