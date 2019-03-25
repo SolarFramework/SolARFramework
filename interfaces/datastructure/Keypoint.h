@@ -59,12 +59,12 @@ namespace datastructure {
     /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
     ///
      void init( float  x,
-			float  	y,
-			float  	size,
-			float  	angle,
-			float  	response,
-			int  	octave,
-            int  	class_id ) ;
+                float  	y,
+                float  	size,
+                float  	angle,
+                float  	response,
+                int  	octave,
+                int  	class_id ) ;
 
     ///
     /// \brief This method returns the angle of an Keypoint
