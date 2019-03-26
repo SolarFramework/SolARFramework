@@ -17,7 +17,7 @@
 #ifndef SOLAR_GEOMETRYDEFINITIONS_H
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
-
+#include "xpcf/xpcf.h"
 #include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 
@@ -109,8 +109,8 @@ public:
     Point2Di p2;
 };
 
-typedef std::vector<Point2Df> Contour2Df;
-typedef std::vector<Point2Di> Contour2Di;
+typedef std::vector<SRef<Point2Df>> Contour2Df;
+typedef std::vector<SRef<Point2Di>> Contour2Di;
 typedef Point2Df QuadContour2Df[4];
 typedef Point2Di QuadContour2Di[4];
 
