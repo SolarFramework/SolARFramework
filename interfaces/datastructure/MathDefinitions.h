@@ -51,7 +51,7 @@ typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
 template <class T, int Rows>
 using Vector = Maths::Matrix<T,Rows,1>;
 
-typedef Vector<float,4> Vector4f ;
+//typedef Vector<float,4> Vector4f ;
 //typedef Vector<float,3> Vector3f ;
 //typedef Vector<double,3>Vector3d ;
 

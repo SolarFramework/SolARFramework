@@ -10,7 +10,7 @@ namespace SolAR{namespace datastructure{
 		%attributeref(Matrix, int, outerStride);
 		%attributeref(Matrix, int, rowStride);
 		*/
-		template <class Scalar, int Rows, int Cols>
+		template <class Scalar, int Rows, int Cols, int ColOrRowMajor = Eigen::RowMajor>
 		class Matrix
 		{
 // https://eigen.tuxfamily.org/dox/classEigen_1_1Matrix.html
@@ -55,11 +55,17 @@ namespace SolAR{namespace datastructure{
 			int rows() const;
 			int size() const;
 		};
+		
+		template <class T, int Rows>
+		typedef Matrix<T, Dim, 1> Vector;
+		
+		//typedef Matrix<float, 3, 1> Vector3f;
 	}
 	
 	template <class T, int Dim>
 	typedef Maths::Matrix<T, Dim, 1> Vector;
-	//class Vector : public Maths::Matrix<T, Dim, 1> {};
+	
+	typedef Maths::Matrix<float, 3, 1> Vector3f;
 	
 	template <class Scalar, int Dim>
 	class Transform
@@ -132,9 +138,24 @@ namespace SolAR{namespace datastructure{
 	};
 }}
 
+%define DATASTRUCT(NAME, TYPE...)
+%shared_ptr(SolAR::datastructure::TYPE)
+%template(NAME) SolAR::datastructure::TYPE;
+%enddef
+
+DATASTRUCT(Transform2Df, Transform<float, 2>)
+DATASTRUCT(Transform3Df, Transform<float, 3>)
+
+/*
+%ignore SolAR::datastructure::Translation<float, 2>::z();
+DATASTRUCT(Translation2Df, Translation<float, 2>)
+DATASTRUCT(Translation3Df, Translation<float, 3>)
+
+DATASTRUCT(Quaternionf, Quaternion<float>)
+*/
+
 %define MATRIX(NAME, ROWS, COLS, TYPE)
-%shared_ptr(SolAR::datastructure::Maths::Matrix<TYPE, ROWS, COLS>)
-%template(NAME) SolAR::datastructure::Maths::Matrix<TYPE, ROWS, COLS>;
+DATASTRUCT(NAME, Maths::Matrix<TYPE, ROWS, COLS>)
 %enddef
 
 /*
@@ -154,25 +175,9 @@ MATRIX(NAME, SIZE, 1, TYPE)
 %template(NAME) SolAR::datastructure::Vector<TYPE, SIZE>;
 %enddef
 
-VECTOR(Vector2Df, 2, float)
-VECTOR(Vector3Df, 3, float)
-VECTOR(Vector5Df, 5, float)
+VECTOR(Vector2f, 2, float)
+VECTOR(Vector3f, 3, float)
+VECTOR(Vector5f, 5, float)
 
-VECTOR(Vector2Di, 2, int)
-VECTOR(Vector3Di, 3, int)
-
-%define GEOMETRY(NAME, TYPE...)
-%shared_ptr(SolAR::datastructure::TYPE)
-%template(NAME) SolAR::datastructure::TYPE;
-%enddef
-
-GEOMETRY(Transform2Df, Transform<float, 2>)
-GEOMETRY(Transform3Df, Transform<float, 3>)
-
-/*
-%ignore SolAR::datastructure::Translation<float, 2>::z();
-GEOMETRY(Translation2Df, Translation<float, 2>)
-GEOMETRY(Translation3Df, Translation<float, 3>)
-
-GEOMETRY(Quaternionf, Quaternion<float>)
-*/
+VECTOR(Vector2i, 2, int)
+VECTOR(Vector3i, 3, int)
