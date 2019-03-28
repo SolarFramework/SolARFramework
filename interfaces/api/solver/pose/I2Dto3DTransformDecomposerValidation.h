@@ -8,7 +8,9 @@
 #include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
-
+namespace api {
+namespace solver {
+namespace pose {
 ///
 /// \brief The I2Dto3DTransformDecomposerValidation class
 ///
@@ -25,6 +27,9 @@ public:
 
 };
 
+}
+}
+}
 }  // end of namespace SolAR
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2Dto3DTransformDecomposerValidation,
