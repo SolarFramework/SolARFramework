@@ -30,7 +30,8 @@ namespace datastructure {
 namespace Maths = Eigen;
 
 template <class T, int Rows, int Cols, int ColOrRowMajor =Eigen::RowMajor>
-using Matrix = Maths::Matrix<T, Rows, Cols, Eigen::RowMajor>;
+//using Matrix = Maths::Matrix<T, Rows, Cols, Eigen::RowMajor>;
+using Matrix = Maths::Matrix<T,Rows,Cols,ColOrRowMajor>;
 
 typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
 typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
