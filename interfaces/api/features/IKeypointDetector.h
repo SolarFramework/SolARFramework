@@ -52,6 +52,7 @@ namespace features {
 		AKAZEUP,
 		BRISK,
 		BRIEF,
+        FEATURE_TO_TRACK
 	};
 
 
