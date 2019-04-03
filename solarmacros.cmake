@@ -3,7 +3,7 @@ set(CMAKE_INSTALL_PREFIX $ENV{BCOMDEVROOT}/bcomBuild CACHE INTERNAL "")
 # macro to parse 3rd parties via pkgconfig
 ####################################################
 # find PkgConfig
-find_package(PkgConfig)
+find_package(PkgConfig REQUIRED)
 if (UNIX)
 	set (LINKLIBPREFIX "lib")
 	set (LINKLIBEXTENSION ".so")
