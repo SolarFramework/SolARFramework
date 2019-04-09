@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
 ##################################################
-set (VERSION_NUMBER "0.5.1")
+set (VERSION_NUMBER "0.5.2")
 project("SolARFramework")
 set (SOURCES 
 		src/core/SolARFramework.cpp
@@ -34,12 +34,15 @@ set (HEADERS
 		interfaces/api/features/IDescriptorsExtractor.h
 		interfaces/api/features/IDescriptorsExtractorSBPattern.h
 		interfaces/api/features/IKeypointDetector.h
+		interfaces/api/features/IKeypointDetectorRegion.h
 		interfaces/api/features/IKeypointsReIndexer.h
 		interfaces/api/features/ISBPatternReIndexer.h
 		interfaces/api/features/IMatchesFilter.h
 		interfaces/api/fusion/IVisualInertialFusion.h
 		interfaces/api/geom/I2DTransform.h
 		interfaces/api/geom/I3DTransform.h
+		interfaces/api/geom/IProject.h
+		interfaces/api/geom/IUnproject.h
 		interfaces/api/geom/IImage2WorldMapper.h
 		interfaces/api/geom/IUndistortPoints.h
 		interfaces/api/image/IImageConvertor.h
@@ -57,6 +60,7 @@ set (HEADERS
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapFilter.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/tracking/IOpticalFlowEstimator.h
 		interfaces/api/reloc/IKeyframeRetriever.h
 		interfaces/api/reloc/IRelocalizer.h 
 		interfaces/api/pipeline/IPipeline.h

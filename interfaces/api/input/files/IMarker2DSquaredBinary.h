@@ -41,8 +41,7 @@ public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    // my own methods here:
-    virtual SRef<SquaredBinaryPattern> getPattern() { return xpcf::utils::make_shared<SquaredBinaryPattern>(m_pattern);};
+    virtual SRef<SquaredBinaryPattern> getPattern() const { return xpcf::utils::make_shared<SquaredBinaryPattern>(m_pattern);};
 
 protected:
     SquaredBinaryPattern m_pattern;

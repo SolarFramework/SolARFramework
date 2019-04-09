@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+
+#ifndef SOLAR_BUFFERINTERNAL_H
+#define SOLAR_BUFFERINTERNAL_H
+
 namespace SolAR {
 namespace datastructure {
 
@@ -65,3 +69,5 @@ private:
 
 }
 }
+
+#endif // SOLAR_BUFFERINTERNAL_H

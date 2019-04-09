@@ -32,7 +32,7 @@ namespace SolAR {
             namespace pose {
             /**
              * @class I3DTransformSACFinderFrom2D3D
-             * @brief Finds the 3D transform of 2D-3D points correspondaces.
+             * @brief Finds the 3D transform of 2D-3D points correspondances with a SAmple Consensus.
              */
                 class I3DTransformSACFinderFrom2D3D : public virtual org::bcom::xpcf::IComponentIntrospect {
                 public:

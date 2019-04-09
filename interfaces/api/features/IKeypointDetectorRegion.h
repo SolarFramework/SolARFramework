@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IKEYPOINTDETECTOR_H
-#define SOLAR_IKEYPOINTDETECTOR_H
+#ifndef SOLAR_IKEYPOINTDETECTORREGION_H
+#define SOLAR_IKEYPOINTDETECTORREGION_H
 
 #ifndef _BCOM_SHARED
 #define _BCOM_SHARED
@@ -27,6 +27,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
+#include "api/features/IKeypointDetector.h"
 
 // Definition of IKeypointDetector Class //
 // part of SolAR namespace //
@@ -37,39 +38,21 @@ namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace features {
-///
-/// \brief KeypointDetectorType enum
-/// This enum is used to define the type of an IKeypointDetector object
-///
-    enum class KeypointDetectorType {
-		SURF,
-		ORB,
-		SIFT,
-		DAISY,
-		LATCH,
-		AKAZE,
-		AKAZE2,
-		AKAZEUP,
-		BRISK,
-		BRIEF,
-        FEATURE_TO_TRACK
-	};
-
 
 /**
- * @class IKeypointDetector
- * @brief detects the keypoints from an image
+ * @class IKeypointDetectorRegion
+ * @brief detects the keypoints from given region of an image
  *
- * This class provides a method to detect the keypoint from an image using different kind of method (SURF, ORB, SIFT, etc.).
+ * This class provides a method to detect the keypoint from an given region of an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class  IKeypointDetector : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IKeypointDetectorRegion : public virtual org::bcom::xpcf::IComponentIntrospect {
 
 public:
-    /// @brief IKeypointDetector default constructor
-    IKeypointDetector() = default;
+    /// @brief IKeypointDetectorRegion default constructor
+    IKeypointDetectorRegion() = default;
 
     /// @brief IKeypointDetector default destructor
-    virtual ~IKeypointDetector() {};
+    virtual ~IKeypointDetectorRegion() {};
 
     /// @brief Set the type of method used to detect keypoints in the image
     /// @param[in] type The type of method used to detect keypoints.
@@ -81,18 +64,18 @@ public:
 
     /// @brief This method detects keypoints in an input Image
     /// @param[in] image input image on which we are extracting keypoints.
-    /// @param[out] keypoints The keypoints detected from the image passed as first argument.
-    virtual void detect (const SRef<Image> &image, std::vector<SRef<Keypoint>> &keypoints) = 0;
-
+    /// @param[in] contours a set of 2D points defining the contour of the region where keypoints will be detected
+    /// @param[out] keypoints The keypoints detected from the given region of the image passed as first argument.
+    virtual void detect (const SRef<Image> &image, const std::vector<SRef<Point2Df>>& contours, std::vector<SRef<Keypoint>> &keypoints) = 0;
 };
 
 }
 }
 }  // end of namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointDetector,
-                             "0eadc8b7-1265-434c-a4c6-6da8a028e06e",
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IKeypointDetectorRegion,
+                             "64ccce51-b445-4ec5-a0fa-44156e8bc370",
                              "IKeypointDetector",
-                             "SolAR::api::features::IKeypointDetector");
+                             "SolAR::api::features::IKeypointDetectorRegion");
 
-#endif // SOLAR_IKEYPOINTDETECTOR_H
+#endif // SOLAR_IKEYPOINTDETECTORREGION_H

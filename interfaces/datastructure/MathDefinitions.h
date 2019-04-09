@@ -35,8 +35,19 @@ using Matrix = Maths::Matrix<T,Rows,Cols,ColOrRowMajor>;
 
 typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
 typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
+
+// Camera intrinsic parameters defined with a 3x3 matrix
+// f_x  0  c_x
+//  0  f_y c_y
+//  0   0   1
+// Where c_x and c_y define the optical center, f_x and f_y the focal.
 typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> CamCalibration;
+
+
+// Camera distortion parameter (K1, K2, P1, P2, K3)
+// see openCV Camera Calibration reference for more details.
 typedef Maths::Matrix<float, 5, 1> CamDistortion;
+
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -51,10 +62,6 @@ typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
 
 template <class T, int Rows>
 using Vector = Maths::Matrix<T,Rows,1>;
-
-//typedef Vector<float,4> Vector4f ;
-//typedef Vector<float,3> Vector3f ;
-//typedef Vector<double,3>Vector3d ;
 
 typedef Maths::Vector4f Vector4f ;
 typedef Maths::Vector3f Vector3f;

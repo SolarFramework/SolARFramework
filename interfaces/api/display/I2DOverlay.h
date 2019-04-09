@@ -51,31 +51,26 @@ public:
     virtual void drawCircle(const SRef<Point2Df> point, SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
-    /// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius and thickness (colors of points are randomized).
+    /// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in] point The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
     virtual void drawCircles(const std::vector<SRef<Point2Df>>& points, SRef<Image> displayImage) = 0;
-	/// @brief Draw Circles.
-	/// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius and thickness (colors of points are randomized).
-	/// @param[in] point The positions of the circles to draw
-	/// @param[in,out] displayImage The image on which the circles will be drawn.
-//    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, std::vector<unsigned int> & bgrValues,SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
-    /// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
-    /// @param[in] point The positions of the circles to draw
+    /// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius, thickness and colors (defined in the configuration file).
+    /// @param[in] keypoint The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
     virtual void drawCircles(const std::vector<SRef<Keypoint>>& keypoints, SRef<Image> displayImage) = 0;
 
-	/// @brief Draw Circles.
-	/// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
-	/// @param[in] point The positions of the circles to draw
-	/// @param[in,out] displayImage The image on which the circles will be drawn.
-//	virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, std::vector<unsigned int> & bgrValues, SRef<Image> displayImage) = 0;
+    /// @brief Draw a Contour.
+    /// Draw a contour on image displayImage
+    /// @param[in] contour The contour in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
+    /// @param[in,out] displayImage The image on which the contours will be drawn.
+    virtual void drawContour (const Contour2Df& contours, SRef<Image> displayImage) = 0;
 
-     /// @brief Draw Contours.
+    /// @brief Draw Contours.
     /// Draw all the contours stored in the vector  std::vector <SRef<Contour2Df>> & contours on image displayImage
-    /// @param[in] contours The vector of contours in 2D to draw.
+    /// @param[in] contours The vector of contours in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in,out] displayImage The image on which the contours will be drawn.
     virtual void drawContours (const std::vector <SRef<Contour2Df>> & contours, SRef<Image> displayImage) = 0;
 

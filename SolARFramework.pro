@@ -9,7 +9,7 @@ CONFIG -= qt
 TARGET = SolARFramework
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.1
+VERSION=0.5.2
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -52,12 +52,15 @@ interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorsExtractor.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
 interfaces/api/features/IKeypointDetector.h \
+interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/ISBPatternReIndexer.h \
 interfaces/api/features/IMatchesFilter.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
+interfaces/api/geom/IProject.h \
+interfaces/api/geom/IUnproject.h \
 interfaces/api/geom/IImage2WorldMapper.h \
 interfaces/api/geom/IUndistortPoints.h \
 interfaces/api/image/IImageConvertor.h \
@@ -109,6 +112,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
+interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
@@ -173,6 +177,8 @@ header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
 header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
+header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
+header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
@@ -208,6 +214,7 @@ INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_source
+INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_reloc
