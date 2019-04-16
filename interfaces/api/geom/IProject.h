@@ -21,6 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CloudPoint.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -51,6 +52,14 @@ public:
     /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode project(const std::vector<SRef<Point3Df>> & inputPoints, std::vector<SRef<Point2Df>> & imagePoints, const Transform3Df& pose = Transform3Df::Identity()) = 0;
+
+    /// @brief This method project a set of 3D cloud points in the image plane
+    /// @param[in] inputPoints the set of 3D cloud points to project
+    /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
+    /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
+    /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode project(const std::vector<SRef<CloudPoint>> & inputPoints, std::vector<SRef<Point2Df>> & imagePoints, const Transform3Df& pose = Transform3Df::Identity()) = 0;
+
 
 };
 
