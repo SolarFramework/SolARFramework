@@ -60,6 +60,9 @@ set (HEADERS
 		interfaces/api/solver/map/ITriangulator.h
 		interfaces/api/solver/map/IMapFilter.h
 		interfaces/api/solver/map/IMapper.h
+		interfaces/api/storage/IKeyframesStorage.h
+		interfaces/api/storage/IPointCloudStorage.h
+		interfaces/api/storage/IVisibilityStorage.h
 		interfaces/api/tracking/IOpticalFlowEstimator.h
 		interfaces/api/reloc/IKeyframeRetriever.h
 		interfaces/api/reloc/IRelocalizer.h 

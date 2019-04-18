@@ -87,6 +87,9 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/storage/IKeyframesStorage.h \
+interfaces/api/storage/IPointCloudStorage.h \
+interfaces/api/storage/IVisibilityStorage.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
@@ -177,6 +180,8 @@ header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
 header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
+header_interfaces_storage.path = $${PROJECTDEPLOYDIR}/interfaces/api/storage
+header_interfaces_storage.files = $$files($${PWD}/interfaces/api/storage/*.h*)
 header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
 header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
@@ -217,6 +222,7 @@ INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
+INSTALLS += header_interfaces_storage
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
