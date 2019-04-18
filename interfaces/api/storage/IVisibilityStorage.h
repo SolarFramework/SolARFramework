@@ -21,6 +21,8 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/Frame.h"
+#include "datastructure/Keyframe.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -29,7 +31,7 @@ namespace storage {
 
 /**
  * @class IVisibilityStorage
- * @brief Allows to store a set of keyframes. This storage component can be accessed by processing components to share persistent data.
+ * @brief Allows to store the visibility between keypoints and 3D points (and respectively). This storage component can be accessed by processing components to share persistent data.
 
  */
 
@@ -46,14 +48,14 @@ public:
     /// @param[in] keypoint the keypoint seeing the 3D point
     /// @param[in] point the 3D point seen from the keypoint
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode AddVisibility(const SRef<frame> frame, const SRef<Keypoint> keypoint, const SRef<Point3Df> point) = 0;
+    virtual FrameworkReturnCode AddVisibility(const SRef<Frame> frame, const SRef<Keypoint> keypoint, const SRef<Point3Df> point) = 0;
 
     /// @brief This method allow to add visibilities between keypoints of a same frame and the corresponding 3D points
     /// @param[in] frame the frame to which the keypoints belongs
     /// @param[in] keypoints the keypoints seeing the 3D points
     /// @param[in] points the 3D points seen from the keypoints
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode AddVisibility(const SRef<frame> frame, const std::vector<SRef<Keypoint>>& keypoints, const std::vector<SRef<Point3Df>>& points) = 0;
+    virtual FrameworkReturnCode AddVisibility(const SRef<Frame> frame, const std::vector<SRef<Keypoint>>& keypoints, const std::vector<SRef<Point3Df>>& points) = 0;
 
     /// @brief This method allow to suppress all visibilities related to a 3D point
     /// @param[in] point the 3D point for which we want to suppress all the related visibilities
@@ -113,7 +115,7 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::IVisibilityStorage,
                              "2c147595-6c74-4f69-b63d-91e162c311ed",
                              "IVisibilityStorage",
-                             "A component interface for storing a set of persistent keyframes accesisble by processing components.");
+                             "A component interface for storing a persistent visibility between keypoints and 3D points (and resp.).");
 
 
 #endif //SOLAR_IVISIBILITYSTORAGE_H
