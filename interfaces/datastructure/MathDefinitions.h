@@ -72,7 +72,8 @@ template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
 
 template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Projective, int ColOrRowMajor =Eigen::RowMajor>
-using Transform = Maths::Transform<T,Dim,Maths::Projective,Eigen::RowMajor>;
+//using Transform = Maths::Transform<T,Dim,Maths::Projective,Eigen::RowMajor>;
+using Transform = Maths::Transform<T,Dim,TransformType,ColOrRowMajor>;
 typedef Transform<float,3> Transform3Df;
 typedef Transform<float,2> Transform2Df;
 
