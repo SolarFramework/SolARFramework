@@ -31,9 +31,10 @@ namespace SolAR {
 namespace api {
 using namespace sink;
 using namespace source;
+using namespace datastructure;
 namespace pipeline {
 
-struct CameraParameters
+/*struct CameraParameters
 {
     int width = 0;
     int height = 0;
@@ -41,7 +42,7 @@ struct CameraParameters
     float focalY = 0.0f;
     int centerX = 320;
     int centerY = 240;
-};
+};*/
 
 /**
  * @class IPipeline
@@ -65,7 +66,7 @@ public:
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (its resolution and its focal)
-    virtual CameraParameters getCameraParameters() = 0;
+    virtual CamCalibration getCameraParameters() = 0;
 
     /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
     /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.
