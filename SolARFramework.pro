@@ -215,7 +215,6 @@ INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
-INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
