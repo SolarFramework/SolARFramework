@@ -84,13 +84,22 @@ public:
 
     /// @brief This method allows to get all the 3D points visible from a frame
     /// @param[in] frame the frame for which you want to get the visible 3D points
+    /// @param[out] matching_keypoints the keypoints for which a 3D point is visible
     /// @param[out] visiblePoints the set of 3D points visible from the frame
     /// @return FrameworkReturnCode::_SUCCESS_ if the access to visible 3D points succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode GetVisible3DPoints(const SRef<Frame> frame, std::vector<SRef<Point3Df>>& visiblePoints) = 0;
+    virtual FrameworkReturnCode GetVisible3DPoints(const SRef<Frame> frame, std::vector<SRef<Keypoint>> matching_keypoints, std::vector<SRef<Point3Df>>& visiblePoints) = 0;
 
     /// @brief This method allows to get all the 3D points visible from a keypoint
     /// @param[in] frame the frame to which the keypoint belongs
-    /// @param[in] keypoint the keypoint for wich we want to obtain the visible 3D point
+    /// @param[in] keypoints a set of keypoints in the frame for which we want to obtain the visible 3D points
+    /// @param[out] matching_keypoints the keypoints for which a 3D point is visible
+    /// @param[out] visiblePoints the 3D points visible from the keypoints
+    /// @return FrameworkReturnCode::_SUCCESS_ if the access to visible 3D points succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode GetVisible3DPoints(const SRef<Frame> frame, const std::vector<SRef<Keypoint>> keypoints, std::vector<SRef<Keypoint>> matching_keypoints, std::vector<SRef<Point3Df>>& visiblePoint, std::vector<unsigned int>& mapping) = 0;
+
+    /// @brief This method allows to get all the 3D points visible from a keypoint
+    /// @param[in] frame the frame to which the keypoint belongs
+    /// @param[in] keypoint the keypoint for which we want to obtain the visible 3D point
     /// @param[out] visiblePoint the 3D points visible from the keypoint
     /// @return FrameworkReturnCode::_SUCCESS_ if the access to visible 3D points succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode GetVisible3DPoint(const SRef<Frame> frame, const SRef<Keypoint> keypoint, SRef<Point3Df> visiblePoint) = 0;
@@ -99,13 +108,13 @@ public:
     /// @param[in] frame the frame for which you want to get the visible 3D points
     /// @param[out] visiblePoints the set of 3D points visible from the frame
     /// @return FrameworkReturnCode::_SUCCESS_ if the access to visible 3D points succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode GetVisible3DPoints(const SRef<Point3Df> point, std::vector<SRef<Frame>>& frames, std::vector<SRef<Keypoint>>& keypoints) = 0;
+    virtual FrameworkReturnCode GetVisibleKeypoints(const SRef<Point3Df> point, std::vector<SRef<Frame>>& frames, std::vector<SRef<Keypoint>>& keypoints) = 0;
 
     /// @brief This method allows to get all the keypoints and corresponding keyframes seeing a given 3D point
     /// @param[in] frame the frame for which you want to get the visible 3D points
     /// @param[out] visiblePoints the set of 3D points visible from the frame
     /// @return FrameworkReturnCode::_SUCCESS_ if the access to visible 3D points succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode GetVisible3DPoints(const std::vector<SRef<Point3Df>>& points, std::vector<SRef<Frame>>& frames, std::vector<SRef<Keypoint>>& keypoints) = 0;
+    virtual FrameworkReturnCode GetVisibleKeypoints(const std::vector<SRef<Point3Df>>& points, std::vector<std::vector<SRef<Frame>>>& frames, std::vector<std::vector<SRef<Keypoint>>>& keypoints) = 0;
 };
 
 }
