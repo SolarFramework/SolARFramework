@@ -38,7 +38,8 @@ namespace datastructure {
         Keypoint() = default;
 
 
-        Keypoint( float x,
+        Keypoint( unsigned int id,
+                    float x,
                     float  y,
                     float  	size,
                     float  	angle,
@@ -58,7 +59,8 @@ namespace datastructure {
     /// \param octave: octave (pyramid layer) from which the keypoint has been extracted
     /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
     ///
-     void init( float  x,
+     void init( unsigned int id,
+                float  x,
                 float  	y,
                 float  	size,
                 float  	angle,
@@ -66,7 +68,13 @@ namespace datastructure {
                 int  	octave,
                 int  	class_id ) ;
 
-    ///
+     ///
+     /// \brief This method returns the id of the keypoint in its frame
+     /// \return id
+     ///
+         inline float getId() const {return m_id;}
+
+     ///
     /// \brief This method returns the angle of an Keypoint
     /// \return angle
     ///
@@ -96,7 +104,8 @@ namespace datastructure {
     ///
         inline int   getClassId() const {return m_class_id;}
 
-    private:     
+    private:
+        unsigned int    m_id; // The id of the keypoint in the current frame
         float           m_size;
         float           m_angle;
         float           m_response;
