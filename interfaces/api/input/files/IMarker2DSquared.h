@@ -47,11 +47,8 @@ namespace files {
 class IMarker2DSquared : public virtual IMarker {
 public:
     IMarker2DSquared() = default;
-
     virtual ~IMarker2DSquared() = default;
-
     inline void setSize (const float & width, const float & height) { m_size.width = width; m_size.height = height; };
-
     inline float getWidth() const { return m_size.width; };
     inline float getHeight() const { return m_size.height; };
     inline Sizef getSize() const { return m_size; };

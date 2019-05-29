@@ -26,11 +26,16 @@ namespace api {
 namespace input {
 namespace files {
 
+//!  The abstract class defining a generic Marker
+/**
+ * @class IMarker2DNaturalImage
+ * @brief Specify the IMarker constructor class  
+ */
 class IMarker : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IMarker() = default;
     virtual ~IMarker() = default;
-
+    /// @brief Load a specific marker and its features (size, descriptors..). 
     virtual FrameworkReturnCode loadMarker() = 0;
 
 };

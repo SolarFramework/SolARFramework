@@ -30,9 +30,11 @@ class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
     virtual ~IImageFilter() = default;
-
+    /// @brief This method filters an image source to an image destination.
+    /// @param[in] imgSrc input image to filter
+    /// @param[out] imgDst output image filtred
+    /// @return FrameworkReturnCode::_SUCCESS_ id filtering succeed, else FrameworkReturnCode::_ERROR.   
     virtual FrameworkReturnCode filter(const SRef<Image>input, SRef<Image>& output) = 0;
-
 };
 
 }

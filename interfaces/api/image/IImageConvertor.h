@@ -40,7 +40,15 @@ public:
    /// \brief ~IImageConvertor
    ///
    virtual ~IImageConvertor() {};
+   /// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
+   /// @param[in] imgSrc input image to convert
+   /// @param[out] imgDst output image converted
+   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
+   /// @brief This method converts an image source to image destination according to a given channel and color representation  layout
+   /// @param[in] imgSrc input image to convert
+   /// @param[out] imgDst output image converted
+   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
 
 };
