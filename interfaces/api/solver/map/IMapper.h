@@ -40,9 +40,11 @@ namespace SolAR {
     namespace api {
         namespace solver {
             namespace map {
-///
-/// @brief The IMapper class
-///
+/**
+  * @class IMapper
+  * @brief <B>Updates a point map with new triangulated 3D points.</B>
+  * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
+  */
 
 class  IMapper : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:

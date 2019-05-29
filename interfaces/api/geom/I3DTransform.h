@@ -29,7 +29,8 @@ namespace geom {
 
 /**
  * @class I3DTransform
- * @brief provides a method to apply a 3D transformation (e.g. an affine transformation) to a set of 3D points
+ * @brief <B>Provides a method to apply a 3D transformation (e.g. an affine transformation) to a set of 3D points.</B>
+ * <TT>UUID: 9c1052b2-46c0-467b-8363-36f19b6b445f</TT>
  */
 
 class I3DTransform : public virtual org::bcom::xpcf::IComponentIntrospect {

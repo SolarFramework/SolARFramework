@@ -26,6 +26,12 @@ using namespace datastructure;
 namespace api {
 namespace image {
 
+/**
+  * @class IImageFilter
+  * @brief <B>Applies a filter to an image.</B>
+  * <TT>UUID: f7948ae2-e994-416f-be40-dd404ca03a83</TT>
+  *
+  */
 class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;

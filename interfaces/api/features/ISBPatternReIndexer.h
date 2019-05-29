@@ -30,7 +30,8 @@ namespace features {
 
 /**
  * @class ISBPatternReIndexer
- * @brief gives both the 4 corners of a pattern in its reference coordinate system (pixels, cells, etc.) and the 4 corners in pixels of this pattern in the current image.
+ * @brief <B>Gives both the 4 corners of a pattern in its reference coordinate system (pixels, cells, etc.) and the 4 corners in pixels of this pattern in the current image.</B>
+ * <TT>UUID: 79c5b810-d557-11e7-9296-cec278b6b50a</TT>
  */
 class  ISBPatternReIndexer : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:

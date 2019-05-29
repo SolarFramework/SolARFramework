@@ -30,7 +30,8 @@ namespace tracking {
 
 /**
  * @class IOpticalFlowEstimator Estimator
- * @brief component interface to estimate the optical flow between two images
+ * @brief <B>Estimates the optical flow between two images.</B>
+ * <TT>UUID: 3c74cd7f-950c-43ee-8886-9f4ddf763c27</TT>
  *
  * This interface is defined to implement components to estimate the optical flow between two images.
  */

@@ -29,7 +29,8 @@ namespace geom {
 
 /**
  * @class IImage2WorldMapper
- * @brief provides a method to map 2D points to a 3D world coordinate system. For example, this method can map the 4 corners of a marker to the world coordinate system.
+ * @brief <B>Provides a method to map 2D points to a 3D world coordinate system. For example, this method can map the 4 corners of a marker to the world coordinate system.</B>
+ * <TT>UUID: 67bcd080-258d-4b16-b693-cd30c013eb05</TT>
  */
 
 class IImage2WorldMapper : public virtual org::bcom::xpcf::IComponentIntrospect {

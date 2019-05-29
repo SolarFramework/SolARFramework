@@ -45,7 +45,8 @@ struct CameraParameters
 
 /**
  * @class IPipeline
- * @brief Define the interface of a video see-through pipeline.
+ * @brief <B>Defines a pose estimation pipeline.</B>
+ * <TT>UUID: b5a6225e-6a91-4050-b298-886f4c17d9d2</TT>
  *
  * This class provides the interface to define a video see-through pipeline.
  */

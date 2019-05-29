@@ -30,7 +30,7 @@ namespace datastructure {
 
 /**
 * @class DescriptorBuffer
-* @brief Specifies the DescriptorBuffer base class.
+* @brief <B>A buffer to store a set of descriptors.</B>
 *
 * This class provides an descriptor buffer structure
 */

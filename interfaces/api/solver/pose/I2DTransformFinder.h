@@ -25,42 +25,41 @@
 
 namespace SolAR {
 using namespace datastructure;
-    namespace api {
-        namespace solver {
-            namespace pose {
-            namespace Transform2DFinder {
-                ///
-                /// @brief The 2DTransformFinder return codes.
-                ///
-                enum  RetCode {
-                    TRANSFORM2D_ESTIMATION_OK = 0, /**< the default OK code*/
-                    TRANSFORM2D_EMPTY,			  /**< Homgraphy matrix is empty*/
-                };
-
-            }
-            /**
-             * @class I2DransformFinder
-             * @brief Finds the 2D transform  of 2D-2D points correspondaces.
-             */
-                class I2DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
-                public:
-                    ///@brief I2DTransformFinder default constructor.
-                    I2DTransformFinder() = default;
-                    ///@brief I2DTransformFinder default deconstructor.
-                    virtual ~I2DTransformFinder() = default;
-                    /// @brief Find 2D transform matrix from 2 sets of 2d_points.
-                    /// @param[in] Set of 2d_points seen in view_1.
-                    /// @param[in] Set of 2d_points seen in view_2.
-                    /// @param[out] Estimated 2D transform matrix.
-                    ///
-                    virtual Transform2DFinder::RetCode find(const std::vector<SRef<Point2Df> >& srcPoints,
-                        const std::vector< SRef<Point2Df> >& dstPoints,
-                        Transform2Df & fundamental) = 0;
-                };
-
-            }
-        }
+namespace api {
+namespace solver {
+namespace pose {
+    namespace Transform2DFinder {
+        enum  RetCode {
+            TRANSFORM2D_ESTIMATION_OK = 0, /**< the default OK code*/
+            TRANSFORM2D_EMPTY,			  /**< Homgraphy matrix is empty*/
+        };
     }
+
+/**
+  * @class I2DTransformFinder
+  * @brief <B>Finds the 2D transform from 2D-2D points correspondances.</B>
+  * <TT>UUID: 45dd370a-0eab-4a7f-93d0-43453b4c7517</TT>
+  */
+
+class I2DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+public:
+    ///@brief I2DTransformFinder default constructor.
+    I2DTransformFinder() = default;
+    ///@brief I2DTransformFinder default deconstructor.
+    virtual ~I2DTransformFinder() = default;
+    /// @brief Find 2D transform matrix from 2 sets of 2d_points.
+    /// @param[in] Set of 2d_points seen in view_1.
+    /// @param[in] Set of 2d_points seen in view_2.
+    /// @param[out] Estimated 2D transform matrix.
+    ///
+    virtual Transform2DFinder::RetCode find(const std::vector<SRef<Point2Df> >& srcPoints,
+        const std::vector< SRef<Point2Df> >& dstPoints,
+        Transform2Df & fundamental) = 0;
+};
+
+}
+}
+}
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::I2DTransformFinder,

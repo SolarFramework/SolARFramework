@@ -31,7 +31,8 @@ namespace api {
 namespace display {
 /**
  * @class IMatchesOverlay
- * @brief Drawing interface to overlay matches between two images.
+ * @brief <B>Draw to overlay matches between two images.</B>
+ * <TT>UUID: a801354a-3e00-467c-b390-48c76fa8c53a</TT>
  *
  * This class provides drawing method to overlay matches between two images.
  */

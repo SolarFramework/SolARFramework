@@ -17,9 +17,9 @@ namespace datastructure {
 class Keyframe;
 /**
  * @class Frame
- * @brief Specifies the frame class.
+ * @brief <B>A frame.</B>
  *
- * This class provides frame definition for slam utilities.
+ * This class provides frame definition.
  */
 class SOLARFRAMEWORK_API Frame {
     ///

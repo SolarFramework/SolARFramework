@@ -29,7 +29,8 @@ namespace devices {
 
 /**
  * @class IIMU
- * @brief Specify the IIMU interface class.
+ * @brief <B>Get access to the data of an IMU. </B>
+ * <TT>UUID: 9940fa48-10cf-11e8-b642-0ed5f89f718b</TT>
  *
  * This class describes the interface of an Inertial Measurement Unit capture device.
  */

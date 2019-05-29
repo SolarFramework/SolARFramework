@@ -31,7 +31,8 @@ namespace features {
 
 /**
  * @class IKeypointsReIndexer
- * @brief Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.
+ * @brief <B>Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.</B>
+ * <TT>UUID: 920e64a2-df17-11e7-80c1-9a214cf093ae</TT>
  */
 class  IKeypointsReIndexer : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:

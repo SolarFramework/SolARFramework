@@ -26,10 +26,11 @@ namespace api {
 namespace input {
 namespace files {
 
-//!  The abstract class defining a generic Marker
 /**
- * @class IMarker2DNaturalImage
- * @brief Specify the IMarker constructor class  
+ * @class IMarker
+ * @brief <B>Specifies a general Marker.</B>
+ * <TT>UUID: b05f3dbb-f93d-465c-aee1-fb58e1480c42</TT>
+ *
  */
 class IMarker : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
@@ -46,7 +47,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker,
-                             "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "b05f3dbb-f93d-465c-aee1-fb58e1480c42",
                              "IMarker",
                              "SolAR::api::input::files::IMarker interface");
 

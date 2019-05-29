@@ -29,9 +29,11 @@ using namespace datastructure;
 namespace api {
 namespace image {
 
-///
-/// \brief The IImageConvertor class
-///
+/**
+  * @class IImageConvertor
+  * @brief <B>Converts image with a specific layout.</B>
+  * <TT>UUID: 9c982719-6cb4-4831-aa88-9e01afacbd16</TT>
+  */
 class  IImageConvertor : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
    IImageConvertor() = default;

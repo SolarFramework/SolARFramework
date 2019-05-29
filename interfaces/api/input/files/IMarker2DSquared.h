@@ -35,14 +35,12 @@ namespace api {
 namespace input {
 namespace files {
 
-//!  The abstract class defining all 2D marker
-/*!
-  The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
-*/
-
 /**
  * @class IMarker2DSquared
- * @brief Specifies the IMarker2DSquared interface class.
+ * @brief <B>Specifies any 2D squared marker.</B>
+ * <TT>UUID: e9cdcf6e-c54c-11e7-abc4-cec278b6b50a</TT>
+ *
+ * The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
  */
 class IMarker2DSquared : public virtual IMarker {
 public:

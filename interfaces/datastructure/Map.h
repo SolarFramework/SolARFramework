@@ -12,6 +12,11 @@
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @class Map
+ * @brief <B>A map of 3D points.</B>.
+ *
+ */
 class SOLARFRAMEWORK_API Map{
 
 public :

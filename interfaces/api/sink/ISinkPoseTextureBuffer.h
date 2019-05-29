@@ -33,7 +33,8 @@ namespace sink {
 
 /**
  * @class ISinkPoseTextureBuffer
- * @brief A Sink for a synchronized pose and texture buffer useful for AR video see-through pipelines.
+ * @brief <B>A Sink for a synchronized pose and texture buffer useful for AR video see-through pipelines.</B>
+ * <TT>UUID: 8b220946-34ab-4fba-9aa7-ea8da807a2cf</TT>
  *
  * This interface allows to make available a pose to a third party application and to update a texture buffer with a new image.
  */

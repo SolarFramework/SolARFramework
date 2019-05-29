@@ -41,7 +41,8 @@ namespace map {
 
 /**
  * @class ITriangulator
- * @brief Triangulates a set of 2D-2d points correspondances with known respective camera poses.
+ * @brief <B>Triangulates a set of 2D-2d points correspondances with known respective camera poses.</B>
+ * <TT>UUID: 3a01b0e9-9a76-43f5-97b3-85bb6979b953</TT>
  */
 class  ITriangulator : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:

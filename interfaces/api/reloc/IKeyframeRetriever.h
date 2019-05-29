@@ -29,7 +29,8 @@ namespace reloc {
 
 /**
  * @class IKeyframeRetriever
- * @brief return a set of keyframes corresponding to a given frame.
+ * @brief <B>Returns a set of pre-recorded keyframes close to a given frame.</B>
+ * <TT>UUID: f60980ce-bdbd-11e8-a355-529269fb1459</TT>
  *
  * This class provides a solution to retrieve a set of keyframes corresponding to a given frame.
  */

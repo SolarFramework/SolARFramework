@@ -29,7 +29,8 @@ namespace reloc {
 
 /**
  * @class IRelocalizer
- * @brief Return a Camera pose.
+ * @brief <B>Returns a camera pose giving a frame.</B>
+ * <TT>UUID: 3531a734-be88-11e8-a355-529269fb1459</TT>
  *
  * This class provides a solution to get the pose given a frame.
  */
