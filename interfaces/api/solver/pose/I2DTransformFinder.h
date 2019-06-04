@@ -37,7 +37,7 @@ namespace pose {
 
 /**
   * @class I2DTransformFinder
-  * @brief <B>Finds the 2D transform from 2D-2D points correspondances.</B>
+  * @brief <B>Finds the 2D transform from 2D-2D points correspondences.</B>
   * <TT>UUID: 45dd370a-0eab-4a7f-93d0-43453b4c7517</TT>
   */
 

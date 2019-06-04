@@ -37,7 +37,7 @@ namespace files {
 
 /**
  * @class IMarker2DSquared
- * @brief <B>Specifies any 2D squared marker.</B>
+ * @brief <B>Loads any 2D squared marker.</B>
  * <TT>UUID: e9cdcf6e-c54c-11e7-abc4-cec278b6b50a</TT>
  *
  * The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.

@@ -30,7 +30,7 @@ namespace geom {
 
 /**
  * @class IProject
- * @brief <B>Provides a method to project 3D points on the 2D image plane.</B>
+ * @brief <B>Projects 3D points on a 2D image plane.</B>
  * <TT>UUID: b485f37d-a8ea-49f6-b361-f2b30777d9ba</TT>
  */
 

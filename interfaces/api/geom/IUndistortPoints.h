@@ -29,7 +29,7 @@ namespace geom {
 
 /**
  * @class IUndistortPoints
- * @brief <B>Provides a method to apply an undistorsion to a set of points.</B>
+ * @brief <B>Applies an undistorsion to a set of points.</B>
  * <TT>UUID: a345a1d2-c3f3-497f-948b-cd1a199e6657</TT>
  */
 

@@ -36,7 +36,7 @@ namespace files {
 
 /**
  * @class IMarker2DNaturalImage
- * @brief <B>Specifies a natural image marker.</B>
+ * @brief <B>Loads a natural image marker.</B>
  * <TT>UUID: 8fed06f8-c54d-11e7-abc4-cec278b6b50a</TT>
  *
  * The origin of the marker is positionned at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.

@@ -33,7 +33,7 @@ namespace files {
 
 /**
  * @class IMarker2DSquaredBinary
- * @brief <B>Specifies 2D squared marker based on a black and white grid.</B>
+ * @brief <B>Loads 2D squared marker based on a black and white grid.</B>
  * <TT>UUID: 12d592ff-aa46-40a6-8d65-7fbfb382d60b</TT>
  *
  */

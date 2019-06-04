@@ -28,7 +28,7 @@ namespace datastructure {
 
 /**
  * @class Point2Df
- * @brief <B>A 2D point with coordinates defined with float.</B>
+ * @brief <B>A 2D point with coordinates defined with floats.</B>
  *
  */
 class  Point2Df : public Vector<float,2> {
@@ -46,7 +46,7 @@ public:
 
 /**
  * @class Point3Df
- * @brief <B>A 3D point with coordinates defined with float.</B>
+ * @brief <B>A 3D point with coordinates defined with floats.</B>
  *
  */
 class  Point3Df : public Vector<float,3> {

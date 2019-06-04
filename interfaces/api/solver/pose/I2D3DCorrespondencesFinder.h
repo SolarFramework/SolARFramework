@@ -32,7 +32,7 @@ namespace solver {
 namespace pose {
 /**
  * @class I2D3DCorrespondencesFinder
- * @brief <B>Finds the 2D-3D correspondences giving a frame and its matches with a second frame which already has 2D-3D correspondences.</B>
+ * @brief <B>Finds the 2D-3D correspondences giving a frame and its matches with a second frame which has known 2D-3D correspondences.</B>
  * <TT>UUID: 0404e8b9-b824-4852-a34d-6eafa7563918</TT>
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.

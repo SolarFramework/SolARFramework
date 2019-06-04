@@ -28,7 +28,7 @@ namespace files {
 
 /**
  * @class IMarker
- * @brief <B>Specifies a general Marker.</B>
+ * @brief <B>Loads a general Marker.</B>
  * <TT>UUID: b05f3dbb-f93d-465c-aee1-fb58e1480c42</TT>
  *
  */

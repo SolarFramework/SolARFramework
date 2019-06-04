@@ -47,7 +47,7 @@ struct VisionData {
 
 /**
  * @class IVisualInertialFusion
- * @brief <B>Specifies the IVisualInertialFusion interface class.</B>
+ * @brief <B>Fuses data captured by inertial sensors with the pose estimated from visual sensors.</B>
  * <TT>UUID: 3efaa1c6-85e4-11e8-adc0-fa7ae01bbebc</TT>
  *
  * This class provides a fusion method to process inputs from both visual and inertial sensors.

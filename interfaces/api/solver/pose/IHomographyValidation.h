@@ -30,7 +30,7 @@ namespace pose {
 
 /**
   * @class IHomographyValidation
-  * @brief <B>Tests if an homography is valid.</B>
+  * @brief <B>Tests if a homography is valid.</B>
   * <TT>UUID: e95e8f70-dd32-11e7-9296-cec278b6b50a</TT>
   */
 class  IHomographyValidation : public virtual org::bcom::xpcf::IComponentIntrospect {

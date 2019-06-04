@@ -29,7 +29,7 @@ namespace geom {
 
 /**
  * @class I2DTransform
- * @brief <B>Provides a method to apply a 2D transformation (e.g. an homography) to a set of 2D points.</B>
+ * @brief <B>Applies a 2D transformation (e.g. an homography) to a set of 2D points.</B>
  * <TT>UUID: dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f</TT>
  */
 

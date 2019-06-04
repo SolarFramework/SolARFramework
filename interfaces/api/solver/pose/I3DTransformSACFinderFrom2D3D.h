@@ -32,7 +32,7 @@ namespace solver {
 namespace pose {
 /**
  * @class I3DTransformSACFinderFrom2D3D
- * @brief <B>Finds the 3D transform of 2D-3D points correspondances with a SAmple Consensus.</B>
+ * @brief <B>Finds the 3D transform of 2D-3D points correspondences with a SAmple Consensus.</B>
  * <TT>UUID: 8dd889c5-e8e6-4b3b-92e4-34cf7442f272</TT>
  */
     class I3DTransformSACFinderFrom2D3D : public virtual org::bcom::xpcf::IComponentIntrospect {

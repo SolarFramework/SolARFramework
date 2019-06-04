@@ -32,7 +32,7 @@ namespace solver {
 namespace pose {
 /**
  * @class I3DTransformFinderFrom2D3D
- * @brief <B>Finds the 3D transform of 2D-3D points correspondances.</B>
+ * @brief <B>Finds the 3D transform of 2D-3D points correspondences.</B>
  * <TT>UUID: 77281cda-47c2-4bb7-bde6-5b0d02e75dae</TT>
  */
     class I3DTransformFinderFrom2D3D : public virtual org::bcom::xpcf::IComponentIntrospect {

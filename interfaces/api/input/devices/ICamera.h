@@ -30,7 +30,7 @@ namespace devices {
 
 /**
  * @class ICamera
- * @brief <B>Get access to images captured in real-time by a video camera.</B>
+ * @brief <B>Grabs images captured in real-time by a video camera.</B>
  * <TT>UUID: 5ddc7df0-8377-437f-9c81-3643f7676a5b</TT>
  *
  * This class describes the interface of a camera capture device.
