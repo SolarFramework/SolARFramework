@@ -44,8 +44,6 @@ interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
 interfaces/api/display/IMatchesOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/example/IInterface1.h \
-interfaces/api/example/IInterface2.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IContoursFilter.h \

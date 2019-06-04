@@ -24,7 +24,7 @@ namespace datastructure {
 
 /**
  * @class DescriptorMatch
- * @brief Specifies the DescriptorMatch datastructure.
+ * @brief <B>A match between two descriptors.</B>
  *
  * This class provides a data structure to store only the results from IDescriptorMatcher.
  * 

@@ -30,7 +30,8 @@ namespace devices {
 
 /**
  * @class ICamera
- * @brief Specify the ICamera interface class.
+ * @brief <B>Grabs images captured in real-time by a video camera.</B>
+ * <TT>UUID: 5ddc7df0-8377-437f-9c81-3643f7676a5b</TT>
  *
  * This class describes the interface of a camera capture device.
  */
@@ -83,7 +84,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICamera,
-                             "5DDC7DF0-8377-437F-9C81-3643F7676A5B",
+                             "5ddc7df0-8377-437f-9c81-3643f7676a5b",
                              "ICamera",
                              "SolAR::ICamera interface");
 

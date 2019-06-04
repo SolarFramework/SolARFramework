@@ -27,7 +27,8 @@ namespace api {
 namespace display {
 /**
  * @class IImageViewer
- * @brief Viewer interface to display an image in a window.
+ * @brief <B>VDisplays an image in a window.</B>
+ * <TT>UUID: B05F3DBB-F93D-465C-AEE1-FB58E1480C42</TT>
  *
  * This class provides a viewer to display an image in a window.
  */

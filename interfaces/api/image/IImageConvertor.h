@@ -29,9 +29,11 @@ using namespace datastructure;
 namespace api {
 namespace image {
 
-///
-/// \brief The IImageConvertor class
-///
+/**
+  * @class IImageConvertor
+  * @brief <B>Converts image with a specific layout.</B>
+  * <TT>UUID: 9c982719-6cb4-4831-aa88-9e01afacbd16</TT>
+  */
 class  IImageConvertor : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
    IImageConvertor() = default;
@@ -40,7 +42,15 @@ public:
    /// \brief ~IImageConvertor
    ///
    virtual ~IImageConvertor() {};
+   /// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
+   /// @param[in] imgSrc input image to convert
+   /// @param[out] imgDst output image converted
+   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst) = 0;
+   /// @brief This method converts an image source to image destination according to a given channel and color representation  layout
+   /// @param[in] imgSrc input image to convert
+   /// @param[out] imgDst output image converted
+   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
    virtual FrameworkReturnCode convert(SRef<Image> imgSrc, SRef<Image>& imgDst, Image::ImageLayout destLayout) = 0;
 
 };

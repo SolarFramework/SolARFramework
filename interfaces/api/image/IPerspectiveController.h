@@ -30,7 +30,9 @@ namespace image {
 
 /**
  * @class IPerspectiveController
- * @brief warps and crops an image given a contour defined with four 2D points.
+ * @brief <B>Warps and crops an image given a contour defined with four 2D points.</B>
+ * <TT>UUID: 4a7d5c34-cd6e-11e7-abc4-cec278b6b50a</TT>
+ *
  */
 class  IPerspectiveController : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:

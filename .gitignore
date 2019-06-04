@@ -50,6 +50,9 @@ build/
 *.exp
 *.ilk
 *.pdb
+*.*pre1
+*.autosave
+*.project
 
 # Visual Studio files
 .vs*
@@ -63,8 +66,8 @@ x64*
 
 # documentation
 doc/
+doxygen/
 
 
 .git Merge
-SolARFramework.pro.user.9582bec
 SolARWrapper - Raccourci.lnk

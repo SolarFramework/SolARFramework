@@ -24,6 +24,11 @@ using namespace org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @class ImageInternal
+ * @brief <B>A 2D image buffer.</B>.
+ *
+ */
 class Image::ImageInternal {
 public:
     ImageInternal() = default;

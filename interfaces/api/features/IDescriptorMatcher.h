@@ -52,7 +52,8 @@ namespace features {
 
 /**
  * @class IDescriptorMatcher
- * @brief matches two sets of descriptors together
+ * @brief <B>Matches two sets of descriptors together.</B>
+ * <TT>UUID: dda38a40-c50a-4e7d-8433-0f04c7c98518</TT>
  *
  * This class provides a filtering method to prune a set of contours.
  */

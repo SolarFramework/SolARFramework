@@ -41,7 +41,8 @@ namespace features {
 
 /**
  * @class IKeypointDetectorRegion
- * @brief detects the keypoints from given region of an image
+ * @brief <B>Detects the keypoints from given region of an image.</B>
+ * <TT>UUID: 64ccce51-b445-4ec5-a0fa-44156e8bc370</TT>
  *
  * This class provides a method to detect the keypoint from an given region of an image using different kind of method (SURF, ORB, SIFT, etc.).
  */

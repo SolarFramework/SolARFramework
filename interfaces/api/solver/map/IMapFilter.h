@@ -30,13 +30,15 @@
 #include "datastructure/CloudPoint.h"
 
 namespace SolAR {
-    using namespace datastructure;
-    namespace api {
-        namespace solver {
-            namespace map {
-///
-/// @brief The IMapFilter class
-///
+using namespace datastructure;
+namespace api {
+namespace solver {
+namespace map {
+/**
+  * @class IMapFilter
+  * @brief <B>Filters a map of 3D points.</B>
+  * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
+  */
 class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
         public:
            IMapFilter() = default;

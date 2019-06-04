@@ -22,15 +22,14 @@
 #include "Frame.h"
 #include <map>
 
-//#include <memory>
 namespace SolAR {
 namespace datastructure {
 
 /**
  * @class Keyframe
- * @brief Specifies the Keyframe class.
+ * @brief <B>A keyframe</B>.
  *
- * This class provides Keyframe definition for slam utilities.
+ * This class provides Keyframe definition.
  */
 class SOLARFRAMEWORK_API Keyframe : public Frame {
     ///

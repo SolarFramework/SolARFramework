@@ -32,11 +32,12 @@ namespace SolAR {
 namespace datastructure {
 class Keyframe;
 
-///
-/// \brief The Cloudpoint class
-///
-    class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
-	public:
+/**
+ * @class CloudPoint
+ * @brief <B>A 3D point stored in a cloud of points.</B>
+ */
+class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
+public:
     CloudPoint() = default;
 
     /// @brief Cloudpoint constructor.
@@ -58,9 +59,9 @@ class Keyframe;
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
-   ///
-   /// \brief ~CloudPoint
-   ///
+    ///
+    /// \brief ~CloudPoint
+    ///
     ~CloudPoint();
 
     ///
@@ -87,15 +88,15 @@ class Keyframe;
     /// @param keypoint_id: the id of the keypoint of the keyframe
     inline void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; };
 
-    private:
-        std::map<unsigned int, unsigned int>  m_visibility;
-        float             m_r;
-        float             m_g;
-        float             m_b;
+private:
+    std::map<unsigned int, unsigned int>  m_visibility;
+    float             m_r;
+    float             m_g;
+    float             m_b;
 
-        double            m_reproj_error;
-	};
-   }
+    double            m_reproj_error;
+};
+}
 }  // end of namespace SolAR
 
 #endif // SolAR_KEYPOINT_H

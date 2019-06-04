@@ -57,7 +57,8 @@ namespace features {
 
 /**
  * @class IDescriptorsExtractor
- * @brief extracts descriptors from a set of keypoints
+ * @brief <B>Extracts descriptors from a set of keypoints.</B>
+ * <TT>UUID: c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e</TT>
  *
  * This class provides a method to extract descriptors from a set of keypoints
  */

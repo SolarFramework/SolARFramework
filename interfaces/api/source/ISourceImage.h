@@ -33,7 +33,8 @@ namespace source {
 
 /**
  * @class ISourceImage
- * @brief A Source for an image, useful for AR video see-through pipelines.
+ * @brief <B>A Source for an image, useful for AR video see-through pipelines.</B>
+ * <TT>UUID: 06e2fc5d-39da-4486-b2a6-1d8bd788fa13</TT>
  *
  * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
  */

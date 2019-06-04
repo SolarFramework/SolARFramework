@@ -11,9 +11,11 @@ namespace SolAR {
 namespace api {
 namespace solver {
 namespace pose {
-///
-/// \brief The I2Dto3DTransformDecomposerValidation class
-///
+/**
+  * @class I2Dto3DTransformDecomposerValidation
+  * @brief <B>Validates if a transform decomposition is correct.</B>
+  * <TT>UUID: ee990fc4-ec74-4365-8fa8-b2c94845fde6</TT>
+  */
 class  I2Dto3DTransformDecomposerValidation : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
    I2Dto3DTransformDecomposerValidation() = default;

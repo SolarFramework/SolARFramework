@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/** @file */
+
 #ifndef SOLAR_GEOMETRYDEFINITIONS_H
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
@@ -24,7 +26,11 @@
 namespace SolAR {
 namespace datastructure {
 
-// class Point2Df;
+/**
+ * @class Point2Df
+ * @brief <B>A 2D point with coordinates defined with floats.</B>
+ *
+ */
 class  Point2Df : public Vector<float,2> {
 public:
     Point2Df(float x=0,float y=0):Vector<float,2>(x,y){};
@@ -38,7 +44,11 @@ public:
     inline Point2Df operator-(const Point2Df& a) const { return Point2Df(getX()-a.getX(), getY()-a.getY());}
 };
 
-// class Point3Df;
+/**
+ * @class Point3Df
+ * @brief <B>A 3D point with coordinates defined with floats.</B>
+ *
+ */
 class  Point3Df : public Vector<float,3> {
 public:
     Point3Df(float x=0,float y=0, float z= 0):Vector<float,3>(x,y, z){};
@@ -58,7 +68,11 @@ public:
     inline Point3Df operator*(const float & f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
 };
 
-// class Point2Di;
+/**
+ * @class Point2Di
+ * @brief <B>A 2D point with coordinates defined with integers.</B>
+ *
+ */
 class  Point2Di : public Vector<int,2> {
 public:
     Point2Di(int x=0,int y=0):Vector<int,2>(x,y){};
@@ -72,7 +86,11 @@ public:
     inline Point2Di operator-(const Point2Di& a) const { return Point2Di(getX()-a.getX(), getY()-a.getY());}
 };
 
-// class Point3Di;
+/**
+ * @class Point3Di
+ * @brief <B>A 3D point with coordinates defined with integers.</B>
+ *
+ */
 class  Point3Di : public Vector<int,3> {
 public:
     Point3Di(int x=0,int y=0, int z= 0):Vector<int,3>(x,y, z){};
@@ -89,6 +107,11 @@ public:
     inline Point3Di operator-(const Point3Di& a) const { return Point3Di(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
 };
 
+/**
+ * @class Edge2Df
+ * @brief <B>A 2D edge with coordinates defined with floats.</B>
+ *
+ */
 class Edge2Df {
 public:
     Edge2Df() = default;
@@ -99,6 +122,11 @@ public:
     Point2Df p2;
 };
 
+/**
+ * @class Edge2Di
+ * @brief <B>A 2D edge with coordinates defined with integers.</B>
+ *
+ */
 class Edge2Di {
 public:
     Edge2Di() = default;
@@ -109,21 +137,56 @@ public:
     Point2Di p2;
 };
 
+/**
+ * @typedef Contour2Df
+ * @brief <B>A contours defined with 2D points with coordinates defined with floats.</B>
+ *
+ */
 typedef std::vector<SRef<Point2Df>> Contour2Df;
+
+/**
+ * @typedef Contour2Di
+ * @brief <B>A contours defined with 2D points with coordinates defined with integers.</B>
+ *
+ */
 typedef std::vector<SRef<Point2Di>> Contour2Di;
+
+/**
+ * @typedef QuadContour2Df
+ * @brief <B>A contours defined with 4 2D points with coordinates defined with floats.</B>
+ *
+ */
 typedef Point2Df QuadContour2Df[4];
+
+/**
+ * @typedef QuadContour2Di
+ * @brief <B>A contours defined with 4 2D points with coordinates defined with integers.</B>
+ *
+ */
 typedef Point2Di QuadContour2Di[4];
 
+/**
+ * @struct Sizei
+ * @brief <B>A 2D size defined with integers.</B>
+ */
 struct Sizei {
     uint32_t width;
     uint32_t height;
 };
 
+/**
+ * @struct Sizef
+ * @brief <B>A 2D size defined with floats.</B>
+ */
 struct Sizef {
     float width;
     float height;
 };
 
+/**
+ * @struct Rectanglei
+ * @brief <B>A 2D rectangle which size in defined with integers.</B>
+ */
 struct Rectanglei {
     uint32_t startX;
     uint32_t startY;

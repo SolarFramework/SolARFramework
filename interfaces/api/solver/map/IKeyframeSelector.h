@@ -34,10 +34,13 @@ using namespace datastructure;
 namespace api {
 namespace solver {
 namespace map {
-    ///
-    /// @brief The IKeyframeSelector class
-    ///
-    class  IKeyframeSelector : public virtual org::bcom::xpcf::IComponentIntrospect {
+/**
+  * @class IKeyframeSelector
+  * @brief <B>Determines if a frame is a keyframe candidate.</B>
+  * <TT>UUID: 4d5f2abe-beb7-11e8-a355-529269fb1459</TT>
+  *
+  */
+class  IKeyframeSelector : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IKeyframeSelector() = default;
     ///

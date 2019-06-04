@@ -28,7 +28,8 @@ namespace api {
 namespace display {
 /**
  * @class I3DPointsViewer
- * @brief Viewer interface to display points cloud in a window.
+ * @brief <B>Displays point clouds in a window.</B>
+ * <TT>UUID: 575d365a-9a27-11e8-9eb6-529269fb1459</TT>
  *
  * This class provides a viewer to display points cloud in a window.
  */

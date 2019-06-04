@@ -26,9 +26,10 @@ namespace api {
 namespace input {
 namespace devices {
 
-/// @class ICameraCalibration
-/// \brief The ICameraCalibration class
-///
+/** @class ICameraCalibration
+  * @brief <B>Calibrates a camera.</B>
+  * <TT>UUID: 0e83b228-b9ca-413d-9dc2-db45c427428b</TT>
+  */
 class  ICameraCalibration : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
    ICameraCalibration() = default;
