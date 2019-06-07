@@ -28,7 +28,8 @@ namespace api {
 namespace features {
 /**
  * @class IContoursExtractor
- * @brief Extracts contours from an image
+ * @brief <B>Extracts contours from an image.</B>
+ * <TT>UUID: 42d82ab6-cc62-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a contours extraction method from an image.
  */

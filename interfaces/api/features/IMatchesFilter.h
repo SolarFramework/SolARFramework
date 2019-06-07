@@ -11,7 +11,10 @@ namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace features {
-    ///@class IMatchesFilter
+   /** @class IMatchesFilter
+     * @brief <B>Filters a set of matches.</B>
+     * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
+     */
     class IMatchesFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief IMatchesFilter default constructor.

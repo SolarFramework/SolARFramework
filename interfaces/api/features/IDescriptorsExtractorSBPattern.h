@@ -30,7 +30,8 @@ namespace api {
 namespace features {
 /**
  * @class IDescriptorsExtractorSBPattern
- * @brief extracts descriptors from a squared binary pattern or from an image of a squared binary pattern
+ * @brief <B>Extracts descriptors from a squared binary pattern or from an image of a squared binary pattern.</B>
+ * <TT>UUID: 2e2bde18-ce39-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a method to extract descriptors of a squared binary pattern by simply concatenating pattern rows in a single vector.
  */

@@ -58,7 +58,8 @@ namespace features {
 
 /**
  * @class IKeypointDetector
- * @brief detects the keypoints from an image
+ * @brief <B>Detects the keypoints from an image.</B>
+ * <TT>UUID: 0eadc8b7-1265-434c-a4c6-6da8a028e06e</TT>
  *
  * This class provides a method to detect the keypoint from an image using different kind of method (SURF, ORB, SIFT, etc.).
  */

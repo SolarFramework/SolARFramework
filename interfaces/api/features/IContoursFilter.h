@@ -29,7 +29,8 @@ namespace features {
 
 /**
  * @class IContoursFilter
- * @brief filters a set of contours
+ * @brief <B>Filters a set of contours.</B>
+ * <TT>UUID: 6b3de3a0-cc72-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a filtering method to prune a set of contours.
  */

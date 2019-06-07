@@ -30,7 +30,8 @@ namespace api {
 namespace display {
 /**
  * @class I3DOverlay
- * @brief Drawing interface to overlay 3D information on top of an image.
+ * @brief <B>Draws 3D content on top of an image.</B>
+ * <TT>UUID: 81a20f52-6bf9-4949-b914-df2f614bc945</TT>
  *
  * This class provides drawing method to overlay 3D debug informations on top of an image.
  */

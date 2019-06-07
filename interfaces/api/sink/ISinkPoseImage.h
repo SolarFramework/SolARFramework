@@ -33,7 +33,8 @@ namespace sink {
 
 /**
  * @class ISinkPoseImage
- * @brief A Sink for a synchronized pose and image useful for AR video see-through pipelines.
+ * @brief <B>A Sink for a synchronized pose and image useful for AR video see-through pipelines.</B>
+ * <TT>UUID: c0d9fee4-d7d7-4866-a6cd-3bacac23316a</TT>
  *
  * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
  */

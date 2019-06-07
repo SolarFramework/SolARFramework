@@ -44,8 +44,6 @@ interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
 interfaces/api/display/IMatchesOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/example/IInterface1.h \
-interfaces/api/example/IInterface2.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IContoursFilter.h \
@@ -217,7 +215,6 @@ INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
-INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example

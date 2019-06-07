@@ -46,7 +46,8 @@ namespace pipeline {
 
 /**
  * @class IPipeline
- * @brief Define the interface of a video see-through pipeline.
+ * @brief <B>Defines a pose estimation pipeline.</B>
+ * <TT>UUID: b5a6225e-6a91-4050-b298-886f4c17d9d2</TT>
  *
  * This class provides the interface to define a video see-through pipeline.
  */
@@ -70,15 +71,23 @@ public:
 
     /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
     /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.
+    ///     /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode start(void* textureHandle) = 0;
 
     /// @brief Stop the pipeline.
+   /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
+
     virtual FrameworkReturnCode stop() = 0;
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed
     virtual SinkReturnCode update(datastructure::Transform3Df& pose) = 0;
 
+    /// @brief load a generic texture buffer.
+    /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.    
+    /// @param[in] width textureHandle buffer width.
+    /// @param[in] width textureHandle buffer height.
+    /// @return FrameworkReturnCode::_SUCCESS if the loading succeed, else FrameworkReturnCode::_ERROR_   
     virtual SourceReturnCode loadSourceImage(void* sourceTextureHandle, int width, int height) = 0;
 };
 }

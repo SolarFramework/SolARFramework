@@ -31,7 +31,8 @@ namespace display {
 
 /**
  * @class I2DOverlay
- * @brief Drawing interface to overlay 2D information on top of an image.
+ * @brief <B>Draws 2D information on top of an image.</B>
+ * <TT>UUID: 62b8b0b5-9344-40e6-a288-e609eb3ff0f1</TT>
  *
  * This class provides drawing methods to overlay 2D debug informations on top of an image.
  */

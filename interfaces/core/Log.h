@@ -17,7 +17,7 @@ namespace SolAR {
 
 /**
  * @class Log
- * @brief Specifies the Log interface class and MACRO's used to manage the logs.
+ * @brief <B>Specifies the Log interface class and MACRO's used to manage the logs.</B>
  *
  */
 

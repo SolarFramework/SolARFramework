@@ -21,6 +21,11 @@
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @class BufferInternal
+ * @brief <B>A Buffer used to store any data such as descriptors.</B>
+ */
+
 class BufferInternal {
 public:
     BufferInternal() = default;

@@ -30,7 +30,8 @@ namespace geom {
 
 /**
  * @class IUnproject
- * @brief provides a method to recover 3D points defined in world coordinate system from a set of 2D points defined in the image coordinate system
+ * @brief <B>Recovers 3D points defined in world coordinate system from a set of 2D points defined in the image coordinate system.</B>
+ * <TT>UUID: 21113a74-de60-4a3c-8b65-f3112beb3dc6</TT>
  */
 
 class IUnproject : public virtual org::bcom::xpcf::IComponentIntrospect {
