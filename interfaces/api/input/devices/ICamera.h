@@ -20,7 +20,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
-#include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -64,11 +64,17 @@ public:
     /// @brief Set the distorsion intrinsic camera parameters
     virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
 
+    /// @brief Set the distorsion intrinsic camera parameters
+    virtual void setParameters(const CameraParameters & parameters) =0;
+
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
     virtual CamCalibration getIntrinsicsParameters() = 0;
+
+    /// @return Return the camera parameters
+    virtual const CameraParameters & getParameters() = 0;
     
     /// @return Return the distorsion camera lens parameters
     virtual CamDistortion getDistorsionParameters() = 0;
