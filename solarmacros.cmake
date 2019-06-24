@@ -185,7 +185,6 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 		install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/interfaces/"        
 		         DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/interfaces)
 		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/bcom-${PROJECT_NAME}.pc.in" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER} RENAME "bcom-${PROJECT_NAME}.pc")
-		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER})
 
 		# uninstall target
 		if(NOT TARGET uninstall)
