@@ -64,7 +64,7 @@ public:
    /// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
    virtual FrameworkReturnCode update (SRef<Map>& map,
                                        SRef<Keyframe> newKeyframe,
-                                       const std::vector<SRef<CloudPoint>>& newCloud = {},
+                                       const std::vector<CloudPoint>& newCloud = {},
                                        const std::vector<DescriptorMatch>& newPointsMatches = {},
                                        const std::vector<DescriptorMatch>& existingPointsMatches = {}) = 0;
 

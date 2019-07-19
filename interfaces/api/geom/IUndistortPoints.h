@@ -45,13 +45,14 @@ public:
     /// @param[in] inputPoints the set of 2D points to correct
     /// @param[out] outputPoints the  undistorted 2D Points
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode undistort(const std::vector<SRef<Point2Df>> & inputPoints, std::vector<SRef<Point2Df>> & outputPoints) = 0;
+    virtual FrameworkReturnCode undistort(const std::vector<Point2Df> & inputPoints,
+                                          std::vector<Point2Df> & outputPoints) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) = 0;
     
     /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
+    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) = 0;
 
 };
 

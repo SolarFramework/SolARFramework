@@ -11,7 +11,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Keyframe.h"
 
@@ -47,10 +47,10 @@ class  IBundler : public virtual org::bcom::xpcf::IComponentIntrospect {
            /// @return[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
            /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
            virtual  double solve(std::vector<SRef<Keyframe>>&framesToAdjust,
-                                 std::vector<SRef<CloudPoint>>&mapToAdjust,
-                                 CamCalibration &K,
-                                 CamDistortion &D,
-                                 const std::vector<int>&selectKeyframes) = 0;
+                                 std::vector<CloudPoint>&mapToAdjust,
+                                 const CamCalibration & K,
+                                 const CamDistortion & D,
+                                 const std::vector<int> & selectKeyframes) = 0;
 
 
 };

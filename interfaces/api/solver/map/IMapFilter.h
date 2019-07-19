@@ -52,7 +52,7 @@ class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
            /// @param[in] pose2: the second pose used for building the point cloud.
            /// @param[in] input: The set of points to filter
            /// @param[out] output: the filtered point cloud
-           virtual void  filter(const Transform3Df pose1, const Transform3Df pose2, const std::vector<SRef<CloudPoint>>& input,  std::vector<SRef<CloudPoint>>& output) = 0;
+           virtual void  filter(const Transform3Df pose1, const Transform3Df pose2, const std::vector<CloudPoint>& input,  std::vector<CloudPoint>& output) = 0;
         };
 }
 

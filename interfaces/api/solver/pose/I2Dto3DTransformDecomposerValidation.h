@@ -23,7 +23,7 @@ public:
    ///
    /// \brief ~I2Dto3DTransformDecomposerValidation
    ///
-   virtual ~I2Dto3DTransformDecomposerValidation() {};
+   virtual ~I2Dto3DTransformDecomposerValidation() = default;
 
    virtual void testMethod()=0;
 

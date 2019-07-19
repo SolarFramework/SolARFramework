@@ -54,8 +54,8 @@ namespace pose {
         /// @param[in] poseView1, Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
         /// @param[out] poseView2, Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
         /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
-        virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & pointsView1,
-                                             const std::vector<SRef<Point2Df>> & pointsView2,
+        virtual FrameworkReturnCode estimate(const std::vector<Point2Df> & pointsView1,
+                                             const std::vector<Point2Df> & pointsView2,
                                              const Transform3Df& poseView1,
                                              Transform3Df & poseView2,
                                              std::vector<DescriptorMatch>& inlierMatches) =0;
@@ -66,8 +66,8 @@ namespace pose {
         /// @param[in] poseView1, Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
         /// @param[out] poseView2, Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
         /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
-        virtual FrameworkReturnCode estimate(const std::vector<SRef<Keypoint>> & pointsView1,
-                                             const std::vector<SRef<Keypoint>> & pointsView2,
+        virtual FrameworkReturnCode estimate(const std::vector<Keypoint> & pointsView1,
+                                             const std::vector<Keypoint> & pointsView2,
                                              const Transform3Df& poseView1,
                                              Transform3Df & poseView2,
                                              std::vector<DescriptorMatch>& inlierMatches) =0;

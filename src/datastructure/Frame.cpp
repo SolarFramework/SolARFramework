@@ -28,9 +28,9 @@ Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints
 		m_kpVisibility[i] = i;
 }
 
-Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
 
-Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
 
 SRef<Image>  Frame::getView()
 {
@@ -42,12 +42,12 @@ Transform3Df Frame::getPose()
     return m_pose;
 }
 
-void Frame::setPose(Transform3Df& pose)
+void Frame::setPose(const Transform3Df & pose)
 {
     m_pose = pose;
 }
 
-void Frame::setKeypoints( std::vector<SRef<Keypoint>>& kpts){
+void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
     m_keypoints  = kpts;
 }
 
@@ -56,7 +56,7 @@ SRef<DescriptorBuffer> Frame::getDescriptors() const
     return m_descriptors;
 }
 
-std::vector<SRef<Keypoint>> Frame::getKeypoints() const
+const std::vector<Keypoint> & Frame::getKeypoints() const
 {
     return m_keypoints;
 }
@@ -71,7 +71,7 @@ SRef<Keyframe> Frame::getReferenceKeyframe()
     return m_referenceKeyFrame;
 }
 
-std::map<unsigned int, unsigned int> Frame::getVisibleKeypoints()
+const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints()
 {
 	return m_kpVisibility;
 }

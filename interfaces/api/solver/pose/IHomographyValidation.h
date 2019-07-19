@@ -44,8 +44,8 @@ public:
     /// @brief evaluate the homography according to the projection of the 4 corners of a 2D squared Marker
     /// @param[in] Set of 2d_points of the corners in the template view.
     /// @param[in] Set of 2d_points of the corners projected in the current view.
-    virtual bool isValid(const std::vector<SRef<Point2Df>>& ref2DSquaredMarkerCorners,
-                         const std::vector<SRef<Point2Df>>& projected2DSquaredMarkerCorners) = 0;
+    virtual bool isValid(const std::vector<Point2Df> & ref2DSquaredMarkerCorners,
+                         const std::vector<Point2Df >& projected2DSquaredMarkerCorners) = 0;
 };
 
 }

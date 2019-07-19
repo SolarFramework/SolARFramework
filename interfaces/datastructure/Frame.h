@@ -29,13 +29,13 @@ public:
 	
 	Frame(const SRef<Keyframe> keyframe);
 
-    Frame(const std::vector<SRef<Keypoint>> keypoints,
+    Frame(const std::vector<Keypoint> & keypoints,
           const SRef<DescriptorBuffer> descriptors,
           const SRef<Image> view,
           const SRef<Keyframe> refKeyframe,
           const Transform3Df pose = Transform3Df::Identity());
 
-    Frame(const std::vector<SRef<Keypoint>> keypoints,
+    Frame(const std::vector<Keypoint> & keypoints,
           const SRef<DescriptorBuffer> descriptors,
           const SRef<Image> view,
           const Transform3Df pose = Transform3Df::Identity());
@@ -47,19 +47,19 @@ public:
 
     Transform3Df getPose();
 
-    void setPose(Transform3Df& pose);
-    void setKeypoints( std::vector<SRef<Keypoint>>& kpts);
+    void setPose(const Transform3Df & pose);
+    void setKeypoints(const std::vector<Keypoint>& kpts);
     void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
     SRef<Keyframe> getReferenceKeyframe();
 
     SRef<DescriptorBuffer> getDescriptors() const;
 
-    std::vector<SRef<Keypoint>> getKeypoints() const;
+    const std::vector<Keypoint> & getKeypoints() const;
 
-	std::map<unsigned int, unsigned int> getVisibleKeypoints();
+    const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
 
-	void addVisibleKeypoints(const std::map<unsigned int, unsigned int>& kpVisibility);
+    void addVisibleKeypoints(const std::map<unsigned int, unsigned int> & kpVisibility);
 
 protected:
     ///@brief pose of current frame
@@ -67,7 +67,7 @@ protected:
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
-    std::vector<SRef<Keypoint>>     m_keypoints ;
+    std::vector<Keypoint>     m_keypoints ;
 
 	std::map<unsigned int, unsigned int > m_kpVisibility;
 

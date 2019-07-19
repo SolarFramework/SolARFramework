@@ -38,13 +38,13 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 
     Keyframe(SRef<Frame> frame) : Frame(frame), m_idx(m_keyframeIdx++) {};
 
-    Keyframe(std::vector<SRef<Keypoint>> keypoints,
+    Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
              SRef<Keyframe> refKeyframe,
              Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose), m_idx(m_keyframeIdx++){};
 
-    Keyframe(std::vector<SRef<Keypoint>> keypoints,
+    Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
              Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose), m_idx(m_keyframeIdx++){};
@@ -52,10 +52,9 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
     ~Keyframe() = default;
 
     //void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
-    void addVisibleMapPoints(const std::map<unsigned int, SRef<CloudPoint>>& mapPoints);
+    void addVisibleMapPoints(const std::map<unsigned int, CloudPoint>& mapPoints);
 
-    //std::vector<SRef<CloudPoint>>& getVisibleMapPoints();
-    std::map<unsigned int, SRef<CloudPoint>>& getVisibleMapPoints();
+    const std::map<unsigned int, CloudPoint> & getVisibleMapPoints();
 
     int m_idx;
 
@@ -63,7 +62,7 @@ private:
     static int m_keyframeIdx;
 
     // @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the keyframe, and the second element to the corresponding cloudPoint.
-    std::map<unsigned int, SRef<CloudPoint>> m_mapVisibility;
+    std::map<unsigned int, CloudPoint> m_mapVisibility;
     //std::vector<SRef<CloudPoint>> m_mapPoints;
 };
 

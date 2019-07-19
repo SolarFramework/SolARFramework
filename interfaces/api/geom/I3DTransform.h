@@ -46,7 +46,9 @@ public:
     /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<SRef<Point3Df>> & inputPoints, const Transform3Df transformation, std::vector<SRef<Point3Df>> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<Point3Df> & inputPoints,
+                                          const Transform3Df & transformation,
+                                          std::vector<Point3Df> & outputPoints) = 0;
 };
 
 }

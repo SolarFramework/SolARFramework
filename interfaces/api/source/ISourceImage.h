@@ -58,7 +58,7 @@ public:
    /// @param[in] pose the new pose made available by the pipeline.
    /// @param[in,out] image The new image made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SourceReturnCode getNextImage(SRef<Image>& image ) = 0;
+   virtual SourceReturnCode getNextImage(SRef<Image> & image ) = 0;
 
 };
 

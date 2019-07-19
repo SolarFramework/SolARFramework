@@ -27,44 +27,44 @@ namespace datastructure {
  * @brief <B>A match between two descriptors.</B>
  *
  * This class provides a data structure to store only the results from IDescriptorMatcher.
- * 
- * 
+ *
+ *
  */
 class DescriptorMatch
 {
-    public:
+public:
 
-        /// \brief DescriptorMatch
-        ///  @param descriptor_idX:
-        ///  @param descriptor_idY:
-        ///  @param matching_score:
-        ///
-        DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score){
-            m_match =std::make_tuple(descriptor_idA, descriptor_idB,matching_score);
-        }
+    /// \brief DescriptorMatch
+    ///  @param descriptor_idX:
+    ///  @param descriptor_idY:
+    ///  @param matching_score:
+    ///
+    DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score){
+        m_match =std::make_tuple(descriptor_idA, descriptor_idB,matching_score);
+    }
 
-        /// \brief Return the index of the matching descriptor from a DescriptorBuffer A.
-        ///
-        inline unsigned int getIndexInDescriptorA(void) const {
-            return std::get<0>(m_match);
-        }
+    /// \brief Return the index of the matching descriptor from a DescriptorBuffer A.
+    ///
+    unsigned int getIndexInDescriptorA(void) const {
+        return std::get<0>(m_match);
+    }
 
-        /// \brief Return the index of the matching descriptor from a DescriptorBuffer B.
-        ///
-         inline unsigned int getIndexInDescriptorB(void) const{
-            return std::get<1>(m_match);
-        }
+    /// \brief Return the index of the matching descriptor from a DescriptorBuffer B.
+    ///
+    unsigned int getIndexInDescriptorB(void) const{
+        return std::get<1>(m_match);
+    }
 
-        /// \brief Return the matching score between the two indexed descriptors.
-        ///
-        inline unsigned int getMatchingScore(void) const{
-            return std::get<2>(m_match);
-        }
+    /// \brief Return the matching score between the two indexed descriptors.
+    ///
+    unsigned int getMatchingScore(void) const{
+        return std::get<2>(m_match);
+    }
 
     
-    private:
-        std::tuple<unsigned int, unsigned int, float> m_match;
-    };
+private:
+    std::tuple<unsigned int, unsigned int, float> m_match;
+};
 
 }
 }

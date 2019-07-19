@@ -49,11 +49,11 @@ public:
     /// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
     /// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const std::vector<SRef<CloudPoint>>& points,
+    virtual FrameworkReturnCode display(const std::vector<CloudPoint>& points,
                                         const Transform3Df & pose,
                                         const std::vector<Transform3Df> keyframePoses = {},
                                         const std::vector<Transform3Df> framePoses = {},
-                                        const std::vector<SRef<CloudPoint>>& points2 = {},
+                                        const std::vector<CloudPoint>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
 

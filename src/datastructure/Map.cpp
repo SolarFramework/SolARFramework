@@ -6,8 +6,6 @@ namespace datastructure {
 
 Map::Map()
 {
-    m_pointCloud = xpcf::utils::make_shared<std::vector<SRef<CloudPoint>>>() ;
-
 }
 
 Map::~Map()
@@ -15,12 +13,12 @@ Map::~Map()
 
 }
 
-void Map::addCloudPoints(const std::vector<SRef<CloudPoint>> & newMapPoints)
+void Map::addCloudPoints(const std::vector<CloudPoint> & newMapPoints)
 {
-     m_pointCloud->insert(m_pointCloud->end(), newMapPoints.begin()  , newMapPoints.end()) ;
+     m_pointCloud.insert(m_pointCloud.end(), newMapPoints.begin()  , newMapPoints.end()) ;
 }
 
-SRef<std::vector<SRef<CloudPoint>>> Map::getPointCloud()
+const std::vector<CloudPoint> & Map::getPointCloud()
 {
      return m_pointCloud ;
 

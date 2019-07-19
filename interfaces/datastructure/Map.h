@@ -27,13 +27,13 @@ public :
     /// \brief destructor
     ~Map() ;
 
-    void addCloudPoints(const std::vector<SRef<CloudPoint>> & newMapPoints);
+    void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
 
-    SRef<std::vector<SRef<CloudPoint>>> getPointCloud() ;
+    const std::vector<CloudPoint> & getPointCloud() ;
 
 private :
 
-    SRef<std::vector<SRef<CloudPoint>>> m_pointCloud ;
+    std::vector<CloudPoint> m_pointCloud ;
 
 };
 

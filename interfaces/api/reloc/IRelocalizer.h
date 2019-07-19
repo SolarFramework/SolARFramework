@@ -53,7 +53,7 @@ public:
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] pose: the pose of the camera corresponding to the frame
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalize(const SRef<Frame> frame, Transform3Df& pose) = 0;
+    virtual FrameworkReturnCode relocalize(const SRef<Frame> frame, Transform3Df & pose) = 0;
 };
 
 }
