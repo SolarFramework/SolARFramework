@@ -40,11 +40,11 @@ public:
    virtual ~ICameraCalibration() {};
 
    /// \brief Calibrate the camera device referenced relative to a captured video and output the result in the given file
-   virtual bool calibrate(std::string& inputVideo, std::string&output) = 0;
+   virtual bool calibrate(const std::string & inputVideo, const std::string & output) = 0;
    /// \brief Calibrate the camera device referenced by its id and output the result in the given file
-   virtual bool calibrate(int camera_id, std::string&output) = 0;
+   virtual bool calibrate(const int camera_id, const std::string & output) = 0;
    /// \brief Set the camera device calibration parameters
-   virtual bool setParameters(std::string&config_file)=0;
+   virtual bool setParameters(const std::string & config_file)=0;
 };
 
 }

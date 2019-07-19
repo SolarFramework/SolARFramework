@@ -46,7 +46,7 @@ public:
    /// @brief Filter a set of contours
    /// @param[in] inContours The contours to filter
    /// @param[out] outContours The resulting vector of contours after filtering
-   virtual FrameworkReturnCode filter(const std::vector<SRef<Contour2Df>> & inContours, std::vector<SRef<Contour2Df>> & outContours) = 0;
+   virtual FrameworkReturnCode filter(const std::vector<Contour2Df> & inContours, std::vector<Contour2Df> & outContours) = 0;
 
 };
 }

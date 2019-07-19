@@ -42,12 +42,7 @@ public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    virtual SRef<SquaredBinaryPattern> getPattern() const { return xpcf::utils::make_shared<SquaredBinaryPattern>(m_pattern);};
-
-protected:
-    SquaredBinaryPattern m_pattern;
-
-public:
+    virtual const SquaredBinaryPattern & getPattern() const  = 0;
 };
 
 }

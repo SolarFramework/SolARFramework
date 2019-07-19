@@ -62,15 +62,15 @@ public:
 
     /// @brief Initialize the fusion process with an initial pose
     /// @param[in] initialVisionData the initial pose
-    virtual void init(VisionData & initialVisionData) = 0;
+    virtual void init(const VisionData & initialVisionData) = 0;
 
     /// @brief Add inertial data to be processed
     /// @param[in] inertialData the timestamped inertial data
-    virtual void addInertialData(InertialData & inertialData) = 0;
+    virtual void addInertialData(const InertialData & inertialData) = 0;
 
     /// @brief Add vision data to be processed
     /// @param[in] visionData the timestamped vision data
-    virtual void addVisionData(VisionData & visionData) = 0;
+    virtual void addVisionData(const VisionData & visionData) = 0;
 
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose

@@ -36,20 +36,6 @@ using namespace datastructure;
 namespace api {
 namespace features {
 
-	namespace DescriptorMatcher {
-
-    ///
-    /// \brief The DescriptorMatcher return codes
-    ///
-		enum  RetCode {
-          DESCRIPTORS_MATCHER_OK=0,     /**< the default OK code*/
-           DESCRIPTORS_DONT_MATCH,      /**< try to match descriptors of different types*/
-           DESCRIPTOR_TYPE_UNDEFINED,   /**< one of the descriptor sets is is unknown*/
-           DESCRIPTOR_EMPTY             /**< One set is empty*/
-		};
-
-    }    // end of namespace DescriptorMatcher
-
 /**
  * @class IDescriptorMatcher
  * @brief <B>Matches two sets of descriptors together.</B>
@@ -59,6 +45,13 @@ namespace features {
  */
     class  IDescriptorMatcher : public virtual org::bcom::xpcf::IComponentIntrospect {
     public:
+        enum  RetCode {
+          DESCRIPTORS_MATCHER_OK=0,     /**< the default OK code*/
+           DESCRIPTORS_DONT_MATCH,      /**< try to match descriptors of different types*/
+           DESCRIPTOR_TYPE_UNDEFINED,   /**< one of the descriptor sets is is unknown*/
+           DESCRIPTOR_EMPTY             /**< One set is empty*/
+        };
+
         /// @brief IDescriptorMatcher default constructor
         IDescriptorMatcher() = default;
 
@@ -71,22 +64,22 @@ namespace features {
         /// @param[in] descriptors2 The second set of descriptors organized in a dedicated buffer structure.
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
-        virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer> descriptors1,
-               SRef<DescriptorBuffer> descriptors2,
-               std::vector<DescriptorMatch>& matches
-            )=0;
+        virtual RetCode match(
+               const SRef<DescriptorBuffer> descriptors1,
+               const SRef<DescriptorBuffer> descriptors2,
+               std::vector<DescriptorMatch> & matches
+            ) = 0;
 
         /// @brief Match two sets of descriptors together. The second set is organized in a vector of descriptors buffer and can be used if the descriptors have been extracted on subsets of an image.
         /// @param[in] descriptors1 The first set of descriptors organized in a dedicated buffer structure.
         /// @param[in] descriptors2 The second set of descriptors organized in a vectir of dedicated buffer structure.
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
-        virtual DescriptorMatcher::RetCode match(
-               SRef<DescriptorBuffer> descriptors1,
-               std::vector<SRef<DescriptorBuffer>>& descriptors2,
-               std::vector<DescriptorMatch>& matches
-            )=0;            
+        virtual RetCode match(
+               const SRef<DescriptorBuffer> descriptors1,
+               const std::vector<SRef<DescriptorBuffer>> & descriptors2,
+               std::vector<DescriptorMatch> & matches
+            ) = 0;
 
 
     };

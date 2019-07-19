@@ -21,7 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/Keypoint.h"
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;

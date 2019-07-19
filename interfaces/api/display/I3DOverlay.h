@@ -17,7 +17,7 @@
 #ifndef SOLAR_I3DOVERLAY_H
 #define SOLAR_I3DOVERLAY_H
 
-#include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"

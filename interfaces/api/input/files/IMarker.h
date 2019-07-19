@@ -36,6 +36,7 @@ class IMarker : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     IMarker() = default;
     virtual ~IMarker() = default;
+
     /// @brief Load a specific marker and its features (size, descriptors..). 
     virtual FrameworkReturnCode loadMarker() = 0;
 

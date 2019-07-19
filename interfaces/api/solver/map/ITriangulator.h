@@ -23,7 +23,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-//#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 //#include "datastructure/MathDefinitions.h"
 //#include "datastructure/Image.h"
 //#include "datastructure/Keyframe.h"

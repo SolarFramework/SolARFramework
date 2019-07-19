@@ -28,10 +28,10 @@ namespace features {
         /// @param[out] Filtred matches based on redanduncy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
         /// @param[in] Original keypoints associated to desc_2.
-         virtual void filter(const std::vector<DescriptorMatch>&inputMatches,
-                             std::vector<DescriptorMatch>&outputMatches,
-                             const std::vector<SRef<Keypoint>>&keyPoints_1,
-                             const std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
+         virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
+                             std::vector<DescriptorMatch> & outputMatches,
+                             const std::vector<Keypoint> & keyPoints_1,
+                             const std::vector<Keypoint> & keyPoints_2) = 0;
     };
 }
 }

@@ -46,7 +46,7 @@ public:
     /// @brief Add a keyframe containing a pose and its keypoints and descriptors to the relocalizer
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe> keyframe) = 0;
 
 
     /// @brief Get the pose of the camera corresponding to the frame.

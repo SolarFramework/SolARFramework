@@ -19,7 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {

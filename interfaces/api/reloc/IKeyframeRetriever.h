@@ -46,14 +46,14 @@ public:
     /// @brief Add a keyframe to the bag of words
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe> keyframe) = 0;
 
 
     /// @brief Retrieve a set of keyframes close to the frame pass in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] keyframes: a set of keyframe which are close to the frame pass in input
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::vector<SRef<Keyframe>>& keyframes) = 0;
+    virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::vector<SRef<Keyframe>> & keyframes) = 0;
 };
 
 }

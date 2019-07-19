@@ -46,24 +46,21 @@ class IMarker2DSquared : public virtual IMarker {
 public:
     IMarker2DSquared() = default;
     virtual ~IMarker2DSquared() = default;
-    inline void setSize (const float & width, const float & height) { m_size.width = width; m_size.height = height; };
-    inline float getWidth() const { return m_size.width; };
-    inline float getHeight() const { return m_size.height; };
-    inline Sizef getSize() const { return m_size; };
+    ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
+    virtual void setSize (const float & width, const float & height) = 0;
+    virtual float getWidth() const = 0;
+    virtual float getHeight() const  = 0;
+    virtual const Sizef & getSize() const = 0;
 
     /// @brief Provide the position of 2D corners in image coordinate system
     /// @param[out] imageCorners the 2D corners of the marker in image coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode getImageCorners(std::vector<SRef<Point2Df>>& imageCorners) const = 0;
+    virtual FrameworkReturnCode getImageCorners(std::vector<Point2Df> & imageCorners) const = 0;
 
     /// @brief Provide the position of 3D corners in world coordinate system
     /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode getWorldCorners(std::vector<SRef<Point3Df>>& worldCorners) const = 0;
-
-protected:
-    Sizef m_size;  ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
-
+    virtual FrameworkReturnCode getWorldCorners(std::vector<Point3Df> & worldCorners) const = 0;
 };
 
 }
