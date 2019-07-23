@@ -56,9 +56,9 @@ namespace pose {
         /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
         virtual FrameworkReturnCode estimate(const std::vector<Point2Df> & pointsView1,
                                              const std::vector<Point2Df> & pointsView2,
-                                             const Transform3Df& poseView1,
+                                             const Transform3Df & poseView1,
                                              Transform3Df & poseView2,
-                                             std::vector<DescriptorMatch>& inlierMatches) =0;
+                                             std::vector<DescriptorMatch> & inlierMatches) =0;
 
         /// @brief Estimates camera pose from a set of keypoints of the first image which match with a set of keypoints of the second image.
         /// @param[in] pointsView1, Set of keypoints seen in view 1.

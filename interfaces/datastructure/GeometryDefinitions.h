@@ -143,7 +143,7 @@ public:
  *
  */
 // TODO : maintain SRef here ???
-typedef std::vector<SRef<Point2Df>> Contour2Df;
+typedef std::vector<Point2Df> Contour2Df;
 
 /**
  * @typedef Contour2Di

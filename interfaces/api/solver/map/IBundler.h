@@ -6,7 +6,7 @@
 #endif // _BCOM_SHARED
 
 
-// Definition of IMapper Class //
+// Definition of IMapFilter Class //
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
@@ -39,17 +39,17 @@ class  IBundler : public virtual org::bcom::xpcf::IComponentIntrospect {
 
            /// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
            /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-           /// @param[in] framesToAdjust: contains a set of {2D points, camera extrinsics}.
-           /// @param[in] mapToAjust: contains a set of of 3D points .
-           /// @param[in] K: camera calibration parameters responsible of 3D points generation.
-           /// @param[in] D: camera distorsion parameters responsible of 3D points generation
+           /// @param[in,out] framesToAdjust: contains a set of {2D points, camera extrinsics}.
+           /// @param[in,out] mapToAjust: contains a set of of 3D points .
+           /// @param[in,out] K: camera calibration parameters responsible of 3D points generation.
+           /// @param[in,out] D: camera distorsion parameters responsible of 3D points generation
            /// K, D represent the camera intrinsic parameters
            /// @return[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
            /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
-           virtual  double solve(std::vector<SRef<Keyframe>>&framesToAdjust,
-                                 std::vector<CloudPoint>&mapToAdjust,
-                                 const CamCalibration & K,
-                                 const CamDistortion & D,
+           virtual  double solve(std::vector<SRef<Keyframe>> & framesToAdjust,
+                                 std::vector<CloudPoint> & mapToAdjust,
+                                 CamCalibration & K,
+                                 CamDistortion & D,
                                  const std::vector<int> & selectKeyframes) = 0;
 
 
@@ -64,4 +64,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IBundler,
                              "IBundler",
                              "SolAR::api::solver::map::IBundler interface for a bundle adjustement solver.");
 
-#endif // IMAPPER_H
+#endif // IMapFilter_H

@@ -21,7 +21,7 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-// Definition of IMapper Class //
+// Definition of IMapFilter Class //
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
@@ -52,7 +52,7 @@ public:
     /// @param[in] frame: the frame tested to know if it could be a Keyframe
     /// @param[in] matches: the matches between the frame and its keyframe of reference.
     /// @return true if the frame can be considered as a new keyframe, false otherwise.
-    virtual bool select(const SRef<Frame> frame, const std::vector<DescriptorMatch> & matches) = 0;
+    virtual bool select(const SRef<Frame> & frame, const std::vector<DescriptorMatch> & matches) = 0;
 };
 }
 

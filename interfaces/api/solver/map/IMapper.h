@@ -56,17 +56,17 @@ public:
 
    /// @brief update the current map with the new triangulated map points at the insertion of a new keyframe.
    /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-   /// @param[in] map current constructed map.
-   /// @param[in] neyKeyframe current new keyframe to insert. 
+   /// @param[in,out] map current constructed map.
+   /// @param[in,out] neyKeyframe current new keyframe to insert.
    /// @param[in] newCloud new triangulated 3D points
    /// @param[in] newPointMatches new detected matches from the reference keyframe and current frame.
    /// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
    /// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode update (SRef<Map>& map,
-                                       SRef<Keyframe> newKeyframe,
-                                       const std::vector<CloudPoint>& newCloud = {},
-                                       const std::vector<DescriptorMatch>& newPointsMatches = {},
-                                       const std::vector<DescriptorMatch>& existingPointsMatches = {}) = 0;
+   virtual FrameworkReturnCode update (SRef<Map> & map,
+                                       SRef<Keyframe> & newKeyframe,
+                                       const std::vector<CloudPoint> & newCloud = {},
+                                       const std::vector<DescriptorMatch> & newPointsMatches = {},
+                                       const std::vector<DescriptorMatch> & existingPointsMatches = {}) = 0;
 
 
     virtual std::vector<SRef<Keyframe>> getKeyframes() = 0;

@@ -21,7 +21,7 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-// Definition of IMapper Class //
+// Definition of IMapFilter Class //
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
@@ -43,7 +43,7 @@ class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
         public:
            IMapFilter() = default;
            ///
-           ///@brief ~IMapper
+           ///@brief ~IMapFilter
            ///
            virtual ~IMapFilter() {}
 
@@ -52,7 +52,7 @@ class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
            /// @param[in] pose2: the second pose used for building the point cloud.
            /// @param[in] input: The set of points to filter
            /// @param[out] output: the filtered point cloud
-           virtual void  filter(const Transform3Df pose1, const Transform3Df pose2, const std::vector<CloudPoint>& input,  std::vector<CloudPoint>& output) = 0;
+           virtual void  filter(const Transform3Df & pose1, const Transform3Df & pose2, const std::vector<CloudPoint> & input,  std::vector<CloudPoint> & output) = 0;
         };
 }
 
@@ -65,4 +65,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapFilter,
                              "SolAR::api::solver::map::IMapFilter interface defines how to filter a reconstructed point cloud from 2 viewpoints.");
 
 
-#endif // IMAPPER_H
+#endif // IMapFilter_H
