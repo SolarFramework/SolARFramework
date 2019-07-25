@@ -224,7 +224,7 @@ macro (setup)
 	if(UNIX)
 	    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-int-in-bool-context -Wno-sign-compare -Wno-reorder -std=gnu++0x")
 		SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM} -j4")
-		add_definitions (-DBOOST_ALL_DYN_LINK -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_LOG_DYN_LINK)
+		add_definitions (-DBOOST_ALL_DYN_LINK -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_LOG_DYN_LINK -DXPCFVERSION=\"\")
 	endif()
 
 	# architecture detection
