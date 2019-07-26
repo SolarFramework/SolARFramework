@@ -17,7 +17,7 @@
 #ifndef SOLAR_PIPELINE_H
 #define SOLAR_PIPELINE_H
 
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "api/sink/ISinkReturnCode.h"
 #include "api/source/ISourceReturnCode.h"
 #include "core/Messages.h"
@@ -33,16 +33,6 @@ using namespace sink;
 using namespace source;
 using namespace datastructure;
 namespace pipeline {
-
-/*struct CameraParameters
-{
-    int width = 0;
-    int height = 0;
-    float focalX = 0.0f;
-    float focalY = 0.0f;
-    int centerX = 320;
-    int centerY = 240;
-};*/
 
 /**
  * @class IPipeline
@@ -67,7 +57,7 @@ public:
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (its resolution and its focal)
-    virtual CamCalibration getCameraParameters() = 0;
+    virtual CameraParameters getCameraParameters() = 0;
 
     /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
     /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.

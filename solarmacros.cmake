@@ -73,13 +73,13 @@ macro (process3rdParty THIRDPARTY THIRDPARTY_PATH STATIC_MODE)
 endmacro (process3rdParty)
 
 ####################################################
-# macro to parse packagedependencies.txt
+# macro to parse packagedependencies-cmake.txt
 ####################################################
 macro (processPackagedependencies)
-	if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt")
-	  message(FATAL_ERROR "Cannot find packagedependencies.txt file: ${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt")
-	endif(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt")
-	file(READ "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt" files)
+	if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies-cmake.txt")
+	  message(FATAL_ERROR "Cannot find packagedependencies-cmake.txt file: ${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies-cmake.txt")
+	endif(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies-cmake.txt")
+	file(READ "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies-cmake.txt" files)
 	string(REGEX REPLACE "\n" ";" files "${files}")
 	set (LINK_LIBRARIES_RELEASE "${LINKER_OPTIONS_RELEASE}")
 	set (LINK_LIBRARIES_DEBUG "${LINKER_OPTIONS_DEBUG}")	
@@ -185,7 +185,7 @@ macro (defineTargets EXEORLIBRARY FILES_TO_COPY)
 		install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/interfaces/"        
 		         DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER}/interfaces)
 		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/bcom-${PROJECT_NAME}.pc.in" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER} RENAME "bcom-${PROJECT_NAME}.pc")
-		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies.txt" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER})
+		install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/packagedependencies-cmake.txt" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}/${VERSION_NUMBER})
 
 		# uninstall target
 		if(NOT TARGET uninstall)
@@ -224,7 +224,7 @@ macro (setup)
 	if(UNIX)
 	    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-int-in-bool-context -Wno-sign-compare -Wno-reorder -std=gnu++0x")
 		SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM} -j4")
-		add_definitions (-DBOOST_ALL_DYN_LINK -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_LOG_DYN_LINK)
+		add_definitions (-DBOOST_ALL_DYN_LINK -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_LOG_DYN_LINK -DXPCFVERSION=\"\")
 	endif()
 
 	# architecture detection

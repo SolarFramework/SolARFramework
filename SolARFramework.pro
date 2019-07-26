@@ -7,13 +7,12 @@ CONFIG -= qt
 
 ## global defintions : target lib name, version
 TARGET = SolARFramework
-INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.2
+VERSION=0.6.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
-CONFIG += c++11
+CONFIG += c++1z
 
 
 CONFIG(debug,debug|release) {
@@ -25,11 +24,11 @@ CONFIG(release,debug|release) {
     DEFINES += _NDEBUG=1
     DEFINES += NDEBUG=1
 }
-PROJECTDEPLOYDIR = $$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}/$${VERSION}
-DEPENDENCIESCONFIG = shared
+
+DEPENDENCIESCONFIG = shared recurse
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include ($$(BCOMDEVROOT)/builddefs/qmake/templatelibconfig.pri)
+include (../builddefs/qmake/templatelibconfig.pri)
 
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
@@ -89,6 +88,7 @@ interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
 interfaces/datastructure/BufferInternal.hpp \
+    interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/DescriptorBuffer.h \
 interfaces/datastructure/DescriptorMatch.h \
@@ -220,7 +220,7 @@ INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
 
-solarmacros.path=$$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}
+solarmacros.path=$${PROJECTDEPLOYDIR}
 solarmacros.files=$$files($${PWD}/solarmacros.cmake)
 INSTALLS += solarmacros
 
