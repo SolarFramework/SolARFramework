@@ -100,11 +100,11 @@ namespace datastructure {
         inline int   getClassId() const {return m_class_id;}
 
     private:     
-        float           m_size;
-        float           m_angle;
-        float           m_response;
-        int             m_octave;
-        int             m_class_id;
+        float           m_size{};
+        float           m_angle{};
+        float           m_response{};
+        int             m_octave{};
+        int             m_class_id{};
 	};
 
 }

@@ -180,7 +180,7 @@ private:
     SRef<ImageInternal> m_internalImpl;
 
     uint32_t computeImageBufferSize();
-    Sizei m_size;
+    Sizei m_size{};
     enum ImageLayout m_layout;
     enum PixelOrder m_pixOrder;
     enum DataType m_type;

@@ -56,7 +56,7 @@ namespace features {
         IDescriptorMatcher() = default;
 
         /// @brief IDescriptorMatcher default destructor
-        virtual ~IDescriptorMatcher() {};
+        virtual ~IDescriptorMatcher() {}
 
 
         /// @brief Match two sets of descriptors together

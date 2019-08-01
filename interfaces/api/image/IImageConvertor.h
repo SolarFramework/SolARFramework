@@ -41,7 +41,7 @@ public:
    ///
    /// \brief ~IImageConvertor
    ///
-   virtual ~IImageConvertor() {};
+   virtual ~IImageConvertor() {}
    /// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
    /// @param[in] imgSrc input image to convert
    /// @param[out] imgDst output image converted

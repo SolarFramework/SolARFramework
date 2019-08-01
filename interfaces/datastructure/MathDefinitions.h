@@ -42,19 +42,19 @@ using Vector = Maths::Matrix<T,Rows,1>;
  * @typedef Vector4f
  * @brief <B>A vector of 4 floats.</B>
  */
-typedef Maths::Vector4f Vector4f;
+using Vector4f = Maths::Vector4f;
 
 /**
  * @typedef Vector3f
  * @brief <B>A vector of 3 floats.</B>
  */
-typedef Maths::Vector3f Vector3f;
+using Vector3f = Maths::Vector3f;
 
 /**
  * @typedef Vector3d
  * @brief <B>A vector of 3 doubles.</B>
  */
-typedef Maths::Vector3d Vector3d;
+using Vector3d = Maths::Vector3d;
 
 
 template <class T, int Cols>
@@ -67,13 +67,13 @@ using Transform = Maths::Transform<T,Dim,TransformType,ColOrRowMajor>;
  * @typedef Transform3Df
  * @brief <B>A transform in 3D space.</B>
  */
-typedef Transform<float,3> Transform3Df;
+using Transform3Df = Transform<float,3>;
 
 /**
  * @typedef Transform2Df
  * @brief <B>A transform in 2D space.</B>
  */
-typedef Transform<float,2> Transform2Df;
+using Transform2Df = Transform<float,2>;
 
 
 template <class T, int Dim>
@@ -82,13 +82,13 @@ using Translation = Maths::Translation<T, Dim>;
  * @typedef Translation3Df
  * @brief <B>A translation in 3D space defined with floats.</B>
  */
-typedef Translation<float,3> Translation3Df;
+using Translation3Df = Translation<float,3>;
 
 /**
  * @typedef Translation2Df
  * @brief <B>A translation in 2D space defined with floats.</B>
  */
-typedef Translation<float,2> Translation2Df;
+using Translation2Df = Translation<float,2>;
 
 
 template <class T>
@@ -98,7 +98,7 @@ using Quaternion = Maths::Quaternion<T>;
  * @typedef Quaternionf
  * @brief <B>Quaternion defined with floats.</B>
  */
-typedef Quaternion<float> Quaternionf;
+using Quaternionf = Quaternion<float>;
 
 }
 }

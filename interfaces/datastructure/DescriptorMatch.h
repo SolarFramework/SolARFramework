@@ -45,19 +45,19 @@ public:
 
     /// \brief Return the index of the matching descriptor from a DescriptorBuffer A.
     ///
-    unsigned int getIndexInDescriptorA(void) const {
+    unsigned int getIndexInDescriptorA() const {
         return std::get<0>(m_match);
     }
 
     /// \brief Return the index of the matching descriptor from a DescriptorBuffer B.
     ///
-    unsigned int getIndexInDescriptorB(void) const{
+    unsigned int getIndexInDescriptorB() const{
         return std::get<1>(m_match);
     }
 
     /// \brief Return the matching score between the two indexed descriptors.
     ///
-    unsigned int getMatchingScore(void) const{
+    unsigned int getMatchingScore() const{
         return std::get<2>(m_match);
     }
 

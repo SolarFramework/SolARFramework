@@ -26,7 +26,7 @@ public:
     SharedBuffer(unsigned long max, unsigned long startAt = 0) :
         m_maxSize(max),
         m_bufferedStartOffset( max < startAt ? max : startAt),
-        m_started(startAt == 0 ? true : false) {};
+        m_started(startAt == 0 ? true : false) {}
     
     ~SharedBuffer() = default;
     

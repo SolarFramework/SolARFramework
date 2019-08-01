@@ -24,7 +24,7 @@
 namespace SolAR {
 namespace datastructure {
 
-typedef Maths::Matrix<bool,Maths::Dynamic,Maths::Dynamic> SquaredBinaryPatternMatrix;
+using SquaredBinaryPatternMatrix = Maths::Matrix<bool,Maths::Dynamic,Maths::Dynamic>;
 
 /**
 * @class SquaredBinaryPattern
@@ -38,14 +38,14 @@ public:
     SquaredBinaryPattern() = default;
 
     /// \brief constructs a SquaredBinaryPattern from a given SquaredBinaryPatternMatrix
-    SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
+    explicit SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
 
     /// \brief defines the destructor
     ~SquaredBinaryPattern() = default;
 
     /// \brief returns the SquaredBinaryPatternMatrix to detect.
     /// \returns the SquaredBinaryPatternMatrix to detect.
-    const SquaredBinaryPatternMatrix & getPatternMatrix(void) const;
+    const SquaredBinaryPatternMatrix & getPatternMatrix() const;
 
     /// \brief defines the new pattern matrix to consider
     ///
@@ -57,7 +57,7 @@ public:
 
 private :
     SquaredBinaryPatternMatrix m_patternMatrix;
-    int m_size;
+    int m_size{};
 };
 
 }

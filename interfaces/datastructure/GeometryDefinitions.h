@@ -33,8 +33,8 @@ namespace datastructure {
  */
 class  Point2Df : public Vector<float,2> {
 public:
-    Point2Df(float x=0,float y=0):Vector<float,2>(x,y){};
-    inline ~Point2Df() {};
+    explicit Point2Df(float x=0,float y=0):Vector<float,2>(x,y){}
+    inline ~Point2Df() = default;
     inline float getX() const { return (this->data())[0];}
     inline float getY() const { return (this->data())[1];}
     inline void setX(float x) { this->data()[0]=x;}
@@ -51,8 +51,8 @@ public:
  */
 class  Point3Df : public Vector<float,3> {
 public:
-    Point3Df(float x=0,float y=0, float z= 0):Vector<float,3>(x,y, z){};
-    inline ~Point3Df() {};
+    explicit Point3Df(float x=0,float y=0, float z= 0):Vector<float,3>(x,y, z){}
+    inline ~Point3Df() = default;
     inline float getX() const { return (this->data())[0];}
     inline float getY() const { return (this->data())[1];}
     inline float getZ() const { return (this->data())[2];}
@@ -65,7 +65,7 @@ public:
 
     inline Point3Df operator+(const Point3Df& a) const { return Point3Df(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Df operator-(const Point3Df& a) const { return Point3Df(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
-    inline Point3Df operator*(const float & f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
+    inline Point3Df operator*(float f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
 };
 
 /**
@@ -75,8 +75,8 @@ public:
  */
 class  Point2Di : public Vector<int,2> {
 public:
-    Point2Di(int x=0,int y=0):Vector<int,2>(x,y){};
-    inline ~Point2Di() {};
+    explicit Point2Di(int x=0,int y=0):Vector<int,2>(x,y){}
+    inline ~Point2Di() = default;
     inline int getX() const { return (this->data())[0];}
     inline int getY() const { return (this->data())[1];}
     inline void setX(int x) { this->data()[0]=x;}
@@ -93,8 +93,8 @@ public:
  */
 class  Point3Di : public Vector<int,3> {
 public:
-    Point3Di(int x=0,int y=0, int z= 0):Vector<int,3>(x,y, z){};
-    inline ~Point3Di() {};
+    explicit Point3Di(int x=0,int y=0, int z= 0):Vector<int,3>(x,y, z){}
+    inline ~Point3Di() = default;
     inline int getX() const { return (this->data())[0];}
     inline int getY() const { return (this->data())[1];}
     inline int getZ() const { return (this->data())[2];}
@@ -115,7 +115,7 @@ public:
 class Edge2Df {
 public:
     Edge2Df() = default;
-    Edge2Df(Point2Df point1, Point2Df point2) : p1(point1), p2(point2){}
+    Edge2Df(const Point2Df& point1, const Point2Df& point2) : p1(point1), p2(point2){}
     ~Edge2Df() = default;
 
     Point2Df p1;
@@ -130,7 +130,7 @@ public:
 class Edge2Di {
 public:
     Edge2Di() = default;
-    Edge2Di(Point2Di point1, Point2Di point2) : p1(point1), p2(point2){}
+    Edge2Di(const Point2Di& point1, const Point2Di& point2) : p1(point1), p2(point2){}
     ~Edge2Di() = default;
 
     Point2Di p1;
@@ -143,7 +143,7 @@ public:
  *
  */
 // TODO : maintain SRef here ???
-typedef std::vector<Point2Df> Contour2Df;
+using Contour2Df = std::vector<Point2Df>;
 
 /**
  * @typedef Contour2Di
@@ -151,21 +151,21 @@ typedef std::vector<Point2Df> Contour2Df;
  *
  */
 // TODO : maintain SRef here ???
-typedef std::vector<SRef<Point2Di>> Contour2Di;
+using Contour2Di = std::vector<Point2Di>;
 
 /**
  * @typedef QuadContour2Df
  * @brief <B>A contours defined with 4 2D points with coordinates defined with floats.</B>
  *
  */
-typedef Point2Df QuadContour2Df[4];
+using QuadContour2Df = Point2Df[4];
 
 /**
  * @typedef QuadContour2Di
  * @brief <B>A contours defined with 4 2D points with coordinates defined with integers.</B>
  *
  */
-typedef Point2Di QuadContour2Di[4];
+using QuadContour2Di = Point2Di[4];
 
 /**
  * @struct Sizei
@@ -195,8 +195,8 @@ struct Rectanglei {
     Sizei size;
 };
 
-typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
-typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
+using ProjectionMatrix = Maths::Matrix<float, 3, 4, Eigen::RowMajor>;
+using RotationMatrixf = Maths::Matrix<float, 3, 3, Eigen::RowMajor>;
 
 }
 }

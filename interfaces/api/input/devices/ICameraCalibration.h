@@ -37,7 +37,7 @@ public:
    ///
    /// \brief ~ICameraCalibration
    ///
-   virtual ~ICameraCalibration() {};
+   virtual ~ICameraCalibration() {}
 
    /// \brief Calibrate the camera device referenced relative to a captured video and output the result in the given file
    virtual bool calibrate(const std::string & inputVideo, const std::string & output) = 0;

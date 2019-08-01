@@ -176,23 +176,23 @@ class  Log{
 
 
     static std::shared_ptr< spdlog::sinks::dist_sink_st > initialize_sink(){
-       auto sinks = std::make_shared< spdlog::sinks::dist_sink_st >();
-       return sinks;
-     }
+        auto sinks = std::make_shared< spdlog::sinks::dist_sink_st >();
+        return sinks;
+    }
 
     static std::shared_ptr< spdlog::sinks::dist_sink_st >& sink(){
-       static auto sink_ptr = initialize_sink();
-       return sink_ptr;
-     }
+        static auto sink_ptr = initialize_sink();
+        return sink_ptr;
+    }
 
     static std::shared_ptr<spdlog::logger> initialize_logger(){
 
-      auto instance = std::make_shared<spdlog::logger>("Logs",sink());
-      instance->set_pattern( "[%Y-%m-%d %H:%M:%S:%f] [%l] %v" );
-      #ifndef NDEBUG
-           instance->set_level( spdlog::level::debug );
-      #endif
-      return instance;
+        auto instance = std::make_shared<spdlog::logger>("Logs",sink());
+        instance->set_pattern( "[%Y-%m-%d %H:%M:%S:%f] [%l] %v" );
+#ifndef NDEBUG
+        instance->set_level( spdlog::level::debug );
+#endif
+        return instance;
     }
 public:
 
@@ -200,34 +200,34 @@ public:
 
 
     static SOLARFRAMEWORK_API void add_sink_file( std::vector<const char*>& args ){
-        if(!args.size()){
+        if(args.empty()){
             LOG_WARNING( "no parameters provided to add_sink_file");
             return;
         }
         auto fileName=std::string(args[0]);
         std::string mode=std::string(" ");
         if(args.size()==2)
-           mode=std::string(args[1]);
+            mode=std::string(args[1]);
 
         size_t found=fileName.find_last_of("/\\");
         std::string pathname;
-        struct stat info;
+        struct stat info{};
 
         if(found!=std::string::npos){
-        // test if the target directory exists
+            // test if the target directory exists
             std::string pathname=fileName.substr(0,found);
             if( stat( pathname.c_str(), &info ) != 0 ){
-                  LOG_WARNING( "{} doesn't exist", pathname.c_str() );
-                  return;
+                LOG_WARNING( "{} doesn't exist", pathname.c_str() );
+                return;
             }
-       }
-       if( info.st_mode & S_IFDIR ){
+        }
+        if( info.st_mode & S_IFDIR ){
 
-           // test if the target log file is accessible for writing
+            // test if the target log file is accessible for writing
             std::ofstream ofs(fileName.c_str(), std::ios_base::app);
             if (!ofs.is_open()) {
-              LOG_WARNING( "couldn't acces to {} for writing", fileName.c_str() );
-              return;
+                LOG_WARNING( "couldn't acces to {} for writing", fileName.c_str() );
+                return;
             }
             ofs.close();
 
@@ -236,7 +236,7 @@ public:
             {
                 if(remove(fileName.c_str())!=0){
                     LOG_WARNING( "couldn't reset {}", fileName.c_str() );}
-                 else
+                else
                     LOG_INFO( "{} is open and has been rewinded", fileName.c_str() );
             }
             else
@@ -245,14 +245,14 @@ public:
             sink()->add_sink( std::make_shared< spdlog::sinks::simple_file_sink_st >( fileName.c_str() ) );
         }
         else{
-              LOG_WARNING( "{} is not a directory\n", pathname.c_str() );
-              return;
+            LOG_WARNING( "{} is not a directory\n", pathname.c_str() );
+            return;
         }
 
     }
 
     static SOLARFRAMEWORK_API void add_sink_console() {
-         sink()->add_sink(std::make_shared< spdlog::sinks::stdout_sink_mt >());
+        sink()->add_sink(std::make_shared< spdlog::sinks::stdout_sink_mt >());
     }
 
 

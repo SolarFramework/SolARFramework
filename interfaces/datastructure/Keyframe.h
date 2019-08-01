@@ -21,6 +21,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "Frame.h"
 #include <map>
+#include <utility>
 
 namespace SolAR {
 namespace datastructure {
@@ -36,18 +37,18 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
     /// @brief ~Keyframe
     public:
 
-    Keyframe(SRef<Frame> frame) : Frame(frame), m_idx(m_keyframeIdx++) {};
+    explicit Keyframe(const SRef<Frame>& frame) : Frame(frame), m_idx(m_keyframeIdx++) {}
 
     Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
              SRef<Keyframe> refKeyframe,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose), m_idx(m_keyframeIdx++){};
+             const Transform3Df& pose = Transform3Df::Identity()): Frame(keypoints, std::move(descriptors), std::move(view), std::move(refKeyframe), pose), m_idx(m_keyframeIdx++){}
 
     Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose), m_idx(m_keyframeIdx++){};
+             const Transform3Df& pose = Transform3Df::Identity()): Frame(keypoints, std::move(descriptors), std::move(view), pose), m_idx(m_keyframeIdx++){}
 
     ~Keyframe() = default;
 

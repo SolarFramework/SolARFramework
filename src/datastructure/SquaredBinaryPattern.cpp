@@ -28,7 +28,7 @@ SquaredBinaryPattern::SquaredBinaryPattern(const SquaredBinaryPatternMatrix & pa
     }
 }
 
-const SquaredBinaryPatternMatrix & SquaredBinaryPattern::getPatternMatrix(void) const
+const SquaredBinaryPatternMatrix & SquaredBinaryPattern::getPatternMatrix() const
 {
     return m_patternMatrix;
 };

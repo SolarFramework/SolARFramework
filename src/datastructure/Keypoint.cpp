@@ -20,9 +20,7 @@
 namespace SolAR {
 namespace datastructure {
 
-Keypoint::~Keypoint(){
-
-}
+Keypoint::~Keypoint() = default;
 
 Keypoint::Keypoint( float x,
                     float y,

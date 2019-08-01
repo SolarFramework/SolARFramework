@@ -90,11 +90,11 @@ public:
 
 private:
     std::map<unsigned int, unsigned int>  m_visibility;
-    float             m_r;
-    float             m_g;
-    float             m_b;
+    float             m_r{};
+    float             m_g{};
+    float             m_b{};
 
-    double            m_reproj_error;
+    double            m_reproj_error{};
 };
 }
 }  // end of namespace SolAR

@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
+#include <utility>
+
 #include "datastructure/Frame.h"
 #include "datastructure/Keyframe.h"
 
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()){}
+Frame::Frame(const SRef<Frame>& frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()) {
+Frame::Frame(const SRef<Keyframe>& keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()) {
 	int nKeypoints = keyframe->getKeypoints().size();
 	for (int i = 0; i < nKeypoints; i++)
 		m_kpVisibility[i] = i;
 }
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(std::vector<Keypoint> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df& pose): m_keypoints(std::move(keypoints)), m_descriptors(std::move(descriptors)), m_view(std::move(view)), m_referenceKeyFrame(std::move(refKeyframe)), m_pose(pose){}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(std::vector<Keypoint> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view,  const Transform3Df& pose): m_keypoints(std::move(keypoints)), m_descriptors(std::move(descriptors)), m_view(std::move(view)), m_pose(pose){}
 
 SRef<Image>  Frame::getView()
 {
@@ -63,7 +65,7 @@ const std::vector<Keypoint> & Frame::getKeypoints() const
 
 void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
 {
-    m_referenceKeyFrame = keyframe;
+    m_referenceKeyFrame = std::move(keyframe);
 }
 
 SRef<Keyframe> Frame::getReferenceKeyframe()

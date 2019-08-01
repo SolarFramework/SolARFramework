@@ -21,9 +21,7 @@
 namespace SolAR {
     namespace datastructure {
 
-    CloudPoint::~CloudPoint(){
-
-    }
+    CloudPoint::~CloudPoint() = default;
 
     CloudPoint::CloudPoint( float x,
                             float y,

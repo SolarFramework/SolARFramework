@@ -80,7 +80,7 @@ public :
 
 	/** @brief  return the number of descriptors stored in the structure
 	*/
-    inline uint32_t getNbDescriptors(void){
+    inline uint32_t getNbDescriptors(){
         return m_nb_descriptors;
     }
 
@@ -92,7 +92,7 @@ public :
 
     /** @brief  return the number of elements per descriptor
     */
-    inline uint32_t getNbElements(void){
+    inline uint32_t getNbElements(){
         return m_nb_elements;
     }
 
@@ -105,7 +105,7 @@ public :
 
     /** @brief  return the descriptor size in bytes
 	*/
-    inline uint32_t getDescriptorByteSize(void)
+    inline uint32_t getDescriptorByteSize()
     {
         return m_nb_elements * m_data_type;
     }

@@ -70,7 +70,7 @@ namespace features {
         IDescriptorsExtractor() = default;
 
        /// @brief IDescriptorsExtractor default destructor
-       virtual ~IDescriptorsExtractor() {};
+       virtual ~IDescriptorsExtractor() {}
 
        ///
        /// @brief getType
