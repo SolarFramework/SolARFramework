@@ -22,39 +22,41 @@
 namespace  SolAR {
 namespace datastructure {
 
-    DescriptorBuffer::DescriptorBuffer():m_buffer(new BufferInternal()){
+    DescriptorBuffer::DescriptorBuffer(){
      m_descriptor_type = DescriptorBuffer::DescriptorType::SIFT;
      m_nb_elements = 128;
      m_data_type = DataType::TYPE_32F;
      m_nb_descriptors= 0;
     }
 
-    DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal()){
+    DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
       m_descriptor_type = descriptor_type;
       m_nb_descriptors= nb_descriptors;
       m_data_type = data_type;
       m_nb_elements = nb_elements;
       //allocate buffer and fill buffer
-      m_buffer->setData(descriptorData, m_nb_descriptors * m_nb_elements * m_data_type);
+      auto size = m_nb_descriptors * m_nb_elements * m_data_type;
+      m_buffer.resize(size);
+      m_buffer.insert(m_buffer.begin(), static_cast<uint8_t *>(descriptorData), static_cast<uint8_t *>(descriptorData) + size);
     }
 
-    DescriptorBuffer::DescriptorBuffer( enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal()){
+    DescriptorBuffer::DescriptorBuffer( enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
       m_descriptor_type = descriptor_type;
       m_nb_descriptors= nb_descriptors;
       m_data_type = data_type;
       m_nb_elements = nb_elements;
       //allocate buffer
-      m_buffer->setSize(m_nb_descriptors * m_nb_elements * m_data_type);
+      m_buffer.resize(m_nb_descriptors * m_nb_elements * m_data_type);
     }
 
     void* DescriptorBuffer::data()
     {
-        return m_buffer->data();
+        return m_buffer.data();
     }
 
     const void* DescriptorBuffer::data() const
     {
-        return m_buffer->data();
+        return m_buffer.data();
     }
 
 }

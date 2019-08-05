@@ -87,7 +87,6 @@ interfaces/api/solver/map/IMapper.h\
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
-interfaces/datastructure/BufferInternal.hpp \
     interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/DescriptorBuffer.h \
@@ -122,11 +121,9 @@ SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
-    src/datastructure/Keypoint.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Keyframe.cpp \
-    src/datastructure/CloudPoint.cpp \
     src/datastructure/Map.cpp
 
 unix {

@@ -31,81 +31,28 @@ namespace datastructure {
  * @brief <B>A 2D point with coordinates defined with floats.</B>
  *
  */
-class  Point2Df : public Vector<float,2> {
-public:
-    explicit Point2Df(float x=0,float y=0):Vector<float,2>(x,y){}
-    inline ~Point2Df() = default;
-    inline float getX() const { return (this->data())[0];}
-    inline float getY() const { return (this->data())[1];}
-    inline void setX(float x) { this->data()[0]=x;}
-    inline void setY(float y) { this->data()[1]=y;}
-
-    inline Point2Df operator+(const Point2Df& a) const { return Point2Df(getX()+a.getX(), getY()+a.getY());}
-    inline Point2Df operator-(const Point2Df& a) const { return Point2Df(getX()-a.getX(), getY()-a.getY());}
-};
+using Point2Df = Vector<float, 2>;
 
 /**
  * @class Point3Df
  * @brief <B>A 3D point with coordinates defined with floats.</B>
  *
  */
-class  Point3Df : public Vector<float,3> {
-public:
-    explicit Point3Df(float x=0,float y=0, float z= 0):Vector<float,3>(x,y, z){}
-    inline ~Point3Df() = default;
-    inline float getX() const { return (this->data())[0];}
-    inline float getY() const { return (this->data())[1];}
-    inline float getZ() const { return (this->data())[2];}
-
-    inline float magnitude() const { return std::sqrt(this->getX()*this->getX()+ this->getY()*this->getY() +this->getZ()*this->getZ()) ;}
-
-    inline void setX(float x) { this->data()[0]=x;}
-    inline void setY(float y) { this->data()[1]=y;}
-    inline void setZ(float z) { this->data()[2]=z;}
-
-    inline Point3Df operator+(const Point3Df& a) const { return Point3Df(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
-    inline Point3Df operator-(const Point3Df& a) const { return Point3Df(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
-    inline Point3Df operator*(float f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
-};
+using Point3Df = Vector<float, 3>;
 
 /**
  * @class Point2Di
  * @brief <B>A 2D point with coordinates defined with integers.</B>
  *
  */
-class  Point2Di : public Vector<int,2> {
-public:
-    explicit Point2Di(int x=0,int y=0):Vector<int,2>(x,y){}
-    inline ~Point2Di() = default;
-    inline int getX() const { return (this->data())[0];}
-    inline int getY() const { return (this->data())[1];}
-    inline void setX(int x) { this->data()[0]=x;}
-    inline void setY(int y) { this->data()[1]=y;}
-
-    inline Point2Di operator+(const Point2Di& a) const { return Point2Di(getX()+a.getX(), getY()+a.getY());}
-    inline Point2Di operator-(const Point2Di& a) const { return Point2Di(getX()-a.getX(), getY()-a.getY());}
-};
+using Point2Di = Vector<int, 2>;
 
 /**
  * @class Point3Di
  * @brief <B>A 3D point with coordinates defined with integers.</B>
  *
  */
-class  Point3Di : public Vector<int,3> {
-public:
-    explicit Point3Di(int x=0,int y=0, int z= 0):Vector<int,3>(x,y, z){}
-    inline ~Point3Di() = default;
-    inline int getX() const { return (this->data())[0];}
-    inline int getY() const { return (this->data())[1];}
-    inline int getZ() const { return (this->data())[2];}
-
-    inline void setX(int x) { this->data()[0]=x;}
-    inline void setY(int y) { this->data()[1]=y;}
-    inline void setZ(int z) { this->data()[2]=z;}
-
-    inline Point3Di operator+(const Point3Di& a) const { return Point3Di(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
-    inline Point3Di operator-(const Point3Di& a) const { return Point3Di(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
-};
+using Point3Di = Vector<int, 3>;
 
 /**
  * @class Edge2Df

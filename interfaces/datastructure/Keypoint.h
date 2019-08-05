@@ -36,38 +36,24 @@ namespace datastructure {
  *
  * This class provides Keypoint definition.
  */
-    class  SOLARFRAMEWORK_API Keypoint : public Point2Df {
+    class  SOLARFRAMEWORK_API Keypoint final {
 	public:
         Keypoint() = default;
 
-
-        Keypoint( float x,
-                    float  y,
-                    float  	size,
-                    float  	angle,
-                    float  	response,
-                    int  	octave,
-                    int  	class_id );
-   ///
-   /// \brief ~Keypoint
-   ///
-    ~Keypoint();
-/// \brief This method initializes an Keypoint object
-    /// \param x: x-coordinate of the keypoint
-    /// \param y: y-coordinate of the keypoint
-    /// \param size: diameter of the meaningful keypoint neighborhood
-    /// \param angle: orientation of the keypoint
-    /// \param response: the response by which the most strong keypoints have been selected. Can be used for the further sorting or subsampling
-    /// \param octave: octave (pyramid layer) from which the keypoint has been extracted
-    /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
-    ///
-     void init( float  x,
-                float  	y,
-                float  	size,
-                float  	angle,
-                float  	response,
-                int  	octave,
-                int  	class_id ) ;
+        Keypoint::Keypoint( float x,
+                            float y,
+                            float size,
+                            float angle,
+                            float response,
+                            int	octave,
+                            int class_id ):
+            m_position(x,y),
+            m_size(size),
+            m_angle(angle),
+            m_response(response),
+            m_octave(octave),
+            m_class_id(class_id){
+        }
 
     ///
     /// \brief This method returns the angle of an Keypoint
@@ -99,7 +85,12 @@ namespace datastructure {
     ///
         inline int   getClassId() const {return m_class_id;}
 
+        const Point2Df &getPosition() const {return m_position;}
+        float x() const {return m_position.x();}
+        float y() const {return m_position.y();}
+
     private:     
+        Point2Df        m_position;
         float           m_size{};
         float           m_angle{};
         float           m_response{};

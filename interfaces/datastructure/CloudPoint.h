@@ -36,7 +36,7 @@ class Keyframe;
  * @class CloudPoint
  * @brief <B>A 3D point stored in a cloud of points.</B>
  */
-class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
+class  SOLARFRAMEWORK_API CloudPoint final {
 public:
     CloudPoint() = default;
 
@@ -50,19 +50,16 @@ public:
     /// @param[int] reprojection error of the cloudpoint.
     /// @param[int] visibility map of the cloudpoint.
     ///
-    CloudPoint( float x,
-                float y,
-                float z,
-                float r,
-                float g,
-                float b,
-                double reproj_error,
-                std::map<unsigned int, unsigned int> &visibility);
-
-    ///
-    /// \brief ~CloudPoint
-    ///
-    ~CloudPoint();
+    CloudPoint::CloudPoint( float x,
+                            float y,
+                            float z,
+                            float r,
+                            float g,
+                            float b,
+                            double reproj_error,
+                            std::map<unsigned int, unsigned int> &visibility): m_position(x,y,z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
+                                                          m_visibility(visibility){
+    }
 
     ///
     /// \brief These methods returns the color components of the CloudPoint
@@ -81,14 +78,19 @@ public:
 
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
-    std::map<unsigned int, unsigned int>& getVisibility() { return m_visibility; };
+    std::map<unsigned int, unsigned int>& getVisibility() { return m_visibility; }
 
     /// @brief add a keypoint to the visibility map of the CloudPoint
     /// @param keyframe_id: the id of the keyframe to which the keypoint belong
     /// @param keypoint_id: the id of the keypoint of the keyframe
-    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; };
+    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; }
+
+    float x() const { return m_position.x(); }
+    float y() const { return m_position.y(); }
+    float z() const { return m_position.z(); }
 
 private:
+    Point3Df m_position;
     std::map<unsigned int, unsigned int>  m_visibility;
     float             m_r{};
     float             m_g{};

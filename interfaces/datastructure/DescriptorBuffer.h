@@ -23,7 +23,6 @@
 
 #include "xpcf/core/refs.h"
 #include "core/SolARFrameworkDefinitions.h"
-#include "BufferInternal.hpp"
 
 namespace SolAR {
 namespace datastructure {
@@ -76,8 +75,6 @@ public :
 	*/
     DescriptorBuffer();
 
-    ~DescriptorBuffer() = default;
-
 	/** @brief  return the number of descriptors stored in the structure
 	*/
     inline uint32_t getNbDescriptors(){
@@ -118,8 +115,7 @@ public :
     const void* data() const;
 
 private:
-
-    SRef<BufferInternal> m_buffer;
+    std::vector<uint8_t> m_buffer;
     uint32_t m_nb_descriptors;
     DataType m_data_type;
     uint32_t m_nb_elements;
