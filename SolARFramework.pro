@@ -60,7 +60,7 @@ interfaces/api/geom/IProject.h \
 interfaces/api/geom/IUnproject.h \
 interfaces/api/geom/IImage2WorldMapper.h \
 interfaces/api/geom/IUndistortPoints.h \
-interfaces/api/image/IImageConvertor.h \
+interfaces/api/image/IImageConverter.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IIMAGECONVERTOR_H
-#define SOLAR_IIMAGECONVERTOR_H
+#ifndef SOLAR_IIMAGECONVERTER_H
+#define SOLAR_IIMAGECONVERTER_H
 
-// Definition of IImageConvertor Class //
+// Definition of IImageConverter Class //
 // part of Solar namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
@@ -30,18 +30,18 @@ namespace api {
 namespace image {
 
 /**
-  * @class IImageConvertor
+  * @class IImageConverter
   * @brief <B>Converts image with a specific layout.</B>
   * <TT>UUID: 9c982719-6cb4-4831-aa88-9e01afacbd16</TT>
   */
-class  IImageConvertor : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IImageConverter : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
-   IImageConvertor() = default;
+   IImageConverter() = default;
 
    ///
-   /// \brief ~IImageConvertor
+   /// \brief ~IImageConverter
    ///
-   virtual ~IImageConvertor() {}
+   virtual ~IImageConverter() {}
    /// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
    /// @param[in] imgSrc input image to convert
    /// @param[out] imgDst output image converted
@@ -60,9 +60,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageConvertor,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageConverter,
                              "9c982719-6cb4-4831-aa88-9e01afacbd16",
-                             "IImageConvertor",
-                             "SolAR::api::image::IImageConvertor");
+                             "IImageConverter",
+                             "SolAR::api::image::IImageConverter");
 
-#endif //SOLAR_IIMAGECONVERTOR_H
+#endif //SOLAR_IIMAGECONVERTER_H
