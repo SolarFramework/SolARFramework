@@ -83,7 +83,7 @@ public :
 
 	/** @brief  return the type of descriptor 
 	*/
-    enum DescriptorType getDescriptorType(){
+    DescriptorType getDescriptorType(){
         return m_descriptor_type;
     }
 
@@ -95,7 +95,7 @@ public :
 
 	/** @brief  return the internal storage type of descriptor
 	*/
-    enum DataType getDescriptorDataType()
+    DataType getDescriptorDataType()
     {
         return m_data_type;
     }

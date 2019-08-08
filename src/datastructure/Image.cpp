@@ -95,7 +95,7 @@ uint32_t Image::computeImageBufferSize()
     return m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
 }
 
-Image::Image(enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type):m_layout(pixLayout),m_pixOrder(pixOrder),m_type(type),m_internalImpl(new ImageInternal())
+Image::Image(ImageLayout pixLayout, PixelOrder pixOrder, DataType type):m_layout(pixLayout),m_pixOrder(pixOrder),m_type(type),m_internalImpl(new ImageInternal())
 {
     m_nbChannels = layoutChannelMapInfos.at(m_layout);
     m_nbBitsPerComponent = typeSizeMapInfos.at(m_type);
@@ -105,7 +105,7 @@ Image::Image(enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type
     }
 }
 
-Image::Image(uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type):Image(pixLayout,pixOrder,type)
+Image::Image(uint32_t width, uint32_t height, ImageLayout pixLayout, PixelOrder pixOrder, DataType type):Image(pixLayout,pixOrder,type)
 {
     setSize(width,height);
 }
@@ -113,7 +113,7 @@ Image::Image(uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum P
 // initialize image from external pointer data.
 // note : data is copied to take full ownership and ensure deallocation will occur in the same scope allocation was made
 
-Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type):Image(width, height, pixLayout, pixOrder,type)
+Image::Image(void* imageData, uint32_t width, uint32_t height, ImageLayout pixLayout, PixelOrder pixOrder, DataType type):Image(width, height, pixLayout, pixOrder,type)
 {
     m_internalImpl->setData(imageData,computeImageBufferSize());
 }

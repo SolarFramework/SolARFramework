@@ -29,7 +29,7 @@ namespace datastructure {
      m_nb_descriptors= 0;
     }
 
-    DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
+    DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
       m_descriptor_type = descriptor_type;
       m_nb_descriptors= nb_descriptors;
       m_data_type = data_type;
@@ -40,7 +40,7 @@ namespace datastructure {
       m_buffer.insert(m_buffer.begin(), static_cast<uint8_t *>(descriptorData), static_cast<uint8_t *>(descriptorData) + size);
     }
 
-    DescriptorBuffer::DescriptorBuffer( enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
+    DescriptorBuffer::DescriptorBuffer( DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors){
       m_descriptor_type = descriptor_type;
       m_nb_descriptors= nb_descriptors;
       m_data_type = data_type;

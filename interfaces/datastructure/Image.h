@@ -73,7 +73,7 @@ public:
      *  @param pixOrder: defined if the data are stored interleaved RGB,RGB or as a planar representation RRR,GGG,BBB
      *  @param type: defined by DataType
      */
-    Image(enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type);
+    Image(ImageLayout pixLayout, PixelOrder pixOrder, DataType type);
 
     /** @brief  Image
      *  @param width: width of the image
@@ -82,7 +82,7 @@ public:
      *  @param pixOrder: defined if the data are stored interleaved RGB,RGB or as a planar representation RRR,GGG,BBB
      *  @param type: defined by DataType
      */
-    Image(uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type);
+    Image(uint32_t width, uint32_t height, ImageLayout pixLayout, PixelOrder pixOrder, DataType type);
 
     /** @brief  Image built from a raw data pointer
      *  @param imageData: pointer to the raw data
@@ -92,7 +92,7 @@ public:
      *  @param pixOrder: defined if the data are stored interleaved RGB,RGB or as a planar representation RRR,GGG,BBB
      *  @param type: defined by DataType
      */
-    Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type);
+    Image(void* imageData, uint32_t width, uint32_t height, ImageLayout pixLayout, PixelOrder pixOrder, DataType type);
 
      /**  @brief  ~Image
       */
@@ -143,15 +143,15 @@ public:
 
     /** @brief returns the image layout
      */
-    enum ImageLayout getImageLayout() const  { return m_layout; }
+    ImageLayout getImageLayout() const  { return m_layout; }
 
     /** @brief returns the pixel order
      */
-    enum PixelOrder getPixelOrder() const { return m_pixOrder; }
+    PixelOrder getPixelOrder() const { return m_pixOrder; }
 
     /** @brief returns the dataType
      */
-    enum DataType getDataType() const { return m_type; }
+    DataType getDataType() const { return m_type; }
 
     /** @brief returns the number of channels
      */
@@ -181,9 +181,9 @@ private:
 
     uint32_t computeImageBufferSize();
     Sizei m_size{};
-    enum ImageLayout m_layout;
-    enum PixelOrder m_pixOrder;
-    enum DataType m_type;
+    ImageLayout m_layout;
+    PixelOrder m_pixOrder;
+    DataType m_type;
     uint32_t m_nbChannels;
     uint32_t m_nbPlanes;
     uint32_t m_nbBitsPerComponent;
