@@ -43,21 +43,21 @@ public:
     /// @brief ~Frame
     ~Frame() = default;
 
-    SRef<Image> getView();
+    SRef<Image> getView() const;
 
-    Transform3Df getPose();
+    Transform3Df getPose() const;
 
     void setPose(const Transform3Df & pose);
     void setKeypoints(const std::vector<Keypoint>& kpts);
     void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
-    SRef<Keyframe> getReferenceKeyframe();
+    SRef<Keyframe> getReferenceKeyframe() const;
 
     SRef<DescriptorBuffer> getDescriptors() const;
 
     const std::vector<Keypoint> & getKeypoints() const;
 
-    const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
+    const std::map<unsigned int, unsigned int> & getVisibleKeypoints() const;
 
     void addVisibleKeypoints(const std::map<unsigned int, unsigned int> & kpVisibility);
 

@@ -11,7 +11,7 @@ void Map::addCloudPoints(const std::vector<CloudPoint> & newMapPoints)
      m_pointCloud.insert(m_pointCloud.end(), newMapPoints.begin()  , newMapPoints.end()) ;
 }
 
-const std::vector<CloudPoint> & Map::getPointCloud()
+const std::vector<CloudPoint> & Map::getPointCloud() const
 {
      return m_pointCloud ;
 

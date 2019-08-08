@@ -34,7 +34,7 @@ void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoint
     m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
 }
 */
-const std::map<unsigned int, CloudPoint> & Keyframe::getVisibleMapPoints()
+const std::map<unsigned int, CloudPoint> & Keyframe::getVisibleMapPoints() const
 {
     return m_mapVisibility;
 }

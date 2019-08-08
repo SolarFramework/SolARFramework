@@ -29,7 +29,7 @@ public :
 
     void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
 
-    const std::vector<CloudPoint> & getPointCloud() ;
+    const std::vector<CloudPoint> & getPointCloud() const;
 
 private :
 

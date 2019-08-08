@@ -55,7 +55,7 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
     //void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
     void addVisibleMapPoints(const std::map<unsigned int, CloudPoint>& mapPoints);
 
-    const std::map<unsigned int, CloudPoint> & getVisibleMapPoints();
+    const std::map<unsigned int, CloudPoint> & getVisibleMapPoints() const;
 
     int m_idx;
 

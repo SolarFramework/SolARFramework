@@ -77,32 +77,32 @@ public :
 
 	/** @brief  return the number of descriptors stored in the structure
 	*/
-    uint32_t getNbDescriptors(){
+    uint32_t getNbDescriptors() const {
         return m_nb_descriptors;
     }
 
 	/** @brief  return the type of descriptor 
 	*/
-    DescriptorType getDescriptorType(){
+    DescriptorType getDescriptorType() const {
         return m_descriptor_type;
     }
 
     /** @brief  return the number of elements per descriptor
     */
-    uint32_t getNbElements(){
+    uint32_t getNbElements() const {
         return m_nb_elements;
     }
 
 	/** @brief  return the internal storage type of descriptor
 	*/
-    DataType getDescriptorDataType()
+    DataType getDescriptorDataType() const
     {
         return m_data_type;
     }
 
     /** @brief  return the descriptor size in bytes
 	*/
-    uint32_t getDescriptorByteSize()
+    uint32_t getDescriptorByteSize() const
     {
         return m_nb_elements * m_data_type;
     }
@@ -110,8 +110,12 @@ public :
     //TO DO: access to a single Descriptor
    // Descriptor getADescriptor(uint32_t idDescriptor);
 
+    /** @brief  return the descriptor data
+    */
     void* data();
 
+    /** @brief  return the descriptor data
+    */
     const void* data() const;
 
 private:

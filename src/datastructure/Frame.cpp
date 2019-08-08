@@ -34,12 +34,12 @@ Frame::Frame(std::vector<Keypoint> keypoints, SRef<DescriptorBuffer> descriptors
 
 Frame::Frame(std::vector<Keypoint> keypoints, SRef<DescriptorBuffer> descriptors, SRef<Image> view,  const Transform3Df& pose): m_keypoints(std::move(keypoints)), m_descriptors(std::move(descriptors)), m_view(std::move(view)), m_pose(pose){}
 
-SRef<Image>  Frame::getView()
+SRef<Image>  Frame::getView() const
 {
     return m_view;
 }
 
-Transform3Df Frame::getPose()
+Transform3Df Frame::getPose() const
 {
     return m_pose;
 }
@@ -68,12 +68,12 @@ void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
     m_referenceKeyFrame = std::move(keyframe);
 }
 
-SRef<Keyframe> Frame::getReferenceKeyframe()
+SRef<Keyframe> Frame::getReferenceKeyframe() const
 {
     return m_referenceKeyFrame;
 }
 
-const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints()
+const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints() const
 {
 	return m_kpVisibility;
 }
