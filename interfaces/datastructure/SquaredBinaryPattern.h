@@ -53,7 +53,7 @@ public:
 
     /// \brief returns the size of the squared fiducial pattern to detect
     /// \returns the size of the squared fiducial pattern to detect. If the marker is a square of size 7x7, we return 7.
-    inline int getSize () const { return m_size; }
+    int getSize () const { return m_size; }
 
 private :
     SquaredBinaryPatternMatrix m_patternMatrix;

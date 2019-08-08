@@ -143,37 +143,37 @@ public:
 
     /** @brief returns the image layout
      */
-    inline enum ImageLayout getImageLayout() const  { return m_layout; }
+    enum ImageLayout getImageLayout() const  { return m_layout; }
 
     /** @brief returns the pixel order
      */
-    inline enum PixelOrder getPixelOrder() const { return m_pixOrder; }
+    enum PixelOrder getPixelOrder() const { return m_pixOrder; }
 
     /** @brief returns the dataType
      */
-    inline enum DataType getDataType() const { return m_type; }
+    enum DataType getDataType() const { return m_type; }
 
     /** @brief returns the number of channels
      */
-    inline uint32_t getNbChannels() const { return m_nbChannels; }
+    uint32_t getNbChannels() const { return m_nbChannels; }
 
     /** @brief returns the amount of bit per component
      */
-    inline uint32_t getNbBitsPerComponent() const { return m_nbBitsPerComponent; }
+    uint32_t getNbBitsPerComponent() const { return m_nbBitsPerComponent; }
 
     /** @brief  returns the size of the image
      */
-    inline Sizei getSize() const { return m_size; };
+    Sizei getSize() const { return m_size; };
 
     /** @brief  returns height of the image
      */
-    inline uint32_t getWidth() const  { return m_size.width; }
+    uint32_t getWidth() const  { return m_size.width; }
 
     /** @brief  returns height of the image
      */
-    inline uint32_t getHeight() const { return m_size.height; }
+    uint32_t getHeight() const { return m_size.height; }
 
-    inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
+    uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
 
 private:
     class ImageInternal;

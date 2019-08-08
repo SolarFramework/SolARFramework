@@ -59,7 +59,7 @@ private:
     using SharedFifo<T>::m_data;
     using SharedFifo<T>::m_mutex;
 
-    virtual inline void doPop( T& value ) override
+    void doPop( T& value ) override
     {
         SharedFifo<T>::doPop(value);
         m_condQueueNotFull.notify_one();

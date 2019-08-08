@@ -36,10 +36,10 @@ public:
     ImageInternal(void* data, uint32_t size);
     ~ImageInternal() = default;
     void setBufferSize(uint32_t size);
-    inline uint32_t getBufferSize() { return m_bufferSize; }
+    uint32_t getBufferSize() { return m_bufferSize; }
     void setData(void * data, uint32_t size);
-    inline void* data() { return m_storageData.data(); }
-    inline const void* data() const  { return m_storageData.data(); }
+    void* data() { return m_storageData.data(); }
+    const void* data() const  { return m_storageData.data(); }
 
 private:
     std::vector<uint8_t> m_storageData;

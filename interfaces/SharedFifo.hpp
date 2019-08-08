@@ -68,11 +68,11 @@ public:
         return popSuccessful;
     }
 
-    inline unsigned int size() const {
+    unsigned int size() const {
         return m_data.size();
     }
 
-    inline bool empty() const {
+    bool empty() const {
         return m_data.empty();
     }
 
@@ -82,7 +82,7 @@ protected:
     std::deque<T> m_data;
     std::mutex m_mutex;
 
-    virtual inline void doPop( T& value )
+    virtual void doPop( T& value )
     {
         value = m_data.back();
         m_data.pop_back();

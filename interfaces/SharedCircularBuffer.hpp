@@ -58,7 +58,7 @@ protected:
     int m_pushCursor;
     int m_popCursor;
 
-    inline void increaseCursor( int& cursor )
+    void increaseCursor( int& cursor )
     {
         ++cursor;
         if( cursor == m_data.size() )
@@ -67,7 +67,7 @@ protected:
         }
     }
 
-    virtual inline void doPop( T& value )
+    virtual void doPop( T& value )
     {
         value = m_data[m_popCursor];
         increaseCursor(m_popCursor);

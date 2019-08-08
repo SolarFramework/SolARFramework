@@ -77,32 +77,32 @@ public :
 
 	/** @brief  return the number of descriptors stored in the structure
 	*/
-    inline uint32_t getNbDescriptors(){
+    uint32_t getNbDescriptors(){
         return m_nb_descriptors;
     }
 
 	/** @brief  return the type of descriptor 
 	*/
-    inline enum DescriptorType getDescriptorType(){
+    enum DescriptorType getDescriptorType(){
         return m_descriptor_type;
     }
 
     /** @brief  return the number of elements per descriptor
     */
-    inline uint32_t getNbElements(){
+    uint32_t getNbElements(){
         return m_nb_elements;
     }
 
 	/** @brief  return the internal storage type of descriptor
 	*/
-    inline enum DataType getDescriptorDataType()
+    enum DataType getDescriptorDataType()
     {
         return m_data_type;
     }
 
     /** @brief  return the descriptor size in bytes
 	*/
-    inline uint32_t getDescriptorByteSize()
+    uint32_t getDescriptorByteSize()
     {
         return m_nb_elements * m_data_type;
     }

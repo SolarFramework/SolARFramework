@@ -59,31 +59,31 @@ namespace datastructure {
     /// \brief This method returns the angle of an Keypoint
     /// \return angle
     ///
-        inline float getAngle() const {return m_angle;}
+        float getAngle() const {return m_angle;}
 
     ///
     /// \brief This method returns the size of an Keypoint
     /// \return size
     ///
-        inline float getSize() const {return m_size;}
+        float getSize() const {return m_size;}
 
     ///
     /// \brief GetResponse
     /// \return
     ///
-        inline float getResponse() const {return m_response;}
+        float getResponse() const {return m_response;}
 
     ///
     /// \brief This method returns the octave of an Keypoint
     /// \return octave
     ///
-        inline int   getOctave() const {return m_octave;}
+        int   getOctave() const {return m_octave;}
 
     ///
     /// \brief This method returns the classid of an Keypoint
     /// \return classid
     ///
-        inline int   getClassId() const {return m_class_id;}
+        int   getClassId() const {return m_class_id;}
 
         const Point2Df &getPosition() const {return m_position;}
         float x() const {return m_position.x();}
