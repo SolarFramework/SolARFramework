@@ -90,7 +90,7 @@ set (HEADERS
 	
 
 
-install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/solarmacros.cmake" DESTINATION $ENV{BCOMDEVROOT}/bcomBuild/${PROJECT_NAME}	)
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/solarmacros.cmake" DESTINATION $ENV{BCOMDEVROOT}/${PROJECT_NAME}	)
 
 ##################################################
 
