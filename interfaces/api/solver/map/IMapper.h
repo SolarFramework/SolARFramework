@@ -68,9 +68,18 @@ public:
                                        const std::vector<DescriptorMatch> & newPointsMatches = {},
                                        const std::vector<DescriptorMatch> & existingPointsMatches = {}) = 0;
 
+	/// @brief return all the keyframes of the map.
+	/// @return the keyframes of the map.
+    virtual const std::vector<SRef<Keyframe>> &getKeyframes() = 0;
 
-    virtual std::vector<SRef<Keyframe>> getKeyframes() = 0;
-    virtual SRef<Map> getMap() = 0;
+	/// @brief return a keyframe
+	/// @param[in] Index of the keyframe
+	virtual SRef<Keyframe> &getKeyframe(int index) = 0;
+
+	/// @brief get local map from reference keyframe and its neighbors
+	virtual void getLocalMap(SRef<Keyframe> refKF, std::vector<CloudPoint> &localCloudPoints) = 0;
+
+ //   virtual SRef<Map> getMap() = 0;
 };
 
 }

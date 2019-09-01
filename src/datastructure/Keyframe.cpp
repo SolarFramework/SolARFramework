@@ -23,7 +23,7 @@ namespace datastructure {
 
 int Keyframe::m_keyframeIdx = 0;
 
-void Keyframe::addVisibleMapPoints(const std::map<unsigned int, CloudPoint>& mapPoints)
+void Keyframe::addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints)
 {
     m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
 }
@@ -34,9 +34,19 @@ void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoint
     m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
 }
 */
-const std::map<unsigned int, CloudPoint> & Keyframe::getVisibleMapPoints()
+const std::map<unsigned int, unsigned int> & Keyframe::getVisibleMapPoints()
 {
     return m_mapVisibility;
+}
+
+const std::map<unsigned int, unsigned int>& Keyframe::getNeighborKeyframes()
+{
+	return m_neighborKeyframes;
+}
+
+void Keyframe::addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight)
+{
+	m_neighborKeyframes.insert(std::pair<unsigned int, unsigned int>(idxKeyframe, weight));
 }
 
 }

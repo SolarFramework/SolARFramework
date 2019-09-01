@@ -51,19 +51,28 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 
     ~Keyframe() = default;
 
-    //void addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints);
-    void addVisibleMapPoints(const std::map<unsigned int, CloudPoint>& mapPoints);
+	// @brief: Add visible cloud point to keyframe
+    void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
 
-    const std::map<unsigned int, CloudPoint> & getVisibleMapPoints();
+	// @brief: Get all visible cloud point
+    const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
+
+	// @brief: Get all neighbor keyframes
+	const std::map<unsigned int, unsigned int> & getNeighborKeyframes();
+
+	// @brief: Add a neighbor keyframe with the weight
+	void addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight);
 
     int m_idx;
 
 private:
     static int m_keyframeIdx;
 
-    // @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the keyframe, and the second element to the corresponding cloudPoint.
-    std::map<unsigned int, CloudPoint> m_mapVisibility;
-    //std::vector<SRef<CloudPoint>> m_mapPoints;
+    // @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the keyframe, and the second element to the index of the corresponding cloudPoint.
+    std::map<unsigned int, unsigned int> m_mapVisibility;
+
+	// @brief: A map storing the neighboring keyframes, where the first element corresponds to the index of a neighboring keyframe, and the second element to the corresponding the weight which is number of common points visble between two keyframes.
+	std::map<unsigned int, unsigned int> m_neighborKeyframes;
 };
 
 }

@@ -29,7 +29,11 @@ public :
 
     void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
 
-    const std::vector<CloudPoint> & getPointCloud() ;
+	// return all cloud points
+	inline const std::vector<CloudPoint> & getPointCloud() { return m_pointCloud; };
+
+	// return a cloud point which is modified
+	inline CloudPoint & getAPoint(int index) { return m_pointCloud[index]; }
 
 private :
 
