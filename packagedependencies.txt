@@ -1,4 +1,3 @@
 xpcf|2.2.0|xpcf|github|https://github.com/SolarFramework/binaries/releases/download
-eigen|3.3.5|eigen|thirdParties|https://github.com/SolarFramework/binaries/releases/download
+eigen#stable|3.3.5|eigen|conan|https://api.bintray.com/conan/conan-community/conan|na
 spdlog|0.14.0|spdlog|thirdParties|https://github.com/SolarFramework/binaries/releases/download
-
