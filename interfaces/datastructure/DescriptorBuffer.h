@@ -25,8 +25,49 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "BufferInternal.hpp"
 
+#include <type_traits>
+
 namespace SolAR {
 namespace datastructure {
+
+
+template<typename T>
+class SOLARFRAMEWORK_API Descriptor {
+public:
+    enum DescriptorType{
+        AKAZE, /**<AKAZE descriptor, assumes 32 elements per descriptor stores as one byte per element */
+        SIFT,  /**<SIFT descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
+        SURF_64 , /**<SURF descriptor, assumes 64 elements per descriptor stores as four bytes per element*/
+        SURF_128, /**<SURF descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
+        ORB, /**<ORB descriptor, assumes 32 elements per descriptor stores as one byte per element */
+        SBPATTERN /**<Squared Binary Pattern descriptor, assumes nxn elements per descriptor stores as one byte per element, n is the size of the pattern */
+    };
+
+    Descriptor(T * startAddress, uint32_t length, DescriptorType type):m_length(length),m_baseAddress(startAddress), m_type(type) {}
+
+    Descriptor(Descriptor && desc) :
+        m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
+        m_length(std::exchange(desc.m_length, 0)) {}
+
+    Descriptor& operator= ( Descriptor && desc)
+    {
+        m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
+        m_length = std::exchange(desc.m_length, 0);
+        return *this;
+    }
+
+    uint32_t length() const { return m_length; }
+    const T* data() const { return m_baseAddress; }
+    DescriptorType type() const { return m_type; }
+
+private:
+    T * m_baseAddress;
+    uint32_t m_length;
+    DescriptorType m_type;
+};
+
+using Descriptor8U = Descriptor<uint8_t>;
+using Descriptor32F = Descriptor<float>;
 
 /**
 * @class DescriptorBuffer
@@ -37,6 +78,8 @@ namespace datastructure {
 class SOLARFRAMEWORK_API DescriptorBuffer{
 
 public :
+    // Note: a DescriptorType is based on one DataType only.
+    // i.e. AKAZE is always a TYPE_8U
     enum DescriptorType{
         AKAZE, /**<AKAZE descriptor, assumes 32 elements per descriptor stores as one byte per element */
         SIFT,  /**<SIFT descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
@@ -49,17 +92,50 @@ public :
     enum DataType {
         TYPE_8U =1, /**< each descriptor element is stored in one byte. */
         TYPE_32F =4 /**< each descriptor element is stored in four bytes. */
-	} ;
+    } ;
+
+    template<DescriptorBuffer::DataType>
+    struct inferType
+    {
+        typedef void InnerType;
+    };
+
+    // Specialization for double: U -> double
+    template<>
+    struct inferType<DescriptorBuffer::DataType::TYPE_8U>
+    {
+        typedef uint8_t InnerType;
+    };
+
+    // Specialization for double: U -> double
+    template<>
+    struct inferType<DescriptorBuffer::DataType::TYPE_32F>
+    {
+        typedef float InnerType;
+    };
+
+    DescriptorBuffer( const Descriptor8U & desc);
+    DescriptorBuffer( const Descriptor32F & desc);
 
     /** @brief  DescriptorBuffer
-	*  @param descriptorData: pointer to an existing array structure
+    *  @param descriptor_type: enum to describe the descriptors vector
+    *  @param nb_descriptors: the number of descriptors stored in the buffer
+    *  @note the data type and the number of elements are deduced from the descriptor type, except for SBPATTERN.
+    * For SBPATTERN descriptors, use another constructor to provide the number of elements !
+    * The data are copied to get full ownership of the memory allocation.
+    */
+    DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_descriptors);
+
+    /** @brief  DescriptorBuffer
+    *  @param descriptorData: pointer to an existing array structure
     *  @param descriptor_type: enum to describe the descriptors vector
     *  @param data_type: number of bits per descriptor element
     *  @param nb_elements: number of elements per descriptor
     *  @param nb_descriptors: the number of descriptors stored in the buffer
-	* The data are copied to get full ownership of the memory allocation.
-	*/
+    * The data are copied to get full ownership of the memory allocation.
+    */
     DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
+
 
     /** @brief  DescriptorBuffer
     *  @param descriptor_type: enum to describe the descriptors vector
@@ -70,22 +146,21 @@ public :
     */
     DescriptorBuffer( DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
 
-
     /** @brief  DescriptorBuffer
-	* default constructor
-	*/
+    * default constructor
+    */
     DescriptorBuffer();
 
     ~DescriptorBuffer() = default;
 
-	/** @brief  return the number of descriptors stored in the structure
-	*/
+    /** @brief  return the number of descriptors stored in the structure
+    */
     inline uint32_t getNbDescriptors(void){
         return m_nb_descriptors;
     }
 
-	/** @brief  return the type of descriptor 
-	*/
+    /** @brief  return the type of descriptor
+    */
     inline enum DescriptorType getDescriptorType(){
         return m_descriptor_type;
     }
@@ -96,35 +171,59 @@ public :
         return m_nb_elements;
     }
 
-	/** @brief  return the internal storage type of descriptor
-	*/
+    /** @brief  return the internal storage type of descriptor
+    */
     inline enum DataType getDescriptorDataType()
     {
         return m_data_type;
     }
 
     /** @brief  return the descriptor size in bytes
-	*/
+    */
     inline uint32_t getDescriptorByteSize(void)
     {
         return m_nb_elements * m_data_type;
     }
 
     //TO DO: access to a single Descriptor
-   // Descriptor getADescriptor(uint32_t idDescriptor);
+    // Descriptor getADescriptor(uint32_t idDescriptor);
+    template <DescriptorBuffer::DataType datatype, typename T = typename inferType<datatype>::InnerType>
+    Descriptor<T> getDescriptor(uint32_t index);
 
     void* data();
 
     const void* data() const;
 
 private:
-
+    bool deduceProperties(const DescriptorType & type);
     SRef<BufferInternal> m_buffer;
     uint32_t m_nb_descriptors;
     DataType m_data_type;
     uint32_t m_nb_elements;
     DescriptorType m_descriptor_type;
 };
+
+template <DescriptorBuffer::DataType datatype, typename T> Descriptor<T> DescriptorBuffer::getDescriptor(uint32_t index)
+{
+    static_assert (std::is_same<std::uint8_t,T>::value || std::is_same<std::float_t, T>::value,
+                   "getDescriptor() only works for T = uint8_t or T = float" );
+    T* pDescriptor = static_cast<T*>(data());
+    return Descriptor<T>(&pDescriptor[index], m_nb_elements, static_cast<typename Descriptor<T>::DescriptorType>(m_descriptor_type));
+}
+
+
+
+template <DescriptorBuffer::DataType datatype, typename T = typename DescriptorBuffer:: inferType<datatype>::InnerType>
+Descriptor<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uint32_t index)
+{
+    static_assert (std::is_same<std::uint8_t,T>::value || std::is_same<std::float_t, T>::value,
+                   "getDescriptor() only works for T = uint8_t or T = float" );
+    if (buffer->getDescriptorDataType() != sizeof (T)) {
+        // throw exception
+    }
+    T* pDescriptor = static_cast<T*>(buffer->data());
+    return Descriptor<T>(&pDescriptor[index], buffer->getNbElements(), static_cast<typename Descriptor<T>::DescriptorType>(buffer->getDescriptorType()));
+}
 
 }
 }
