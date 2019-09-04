@@ -68,18 +68,27 @@ public:
                                        const std::vector<DescriptorMatch> & newPointsMatches = {},
                                        const std::vector<DescriptorMatch> & existingPointsMatches = {}) = 0;
 
+   /// @brief update the current map/keyframes(poses)with corrected map/keyframes(poses).
+/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
+/// @param[in,out] map current constructed map.
+/// @param[in,out] neyKeyframe current new keyframe to insert.
+/// @param[in] newCloud new triangulated 3D points
+/// @param[in] newPointMatches new detected matches from the reference keyframe and current frame.
+/// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
+/// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode update(const std::vector<CloudPoint> & correctedCloud,
+									  const std::vector<SRef<Keyframe>> & correctedKeyframes) = 0;
+
 	/// @brief return all the keyframes of the map.
 	/// @return the keyframes of the map.
     virtual const std::vector<SRef<Keyframe>> &getKeyframes() = 0;
-
 	/// @brief return a keyframe
 	/// @param[in] Index of the keyframe
 	virtual SRef<Keyframe> &getKeyframe(int index) = 0;
-
 	/// @brief get local map from reference keyframe and its neighbors
 	virtual void getLocalMap(SRef<Keyframe> refKF, std::vector<CloudPoint> &localCloudPoints) = 0;
+	virtual SRef<Map> getGlobalMap() = 0;
 
- //   virtual SRef<Map> getMap() = 0;
 };
 
 }

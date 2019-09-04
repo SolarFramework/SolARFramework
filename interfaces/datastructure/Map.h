@@ -28,7 +28,7 @@ public :
     ~Map() ;
 
     void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
-
+	void updateCloudPoints(const std::vector<CloudPoint> & correctedMapPoints);
 	// return all cloud points
 	inline const std::vector<CloudPoint> & getPointCloud() { return m_pointCloud; };
 
