@@ -21,20 +21,26 @@
 
 namespace  SolAR {
 namespace datastructure {
-const static std::map<DescriptorBuffer::DescriptorType, std::pair<uint32_t, DescriptorBuffer::DataType>> descriptorType2elementsAndDataType =
-{{DescriptorBuffer::DescriptorType::AKAZE, {32,DescriptorBuffer::DataType::TYPE_8U}},
- {DescriptorBuffer::DescriptorType::SIFT, {128,DescriptorBuffer::DataType::TYPE_8U}},
- {DescriptorBuffer::DescriptorType::SURF_64, {64,DescriptorBuffer::DataType::TYPE_8U}},
- {DescriptorBuffer::DescriptorType::SURF_128, {128,DescriptorBuffer::DataType::TYPE_8U}},
- {DescriptorBuffer::DescriptorType::ORB, {32,DescriptorBuffer::DataType::TYPE_8U}}
+const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> descriptorType2elementsAndDataType =
+{{DescriptorType::AKAZE, {32,DescriptorDataType::TYPE_8U}},
+ {DescriptorType::SIFT, {128,DescriptorDataType::TYPE_8U}},
+ {DescriptorType::SURF_64, {64,DescriptorDataType::TYPE_8U}},
+ {DescriptorType::SURF_128, {128,DescriptorDataType::TYPE_8U}},
+ {DescriptorType::ORB, {32,DescriptorDataType::TYPE_8U}}
 };
 
-DescriptorBuffer::DescriptorBuffer( const Descriptor8U & desc):DescriptorBuffer(static_cast<DescriptorBuffer::DescriptorType>(desc.type()), 1)
+DescriptorBase::DescriptorBase(void * startAddress, uint32_t length, DescriptorType type):
+    m_length(length),m_baseAddress(startAddress), m_type(type)
+{
+    m_dataType = descriptorType2elementsAndDataType.at(type).second;
+}
+
+DescriptorBuffer::DescriptorBuffer( const Descriptor8U & desc):DescriptorBuffer(static_cast<DescriptorType>(desc.type()), 1)
 {
     m_buffer->setData((void *)(desc.data()), m_nb_descriptors * m_nb_elements * m_data_type);
 }
 
-DescriptorBuffer::DescriptorBuffer( const Descriptor32F & desc):DescriptorBuffer(static_cast<DescriptorBuffer::DescriptorType>(desc.type()), 1)
+DescriptorBuffer::DescriptorBuffer( const Descriptor32F & desc):DescriptorBuffer(static_cast<DescriptorType>(desc.type()), 1)
 {
     m_buffer->setData((void *)(desc.data()), m_nb_descriptors * m_nb_elements * m_data_type);
 }
@@ -63,13 +69,13 @@ DescriptorBuffer::DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_
 
 
 DescriptorBuffer::DescriptorBuffer():m_buffer(new BufferInternal()){
-    m_descriptor_type = DescriptorBuffer::DescriptorType::SIFT;
+    m_descriptor_type = DescriptorType::SIFT;
     m_nb_elements = 128;
-    m_data_type = DataType::TYPE_32F;
+    m_data_type = DescriptorDataType::TYPE_32F;
     m_nb_descriptors= 0;
 }
 
-DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal()){
+DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal()){
     m_descriptor_type = descriptor_type;
     m_nb_descriptors= nb_descriptors;
     m_data_type = data_type;
@@ -78,7 +84,7 @@ DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, enum Descript
     m_buffer->setData(descriptorData, m_nb_descriptors * m_nb_elements * m_data_type);
 }
 
-DescriptorBuffer::DescriptorBuffer( enum DescriptorType descriptor_type, DataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal())
+DescriptorBuffer::DescriptorBuffer( enum DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors):m_buffer(new BufferInternal())
 {
     m_descriptor_type = descriptor_type;
     m_nb_descriptors= nb_descriptors;
@@ -98,6 +104,40 @@ const void* DescriptorBuffer::data() const
     return m_buffer->data();
 }
 
+DescriptorBase DescriptorBuffer::getDescriptor(uint32_t index)
+{
+    void* pDescriptor = m_buffer->data();
+    uint32_t offset = m_data_type * m_nb_elements * index;
+    pDescriptor = (uint8_t *)pDescriptor + offset;
+    return DescriptorBase(pDescriptor, m_nb_elements, m_descriptor_type);
+}
+
+void DescriptorBuffer::append(const Descriptor8U & descriptor)
+{
+    if ((m_descriptor_type != descriptor.type()) || (m_data_type != Descriptor8U::sDataType)) {
+        //throw
+        return;
+    }
+    m_buffer->appendData(static_cast<const void*>(descriptor.data()),descriptor.length());
+}
+
+void DescriptorBuffer::append(const Descriptor32F & descriptor)
+{
+    if ((m_descriptor_type != descriptor.type()) || (m_data_type != Descriptor32F::sDataType)) {
+        //throw
+        return;
+    }
+    m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * Descriptor32F::sDataType);
+}
+
+void DescriptorBuffer::append(const DescriptorBase & descriptor)
+{
+    if ((m_descriptor_type != descriptor.type()) || (m_data_type != descriptor.dataType())) {
+        //throw
+        return;
+    }
+    m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
+}
 
 }
 }
