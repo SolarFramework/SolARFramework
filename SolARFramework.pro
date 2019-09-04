@@ -6,6 +6,7 @@ CONFIG -= qt
 #QMAKE_CXX=clang
 
 ## global defintions : target lib name, version
+INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
 VERSION=0.6.0
