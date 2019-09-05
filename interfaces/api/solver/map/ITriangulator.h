@@ -91,6 +91,27 @@ public:
                                const Transform3Df& poseView2,
                                std::vector<CloudPoint>& pcloud)=0;
 
+	/// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
+	/// @param[in] pointsView1, set of keypoints seen in view_1.
+	/// @param[in] pointsView2, set of keypoints seen in view_2.
+	/// @param[in] descriptor1, set of descriptors in view_1.
+	/// @param[in] descriptor2, set of descriptors in view_2.
+	/// @param[in] matches, the matches between the keypoints of the view1 and the keypoints of the view 2.
+	/// @param[in] working_views, a pair representing the id of the two views
+	/// @param[in] poseView1, Camera pose in the world coordinates system of the view_1 expressed as a Transform3D.
+	/// @param[in] poseView2, Camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
+	/// @param[out] pcloud, Set of triangulated 3d_points.
+	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
+	virtual double triangulate(	const std::vector<Keypoint> & keypointsView1,
+								const std::vector<Keypoint> & keypointsView2,
+								SRef<DescriptorBuffer> & descriptor1,
+								SRef<DescriptorBuffer> & descriptor2,
+								const std::vector<DescriptorMatch> & matches,
+								const std::pair<unsigned int, unsigned int> & working_views,
+								const Transform3Df & poseView1,
+								const Transform3Df & poseView2,
+								std::vector<CloudPoint> & pcloud) =0;
+
 	/// @brief triangulate pairs of points 2d captured from current keyframe with its reference keyframe using their poses (with respect to the camera instrinsic parameters).
 	/// @param[in] curKeyframe, current keyframe.
 	/// @param[in] matches, the matches between the keypoints of the view1 and the keypoints of the view 2.

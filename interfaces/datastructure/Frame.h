@@ -57,9 +57,17 @@ public:
 
     const std::vector<Keypoint> & getKeypoints() const;
 
+	// @brief: Get all visible keypoints of the refKeyframe
     const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
 
+	// @brief: Add visible keypoint of refKeyframe to frame
     void addVisibleKeypoints(const std::map<unsigned int, unsigned int> & kpVisibility);
+
+	// @brief: Add visible cloud point to frame
+	void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
+
+	// @brief: Get all visible cloud point
+	const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
 
 protected:
     ///@brief pose of current frame
@@ -67,8 +75,12 @@ protected:
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
-    std::vector<Keypoint>     m_keypoints ;
+    std::vector<Keypoint>			m_keypoints ;
 
+	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
+	std::map<unsigned int, unsigned int> m_mapVisibility;
+
+	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the keypoint of the reference keyframe.
 	std::map<unsigned int, unsigned int > m_kpVisibility;
 
 };

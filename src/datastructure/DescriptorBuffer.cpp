@@ -22,7 +22,7 @@
 namespace  SolAR {
 namespace datastructure {
 const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> descriptorType2elementsAndDataType =
-{{DescriptorType::AKAZE, {32,DescriptorDataType::TYPE_8U}},
+{{DescriptorType::AKAZE, {61,DescriptorDataType::TYPE_8U}},
  {DescriptorType::SIFT, {128,DescriptorDataType::TYPE_8U}},
  {DescriptorType::SURF_64, {64,DescriptorDataType::TYPE_8U}},
  {DescriptorType::SURF_128, {128,DescriptorDataType::TYPE_8U}},

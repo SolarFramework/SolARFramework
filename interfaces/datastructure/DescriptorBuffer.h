@@ -38,7 +38,7 @@ enum DescriptorDataType {
 // Note: a DescriptorType is based on one DataType only.
 // i.e. AKAZE is always a TYPE_8U
 enum DescriptorType{
-    AKAZE, /**<AKAZE descriptor, assumes 32 elements per descriptor stores as one byte per element */
+    AKAZE, /**<AKAZE descriptor, assumes 61 elements per descriptor stores as one byte per element */
     SIFT,  /**<SIFT descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
     SURF_64 , /**<SURF descriptor, assumes 64 elements per descriptor stores as four bytes per element*/
     SURF_128, /**<SURF descriptor, assumes 128 elements per descriptor stores as four bytes per element*/

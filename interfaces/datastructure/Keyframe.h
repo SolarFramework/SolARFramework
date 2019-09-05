@@ -49,13 +49,7 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
              SRef<Image> view,
              Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose), m_idx(m_keyframeIdx++){};
 
-    ~Keyframe() = default;
-
-	// @brief: Add visible cloud point to keyframe
-    void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
-
-	// @brief: Get all visible cloud point
-    const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
+    ~Keyframe() = default;	
 
 	// @brief: Get all neighbor keyframes
 	const std::map<unsigned int, unsigned int> & getNeighborKeyframes();
@@ -66,10 +60,7 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
     int m_idx;
 
 private:
-    static int m_keyframeIdx;
-
-    // @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the keyframe, and the second element to the index of the corresponding cloudPoint.
-    std::map<unsigned int, unsigned int> m_mapVisibility;
+    static int m_keyframeIdx;    
 
 	// @brief: A map storing the neighboring keyframes, where the first element corresponds to the index of a neighboring keyframe, and the second element to the corresponding the weight which is number of common points visble between two keyframes.
 	std::map<unsigned int, unsigned int> m_neighborKeyframes;

@@ -24,6 +24,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/DescriptorBuffer.h"
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -59,6 +60,16 @@ public:
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
+	CloudPoint(float x,
+		float y,
+		float z,
+		float r,
+		float g,
+		float b,
+		double reproj_error,
+		std::map<unsigned int, unsigned int> &visibility,
+		SRef<DescriptorBuffer> descriptor);
+
     ///
     /// \brief ~CloudPoint
     ///
@@ -88,6 +99,8 @@ public:
     /// @param keypoint_id: the id of the keypoint of the keyframe
     void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; };
 
+	SRef<DescriptorBuffer> getDescriptor() const { return m_descriptor; };
+
 private:
     std::map<unsigned int, unsigned int>  m_visibility;
     float             m_r;
@@ -95,6 +108,8 @@ private:
     float             m_b;
 
     double            m_reproj_error;
+
+	SRef<DescriptorBuffer> m_descriptor;
 };
 }
 }  // end of namespace SolAR

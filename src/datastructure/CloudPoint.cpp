@@ -33,7 +33,10 @@ namespace SolAR {
                             float b,
                             double reproj_error,
                             std::map<unsigned int, unsigned int> &visibility): Point3Df(x,y,z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
-                                                          m_visibility(visibility){
+                                                          m_visibility(visibility) {
     }
+	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
+		Point3Df(x, y, z), m_r(r), m_g(g), m_b(b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){
+	}
   }
 }

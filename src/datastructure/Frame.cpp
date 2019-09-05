@@ -20,9 +20,9 @@
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()){}
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()), m_mapVisibility(frame->getVisibleMapPoints()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()) {
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibleMapPoints()) {
 	int nKeypoints = keyframe->getKeypoints().size();
 	for (int i = 0; i < nKeypoints; i++)
 		m_kpVisibility[i] = i;
@@ -79,6 +79,16 @@ const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints()
 void Frame::addVisibleKeypoints(const std::map<unsigned int, unsigned int>& kpVisibility)
 {
 	m_kpVisibility.insert(kpVisibility.begin(), kpVisibility.end());
+}
+
+void Frame::addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints)
+{
+	m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
+}
+
+const std::map<unsigned int, unsigned int> & Frame::getVisibleMapPoints()
+{
+	return m_mapVisibility;
 }
 
 }
