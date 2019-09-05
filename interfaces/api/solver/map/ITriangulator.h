@@ -104,8 +104,8 @@ public:
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
 	virtual double triangulate(	const std::vector<Keypoint> & keypointsView1,
 								const std::vector<Keypoint> & keypointsView2,
-								SRef<DescriptorBuffer> & descriptor1,
-								SRef<DescriptorBuffer> & descriptor2,
+								const SRef<DescriptorBuffer> & descriptor1,
+								const SRef<DescriptorBuffer> & descriptor2,
 								const std::vector<DescriptorMatch> & matches,
 								const std::pair<unsigned int, unsigned int> & working_views,
 								const Transform3Df & poseView1,
