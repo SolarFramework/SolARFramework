@@ -66,6 +66,9 @@ public:
 	// @brief: Add visible cloud point to frame
 	void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
 
+	// @brief: Add visible of a cloud point to frame
+	void addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint);
+
 	// @brief: Get all visible cloud point
 	const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
 
