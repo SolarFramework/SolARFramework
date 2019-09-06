@@ -142,7 +142,8 @@ using DescriptorView32F = DescriptorViewTemplate<float>;
 class DescriptorBuffer;
 class DescriptorBufferIterator {
 public:
-    DescriptorBufferIterator(DescriptorBuffer * desc);
+    DescriptorBufferIterator(SRef<DescriptorBuffer> desc);
+
     void operator++() {
         if (m_index < m_nbDescriptors) {
             m_index ++;
@@ -155,7 +156,7 @@ public:
     }
 
 private:
-    DescriptorBuffer * m_buffer;
+    SRef<DescriptorBuffer> m_buffer;
     uint32_t m_index = 0;
     uint32_t m_nbDescriptors;
 };
@@ -265,9 +266,6 @@ public :
 
     const void* data() const;
 
-    DescriptorBufferIterator begin();
-    DescriptorBufferIterator end();
-
 private:
     bool deduceProperties(const DescriptorType & type);
     SRef<BufferInternal> m_buffer;
@@ -276,6 +274,17 @@ private:
     uint32_t m_nb_elements;
     DescriptorType m_descriptor_type;
 };
+
+
+DescriptorBufferIterator begin(SRef<DescriptorBuffer> ref)
+{
+    return DescriptorBufferIterator(ref);
+}
+
+DescriptorBufferIterator end(SRef<DescriptorBuffer> ref)
+{
+    return DescriptorBufferIterator(ref);
+}
 
 template <DescriptorDataType datatype, typename T> DescriptorViewTemplate<T> DescriptorBuffer::getDescriptor(uint32_t index)
 {

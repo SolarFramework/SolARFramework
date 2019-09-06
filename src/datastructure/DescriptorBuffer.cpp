@@ -155,18 +155,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
 }
 
-DescriptorBufferIterator DescriptorBuffer::begin()
-{
-    return DescriptorBufferIterator(this);
-}
-
-DescriptorBufferIterator DescriptorBuffer::end()
-{
-    return DescriptorBufferIterator(this);
-}
-
-
-DescriptorBufferIterator::DescriptorBufferIterator(DescriptorBuffer * desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
+DescriptorBufferIterator::DescriptorBufferIterator(SRef<DescriptorBuffer> desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
 {
 
 }
@@ -174,14 +163,6 @@ DescriptorBufferIterator::DescriptorBufferIterator(DescriptorBuffer * desc):m_bu
 DescriptorView DescriptorBufferIterator::operator *() {
     DescriptorView desc = m_buffer->getDescriptor(m_index);
     return desc;
-}
-
-
-void f() {
-    DescriptorBuffer b(DescriptorType::AKAZE,4);
-    for (auto view : b) {
-
-    }
 }
 
 }
