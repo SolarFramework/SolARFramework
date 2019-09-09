@@ -28,9 +28,24 @@ const std::map<unsigned int, unsigned int>& Keyframe::getNeighborKeyframes()
 	return m_neighborKeyframes;
 }
 
+std::vector<unsigned int> Keyframe::getBestNeighborKeyframes(int nbKeyframes)
+{
+	std::vector<std::pair<unsigned int, unsigned int>> weightKf;
+	for (auto it = m_neighborKeyframes.begin(); it != m_neighborKeyframes.end(); it++)
+		weightKf.push_back(std::make_pair(it->second, it->first));
+	std::sort(weightKf.begin(), weightKf.end(), std::greater<std::pair<unsigned int, unsigned int>>());
+	std::vector<unsigned int> out;
+	for (auto it : weightKf) {
+		out.push_back(it.second);
+		if (out.size() == nbKeyframes)
+			break;
+	}
+	return out;
+}
+
 void Keyframe::addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight)
 {
-	m_neighborKeyframes.insert(std::pair<unsigned int, unsigned int>(idxKeyframe, weight));
+	m_neighborKeyframes[idxKeyframe] = weight;
 }
 
 }

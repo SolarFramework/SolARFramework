@@ -29,18 +29,23 @@ const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> d
  {DescriptorType::ORB, {32,DescriptorDataType::TYPE_8U}}
 };
 
-DescriptorBase::DescriptorBase(void * startAddress, uint32_t length, DescriptorType type):
+DescriptorView::DescriptorView(void * startAddress, uint32_t length, DescriptorType type):
     m_length(length),m_baseAddress(startAddress), m_type(type)
 {
     m_dataType = descriptorType2elementsAndDataType.at(type).second;
 }
 
-DescriptorBuffer::DescriptorBuffer( const Descriptor8U & desc):DescriptorBuffer(static_cast<DescriptorType>(desc.type()), 1)
+DescriptorBuffer::DescriptorBuffer( const DescriptorView8U & desc):DescriptorBuffer(desc.type(), 1)
 {
     m_buffer->setData((void *)(desc.data()), m_nb_descriptors * m_nb_elements * m_data_type);
 }
 
-DescriptorBuffer::DescriptorBuffer( const Descriptor32F & desc):DescriptorBuffer(static_cast<DescriptorType>(desc.type()), 1)
+DescriptorBuffer::DescriptorBuffer( const DescriptorView32F & desc):DescriptorBuffer(desc.type(), 1)
+{
+    m_buffer->setData((void *)(desc.data()), m_nb_descriptors * m_nb_elements * m_data_type);
+}
+
+DescriptorBuffer::DescriptorBuffer( const DescriptorView & desc):DescriptorBuffer(desc.type(), 1)
 {
     m_buffer->setData((void *)(desc.data()), m_nb_descriptors * m_nb_elements * m_data_type);
 }
@@ -65,6 +70,17 @@ DescriptorBuffer::DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_
     }
     //allocate buffer
     m_buffer->setSize(m_nb_descriptors * m_nb_elements * m_data_type);
+}
+
+DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, uint32_t nb_descriptors):
+    m_nb_descriptors(nb_descriptors),m_descriptor_type(descriptor_type),m_buffer(new BufferInternal())
+{
+    if (!deduceProperties(descriptor_type)) {
+        // ERROR no automatic translation : should throw an exception
+        return;
+    }
+    //allocate and fill buffer
+    m_buffer->setData(descriptorData, m_nb_descriptors * m_nb_elements * m_data_type);
 }
 
 
@@ -104,39 +120,49 @@ const void* DescriptorBuffer::data() const
     return m_buffer->data();
 }
 
-DescriptorBase DescriptorBuffer::getDescriptor(uint32_t index)
+DescriptorView DescriptorBuffer::getDescriptor(uint32_t index) const
 {
     void* pDescriptor = m_buffer->data();
     uint32_t offset = m_data_type * m_nb_elements * index;
     pDescriptor = (uint8_t *)pDescriptor + offset;
-    return DescriptorBase(pDescriptor, m_nb_elements, m_descriptor_type);
+    return DescriptorView(pDescriptor, m_nb_elements, m_descriptor_type);
 }
 
-void DescriptorBuffer::append(const Descriptor8U & descriptor)
+void DescriptorBuffer::append(const DescriptorView8U & descriptor)
 {
-    if ((m_descriptor_type != descriptor.type()) || (m_data_type != Descriptor8U::sDataType)) {
+    if ((m_descriptor_type != descriptor.type()) || (m_data_type != DescriptorView8U::sDataType)) {
         //throw
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()),descriptor.length());
 }
 
-void DescriptorBuffer::append(const Descriptor32F & descriptor)
+void DescriptorBuffer::append(const DescriptorView32F & descriptor)
 {
-    if ((m_descriptor_type != descriptor.type()) || (m_data_type != Descriptor32F::sDataType)) {
+    if ((m_descriptor_type != descriptor.type()) || (m_data_type != DescriptorView32F::sDataType)) {
         //throw
         return;
     }
-    m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * Descriptor32F::sDataType);
+    m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * DescriptorView32F::sDataType);
 }
 
-void DescriptorBuffer::append(const DescriptorBase & descriptor)
+void DescriptorBuffer::append(const DescriptorView & descriptor)
 {
     if ((m_descriptor_type != descriptor.type()) || (m_data_type != descriptor.dataType())) {
         //throw
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
+}
+
+DescriptorBufferIterator::DescriptorBufferIterator(SRef<DescriptorBuffer> desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
+{
+
+}
+
+DescriptorView DescriptorBufferIterator::operator *() {
+    DescriptorView desc = m_buffer->getDescriptor(m_index);
+    return desc;
 }
 
 }

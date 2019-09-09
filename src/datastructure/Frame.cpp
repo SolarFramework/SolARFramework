@@ -86,6 +86,11 @@ void Frame::addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapP
 	m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
 }
 
+void Frame::addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint)
+{
+	m_mapVisibility[id_keypoint] = id_cloudPoint;
+}
+
 const std::map<unsigned int, unsigned int> & Frame::getVisibleMapPoints()
 {
 	return m_mapVisibility;

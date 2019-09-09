@@ -58,15 +58,35 @@ template <> inline constexpr DescriptorDataType inferDescriptorDataType<float>()
     return DescriptorDataType::TYPE_32F;
 }
 
-class DescriptorBase {
+template<DescriptorDataType>
+struct inferType
+{
+    typedef void InnerType;
+};
+
+// Specialization for double: U -> double
+template<>
+struct inferType<DescriptorDataType::TYPE_8U>
+{
+    typedef uint8_t InnerType;
+};
+
+// Specialization for double: U -> double
+template<>
+struct inferType<DescriptorDataType::TYPE_32F>
+{
+    typedef float InnerType;
+};
+
+class DescriptorView {
 public:
-    DescriptorBase(void * startAddress, uint32_t length, DescriptorType type);
-    DescriptorBase(DescriptorBase && desc) :
+    DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
+    DescriptorView(DescriptorView && desc) :
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)),
         m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)) {}
 
-    DescriptorBase& operator= ( DescriptorBase && desc)
+    DescriptorView& operator= ( DescriptorView && desc)
     {
         m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
         m_length = std::exchange(desc.m_length, 0);
@@ -87,16 +107,17 @@ private:
 };
 
 
-template<typename T>
-class Descriptor {
-public:
-    Descriptor(T * startAddress, uint32_t length, DescriptorType type):m_length(length),m_baseAddress(startAddress), m_type(type) {}
 
-    Descriptor(Descriptor && desc) :
+template<typename T>
+class DescriptorViewTemplate {
+public:
+    DescriptorViewTemplate(T * startAddress, uint32_t length, DescriptorType type):m_length(length),m_baseAddress(startAddress), m_type(type) {}
+
+    DescriptorViewTemplate(DescriptorViewTemplate && desc) :
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)) {}
 
-    Descriptor& operator= ( Descriptor && desc)
+    DescriptorViewTemplate& operator= ( DescriptorViewTemplate && desc)
     {
         m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
         m_length = std::exchange(desc.m_length, 0);
@@ -115,8 +136,30 @@ private:
     DescriptorType m_type;
 };
 
-using Descriptor8U = Descriptor<uint8_t>;
-using Descriptor32F = Descriptor<float>;
+using DescriptorView8U = DescriptorViewTemplate<uint8_t>;
+using DescriptorView32F = DescriptorViewTemplate<float>;
+
+class DescriptorBuffer;
+class DescriptorBufferIterator {
+public:
+    DescriptorBufferIterator(SRef<DescriptorBuffer> desc);
+
+    void operator++() {
+        if (m_index < m_nbDescriptors) {
+            m_index ++;
+        }
+    }
+
+    inline DescriptorView operator *();
+    bool operator !=(const DescriptorBufferIterator & desc) {
+        return (m_index != m_nbDescriptors);
+    }
+
+private:
+    SRef<DescriptorBuffer> m_buffer;
+    uint32_t m_index = 0;
+    uint32_t m_nbDescriptors;
+};
 
 /**
 * @class DescriptorBuffer
@@ -127,28 +170,9 @@ using Descriptor32F = Descriptor<float>;
 class SOLARFRAMEWORK_API DescriptorBuffer{
 
 public :
-    template<DescriptorDataType>
-    struct inferType
-    {
-        typedef void InnerType;
-    };
-
-    // Specialization for double: U -> double
-    template<>
-    struct inferType<DescriptorDataType::TYPE_8U>
-    {
-        typedef uint8_t InnerType;
-    };
-
-    // Specialization for double: U -> double
-    template<>
-    struct inferType<DescriptorDataType::TYPE_32F>
-    {
-        typedef float InnerType;
-    };
-
-    DescriptorBuffer( const Descriptor8U & desc);
-    DescriptorBuffer( const Descriptor32F & desc);
+    DescriptorBuffer( const DescriptorView8U & desc);
+    DescriptorBuffer( const DescriptorView32F & desc);
+    DescriptorBuffer( const DescriptorView & desc);
 
     /** @brief  DescriptorBuffer
     *  @param descriptor_type: enum to describe the descriptors vector
@@ -158,6 +182,14 @@ public :
     * The data are copied to get full ownership of the memory allocation.
     */
     DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_descriptors);
+
+    /** @brief  DescriptorBuffer
+    *  @param descriptorData: pointer to an existing array structure
+    *  @param descriptor_type: enum to describe the descriptors vector
+    *  @param nb_descriptors: the number of descriptors stored in the buffer
+    * The data are copied to get full ownership of the memory allocation.
+    */
+    DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, uint32_t nb_descriptors);
 
     /** @brief  DescriptorBuffer
     *  @param descriptorData: pointer to an existing array structure
@@ -218,16 +250,17 @@ public :
         return m_nb_elements * m_data_type;
     }
 
-    void append(const Descriptor8U & descriptor);
-    void append(const Descriptor32F & descriptor);
-    void append(const DescriptorBase & descriptor);
+    void append(const DescriptorView & descriptor);
+    void append(const DescriptorView8U & descriptor);
+    void append(const DescriptorView32F & descriptor);
 
-    DescriptorBase getDescriptor(uint32_t index);
+
+    DescriptorView getDescriptor(uint32_t index) const;
 
     //TO DO: access to a single Descriptor
     // Descriptor getADescriptor(uint32_t idDescriptor);
     template <DescriptorDataType datatype, typename T = typename inferType<datatype>::InnerType>
-    Descriptor<T> getDescriptor(uint32_t index);
+    DescriptorViewTemplate<T> getDescriptor(uint32_t index);
 
     void* data();
 
@@ -242,18 +275,27 @@ private:
     DescriptorType m_descriptor_type;
 };
 
-template <DescriptorDataType datatype, typename T> Descriptor<T> DescriptorBuffer::getDescriptor(uint32_t index)
+
+DescriptorBufferIterator begin(SRef<DescriptorBuffer> ref)
+{
+    return DescriptorBufferIterator(ref);
+}
+
+DescriptorBufferIterator end(SRef<DescriptorBuffer> ref)
+{
+    return DescriptorBufferIterator(ref);
+}
+
+template <DescriptorDataType datatype, typename T> DescriptorViewTemplate<T> DescriptorBuffer::getDescriptor(uint32_t index)
 {
     static_assert (std::is_same<std::uint8_t,T>::value || std::is_same<std::float_t, T>::value,
                    "getDescriptor() only works for T = uint8_t or T = float" );
     T* pDescriptor = static_cast<T*>(data());
-    return Descriptor<T>(&pDescriptor[index], m_nb_elements, m_descriptor_type);
+    return DescriptorViewTemplate<T>(&pDescriptor[index], m_nb_elements, m_descriptor_type);
 }
 
-
-
-template <DescriptorDataType datatype, typename T = typename DescriptorBuffer::inferType<datatype>::InnerType>
-Descriptor<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uint32_t index)
+template <DescriptorDataType datatype, typename T = typename inferType<datatype>::InnerType>
+DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uint32_t index)
 {
     static_assert (std::is_same<std::uint8_t,T>::value || std::is_same<std::float_t, T>::value,
                    "getDescriptor() only works for T = uint8_t or T = float" );
@@ -261,7 +303,7 @@ Descriptor<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uint32_t index)
         // throw exception
     }
     T* pDescriptor = static_cast<T*>(buffer->data());
-    return Descriptor<T>(&pDescriptor[index], buffer->getNbElements(), buffer->getDescriptorType());
+    return DescriptorViewTemplate<T>(&pDescriptor[index], buffer->getNbElements(), buffer->getDescriptorType());
 }
 
 }

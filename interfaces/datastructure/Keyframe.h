@@ -54,6 +54,10 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 	// @brief: Get all neighbor keyframes
 	const std::map<unsigned int, unsigned int> & getNeighborKeyframes();
 
+	// @brief: Get best neighbor keyframes
+	// return id of the best neighbors
+	std::vector<unsigned int> getBestNeighborKeyframes(int nbKeyframes);
+
 	// @brief: Add a neighbor keyframe with the weight
 	void addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight);
 
