@@ -1,4 +1,4 @@
-xpcf|2.2.0|xpcf|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download
+xpcf|2.2.0|xpcf|github|https://github.com/SolarFramework/binaries/releases/download
 eigen|3.3.5|eigen|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download
 spdlog|0.14.0|spdlog|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download
 
