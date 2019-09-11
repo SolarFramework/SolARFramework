@@ -95,6 +95,7 @@ public:
     }
 
     uint32_t length() const { return m_length; }
+	void* data() { return m_baseAddress; }
     const void* data() const { return m_baseAddress; }
     const DescriptorType & type() const { return m_type; }
     const DescriptorDataType & dataType() const { return m_dataType; }
@@ -126,6 +127,7 @@ public:
 
     uint32_t length() const { return m_length; }
     const T* data() const { return m_baseAddress; }
+	T* data() { return m_baseAddress; }
     DescriptorType type() const { return m_type; }
 
     static constexpr DescriptorDataType sDataType = inferDescriptorDataType<T>();
@@ -291,7 +293,7 @@ template <DescriptorDataType datatype, typename T> DescriptorViewTemplate<T> Des
     static_assert (std::is_same<std::uint8_t,T>::value || std::is_same<std::float_t, T>::value,
                    "getDescriptor() only works for T = uint8_t or T = float" );
     T* pDescriptor = static_cast<T*>(data());
-    return DescriptorViewTemplate<T>(&pDescriptor[index], m_nb_elements, m_descriptor_type);
+    return DescriptorViewTemplate<T>(&pDescriptor[index * m_nb_elements], m_nb_elements, m_descriptor_type);
 }
 
 template <DescriptorDataType datatype, typename T = typename inferType<datatype>::InnerType>
@@ -303,7 +305,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
         // throw exception
     }
     T* pDescriptor = static_cast<T*>(buffer->data());
-    return DescriptorViewTemplate<T>(&pDescriptor[index], buffer->getNbElements(), buffer->getDescriptorType());
+    return DescriptorViewTemplate<T>(&pDescriptor[index * m_nb_elements], buffer->getNbElements(), buffer->getDescriptorType());
 }
 
 }
