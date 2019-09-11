@@ -142,7 +142,7 @@ using DescriptorView32F = DescriptorViewTemplate<float>;
 class DescriptorBuffer;
 class DescriptorBufferIterator {
 public:
-    DescriptorBufferIterator(SRef<DescriptorBuffer> desc);
+    DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc);
 
     void operator++() {
         if (m_index < m_nbDescriptors) {
@@ -276,12 +276,12 @@ private:
 };
 
 
-DescriptorBufferIterator begin(SRef<DescriptorBuffer> ref)
+inline DescriptorBufferIterator begin(const SRef<DescriptorBuffer> & ref)
 {
     return DescriptorBufferIterator(ref);
 }
 
-DescriptorBufferIterator end(SRef<DescriptorBuffer> ref)
+inline DescriptorBufferIterator end(const SRef<DescriptorBuffer> & ref)
 {
     return DescriptorBufferIterator(ref);
 }

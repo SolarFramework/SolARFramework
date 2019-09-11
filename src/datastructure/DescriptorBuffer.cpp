@@ -155,7 +155,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
 }
 
-DescriptorBufferIterator::DescriptorBufferIterator(SRef<DescriptorBuffer> desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
+DescriptorBufferIterator::DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
 {
 
 }
