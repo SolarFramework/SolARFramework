@@ -25,6 +25,7 @@
 //#include "IDescriptor.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
+#include "datastructure/Frame.h"
 
 // Definition of IDescriptorMatcher Class //
 // part of SolAR namespace //
@@ -81,7 +82,19 @@ namespace features {
                std::vector<DescriptorMatch> & matches
             ) = 0;
 
-
+		/// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
+		/// @param[in] points2D The center points of searching regions
+		/// @param[in] descriptors The descriptors organized in a vector of dedicated buffer structure.
+		/// @param[in] frame The frame contains descriptors to match.
+		/// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
+		/// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
+		virtual RetCode matchInRegion(
+			const std::vector<Point2Df> & points2D,
+			const std::vector<SRef<DescriptorBuffer>> & descriptors,
+			const SRef<Frame> frame,
+			std::vector<DescriptorMatch> &matches,
+			const float radius
+		) { return RetCode::DESCRIPTORS_MATCHER_OK; };
     };
 }
 }
