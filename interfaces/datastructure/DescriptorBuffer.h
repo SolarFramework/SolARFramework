@@ -305,7 +305,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
         // throw exception
     }
     T* pDescriptor = static_cast<T*>(buffer->data());
-    return DescriptorViewTemplate<T>(&pDescriptor[index * m_nb_elements], buffer->getNbElements(), buffer->getDescriptorType());
+    return DescriptorViewTemplate<T>(&pDescriptor[index * buffer->getNbElements()], buffer->getNbElements(), buffer->getDescriptorType());
 }
 
 }
