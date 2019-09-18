@@ -28,7 +28,7 @@ CONFIG(release,debug|release) {
 
 DEPENDENCIESCONFIG = shared recurse install
 
-## Configuration for Visual Studio to install binaries (replace QMakeInstall)
+## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
