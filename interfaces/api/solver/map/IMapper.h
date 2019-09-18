@@ -90,8 +90,8 @@ public:
 /// @param[in] newPointMatches new detected matches from the reference keyframe and current frame.
 /// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
 /// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode update(const std::vector<CloudPoint> & correctedCloud,
-									  const std::vector<SRef<Keyframe>> & correctedKeyframes) = 0;
+   virtual FrameworkReturnCode update(const std::vector<Transform3Df> & correctedPoses,
+									  const std::vector<CloudPoint> & correctedMap) = 0;
 
 	/// @brief return all the keyframes of the map.
 	/// @return the keyframes of the map.
