@@ -6,6 +6,7 @@
 #include "core/Messages.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -32,6 +33,22 @@ namespace features {
                              std::vector<DescriptorMatch> & outputMatches,
                              const std::vector<Keypoint> & keyPoints_1,
                              const std::vector<Keypoint> & keyPoints_2) = 0;
+
+		/// @brief filter matches based fundamental matrix calculated from camera matrices
+		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
+		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
+		/// @param[in] Original keypoints associated to desc_1.
+		/// @param[in] Original keypoints associated to desc_2.
+		/// @param[in] camera pose 1.
+		/// @param[in] camera pose 2.
+		/// @param[in] camera's intrinsic parameters.
+		virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
+							std::vector<DescriptorMatch> & outputMatches,
+							const std::vector<Keypoint> & inputKeyPoints1,
+							const std::vector<Keypoint> & inputKeyPoints2,
+							const Transform3Df &pose1,
+							const Transform3Df &pose2,
+							const CamCalibration &intrinsicParams) {};
     };
 }
 }

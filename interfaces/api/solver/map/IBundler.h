@@ -60,7 +60,7 @@ class  IBundler : public virtual org::bcom::xpcf::IComponentIntrospect {
 							     const  CamCalibration & K,
 							     const CamDistortion & D,
 							     const std::vector<int> & selectKeyframes,
-							     std::vector<SRef<Keyframe>> & framesAdjusted,
+							     std::vector<Transform3Df> & poseAdjusted,
 							     std::vector<CloudPoint>&mapAdjusted,
 							     CamCalibration&KAdjusted,
 							     CamDistortion &DAdjusted) = 0;
