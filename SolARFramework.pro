@@ -26,13 +26,13 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = shared recurse install
+DEPENDENCIESCONFIG = sharedlib recursive install
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include (../builddefs/qmake/templatelibconfig.pri)
+include ($$(REMAKEN_RULES_ROOT)/qmake/templatelibconfig.pri)
 
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
@@ -135,5 +135,8 @@ solarmacros.path=$${PROJECTDEPLOYDIR}
 solarmacros.files=$$files($${PWD}/solarmacros.cmake)
 INSTALLS += solarmacros
 
+OTHER_FILES += \
+    packagedependencies.txt
+
 #NOTE : Must be placed at the end of the .pro
-include (../builddefs/qmake/remaken_install_lib.pri)
+include ($$(REMAKEN_RULES_ROOT)/qmake/remaken_install_target.pri))
