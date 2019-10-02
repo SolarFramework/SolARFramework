@@ -81,10 +81,13 @@ struct inferType<DescriptorDataType::TYPE_32F>
 class DescriptorView {
 public:
     DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
+    DescriptorView(const DescriptorView & desc) = default;
     DescriptorView(DescriptorView && desc) :
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)),
         m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)) {}
+
+    DescriptorView& operator= ( const DescriptorView & desc) = default;
 
     DescriptorView& operator= ( DescriptorView && desc)
     {
@@ -113,11 +116,12 @@ template<typename T>
 class DescriptorViewTemplate {
 public:
     DescriptorViewTemplate(T * startAddress, uint32_t length, DescriptorType type):m_length(length),m_baseAddress(startAddress), m_type(type) {}
-
+    DescriptorViewTemplate(const DescriptorViewTemplate & desc) = default;
     DescriptorViewTemplate(DescriptorViewTemplate && desc) :
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)) {}
 
+    DescriptorViewTemplate& operator= (const DescriptorViewTemplate & desc) = default;
     DescriptorViewTemplate& operator= ( DescriptorViewTemplate && desc)
     {
         m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
