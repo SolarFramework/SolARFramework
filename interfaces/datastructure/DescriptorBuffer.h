@@ -78,7 +78,7 @@ struct inferType<DescriptorDataType::TYPE_32F>
     typedef float InnerType;
 };
 
-class DescriptorView {
+class SOLARFRAMEWORK_API DescriptorView {
 public:
     DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
     DescriptorView(const DescriptorView & desc) = default;
@@ -146,7 +146,7 @@ using DescriptorView8U = DescriptorViewTemplate<uint8_t>;
 using DescriptorView32F = DescriptorViewTemplate<float>;
 
 class DescriptorBuffer;
-class DescriptorBufferIterator {
+class SOLARFRAMEWORK_API DescriptorBufferIterator {
 public:
     DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc);
 
