@@ -68,6 +68,8 @@ private:
 
 	// @brief: A map storing the neighboring keyframes, where the first element corresponds to the index of a neighboring keyframe, and the second element to the corresponding the weight which is number of common points visble between two keyframes.
 	std::map<unsigned int, unsigned int> m_neighborKeyframes;
+
+	std::mutex m_mutexNeighbor;
 };
 
 }

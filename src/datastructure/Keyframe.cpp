@@ -25,11 +25,13 @@ int Keyframe::m_keyframeIdx = 0;
 
 const std::map<unsigned int, unsigned int>& Keyframe::getNeighborKeyframes()
 {
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
 	return m_neighborKeyframes;
 }
 
 std::vector<unsigned int> Keyframe::getBestNeighborKeyframes(int nbKeyframes)
 {
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
 	std::vector<std::pair<unsigned int, unsigned int>> weightKf;
 	for (auto it = m_neighborKeyframes.begin(); it != m_neighborKeyframes.end(); it++)
 		weightKf.push_back(std::make_pair(it->second, it->first));
@@ -45,6 +47,7 @@ std::vector<unsigned int> Keyframe::getBestNeighborKeyframes(int nbKeyframes)
 
 void Keyframe::addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight)
 {
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
 	m_neighborKeyframes[idxKeyframe] = weight;
 }
 

@@ -25,6 +25,7 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/DescriptorBuffer.h"
+#include <mutex>
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -87,29 +88,28 @@ public:
     /// \brief This method returns reprojection error of the PointCloud
     /// \return teh reprojection error
     ///
-    double getReprojError() const {return m_reproj_error;}
-    std::map<unsigned int, unsigned int> getVisibility() const {return m_visibility;}
+    double getReprojError() const {return m_reproj_error;}    
 
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
-    std::map<unsigned int, unsigned int>& getVisibility() { return m_visibility; };
+	const std::map<unsigned int, unsigned int>& getVisibility() const;
 
     /// @brief add a keypoint to the visibility map of the CloudPoint
     /// @param keyframe_id: the id of the keyframe to which the keypoint belong
     /// @param keypoint_id: the id of the keypoint of the keyframe
-    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; };
+    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id);
 
 	SRef<DescriptorBuffer> getDescriptor() const { return m_descriptor; };
 
-private:
-    std::map<unsigned int, unsigned int>  m_visibility;
-    float             m_r;
-    float             m_g;
-    float             m_b;
+private:	
+    std::map<unsigned int, unsigned int>	m_visibility;
+    float									m_r;
+    float									m_g;
+    float									m_b;
 
-    double            m_reproj_error;
+    double									m_reproj_error;
 
-	SRef<DescriptorBuffer> m_descriptor;
+	SRef<DescriptorBuffer>					m_descriptor;	
 };
 }
 }  // end of namespace SolAR

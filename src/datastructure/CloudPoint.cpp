@@ -18,6 +18,8 @@
 #include "datastructure/Keyframe.h"
 #include <cstddef> //TO DO: remove with a complete implementation
 
+std::mutex						m_mutex;
+
 namespace SolAR {
     namespace datastructure {
 
@@ -38,5 +40,15 @@ namespace SolAR {
 	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
 		Point3Df(x, y, z), m_r(r), m_g(g), m_b(b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){
 	}
+
+	const std::map<unsigned int, unsigned int>& CloudPoint::getVisibility() const {
+		std::unique_lock<std::mutex> lock(m_mutex);
+		return m_visibility;
+	}
+
+	void CloudPoint::visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { 
+		std::unique_lock<std::mutex> lock(m_mutex);
+		m_visibility[keyframe_id] = keypoint_id; 
+	};
   }
 }
