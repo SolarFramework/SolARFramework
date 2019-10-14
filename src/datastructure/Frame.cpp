@@ -39,60 +39,71 @@ SRef<Image>  Frame::getView()
 
 Transform3Df Frame::getPose()
 {
+	std::unique_lock<std::mutex> lock(m_mutexPose);
     return m_pose;
 }
 
 void Frame::setPose(const Transform3Df & pose)
 {
+	std::unique_lock<std::mutex> lock(m_mutexPose);
     m_pose = pose;
 }
 
 void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     m_keypoints  = kpts;
 }
 
-SRef<DescriptorBuffer> Frame::getDescriptors() const
+SRef<DescriptorBuffer> Frame::getDescriptors()
 {
     return m_descriptors;
 }
 
-const std::vector<Keypoint> & Frame::getKeypoints() const
+const std::vector<Keypoint> & Frame::getKeypoints()
 {
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     return m_keypoints;
 }
 
 void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
 {
+	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     m_referenceKeyFrame = keyframe;
 }
 
 SRef<Keyframe> Frame::getReferenceKeyframe()
 {
+	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     return m_referenceKeyFrame;
 }
 
 const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints()
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleKeypoint);
 	return m_kpVisibility;
 }
 
 void Frame::addVisibleKeypoints(const std::map<unsigned int, unsigned int>& kpVisibility)
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleKeypoint);
 	m_kpVisibility.insert(kpVisibility.begin(), kpVisibility.end());
 }
 
 void Frame::addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints)
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
 	m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
 }
 
 void Frame::addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint)
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
 	m_mapVisibility[id_keypoint] = id_cloudPoint;
 }
 
 const std::map<unsigned int, unsigned int> & Frame::getVisibleMapPoints()
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
 	return m_mapVisibility;
 }
 

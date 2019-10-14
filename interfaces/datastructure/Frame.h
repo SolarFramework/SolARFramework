@@ -53,9 +53,9 @@ public:
 
     SRef<Keyframe> getReferenceKeyframe();
 
-    SRef<DescriptorBuffer> getDescriptors() const;
+    SRef<DescriptorBuffer> getDescriptors();
 
-    const std::vector<Keypoint> & getKeypoints() const;
+    const std::vector<Keypoint> & getKeypoints();
 
 	// @brief: Get all visible keypoints of the refKeyframe
     const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
@@ -85,6 +85,12 @@ protected:
 
 	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the keypoint of the reference keyframe.
 	std::map<unsigned int, unsigned int > m_kpVisibility;
+
+	std::mutex						m_mutexPose;
+	std::mutex						m_mutexKeypoint;
+	std::mutex						m_mutexReferenceKeyframe;
+	std::mutex						m_mutexVisibleKeypoint;
+	std::mutex						m_mutexVisibleMapPoint;
 
 };
 

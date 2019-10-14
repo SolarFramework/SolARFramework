@@ -30,14 +30,22 @@ public :
     void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
 	void updateCloudPoints(const std::vector<CloudPoint> & correctedMapPoints);
 	// return all cloud points
-	inline const std::vector<CloudPoint> & getPointCloud() { return m_pointCloud; };
+	inline const std::vector<CloudPoint> & getPointCloud() { 
+		std::unique_lock<std::mutex> lock(m_mutexPointCloud);
+		return m_pointCloud; 
+	};
 
 	// return a cloud point which is modified
-	inline CloudPoint & getAPoint(int index) { return m_pointCloud[index]; }
+	inline CloudPoint & getAPoint(int index) { 
+		std::unique_lock<std::mutex> lock(m_mutexPointCloud);
+		return m_pointCloud[index]; 
+	}
 
 private :
 
     std::vector<CloudPoint> m_pointCloud ;
+
+	std::mutex m_mutexPointCloud;
 
 };
 
