@@ -9,7 +9,7 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.6.0
+VERSION=0.7.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -63,6 +63,12 @@ win32 {
     QMAKE_COMPILER_DEFINES += _WIN64
     QMAKE_CXXFLAGS += -wd4250 -wd4251 -wd4244 -wd4275
 }
+
+android {
+    QMAKE_LFLAGS += -nostdlib++
+}
+
+
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
 
