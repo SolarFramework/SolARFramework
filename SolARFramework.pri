@@ -37,6 +37,7 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
+interfaces/api/reloc/IRegression.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \

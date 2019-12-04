@@ -1,0 +1,70 @@
+/**
+ * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef IREGRESSION_H
+#define IREGRESSION_H
+
+#include "datastructure/Frame.h"
+#include "datastructure/DescriptorMatch.h"
+#include "core/Messages.h"
+#include <set>
+
+namespace SolAR {
+using namespace datastructure;
+namespace api {
+namespace reloc {
+
+
+/**
+ * @class IRegression
+ * @brief <B>learn and define a set of 3D world coordinates corresponding to a set of 2D descriptors.</B>
+ * <TT>UUID: 6741d3ed-0d19-4117-8a66-501704a7ad04</TT>
+ *
+ * This class provides a solution to learn and define a set of 3D world coordinates corresponding to a set of 2D descriptors.
+ */
+
+///@class IKeyframeRetriever
+class IRegression : public virtual org::bcom::xpcf::IComponentIntrospect {
+public:
+    ///@brief IRegression default constructor.
+	IRegression() = default;
+    ///@brief IRegression default destructor.
+    virtual ~IRegression() = default;
+
+    /// @brief Add 2D descriptor and 3D location correspondences
+    /// @param[in] descriptors: a set of descriptors
+    /// @param[in] points3D: a set of corresponding 3D locations
+    /// @return FrameworkReturnCode::_SUCCESS if adding succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode add(const std::vector<DescriptorBuffer> &descriptors, const std::vector<Point3Df> &points3D) = 0;
+
+
+    /// @brief Regress a set of descriptors to define 2D-3D point correspondences
+    /// @param[in] frame: the frame for which we want to retrieve close keyframes.
+    /// @param[out] keyframes: a set of keyframe which are close to the frame pass in input
+    /// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode regress(const SRef<Frame> &frame, std::vector<Point2Df> &points2D, std::vector<Point3Df> &points3D) = 0;
+};
+
+}
+}
+}  // end of namespace SolAR
+
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::reloc::IRegression,
+                             "6741d3ed-0d19-4117-8a66-501704a7ad04",
+                             "IRegression",
+                             "SolAR::api::reloc::IRegression describes the interface to learn and regress image descriptors to define 2D-3D point correspondences.");
+
+#endif // SOLAR_IKEYFRAMERETRIEVER_H
