@@ -1,0 +1,36 @@
+pipeline {
+    agent {
+        label "jenkins-slave-argo-qmake"
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
+                name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
+    }
+    stages {
+
+        stage("Checkout"){
+            steps {
+                sh "git checkout ${BRANCH}"
+            }
+        }
+
+        stage("Get Third Parties") {
+            steps {
+                getThirdParties('1.0.0')
+            }
+        }
+
+        stage("Build") {
+            steps {
+                withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
+                    sh "qmake SolARFramework.pro "
+                    sh "make"
+                }
+            }
+        }
+    }
+
+}
