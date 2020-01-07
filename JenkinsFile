@@ -19,6 +19,17 @@ pipeline {
                 sh "git checkout ${BRANCH}"
             }
         }
+
+        stage("Get Binaries") {
+            steps {
+                script {
+                     BRANCH = BRANCH.replace('/','_')
+                }
+                withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                     getBinaries(BRANCH,USERNAME,PASSWORD)
+                }
+            }
+        }        
         
         stage("Get Third Parties") {
              steps {
