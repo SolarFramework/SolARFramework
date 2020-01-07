@@ -8,6 +8,9 @@ pipeline {
     parameters {
         gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
                 name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
+        booleanParam(name: 'RELEASE',
+            defaultValue: false,
+            description: 'Create a Release')
     }
     stages {
 
@@ -16,21 +19,33 @@ pipeline {
                 sh "git checkout ${BRANCH}"
             }
         }
-
+        
         stage("Get Third Parties") {
-            steps {
-                getThirdParties('1.0.0')
-            }
+             steps {
+                 getThirdParties('1.0.0')
+             }
         }
 
         stage("Build") {
+             steps {
+                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
+                     sh "qmake SolARFramework.pro "
+                     sh "make"
+                 }
+             }
+        }
+
+        stage("Share Binaries") {
             steps {
-                withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
-                    sh "qmake SolARFramework.pro "
-                    sh "make"
+                script {
+                     sh "make install"
+                     BRANCH = BRANCH.replace('/','_')
+                }
+                withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                     shareBinaries(BRANCH,USERNAME,PASSWORD)
                 }
             }
         }
-    }
 
+}
 }
