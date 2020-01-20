@@ -20,17 +20,21 @@ pipeline {
             }
         }
 
+
         stage("Get Binaries") {
+            when {
+                expression { params.RELEASE == false }
+            }            
             steps {
                 script {
-                     BRANCH = BRANCH.replace('/','_')
+                    BRANCH = BRANCH.replace('/','_')
                 }
                 withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                     getBinaries(BRANCH,USERNAME,PASSWORD)
+                    getBinaries(BRANCH,USERNAME,PASSWORD)
                 }
             }
-        }        
-        
+        }   
+     
         stage("Get Third Parties") {
              steps {
                  getThirdParties('1.0.0')
@@ -42,21 +46,55 @@ pipeline {
                  withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
                      sh "qmake SolARFramework.pro "
                      sh "make"
+                     sh "make install"
                  }
              }
         }
 
-        stage("Share Binaries") {
-            steps {
-                script {
+        stage("Build Debug") {
+            when {
+                expression { params.RELEASE == true }
+            }            
+             steps {
+                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
+                     sh "qmake SolARFramework.pro CONFIG+=debug"
+                     sh "make"
                      sh "make install"
-                     BRANCH = BRANCH.replace('/','_')
-                }
+                 }
+             }
+        }        
+
+        // Trigger only if not a RELEASE
+        stage("Share Binaries") {
+            when {
+                expression { params.RELEASE == false }
+            }
+            steps {
                 withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                     shareBinaries(BRANCH,USERNAME,PASSWORD)
+                    shareBinaries(BRANCH,USERNAME,PASSWORD)
                 }
             }
         }
+        
 
+
+        stage("Release") {
+            when {
+                expression { params.RELEASE == true }
+            }
+            steps {
+                script {
+                    version = sh (
+                        script: "cat *.pro  | grep VERSION | head -1 | cut -d '=' -f 2",
+                        returnStdout: true
+                    )
+                    version = version.replace("\n","")
+                }                
+                prepareRelease("SolARBuild","linux-gcc","SolARFramework")                
+                withCredentials([string(credentialsId: 'github-token', variable: 'token')]) {
+                    release("SolARFramework","${version}","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARFramework_${version}_x86_64_shared_debug.zip",token);
+                }
+            }   
+        }
 }
 }
