@@ -1,0 +1,65 @@
+pipeline {
+    agent {
+        label "jenkins-slave-argo-qmake"
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
+                name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
+        booleanParam(name: 'RELEASE',
+            defaultValue: false,
+            description: 'Create a Release')
+    }
+    stages {
+
+        stage("SolARFramework"){
+            steps {
+                build job: 'SolARFramework', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+            }
+        }
+
+        stage("Build Parallel modules"){
+            parallel {
+                stage("SolARModuleOpenCV"){
+                    steps {
+                        build job: 'SolARModuleOpenCV', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                }
+                stage("SolARModuleOpenGL"){
+                    steps {
+                        build job: 'SolARModuleOpenGL', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                }
+                stage("SolARModuleOpenGV"){
+                    steps {
+                        build job: 'SolARModuleOpenGV', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                }
+                stage("SolARModuleCeres"){
+                    steps {
+                        build job: 'SolARModuleCeres', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                }
+                stage("SolARModuleTools"){
+                    steps {
+                        build job: 'SolARModuleTools', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                } 
+                stage("SolARModuleFBOW"){
+                    steps {
+                        build job: 'SolARModuleFBOW', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                    }
+                }                                               
+            }
+        }
+
+        stage("SolARPipelineManager"){
+            steps {
+                build job: 'SolARPipelineManager', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+            }
+        }        
+
+}
+}
