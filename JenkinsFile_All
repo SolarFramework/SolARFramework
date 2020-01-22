@@ -16,7 +16,7 @@ pipeline {
 
         stage("SolARFramework"){
             steps {
-                build job: 'SolARFramework', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                build job: "SolARFramework/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
             }
         }
 
@@ -24,32 +24,32 @@ pipeline {
             parallel {
                 stage("SolARModuleOpenCV"){
                     steps {
-                        build job: 'SolARModuleOpenCV', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleOpenCV/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 }
                 stage("SolARModuleOpenGL"){
                     steps {
-                        build job: 'SolARModuleOpenGL', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleOpenGL/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 }
                 stage("SolARModuleOpenGV"){
                     steps {
-                        build job: 'SolARModuleOpenGV', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleOpenGV/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 }
                 stage("SolARModuleCeres"){
                     steps {
-                        build job: 'SolARModuleCeres', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleCeres/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 }
                 stage("SolARModuleTools"){
                     steps {
-                        build job: 'SolARModuleTools', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleTools/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 } 
                 stage("SolARModuleFBOW"){
                     steps {
-                        build job: 'SolARModuleFBOW', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                        build job: "SolARModuleFBOW/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
                     }
                 }                                               
             }
@@ -57,7 +57,7 @@ pipeline {
 
         stage("SolARPipelineManager"){
             steps {
-                build job: 'SolARPipelineManager', parameters: [gitParameter(name: 'BRANCH', value: "${BRANCH}"), booleanParam(name: 'RELEASE', value: RELEASE)]
+                build job: "SolARPipelineManager", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
             }
         }        
 
