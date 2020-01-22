@@ -6,20 +6,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
     parameters {
-        gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
-                name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
         booleanParam(name: 'RELEASE',
             defaultValue: false,
             description: 'Create a Release')
     }
+    triggers { pollSCM('* * * * *') }    
     stages {
-
-        stage("Checkout"){
-            steps {
-                sh "git checkout ${BRANCH}"
-            }
-        }
-
 
         stage("Get Binaries") {
             when {
@@ -27,7 +19,7 @@ pipeline {
             }            
             steps {
                 script {
-                    BRANCH = BRANCH.replace('/','_')
+                    BRANCH = BRANCH_NAME.replace('/','_')
                 }
                 withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     getBinaries(BRANCH,USERNAME,PASSWORD)
