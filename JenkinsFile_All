@@ -60,7 +60,7 @@ pipeline {
 
         stage("SolARPipelineManager"){
             steps {
-                build job: "SolARPipelineManager", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                build job: "SolARPipelineManager/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
             }
         }        
 
