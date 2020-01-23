@@ -14,11 +14,11 @@ pipeline {
     }
     stages {
 
-        stage("SolARFramework"){
-             script {
-                BRANCH = BRANCH.replace('/','%252F')
-                }            
+        stage("SolARFramework"){         
             steps {
+                script {
+                    BRANCH = BRANCH.replace('/','%252F')
+                }   
                 build job: "SolARFramework/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
             }
         }
