@@ -72,6 +72,18 @@ public:
 	/// @brief Load regression model
 	/// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode loadModel() = 0;
+
+	/// @brief Get the current training status
+	/// @return Vector where first value is the size of the current training data, and second is the maximum nb of training data.
+	virtual std::vector<int> getTrainingStatus() = 0;
+
+	/// @brief Get number of active leaves
+	/// @return Nb of active leaves as integer.
+	virtual int getNumActiveLeaves() = 0;
+
+	/// @brief Get number of passive leaves
+	/// @return Nb of passive leaves as integer.
+	virtual int getNumPassiveLeaves() = 0;
 };
 
 }

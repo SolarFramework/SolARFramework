@@ -79,7 +79,11 @@ public:
     /// @param[in] pattern The squared binary pattern to display.
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
     virtual void drawSBPattern (const SquaredBinaryPattern & pattern, SRef<Image> displayImage) = 0;
-
+	
+	/// @brief Writes text on the image.
+	/// @param[in] text, bottom-left point as origin, fontSize and color
+	/// @param[in,out]  displayImage The image on which the text will be written.
+	virtual void putText(const std::string & text, Point2Df origin, double fontSize, std::vector<int> color, SRef<Image> displayImage) = 0;
 };
 }
 }
