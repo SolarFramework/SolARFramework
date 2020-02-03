@@ -46,7 +46,7 @@ namespace features {
  *
  * This class provides a method to detect the keypoint from an given region of an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class  IKeypointDetectorRegion : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IKeypointDetectorRegion : virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:
     /// @brief IKeypointDetectorRegion default constructor

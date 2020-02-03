@@ -33,7 +33,7 @@ namespace geom {
  * <TT>UUID: dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f</TT>
  */
 
-class I2DTransform : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DTransform default constructor
     I2DTransform() = default;

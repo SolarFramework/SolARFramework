@@ -35,7 +35,7 @@ namespace features {
  */
 
 
-class  IContoursExtractor : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IContoursExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IContoursExtractor default constructor
     IContoursExtractor() = default;

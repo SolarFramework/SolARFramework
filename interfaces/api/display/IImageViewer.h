@@ -33,7 +33,7 @@ namespace display {
  * This class provides a viewer to display an image in a window.
  */
 
-class IImageViewer : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IImageViewer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;
 

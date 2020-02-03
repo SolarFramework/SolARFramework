@@ -44,7 +44,7 @@ namespace features {
  *
  * This class provides a filtering method to prune a set of contours.
  */
-    class  IDescriptorMatcher : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  IDescriptorMatcher : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         enum  RetCode {
           DESCRIPTORS_MATCHER_OK=0,     /**< the default OK code*/

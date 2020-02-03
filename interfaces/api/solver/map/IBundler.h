@@ -27,7 +27,7 @@ namespace map {
   * <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>
   */
 
-class  IBundler : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
         public:
            IBundler() = default;
            ///

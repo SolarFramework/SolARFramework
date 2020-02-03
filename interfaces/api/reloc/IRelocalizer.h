@@ -36,7 +36,7 @@ namespace reloc {
  */
 
 ///@class IRelocalizer
-class IRelocalizer : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
     IRelocalizer() = default;

@@ -35,7 +35,7 @@ namespace features {
  *
  * This class provides a method to extract descriptors of a squared binary pattern by simply concatenating pattern rows in a single vector.
  */
-class  IDescriptorsExtractorSBPattern : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IDescriptorsExtractorSBPattern : virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:
    /// @brief IDescriptorsExtractorSBPattern default constructor

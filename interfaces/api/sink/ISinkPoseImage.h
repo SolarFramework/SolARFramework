@@ -39,7 +39,7 @@ namespace sink {
  * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
  */
 
-class  ISinkPoseImage : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  ISinkPoseImage : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 
    ISinkPoseImage() = default;

@@ -38,7 +38,7 @@ namespace reloc {
  */
 
 ///@class IKeyframeRetriever
-class IKeyframeRetriever : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IKeyframeRetriever : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IKeyframeRetriever default constructor.
     IKeyframeRetriever() = default;

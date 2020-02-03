@@ -40,7 +40,7 @@ namespace map {
   * <TT>UUID: 4d5f2abe-beb7-11e8-a355-529269fb1459</TT>
   *
   */
-class  IKeyframeSelector : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IKeyframeSelector : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IKeyframeSelector() = default;
     ///

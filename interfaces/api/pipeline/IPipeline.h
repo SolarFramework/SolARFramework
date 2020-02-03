@@ -42,7 +42,7 @@ namespace pipeline {
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPipeline : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPipeline default constructor
     IPipeline() = default;

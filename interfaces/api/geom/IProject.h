@@ -34,7 +34,7 @@ namespace geom {
  * <TT>UUID: b485f37d-a8ea-49f6-b361-f2b30777d9ba</TT>
  */
 
-class IProject : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IProject : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IProjection default constructor
     IProject() = default;

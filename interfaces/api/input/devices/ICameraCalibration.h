@@ -30,7 +30,7 @@ namespace devices {
   * @brief <B>Calibrates a camera.</B>
   * <TT>UUID: 0e83b228-b9ca-413d-9dc2-db45c427428b</TT>
   */
-class  ICameraCalibration : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  ICameraCalibration : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    ICameraCalibration() = default;
 
