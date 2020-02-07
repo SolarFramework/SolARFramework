@@ -39,7 +39,7 @@ namespace map {
   * @brief <B>Filters a map of 3D points.</B>
   * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
   */
-class  IMapFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IMapFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
         public:
            IMapFilter() = default;
            ///

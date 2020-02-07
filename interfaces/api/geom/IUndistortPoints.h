@@ -33,7 +33,7 @@ namespace geom {
  * <TT>UUID: a345a1d2-c3f3-497f-948b-cd1a199e6657</TT>
  */
 
-class IUndistortPoints : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IUndistortPoints : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IUndistortPoints default constructor
     IUndistortPoints() = default;

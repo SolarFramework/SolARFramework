@@ -34,7 +34,7 @@ namespace devices {
  *
  * This class describes the interface of an Inertial Measurement Unit capture device.
  */
-class IIMU : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IIMU : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IIMU default constructor
     IIMU() = default;

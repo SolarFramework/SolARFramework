@@ -41,7 +41,7 @@ namespace pose {
   * <TT>UUID: 45dd370a-0eab-4a7f-93d0-43453b4c7517</TT>
   */
 
-class I2DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DTransformFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I2DTransformFinder default constructor.
     I2DTransformFinder() = default;

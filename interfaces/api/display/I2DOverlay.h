@@ -37,7 +37,7 @@ namespace display {
  * This class provides drawing methods to overlay 2D debug informations on top of an image.
  */
 
-class I2DOverlay : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DOverlay default constructor
     I2DOverlay() = default;

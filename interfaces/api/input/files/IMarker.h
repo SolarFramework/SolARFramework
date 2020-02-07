@@ -32,7 +32,7 @@ namespace files {
  * <TT>UUID: b05f3dbb-f93d-465c-aee1-fb58e1480c42</TT>
  *
  */
-class IMarker : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IMarker : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMarker() = default;
     virtual ~IMarker() = default;

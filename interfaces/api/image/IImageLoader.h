@@ -33,7 +33,7 @@ namespace image {
   * <TT>UUID: 6fcdaa8d-6ea9-4c3f-97b0-46cd11b67a9b</TT>
   *
   */
-class IImageLoader : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IImageLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
     ///

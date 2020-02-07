@@ -35,7 +35,7 @@ namespace devices {
  *
  * This class describes the interface of a camera capture device.
  */
-class ICamera : public virtual org::bcom::xpcf::IComponentIntrospect {
+class ICamera : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief Specify the ICamera constructor class
     ICamera() = default;

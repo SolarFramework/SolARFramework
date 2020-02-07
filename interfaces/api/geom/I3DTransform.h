@@ -33,7 +33,7 @@ namespace geom {
  * <TT>UUID: 9c1052b2-46c0-467b-8363-36f19b6b445f</TT>
  */
 
-class I3DTransform : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I3DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DTransform default constructor
     I3DTransform() = default;

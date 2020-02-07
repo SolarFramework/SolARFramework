@@ -48,7 +48,7 @@ namespace features {
  *
  * This class provides a method to extract descriptors from a set of keypoints
  */
-    class  IDescriptorsExtractor : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  IDescriptorsExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
 	public:
         ///
         /// \brief The DescriptorsExtractorType enum

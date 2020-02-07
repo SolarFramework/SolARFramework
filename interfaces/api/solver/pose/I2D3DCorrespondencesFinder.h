@@ -38,7 +38,7 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
  */
-    class  I2D3DCorrespondencesFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  I2D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         /// @brief I2D3DCorrespondencesFinder default constructor.
         I2D3DCorrespondencesFinder() = default;

@@ -36,7 +36,7 @@ namespace pose {
  * @brief <B>Finds the 3D transform between two cameras knowing the keypoints that match between them.</B>
  * <TT>UUID: 6063a606-9d30-11e8-98d0-529269fb1459</TT>
  */
-    class I3DTransformFinderFrom2D2D : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class I3DTransformFinderFrom2D2D : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief I3DTransformFinderFrom2D2D default constructor.
         I3DTransformFinderFrom2D2D() = default;

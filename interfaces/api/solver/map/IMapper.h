@@ -46,7 +46,7 @@ namespace SolAR {
   * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
   */
 
-class  IMapper : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    IMapper() = default;
    ///

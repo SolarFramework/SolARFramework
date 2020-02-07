@@ -35,7 +35,7 @@ namespace features {
  * This class provides a filtering method to prune a set of contours.
  */
 
-class  IContoursFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IContoursFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IContoursFilter default constructor
    IContoursFilter() = default;
