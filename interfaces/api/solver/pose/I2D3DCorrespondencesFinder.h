@@ -24,6 +24,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Keyframe.h"
+#include "datastructure/Map.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -37,7 +38,7 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
  */
-    class  I2D3DCorrespondencesFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  I2D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         /// @brief I2D3DCorrespondencesFinder default constructor.
         I2D3DCorrespondencesFinder() = default;
@@ -56,10 +57,10 @@ namespace pose {
         /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
         virtual FrameworkReturnCode  find(const SRef<Keyframe> referenceKeyframe,
                                           const SRef<Frame> currentFrame,
-                                          const std::vector<DescriptorMatch>&current_matches,
-                                          std::vector<SRef<CloudPoint>>&shared_mapPoint,
-                                          std::vector<SRef<Point3Df>>&shared_3dpoint,
-                                          std::vector<SRef<Point2Df>>&shared_2dpoint,
+                                          const std::vector<DescriptorMatch> & current_matches,
+                                          const SRef<Map> worldMap,
+                                          std::vector<Point3Df> & shared_3dpoint,
+                                          std::vector<Point2Df> & shared_2dpoint,
                                           std::vector<DescriptorMatch> & found_matches,
                                           std::vector<DescriptorMatch> & remaining_matches)=0;
 
@@ -74,10 +75,10 @@ namespace pose {
         /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
         virtual FrameworkReturnCode find(	const SRef<Frame> lastFrame,
                                             const SRef<Frame> currentFrame,
-                                            const std::vector<DescriptorMatch>&current_matches,
-                                            std::vector<SRef<CloudPoint>>&shared_mapPoint,
-                                            std::vector<SRef<Point3Df>>&shared_3dpoint,
-                                            std::vector<SRef<Point2Df>>&shared_2dpoint,
+                                            const std::vector<DescriptorMatch> & current_matches,
+											const SRef<Map> worldMap,
+                                            std::vector<Point3Df> & shared_3dpoint,
+                                            std::vector<Point2Df> & shared_2dpoint,
                                             std::vector<DescriptorMatch> & found_matches,
                                             std::vector<DescriptorMatch> & remaining_matches) = 0;
 

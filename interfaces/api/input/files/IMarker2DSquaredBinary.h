@@ -37,17 +37,12 @@ namespace files {
  * <TT>UUID: 12d592ff-aa46-40a6-8d65-7fbfb382d60b</TT>
  *
  */
-class IMarker2DSquaredBinary : public virtual IMarker2DSquared {
+class IMarker2DSquaredBinary : virtual public IMarker2DSquared {
 public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    virtual SRef<SquaredBinaryPattern> getPattern() const { return xpcf::utils::make_shared<SquaredBinaryPattern>(m_pattern);};
-
-protected:
-    SquaredBinaryPattern m_pattern;
-
-public:
+    virtual const SquaredBinaryPattern & getPattern() const  = 0;
 };
 
 }

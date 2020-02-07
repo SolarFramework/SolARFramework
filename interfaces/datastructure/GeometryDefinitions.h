@@ -142,13 +142,15 @@ public:
  * @brief <B>A contours defined with 2D points with coordinates defined with floats.</B>
  *
  */
-typedef std::vector<SRef<Point2Df>> Contour2Df;
+// TODO : maintain SRef here ???
+typedef std::vector<Point2Df> Contour2Df;
 
 /**
  * @typedef Contour2Di
  * @brief <B>A contours defined with 2D points with coordinates defined with integers.</B>
  *
  */
+// TODO : maintain SRef here ???
 typedef std::vector<SRef<Point2Di>> Contour2Di;
 
 /**
@@ -192,6 +194,9 @@ struct Rectanglei {
     uint32_t startY;
     Sizei size;
 };
+
+typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
+typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
 
 }
 }

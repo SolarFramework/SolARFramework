@@ -19,7 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {
@@ -34,7 +34,7 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe. *
  */
-    class  I2Dto3DTransformDecomposer : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  I2Dto3DTransformDecomposer : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         /// @brief I2Dto3DTransformDecomposer default constructor.
         I2Dto3DTransformDecomposer() = default;
@@ -50,7 +50,7 @@ namespace pose {
         /// @brief decompose a transform 2d to a transform 3d (4  possible poses {R1,t1},{R1,t2}, {R2,t1}, {R2,t2}).
         /// @param[in] Transform 2D (fundamental matrxi, homgraphy..).
         /// @param[out] Set (04 possibles cases) of the decomposed camera poses in the world coordinate system expressed as Transform3D.
-        virtual bool decompose(const Transform2Df& F, std::vector<Transform3Df>& decomposedPoses)= 0;
+        virtual bool decompose(const Transform2Df & F, std::vector<Transform3Df> & decomposedPoses)= 0;
     };
 }
 }

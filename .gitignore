@@ -71,3 +71,8 @@ doxygen/
 
 .git Merge
 SolARWrapper - Raccourci.lnk
+bcom-SolARFramework.pc
+SolARFramework-InstallDependencies_debug.bat
+SolARFramework-Installvclib-debug.bat
+SolARFramework-Installvclib-release.bat
+SolARFramework-InstallDependencies_release.bat

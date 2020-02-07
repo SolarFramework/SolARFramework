@@ -38,7 +38,7 @@ public:
     SquaredBinaryPattern() = default;
 
     /// \brief constructs a SquaredBinaryPattern from a given SquaredBinaryPatternMatrix
-    SquaredBinaryPattern (SquaredBinaryPatternMatrix pattern): m_patternMatrix(pattern){};
+    SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
 
     /// \brief defines the destructor
     ~SquaredBinaryPattern() = default;

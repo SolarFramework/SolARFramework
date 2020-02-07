@@ -41,7 +41,7 @@ namespace pose {
   * <TT>UUID: 45dd370a-0eab-4a7f-93d0-43453b4c7517</TT>
   */
 
-class I2DTransformFinder : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DTransformFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I2DTransformFinder default constructor.
     I2DTransformFinder() = default;
@@ -52,8 +52,8 @@ public:
     /// @param[in] Set of 2d_points seen in view_2.
     /// @param[out] Estimated 2D transform matrix.
     ///
-    virtual Transform2DFinder::RetCode find(const std::vector<SRef<Point2Df> >& srcPoints,
-        const std::vector< SRef<Point2Df> >& dstPoints,
+    virtual Transform2DFinder::RetCode find(const std::vector<Point2Df> & srcPoints,
+        const std::vector<Point2Df> & dstPoints,
         Transform2Df & fundamental) = 0;
 };
 

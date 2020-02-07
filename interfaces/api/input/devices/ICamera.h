@@ -35,7 +35,7 @@ namespace devices {
  *
  * This class describes the interface of a camera capture device.
  */
-class ICamera : public virtual org::bcom::xpcf::IComponentIntrospect {
+class ICamera : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief Specify the ICamera constructor class
     ICamera() = default;
@@ -56,7 +56,7 @@ public:
     virtual FrameworkReturnCode stop()=0;
         
     /// @brief Set the acquisition device image resolution
-    virtual void setResolution(Sizei resolution) = 0;
+    virtual void setResolution(const Sizei & resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
     virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
@@ -71,13 +71,13 @@ public:
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual CamCalibration getIntrinsicsParameters() = 0;
+    virtual const CamCalibration & getIntrinsicsParameters() = 0;
 
     /// @return Return the camera parameters
     virtual const CameraParameters & getParameters() = 0;
     
     /// @return Return the distorsion camera lens parameters
-    virtual CamDistortion getDistorsionParameters() = 0;
+    virtual const CamDistortion & getDistorsionParameters() = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...

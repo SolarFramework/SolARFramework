@@ -23,20 +23,32 @@ namespace datastructure {
 
 int Keyframe::m_keyframeIdx = 0;
 
-void Keyframe::addVisibleMapPoints(const std::map<unsigned int, SRef<CloudPoint>>& mapPoints)
+const std::map<unsigned int, unsigned int>& Keyframe::getNeighborKeyframes()
 {
-    m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
+	return m_neighborKeyframes;
 }
 
-/*
-void Keyframe::addVisibleMapPoints(const std::vector<SRef<CloudPoint>>& mapPoints)
+std::vector<unsigned int> Keyframe::getBestNeighborKeyframes(int nbKeyframes)
 {
-    m_mapPoints.insert(m_mapPoints.end(), mapPoints.begin(), mapPoints.end());
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
+	std::vector<std::pair<unsigned int, unsigned int>> weightKf;
+	for (auto it = m_neighborKeyframes.begin(); it != m_neighborKeyframes.end(); it++)
+		weightKf.push_back(std::make_pair(it->second, it->first));
+	std::sort(weightKf.begin(), weightKf.end(), std::greater<std::pair<unsigned int, unsigned int>>());
+	std::vector<unsigned int> out;
+	for (auto it : weightKf) {
+		out.push_back(it.second);
+		if (out.size() == nbKeyframes)
+			break;
+	}
+	return out;
 }
-*/
-std::map<unsigned int, SRef<CloudPoint>>& Keyframe::getVisibleMapPoints()
+
+void Keyframe::addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight)
 {
-    return m_mapVisibility;
+	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
+	m_neighborKeyframes[idxKeyframe] = weight;
 }
 
 }

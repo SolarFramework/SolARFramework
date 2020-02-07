@@ -36,7 +36,7 @@ namespace display {
  *
  * This class provides drawing method to overlay matches between two images.
  */
-class IMatchesOverlay : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IMatchesOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMatchesOverlay default constructor
     IMatchesOverlay() = default;
@@ -52,7 +52,7 @@ public:
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Point2Df>> & points_image1, const std::vector <SRef<Point2Df>> & points_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+    virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <Point2Df> & points_image1, const std::vector <Point2Df> & points_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -62,7 +62,7 @@ public:
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <SRef<Keypoint>> & keypoints_image1, const std::vector <SRef<Keypoint>> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+    virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <Keypoint> & keypoints_image1, const std::vector <Keypoint> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -71,7 +71,7 @@ public:
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<Image> image, SRef<Image> & outImage, const std::vector <SRef<Point2Df>> & points_image1, const std::vector <SRef<Point2Df>> & points_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+    virtual void draw(const SRef<Image> image, SRef<Image> & outImage, const std::vector <Point2Df> & points_image1, const std::vector <Point2Df> & points_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -80,7 +80,7 @@ public:
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<Image> image, SRef<Image> & outImage, const std::vector <SRef<Keypoint>> & keypoints_image1, const std::vector <SRef<Keypoint>> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
+    virtual void draw(const SRef<Image> image, SRef<Image> & outImage, const std::vector <Keypoint> & keypoints_image1, const std::vector <Keypoint> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
 
 };
 }

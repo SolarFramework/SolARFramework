@@ -21,7 +21,7 @@
 
 #include "core/Messages.h"
 
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Image.h"
 
@@ -35,7 +35,7 @@ namespace pose {
  * @brief <B>Finds the 3D transform of 2D-3D points correspondences.</B>
  * <TT>UUID: 77281cda-47c2-4bb7-bde6-5b0d02e75dae</TT>
  */
-    class I3DTransformFinderFrom2D3D : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class I3DTransformFinderFrom2D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief I3DTransformFinderFrom2D3D default constructor.
         I3DTransformFinderFrom2D3D() = default;
@@ -52,8 +52,8 @@ namespace pose {
         /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
         /// @param[out] pose, camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
         /// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
-        virtual FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
-                                             const std::vector<SRef<Point3Df>> & worldPoints,
+        virtual FrameworkReturnCode estimate(const std::vector<Point2Df> & imagePoints,
+                                             const std::vector<Point3Df> & worldPoints,
                                              Transform3Df & pose,
                                              const Transform3Df initialPose = Transform3Df::Identity()) =0;
     };

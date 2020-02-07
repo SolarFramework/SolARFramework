@@ -33,7 +33,7 @@ namespace display {
  * This class provides a viewer to display an image in a window.
  */
 
-class IImageViewer : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IImageViewer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;
 
@@ -41,7 +41,7 @@ public:
     /// \brief this method displays an image contained in a Image object in a window
     /// @param[in] img The image to display in the window
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(SRef<Image> img) = 0;
+    virtual FrameworkReturnCode display(const SRef<Image> img) = 0;
 
 };
 }

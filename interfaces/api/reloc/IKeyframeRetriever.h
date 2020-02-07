@@ -19,7 +19,9 @@
 
 #include "datastructure/Keyframe.h"
 #include "datastructure/Frame.h"
+#include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
+#include <set>
 
 namespace SolAR {
 using namespace datastructure;
@@ -36,7 +38,7 @@ namespace reloc {
  */
 
 ///@class IKeyframeRetriever
-class IKeyframeRetriever : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IKeyframeRetriever : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IKeyframeRetriever default constructor.
     IKeyframeRetriever() = default;
@@ -46,14 +48,36 @@ public:
     /// @brief Add a keyframe to the bag of words
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe> keyframe) = 0;
 
 
     /// @brief Retrieve a set of keyframes close to the frame pass in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] keyframes: a set of keyframe which are close to the frame pass in input
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::vector<SRef<Keyframe>>& keyframes) = 0;
+    virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::vector<SRef<Keyframe>> & keyframes) = 0;
+
+	/// @brief Retrieve a set of keyframes close to the frame pass in input.
+	/// @param[in] frame: the frame for which we want to retrieve close keyframes.
+	/// @param[in] index: a set includes index of keyframe candidates
+	/// @param[out] keyframes: a set of keyframe which are close to the frame pass in input
+	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::set<unsigned int> &idxKfCandidates, std::vector<SRef<Keyframe>> & keyframes) = 0;
+
+	/// @brief Match a frame with a keyframe
+	/// @param[in] frame: the frame to match.
+	/// @param[in] index: index of keyframe
+	/// @param[out] matches: a set of matches between frame and keyframe
+	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode match(const SRef<Frame> frame, int index, std::vector<DescriptorMatch> &matches) = 0;
+
+	/// @brief Match a set of descriptors with a keyframe
+	/// @param[in] indexDescriptors: index of descriptors to match.
+	/// @param[in] descriptors: a descriptor buffer contains all descriptors
+	/// @param[in] indexKeyframe: index of keyframe
+	/// @param[out] matches: a set of matches between frame and keyframe
+	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode match(const std::vector<int> &indexDescriptors, const SRef<DescriptorBuffer> &descriptors, int indexKeyframe, std::vector<DescriptorMatch> &matches) = 0;
 };
 
 }

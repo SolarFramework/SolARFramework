@@ -42,7 +42,7 @@ namespace pipeline {
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPipeline : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPipeline default constructor
     IPipeline() = default;
@@ -71,7 +71,7 @@ public:
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed
-    virtual SinkReturnCode update(datastructure::Transform3Df& pose) = 0;
+    virtual SinkReturnCode update(datastructure::Transform3Df & pose) = 0;
 
     /// @brief load a generic texture buffer.
     /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.    
