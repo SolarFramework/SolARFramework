@@ -41,7 +41,7 @@ public:
 
     /// @brief Retrieve the sensors intrinsic parameters. (assuming all sensors are cameras, ie no IMU)
     /// @return Vector containing all available sensors intrinsics.
-    virtual std::vector<CameraParameters> & getIntrinsics() = 0;
+    virtual CameraParameters & getIntrinsics(const std::string & camera_name) = 0;
 
     /// @brief Whether or not the device is simulated or online.
     /// @return True is the device is online, False is simulated.
