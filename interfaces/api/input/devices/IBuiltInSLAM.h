@@ -28,15 +28,15 @@ public:
     virtual ~IBuiltInSLAM() = default;
 
     /// @brief Start the connection to the device for sensors data streaming.
-    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
     virtual FrameworkReturnCode start() = 0;
 
     /// @brief Stop the connection to the device.
-    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
     virtual FrameworkReturnCode stop() = 0;
 
     /// @brief Fill frames and poses vectors containing latest sensors data from the device.
-    /// @return FrameworkReturnCode to track sucessful or failing event.
+    /// @return FrameworkReturnCode to track successful or failing event.
     virtual FrameworkReturnCode getLastCapture(std::vector<Image> & frames, std::vector<PoseMatrix> & poses) = 0;
 
     /// @brief Retrieve the sensors intrinsic parameters. (assuming all sensors are cameras, ie no IMU)
