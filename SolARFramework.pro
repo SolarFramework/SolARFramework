@@ -137,10 +137,6 @@ INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
 
-solarmacros.path=$${PROJECTDEPLOYDIR}
-solarmacros.files=$$files($${PWD}/solarmacros.cmake)
-INSTALLS += solarmacros
-
 OTHER_FILES += \
     packagedependencies.txt
 
