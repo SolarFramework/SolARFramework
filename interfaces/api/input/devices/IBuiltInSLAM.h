@@ -46,9 +46,6 @@ public:
     /// @brief Whether or not the device is simulated or online.
     /// @return True is the device is online, False is simulated.
     virtual bool isProxy() = 0;
-
-    /// @brief Set IP and port for remote connection to the device.
-    virtual void setConnectionParams(const std::string & ip, const std::string & port) = 0;
 };
 
 }
