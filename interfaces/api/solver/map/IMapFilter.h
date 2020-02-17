@@ -37,7 +37,7 @@ namespace map {
 /**
   * @class IMapFilter
   * @brief <B>Filters a map of 3D points.</B>
-  * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
+  * <TT>UUID: 68dc9152-5199-11ea-8d77-2e728ce88125</TT>
   */
 class  IMapFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
         public:
@@ -68,7 +68,7 @@ class  IMapFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
 }
 }
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapFilter,
-                             "e0d6cc82-6af2-493d-901a-2384fca0b16f",
+                             "68dc9152-5199-11ea-8d77-2e728ce88125",
                              "IMapFilter",
                              "SolAR::api::solver::map::IMapFilter interface defines how to filter a reconstructed point cloud from 2 viewpoints.");
 
