@@ -37,11 +37,15 @@ public:
 
     /// @brief Fill frames and poses vectors containing latest sensors data from the device.
     /// @return FrameworkReturnCode to track successful or failing event.
-    virtual FrameworkReturnCode getLastCapture(std::vector<Image> & frames, std::vector<PoseMatrix> & poses) = 0;
+    virtual FrameworkReturnCode getLastCapture(std::vector<SRef<Image>> & frames, std::vector<PoseMatrix> & poses) = 0;
 
     /// @brief Retrieve the sensors intrinsic parameters. (assuming all sensors are cameras, ie no IMU)
-    /// @return Vector containing all available sensors intrinsics.
-    virtual CameraParameters & getIntrinsics(const std::string & camera_name) = 0;
+	/// @return FrameworkReturnCode to track successful or failing event.
+	virtual FrameworkReturnCode getIntrinsics(const std::string & camera_name, CameraParameters & camParams) = 0;
+
+	virtual FrameworkReturnCode RequestCapture(const std::string & camera_name) = 0;
+
+	virtual FrameworkReturnCode ReadCapture(SRef<Image> & frame, PoseMatrix & pose) = 0;
 
     /// @brief Whether or not the device is simulated or online.
     /// @return True is the device is online, False is simulated.
