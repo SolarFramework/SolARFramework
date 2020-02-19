@@ -8,8 +8,6 @@ interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
 interfaces/api/display/IMatchesOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/example/IInterface1.h \
-interfaces/api/example/IInterface2.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IContoursFilter.h \
@@ -83,7 +81,7 @@ interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
 interfaces/api/source/ISourceImage.h \
-interfaces/api/source/ISourceReturnCode.h
+interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/datastructure/PointCloud.h \
 interfaces/api/input/devices/IRGBDCamera.h \
@@ -94,14 +92,13 @@ interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h
 
 SOURCES += src/core/SolARFramework.cpp \
-src/core/Log.cpp \
-src/datastructure/DescriptorBuffer.cpp \
-src/datastructure/Image.cpp \
-src/datastructure/Keypoint.cpp \
-src/datastructure/SquaredBinaryPattern.cpp \
-src/datastructure/Frame.cpp \
-src/datastructure/Keyframe.cpp \
-src/datastructure/CloudPoint.cpp \
-src/datastructure/Map.cpp
-src/datastructure/Map.cpp \
-src/datastructure/PointCloud.cpp
+    src/core/Log.cpp \
+    src/datastructure/DescriptorBuffer.cpp \
+    src/datastructure/Image.cpp \
+    src/datastructure/Keypoint.cpp \
+    src/datastructure/SquaredBinaryPattern.cpp \
+    src/datastructure/Frame.cpp \
+    src/datastructure/Keyframe.cpp \
+    src/datastructure/CloudPoint.cpp \
+    src/datastructure/Map.cpp \
+    src/datastructure/PointCloud.cpp
