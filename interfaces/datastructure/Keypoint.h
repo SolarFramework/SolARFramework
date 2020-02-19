@@ -30,9 +30,12 @@
 namespace SolAR {
 namespace datastructure {
 
-///
-/// \brief The Keypoint class
-///
+/**
+ * @class Keypoint
+ * @brief <B>A 2D Keypoint.</B>.
+ *
+ * This class provides Keypoint definition.
+ */
     class  SOLARFRAMEWORK_API Keypoint : public Point2Df {
 	public:
         Keypoint() = default;
@@ -59,12 +62,12 @@ namespace datastructure {
     /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
     ///
      void init( float  x,
-			float  	y,
-			float  	size,
-			float  	angle,
-			float  	response,
-			int  	octave,
-            int  	class_id ) ;
+                float  	y,
+                float  	size,
+                float  	angle,
+                float  	response,
+                int  	octave,
+                int  	class_id ) ;
 
     ///
     /// \brief This method returns the angle of an Keypoint

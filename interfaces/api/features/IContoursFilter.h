@@ -29,12 +29,13 @@ namespace features {
 
 /**
  * @class IContoursFilter
- * @brief filters a set of contours
+ * @brief <B>Filters a set of contours.</B>
+ * <TT>UUID: 6b3de3a0-cc72-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a filtering method to prune a set of contours.
  */
 
-class  IContoursFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IContoursFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IContoursFilter default constructor
    IContoursFilter() = default;
@@ -45,7 +46,7 @@ public:
    /// @brief Filter a set of contours
    /// @param[in] inContours The contours to filter
    /// @param[out] outContours The resulting vector of contours after filtering
-   virtual FrameworkReturnCode filter(const std::vector<SRef<Contour2Df>> & inContours, std::vector<SRef<Contour2Df>> & outContours) = 0;
+   virtual FrameworkReturnCode filter(const std::vector<Contour2Df> & inContours, std::vector<Contour2Df> & outContours) = 0;
 
 };
 }

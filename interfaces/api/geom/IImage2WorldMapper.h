@@ -29,10 +29,11 @@ namespace geom {
 
 /**
  * @class IImage2WorldMapper
- * @brief provides a method to map 2D points to a 3D world coordinate system. For example, this method can map the 4 corners of a marker to the world coordinate system.
+ * @brief <B>Maps 2D points to a 3D world coordinate system. For example, this method can map the 4 corners of a marker to the world coordinate system.</B>
+ * <TT>UUID: 67bcd080-258d-4b16-b693-cd30c013eb05</TT>
  */
 
-class IImage2WorldMapper : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IImage2WorldMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IImage2WorldMapper default constructor
     IImage2WorldMapper() = default;
@@ -44,7 +45,7 @@ public:
     /// @param[in] digitalPoints the 2D points we want to map in 3D world coordinate system.
     /// @param[out] worldPoints the resulting 3D poitns after 3D mapping
     /// @return FrameworkReturnCode::_SUCCESS_ if mapping succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode map(const std::vector<SRef<Point2Df>> & digitalPoints, std::vector<SRef<Point3Df>> & worldPoints) = 0;
+    virtual FrameworkReturnCode map(const std::vector<Point2Df> & digitalPoints, std::vector<Point3Df> & worldPoints) = 0;
 };
 
 }

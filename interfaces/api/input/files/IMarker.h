@@ -26,11 +26,18 @@ namespace api {
 namespace input {
 namespace files {
 
-class IMarker : public virtual org::bcom::xpcf::IComponentIntrospect {
+/**
+ * @class IMarker
+ * @brief <B>Loads a general Marker.</B>
+ * <TT>UUID: b05f3dbb-f93d-465c-aee1-fb58e1480c42</TT>
+ *
+ */
+class IMarker : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMarker() = default;
     virtual ~IMarker() = default;
 
+    /// @brief Load a specific marker and its features (size, descriptors..). 
     virtual FrameworkReturnCode loadMarker() = 0;
 
 };
@@ -41,7 +48,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMarker,
-                             "B05F3DBB-F93D-465C-AEE1-FB58E1480C42",
+                             "b05f3dbb-f93d-465c-aee1-fb58e1480c42",
                              "IMarker",
                              "SolAR::api::input::files::IMarker interface");
 

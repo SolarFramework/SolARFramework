@@ -12,6 +12,11 @@
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @class Map
+ * @brief <B>A map of 3D points.</B>.
+ *
+ */
 class SOLARFRAMEWORK_API Map{
 
 public :
@@ -22,13 +27,25 @@ public :
     /// \brief destructor
     ~Map() ;
 
-    void addCloudPoints(const std::vector<SRef<CloudPoint>> & newMapPoints);
+    void addCloudPoints(const std::vector<CloudPoint> & newMapPoints);
+	void updateCloudPoints(const std::vector<CloudPoint> & correctedMapPoints);
+	// return all cloud points
+	inline const std::vector<CloudPoint> & getPointCloud() { 
+		std::unique_lock<std::mutex> lock(m_mutexPointCloud);
+		return m_pointCloud; 
+	};
 
-    SRef<std::vector<SRef<CloudPoint>>> getPointCloud() ;
+	// return a cloud point which is modified
+	inline CloudPoint & getAPoint(int index) { 
+		std::unique_lock<std::mutex> lock(m_mutexPointCloud);
+		return m_pointCloud[index]; 
+	}
 
 private :
 
-    SRef<std::vector<SRef<CloudPoint>>> m_pointCloud ;
+    std::vector<CloudPoint> m_pointCloud ;
+
+	std::mutex m_mutexPointCloud;
 
 };
 

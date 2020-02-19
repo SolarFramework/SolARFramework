@@ -39,30 +39,33 @@ using namespace datastructure;
 namespace api {
 namespace features {
 
-///
-/// \brief The DescriptorsExtractorType enum
-///
-    enum class DescriptorsExtractorType {
-		UNKNOWN_TYPE=-1,
-		SURF,
-		ORB,
-		SIFT,
-		DAISY,
-		LATCH,
-		AKAZE,
-		AKAZEUP,
-		BRISK,
-		BRIEF,
-	};
+
 
 /**
  * @class IDescriptorsExtractor
- * @brief extracts descriptors from a set of keypoints
+ * @brief <B>Extracts descriptors from a set of keypoints.</B>
+ * <TT>UUID: c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e</TT>
  *
  * This class provides a method to extract descriptors from a set of keypoints
  */
-    class  IDescriptorsExtractor : public virtual org::bcom::xpcf::IComponentIntrospect {
+    class  IDescriptorsExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
 	public:
+        ///
+        /// \brief The DescriptorsExtractorType enum
+        ///
+        enum class DescriptorsExtractorType {
+            UNKNOWN_TYPE=-1,
+            SURF,
+            ORB,
+            SIFT,
+            DAISY,
+            LATCH,
+            AKAZE,
+            AKAZEUP,
+            BRISK,
+            BRIEF,
+        };
+
         /// @brief IDescriptorsExtractor default constructor
         IDescriptorsExtractor() = default;
 
@@ -81,7 +84,9 @@ namespace features {
        /// @param[in] keypoints The set of keypoints on which the descriptors are extracted
        /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
        ///
-        virtual void extract (const SRef<Image> image, const std::vector< SRef<Keypoint> > &keypoints,   SRef<DescriptorBuffer>& descriptors) = 0;
+        virtual void extract (const SRef<Image> image,
+                              const std::vector< Keypoint > &keypoints,
+                              SRef<DescriptorBuffer> & descriptors) = 0;
 	};
 
 }

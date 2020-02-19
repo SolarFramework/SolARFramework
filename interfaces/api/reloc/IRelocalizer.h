@@ -29,13 +29,14 @@ namespace reloc {
 
 /**
  * @class IRelocalizer
- * @brief Return a Camera pose.
+ * @brief <B>Returns a camera pose giving a frame.</B>
+ * <TT>UUID: 3531a734-be88-11e8-a355-529269fb1459</TT>
  *
  * This class provides a solution to get the pose given a frame.
  */
 
 ///@class IRelocalizer
-class IRelocalizer : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
     IRelocalizer() = default;
@@ -45,14 +46,14 @@ public:
     /// @brief Add a keyframe containing a pose and its keypoints and descriptors to the relocalizer
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe> keyframe) = 0;
 
 
     /// @brief Get the pose of the camera corresponding to the frame.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] pose: the pose of the camera corresponding to the frame
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalize(const SRef<Frame> frame, Transform3Df& pose) = 0;
+    virtual FrameworkReturnCode relocalize(const SRef<Frame> frame, Transform3Df & pose) = 0;
 };
 
 }

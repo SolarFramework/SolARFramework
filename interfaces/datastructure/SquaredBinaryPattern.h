@@ -28,8 +28,8 @@ typedef Maths::Matrix<bool,Maths::Dynamic,Maths::Dynamic> SquaredBinaryPatternMa
 
 /**
 * @class SquaredBinaryPattern
-* @brief Specifies the SquaredBinaryPattern base class.
-
+* @brief <B>A SquaredBinaryPattern defined with a binary regular grid.</B>
+*
 */
 class SOLARFRAMEWORK_API SquaredBinaryPattern {
 
@@ -38,7 +38,7 @@ public:
     SquaredBinaryPattern() = default;
 
     /// \brief constructs a SquaredBinaryPattern from a given SquaredBinaryPatternMatrix
-    SquaredBinaryPattern (SquaredBinaryPatternMatrix pattern): m_patternMatrix(pattern){};
+    SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
 
     /// \brief defines the destructor
     ~SquaredBinaryPattern() = default;
@@ -53,7 +53,7 @@ public:
 
     /// \brief returns the size of the squared fiducial pattern to detect
     /// \returns the size of the squared fiducial pattern to detect. If the marker is a square of size 7x7, we return 7.
-    inline const int getSize () { return m_size; }
+    inline int getSize () const { return m_size; }
 
 private :
     SquaredBinaryPatternMatrix m_patternMatrix;

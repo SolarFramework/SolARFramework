@@ -28,7 +28,7 @@ namespace datastructure {
 // Hypothese : pas de bits per component : only full format image YUV444, RGB888, RGB 555 but not YUV420, RGB565 and so on or YUV422 with splatting
 /**
  * @class Image
- * @brief Specifies the Image base class.
+ * @brief <B>A 2D image.</B>.
  *
  * This class provides an image abstraction for SolAR
  */
@@ -172,6 +172,8 @@ public:
     /** @brief  returns height of the image
      */
     inline uint32_t getHeight() const { return m_size.height; }
+
+    inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
 
 private:
     class ImageInternal;

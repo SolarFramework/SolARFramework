@@ -6,14 +6,14 @@ CONFIG -= qt
 #QMAKE_CXX=clang
 
 ## global defintions : target lib name, version
+INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
-INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.1
+VERSION=0.7.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
-CONFIG += c++11
+CONFIG += c++1z
 
 
 CONFIG(debug,debug|release) {
@@ -25,109 +25,27 @@ CONFIG(release,debug|release) {
     DEFINES += _NDEBUG=1
     DEFINES += NDEBUG=1
 }
-PROJECTDEPLOYDIR = $$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}/$${VERSION}
-DEPENDENCIESCONFIG = shared
+
+DEPENDENCIESCONFIG = sharedlib recursive install
+
+## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
+PROJECTCONFIG = QTVS
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include ($$(BCOMDEVROOT)/builddefs/qmake/templatelibconfig.pri)
+include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 }
 
-HEADERS += interfaces/SharedBuffer.hpp \
-interfaces/SharedCircularBuffer.hpp \
-interfaces/SharedFifo.hpp \
-interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/api/sink/IThirdPartyConnector.h \
-interfaces/api/display/I2DOverlay.h \
-interfaces/api/display/I3DOverlay.h \
-interfaces/api/display/IImageViewer.h \
-interfaces/api/display/IMatchesOverlay.h \
-interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/example/IInterface1.h \
-interfaces/api/example/IInterface2.h \
-interfaces/api/features/IContoursExtractor.h \
-interfaces/api/features/IDescriptorMatcher.h \
-interfaces/api/features/IContoursFilter.h \
-interfaces/api/features/IDescriptorsExtractor.h \
-interfaces/api/features/IDescriptorsExtractorSBPattern.h \
-interfaces/api/features/IKeypointDetector.h \
-interfaces/api/features/IKeypointsReIndexer.h \
-interfaces/api/features/ISBPatternReIndexer.h \
-interfaces/api/features/IMatchesFilter.h \
-interfaces/api/fusion/IVisualInertialFusion.h \
-interfaces/api/geom/I2DTransform.h \
-interfaces/api/geom/I3DTransform.h \
-interfaces/api/geom/IImage2WorldMapper.h \
-interfaces/api/image/IImageConvertor.h \
-interfaces/api/image/IImageFilter.h \
-interfaces/api/image/IImageLoader.h \
-interfaces/api/image/IPerspectiveController.h \
-interfaces/api/input/devices/ICamera.h \
-interfaces/api/input/devices/ICameraCalibration.h \
-interfaces/api/input/devices/IIMU.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
-interfaces/api/reloc/IKeyframeRetriever.h \
-interfaces/api/reloc/IRelocalizer.h \
-interfaces/api/solver/pose/IHomographyValidation.h \
-interfaces/api/solver/pose/I2DTransformFinder.h \
-interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
-interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
-interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
-interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
-interfaces/api/solver/map/IBundler.h\
-interfaces/api/solver/map/ITriangulator.h\
-interfaces/api/solver/map/IMapFilter.h\
-interfaces/api/solver/map/IMapper.h\
-interfaces/core/SolARFramework.h \
-interfaces/core/Messages.h \
-interfaces/core/Log.h \
-interfaces/datastructure/BufferInternal.hpp \
-interfaces/datastructure/CloudPoint.h \
-interfaces/datastructure/DescriptorBuffer.h \
-interfaces/datastructure/DescriptorMatch.h \
-interfaces/datastructure/GeometryDefinitions.h \
-interfaces/datastructure/Image.h \
-interfaces/datastructure/Keypoint.h \
-interfaces/datastructure/Keyframe.h \
-interfaces/datastructure/Frame.h \
-interfaces/datastructure/Map.h \
-interfaces/datastructure/MathDefinitions.h \
-interfaces/datastructure/SquaredBinaryPattern.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
-interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
-interfaces/api/input/devices/IDepthCamera.h \
-interfaces/datastructure/PointCloud.h \
-interfaces/api/input/devices/IRGBDCamera.h \
-interfaces/api/input/files/IPointCloudLoader.h \
-interfaces/api/pointCloud/IPCFilter.h \
-interfaces/api/pointCloud/IPCFilterCentroid.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
-interfaces/api/solver/map/IKeyframeSelector.h
-
-SOURCES += src/core/SolARFramework.cpp \
-    src/core/Log.cpp \
-    src/datastructure/DescriptorBuffer.cpp \
-    src/datastructure/Image.cpp \
-    src/datastructure/Keypoint.cpp \
-    src/datastructure/SquaredBinaryPattern.cpp \
-    src/datastructure/Frame.cpp \
-    src/datastructure/Keyframe.cpp \
-    src/datastructure/CloudPoint.cpp \
-    src/datastructure/Map.cpp \
-    src/datastructure/PointCloud.cpp
+include (SolARFramework.pri)
 
 unix {
+#
+#   if buidling with clang
+#	    QMAKE_CXX = clang++
+#   	QMAKE_LINK= clang++
+#
 }
 
 macx {
@@ -145,6 +63,12 @@ win32 {
     QMAKE_COMPILER_DEFINES += _WIN64
     QMAKE_CXXFLAGS += -wd4250 -wd4251 -wd4244 -wd4275
 }
+
+android {
+    QMAKE_LFLAGS += -nostdlib++
+}
+
+
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
 
@@ -168,6 +92,10 @@ header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
+header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
+header_interfaces_source.files = $$files($${PWD}/interfaces/api/source/*.h*)
+header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
+header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
 
@@ -179,6 +107,9 @@ header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 
 header_interfaces_example.path = $${PROJECTDEPLOYDIR}/interfaces/api/example/
 header_interfaces_example.files = $$files($${PWD}/interfaces/api/example/*.h*)
+
+header_interfaces_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/api/pipeline/
+header_interfaces_pipeline.files = $$files($${PWD}/interfaces/api/pipeline/*.h*)
 
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
@@ -192,7 +123,7 @@ INCLUDEPATH += $${PWD}/interfaces
 
 INSTALLS += header_interfaces
 INSTALLS += header_interfaces_display
-INSTALLS += header_interfaces_features  
+INSTALLS += header_interfaces_features
 INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
@@ -200,14 +131,17 @@ INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
+INSTALLS += header_interfaces_source
+INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
-INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
+INSTALLS += header_interfaces_pipeline
 
-solarmacros.path=$$(BCOMDEVROOT)/$${INSTALLSUBDIR}/$${FRAMEWORK}
-solarmacros.files=$$files($${PWD}/solarmacros.cmake)
-INSTALLS += solarmacros
+OTHER_FILES += \
+    packagedependencies.txt
 
+#NOTE : Must be placed at the end of the .pro
+include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows

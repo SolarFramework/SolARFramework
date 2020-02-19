@@ -35,30 +35,32 @@ namespace api {
 namespace input {
 namespace files {
 
-//!  The abstract class defining all 2D marker
-/*!
-  The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
-*/
-
 /**
  * @class IMarker2DSquared
- * @brief Specifies the IMarker2DSquared interface class.
+ * @brief <B>Loads any 2D squared marker.</B>
+ * <TT>UUID: e9cdcf6e-c54c-11e7-abc4-cec278b6b50a</TT>
+ *
+ * The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
  */
-class IMarker2DSquared : public virtual IMarker {
+class IMarker2DSquared : virtual public IMarker {
 public:
     IMarker2DSquared() = default;
-
     virtual ~IMarker2DSquared() = default;
+    ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
+    virtual void setSize (const float & width, const float & height) = 0;
+    virtual float getWidth() const = 0;
+    virtual float getHeight() const  = 0;
+    virtual const Sizef & getSize() const = 0;
 
-    inline void setSize (const float & width, const float & height) { m_size.width = width; m_size.height = height; };
+    /// @brief Provide the position of 2D corners in image coordinate system
+    /// @param[out] imageCorners the 2D corners of the marker in image coordinate system
+    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    virtual FrameworkReturnCode getImageCorners(std::vector<Point2Df> & imageCorners) const = 0;
 
-    inline float getWidth() const { return m_size.width; };
-    inline float getHeight() const { return m_size.height; };
-    inline Sizef getSize() const { return m_size; };
-
-protected:
-    Sizef m_size;  ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
-
+    /// @brief Provide the position of 3D corners in world coordinate system
+    /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
+    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+    virtual FrameworkReturnCode getWorldCorners(std::vector<Point3Df> & worldCorners) const = 0;
 };
 
 }

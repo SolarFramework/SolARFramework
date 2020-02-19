@@ -15,17 +15,25 @@
  */
 
 #include "datastructure/SquaredBinaryPattern.h"
+#include "core/Log.h"
 #include <iostream>
 
 namespace SolAR {
 namespace datastructure {
 
-const SquaredBinaryPatternMatrix& SquaredBinaryPattern::getPatternMatrix(void) const
+SquaredBinaryPattern::SquaredBinaryPattern(const SquaredBinaryPatternMatrix & pattern)
+{
+    if (setPatternMatrix(pattern) != FrameworkReturnCode::_SUCCESS) {
+        // should throw ??
+    }
+}
+
+const SquaredBinaryPatternMatrix & SquaredBinaryPattern::getPatternMatrix(void) const
 {
     return m_patternMatrix;
 };
 
-FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryPatternMatrix& pattern)
+FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryPatternMatrix & pattern)
 {
     if (pattern.rows() != pattern.cols())
     {

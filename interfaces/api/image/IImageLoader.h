@@ -27,10 +27,13 @@ using namespace datastructure;
 namespace api {
 namespace image {
 
-///
-/// \brief The IImageLoader class
-///
-class IImageLoader : public virtual org::bcom::xpcf::IComponentIntrospect {
+/**
+  * @class IImageLoader
+  * @brief <B>Loads an image.</B>
+  * <TT>UUID: 6fcdaa8d-6ea9-4c3f-97b0-46cd11b67a9b</TT>
+  *
+  */
+class IImageLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
     ///
@@ -50,7 +53,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IImageLoader,
-                             "6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B",
+                             "6fcdaa8d-6ea9-4c3f-97b0-46cd11b67a9b",
                              "IImageLoader",
                              "SolAR::IImageLoader interface");
 

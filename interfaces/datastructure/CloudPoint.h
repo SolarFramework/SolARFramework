@@ -24,6 +24,8 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/DescriptorBuffer.h"
+#include <mutex>
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -32,11 +34,12 @@ namespace SolAR {
 namespace datastructure {
 class Keyframe;
 
-///
-/// \brief The Cloudpoint class
-///
-    class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
-	public:
+/**
+ * @class CloudPoint
+ * @brief <B>A 3D point stored in a cloud of points.</B>
+ */
+class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
+public:
     CloudPoint() = default;
 
     /// @brief Cloudpoint constructor.
@@ -58,49 +61,57 @@ class Keyframe;
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
-    /// @brief CloudPoint constructor with a Point3Df.
-    /// @param point a Point3Df
-    ///
-    CloudPoint(const Point3Df& point) : Point3Df(point), m_r(0.0), m_g(0.0), m_b(0.0), m_reproj_error(0.0) {};
+	CloudPoint(float x,
+		float y,
+		float z,
+		float r,
+		float g,
+		float b,
+		double reproj_error,
+		std::map<unsigned int, unsigned int> &visibility,
+		SRef<DescriptorBuffer> descriptor);
 
-   ///
-   /// \brief ~CloudPoint
-   ///
+    ///
+    /// \brief ~CloudPoint
+    ///
     ~CloudPoint();
 
     ///
     /// \brief These methods returns the color components of the CloudPoint
     /// \return the color component of the CloudPoint (Red, Green or Blue)
     ///
-        inline float getR() const {return m_r;}
-        inline float getG() const {return m_g;}
-        inline float getB() const {return m_b;}
+    float getR() const {return m_r;}
+    float getG() const {return m_g;}
+    float getB() const {return m_b;}
 
     ///
     /// \brief This method returns reprojection error of the PointCloud
     /// \return teh reprojection error
     ///
-      inline double getReprojError() const {return m_reproj_error;}
-      inline  std::map<unsigned int, unsigned int> getVisibility() const {return m_visibility;}
+    double getReprojError() const {return m_reproj_error;}    
 
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
-    inline std::map<unsigned int, unsigned int>& getVisibility() { return m_visibility; };
+	const std::map<unsigned int, unsigned int>& getVisibility() const;
 
     /// @brief add a keypoint to the visibility map of the CloudPoint
     /// @param keyframe_id: the id of the keyframe to which the keypoint belong
     /// @param keypoint_id: the id of the keypoint of the keyframe
-    inline void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { m_visibility[keyframe_id] = keypoint_id; };
+    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id);
 
-    private:
-        std::map<unsigned int, unsigned int>  m_visibility;
-        float             m_r;
-        float             m_g;
-        float             m_b;
+	SRef<DescriptorBuffer> getDescriptor() const { return m_descriptor; };
 
-        double            m_reproj_error;
-	};
-   }
+private:	
+    std::map<unsigned int, unsigned int>	m_visibility;
+    float									m_r;
+    float									m_g;
+    float									m_b;
+
+    double									m_reproj_error;
+
+	SRef<DescriptorBuffer>					m_descriptor;	
+};
+}
 }  // end of namespace SolAR
 
 #endif // SolAR_KEYPOINT_H

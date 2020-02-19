@@ -24,6 +24,11 @@ using namespace org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @class ImageInternal
+ * @brief <B>A 2D image buffer.</B>.
+ *
+ */
 class Image::ImageInternal {
 public:
     ImageInternal() = default;
@@ -114,12 +119,9 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
 }
 
 SRef<Image> Image::copy() const
-{
-    uint32_t bufferSize = m_internalImpl->getBufferSize();
-    void* datacopy = malloc(bufferSize);
-    memcpy(datacopy, m_internalImpl->data(), bufferSize);
-    return xpcf::utils::make_shared<Image>(datacopy, m_size.width, m_size.height, m_layout, m_pixOrder, m_type);
-
+{    
+    // NB : maybe we should consider redefining the image copy constructor
+    return xpcf::utils::make_shared<Image>(m_internalImpl->data(), m_size.width, m_size.height, m_layout, m_pixOrder, m_type);
 }
 
 // reserve new space depending on the image layers and bitspercomponent infos

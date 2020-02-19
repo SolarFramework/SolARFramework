@@ -28,13 +28,14 @@ namespace api {
 namespace features {
 /**
  * @class IContoursExtractor
- * @brief Extracts contours from an image
+ * @brief <B>Extracts contours from an image.</B>
+ * <TT>UUID: 42d82ab6-cc62-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a contours extraction method from an image.
  */
 
 
-class  IContoursExtractor : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IContoursExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IContoursExtractor default constructor
     IContoursExtractor() = default;
@@ -46,7 +47,7 @@ public:
     /// @param[in] inputImg The image on which contours are extracted
     /// @param[out] contours The contours extracted from the image
     /// @return FrameworkReturnCode::_SUCCESS_ if contours ar well extracted, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode extract(const SRef<Image> inputImg, std::vector<SRef<Contour2Df>> & contours) = 0;
+    virtual FrameworkReturnCode extract(const SRef<Image> inputImg, std::vector<Contour2Df> & contours) = 0;
 
 };
 }

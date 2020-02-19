@@ -6,13 +6,17 @@
 #include "core/Messages.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace features {
-    ///@class IMatchesFilter
-    class IMatchesFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+   /** @class IMatchesFilter
+     * @brief <B>Filters a set of matches.</B>
+     * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
+     */
+    class IMatchesFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief IMatchesFilter default constructor.
         IMatchesFilter() = default;
@@ -25,10 +29,26 @@ namespace features {
         /// @param[out] Filtred matches based on redanduncy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
         /// @param[in] Original keypoints associated to desc_2.
-         virtual void filter(const std::vector<DescriptorMatch>&inputMatches,
-                             std::vector<DescriptorMatch>&outputMatches,
-                             const std::vector<SRef<Keypoint>>&keyPoints_1,
-                             const std::vector<SRef<Keypoint>>&keyPoints_2) = 0;
+         virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
+                             std::vector<DescriptorMatch> & outputMatches,
+                             const std::vector<Keypoint> & keyPoints_1,
+                             const std::vector<Keypoint> & keyPoints_2) = 0;
+
+		/// @brief filter matches based fundamental matrix calculated from camera matrices
+		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
+		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
+		/// @param[in] Original keypoints associated to desc_1.
+		/// @param[in] Original keypoints associated to desc_2.
+		/// @param[in] camera pose 1.
+		/// @param[in] camera pose 2.
+		/// @param[in] camera's intrinsic parameters.
+		virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
+							std::vector<DescriptorMatch> & outputMatches,
+							const std::vector<Keypoint> & inputKeyPoints1,
+							const std::vector<Keypoint> & inputKeyPoints2,
+							const Transform3Df &pose1,
+							const Transform3Df &pose2,
+							const CamCalibration &intrinsicParams) {};
     };
 }
 }

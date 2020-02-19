@@ -17,6 +17,7 @@
 #ifndef SOLAR_IVISUALINERTIALFUSION_H
 #define SOLAR_IVISUALINERTIALFUSION_H
 
+#include "core/Log.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
@@ -46,11 +47,12 @@ struct VisionData {
 
 /**
  * @class IVisualInertialFusion
- * @brief Specify the IVisualInertialFusion interface class.
+ * @brief <B>Fuses data captured by inertial sensors with the pose estimated from visual sensors.</B>
+ * <TT>UUID: 3efaa1c6-85e4-11e8-adc0-fa7ae01bbebc</TT>
  *
  * This class provides a fusion method to process inputs from both visual and inertial sensors.
  */
-class IVisualInertialFusion : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IVisualInertialFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IVisualInertialFusion default constructor
     IVisualInertialFusion() = default;
@@ -60,15 +62,15 @@ public:
 
     /// @brief Initialize the fusion process with an initial pose
     /// @param[in] initialVisionData the initial pose
-    virtual void init(VisionData & initialVisionData) = 0;
+    virtual void init(const VisionData & initialVisionData) = 0;
 
     /// @brief Add inertial data to be processed
     /// @param[in] inertialData the timestamped inertial data
-    virtual void addInertialData(InertialData & inertialData) = 0;
+    virtual void addInertialData(const InertialData & inertialData) = 0;
 
     /// @brief Add vision data to be processed
     /// @param[in] visionData the timestamped vision data
-    virtual void addVisionData(VisionData & visionData) = 0;
+    virtual void addVisionData(const VisionData & visionData) = 0;
 
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose

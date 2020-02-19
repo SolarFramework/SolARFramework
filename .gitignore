@@ -15,7 +15,7 @@
 *.o
 *.obj
 
-.\build
+build/
 
 # Precompiled Headers
 *.gch
@@ -50,6 +50,9 @@
 *.exp
 *.ilk
 *.pdb
+*.*pre1
+*.autosave
+*.project
 
 # Visual Studio files
 .vs*
@@ -61,4 +64,15 @@ x64*
 *.TMP
 *.tmp
 
+# documentation
+doc/
+doxygen/
 
+
+.git Merge
+SolARWrapper - Raccourci.lnk
+bcom-SolARFramework.pc
+SolARFramework-InstallDependencies_debug.bat
+SolARFramework-Installvclib-debug.bat
+SolARFramework-Installvclib-release.bat
+SolARFramework-InstallDependencies_release.bat

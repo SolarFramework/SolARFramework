@@ -1,4 +1,3 @@
-xpcf|2.1.0|xpcf|thirdParties|http://repository.b-com.com/amc-generic
-boost|1.68.0|boost|thirdParties|http://repository.b-com.com/amc-generic
-eigen|3.3.5|eigen|thirdParties|http://repository.b-com.com/amc-generic
-spdlog|0.14.0|spdlog|thirdParties|http://repository.b-com.com/amc-generic
+xpcf|2.3.1|xpcf|@github|https://github.com/SolarFramework/binaries/releases/download
+eigen|3.3.5|eigen|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download
+spdlog|0.14.0|spdlog|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download

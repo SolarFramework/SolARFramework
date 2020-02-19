@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
+
+#ifndef SOLAR_BUFFERINTERNAL_H
+#define SOLAR_BUFFERINTERNAL_H
+
 namespace SolAR {
 namespace datastructure {
+
+/**
+ * @class BufferInternal
+ * @brief <B>A Buffer used to store any data such as descriptors.</B>
+ */
 
 class BufferInternal {
 public:
@@ -48,12 +57,20 @@ public:
 
     inline uint32_t getSize() { return m_bufferSize; }
 
-    void setData(void * data, uint32_t size){
+    void setData (void * data, uint32_t size){
         if (m_bufferSize < size) {
             setSize(size);
         }
         m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
     }
+
+    void appendData (const void * data, uint32_t size){
+        uint32_t endOffset = m_bufferSize;
+        setSize(m_bufferSize + size);
+        auto startIt = std::next(m_storageData.begin(), endOffset);
+        m_storageData.insert(startIt, static_cast<const uint8_t *>(data), static_cast<const uint8_t *>(data) + size);
+    }
+
     inline void* data() { return m_storageData.data(); }
     inline const void* data() const  { return m_storageData.data(); }
 
@@ -65,3 +82,5 @@ private:
 
 }
 }
+
+#endif // SOLAR_BUFFERINTERNAL_H

@@ -31,12 +31,13 @@ namespace display {
 
 /**
  * @class I2DOverlay
- * @brief Drawing interface to overlay 2D information on top of an image.
+ * @brief <B>Draws 2D information on top of an image.</B>
+ * <TT>UUID: 62b8b0b5-9344-40e6-a288-e609eb3ff0f1</TT>
  *
  * This class provides drawing methods to overlay 2D debug informations on top of an image.
  */
 
-class I2DOverlay : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DOverlay default constructor
     I2DOverlay() = default;
@@ -48,41 +49,36 @@ public:
     /// Draw a circle on the image displayImage center on the point with specified radius and thickness.
     /// @param[in] point The position of the circle to draw
     /// @param[in,out] displayImage The image on which the the circles will be drawn.
-    virtual void drawCircle(const SRef<Point2Df> point, SRef<Image> displayImage) = 0;
+    virtual void drawCircle(const Point2Df& point, SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
-    /// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius and thickness (colors of points are randomized).
+    /// Draw all the circles stored in the vector std::vector <Point2Df> & points on image displayImage with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in] point The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(const std::vector<SRef<Point2Df>>& points, SRef<Image> displayImage) = 0;
-	/// @brief Draw Circles.
-	/// Draw all the circles stored in the vector std::vector <SRef<Point2Df>> & points on image displayImage with specified radius and thickness (colors of points are randomized).
-	/// @param[in] point The positions of the circles to draw
-	/// @param[in,out] displayImage The image on which the circles will be drawn.
-//    virtual void drawCircles(std::vector<SRef<Point2Df>>& points, std::vector<unsigned int> & bgrValues,SRef<Image> displayImage) = 0;
+    virtual void drawCircles(const std::vector<Point2Df> & points, SRef<Image> displayImage) = 0;
 
     /// @brief Draw Circles.
-    /// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
-    /// @param[in] point The positions of the circles to draw
+    /// Draw all the circles stored in the vector std::vector <Keypoint> & keypoints on image displayImage with specified radius, thickness and colors (defined in the configuration file).
+    /// @param[in] keypoint The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(const std::vector<SRef<Keypoint>>& keypoints, SRef<Image> displayImage) = 0;
+    virtual void drawCircles(const std::vector<Keypoint> & keypoints, SRef<Image> displayImage) = 0;
 
-	/// @brief Draw Circles.
-	/// Draw all the circles stored in the vector std::vector <SRef<Keypoint>> & keypoints on image displayImage with specified radius and thickness (colors of points are randomized).
-	/// @param[in] point The positions of the circles to draw
-	/// @param[in,out] displayImage The image on which the circles will be drawn.
-//	virtual void drawCircles(std::vector<SRef<Keypoint>>& keypoints, std::vector<unsigned int> & bgrValues, SRef<Image> displayImage) = 0;
-
-     /// @brief Draw Contours.
-    /// Draw all the contours stored in the vector  std::vector <SRef<Contour2Df>> & contours on image displayImage
-    /// @param[in] contours The vector of contours in 2D to draw.
+    /// @brief Draw a Contour.
+    /// Draw a contour on image displayImage
+    /// @param[in] contour The contour in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in,out] displayImage The image on which the contours will be drawn.
-    virtual void drawContours (const std::vector <SRef<Contour2Df>> & contours, SRef<Image> displayImage) = 0;
+    virtual void drawContour (const Contour2Df& contours, SRef<Image> displayImage) = 0;
+
+    /// @brief Draw Contours.
+    /// Draw all the contours stored in the vector  std::vector <Contour2Df> & contours on image displayImage
+    /// @param[in] contours The vector of contours in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
+    /// @param[in,out] displayImage The image on which the contours will be drawn.
+    virtual void drawContours (const std::vector <Contour2Df> & contours, SRef<Image> displayImage) = 0;
 
     /// @brief Draw a Squared Binary Pattern.
     /// @param[in] pattern The squared binary pattern to display.
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
-    virtual void drawSBPattern (const SRef<SquaredBinaryPattern> pattern, SRef<Image> displayImage) = 0;
+    virtual void drawSBPattern (const SquaredBinaryPattern & pattern, SRef<Image> displayImage) = 0;
 
 };
 }
