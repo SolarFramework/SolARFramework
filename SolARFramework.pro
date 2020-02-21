@@ -26,7 +26,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib recursive install
+DEPENDENCIESCONFIG = sharedlib recursive install_recurse
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
@@ -136,10 +136,6 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
-
-solarmacros.path=$${PROJECTDEPLOYDIR}
-solarmacros.files=$$files($${PWD}/solarmacros.cmake)
-INSTALLS += solarmacros
 
 OTHER_FILES += \
     packagedependencies.txt
