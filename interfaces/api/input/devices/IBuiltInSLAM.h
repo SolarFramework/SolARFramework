@@ -35,6 +35,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
     virtual FrameworkReturnCode stop() = 0;
 
+	virtual FrameworkReturnCode EnableSensors(std::vector<std::string> sensorList) = 0;
+
     /// @brief Fill frames and poses vectors containing latest sensors data from the device.
     /// @return FrameworkReturnCode to track successful or failing event.
     virtual FrameworkReturnCode getLastCapture(std::vector<SRef<Image>> & frames, std::vector<PoseMatrix> & poses) = 0;
