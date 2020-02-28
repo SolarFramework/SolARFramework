@@ -35,18 +35,33 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
     virtual FrameworkReturnCode stop() = 0;
 
+	/// @brief Notify to the server what sensors we want to use, so that they are ready when needed.
+	/// @param[in] sensorList The names of the sensors to enable.
+	/// @return FrameworkReturnCode to track successful or failing event.
 	virtual FrameworkReturnCode EnableSensors(std::vector<std::string> sensorList) = 0;
 
-    /// @brief Fill frames and poses vectors containing latest sensors data from the device.
+    /// @brief Fill frames and poses vectors containing latest data from all sensors available on the device.
+	/// @param[in,out] frames The vector that will store the frames for each sensor.
+	/// @param[in,out] poses The vector that will store the poses for each sensor.
     /// @return FrameworkReturnCode to track successful or failing event.
     virtual FrameworkReturnCode getLastCapture(std::vector<SRef<Image>> & frames, std::vector<PoseMatrix> & poses) = 0;
 
-    /// @brief Retrieve the sensors intrinsic parameters. (assuming all sensors are cameras, ie no IMU)
+    /// @brief Retrieve the sensor intrinsic parameters corresponding to the given name.
+	/// @param[in] camera_name The name of the sensor.
+	/// @param[in,out] camParams The CameraParameters object in which the parameters will be stored.
 	/// @return FrameworkReturnCode to track successful or failing event.
 	virtual FrameworkReturnCode getIntrinsics(const std::string & camera_name, CameraParameters & camParams) = 0;
 
+	/// @brief Notify the server that we want to start streaming data from sensor <camera_name>.
+	/// @param[in] camera_name The name of the sensor.
+	/// @return FrameworkReturnCode to track successful or failing event.
 	virtual FrameworkReturnCode RequestCapture(const std::string & camera_name) = 0;
 
+	/// @brief Retrieve the frame and its associated pose from the previously requested sensor.
+	/// @see RequestCapture
+	/// @param[in,out] frame The Image object that will store the sensor frame.
+	/// @param[in,out] pose The PoseMatrix object that will store the corresponding pose.
+	/// @return FrameworkReturnCode to track successful or failing event.
 	virtual FrameworkReturnCode ReadCapture(SRef<Image> & frame, PoseMatrix & pose) = 0;
 
     /// @brief Whether or not the device is simulated or online.
