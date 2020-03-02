@@ -44,7 +44,7 @@ public:
 	/// @param[in,out] frames The vector that will store the frames for each sensor.
 	/// @param[in,out] poses The vector that will store the poses for each sensor.
     /// @return FrameworkReturnCode to track successful or failing event.
-    virtual FrameworkReturnCode getLastCapture(std::vector<SRef<Image>> & frames, std::vector<PoseMatrix> & poses) = 0;
+    virtual FrameworkReturnCode getLastCapture(std::vector<SRef<Image>> & frames, std::vector<Transform3Df> & poses) = 0;
 
     /// @brief Retrieve the sensor intrinsic parameters corresponding to the given name.
 	/// @param[in] camera_name The name of the sensor.
@@ -62,7 +62,7 @@ public:
 	/// @param[in,out] frame The Image object that will store the sensor frame.
 	/// @param[in,out] pose The PoseMatrix object that will store the corresponding pose.
 	/// @return FrameworkReturnCode to track successful or failing event.
-	virtual FrameworkReturnCode ReadCapture(SRef<Image> & frame, PoseMatrix & pose) = 0;
+	virtual FrameworkReturnCode ReadCapture(SRef<Image> & frame, Transform3Df & pose) = 0;
 
     /// @brief Whether or not the device is simulated or online.
     /// @return True is the device is online, False is simulated.
