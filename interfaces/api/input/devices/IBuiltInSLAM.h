@@ -38,7 +38,7 @@ public:
 	/// @brief Notify to the server what sensors we want to use, so that they are ready when needed.
 	/// @param[in] sensorList The names of the sensors to enable.
 	/// @return FrameworkReturnCode to track successful or failing event.
-	virtual FrameworkReturnCode EnableSensors(std::vector<std::string> sensorList) = 0;
+	virtual FrameworkReturnCode EnableSensors() = 0;
 
     /// @brief Fill frames and poses vectors containing latest data from all sensors available on the device.
 	/// @param[in,out] frames The vector that will store the frames for each sensor.
