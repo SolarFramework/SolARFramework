@@ -75,7 +75,7 @@ public:
     /// @brief Provides the pixels of the color image to the projection of given 3D points
     /// @param in3DPoints The 3D points we want to project on the color image
     /// @return a 2D points vector representing the pixels of the color image on which the 3D points are projected
-    virtual std::vector<SRef<Point2Df>> getWorldToPixels (const std::vector<Point3Df>& in3DPoints) const = 0;
+    virtual std::vector<Point2Df> getWorldToPixels (const std::vector<Point3Df>& in3DPoints) const = 0;
 };
 
 }

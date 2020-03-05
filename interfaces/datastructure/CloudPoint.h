@@ -61,6 +61,16 @@ public:
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
+
+    /// @brief CloudPoint constructor with a Point3Df.
+    /// @param point a Point3Df
+    ///
+    CloudPoint(const Point3Df& point);
+
+    ///
+    /// \brief ~CloudPoint
+    ///
+   
 	CloudPoint(float x,
 		float y,
 		float z,

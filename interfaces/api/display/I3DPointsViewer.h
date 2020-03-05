@@ -57,6 +57,7 @@ public:
                                         const std::vector<CloudPoint>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
+
     /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
     /// @param[in] points, Set of 3D points to display in the 3D viewer.
     /// @param[in] pose, poses of the current camera (transform of the camera defined in world corrdinate system).
@@ -71,9 +72,6 @@ public:
                                         const std::vector<Transform3Df> framePoses = {},
                                         const SRef<PointCloud> points2 = nullptr,
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
-
-
-
 };
 }
 }

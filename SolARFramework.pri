@@ -2,7 +2,6 @@ HEADERS += interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/api/sink/IThirdPartyConnector.h \
 interfaces/api/display/I2DOverlay.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/IImageViewer.h \
@@ -74,14 +73,6 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
-interfaces/api/solver/map/IKeyframeSelector.h \
-interfaces/api/tracking/IOpticalFlowEstimator.h \
-interfaces/api/pipeline/IPipeline.h \
-interfaces/api/sink/ISinkPoseImage.h \
-interfaces/api/sink/ISinkPoseTextureBuffer.h \
-interfaces/api/sink/ISinkReturnCode.h \
-interfaces/api/source/ISourceImage.h \
-interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/datastructure/PointCloud.h \
 interfaces/api/input/devices/IRGBDCamera.h \
@@ -89,7 +80,14 @@ interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
-interfaces/api/solver/map/IKeyframeSelector.h
+interfaces/api/solver/map/IKeyframeSelector.h \
+interfaces/api/tracking/IOpticalFlowEstimator.h \
+interfaces/api/pipeline/IPipeline.h \
+interfaces/api/sink/ISinkPoseImage.h \
+interfaces/api/sink/ISinkPoseTextureBuffer.h \
+interfaces/api/sink/ISinkReturnCode.h \
+interfaces/api/source/ISourceImage.h \
+interfaces/api/source/ISourceReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/core/Log.cpp \

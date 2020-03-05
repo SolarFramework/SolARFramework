@@ -36,23 +36,37 @@ namespace image {
   */
 class  IImageConvertor : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-   IImageConvertor() = default;
+	IImageConvertor() = default;
+	///
+	/// \brief ~IImageConvertor
+	///
+	virtual ~IImageConvertor() {};
+     
+	/// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
+	/// @param[in] imgSrc input image to convert
+	/// @param[out] imgDst output image converted
+	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
+	virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst) = 0;
 
-   ///
-   /// \brief ~IImageConvertor
-   ///
-   virtual ~IImageConvertor() {};
-   /// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
-   /// @param[in] imgSrc input image to convert
-   /// @param[out] imgDst output image converted
-   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-   virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst) = 0;
+	/// @brief This method converts an image source to image destination according to image destination channel, color and depth representation  
+	/// @param[in] imgSrc input image to convert
+	/// @param[out] imgDst output image converted
+	/// @param[scale] DEPTH_SCALE
+	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
+	virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst,const float scale) = 0;
 
-   /// @brief This method converts an image source to image destination according to a given channel and color representation  layout
-   /// @param[in] imgSrc input image to convert
-   /// @param[out] imgDst output image converted
-   /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-   virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst, Image::ImageLayout destLayout) = 0;
+	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
+	/// @param[in] imgSrc input image to convert
+	/// @param[out] imgDst output image converted
+	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
+	virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst, Image::ImageLayout destLayout) = 0;
+
+	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
+	/// @param[in] imgSrc input image to convert
+	/// @param[out] imgDst output image converted
+	/// @param[scale] DEPTH_SCALE
+	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
+	virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst, Image::ImageLayout destLayout,const float scale) = 0;
 
 };
 

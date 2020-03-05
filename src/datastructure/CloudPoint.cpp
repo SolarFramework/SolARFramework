@@ -27,6 +27,9 @@ namespace SolAR {
 
     }
 
+    CloudPoint::CloudPoint(const Point3Df& point) : Point3Df(point), m_r(0.0), m_g(0.0), m_b(0.0), m_reproj_error(0.0) {
+    }
+
     CloudPoint::CloudPoint( float x,
                             float y,
                             float z,
@@ -37,8 +40,15 @@ namespace SolAR {
                             std::map<unsigned int, unsigned int> &visibility): Point3Df(x,y,z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
                                                           m_visibility(visibility) {
     }
-	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-		Point3Df(x, y, z), m_r(r), m_g(g), m_b(b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){
+    CloudPoint::CloudPoint(float x,
+                           float y,
+                           float z,
+                           float r,
+                           float g,
+                           float b,
+                           double reproj_error,
+                           std::map<unsigned int, unsigned int>& visibility,
+                           SRef<DescriptorBuffer> descriptor) : Point3Df(x, y, z), m_r(r), m_g(g), m_b(b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){
 	}
 
 	const std::map<unsigned int, unsigned int>& CloudPoint::getVisibility() const {

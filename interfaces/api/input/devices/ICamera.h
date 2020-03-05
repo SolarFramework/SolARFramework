@@ -59,10 +59,10 @@ public:
     virtual void setResolution(const Sizei & resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual FrameworkReturnCode setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
     
-    /// @brief Set the distortion intrinsic camera parameters
-    virtual FrameworkReturnCode setDistortionParameters(const CamDistortion & distorsion_parameters) =0;
+    /// @brief Set the distorsion intrinsic camera parameters
+    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
 
     /// @brief Set the distorsion intrinsic camera parameters
     virtual void setParameters(const CameraParameters & parameters) =0;
