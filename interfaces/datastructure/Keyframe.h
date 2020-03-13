@@ -61,6 +61,8 @@ class SOLARFRAMEWORK_API Keyframe : public Frame {
 	// @brief: Add a neighbor keyframe with the weight
 	void addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight);
 
+    static void resetFirstIdKeyframe(){ m_keyframeIdx = 0; };
+
     int m_idx;
 
 private:
