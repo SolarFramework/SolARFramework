@@ -84,7 +84,7 @@ pipeline {
                 }                
                 prepareRelease("SolARBuild","linux-gcc","SolARFramework")                
                 withCredentials([string(credentialsId: 'github-token', variable: 'token')]) {
-                    release("SolARFramework","SolARFramework/${version}/unix","SolARFramework Version ${version} for Unix","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARFramework_${version}_x86_64_shared_debug.zip",token);
+                    release("SolARFramework","SolARFramework/${version}/linux","SolARFramework Version ${version} for Linux","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARFramework_${version}_x86_64_shared_debug.zip",token);
                 }
             }   
         }
