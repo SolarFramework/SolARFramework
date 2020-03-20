@@ -27,8 +27,11 @@ exists(builddefs/qmake) {
     QMAKE_REMAKEN_RULES_ROOT=builddefs/qmake
 }
 else {
-    QMAKE_REMAKEN_RULES_ROOT = $$clean_path($$(REMAKEN_RULES_ROOT))/qmake
-    isEmpty(QMAKE_REMAKEN_RULES_ROOT) {
+    QMAKE_REMAKEN_RULES_ROOT = $$clean_path($$(REMAKEN_RULES_ROOT))
+    !isEmpty(QMAKE_REMAKEN_RULES_ROOT) {
+        QMAKE_REMAKEN_RULES_ROOT = $$clean_path($$(REMAKEN_RULES_ROOT)/qmake)
+    }
+    else {
         QMAKE_REMAKEN_RULES_ROOT=$${USERHOMEFOLDER}/.remaken/rules/qmake
     }
 }
