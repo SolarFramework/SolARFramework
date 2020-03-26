@@ -21,6 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/GeometryDefinitions.h"
 
@@ -62,6 +63,12 @@ public:
     /// @param[in] keypoint The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
     virtual void drawCircles(const std::vector<Keypoint> & keypoints, SRef<Image> displayImage) = 0;
+
+	/// @brief Draw Lines.
+	/// Draw all the lines stored in the vector std::vector <Keyline> & keylines on image displayImage with specified thickness and colors (defined in the configuration file).
+	/// @param[in] keylines The line descriptors to draw
+	/// @param[in,out] displayImage The image on which the lines will be drawn.
+	virtual void drawLines(const std::vector<Keyline> & keylines, SRef<Image> displayImage) = 0;
 
     /// @brief Draw a Contour.
     /// Draw a contour on image displayImage
