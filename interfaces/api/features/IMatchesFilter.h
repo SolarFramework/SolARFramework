@@ -5,6 +5,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/DescriptorMatch.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/CameraDefinitions.h"
 
@@ -26,13 +27,24 @@ namespace features {
         /// @brief filter matches.
         /// Draw all the lines joining the keypoints that match between two images
         /// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
-        /// @param[out] Filtred matches based on redanduncy or geometric relations such as epipolar constraint.
+        /// @param[out] Filtred matches based on redundancy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
         /// @param[in] Original keypoints associated to desc_2.
          virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
                              std::vector<DescriptorMatch> & outputMatches,
                              const std::vector<Keypoint> & keyPoints_1,
                              const std::vector<Keypoint> & keyPoints_2) = 0;
+
+		/// @brief filter matches.
+		/// Draw all the lines joining the keylines that match between two images
+		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
+		/// @param[out] Filtred matches based on redundancy or geometric relations such as epipolar constraint.
+		/// @param[in] Original keylines associated to desc_1.
+		/// @param[in] Original keylines associated to desc_2.
+		virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
+							std::vector<DescriptorMatch> & outputMatches,
+							const std::vector<Keyline> & keylines_1,
+							const std::vector<Keyline> & keylines_2) = 0;
 
 		/// @brief filter matches based fundamental matrix calculated from camera matrices
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
@@ -49,6 +61,7 @@ namespace features {
 							const Transform3Df &pose1,
 							const Transform3Df &pose2,
 							const CamCalibration &intrinsicParams) {};
+
     };
 }
 }

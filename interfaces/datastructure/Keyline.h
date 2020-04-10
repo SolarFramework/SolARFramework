@@ -99,7 +99,7 @@ public:
 
 	inline float getAngle() const { return m_angle; }
 
-	inline float response() const { return m_response; }
+	inline float getResponse() const { return m_response; }
 
 	inline int getNumOfPixels() const { return m_numOfPixels; }
 

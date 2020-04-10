@@ -8,6 +8,7 @@ HEADERS += interfaces/api/display/I2DOverlay.h \
     interfaces/api/features/IDescriptorMatcher.h \
     interfaces/api/features/IDescriptorsExtractor.h \
     interfaces/api/features/IDescriptorsExtractorSBPattern.h \
+    interfaces/api/features/IDescriptorsExtractorBinary.h \
     interfaces/api/features/IKeylineDetector.h \
     interfaces/api/features/IKeypointDetector.h \
     interfaces/api/features/IKeypointDetectorRegion.h \

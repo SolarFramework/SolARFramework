@@ -21,6 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorMatch.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -64,6 +65,16 @@ public:
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <Keypoint> & keypoints_image1, const std::vector <Keypoint> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
 
+	/// @brief draw Match Lines.
+	/// Draw all the lines joining the keylines that match between two images
+	/// @param[in] image1:  The first image on which have been extracted the first vector keylines
+	/// @param[in] image2: The second image on which have been extracted the second vector of keylines
+	/// @param[out] outImage: The resulting image merging image1 and image2 in side-by-side. If outImage has not been initialized, it will be done by this method. If it size is not the good one, it will be resized by this method.
+	/// @param[in] keylines_image1: The keylines of image1 that match with keylines of image2. The Nth keyline of this vector match with the Nth keyline of the vector points_image2.
+	/// @param[in] keylines_image2: The keylines of image2 that match with keylines of image1. The Nth keyline of this vector match with the Nth keyline of the vector points_image1.
+	/// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith line of keylines_image1 matches with the ith line of keylines_image2.
+	virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <Keyline> & keylines_image1, const std::vector <Keyline> & keylines_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>()) = 0;
+
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
     /// @param[in] image: The image to display for drawing in overlay the matches
@@ -81,7 +92,6 @@ public:
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<Image> image, SRef<Image> & outImage, const std::vector <Keypoint> & keypoints_image1, const std::vector <Keypoint> & keypoints_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>())=0;
-
 };
 }
 }
