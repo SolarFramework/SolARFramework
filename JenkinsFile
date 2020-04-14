@@ -29,7 +29,7 @@ pipeline {
      
         stage("Get Third Parties") {
              steps {
-                 getThirdParties('1.0.0')
+                 remakenInstall
              }
         }
 
