@@ -29,6 +29,7 @@
 //#include "datastructure/Keyframe.h"
 //#include "datastructure/Keypoint.h"
 //#include "datastructure/CloudPoint.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
 
@@ -120,6 +121,23 @@ public:
 	virtual double triangulate(const SRef<Keyframe>& curKeyframe,
 							   const std::vector<DescriptorMatch>&matches,
                                std::vector<CloudPoint>& pcloud) = 0;
+
+	/// @brief triangulate pairs of 2D keylines captured from two different views with their associated poses
+	/// @param[in] keylines1, set of keylines detected in the first view.
+	/// @param[in] keylines2, set of keylines detected in the second view.
+	/// @param[in] matches, the matches between the keylines detected in each view.
+	/// @param[in] pose1, camera pose of the first view.
+	/// @param[in] pose2, camera pose of the second view.
+	/// @param[out] lines3D, set of triangulated 3D lines.
+	/// @param[out] indices, set of indices to recover the 2D keylines from which the 3D line was triangulated.
+	/// @return the mean re-projection error
+	virtual double triangulate( const std::vector<Keyline> & keylines1,
+								const std::vector<Keyline> & keylines2,
+								const std::vector<DescriptorMatch> & matches,
+								const Transform3Df & pose1,
+								const Transform3Df & pose2,
+								std::vector<Edge3Df> & lines3D,
+								std::vector<int> & indices) = 0;
 };
 
 }

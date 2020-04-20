@@ -138,6 +138,36 @@ public:
 };
 
 /**
+ * @class Edge3Df
+ * @brief <B>A 3D edge with coordinates defined with floats.</B>
+ *
+ */
+class Edge3Df {
+public:
+    Edge3Df() = default;
+    Edge3Df(Point3Df point1, Point3Df point2) : p1(point1), p2(point2) {}
+    ~Edge3Df() = default;
+
+    Point3Df p1;
+    Point3Df p2;
+};
+
+/**
+ * @class Edge3Di
+ * @brief <B>A 3D edge with coordinates defined with integers.</B>
+ *
+ */
+class Edge3Di {
+public:
+    Edge3Di() = default;
+    Edge3Di(Point3Di point1, Point3Di point2) : p1(point1), p2(point2) {}
+    ~Edge3Di() = default;
+
+    Point3Di p1;
+    Point3Di p2;
+};
+
+/**
  * @typedef Contour2Df
  * @brief <B>A contours defined with 2D points with coordinates defined with floats.</B>
  *

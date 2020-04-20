@@ -56,6 +56,9 @@ public:
                                         const std::vector<CloudPoint>& points2 = {},
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
+	virtual FrameworkReturnCode display(const std::vector<Edge3Df> & lines3D,
+										const Transform3Df & pose) = 0;
+
 
 
 };
