@@ -5,6 +5,9 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
+    environment {
+        PATH = "/home/jenkins/.linuxbrew/bin:$PATH"
+    }
     parameters {
         booleanParam(name: 'RELEASE',
             defaultValue: false,
@@ -12,26 +15,22 @@ pipeline {
     }
     triggers { pollSCM('* * * * *') }    
     stages {
-
-        stage("Get Binaries") {
-            when {
-                expression { params.RELEASE == false }
-            }            
-            steps {
-                script {
-                    BRANCH = BRANCH_NAME.replace('/','_')
-                }
-                withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    getBinaries(BRANCH,USERNAME,PASSWORD)
-                }
-            }
-        }   
      
         stage("Get Third Parties") {
              steps {
-                 getThirdParties('1.0.0')
+                 script {
+                     BRANCH = BRANCH_NAME.replace('/','_')
+                     version = sh (
+                        script: "cat *.pro  | grep VERSION | head -1 | cut -d '=' -f 2",
+                        returnStdout: true
+                     )
+                     version = version.replaceAll("[\r|\n]","")
+                 }
+                 withCredentials([string(credentialsId: 'artifactoryApiKey', variable: 'apiKey')]) {
+                    installRemaken(params.RELEASE,BRANCH,apiKey)
+                 }
              }
-        }
+        }   
 
         stage("Build") {
              steps {
@@ -54,16 +53,24 @@ pipeline {
                      sh "make install"
                  }
              }
-        }        
+        }      
+
+        stage("Generate artifacts") {
+            steps {
+                script {
+                     prepareRelease("SolARBuild","linux-gcc","SolARFramework")  
+                }
+            }
+        }  
 
         // Trigger only if not a RELEASE
-        stage("Share Binaries") {
+        stage("Upload to Artifactory") {
             when {
                 expression { params.RELEASE == false }
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    shareBinaries(BRANCH,USERNAME,PASSWORD)
+                    uploadArchive(BRANCH,"SolARFramework/${version}/linux","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip",USERNAME,PASSWORD)
                 }
             }
         }
@@ -74,15 +81,7 @@ pipeline {
             when {
                 expression { params.RELEASE == true }
             }
-            steps {
-                script {
-                    version = sh (
-                        script: "cat *.pro  | grep VERSION | head -1 | cut -d '=' -f 2",
-                        returnStdout: true
-                    )
-                    version = version.replace("\n","")
-                }                
-                prepareRelease("SolARBuild","linux-gcc","SolARFramework")                
+            steps {                          
                 withCredentials([string(credentialsId: 'github-token', variable: 'token')]) {
                     release("SolARFramework","SolARFramework/${version}/linux","SolARFramework Version ${version} for Linux","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARFramework_${version}_x86_64_shared_debug.zip",token);
                 }
