@@ -5,6 +5,9 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
+    environment {
+        PATH = "/home/jenkins/.linuxbrew/bin:$PATH"
+    }
     parameters {
         booleanParam(name: 'RELEASE',
             defaultValue: false,
