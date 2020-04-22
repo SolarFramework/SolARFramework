@@ -5,10 +5,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-    environment {
-        PATH = "/home/.linuxbrew/bin:$PATH"
-        LD_LIBRARY_PATH = "/home/.linuxbrew/Cellar/python@3.8/3.8.2_1/lib:$LD_LIBRARY_PATH"
-    }
     parameters {
         booleanParam(name: 'RELEASE',
             defaultValue: false,
@@ -35,11 +31,9 @@ pipeline {
 
         stage("Build") {
              steps {
-                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
                      sh "qmake SolARFramework.pro "
                      sh "make"
                      sh "make install"
-                 }
              }
         }
 
@@ -48,11 +42,9 @@ pipeline {
                 expression { params.RELEASE == true }
             }            
              steps {
-                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
                      sh "qmake SolARFramework.pro CONFIG+=debug"
                      sh "make"
                      sh "make install"
-                 }
              }
         }      
 
