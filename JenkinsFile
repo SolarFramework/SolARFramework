@@ -5,9 +5,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-    environment {
-        PATH = "/home/jenkins/.linuxbrew/bin:$PATH"
-    }
     parameters {
         booleanParam(name: 'RELEASE',
             defaultValue: false,
@@ -20,11 +17,7 @@ pipeline {
              steps {
                  script {
                      BRANCH = BRANCH_NAME.replace('/','_')
-                     version = sh (
-                        script: "cat *.pro  | grep VERSION | head -1 | cut -d '=' -f 2",
-                        returnStdout: true
-                     )
-                     version = version.replaceAll("[\r|\n]","")
+                     version = getVersion()
                  }
                  withCredentials([string(credentialsId: 'artifactoryApiKey', variable: 'apiKey')]) {
                     installRemaken(params.RELEASE,BRANCH,apiKey)
@@ -34,11 +27,7 @@ pipeline {
 
         stage("Build") {
              steps {
-                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
-                     sh "qmake SolARFramework.pro "
-                     sh "make"
-                     sh "make install"
-                 }
+                buildModule("")                   
              }
         }
 
@@ -47,11 +36,7 @@ pipeline {
                 expression { params.RELEASE == true }
             }            
              steps {
-                 withEnv(['REMAKEN_RULES_ROOT=/home/jenkins/.remaken/rules/']) {
-                     sh "qmake SolARFramework.pro CONFIG+=debug"
-                     sh "make"
-                     sh "make install"
-                 }
+                buildModule("debug")                   
              }
         }      
 
