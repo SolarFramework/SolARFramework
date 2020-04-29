@@ -57,10 +57,9 @@ public:
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
 
 	virtual FrameworkReturnCode display(const std::vector<Edge3Df> & lines3D,
-										const Transform3Df & pose) = 0;
-
-
-
+										const Transform3Df & pose,
+										const std::vector<Transform3Df> & refinedPoses = {},
+										const std::vector<Edge3Df> & refinedLines3D = {}) = 0;
 };
 }
 }
