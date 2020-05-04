@@ -20,7 +20,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
-#include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -30,11 +30,12 @@ namespace devices {
 
 /**
  * @class ICamera
- * @brief Specify the ICamera interface class.
+ * @brief <B>Grabs images captured in real-time by a video camera.</B>
+ * <TT>UUID: 5ddc7df0-8377-437f-9c81-3643f7676a5b</TT>
  *
  * This class describes the interface of a camera capture device.
  */
-class ICamera : public virtual org::bcom::xpcf::IComponentIntrospect {
+class ICamera : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief Specify the ICamera constructor class
     ICamera() = default;
@@ -55,7 +56,7 @@ public:
     virtual FrameworkReturnCode stop()=0;
         
     /// @brief Set the acquisition device image resolution
-    virtual void setResolution(Sizei resolution) = 0;
+    virtual void setResolution(const Sizei & resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
     virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
@@ -63,14 +64,20 @@ public:
     /// @brief Set the distorsion intrinsic camera parameters
     virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
 
+    /// @brief Set the distorsion intrinsic camera parameters
+    virtual void setParameters(const CameraParameters & parameters) =0;
+
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual CamCalibration getIntrinsicsParameters() = 0;
+    virtual const CamCalibration & getIntrinsicsParameters() = 0;
+
+    /// @return Return the camera parameters
+    virtual const CameraParameters & getParameters() = 0;
     
     /// @return Return the distorsion camera lens parameters
-    virtual CamDistortion getDistorsionParameters() = 0;
+    virtual const CamDistortion & getDistorsionParameters() = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
@@ -83,7 +90,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::ICamera,
-                             "5DDC7DF0-8377-437F-9C81-3643F7676A5B",
+                             "5ddc7df0-8377-437f-9c81-3643f7676a5b",
                              "ICamera",
                              "SolAR::ICamera interface");
 

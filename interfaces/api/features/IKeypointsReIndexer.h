@@ -31,9 +31,10 @@ namespace features {
 
 /**
  * @class IKeypointsReIndexer
- * @brief Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.
+ * @brief <B>Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.</B>
+ * <TT>UUID: 920e64a2-df17-11e7-80c1-9a214cf093ae</TT>
  */
-class  IKeypointsReIndexer : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IKeypointsReIndexer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeypointsReIndexer default constructor
     IKeypointsReIndexer() = default;
@@ -48,7 +49,11 @@ public:
     /// @param[out] matchedKeypoints1 The keypoints from the first set that match with one or more keypoints of the second set of keypoints. The nth point of this set match with the nth point of the second set matchedKeypoints2.
     /// @param[out] matchedKeypoints2 The keypoints from the second set that match with one or more keypoints of the first set of keypoints. The nth point of this set match with the nth point of the first set matchedKeypoints1.
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode reindex(const std::vector<SRef<Keypoint>>& keypoints1, const std::vector<SRef<Keypoint>>& keypoints2, std::vector<DescriptorMatch>& matches, std::vector<SRef<Point2Df>>& matchedKeypoints1, std::vector<SRef<Point2Df>>& matchedKeypoints2) = 0;
+    virtual FrameworkReturnCode reindex(const std::vector<Keypoint> & keypoints1,
+                                        const std::vector<Keypoint> & keypoints2,
+                                        const std::vector<DescriptorMatch> & matches,
+                                        std::vector<Point2Df> & matchedKeypoints1,
+                                        std::vector<Point2Df> & matchedKeypoints2) = 0;
 
 };
 

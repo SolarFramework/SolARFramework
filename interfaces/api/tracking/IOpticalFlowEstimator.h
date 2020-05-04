@@ -30,12 +30,13 @@ namespace tracking {
 
 /**
  * @class IOpticalFlowEstimator Estimator
- * @brief component interface to estimate the optical flow between two images
+ * @brief <B>Estimates the optical flow between two images.</B>
+ * <TT>UUID: 3c74cd7f-950c-43ee-8886-9f4ddf763c27</TT>
  *
  * This interface is defined to implement components to estimate the optical flow between two images.
  */
 
-class  IOpticalFlowEstimator : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IOpticalFlowEstimator : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IOpticalFlow default constructor
    IOpticalFlowEstimator() = default;
@@ -46,20 +47,22 @@ public:
    /// @brief estimate the optical flow between two images
    /// @param[in] previousImage The previous image
    /// @param[in] currentImage The current image for which we want to estimate the optical flow relative to the previous image
-   /// @param[in] pointsToTrack The pixels to track in the previous image
+   /// @param[in] pointsToTrack KEYPOINTS The pixels to track in the previous image
    /// @param[out] trackedPoints The position of the pointsToTrack in the current image
    /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<Keypoint>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
+   /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<Keypoint> & pointsToTrack, std::vector<Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
    /// @brief estimate the optical flow between two images
    /// @param[in] previousImage The previous image
    /// @param[in] currentImage The current image for which we want to estimate the optical flow relative to the previous image
-   /// @param[in] pointsToTrack The pixels to track in the previous image
+   /// @param[in] pointsToTrack POINT2DF The pixels to track in the previous image
    /// @param[out] trackedPoints The position of the pointsToTrack in the current image
    /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<SRef<Point2Df>> & pointsToTrack, std::vector<SRef<Point2Df>> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
+   /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<Point2Df> & pointsToTrack, std::vector<Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
 
 };

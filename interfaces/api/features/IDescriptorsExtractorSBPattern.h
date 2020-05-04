@@ -30,11 +30,12 @@ namespace api {
 namespace features {
 /**
  * @class IDescriptorsExtractorSBPattern
- * @brief extracts descriptors from a squared binary pattern or from an image of a squared binary pattern
+ * @brief <B>Extracts descriptors from a squared binary pattern or from an image of a squared binary pattern.</B>
+ * <TT>UUID: 2e2bde18-ce39-11e7-abc4-cec278b6b50a</TT>
  *
  * This class provides a method to extract descriptors of a squared binary pattern by simply concatenating pattern rows in a single vector.
  */
-class  IDescriptorsExtractorSBPattern : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  IDescriptorsExtractorSBPattern : virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:
    /// @brief IDescriptorsExtractorSBPattern default constructor
@@ -49,13 +50,17 @@ public:
    /// @param[out] descriptors The descriptors of the squared binary pattern recognized in the images.
    /// @param[out] outContours The contours in the original image of recognized squared binary pattern. The nth contour corresponds to the nth descriptors of the third attribute representing a recognized squared binary pattern extracted from the original image.
    /// @return FrameworkReturnCode::_SUCCESS_ if the extraction succeed, else FrameworkReturnCode::_ERROR.
-   virtual FrameworkReturnCode extract(const std::vector<SRef<Image>>& images, const std::vector<SRef<Contour2Df>>& inContours, SRef<DescriptorBuffer> & descriptors, std::vector<SRef<Contour2Df>> & outContours) = 0;
+   virtual FrameworkReturnCode extract(const std::vector<SRef<Image>> & images,
+                                       const std::vector<Contour2Df> & inContours,
+                                       SRef<DescriptorBuffer> & descriptors,
+                                       std::vector<Contour2Df> & outContours) = 0;
 
    /// @brief Extracts the descriptors of a squared binary patterns
    /// @param[in] pattern The squared binary pattern for which we want to extract its descriptor
    /// @param[out] descriptor The descriptor extracted from the squared binary pattern. The descriptor of a squared binary pattern is simply the concatenation of the rows of the pattern matrix.
    /// @return FrameworkReturnCode::_SUCCESS_ if the extraction succeed, else FrameworkReturnCode::_ERROR.
-   virtual FrameworkReturnCode extract(const SRef<SquaredBinaryPattern> pattern, SRef<DescriptorBuffer> & descriptor) = 0;
+   virtual FrameworkReturnCode extract(const SquaredBinaryPattern & pattern,
+                                       SRef<DescriptorBuffer> & descriptor) = 0;
 
 };
 

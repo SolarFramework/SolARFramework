@@ -29,10 +29,11 @@ namespace geom {
 
 /**
  * @class I2DTransform
- * @brief provides a method to apply a 2D transformation (e.g. an homography) to a set of 2D points
+ * @brief <B>Applies a 2D transformation (e.g. an homography) to a set of 2D points.</B>
+ * <TT>UUID: dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f</TT>
  */
 
-class I2DTransform : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I2DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DTransform default constructor
     I2DTransform() = default;
@@ -45,7 +46,9 @@ public:
     /// @param[in] transformation the 2D transformation to apply (a 3x3 float matrix)
     /// @param[out] outputPoints the resulting set of 2D points after transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<SRef<Point2Df>> & inputPoints, const Transform2Df transformation, std::vector<SRef<Point2Df>> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<Point2Df> & inputPoints,
+                                          const Transform2Df & transformation,
+                                          std::vector<Point2Df> & outputPoints) = 0;
 
 };
 

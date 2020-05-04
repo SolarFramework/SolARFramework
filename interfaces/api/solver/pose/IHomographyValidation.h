@@ -28,9 +28,12 @@ namespace api {
 namespace solver {
 namespace pose {
 
-/// @class IHomographyValidation
-
-class  IHomographyValidation : public virtual org::bcom::xpcf::IComponentIntrospect {
+/**
+  * @class IHomographyValidation
+  * @brief <B>Tests if a homography is valid.</B>
+  * <TT>UUID: e95e8f70-dd32-11e7-9296-cec278b6b50a</TT>
+  */
+class  IHomographyValidation : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IHomographyValidation default constructor
     IHomographyValidation() = default;
@@ -41,8 +44,8 @@ public:
     /// @brief evaluate the homography according to the projection of the 4 corners of a 2D squared Marker
     /// @param[in] Set of 2d_points of the corners in the template view.
     /// @param[in] Set of 2d_points of the corners projected in the current view.
-    virtual bool isValid(const std::vector<SRef<Point2Df>>& ref2DSquaredMarkerCorners,
-                         const std::vector<SRef<Point2Df>>& projected2DSquaredMarkerCorners) = 0;
+    virtual bool isValid(const std::vector<Point2Df> & ref2DSquaredMarkerCorners,
+                         const std::vector<Point2Df> & projected2DSquaredMarkerCorners) = 0;
 };
 
 }

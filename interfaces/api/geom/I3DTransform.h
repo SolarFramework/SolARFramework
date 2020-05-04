@@ -29,10 +29,11 @@ namespace geom {
 
 /**
  * @class I3DTransform
- * @brief provides a method to apply a 3D transformation (e.g. an affine transformation) to a set of 3D points
+ * @brief <B>Applies a 3D transformation (e.g. an affine transformation) to a set of 3D points.</B>
+ * <TT>UUID: 9c1052b2-46c0-467b-8363-36f19b6b445f</TT>
  */
 
-class I3DTransform : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I3DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DTransform default constructor
     I3DTransform() = default;
@@ -45,7 +46,9 @@ public:
     /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<SRef<Point3Df>> & inputPoints, const Transform3Df transformation, std::vector<SRef<Point3Df>> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<Point3Df> & inputPoints,
+                                          const Transform3Df & transformation,
+                                          std::vector<Point3Df> & outputPoints) = 0;
 };
 
 }

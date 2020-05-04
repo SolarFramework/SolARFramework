@@ -20,17 +20,17 @@
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()){}
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_kpVisibility(frame->getVisibleKeypoints()), m_mapVisibility(frame->getVisibleMapPoints()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()) {
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibleMapPoints()) {
 	int nKeypoints = keyframe->getKeypoints().size();
 	for (int i = 0; i < nKeypoints; i++)
 		m_kpVisibility[i] = i;
 }
 
-Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
 
-Frame::Frame(const std::vector<SRef<Keypoint>> keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
 
 SRef<Image>  Frame::getView()
 {
@@ -39,46 +39,72 @@ SRef<Image>  Frame::getView()
 
 Transform3Df Frame::getPose()
 {
+	std::unique_lock<std::mutex> lock(m_mutexPose);
     return m_pose;
 }
 
-void Frame::setPose(Transform3Df& pose)
+void Frame::setPose(const Transform3Df & pose)
 {
+	std::unique_lock<std::mutex> lock(m_mutexPose);
     m_pose = pose;
 }
 
-void Frame::setKeypoints( std::vector<SRef<Keypoint>>& kpts){
+void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     m_keypoints  = kpts;
 }
 
-SRef<DescriptorBuffer> Frame::getDescriptors() const
+SRef<DescriptorBuffer> Frame::getDescriptors()
 {
     return m_descriptors;
 }
 
-std::vector<SRef<Keypoint>> Frame::getKeypoints() const
+const std::vector<Keypoint> & Frame::getKeypoints()
 {
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     return m_keypoints;
 }
 
 void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
 {
+	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     m_referenceKeyFrame = keyframe;
 }
 
 SRef<Keyframe> Frame::getReferenceKeyframe()
 {
+	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     return m_referenceKeyFrame;
 }
 
-std::map<unsigned int, unsigned int> Frame::getVisibleKeypoints()
+const std::map<unsigned int, unsigned int> & Frame::getVisibleKeypoints()
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleKeypoint);
 	return m_kpVisibility;
 }
 
 void Frame::addVisibleKeypoints(const std::map<unsigned int, unsigned int>& kpVisibility)
 {
+	std::unique_lock<std::mutex> lock(m_mutexVisibleKeypoint);
 	m_kpVisibility.insert(kpVisibility.begin(), kpVisibility.end());
+}
+
+void Frame::addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints)
+{
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
+	m_mapVisibility.insert(mapPoints.begin(), mapPoints.end());
+}
+
+void Frame::addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint)
+{
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
+	m_mapVisibility[id_keypoint] = id_cloudPoint;
+}
+
+const std::map<unsigned int, unsigned int> & Frame::getVisibleMapPoints()
+{
+	std::unique_lock<std::mutex> lock(m_mutexVisibleMapPoint);
+	return m_mapVisibility;
 }
 
 }

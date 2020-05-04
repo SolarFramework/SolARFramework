@@ -33,12 +33,13 @@ namespace source {
 
 /**
  * @class ISourceImage
- * @brief A Source for an image, useful for AR video see-through pipelines.
+ * @brief <B>A Source for an image, useful for AR video see-through pipelines.</B>
+ * <TT>UUID: 06e2fc5d-39da-4486-b2a6-1d8bd788fa13</TT>
  *
- * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
+ * This interface allows to link a texture buffer from a third party to our pipeline
  */
 
-class  ISourceImage : public virtual org::bcom::xpcf::IComponentIntrospect {
+class  ISourceImage : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 
    ISourceImage() = default;
@@ -48,16 +49,17 @@ public:
    ///
    virtual ~ISourceImage() = default;
 
-   /// @brief Set a new image without pose.
-   /// @param[in,out] image The new image , source of the pipeline.
-   virtual SourceReturnCode setInputTexture( void* sourceTextureHandle, int with, int height ) = 0;
+   /// @brief Set a new image coming from a third party.
+   /// @param [in] sourceTexturehandle. Texture buffer from third party like Unity
+   /// @param [in] width of the image coming from the third party like Unity
+   /// @param [in] height of the image coming from the third party like Unity
+   /// @return SourceReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_
+   virtual SourceReturnCode setInputTexture(const void* sourceTexturehandle,const int width,const int height) = 0;
 
-   /// @brief Provide an access to the new image and pose  made available by t the pipeline.
-   /// The implementation of this interface must be thread safe
-   /// @param[in] pose the new pose made available by the pipeline.
-   /// @param[in,out] image The new image made available by the pipeline.
-   /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SourceReturnCode getNextImage(SRef<Image>& image ) = 0;
+   /// @brief Get a pointer to the texture buffer to update it with the new image when required.
+   /// @param[in,out] image
+   /// @return SourceReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_
+   virtual SourceReturnCode getNextImage(SRef<Image> & image) = 0;
 
 };
 

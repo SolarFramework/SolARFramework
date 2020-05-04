@@ -26,13 +26,22 @@ using namespace datastructure;
 namespace api {
 namespace image {
 
-class IImageFilter : public virtual org::bcom::xpcf::IComponentIntrospect {
+/**
+  * @class IImageFilter
+  * @brief <B>Applies a filter to an image.</B>
+  * <TT>UUID: f7948ae2-e994-416f-be40-dd404ca03a83</TT>
+  *
+  */
+class IImageFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
     virtual ~IImageFilter() = default;
 
-    virtual FrameworkReturnCode filter(const SRef<Image>input, SRef<Image>& output) = 0;
-
+    /// @brief This method filters an image source to an image destination.
+    /// @param[in] imgSrc input image to filter
+    /// @param[out] imgDst output image filtred
+    /// @return FrameworkReturnCode::_SUCCESS_ id filtering succeed, else FrameworkReturnCode::_ERROR.   
+    virtual FrameworkReturnCode filter(const SRef<Image> input, SRef<Image> & output) = 0;
 };
 
 }

@@ -37,39 +37,42 @@ namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace features {
-///
-/// \brief KeypointDetectorType enum
-/// This enum is used to define the type of an IKeypointDetector object
-///
-    enum class KeypointDetectorType {
-		SURF,
-		ORB,
-		SIFT,
-		DAISY,
-		LATCH,
-		AKAZE,
-		AKAZE2,
-		AKAZEUP,
-		BRISK,
-		BRIEF,
-        FEATURE_TO_TRACK
-	};
+
 
 
 /**
  * @class IKeypointDetector
- * @brief detects the keypoints from an image
+ * @brief <B>Detects the keypoints from an image.</B>
+ * <TT>UUID: 0eadc8b7-1265-434c-a4c6-6da8a028e06e</TT>
  *
  * This class provides a method to detect the keypoint from an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class  IKeypointDetector : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IKeypointDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:
+    ///
+    /// \brief KeypointDetectorType enum
+    /// This enum is used to define the type of an IKeypointDetector object
+    ///
+        enum class KeypointDetectorType {
+            SURF,
+            ORB,
+            SIFT,
+            DAISY,
+            LATCH,
+            AKAZE,
+            AKAZE2,
+            AKAZEUP,
+            BRISK,
+            BRIEF,
+            FEATURE_TO_TRACK
+        };
+
     /// @brief IKeypointDetector default constructor
     IKeypointDetector() = default;
 
     /// @brief IKeypointDetector default destructor
-    virtual ~IKeypointDetector() {};
+    virtual ~IKeypointDetector() = default;
 
     /// @brief Set the type of method used to detect keypoints in the image
     /// @param[in] type The type of method used to detect keypoints.
@@ -82,7 +85,7 @@ public:
     /// @brief This method detects keypoints in an input Image
     /// @param[in] image input image on which we are extracting keypoints.
     /// @param[out] keypoints The keypoints detected from the image passed as first argument.
-    virtual void detect (const SRef<Image> &image, std::vector<SRef<Keypoint>> &keypoints) = 0;
+    virtual void detect (const SRef<Image> image, std::vector<Keypoint> & keypoints) = 0;
 
 };
 

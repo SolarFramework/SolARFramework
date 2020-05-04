@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/** @file */
+
 #ifndef SOLAR_MATHSDEFINITIONS_H
 #define SOLAR_MATHSDEFINITIONS_H
 
@@ -33,58 +35,69 @@ template <class T, int Rows, int Cols, int ColOrRowMajor =Eigen::RowMajor>
 //using Matrix = Maths::Matrix<T, Rows, Cols, Eigen::RowMajor>;
 using Matrix = Maths::Matrix<T,Rows,Cols,ColOrRowMajor>;
 
-typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> ProjectionMatrix ;
-typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> RotationMatrixf;
-
-// Camera intrinsic parameters defined with a 3x3 matrix
-// f_x  0  c_x
-//  0  f_y c_y
-//  0   0   1
-// Where c_x and c_y define the optical center, f_x and f_y the focal.
-typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> CamCalibration;
-
-
-// Camera distortion parameter (K1, K2, P1, P2, K3)
-// see openCV Camera Calibration reference for more details.
-typedef Maths::Matrix<float, 5, 1> CamDistortion;
-
-//Pose matrix definition               Vector defintion
-//
-//  R1x1    R1x2    R1x3    Tx         | X |
-//  R2x1    R2x2    R2x3    Ty     *   | Y |
-//  R3x1    R3x2    R3x3    Tz         | Z |
-//  0       0       0       1          | 1 |
-//
-// This defintion avoids to apply a tranpose...
-
-typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
-
-
 template <class T, int Rows>
 using Vector = Maths::Matrix<T,Rows,1>;
 
-typedef Maths::Vector4f Vector4f ;
+/**
+ * @typedef Vector4f
+ * @brief <B>A vector of 4 floats.</B>
+ */
+typedef Maths::Vector4f Vector4f;
+
+/**
+ * @typedef Vector3f
+ * @brief <B>A vector of 3 floats.</B>
+ */
 typedef Maths::Vector3f Vector3f;
+
+/**
+ * @typedef Vector3d
+ * @brief <B>A vector of 3 doubles.</B>
+ */
 typedef Maths::Vector3d Vector3d;
 
 
 template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
 
-template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Projective, int ColOrRowMajor =Eigen::RowMajor>
-using Transform = Maths::Transform<T,Dim,Maths::Projective,Eigen::RowMajor>;
+template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Affine, int ColOrRowMajor =Eigen::RowMajor>
+using Transform = Maths::Transform<T,Dim,TransformType,ColOrRowMajor>;
+
+/**
+ * @typedef Transform3Df
+ * @brief <B>A transform in 3D space.</B>
+ */
 typedef Transform<float,3> Transform3Df;
+
+/**
+ * @typedef Transform2Df
+ * @brief <B>A transform in 2D space.</B>
+ */
 typedef Transform<float,2> Transform2Df;
 
 
 template <class T, int Dim>
 using Translation = Maths::Translation<T, Dim>;
+/**
+ * @typedef Translation3Df
+ * @brief <B>A translation in 3D space defined with floats.</B>
+ */
 typedef Translation<float,3> Translation3Df;
+
+/**
+ * @typedef Translation2Df
+ * @brief <B>A translation in 2D space defined with floats.</B>
+ */
 typedef Translation<float,2> Translation2Df;
 
 
 template <class T>
 using Quaternion = Maths::Quaternion<T>;
+
+/**
+ * @typedef Quaternionf
+ * @brief <B>Quaternion defined with floats.</B>
+ */
 typedef Quaternion<float> Quaternionf;
 
 }

@@ -20,7 +20,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/CloudPoint.h"
 
 namespace SolAR {
@@ -30,10 +30,11 @@ namespace geom {
 
 /**
  * @class IProject
- * @brief provides a method to project 3D points on the 2D image plane
+ * @brief <B>Projects 3D points on a 2D image plane.</B>
+ * <TT>UUID: b485f37d-a8ea-49f6-b361-f2b30777d9ba</TT>
  */
 
-class IProject : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IProject : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IProjection default constructor
     IProject() = default;
@@ -51,14 +52,18 @@ public:
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode project(const std::vector<SRef<Point3Df>> & inputPoints, std::vector<SRef<Point2Df>> & imagePoints, const Transform3Df& pose = Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode project(const std::vector<Point3Df> & inputPoints,
+                                        std::vector<Point2Df> & imagePoints,
+                                        const Transform3Df& pose = Transform3Df::Identity()) = 0;
 
     /// @brief This method project a set of 3D cloud points in the image plane
     /// @param[in] inputPoints the set of 3D cloud points to project
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode project(const std::vector<SRef<CloudPoint>> & inputPoints, std::vector<SRef<Point2Df>> & imagePoints, const Transform3Df& pose = Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode project(const std::vector<CloudPoint> & inputPoints,
+                                        std::vector<Point2Df> & imagePoints,
+                                        const Transform3Df& pose = Transform3Df::Identity()) = 0;
 
 
 };

@@ -30,9 +30,12 @@
 namespace SolAR {
 namespace datastructure {
 
-///
-/// \brief The Keypoint class
-///
+/**
+ * @class Keypoint
+ * @brief <B>A 2D Keypoint.</B>.
+ *
+ * This class provides Keypoint definition.
+ */
     class  SOLARFRAMEWORK_API Keypoint : public Point2Df {
 	public:
         Keypoint() = default;

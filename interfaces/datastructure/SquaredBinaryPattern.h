@@ -28,8 +28,8 @@ typedef Maths::Matrix<bool,Maths::Dynamic,Maths::Dynamic> SquaredBinaryPatternMa
 
 /**
 * @class SquaredBinaryPattern
-* @brief Specifies the SquaredBinaryPattern base class.
-
+* @brief <B>A SquaredBinaryPattern defined with a binary regular grid.</B>
+*
 */
 class SOLARFRAMEWORK_API SquaredBinaryPattern {
 
@@ -38,7 +38,7 @@ public:
     SquaredBinaryPattern() = default;
 
     /// \brief constructs a SquaredBinaryPattern from a given SquaredBinaryPatternMatrix
-    SquaredBinaryPattern (SquaredBinaryPatternMatrix pattern): m_patternMatrix(pattern){};
+    SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
 
     /// \brief defines the destructor
     ~SquaredBinaryPattern() = default;
