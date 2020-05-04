@@ -48,6 +48,9 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/storage/IKeyframesStorage.h \
+interfaces/api/storage/IPointCloudStorage.h \
+interfaces/api/storage/IVisibilityStorage.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
