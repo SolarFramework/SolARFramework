@@ -9,6 +9,9 @@ pipeline {
         booleanParam(name: 'RELEASE',
             defaultValue: false,
             description: 'Create a Release')
+        booleanParam(name: 'PRE_RELEASE',
+            defaultValue: false,
+            description: 'Create a Pre Release' )             
     }
     triggers { pollSCM('* * * * *') }    
     stages {
@@ -33,7 +36,7 @@ pipeline {
 
         stage("Build Debug") {
             when {
-                expression { params.RELEASE == true }
+                expression { params.RELEASE == true || params.PRE_RELEASE == true }
             }            
              steps {
                 buildModule("debug")                   
@@ -51,7 +54,7 @@ pipeline {
         // Trigger only if not a RELEASE
         stage("Upload to Artifactory") {
             when {
-                expression { params.RELEASE == false }
+                expression { params.RELEASE == false & params.PRE_RELEASE == false }
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'bc6e150e-ede8-4e35-8af4-0f037edee8ac', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
@@ -59,7 +62,17 @@ pipeline {
                 }
             }
         }
-        
+
+        stage("Pre-Release") {
+            when {
+                expression { params.PRE_RELEASE == true }
+            }
+            steps {                
+                withCredentials([string(credentialsId: 'github-token', variable: 'token')]) {
+                    preRelease("SolARFramework","SolARFramework/${version}/linux","SolARFramework Version ${version} for Linux","${WORKSPACE}/artifactory/x86_64_shared_release/SolARFramework_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARFramework_${version}_x86_64_shared_debug.zip",token);
+                }
+            }   
+        }    
 
 
         stage("Release") {
