@@ -171,7 +171,7 @@ public:
     /// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
     /// @param[in] keypoint_id: the id of the keypoint of the keyframe
 	///
-    void visibilityAddKeypoint(uint32_t keyframe_id, uint32_t keypoint_id);
+    void addVisibility(uint32_t keyframe_id, uint32_t keypoint_id);
 
 	///
 	/// @brief remove a keypoint to the visibility map of the CloudPoint

@@ -43,54 +43,102 @@ public:
     /// @brief ~Frame
     ~Frame() = default;
 
+	///
+	/// @brief return view image
+	///
     SRef<Image> getView();
 
+	///
+	/// @brief return camera pose
+	///
     Transform3Df getPose();
 
+	///
+	/// @brief set pose
+	/// @param[in] pose: camera pose
+	///
     void setPose(const Transform3Df & pose);
+
+	///
+	/// @brief return keypoints
+	///
+	const std::vector<Keypoint> & getKeypoints();
+
+	///
+	/// @brief set keypoints
+	/// @param[in] kpts: keypoints
+	///
     void setKeypoints(const std::vector<Keypoint>& kpts);
+
+	///
+	/// @brief set reference keyframe
+	/// @param[in] keyframe: reference keyframe
+	///
     void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
+	///
+	/// @brief return reference keyframe
+	///
     SRef<Keyframe> getReferenceKeyframe();
 
+
+	///
+	/// @brief return descriptors
+	///
     SRef<DescriptorBuffer> getDescriptors();
 
-    const std::vector<Keypoint> & getKeypoints();
+	///
+	/// @brief set descriptors
+	/// @param[in] descriptors: descriptors
+	///
+	void setDescriptors(SRef<DescriptorBuffer> &descriptors);
 
-	// @brief: Get all visible keypoints of the refKeyframe
-    const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
+	///
+	/// @brief Get all cloud point visibilities
+	///
+	const std::map<uint32_t, uint32_t> & getVisibility();
 
-	// @brief: Add visible keypoint of refKeyframe to frame
-    void addVisibleKeypoints(const std::map<unsigned int, unsigned int> & kpVisibility);
+	///
+	/// @brief set visibility
+	/// @param[in] visibilities: a map of cloud pont visibilities, the first element is keypoint id, the second one is cloud point id
+	///
+	void setVisibility(const std::map<uint32_t, uint32_t> &visibilities);
 
-	// @brief: Add visible cloud point to frame
-	void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
+	///
+	/// @brief Add cloud point visibilities to frame
+	/// @param[in] visibilites: a map of cloud pont visibilities, the first element is keypoint id, the second one is cloud point id
+	void addVisibilities(const std::map<uint32_t, uint32_t>& visibilites);
 
-	// @brief: Add visible of a cloud point to frame
-	void addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint);
+	///
+	/// @brief Add a cloud point visibility to frame
+	/// @param[in] id_keypoint: id of keypoint
+	/// @param[in] id_cloudPoint: id of cloud point
+	///
+	void addVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint);
 
-	// @brief: Get all visible cloud point
-	const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
+	///
+	/// @brief Remove a visibility
+	/// @param[in] id_keypoint: id of keypoint
+	/// @param[in] id_cloudPoint: id of cloud point
+	/// @return true if remove successfully
+	///
+	bool removeVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint);
 
 protected:
-    ///@brief pose of current frame
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<Keypoint>			m_keypoints ;
 
-	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
-	std::map<unsigned int, unsigned int> m_mapVisibility;
-
-	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the keypoint of the reference keyframe.
-	std::map<unsigned int, unsigned int > m_kpVisibility;
+	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
+	std::map<uint32_t, uint32_t>	m_mapVisibility;
 
 	std::mutex						m_mutexPose;
 	std::mutex						m_mutexKeypoint;
 	std::mutex						m_mutexReferenceKeyframe;
-	std::mutex						m_mutexVisibleKeypoint;
-	std::mutex						m_mutexVisibleMapPoint;
+	std::mutex						m_mutexDescriptors;
+	std::mutex						m_mutexVisibility;
 
 };
 

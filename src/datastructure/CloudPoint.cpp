@@ -37,7 +37,7 @@ namespace SolAR {
 		return m_visibility;
 	}
 
-	void CloudPoint::visibilityAddKeypoint(uint32_t keyframe_id, uint32_t keypoint_id) {
+	void CloudPoint::addVisibility(uint32_t keyframe_id, uint32_t keypoint_id) {
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_visibility[keyframe_id] = keypoint_id; 
 	}
