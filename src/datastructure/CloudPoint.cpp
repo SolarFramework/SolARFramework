@@ -18,37 +18,39 @@
 #include "datastructure/Keyframe.h"
 #include <cstddef> //TO DO: remove with a complete implementation
 
-std::mutex						m_mutex;
-
 namespace SolAR {
     namespace datastructure {
 
     CloudPoint::~CloudPoint(){
-
+		
     }
 
-    CloudPoint::CloudPoint( float x,
-                            float y,
-                            float z,
-                            float r,
-                            float g,
-                            float b,
-                            double reproj_error,
-                            std::map<unsigned int, unsigned int> &visibility): Point3Df(x,y,z),m_r(r),m_g(g),m_b(b), m_reproj_error(reproj_error),
-                                                          m_visibility(visibility) {
-    }
-	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-		Point3Df(x, y, z), m_r(r), m_g(g), m_b(b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){
+	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, std::map<unsigned int, unsigned int>& visibility) :
+		Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_visibility(visibility) {
 	}
 
-	const std::map<unsigned int, unsigned int>& CloudPoint::getVisibility() const {
+	CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
+		Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_visibility(visibility), m_descriptor(descriptor){}
+
+	const std::map<uint32_t, uint32_t>& CloudPoint::getVisibility() {
 		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_visibility;
 	}
 
-	void CloudPoint::visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id) { 
+	void CloudPoint::visibilityAddKeypoint(uint32_t keyframe_id, uint32_t keypoint_id) {
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_visibility[keyframe_id] = keypoint_id; 
-	};
+	}
+	bool CloudPoint::removeVisibility(uint32_t keyframe_id, uint32_t keypoint_id)
+	{
+		std::unique_lock<std::mutex> lock(m_mutex);
+		if (m_visibility.find(keyframe_id) == m_visibility.end())
+			return false;
+		else {
+			m_visibility.erase(keyframe_id);
+			return true;
+		}
+	}
+	;
   }
 }

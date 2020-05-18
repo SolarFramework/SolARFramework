@@ -64,9 +64,9 @@ interfaces/datastructure/Image.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Frame.h \
-interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
+interfaces/datastructure/PrimitiveInformation.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
@@ -93,5 +93,4 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Keyframe.cpp \
-    src/datastructure/CloudPoint.cpp \
-    src/datastructure/Map.cpp
+    src/datastructure/CloudPoint.cpp
