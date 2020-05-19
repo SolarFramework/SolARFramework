@@ -49,12 +49,13 @@ interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
 interfaces/api/storage/IKeyframesStorage.h \
-interfaces/api/storage/IPointCloudStorage.h \
+interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IVisibilityStorage.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
 interfaces/datastructure/Identification.h \
+interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
