@@ -22,6 +22,7 @@
 #include "datastructure/CloudPoint.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/DescriptorBuffer.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -29,8 +30,8 @@ namespace api {
 namespace storage {
 
 /**
- * @class IPointCloudStorage
- * @brief Allows to store a set of keyframes. This storage component can be accessed by processing components to share persistent data.
+ * @class IPointCloudManager
+ * @brief Allows to store a point cloud. This storage component can be accessed by processing components to share persistent data.
 
  */
 
@@ -88,6 +89,14 @@ public:
 	/// @param[in] the vector of ids of the point to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode suppressPoints(std::vector<uint32_t> &ids) = 0;
+
+	/// @brief This method allows to get the descriptor type used to extract descriptor for each cloud point
+	/// @return Descriptor type
+	virtual DescriptorType getDescriptorType() = 0;
+
+	/// @brief This method allows to set the descriptor type used to extract descriptor for each cloud point
+	/// @return Descriptor type
+	virtual FrameworkReturnCode setDescriptorType(DescriptorType type) = 0;
 
     /// @brief This method allows to know if a point is already stored in the component
 	/// @param[in] Id of this point
