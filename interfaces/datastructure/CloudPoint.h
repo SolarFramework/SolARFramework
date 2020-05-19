@@ -100,64 +100,43 @@ public:
 	/// @brief This method returns the id of the cloud point
 	/// @return the id
 	///
-	uint32_t getId() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
-		return m_id; 
-	}
+	uint32_t getId();
 
 	///
 	/// @brief This method returns the descriptor of the cloud point
 	/// @return the descriptor
 	///
-	SRef<DescriptorBuffer> getDescriptor() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
-		return m_descriptor; 
-	};
+	SRef<DescriptorBuffer> getDescriptor();
 
 	///
 	/// @brief This method sets the descriptor of the cloud point
 	/// @param[in] descriptor: the descriptor
 	///
-	void setDescriptor(const SRef<DescriptorBuffer> &descriptor) { 
-		std::unique_lock<std::mutex> lock(m_mutex);
-		m_descriptor = descriptor; 
-	};
+	void setDescriptor(const SRef<DescriptorBuffer> &descriptor);
 
     ///
     /// @brief These methods returns the color components of the CloudPoint
     /// @return the RGB color of the CloudPoint
     ///
-    Vector3f getRGB() {
-		std::unique_lock<std::mutex> lock(m_mutex);
-		return m_rgb;
-	}
+	Vector3f getRGB();
 
 	///
 	/// @brief This method sets the RGB color of the cloud point
 	/// @param[in] rgb: rgb color
 	///
-	void setRGB(const Vector3f &rgb) {
-		std::unique_lock<std::mutex> lock(m_mutex);
-		m_rgb = rgb;
-	}
+	void setRGB(const Vector3f &rgb);
 
 	///
 	/// @brief This method returns the normal of the cloud point
 	/// @return normal vector
 	///
-	Vector3f getNormal() {
-		std::unique_lock<std::mutex> lock(m_mutex);
-		return m_normal;
-	}
+	Vector3f getNormal();
 
 	///
 	/// @brief This method sets the normal of the cloud point
 	/// @param[in] rgb: rgb color
 	///
-	void setNormal(const Vector3f &normal) {
-		std::unique_lock<std::mutex> lock(m_mutex);
-		m_normal = normal;
-	}
+	void setNormal(const Vector3f &normal);
   
 
 	///
@@ -186,10 +165,7 @@ private:
 	/// @brief This method sets the id of the cloud point
 	/// @param[in] id: id of cloud point
 	///
-	void setId(uint32_t id) { 
-		std::unique_lock<std::mutex> lock(m_mutex);
-		m_id = id; 
-	}
+	void setId(uint32_t id);
 
 private:	
 	uint32_t								m_id;
