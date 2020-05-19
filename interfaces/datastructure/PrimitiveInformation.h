@@ -80,10 +80,11 @@ public:
 
 	///
 	/// @brief This method updates the last updated time of the primitive element
+	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
 	///
-	void setLastUpdateTime() { 
+	void setLastUpdateTime(std::chrono::system_clock::time_point updateTime) {
 		std::unique_lock<std::mutex> lock(m_mutex);
-		m_lastUpdateTime = std::chrono::system_clock::now(); 
+		m_lastUpdateTime = updateTime;
 	}
 
 	///

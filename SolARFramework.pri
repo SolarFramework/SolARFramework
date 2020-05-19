@@ -54,6 +54,7 @@ interfaces/api/storage/IVisibilityStorage.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
+interfaces/datastructure/Identification.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \

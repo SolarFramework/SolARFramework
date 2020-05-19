@@ -138,6 +138,23 @@ public:
 };
 
 /**
+ * @class BBox3Df
+ * @brief <B>A bounding box 3D with coordinates defined with integers.</B>
+ *
+ */
+class BBox3Df {
+public:
+	BBox3Df() = default;
+	BBox3Df(Point3Df corner, float width, float height, float depth) : corner(corner), width(width), height(height), depth(depth) {}
+	~BBox3Df() = default;
+
+	Point3Df corner;	// the corner point in the top under left
+	float width;		// x-axis
+	float height;		// y-axis
+	float depth;		// z-axis
+};
+
+/**
  * @typedef Contour2Df
  * @brief <B>A contours defined with 2D points with coordinates defined with floats.</B>
  *
