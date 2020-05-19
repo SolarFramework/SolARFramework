@@ -50,7 +50,7 @@ interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
-interfaces/api/storage/IVisibilityStorage.h \
+interfaces/api/storage/ICovisibilityGraph.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
