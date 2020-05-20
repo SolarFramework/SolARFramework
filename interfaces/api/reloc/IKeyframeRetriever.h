@@ -69,6 +69,16 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode retrieve(const SRef<Frame> frame, std::set<unsigned int> &canKeyframes_id, std::vector<uint32_t> & retKeyframes_id) = 0;
 
+	/// @brief This method allows to save the keyframe feature to the external file
+	/// @param[out] the file name
+	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode saveToFile(std::string file) = 0;
+
+	/// @brief This method allows to load the keyframe feature from the external file
+	/// @param[in] the file name
+	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode loadFromFile(std::string file) = 0;
+
 	/// @brief Match a frame with a keyframe
 	/// @param[in] frame: the frame to match
 	/// @param[in] keyframe_id: id of keyframe to match
