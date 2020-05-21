@@ -64,7 +64,7 @@ public:
    /// @brief Get identification component.
    /// @param[out] an identification instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getIdentification(const SRef<Identification> &identification) = 0;
+   virtual FrameworkReturnCode getIdentification(SRef<Identification> &identification) = 0;
 
    /// @brief Set coordinate system component.
    /// @param[in] a coordinate system instance
@@ -74,7 +74,7 @@ public:
    /// @brief Get coordinate system component.
    /// @param[out] a coordinate system instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getCoordinateSystem(const SRef<CoordinateSystem> &coordinateSystem) = 0;
+   virtual FrameworkReturnCode getCoordinateSystem(SRef<CoordinateSystem> &coordinateSystem) = 0;
 
    /// @brief Set point cloud component.
    /// @param[in] a point cloud instance
@@ -84,7 +84,7 @@ public:
    /// @brief Get point cloud component.
    /// @param[out] a point cloud instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getPointCloudManager(const SRef<IPointCloudManager> &pointCloudManager) = 0;
+   virtual FrameworkReturnCode getPointCloudManager(SRef<IPointCloudManager> &pointCloudManager) = 0;
 
    /// @brief Set keyframes manager component.
    /// @param[in] a keyframes manager instance
@@ -94,17 +94,17 @@ public:
    /// @brief Get keyframes manager component.
    /// @param[out] a keyframes manager instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getKeyframesManager(const SRef<IKeyframesManager> &keyframesManager) = 0;
+   virtual FrameworkReturnCode getKeyframesManager(SRef<IKeyframesManager> &keyframesManager) = 0;
 
    /// @brief Set covisibility graph component.
    /// @param[in] a covisibility graph instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setCovisibilityGraph(SRef<ICovisibilityGraph> &keyframesManager) = 0;
+   virtual FrameworkReturnCode setCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
 
    /// @brief Get covisibility graph component.
    /// @param[out] a covisibility graph instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getCovisibilityGraph(const SRef<ICovisibilityGraph> &keyframesManager) = 0;
+   virtual FrameworkReturnCode getCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
 
    /// @brief Set keyframe retriever component.
    /// @param[in] a keyframe retriever instance
@@ -114,7 +114,7 @@ public:
    /// @brief Get keyframe retriever component.
    /// @param[out] a keyframe retriever instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getKeyframeRetriever(const SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
+   virtual FrameworkReturnCode getKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
 
    /// @brief Save the map to the external file
 	/// @param[out] the file name

@@ -130,5 +130,5 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::ICovisibilityGraph,
                              "A component interface for storing a persistent covisibility graph between keyframes.");
 
 
-#endif //SOLAR_IVISIBILITYSTORAGE_H
+#endif //SOLAR_ICOVISIBILITYGRAPH_H
 

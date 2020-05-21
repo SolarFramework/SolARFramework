@@ -133,13 +133,6 @@ protected:
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
-
-	std::mutex						m_mutexPose;
-	std::mutex						m_mutexKeypoint;
-	std::mutex						m_mutexReferenceKeyframe;
-	std::mutex						m_mutexDescriptors;
-	std::mutex						m_mutexVisibility;
-
 };
 
 }

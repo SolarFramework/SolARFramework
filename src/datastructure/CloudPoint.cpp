@@ -16,6 +16,8 @@
 
 #include "datastructure/CloudPoint.h"
 
+std::mutex m_mutex;
+
 namespace SolAR {
 namespace datastructure {
 
@@ -23,11 +25,11 @@ CloudPoint::~CloudPoint(){
 		
 }
 
-CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, std::map<unsigned int, unsigned int>& visibility) :
-	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_visibility(visibility) {}
+CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, std::map<unsigned int, unsigned int>& visibility) :
+	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility) {}
 
-CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_visibility(visibility), m_descriptor(descriptor){}
+CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
+	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){}
 
 uint32_t CloudPoint::getId() {
 	std::unique_lock<std::mutex> lock(m_mutex);
@@ -54,6 +56,18 @@ Vector3f CloudPoint::getRGB() {
 	return m_rgb;
 }
 
+float CloudPoint::getR() const { 
+	return m_rgb[0]; 
+}
+
+float CloudPoint::getG() const {
+	return m_rgb[1]; 
+}
+
+float CloudPoint::getB() const { 
+	return m_rgb[2]; 
+}
+
 void CloudPoint::setRGB(const Vector3f &rgb) {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	m_rgb = rgb;
@@ -67,6 +81,17 @@ Vector3f CloudPoint::getNormal() {
 void CloudPoint::setNormal(const Vector3f &normal) {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	m_normal = normal;
+}
+
+void CloudPoint::setReprojError(double & error)
+{
+	std::unique_lock<std::mutex> lock(m_mutex);
+	m_reproj_error = error;
+}
+
+double CloudPoint::getReprojError() const
+{
+	return m_reproj_error;
 }
 
 const std::map<uint32_t, uint32_t>& CloudPoint::getVisibility() {

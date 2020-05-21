@@ -42,7 +42,7 @@ class Keyframe;
 class  SOLARFRAMEWORK_API CloudPoint : public Point3Df, public PrimitiveInformation {
 public:
     CloudPoint() = default;
-	
+
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
     /// @param[in] y: y-coordinate of the cloudpoint.
@@ -64,6 +64,7 @@ public:
 				float nx,
 				float ny,
 				float nz,
+				double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
 	/// @brief Cloudpoint constructor.
@@ -88,6 +89,7 @@ public:
 				float nx,
 				float ny,
 				float nz,
+				double reproj_error,
 				std::map<unsigned int, unsigned int> &visibility,
 				SRef<DescriptorBuffer> descriptor);
 
@@ -121,6 +123,15 @@ public:
 	Vector3f getRGB();
 
 	///
+	/// \brief These methods returns the color components of the CloudPoint
+	/// \return the color component of the CloudPoint (Red, Green or Blue)
+	///
+	float getR() const;
+	float getG() const;
+	float getB() const;
+
+
+	///
 	/// @brief This method sets the RGB color of the cloud point
 	/// @param[in] rgb: rgb color
 	///
@@ -138,6 +149,13 @@ public:
 	///
 	void setNormal(const Vector3f &normal);
   
+	/// @brief This method sets reprojection error of the PointCloud
+	/// @param[in] the reprojection error
+	void setReprojError(double &error);
+
+	/// @brief This method returns reprojection error of the PointCloud
+	/// @return the reprojection error
+    double getReprojError() const;
 
 	///
     /// @brief return the visibility map of the CloudPoint
@@ -159,8 +177,6 @@ public:
 	/// @return true if remove successfully
 	bool removeVisibility(uint32_t keyframe_id, uint32_t keypoint_id);
 
-private:
-
 	///
 	/// @brief This method sets the id of the cloud point
 	/// @param[in] id: id of cloud point
@@ -173,7 +189,7 @@ private:
     std::map<unsigned int, unsigned int>	m_visibility;
 	Vector3f								m_rgb;
 	Vector3f								m_normal;
-	std::mutex								m_mutex;
+	double                                  m_reproj_error;
 };
 }
 }  // end of namespace SolAR

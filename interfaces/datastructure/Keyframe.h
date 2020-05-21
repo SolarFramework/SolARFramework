@@ -32,9 +32,8 @@ namespace datastructure {
  * This class provides Keyframe definition.
  */
 class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
-    ///
-    /// @brief ~Keyframe
-    public:
+public:
+    Keyframe() = default;
 
     Keyframe(SRef<Frame> frame) : Frame(frame) {};
 
@@ -55,8 +54,7 @@ class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
 	/// @brief Return keyframe id
 	///
 	uint32_t getId();
-	
-private:
+
 	///
 	/// @brief Set keyframe id
 	/// @param[in] id_keyframe: keyframe id

@@ -17,6 +17,12 @@
 #include "datastructure/Frame.h"
 #include "datastructure/Keyframe.h"
 
+std::mutex						m_mutexPose;
+std::mutex						m_mutexKeypoint;
+std::mutex						m_mutexReferenceKeyframe;
+std::mutex						m_mutexDescriptors;
+std::mutex						m_mutexVisibility;
+
 namespace SolAR {
 namespace datastructure {
 

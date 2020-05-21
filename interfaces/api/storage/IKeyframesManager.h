@@ -46,12 +46,12 @@ public:
     /// @brief This method allow to add a frame to the keyframe manager component
     /// @param[in] frame the frame to add to the set of persistent keyframes
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode AddKeyframe(SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(SRef<Keyframe> keyframe) = 0;
 
 	/// @brief This method allow to add a frame to the key frame manager component
 	/// @param[in] frame the frame to add to the set of persistent keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode AddKeyframe(Keyframe &keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const Keyframe &keyframe) = 0;
 
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id of the keyframe to get
@@ -113,5 +113,5 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::IKeyframesManager,
                              "A component interface for storing a set of persistent keyframes accesisble by processing components.");
 
 
-#endif //SOLAR_IKEYFRAMESSTORAGE_H
+#endif //SOLAR_IKEYFRAMESMANAGER_H
 

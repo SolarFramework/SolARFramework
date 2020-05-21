@@ -37,7 +37,7 @@ public:
 	PrimitiveInformation() {
 		m_confidence = 1.0;
 		m_usedTimes = 1;
-		m_lastUpdateTime = std::chrono::system_clock::now();
+        m_lastUpdateTime = std::chrono::system_clock::now();
 		m_semanticId = -1;
 	}
 
@@ -46,7 +46,6 @@ public:
 	/// @param[in] isGood: it is true if the primitive element is considered as an inlier for this use. It is false in the otherwise.
 	///
 	void updateConfidence(bool isGood) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_confidence = (m_usedTimes * m_confidence + (int)isGood) / (m_usedTimes + 1);
 		m_usedTimes++;
 	}
@@ -56,7 +55,6 @@ public:
 	/// @return the confident score
 	///
 	float getConfidence() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_confidence; 
 	}
 
@@ -65,7 +63,6 @@ public:
 	/// @return the number of used times
 	///
 	uint32_t getUsedTime() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_usedTimes; 
 	}
 
@@ -74,7 +71,6 @@ public:
 	/// @return the last updated time
 	///
 	std::chrono::system_clock::time_point getLastUpdateTime() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_lastUpdateTime; 
 	}
 
@@ -83,7 +79,6 @@ public:
 	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
 	///
 	void setLastUpdateTime(std::chrono::system_clock::time_point updateTime) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_lastUpdateTime = updateTime;
 	}
 
@@ -92,7 +87,6 @@ public:
 	/// @return the semantic id
 	///
 	int getSemanticId() { 
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_semanticId; 
 	}
 
@@ -101,7 +95,6 @@ public:
 	/// @param semanticId: the semantic id
 	///
 	void setSemanticId(int semanticId) { 
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_semanticId = semanticId; 
 	}
 	
@@ -114,8 +107,7 @@ private:
 	float										m_confidence;
 	uint32_t									m_usedTimes;
 	std::chrono::system_clock::time_point		m_lastUpdateTime;
-	int											m_semanticId;
-	std::mutex									m_mutex;
+	int											m_semanticId;	
 };
 
 }

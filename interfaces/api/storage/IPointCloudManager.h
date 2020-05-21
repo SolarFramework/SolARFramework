@@ -128,5 +128,5 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::IPointCloudManager,
                              "A component interface for managing a set of persistent 3D points accesisble by processing components.");
 
 
-#endif //SOLAR_IPOINTCLOUDSTORAGE_H
+#endif //SOLAR_IPOINTCLOUDMANAGER_H
 

@@ -54,7 +54,6 @@ public:
 	/// @param[in] position: the absolute position
 	/// 
 	void setAbsolutePosition(Vector3f position) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_absolutePosition = position;
 	}
 
@@ -63,7 +62,6 @@ public:
 	/// @return the position
 	/// 
 	Vector3f getAbsolutePosition() {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_absolutePosition;
 	}
 
@@ -72,7 +70,6 @@ public:
 	/// @param[in] euler: the absolute euler rotation
 	/// 
 	void setAbsoluteRotation(Vector3f euler) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_absoluteRotation = euler;
 	}
 
@@ -81,7 +78,6 @@ public:
 	/// @return the rotation
 	/// 
 	Vector3f getAbsoluteRotation() {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_absoluteRotation;
 	}
 
@@ -90,7 +86,6 @@ public:
 	/// @param[in] parent_uuid: the parent uuid
 	/// 
 	void setParentId(boost::uuids::uuid parent_uuid) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_parentId = parent_uuid;
 	}
 
@@ -99,7 +94,6 @@ public:
 	/// @return the parent uuid
 	/// 
 	boost::uuids::uuid getParentId() {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_parentId;
 	}
 
@@ -108,7 +102,6 @@ public:
 	/// @param[in] parent_transform: the transformation matrix
 	/// 
 	void setParentTransform(Transform3Df parent_transform) {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		m_parentTransform = parent_transform;
 	}
 
@@ -117,7 +110,6 @@ public:
 	/// @return the transformation matrix
 	/// 
 	Transform3Df getParentTransform() {
-		std::unique_lock<std::mutex> lock(m_mutex);
 		return m_parentTransform;
 	}
 
@@ -127,7 +119,6 @@ private:
 	Vector3f									m_absoluteRotation;	// absolute euler rotation in the earth.
 	boost::uuids::uuid							m_parentId;
 	Transform3Df								m_parentTransform;
-	std::mutex									m_mutex;
 };
 
 }
