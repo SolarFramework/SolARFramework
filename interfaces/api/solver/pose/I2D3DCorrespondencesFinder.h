@@ -24,11 +24,12 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Keyframe.h"
-#include "datastructure/Map.h"
+#include "api/storage/IPointCloudManager.h"
 
 namespace SolAR {
 using namespace datastructure;
-namespace api {
+using namespace api::storage;
+namespace api {	
 namespace solver {
 namespace pose {
 /**
@@ -58,7 +59,7 @@ namespace pose {
         virtual FrameworkReturnCode  find(const SRef<Keyframe> referenceKeyframe,
                                           const SRef<Frame> currentFrame,
                                           const std::vector<DescriptorMatch> & current_matches,
-                                          const SRef<Map> worldMap,
+                                          const SRef<IPointCloudManager> &worldMap,
                                           std::vector<Point3Df> & shared_3dpoint,
                                           std::vector<Point2Df> & shared_2dpoint,
                                           std::vector<DescriptorMatch> & found_matches,
@@ -76,7 +77,7 @@ namespace pose {
         virtual FrameworkReturnCode find(	const SRef<Frame> lastFrame,
                                             const SRef<Frame> currentFrame,
                                             const std::vector<DescriptorMatch> & current_matches,
-											const SRef<Map> worldMap,
+											const SRef<IPointCloudManager> &worldMap,
                                             std::vector<Point3Df> & shared_3dpoint,
                                             std::vector<Point2Df> & shared_2dpoint,
                                             std::vector<DescriptorMatch> & found_matches,
