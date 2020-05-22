@@ -54,7 +54,7 @@ public:
 	/// @brief This method returns the confident score of the primitive element
 	/// @return the confident score
 	///
-	float getConfidence() { 
+	const float& getConfidence() const{ 
 		return m_confidence; 
 	}
 
@@ -62,7 +62,7 @@ public:
 	/// @brief This method returns the number of used times of the primitive element
 	/// @return the number of used times
 	///
-	uint32_t getUsedTime() { 
+	const uint32_t& getUsedTime() const{ 
 		return m_usedTimes; 
 	}
 
@@ -70,7 +70,7 @@ public:
 	/// @brief This method returns the last updated time of the primitive element
 	/// @return the last updated time
 	///
-	std::chrono::system_clock::time_point getLastUpdateTime() { 
+	const std::chrono::system_clock::time_point& getLastUpdateTime() const{ 
 		return m_lastUpdateTime; 
 	}
 
@@ -78,7 +78,7 @@ public:
 	/// @brief This method updates the last updated time of the primitive element
 	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
 	///
-	void setLastUpdateTime(std::chrono::system_clock::time_point updateTime) {
+	void setLastUpdateTime(const std::chrono::system_clock::time_point& updateTime) {
 		m_lastUpdateTime = updateTime;
 	}
 
@@ -86,7 +86,7 @@ public:
 	/// @brief This method returns the semantic id of the primitive element
 	/// @return the semantic id
 	///
-	int getSemanticId() { 
+	const int& getSemanticId() const{ 
 		return m_semanticId; 
 	}
 
@@ -94,7 +94,7 @@ public:
 	/// @brief This method sets the semantic id of the primitive element
 	/// @param semanticId: the semantic id
 	///
-	void setSemanticId(int semanticId) { 
+	void setSemanticId(const int& semanticId) { 
 		m_semanticId = semanticId; 
 	}
 	

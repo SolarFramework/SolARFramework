@@ -53,13 +53,13 @@ public:
 	///
 	/// @brief Return keyframe id
 	///
-	uint32_t getId();
+	const uint32_t& getId() const;
 
 	///
 	/// @brief Set keyframe id
 	/// @param[in] id_keyframe: keyframe id
 	///
-	void setId(uint32_t id_keyframe);
+	void setId(const uint32_t& id_keyframe);
 
 private:
     uint32_t	m_id;

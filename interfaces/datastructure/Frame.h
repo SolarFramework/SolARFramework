@@ -46,12 +46,12 @@ public:
 	///
 	/// @brief return view image
 	///
-    SRef<Image> getView();
+    const SRef<Image>& getView() const;
 
 	///
 	/// @brief return camera pose
 	///
-    Transform3Df getPose();
+    const Transform3Df& getPose() const;
 
 	///
 	/// @brief set pose
@@ -62,7 +62,7 @@ public:
 	///
 	/// @brief return keypoints
 	///
-	const std::vector<Keypoint> & getKeypoints();
+	const std::vector<Keypoint> & getKeypoints() const;
 
 	///
 	/// @brief set keypoints
@@ -74,29 +74,29 @@ public:
 	/// @brief set reference keyframe
 	/// @param[in] keyframe: reference keyframe
 	///
-    void setReferenceKeyframe(SRef<Keyframe> keyframe);
+    void setReferenceKeyframe(const SRef<Keyframe>& keyframe);
 
 	///
 	/// @brief return reference keyframe
 	///
-    SRef<Keyframe> getReferenceKeyframe();
+	const SRef<Keyframe>& getReferenceKeyframe() const;
 
 
 	///
 	/// @brief return descriptors
 	///
-    SRef<DescriptorBuffer> getDescriptors();
+    const SRef<DescriptorBuffer>& getDescriptors() const;
 
 	///
 	/// @brief set descriptors
 	/// @param[in] descriptors: descriptors
 	///
-	void setDescriptors(SRef<DescriptorBuffer> &descriptors);
+	void setDescriptors(const SRef<DescriptorBuffer> &descriptors);
 
 	///
 	/// @brief Get all cloud point visibilities
 	///
-	const std::map<uint32_t, uint32_t> & getVisibility();
+	const std::map<uint32_t, uint32_t> & getVisibility() const;
 
 	///
 	/// @brief set visibility
@@ -114,7 +114,7 @@ public:
 	/// @param[in] id_keypoint: id of keypoint
 	/// @param[in] id_cloudPoint: id of cloud point
 	///
-	void addVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint);
+	void addVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
 
 	///
 	/// @brief Remove a visibility
@@ -122,7 +122,7 @@ public:
 	/// @param[in] id_cloudPoint: id of cloud point
 	/// @return true if remove successfully
 	///
-	bool removeVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint);
+	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
 
 protected:
     Transform3Df                    m_pose;    

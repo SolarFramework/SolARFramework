@@ -53,7 +53,7 @@ public:
 	/// @brief Set the absolute position of this map in the earth coordinate
 	/// @param[in] position: the absolute position
 	/// 
-	void setAbsolutePosition(Vector3f position) {
+	void setAbsolutePosition(const Vector3f& position) {
 		m_absolutePosition = position;
 	}
 
@@ -61,7 +61,7 @@ public:
 	/// @brief Get the absolute position of this map in the earth coordinate
 	/// @return the position
 	/// 
-	Vector3f getAbsolutePosition() {
+	const Vector3f& getAbsolutePosition() const {
 		return m_absolutePosition;
 	}
 
@@ -69,7 +69,7 @@ public:
 	/// @brief Set the absolute euler rotation of this map in the earth coordinate
 	/// @param[in] euler: the absolute euler rotation
 	/// 
-	void setAbsoluteRotation(Vector3f euler) {
+	void setAbsoluteRotation(const Vector3f& euler) {
 		m_absoluteRotation = euler;
 	}
 
@@ -77,7 +77,7 @@ public:
 	/// @brief Get the absolute euler rotation of this map in the earth coordinate
 	/// @return the rotation
 	/// 
-	Vector3f getAbsoluteRotation() {
+	const Vector3f& getAbsoluteRotation() const {
 		return m_absoluteRotation;
 	}
 
@@ -85,7 +85,7 @@ public:
 	/// @brief Set the uuid of parent map that this map belongs to
 	/// @param[in] parent_uuid: the parent uuid
 	/// 
-	void setParentId(boost::uuids::uuid parent_uuid) {
+	void setParentId(const boost::uuids::uuid& parent_uuid) {
 		m_parentId = parent_uuid;
 	}
 
@@ -93,7 +93,7 @@ public:
 	/// @brief Get the uuid of parent map that this map belongs to
 	/// @return the parent uuid
 	/// 
-	boost::uuids::uuid getParentId() {
+	const boost::uuids::uuid& getParentId() const {
 		return m_parentId;
 	}
 
@@ -101,7 +101,7 @@ public:
 	/// @brief Set the transformation matrix from this map to its parent map
 	/// @param[in] parent_transform: the transformation matrix
 	/// 
-	void setParentTransform(Transform3Df parent_transform) {
+	void setParentTransform(const Transform3Df& parent_transform) {
 		m_parentTransform = parent_transform;
 	}
 
@@ -109,7 +109,7 @@ public:
 	/// @brief Get the transformation matrix from this map to its parent map
 	/// @return the transformation matrix
 	/// 
-	Transform3Df getParentTransform() {
+	const Transform3Df& getParentTransform() const {
 		return m_parentTransform;
 	}
 

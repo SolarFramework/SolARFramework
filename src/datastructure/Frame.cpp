@@ -35,12 +35,12 @@ Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffe
 
 Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
 
-SRef<Image>  Frame::getView()
+const SRef<Image>& Frame::getView() const
 {
     return m_view;
 }
 
-Transform3Df Frame::getPose()
+const Transform3Df& Frame::getPose() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexPose);
     return m_pose;
@@ -57,19 +57,19 @@ void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
     m_keypoints  = kpts;
 }
 
-SRef<DescriptorBuffer> Frame::getDescriptors()
+const SRef<DescriptorBuffer>& Frame::getDescriptors() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexDescriptors);
     return m_descriptors;
 }
 
-void Frame::setDescriptors(SRef<DescriptorBuffer> &descriptors)
+void Frame::setDescriptors(const SRef<DescriptorBuffer> &descriptors)
 {
 	std::unique_lock<std::mutex> lock(m_mutexDescriptors);
 	m_descriptors = descriptors;
 }
 
-const std::map<uint32_t, uint32_t>& Frame::getVisibility()
+const std::map<uint32_t, uint32_t>& Frame::getVisibility() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	return m_mapVisibility;
@@ -87,13 +87,13 @@ void Frame::addVisibilities(const std::map<uint32_t, uint32_t>& visibilites)
 	m_mapVisibility.insert(visibilites.begin(), visibilites.end());
 }
 
-void Frame::addVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint)
+void Frame::addVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint)
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	m_mapVisibility[id_keypoint] = id_cloudPoint;
 }
 
-bool Frame::removeVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint)
+bool Frame::removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint)
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	if (m_mapVisibility.find(id_keypoint) == m_mapVisibility.end())
@@ -104,19 +104,19 @@ bool Frame::removeVisibility(uint32_t id_keypoint, uint32_t id_cloudPoint)
 	}
 }
 
-const std::vector<Keypoint> & Frame::getKeypoints()
+const std::vector<Keypoint> & Frame::getKeypoints() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     return m_keypoints;
 }
 
-void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
+void Frame::setReferenceKeyframe(const SRef<Keyframe>& keyframe)
 {
 	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     m_referenceKeyFrame = keyframe;
 }
 
-SRef<Keyframe> Frame::getReferenceKeyframe()
+const SRef<Keyframe>& Frame::getReferenceKeyframe() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     return m_referenceKeyFrame;

@@ -102,13 +102,19 @@ public:
 	/// @brief This method returns the id of the cloud point
 	/// @return the id
 	///
-	uint32_t getId();
+	const uint32_t& getId() const;
+
+	///
+	/// @brief This method sets the id of the cloud point
+	/// @param[in] id: id of cloud point
+	///
+	void setId(const uint32_t& id);
 
 	///
 	/// @brief This method returns the descriptor of the cloud point
 	/// @return the descriptor
 	///
-	SRef<DescriptorBuffer> getDescriptor();
+	const SRef<DescriptorBuffer>& getDescriptor() const;
 
 	///
 	/// @brief This method sets the descriptor of the cloud point
@@ -120,15 +126,15 @@ public:
     /// @brief These methods returns the color components of the CloudPoint
     /// @return the RGB color of the CloudPoint
     ///
-	Vector3f getRGB();
+	const Vector3f& getRGB() const;
 
 	///
 	/// \brief These methods returns the color components of the CloudPoint
 	/// \return the color component of the CloudPoint (Red, Green or Blue)
 	///
-	float getR() const;
-	float getG() const;
-	float getB() const;
+	const float& getR() const;
+	const float& getG() const;
+	const float& getB() const;
 
 
 	///
@@ -141,7 +147,7 @@ public:
 	/// @brief This method returns the normal of the cloud point
 	/// @return normal vector
 	///
-	Vector3f getNormal();
+	const Vector3f& getNormal() const;
 
 	///
 	/// @brief This method sets the normal of the cloud point
@@ -151,37 +157,31 @@ public:
   
 	/// @brief This method sets reprojection error of the PointCloud
 	/// @param[in] the reprojection error
-	void setReprojError(double &error);
+	void setReprojError(const double &error);
 
 	/// @brief This method returns reprojection error of the PointCloud
 	/// @return the reprojection error
-    double getReprojError() const;
+	const double& getReprojError() const;
 
 	///
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
 	///
-	const std::map<uint32_t, uint32_t>& getVisibility();
+	const std::map<uint32_t, uint32_t>& getVisibility() const;
 
 	///
     /// @brief add a keypoint to the visibility map of the CloudPoint
     /// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
     /// @param[in] keypoint_id: the id of the keypoint of the keyframe
 	///
-    void addVisibility(uint32_t keyframe_id, uint32_t keypoint_id);
+    void addVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
 
 	///
 	/// @brief remove a keypoint to the visibility map of the CloudPoint
 	/// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
 	/// @param[in] keypoint_id: the id of the keypoint of the keyframe
 	/// @return true if remove successfully
-	bool removeVisibility(uint32_t keyframe_id, uint32_t keypoint_id);
-
-	///
-	/// @brief This method sets the id of the cloud point
-	/// @param[in] id: id of cloud point
-	///
-	void setId(uint32_t id);
+	bool removeVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
 
 private:	
 	uint32_t								m_id;

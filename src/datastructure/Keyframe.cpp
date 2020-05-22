@@ -21,12 +21,12 @@
 namespace SolAR {
 namespace datastructure {
 
-uint32_t Keyframe::getId()
+const uint32_t& Keyframe::getId() const
 {
 	return m_id;
 }
 
-void Keyframe::setId(uint32_t id_keyframe)
+void Keyframe::setId(const uint32_t& id_keyframe)
 {
 	m_id = id_keyframe;
 }
