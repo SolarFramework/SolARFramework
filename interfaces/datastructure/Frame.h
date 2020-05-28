@@ -25,6 +25,7 @@ class SOLARFRAMEWORK_API Frame {
     ///
 
 public:
+	Frame() = default;
     Frame(const SRef<Frame> frame);
 	
 	Frame(const SRef<Keyframe> keyframe);
