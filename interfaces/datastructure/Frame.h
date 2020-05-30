@@ -64,6 +64,11 @@ public:
 	///
 	const std::vector<Keypoint> & getKeypoints() const;
 
+    ///
+    /// @brief return keypoints
+    ///
+    const Keypoint & getKeypoint(int i) const;
+
 	///
 	/// @brief set keypoints
 	/// @param[in] kpts: keypoints

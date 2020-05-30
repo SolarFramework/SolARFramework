@@ -110,6 +110,12 @@ const std::vector<Keypoint> & Frame::getKeypoints() const
     return m_keypoints;
 }
 
+const Keypoint& Frame::getKeypoint(int i) const
+{
+    std::unique_lock<std::mutex> lock(m_mutexKeypoint);
+    return m_keypoints[i];
+}
+
 void Frame::setReferenceKeyframe(const SRef<Keyframe>& keyframe)
 {
 	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
