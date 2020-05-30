@@ -116,6 +116,28 @@ public:
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
    virtual FrameworkReturnCode getKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
 
+   /// @brief Get local point cloud seen from the keyframe and its neighbors
+   /// @param[in] keyframe: the keyframe to get local point cloud
+   /// @param[in] minWeightNeighbor: the weight to get keyframe neighbors
+   /// @param[out] localPointCloud: the local point cloud
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getLocalPointCloud(const SRef<Keyframe> &keyframe, float minWeightNeighbor, std::vector<SRef<CloudPoint>> &localPointCloud) = 0;
+
+   /// @brief Add a point cloud to mapper and update visibility of keyframes and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to add to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode addCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+
+   /// @brief Remove a point cloud from mapper and update visibility of keyframes and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to remove to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode removeCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+
+   /// @brief Remove a keyframe from mapper and update visibility of point cloud and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to add to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode removeKeyframe(const SRef<Keyframe> &keyframe) = 0;
+
    /// @brief Save the map to the external file
 	/// @param[out] the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
