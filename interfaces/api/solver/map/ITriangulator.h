@@ -24,11 +24,6 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
-//#include "datastructure/MathDefinitions.h"
-//#include "datastructure/Image.h"
-//#include "datastructure/Keyframe.h"
-//#include "datastructure/Keypoint.h"
-//#include "datastructure/CloudPoint.h"
 #include "datastructure/Keyline.h"
 #include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
@@ -128,16 +123,17 @@ public:
 	/// @param[in] matches, the matches between the keylines detected in each view.
 	/// @param[in] pose1, camera pose of the first view.
 	/// @param[in] pose2, camera pose of the second view.
-	/// @param[out] lines3D, set of triangulated 3D lines.
-	/// @param[out] indices, set of indices to recover the 2D keylines from which the 3D line was triangulated.
+	/// @param[out] linecloud, set of triangulated 3D lines.
 	/// @return the mean re-projection error
 	virtual double triangulate( const std::vector<Keyline> & keylines1,
 								const std::vector<Keyline> & keylines2,
+								const SRef<DescriptorBuffer>& descriptor1,
+								const SRef<DescriptorBuffer>& descriptor2,
 								const std::vector<DescriptorMatch> & matches,
+								const std::pair<unsigned, unsigned>& working_views,
 								const Transform3Df & pose1,
 								const Transform3Df & pose2,
-								std::vector<Edge3Df> & lines3D,
-								std::vector<int> & indices) = 0;
+								std::vector<CloudLine> & lineCloud) = 0;
 };
 
 }
