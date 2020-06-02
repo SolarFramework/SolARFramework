@@ -24,6 +24,7 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Image.h"
+#include "datastructure/Keyline.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -50,13 +51,13 @@ public:
 	/// @param[in] Camera distorsion parameters.
 	virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
-	/// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
-	/// @param[in] imagePoints, set of 2d_points seen in view_1.
-	/// @param[in] worldPoints, set of 3d_points corresponding to view_1.
-	/// @param[in] imageLines, set of 2d_lines seen in view_1.
-	/// @param[in] worldLines, set of 3d_lines corresponding to view_1.
-	/// @param[out] pose, camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
-	/// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
+	/// @brief Estimates camera pose from a set of 2D image points and 2D lines and their corresponding 3D world points and lines.
+	/// @param[in] imagePoints: set of 2D points.
+	/// @param[in] worldPoints: set of 3D points.
+	/// @param[in] imageLines: set of 2D lines.
+	/// @param[in] worldLines: set of 3D lines.
+	/// @param[out] pose: camera pose (pose of the camera defined in world coordinate system) expressed as a <Transform3Df>.
+	/// @param[in] initialPose: (optional) a <Transform3Df> to initialize the pose (reducing convergence time and improving success rate).
 	virtual FrameworkReturnCode estimate(const std::vector<Point2Df> & imagePoints,
 										 const std::vector<Point3Df> & worldPoints,
 										 const std::vector<Edge2Df> & imageLines,
@@ -64,6 +65,32 @@ public:
 										 Transform3Df & pose,
 										 const Transform3Df initialPose = Transform3Df::Identity()) = 0;
 
+	/// @brief Estimates camera pose from a set of 2D image points and 2D lines and their corresponding 3D world points and lines,
+	/// and performing RANSAC estimation iteratively to deduce inliers.
+	/// @param[in] imagePoints: set of 2D points.
+	/// @param[in] worldPoints: set of 3D points.
+	/// @param[in] imageLines: set of 2D lines.
+	/// @param[in] worldLines: set of 3D lines.
+	/// @param[out] imagePoints_inliers: set of 2D points suspected as inliers by RANSAC.
+	/// @param[out] worldPoints_inliers: set of 3D points suspected as inliers by RANSAC.
+	/// @param[out] imageLines_inliers: set of 2D lines suspected as inliers by RANSAC.
+	/// @param[out] worldLines_inliers: set of 3D lines suspected as inliers by RANSAC.
+	/// @param[out] pointInliers: boolean vector to store whether a point is considered as an inlier or as an outlier.
+	/// @param[out] lineInliers: boolean vector to store whether a line is considered as an inlier or as an outlier.
+	/// @param[out] pose: camera pose (pose of the camera defined in world coordinate system) expressed as a <Transform3Df>.
+	/// @param[in] initialPose: (optional) a <Transform3Df> to initialize the pose (reducing convergence time and improving success rate).
+	virtual FrameworkReturnCode estimateRansac(	const std::vector<Point2Df> & imagePoints,
+												const std::vector<Point3Df> & worldPoints,
+												const std::vector<Edge2Df> & imageLines,
+												const std::vector<Edge3Df> & worldLines,
+												std::vector<Point2Df> & imagePoints_inliers,
+												std::vector<Point3Df> & worldPoints_inliers,
+												std::vector<Edge2Df> & imageLines_inliers,
+												std::vector<Edge3Df> & worldLines_inliers,
+												std::vector<bool> & pointInliers,
+												std::vector<bool> & lineInliers,
+												Transform3Df & pose,
+												const Transform3Df initialPose = Transform3Df::Identity()) = 0;
 };
 }
 }
