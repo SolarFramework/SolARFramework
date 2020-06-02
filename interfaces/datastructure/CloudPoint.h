@@ -101,7 +101,7 @@ public:
 
 	SRef<DescriptorBuffer> getDescriptor() const { return m_descriptor; };
 
-private:	
+private:
     std::map<unsigned int, unsigned int>	m_visibility;
     float									m_r;
     float									m_g;
@@ -114,4 +114,4 @@ private:
 }
 }  // end of namespace SolAR
 
-#endif // SolAR_KEYPOINT_H
+#endif // SolAR_CLOUDPOINT_H

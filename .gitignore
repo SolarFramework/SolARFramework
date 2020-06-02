@@ -57,7 +57,10 @@ build/
 # Visual Studio files
 .vs*
 x64*
+release*
+debug*
 
+*.aps
 *.txt
 *.log
 *.tlog

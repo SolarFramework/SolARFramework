@@ -64,6 +64,7 @@ HEADERS += interfaces/api/display/I2DOverlay.h \
     interfaces/core/SolARFrameworkDefinitions.h \
     interfaces/datastructure/BufferInternal.hpp \
     interfaces/datastructure/CameraDefinitions.h \
+    interfaces/datastructure/CloudLine.h \
     interfaces/datastructure/CloudPoint.h \
     interfaces/datastructure/DescriptorBuffer.h \
     interfaces/datastructure/DescriptorMatch.h \
@@ -82,6 +83,7 @@ HEADERS += interfaces/api/display/I2DOverlay.h \
 
 SOURCES += src/core/Log.cpp \
     src/core/SolARFramework.cpp \
+    src/datastructure/CloudLine.cpp \
     src/datastructure/CloudPoint.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Frame.cpp \
