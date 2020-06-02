@@ -47,6 +47,46 @@ public:
     /// @param[in] x: x-coordinate of the cloudpoint.
     /// @param[in] y: y-coordinate of the cloudpoint.
     /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r (optional): r-channel color value of the cloudpoint.
+    /// @param[in] g (optional): g-channel color value of the cloudpoint.
+    /// @param[in] b (optional): b-channel color value of the cloudpoint.
+    /// @param[in] nx (optional): x-coordinate of the normal vector of the cloudpoint.
+    /// @param[in] ny (optional): y-coordinate of the normal vector of the cloudpoint.
+    /// @param[in] nz (optional): z-coordinate of the normal vector of the cloudpoint.
+    ///
+    CloudPoint( float x,
+                float y,
+                float z,
+                float r = 0.0f,
+                float g = 0.0f,
+                float b = 0.0f,
+                float nx = 0.0f,
+                float ny = 0.0f,
+                float nz = 0.0f,
+                double reproj_error = 0.0);
+
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r: r-channel color value of the cloudpoint.
+    /// @param[in] g: g-channel color value of the cloudpoint.
+    /// @param[in] b: b-channel color value of the cloudpoint.
+    /// @param[in] visibility: visibility map of the cloudpoint.
+    ///
+    CloudPoint( float x,
+                float y,
+                float z,
+                float r,
+                float g,
+                float b,
+                double reproj_error,
+                std::map<unsigned int, unsigned int> &visibility);
+
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
     /// @param[in] r: r-channel color value of the cloudpoint.
     /// @param[in] g: g-channel color value of the cloudpoint.
     /// @param[in] b: b-channel color value of the cloudpoint.
@@ -67,7 +107,27 @@ public:
 				double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
-	/// @brief Cloudpoint constructor.
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r: r-channel color value of the cloudpoint.
+    /// @param[in] g: g-channel color value of the cloudpoint.
+    /// @param[in] b: b-channel color value of the cloudpoint.
+    /// @param[in] visibility: visibility map of the cloudpoint.
+    /// @param[in] descriptor: descriptor of the cloudpoint.
+    ///
+    CloudPoint(	float x,
+                float y,
+                float z,
+                float r,
+                float g,
+                float b,
+                double reproj_error,
+                std::map<unsigned int, unsigned int> &visibility,
+                SRef<DescriptorBuffer> descriptor);
+
+    /// @brief Cloudpoint constructor.
 	/// @param[in] x: x-coordinate of the cloudpoint.
 	/// @param[in] y: y-coordinate of the cloudpoint.
 	/// @param[in] z: z-coordinate of the cloudpoint.
@@ -90,8 +150,8 @@ public:
 				float ny,
 				float nz,
 				double reproj_error,
-				std::map<unsigned int, unsigned int> &visibility,
-				SRef<DescriptorBuffer> descriptor);
+                std::map<unsigned int, unsigned int> &visibility,
+                SRef<DescriptorBuffer> descriptor);
 
     ///
     /// \brief ~CloudPoint
@@ -185,11 +245,11 @@ public:
 
 private:	
 	uint32_t								m_id;
-	SRef<DescriptorBuffer>					m_descriptor;
-    std::map<unsigned int, unsigned int>	m_visibility;
-	Vector3f								m_rgb;
-	Vector3f								m_normal;
-	double                                  m_reproj_error;
+    SRef<DescriptorBuffer>					m_descriptor = nullptr;
+    std::map<unsigned int, unsigned int>	m_visibility = {};
+    Vector3f								m_rgb = {0.0, 0.0, 0.0};
+    Vector3f								m_normal = {0.0, 0.0, 0.0};
+    double                                  m_reproj_error = 0.0;
 };
 }
 }  // end of namespace SolAR
