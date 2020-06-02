@@ -54,7 +54,7 @@ struct CameraParameters
 {
     Sizei resolution;
     CamCalibration intrinsic;
-    CamDistortion distorsion;
+    CamDistortion distortion;
 };
 
 //Pose matrix definition               Vector defintion

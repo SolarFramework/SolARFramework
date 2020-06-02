@@ -61,23 +61,23 @@ public:
     /// @brief Set the intrinsic camera parameters
     virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
     
-    /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) =0;
+    /// @brief Set the distortion intrinsic camera parameters
+    virtual void setDistortionParameters(const CamDistortion & distortion_parameters) =0;
 
-    /// @brief Set the distorsion intrinsic camera parameters
+    /// @brief Set the distortion and intrinsic camera parameters
     virtual void setParameters(const CameraParameters & parameters) =0;
 
     /// @brief Get the acquisition device image resolution
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual const CamCalibration & getIntrinsicsParameters() = 0;
+    virtual CamCalibration getIntrinsicsParameters() = 0;
 
     /// @return Return the camera parameters
-    virtual const CameraParameters & getParameters() = 0;
+    virtual CameraParameters getParameters() = 0;
     
-    /// @return Return the distorsion camera lens parameters
-    virtual const CamDistortion & getDistorsionParameters() = 0;
+    /// @return Return the distortion camera lens parameters
+    virtual CamDistortion getDistortionParameters() = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
