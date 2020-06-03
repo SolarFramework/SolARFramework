@@ -71,13 +71,13 @@ public:
     virtual Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual CamCalibration getIntrinsicsParameters() = 0;
+    virtual const CamCalibration & getIntrinsicsParameters() = 0;
 
     /// @return Return the camera parameters
-    virtual CameraParameters getParameters() = 0;
+    virtual const CameraParameters & getParameters() = 0;
     
     /// @return Return the distortion camera lens parameters
-    virtual CamDistortion getDistortionParameters() = 0;
+    virtual const CamDistortion & getDistortionParameters() = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...
