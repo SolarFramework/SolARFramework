@@ -9,6 +9,11 @@
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/array.hpp>
 
 #include <memory>
 namespace SolAR {
@@ -129,6 +134,16 @@ public:
 	/// @return true if remove successfully
 	///
 	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version) {
+		ar & boost::serialization::make_array(m_pose.data(), 12);		
+		ar & m_descriptors;
+		ar & m_keypoints;
+		ar & m_mapVisibility;
+	}
 
 protected:
     Transform3Df                    m_pose;    

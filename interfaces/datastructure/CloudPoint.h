@@ -27,6 +27,10 @@
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/PrimitiveInformation.h"
 #include <mutex>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/base_object.hpp>
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -242,6 +246,20 @@ public:
 	/// @param[in] keypoint_id: the id of the keypoint of the keyframe
 	/// @return true if remove successfully
 	bool removeVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version){		
+		ar & boost::serialization::base_object<Point3Df>(*this);
+		ar & boost::serialization::base_object<PrimitiveInformation>(*this);
+		ar & m_id;
+		ar & m_descriptor;
+		ar & m_visibility;
+		ar & m_rgb[0]; ar & m_rgb[1]; ar & m_rgb[2];
+		ar & m_normal[0]; ar & m_normal[1]; ar & m_normal[2];
+		ar & m_reproj_error;
+	}
 
 private:	
 	uint32_t								m_id;

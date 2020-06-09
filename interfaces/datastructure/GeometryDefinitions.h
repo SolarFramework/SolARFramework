@@ -22,6 +22,8 @@
 #include "xpcf/xpcf.h"
 #include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/base_object.hpp>
 
 namespace SolAR {
 namespace datastructure {
@@ -42,6 +44,15 @@ public:
 
     inline Point2Df operator+(const Point2Df& a) const { return Point2Df(getX()+a.getX(), getY()+a.getY());}
     inline Point2Df operator-(const Point2Df& a) const { return Point2Df(getX()-a.getX(), getY()-a.getY());}
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar & this->data()[0];
+		ar & this->data()[1];
+	}
 };
 
 /**
@@ -66,6 +77,16 @@ public:
     inline Point3Df operator+(const Point3Df& a) const { return Point3Df(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Df operator-(const Point3Df& a) const { return Point3Df(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
     inline Point3Df operator*(const float & f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar & this->data()[0];
+		ar & this->data()[1];
+		ar & this->data()[2];
+	}
 };
 
 /**
