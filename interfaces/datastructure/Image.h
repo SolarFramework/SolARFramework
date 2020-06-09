@@ -21,6 +21,7 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "GeometryDefinitions.h"
 #include <memory>
+#include <boost/serialization/access.hpp>
 namespace SolAR {
 namespace datastructure {
 
@@ -67,6 +68,8 @@ public:
         INTERLEAVED=0,          /**< means channels are interleaved. For instance for LAYOUT RGBA, pixels are stored RGBARGBARGBA and so on... */
         PER_CHANNEL /**< means data buffer holds separately each image channel. For instance for an RGBA layout image, pixels are stored gathered by layer : RRRR....GGGG....BBBB....AAAA.... */
     };
+
+	Image() = default;
 
     /** @brief Image
      *  @param pixLayout: defined by ImageLayout
@@ -174,6 +177,14 @@ public:
     inline uint32_t getHeight() const { return m_size.height; }
 
     inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version) {
+		ar & m_size.height;
+		ar & m_size.width;
+	}
 
 private:
     class ImageInternal;

@@ -139,7 +139,8 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version) {
-		ar & boost::serialization::make_array(m_pose.data(), 12);		
+		ar & boost::serialization::make_array(m_pose.data(), 12);	
+		ar & m_view;
 		ar & m_descriptors;
 		ar & m_keypoints;
 		ar & m_mapVisibility;

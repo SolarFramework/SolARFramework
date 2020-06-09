@@ -139,14 +139,12 @@ public:
    virtual FrameworkReturnCode removeKeyframe(const SRef<Keyframe> &keyframe) = 0;
 
    /// @brief Save the map to the external file
-	/// @param[out] the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-   virtual FrameworkReturnCode saveToFile(std::string file) = 0;
+   virtual FrameworkReturnCode saveToFile() = 0;
 
    /// @brief Load the map from the external file
-   /// @param[in] the file name
    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-   virtual FrameworkReturnCode loadFromFile(std::string file) = 0;
+   virtual FrameworkReturnCode loadFromFile() = 0;
 };
 
 }

@@ -21,6 +21,9 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
+#include <boost/serialization/string.hpp>
 #include "GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include <chrono>
@@ -111,6 +114,17 @@ public:
 	/// 
 	const Transform3Df& getParentTransform() const {
 		return m_parentTransform;
+	}
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version) {
+		ar & m_isFloating;
+		ar & m_absolutePosition[0]; ar & m_absolutePosition[1]; ar & m_absolutePosition[2];
+		ar & m_absoluteRotation[0]; ar & m_absoluteRotation[1]; ar & m_absoluteRotation[2];
+		ar & m_parentId;
+		ar & boost::serialization::make_array(m_parentTransform.data(), 12);
 	}
 
 private:

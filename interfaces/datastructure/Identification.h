@@ -21,6 +21,9 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
+#include <boost/serialization/string.hpp>
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "core/Log.h"
@@ -183,6 +186,25 @@ public:
 	/// 
 	const BBox3Df& getBBox3D() const{
 		return m_bbox;
+	}
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version) {
+		ar & m_uuid;
+		ar & m_name;
+		ar & m_author;
+		char * ptr_createdTime = reinterpret_cast<char *>(&m_createdTime);
+		for (int i = 0; i < sizeof(m_createdTime); ++i)
+			ar & ptr_createdTime[i];
+		char * ptr_updatedTime = reinterpret_cast<char *>(&m_lastUpdatedTime);
+		for (int i = 0; i < sizeof(m_lastUpdatedTime); ++i)
+			ar & ptr_updatedTime[i];
+		ar & m_bbox.corner;
+		ar & m_bbox.depth;
+		ar & m_bbox.height;
+		ar & m_bbox.width;
 	}
 	
 private:
