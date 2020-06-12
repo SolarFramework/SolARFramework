@@ -19,6 +19,9 @@
 #ifndef SOLAR_SERIALIZATIONDEFINITIONS_H
 #define SOLAR_SERIALIZATIONDEFINITIONS_H
 
+
+#include <core/SolARFrameworkDefinitions.h>
+
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/map.hpp>
@@ -54,7 +57,7 @@ using InputArchive = ::boost::archive::binary_iarchive;
 #endif
 
 #define DECLARESERIALIZE(T) \
-    template <> void T::serialize<OutputArchive>(OutputArchive &ar, const unsigned int version);\
-    template <> void T::serialize<InputArchive>(InputArchive &ar, const unsigned int version);
+    template <> SOLARFRAMEWORK_API void T::serialize<OutputArchive>(OutputArchive &ar, const unsigned int version);\
+    template <> SOLARFRAMEWORK_API void T::serialize<InputArchive>(InputArchive &ar, const unsigned int version);
 
 #endif // SOLAR_SERIALIZATIONDEFINITIONS_H
