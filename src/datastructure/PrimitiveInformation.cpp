@@ -20,7 +20,8 @@
 namespace SolAR {
 namespace datastructure {
 
-template<>	void PrimitiveInformation::serialize(InputArchive &ar, const unsigned int version)
+template<class Archive>	
+void PrimitiveInformation::serialize(Archive &ar, const unsigned int version)
 {
     ar & m_confidence;
     ar & m_usedTimes;
@@ -29,16 +30,7 @@ template<>	void PrimitiveInformation::serialize(InputArchive &ar, const unsigned
         ar & ptr[i];
     ar & m_semanticId;
 }
+DECLARESERIALIZE(PrimitiveInformation);
 
-template<>	void PrimitiveInformation::serialize(OutputArchive &ar, const unsigned int version)
-{
-    ar & m_confidence;
-    ar & m_usedTimes;
-    char * ptr = reinterpret_cast<char *>(&m_lastUpdateTime);
-    for (int i = 0; i < sizeof(m_lastUpdateTime); ++i)
-        ar & ptr[i];
-    ar & m_semanticId;
 }
-}
-
 }

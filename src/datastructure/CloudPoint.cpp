@@ -124,7 +124,7 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, const uint32_t& k
 	}
 }
 
-template <typename Archive>
+template <class Archive>
 void CloudPoint::serialize(Archive &ar, const unsigned int version)
 {
     ar & boost::serialization::base_object<Point3Df>(*this);
@@ -137,14 +137,7 @@ void CloudPoint::serialize(Archive &ar, const unsigned int version)
     ar & m_reproj_error;
 }
 
-template<> void CloudPoint::serialize(InputArchive &ar, const unsigned int version) {
-    serialize<InputArchive>(ar,version);
-}
-
-template<> void CloudPoint::serialize(OutputArchive &ar, const unsigned int version) {
-    serialize<OutputArchive>(ar,version);
-}
-
+DECLARESERIALIZE(CloudPoint);
 
 }
 }
