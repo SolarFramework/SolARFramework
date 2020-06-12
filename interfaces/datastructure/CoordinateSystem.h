@@ -22,6 +22,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/array.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
 #include <boost/serialization/string.hpp>
 #include "GeometryDefinitions.h"

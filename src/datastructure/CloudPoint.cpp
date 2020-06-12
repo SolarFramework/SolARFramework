@@ -123,5 +123,29 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, const uint32_t& k
 		return true;
 	}
 }
+
+template<> void CloudPoint::serialize(InputArchive &ar, const unsigned int version) {
+    ar & boost::serialization::base_object<Point3Df>(*this);
+    ar & boost::serialization::base_object<PrimitiveInformation>(*this);
+    ar & m_id;
+    ar & m_descriptor;
+    ar & m_visibility;
+    ar & m_rgb[0]; ar & m_rgb[1]; ar & m_rgb[2];
+    ar & m_normal[0]; ar & m_normal[1]; ar & m_normal[2];
+    ar & m_reproj_error;
+}
+
+template<> void CloudPoint::serialize(OutputArchive &ar, const unsigned int version) {
+    ar & boost::serialization::base_object<Point3Df>(*this);
+    ar & boost::serialization::base_object<PrimitiveInformation>(*this);
+    ar & m_id;
+    ar & m_descriptor;
+    ar & m_visibility;
+    ar & m_rgb[0]; ar & m_rgb[1]; ar & m_rgb[2];
+    ar & m_normal[0]; ar & m_normal[1]; ar & m_normal[2];
+    ar & m_reproj_error;
+}
+
+
 }
 }

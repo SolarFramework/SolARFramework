@@ -20,7 +20,9 @@
 #include <cstdint>
 #include <chrono>
 #include <mutex>
-#include <boost/serialization/access.hpp>
+
+#include <core/SerializationDefinitions.h>
+
 
 namespace SolAR {
 namespace datastructure {
@@ -108,15 +110,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
-		ar & m_confidence;
-		ar & m_usedTimes;
-		char * ptr = reinterpret_cast<char *>(&m_lastUpdateTime);
-		for (int i = 0; i < sizeof(m_lastUpdateTime); ++i)
-			ar & ptr[i];
-		ar & m_semanticId;
-	}
+    void serialize(Archive &ar, const unsigned int version);
 
 private:
 	float										m_confidence;
@@ -124,6 +118,8 @@ private:
 	std::chrono::system_clock::time_point		m_lastUpdateTime;
 	int											m_semanticId;	
 };
+
+DECLARESERIALIZE(PrimitiveInformation);
 
 }
 }

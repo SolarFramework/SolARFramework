@@ -1,4 +1,5 @@
 HEADERS += interfaces/SharedBuffer.hpp \
+interfaces/core/SerializationDefinitions.h \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
@@ -88,6 +89,7 @@ interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
+    src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
