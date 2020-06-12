@@ -21,7 +21,7 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "GeometryDefinitions.h"
 #include <memory>
-#include <boost/serialization/access.hpp>
+#include <core/SerializationDefinitions.h>
 namespace SolAR {
 namespace datastructure {
 
@@ -180,11 +180,8 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version) {
-		ar & m_size.height;
-		ar & m_size.width;
-	}
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 private:
     class ImageInternal;
@@ -199,6 +196,8 @@ private:
     uint32_t m_nbPlanes;
     uint32_t m_nbBitsPerComponent;
 };
+
+DECLARESERIALIZE(Image);
 //image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
 // conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }

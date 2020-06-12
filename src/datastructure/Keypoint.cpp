@@ -54,5 +54,18 @@ void Keypoint::init( unsigned int id,
     m_class_id=class_id;
 }
 
+template<typename Archive>
+void Keypoint::serialize(Archive &ar, const unsigned int version) {
+	ar & boost::serialization::base_object<Point2Df>(*this);
+	ar & m_id;
+	ar & m_size;
+	ar & m_angle;
+	ar & m_response;
+	ar & m_octave;
+	ar & m_class_id;
+}
+
+DECLARESERIALIZE(Keypoint);
+
 }
 }

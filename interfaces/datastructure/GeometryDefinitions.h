@@ -50,8 +50,7 @@ private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version)
 	{
-		ar & this->data()[0];
-		ar & this->data()[1];
+		ar & boost::serialization::make_array(this->data(), 2);
 	}
 };
 
@@ -83,9 +82,7 @@ private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version)
 	{
-		ar & this->data()[0];
-		ar & this->data()[1];
-		ar & this->data()[2];
+		ar & boost::serialization::make_array(this->data(), 3);
 	}
 };
 

@@ -26,6 +26,10 @@
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/base_object.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/set.hpp>
+#include <boost/serialization/string.hpp>
 
 // Important note: to change the serialization format used throughout the framework
 // one of the following definitions must be uncommented dependeing on the desired format

@@ -23,8 +23,7 @@
 
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/base_object.hpp>
+#include <core/SerializationDefinitions.h>
 
 // Definition of Keypoint Class //
 // part of SolAR namespace //
@@ -55,7 +54,7 @@ namespace datastructure {
    /// \brief ~Keypoint
    ///
     ~Keypoint();
-/// \brief This method initializes an Keypoint object
+	/// \brief This method initializes an Keypoint object
     /// \param x: x-coordinate of the keypoint
     /// \param y: y-coordinate of the keypoint
     /// \param size: diameter of the meaningful keypoint neighborhood
@@ -111,16 +110,8 @@ namespace datastructure {
 
 	private:
 		friend class boost::serialization::access;
-		template<class Archive>
-		void serialize(Archive &ar, const unsigned int version) {
-			ar & boost::serialization::base_object<Point2Df>(*this);
-			ar & m_id;
-			ar & m_size;
-			ar & m_angle;
-			ar & m_response;
-			ar & m_octave;
-			ar & m_class_id;
-		}
+		template<typename Archive>
+		void serialize(Archive &ar, const unsigned int version);
 
     private:
         unsigned int    m_id; // The id of the keypoint in the current frame
@@ -130,6 +121,8 @@ namespace datastructure {
         int             m_octave;
         int             m_class_id;
 	};
+
+	DECLARESERIALIZE(Keypoint);
 
 }
 }  // end of namespace SolAR

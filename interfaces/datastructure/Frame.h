@@ -9,11 +9,7 @@
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/array.hpp>
+#include <core/SerializationDefinitions.h>
 
 #include <memory>
 namespace SolAR {
@@ -137,14 +133,8 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version) {
-		ar & boost::serialization::make_array(m_pose.data(), 12);	
-		ar & m_view;
-		ar & m_descriptors;
-		ar & m_keypoints;
-		ar & m_mapVisibility;
-	}
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 protected:
     Transform3Df                    m_pose;    
@@ -156,6 +146,8 @@ protected:
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
 };
+
+DECLARESERIALIZE(Frame);
 
 }
 }

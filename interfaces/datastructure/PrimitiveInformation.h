@@ -37,69 +37,49 @@ public:
 	///
 	/// @brief PrimitiveInformation constructor
 	///
-	PrimitiveInformation() {
-		m_confidence = 1.0;
-		m_usedTimes = 1;
-        m_lastUpdateTime = std::chrono::system_clock::now();
-		m_semanticId = -1;
-	}
+	PrimitiveInformation();
 
 	///
 	/// @brief This method updates the confident score of the primitive element
 	/// @param[in] isGood: it is true if the primitive element is considered as an inlier for this use. It is false in the otherwise.
 	///
-	void updateConfidence(bool isGood) {
-		m_confidence = (m_usedTimes * m_confidence + (int)isGood) / (m_usedTimes + 1);
-		m_usedTimes++;
-	}
+	void updateConfidence(bool isGood);
 
 	///
 	/// @brief This method returns the confident score of the primitive element
 	/// @return the confident score
 	///
-	const float& getConfidence() const{ 
-		return m_confidence; 
-	}
+	const float& getConfidence() const;
 
 	///
 	/// @brief This method returns the number of used times of the primitive element
 	/// @return the number of used times
 	///
-	const uint32_t& getUsedTime() const{ 
-		return m_usedTimes; 
-	}
+	const uint32_t& getUsedTime() const;
 
 	///
 	/// @brief This method returns the last updated time of the primitive element
 	/// @return the last updated time
 	///
-	const std::chrono::system_clock::time_point& getLastUpdateTime() const{ 
-		return m_lastUpdateTime; 
-	}
+	const std::chrono::system_clock::time_point& getLastUpdateTime() const;
 
 	///
 	/// @brief This method updates the last updated time of the primitive element
 	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
 	///
-	void setLastUpdateTime(const std::chrono::system_clock::time_point& updateTime) {
-		m_lastUpdateTime = updateTime;
-	}
+	void setLastUpdateTime(const std::chrono::system_clock::time_point& updateTime);
 
 	///
 	/// @brief This method returns the semantic id of the primitive element
 	/// @return the semantic id
 	///
-	const int& getSemanticId() const{ 
-		return m_semanticId; 
-	}
+	const int& getSemanticId() const;
 
 	///
 	/// @brief This method sets the semantic id of the primitive element
 	/// @param semanticId: the semantic id
 	///
-	void setSemanticId(const int& semanticId) { 
-		m_semanticId = semanticId; 
-	}
+	void setSemanticId(const int& semanticId);
 	
 
 	///
@@ -109,7 +89,7 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
+	template<typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
 private:

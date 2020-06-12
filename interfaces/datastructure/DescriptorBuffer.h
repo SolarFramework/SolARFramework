@@ -26,8 +26,7 @@
 #include "BufferInternal.hpp"
 
 #include <type_traits>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/shared_ptr.hpp>
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -278,14 +277,8 @@ private:
     bool deduceProperties(const DescriptorType & type);
 
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version) {
-		ar & m_buffer;
-		ar & m_nb_descriptors;
-		ar & m_data_type;
-		ar & m_nb_elements;
-		ar & m_descriptor_type;
-	}
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 private:
     SRef<BufferInternal> m_buffer;
@@ -294,6 +287,7 @@ private:
     uint32_t m_nb_elements;
     DescriptorType m_descriptor_type;
 };
+DECLARESERIALIZE(DescriptorBuffer);
 
 
 inline DescriptorBufferIterator begin(const SRef<DescriptorBuffer> & ref)

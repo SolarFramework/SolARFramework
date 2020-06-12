@@ -128,5 +128,16 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
     return m_referenceKeyFrame;
 }
 
+template<typename Archive>
+void Frame::serialize(Archive &ar, const unsigned int version) {
+	ar & boost::serialization::make_array(m_pose.data(), 12);
+	ar & m_view;
+	ar & m_descriptors;
+	ar & m_keypoints;
+	ar & m_mapVisibility;
+}
+
+DECLARESERIALIZE(Frame);
+
 }
 }

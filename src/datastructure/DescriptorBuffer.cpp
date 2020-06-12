@@ -155,6 +155,15 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
 }
 
+template<typename Archive>
+void DescriptorBuffer::serialize(Archive &ar, const unsigned int version) {
+	ar & m_buffer;
+	ar & m_nb_descriptors;
+	ar & m_data_type;
+	ar & m_nb_elements;
+	ar & m_descriptor_type;
+}
+
 DescriptorBufferIterator::DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())
 {
 
@@ -164,6 +173,8 @@ DescriptorView DescriptorBufferIterator::operator *() {
     DescriptorView desc = m_buffer->getDescriptor(m_index);
     return desc;
 }
+
+DECLARESERIALIZE(DescriptorBuffer);
 
 }
 }
