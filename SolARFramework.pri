@@ -91,6 +91,8 @@ interfaces/api/source/ISourceReturnCode.h
 SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
+	src/datastructure/CoordinateSystem.cpp \
+	src/datastructure/Identification.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \

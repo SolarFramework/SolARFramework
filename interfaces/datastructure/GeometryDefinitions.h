@@ -22,8 +22,7 @@
 #include "xpcf/xpcf.h"
 #include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/base_object.hpp>
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -47,9 +46,8 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
 		ar & boost::serialization::make_array(this->data(), 2);
 	}
 };
@@ -79,9 +77,8 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version)
-	{
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
 		ar & boost::serialization::make_array(this->data(), 3);
 	}
 };
@@ -102,6 +99,13 @@ public:
 
     inline Point2Di operator+(const Point2Di& a) const { return Point2Di(getX()+a.getX(), getY()+a.getY());}
     inline Point2Di operator-(const Point2Di& a) const { return Point2Di(getX()-a.getX(), getY()-a.getY());}
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 2);
+	}
 };
 
 /**
@@ -123,6 +127,13 @@ public:
 
     inline Point3Di operator+(const Point3Di& a) const { return Point3Di(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Di operator-(const Point3Di& a) const { return Point3Di(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 3);
+	}
 };
 
 /**
@@ -138,6 +149,14 @@ public:
 
     Point2Df p1;
     Point2Df p2;
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & p1;
+		ar & p2;
+	}
 };
 
 /**
@@ -153,6 +172,14 @@ public:
 
     Point2Di p1;
     Point2Di p2;
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & p1;
+		ar & p2;
+	}
 };
 
 /**
@@ -170,6 +197,16 @@ public:
 	float width;		// x-axis
 	float height;		// y-axis
 	float depth;		// z-axis
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & corner;
+		ar & width;
+		ar & height;
+		ar & depth;
+	}
 };
 
 /**

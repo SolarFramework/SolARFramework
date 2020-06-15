@@ -18,8 +18,7 @@
 #ifndef SOLAR_BUFFERINTERNAL_H
 #define SOLAR_BUFFERINTERNAL_H
 
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/vector.hpp>
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {

@@ -21,10 +21,7 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/array.hpp>
-#include <boost/uuid/uuid_serialize.hpp>
-#include <boost/serialization/string.hpp>
+#include <core/SerializationDefinitions.h>
 #include "GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include <chrono>
@@ -37,16 +34,13 @@ namespace datastructure {
 	* @class Coordinate system component
 	* @brief <B>This component includes coordinate systems of a map. It can be a floating coordinate system or be related to other coordinate systems.</B>
 	*/
-class CoordinateSystem
+class SOLARFRAMEWORK_API CoordinateSystem
 {
 public:
 	///
 	/// @brief Identification constructor
 	///
-	CoordinateSystem() {
-		m_isFloating = true;
-		m_parentId = boost::uuids::nil_uuid();
-	}
+	CoordinateSystem();
 
 	///
 	/// \brief ~Identification
@@ -57,76 +51,54 @@ public:
 	/// @brief Set the absolute position of this map in the earth coordinate
 	/// @param[in] position: the absolute position
 	/// 
-	void setAbsolutePosition(const Vector3f& position) {
-		m_absolutePosition = position;
-	}
+	void setAbsolutePosition(const Vector3f& position);
 
 	/// 
 	/// @brief Get the absolute position of this map in the earth coordinate
 	/// @return the position
 	/// 
-	const Vector3f& getAbsolutePosition() const {
-		return m_absolutePosition;
-	}
+	const Vector3f& getAbsolutePosition() const;
 
 	/// 
 	/// @brief Set the absolute euler rotation of this map in the earth coordinate
 	/// @param[in] euler: the absolute euler rotation
 	/// 
-	void setAbsoluteRotation(const Vector3f& euler) {
-		m_absoluteRotation = euler;
-	}
+	void setAbsoluteRotation(const Vector3f& euler);
 
 	/// 
 	/// @brief Get the absolute euler rotation of this map in the earth coordinate
 	/// @return the rotation
 	/// 
-	const Vector3f& getAbsoluteRotation() const {
-		return m_absoluteRotation;
-	}
+	const Vector3f& getAbsoluteRotation() const;
 
 	/// 
 	/// @brief Set the uuid of parent map that this map belongs to
 	/// @param[in] parent_uuid: the parent uuid
 	/// 
-	void setParentId(const boost::uuids::uuid& parent_uuid) {
-		m_parentId = parent_uuid;
-	}
+	void setParentId(const boost::uuids::uuid& parent_uuid);
 
 	/// 
 	/// @brief Get the uuid of parent map that this map belongs to
 	/// @return the parent uuid
 	/// 
-	const boost::uuids::uuid& getParentId() const {
-		return m_parentId;
-	}
+	const boost::uuids::uuid& getParentId() const;
 
 	/// 
 	/// @brief Set the transformation matrix from this map to its parent map
 	/// @param[in] parent_transform: the transformation matrix
 	/// 
-	void setParentTransform(const Transform3Df& parent_transform) {
-		m_parentTransform = parent_transform;
-	}
+	void setParentTransform(const Transform3Df& parent_transform);
 
 	/// 
 	/// @brief Get the transformation matrix from this map to its parent map
 	/// @return the transformation matrix
 	/// 
-	const Transform3Df& getParentTransform() const {
-		return m_parentTransform;
-	}
+	const Transform3Df& getParentTransform() const;
 
 private:
 	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version) {
-		ar & m_isFloating;
-		ar & m_absolutePosition[0]; ar & m_absolutePosition[1]; ar & m_absolutePosition[2];
-		ar & m_absoluteRotation[0]; ar & m_absoluteRotation[1]; ar & m_absoluteRotation[2];
-		ar & m_parentId;
-		ar & boost::serialization::make_array(m_parentTransform.data(), 12);
-	}
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 private:
 	bool										m_isFloating;
@@ -135,6 +107,8 @@ private:
 	boost::uuids::uuid							m_parentId;
 	Transform3Df								m_parentTransform;
 };
+
+DECLARESERIALIZE(CoordinateSystem);
 
 }
 }
