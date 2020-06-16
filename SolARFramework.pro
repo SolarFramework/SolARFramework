@@ -41,7 +41,7 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix {
+unix:!android {
 #
 #   if buidling with clang
 #	    QMAKE_CXX = clang++
