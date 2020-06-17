@@ -67,6 +67,7 @@ win32 {
 
 android {
     QMAKE_LFLAGS += -nostdlib++
+    ANDROID_ABIS="arm64-v8a"
 }
 
 
