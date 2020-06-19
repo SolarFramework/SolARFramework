@@ -52,9 +52,9 @@ public:
     /// @param[in] r (optional): r-channel color value of the cloudpoint.
     /// @param[in] g (optional): g-channel color value of the cloudpoint.
     /// @param[in] b (optional): b-channel color value of the cloudpoint.
-    /// @param[in] nx (optional): x-coordinate of the normal vector of the cloudpoint.
-    /// @param[in] ny (optional): y-coordinate of the normal vector of the cloudpoint.
-    /// @param[in] nz (optional): z-coordinate of the normal vector of the cloudpoint.
+    /// @param[in] nx (optional): x-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] ny (optional): y-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] nz (optional): z-coordinate of the view direction vector of the cloudpoint.
     ///
     CloudPoint( float x,
                 float y,
@@ -92,9 +92,9 @@ public:
     /// @param[in] r: r-channel color value of the cloudpoint.
     /// @param[in] g: g-channel color value of the cloudpoint.
     /// @param[in] b: b-channel color value of the cloudpoint.
-    /// @param[in] nx: x-coordinate of the normal vector of the cloudpoint.
-    /// @param[in] ny: y-coordinate of the normal vector of the cloudpoint.
-    /// @param[in] nz: z-coordinate of the normal vector of the cloudpoint.
+    /// @param[in] nx: x-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] ny: y-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] nz: z-coordinate of the view direction vector of the cloudpoint.
     /// @param[in] visibility: visibility map of the cloudpoint.
     ///
     CloudPoint( float x,
@@ -136,9 +136,9 @@ public:
 	/// @param[in] r: r-channel color value of the cloudpoint.
 	/// @param[in] g: g-channel color value of the cloudpoint.
 	/// @param[in] b: b-channel color value of the cloudpoint.
-	/// @param[in] nx: x-coordinate of the normal vector of the cloudpoint.
-	/// @param[in] ny: y-coordinate of the normal vector of the cloudpoint.
-	/// @param[in] nz: z-coordinate of the normal vector of the cloudpoint.
+	/// @param[in] nx: x-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] ny: y-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] nz: z-coordinate of the view direction vector of the cloudpoint.
 	/// @param[in] visibility: visibility map of the cloudpoint.
 	/// @param[in] descriptor: descriptor of the cloudpoint.
 	///
@@ -184,6 +184,10 @@ public:
 	///
 	void setDescriptor(const SRef<DescriptorBuffer> &descriptor);
 
+	/// @brief This method updates the descriptor of the cloud point by taking into account the descriptor of new keyframe
+	/// @param[in] descriptor: the new descriptor
+	void addNewDescriptor(const DescriptorView &descriptor);
+
     ///
     /// @brief These methods returns the color components of the CloudPoint
     /// @return the RGB color of the CloudPoint
@@ -206,16 +210,20 @@ public:
 	void setRGB(const Vector3f &rgb);
 
 	///
-	/// @brief This method returns the normal of the cloud point
-	/// @return normal vector
+	/// @brief This method returns the view direction of the cloud point
+	/// @return view direction vector
 	///
-	const Vector3f& getNormal() const;
+	const Vector3f& getViewDirection() const;
 
 	///
-	/// @brief This method sets the normal of the cloud point
-	/// @param[in] rgb: rgb color
+	/// @brief This method sets the view direction of the cloud point
+	/// @param[in] viewDirection: the view direction
 	///
-	void setNormal(const Vector3f &normal);
+	void setViewDirection(const Vector3f &viewDirection);
+
+	/// @brief This method updates the view direction of the cloud point by taking into account the view direction of new keyframe
+	/// @param[in] viewDirection: the new view direction
+	void addNewViewDirection(const Vector3f &viewDirection);
   
 	/// @brief This method sets reprojection error of the PointCloud
 	/// @param[in] the reprojection error
@@ -255,7 +263,7 @@ private:
     SRef<DescriptorBuffer>					m_descriptor = nullptr;
     std::map<unsigned int, unsigned int>	m_visibility = {};
     Vector3f								m_rgb = {0.0, 0.0, 0.0};
-    Vector3f								m_normal = {0.0, 0.0, 0.0};
+    Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
 };
 

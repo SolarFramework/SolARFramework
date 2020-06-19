@@ -26,19 +26,19 @@ CloudPoint::~CloudPoint(){
 }
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error) :
-    Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_reproj_error(reproj_error) {}
+    Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error) {}
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility) :
     Point3Df(x, y, z), m_rgb(r, g, b), m_reproj_error(reproj_error), m_visibility(visibility) {}
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, std::map<unsigned int, unsigned int>& visibility) :
-	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility) {}
+	Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility) {}
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
     Point3Df(x, y, z), m_rgb(r, g, b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){}
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-	Point3Df(x, y, z), m_rgb(r, g, b), m_normal(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){}
+	Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor){}
 
 const uint32_t& CloudPoint::getId() const{
 	std::unique_lock<std::mutex> lock(m_mutex);
@@ -58,6 +58,14 @@ const SRef<DescriptorBuffer>& CloudPoint::getDescriptor() const{
 void CloudPoint::setDescriptor(const SRef<DescriptorBuffer> &descriptor) {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	m_descriptor = descriptor;
+}
+
+void CloudPoint::addNewDescriptor(const DescriptorView & descriptor)
+{
+	DescriptorBuffer newDescriptor(descriptor);
+	DescriptorBuffer newDescriptorCP = ((*m_descriptor * m_visibility.size()) + newDescriptor) / (m_visibility.size() + 1);
+	DescriptorBuffer newDescriptorCPConvertedType = newDescriptorCP.convertTo(m_descriptor->getDescriptorDataType());
+	*m_descriptor = newDescriptorCPConvertedType;
 }
 
 const Vector3f& CloudPoint::getRGB() const{
@@ -82,14 +90,22 @@ void CloudPoint::setRGB(const Vector3f &rgb) {
 	m_rgb = rgb;
 }
 
-const Vector3f& CloudPoint::getNormal() const{
+const Vector3f & CloudPoint::getViewDirection() const
+{
 	std::unique_lock<std::mutex> lock(m_mutex);
-	return m_normal;
+	return m_viewDirection;
 }
 
-void CloudPoint::setNormal(const Vector3f &normal) {
+void CloudPoint::setViewDirection(const Vector3f & viewDirection)
+{
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_normal = normal;
+	m_viewDirection = viewDirection;
+}
+
+void CloudPoint::addNewViewDirection(const Vector3f & viewDirection)
+{
+	std::unique_lock<std::mutex> lock(m_mutex);
+	m_viewDirection = (m_viewDirection * m_visibility.size() + viewDirection) / (m_visibility.size() + 1);
 }
 
 void CloudPoint::setReprojError(const double & error)
@@ -133,7 +149,7 @@ void CloudPoint::serialize(Archive &ar, const unsigned int version)
     ar & m_descriptor;
     ar & m_visibility;
 	ar & boost::serialization::make_array(m_rgb.data(), 3);
-	ar & boost::serialization::make_array(m_normal.data(), 3);    
+	ar & boost::serialization::make_array(m_viewDirection.data(), 3);
     ar & m_reproj_error;
 }
 
