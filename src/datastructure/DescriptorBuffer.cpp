@@ -146,6 +146,63 @@ void DescriptorBuffer::append(const DescriptorView32F & descriptor)
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * DescriptorView32F::sDataType);
 }
 
+DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
+{
+	if (m_data_type == type)
+		return DescriptorBuffer(*this);
+	std::vector<uint8_t> output;
+	if (type == DescriptorDataType::TYPE_8U) {
+		float *tmp_data = reinterpret_cast<float*>(m_buffer->data());
+		std::vector<uint8_t> tmp_output(m_nb_descriptors * m_nb_elements);
+		for (int i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
+			tmp_output[i] = static_cast<uint8_t>(tmp_data[i]);
+		}
+		output.swap(tmp_output);
+	}
+	else {
+		uint8_t *tmp_data = reinterpret_cast<uint8_t*>(m_buffer->data());
+		std::vector<float> tmp_output(m_nb_descriptors * m_nb_elements);
+		for (int i = 0; i < m_nb_descriptors * m_nb_elements; i++) {			
+			tmp_output[i] = static_cast<float>(tmp_data[i]);
+		}
+		output.insert(output.begin(), reinterpret_cast<uint8_t*>(tmp_output.data()), reinterpret_cast<uint8_t*>(tmp_output.data()) + m_nb_descriptors * m_nb_elements * 4);
+	}
+	return DescriptorBuffer(output.data(), m_descriptor_type, type, m_nb_elements, m_nb_descriptors);
+}
+
+DescriptorBuffer DescriptorBuffer::operator+(const DescriptorBuffer & desc) const
+{
+	assert((m_descriptor_type == desc.getDescriptorType()) && (m_nb_descriptors == desc.getNbDescriptors()) && (m_nb_elements == desc.getNbElements()));
+	DescriptorBuffer desc1 = this->convertTo(TYPE_32F);
+	DescriptorBuffer desc2 = desc.convertTo(TYPE_32F);
+	float *desc1_data = reinterpret_cast<float*>(desc1.data());
+	float *desc2_data = reinterpret_cast<float*>(desc2.data());
+	std::vector<float> output(m_nb_descriptors * m_nb_elements);
+	for (int i = 0; i < output.size(); i++)
+		output[i] = desc1_data[i] + desc2_data[i];
+	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
+}
+
+DescriptorBuffer DescriptorBuffer::operator*(float fac) const
+{
+	DescriptorBuffer desc = this->convertTo(TYPE_32F);
+	float *desc_data = reinterpret_cast<float*>(desc.data());
+	std::vector<float> output(m_nb_descriptors * m_nb_elements);
+	for (int i = 0; i < output.size(); i++)
+		output[i] = desc_data[i] * fac;
+	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
+}
+
+DescriptorBuffer DescriptorBuffer::operator/(float div) const
+{
+	DescriptorBuffer desc = this->convertTo(TYPE_32F);
+	float *desc_data = reinterpret_cast<float*>(desc.data());
+	std::vector<float> output(m_nb_descriptors * m_nb_elements);
+	for (int i = 0; i < output.size(); i++)
+		output[i] = desc_data[i] / div;
+	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
+}
+
 void DescriptorBuffer::append(const DescriptorView & descriptor)
 {
     if ((m_descriptor_type != descriptor.type()) || (m_data_type != descriptor.dataType())) {

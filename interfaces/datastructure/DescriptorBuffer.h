@@ -233,26 +233,26 @@ public :
 
     /** @brief  return the type of descriptor
     */
-    inline enum DescriptorType getDescriptorType(){
+    inline enum DescriptorType getDescriptorType() const{
         return m_descriptor_type;
     }
 
     /** @brief  return the number of elements per descriptor
     */
-    inline uint32_t getNbElements(void){
+    inline uint32_t getNbElements(void) const{
         return m_nb_elements;
     }
 
     /** @brief  return the internal storage type of descriptor
     */
-    inline enum DescriptorDataType getDescriptorDataType()
+    inline enum DescriptorDataType getDescriptorDataType() const
     {
         return m_data_type;
     }
 
     /** @brief  return the descriptor size in bytes
     */
-    inline uint32_t getDescriptorByteSize(void)
+    inline uint32_t getDescriptorByteSize(void) const
     {
         return m_nb_elements * m_data_type;
     }
@@ -260,6 +260,11 @@ public :
     void append(const DescriptorView & descriptor);
     void append(const DescriptorView8U & descriptor);
     void append(const DescriptorView32F & descriptor);
+
+	DescriptorBuffer convertTo(DescriptorDataType type) const;
+	DescriptorBuffer operator+ (const DescriptorBuffer &desc) const;
+	DescriptorBuffer operator* (float fac) const;
+	DescriptorBuffer operator/ (float div) const;
 
 
     DescriptorView getDescriptor(uint32_t index) const;

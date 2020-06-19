@@ -31,7 +31,7 @@ namespace datastructure {
 	* @class Primitive Information
 	* @brief <B>This component includes primitive informations such as confident score, semantic.</B>
 	*/
-class PrimitiveInformation
+class SOLARFRAMEWORK_API PrimitiveInformation
 {
 public:
 	///
