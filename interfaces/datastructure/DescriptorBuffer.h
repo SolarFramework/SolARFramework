@@ -227,7 +227,7 @@ public :
 
     /** @brief  return the number of descriptors stored in the structure
     */
-    inline uint32_t getNbDescriptors(void){
+    inline uint32_t getNbDescriptors(void) const{
         return m_nb_descriptors;
     }
 
