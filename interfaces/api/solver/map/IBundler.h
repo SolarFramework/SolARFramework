@@ -46,6 +46,11 @@ class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
 							     const std::vector<uint32_t> & selectKeyframes) = 0;
 
 
+		   /// @brief Optimize global bundle adjustment based on a maximal spanning tree
+		   /// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
+		   /// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
+		   /// @return the mean re-projection error.
+		   virtual  double optimizeSpanningTree(CamCalibration & K, CamDistortion & D) = 0;
 };
 }
 }
