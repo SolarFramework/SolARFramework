@@ -35,16 +35,23 @@ class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
            ///
            virtual ~IBundler() {}
 
-           /// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
+           /// @brief solve a non-linear problem related to local bundle adjustement statement expressed as:
            /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
            /// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
            /// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
            /// @param[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
            /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
-           virtual  double solve(CamCalibration & K,
-                                 CamDistortion & D,
-							     const std::vector<uint32_t> & selectKeyframes) = 0;
+           virtual  double localBundleAdjustment(CamCalibration & K,
+                                                 CamDistortion & D,
+                                                 const std::vector<uint32_t> & selectKeyframes) = 0;
 
+           /// @brief solve a non-linear problem related to global bundle adjustement statement expressed as:
+           /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
+           /// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
+           /// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
+           /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
+           virtual  double globalBundleAdjustment(CamCalibration & K,
+                                                  CamDistortion & D) = 0;
 
 		   /// @brief Optimize global bundle adjustment based on a maximal spanning tree
 		   /// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
