@@ -41,7 +41,7 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix {
+unix:!android {
 #
 #   if buidling with clang
 #	    QMAKE_CXX = clang++
@@ -67,6 +67,7 @@ win32 {
 
 android {
     QMAKE_LFLAGS += -nostdlib++
+    ANDROID_ABIS="arm64-v8a"
 }
 
 
