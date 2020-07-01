@@ -25,11 +25,14 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/DescriptorBuffer.h"
+#include "datastructure/PrimitiveInformation.h"
 #include <mutex>
+
+#include <core/SerializationDefinitions.h>
+
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
-
 namespace SolAR {
 namespace datastructure {
 class Keyframe;
@@ -38,19 +41,40 @@ class Keyframe;
  * @class CloudPoint
  * @brief <B>A 3D point stored in a cloud of points.</B>
  */
-class  SOLARFRAMEWORK_API CloudPoint : public Point3Df {
+class  SOLARFRAMEWORK_API CloudPoint : public Point3Df, public PrimitiveInformation {
 public:
     CloudPoint() = default;
 
     /// @brief Cloudpoint constructor.
-    /// @param[int] x-coordinate of the cloudpoint.
-    /// @param[int] y-coordinate of the cloudpoint.
-    /// @param[int] z-coordinate of the cloudpoint.
-    /// @param[int] r-channel color value of the cloudpoint.
-    /// @param[int] g-channel color value of the cloudpoint.
-    /// @param[int] b-channel color value of the cloudpoint.
-    /// @param[int] reprojection error of the cloudpoint.
-    /// @param[int] visibility map of the cloudpoint.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r (optional): r-channel color value of the cloudpoint.
+    /// @param[in] g (optional): g-channel color value of the cloudpoint.
+    /// @param[in] b (optional): b-channel color value of the cloudpoint.
+    /// @param[in] nx (optional): x-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] ny (optional): y-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] nz (optional): z-coordinate of the view direction vector of the cloudpoint.
+    ///
+    CloudPoint( float x,
+                float y,
+                float z,
+                float r = 0.0f,
+                float g = 0.0f,
+                float b = 0.0f,
+                float nx = 0.0f,
+                float ny = 0.0f,
+                float nz = 0.0f,
+                double reproj_error = 0.0);
+
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r: r-channel color value of the cloudpoint.
+    /// @param[in] g: g-channel color value of the cloudpoint.
+    /// @param[in] b: b-channel color value of the cloudpoint.
+    /// @param[in] visibility: visibility map of the cloudpoint.
     ///
     CloudPoint( float x,
                 float y,
@@ -61,66 +85,190 @@ public:
                 double reproj_error,
                 std::map<unsigned int, unsigned int> &visibility);
 
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r: r-channel color value of the cloudpoint.
+    /// @param[in] g: g-channel color value of the cloudpoint.
+    /// @param[in] b: b-channel color value of the cloudpoint.
+    /// @param[in] nx: x-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] ny: y-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] nz: z-coordinate of the view direction vector of the cloudpoint.
+    /// @param[in] visibility: visibility map of the cloudpoint.
+    ///
+    CloudPoint( float x,
+                float y,
+                float z,
+                float r,
+                float g,
+                float b,
+				float nx,
+				float ny,
+				float nz,
+				double reproj_error,
+                std::map<unsigned int, unsigned int> &visibility);
 
-    /// @brief CloudPoint constructor with a Point3Df.
-    /// @param point a Point3Df
+    /// @brief Cloudpoint constructor.
+    /// @param[in] x: x-coordinate of the cloudpoint.
+    /// @param[in] y: y-coordinate of the cloudpoint.
+    /// @param[in] z: z-coordinate of the cloudpoint.
+    /// @param[in] r: r-channel color value of the cloudpoint.
+    /// @param[in] g: g-channel color value of the cloudpoint.
+    /// @param[in] b: b-channel color value of the cloudpoint.
+    /// @param[in] visibility: visibility map of the cloudpoint.
+    /// @param[in] descriptor: descriptor of the cloudpoint.
     ///
-    CloudPoint(const Point3Df& point);
+    CloudPoint(	float x,
+                float y,
+                float z,
+                float r,
+                float g,
+                float b,
+                double reproj_error,
+                std::map<unsigned int, unsigned int> &visibility,
+                SRef<DescriptorBuffer> descriptor);
 
-    ///
-    /// \brief ~CloudPoint
-    ///
-   
-	CloudPoint(float x,
-		float y,
-		float z,
-		float r,
-		float g,
-		float b,
-		double reproj_error,
-		std::map<unsigned int, unsigned int> &visibility,
-		SRef<DescriptorBuffer> descriptor);
+    /// @brief Cloudpoint constructor.
+	/// @param[in] x: x-coordinate of the cloudpoint.
+	/// @param[in] y: y-coordinate of the cloudpoint.
+	/// @param[in] z: z-coordinate of the cloudpoint.
+	/// @param[in] r: r-channel color value of the cloudpoint.
+	/// @param[in] g: g-channel color value of the cloudpoint.
+	/// @param[in] b: b-channel color value of the cloudpoint.
+	/// @param[in] nx: x-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] ny: y-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] nz: z-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] visibility: visibility map of the cloudpoint.
+	/// @param[in] descriptor: descriptor of the cloudpoint.
+	///
+	CloudPoint(	float x,
+				float y,
+				float z,
+				float r,
+				float g,
+				float b,
+				float nx,
+				float ny,
+				float nz,
+				double reproj_error,
+                std::map<unsigned int, unsigned int> &visibility,
+                SRef<DescriptorBuffer> descriptor);
 
     ///
     /// \brief ~CloudPoint
     ///
     ~CloudPoint();
 
-    ///
-    /// \brief These methods returns the color components of the CloudPoint
-    /// \return the color component of the CloudPoint (Red, Green or Blue)
-    ///
-    float getR() const {return m_r;}
-    float getG() const {return m_g;}
-    float getB() const {return m_b;}
+	///
+	/// @brief This method returns the id of the cloud point
+	/// @return the id
+	///
+	const uint32_t& getId() const;
+
+	///
+	/// @brief This method sets the id of the cloud point
+	/// @param[in] id: id of cloud point
+	///
+	void setId(const uint32_t& id);
+
+	///
+	/// @brief This method returns the descriptor of the cloud point
+	/// @return the descriptor
+	///
+	const SRef<DescriptorBuffer>& getDescriptor() const;
+
+	///
+	/// @brief This method sets the descriptor of the cloud point
+	/// @param[in] descriptor: the descriptor
+	///
+	void setDescriptor(const SRef<DescriptorBuffer> &descriptor);
+
+	/// @brief This method updates the descriptor of the cloud point by taking into account the descriptor of new keyframe
+	/// @param[in] descriptor: the new descriptor
+	void addNewDescriptor(const DescriptorView &descriptor);
 
     ///
-    /// \brief This method returns reprojection error of the PointCloud
-    /// \return teh reprojection error
+    /// @brief These methods returns the color components of the CloudPoint
+    /// @return the RGB color of the CloudPoint
     ///
-    double getReprojError() const {return m_reproj_error;}    
+	const Vector3f& getRGB() const;
 
+	///
+	/// \brief These methods returns the color components of the CloudPoint
+	/// \return the color component of the CloudPoint (Red, Green or Blue)
+	///
+	const float& getR() const;
+	const float& getG() const;
+	const float& getB() const;
+
+
+	///
+	/// @brief This method sets the RGB color of the cloud point
+	/// @param[in] rgb: rgb color
+	///
+	void setRGB(const Vector3f &rgb);
+
+	///
+	/// @brief This method returns the view direction of the cloud point
+	/// @return view direction vector
+	///
+	const Vector3f& getViewDirection() const;
+
+	///
+	/// @brief This method sets the view direction of the cloud point
+	/// @param[in] viewDirection: the view direction
+	///
+	void setViewDirection(const Vector3f &viewDirection);
+
+	/// @brief This method updates the view direction of the cloud point by taking into account the view direction of new keyframe
+	/// @param[in] viewDirection: the new view direction
+	void addNewViewDirection(const Vector3f &viewDirection);
+  
+	/// @brief This method sets reprojection error of the PointCloud
+	/// @param[in] the reprojection error
+	void setReprojError(const double &error);
+
+	/// @brief This method returns reprojection error of the PointCloud
+	/// @return the reprojection error
+	const double& getReprojError() const;
+
+	///
     /// @brief return the visibility map of the CloudPoint
     /// @return The visibility, a map where the key corresponds to the id of the keyframe, and the value to the id of the keypoint in this keyframe.
-	const std::map<unsigned int, unsigned int>& getVisibility() const;
+	///
+	const std::map<uint32_t, uint32_t>& getVisibility() const;
 
+	///
     /// @brief add a keypoint to the visibility map of the CloudPoint
-    /// @param keyframe_id: the id of the keyframe to which the keypoint belong
-    /// @param keypoint_id: the id of the keypoint of the keyframe
-    void visibilityAddKeypoint(unsigned int keyframe_id, unsigned int keypoint_id);
+    /// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
+    /// @param[in] keypoint_id: the id of the keypoint of the keyframe
+	///
+    void addVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
 
-	SRef<DescriptorBuffer> getDescriptor() const { return m_descriptor; };
+	///
+	/// @brief remove a keypoint to the visibility map of the CloudPoint
+	/// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
+	/// @param[in] keypoint_id: the id of the keypoint of the keyframe
+	/// @return true if remove successfully
+	bool removeVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
+
+private:
+	friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
 
 private:	
-    std::map<unsigned int, unsigned int>	m_visibility;
-    float									m_r;
-    float									m_g;
-    float									m_b;
-
-    double									m_reproj_error;
-
-	SRef<DescriptorBuffer>					m_descriptor;	
+	uint32_t								m_id;
+    SRef<DescriptorBuffer>					m_descriptor = nullptr;
+    std::map<unsigned int, unsigned int>	m_visibility = {};
+    Vector3f								m_rgb = {0.0, 0.0, 0.0};
+    Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
+    double                                  m_reproj_error = 0.0;
 };
+
+DECLARESERIALIZE(CloudPoint);
+
 }
 }  // end of namespace SolAR
 

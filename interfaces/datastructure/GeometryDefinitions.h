@@ -22,6 +22,7 @@
 #include "xpcf/xpcf.h"
 #include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -42,6 +43,13 @@ public:
 
     inline Point2Df operator+(const Point2Df& a) const { return Point2Df(getX()+a.getX(), getY()+a.getY());}
     inline Point2Df operator-(const Point2Df& a) const { return Point2Df(getX()-a.getX(), getY()-a.getY());}
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 2);
+	}
 };
 
 /**
@@ -66,6 +74,13 @@ public:
     inline Point3Df operator+(const Point3Df& a) const { return Point3Df(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Df operator-(const Point3Df& a) const { return Point3Df(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
     inline Point3Df operator*(const float & f) const {{ return Point3Df(getX()*f, getY()*f, getZ()*f);} }
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 3);
+	}
 };
 
 /**
@@ -84,6 +99,13 @@ public:
 
     inline Point2Di operator+(const Point2Di& a) const { return Point2Di(getX()+a.getX(), getY()+a.getY());}
     inline Point2Di operator-(const Point2Di& a) const { return Point2Di(getX()-a.getX(), getY()-a.getY());}
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 2);
+	}
 };
 
 /**
@@ -105,6 +127,13 @@ public:
 
     inline Point3Di operator+(const Point3Di& a) const { return Point3Di(getX()+a.getX(), getY()+a.getY(), getZ()+a.getZ());}
     inline Point3Di operator-(const Point3Di& a) const { return Point3Di(getX()-a.getX(), getY()-a.getY(), getZ()-a.getZ());}
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & boost::serialization::make_array(this->data(), 3);
+	}
 };
 
 /**
@@ -120,6 +149,14 @@ public:
 
     Point2Df p1;
     Point2Df p2;
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & p1;
+		ar & p2;
+	}
 };
 
 /**
@@ -135,6 +172,41 @@ public:
 
     Point2Di p1;
     Point2Di p2;
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & p1;
+		ar & p2;
+	}
+};
+
+/**
+ * @class BBox3Df
+ * @brief <B>A bounding box 3D with coordinates defined with integers.</B>
+ *
+ */
+class BBox3Df {
+public:
+	BBox3Df() = default;
+	BBox3Df(Point3Df corner, float width, float height, float depth) : corner(corner), width(width), height(height), depth(depth) {}
+	~BBox3Df() = default;
+
+	Point3Df corner;	// the corner point in the top under left
+	float width;		// x-axis
+	float height;		// y-axis
+	float depth;		// z-axis
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & corner;
+		ar & width;
+		ar & height;
+		ar & depth;
+	}
 };
 
 /**

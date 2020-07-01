@@ -24,11 +24,12 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/Keyframe.h"
-#include "datastructure/Map.h"
+#include "api/storage/IPointCloudManager.h"
 
 namespace SolAR {
 using namespace datastructure;
-namespace api {
+using namespace api::storage;
+namespace api {	
 namespace solver {
 namespace pose {
 /**
@@ -46,37 +47,18 @@ namespace pose {
         /// @brief IFundamentalMatrixDecomposer default destructor.
         ///
         virtual ~I2D3DCorrespondencesFinder() = default;
-        /// @brief .
-        /// @param[in] referenceKeyfram: The reference keyframe which have both 2D-3D correspondences and matches with th ecurrent frame.
-        /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
-        /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
-        /// @param[out] shared_mapPoint: The 3D cloud points visible from the current frame.
-        /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
-        /// @param[out] shared_2Dpoint: The 2D point in the current frame that correspond to a 3D point.
-        /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
-        /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
-        virtual FrameworkReturnCode  find(const SRef<Keyframe> referenceKeyframe,
-                                          const SRef<Frame> currentFrame,
-                                          const std::vector<DescriptorMatch> & current_matches,
-                                          const SRef<Map> worldMap,
-                                          std::vector<Point3Df> & shared_3dpoint,
-                                          std::vector<Point2Df> & shared_2dpoint,
-                                          std::vector<DescriptorMatch> & found_matches,
-                                          std::vector<DescriptorMatch> & remaining_matches)=0;
 
-        /// @brief .
+        /// @brief Define 2D-3D point correspondences of the current frame based on keypoint matches between the current frame and the last frame.
         /// @param[in] lastFrame: The temporally last frame to the current frame.
         /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
         /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
-        /// @param[out] shared_mapPoint: The 3D cloud points visible from the current frame.
         /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
-        /// @param[out] shared_2Dpoint: The 2D point in the current frame that correspond to a 3D point.
+        /// @param[out] shared_2dpoint: The 2D point in the current frame that correspond to a 3D point.
         /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
         /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
         virtual FrameworkReturnCode find(	const SRef<Frame> lastFrame,
                                             const SRef<Frame> currentFrame,
                                             const std::vector<DescriptorMatch> & current_matches,
-											const SRef<Map> worldMap,
                                             std::vector<Point3Df> & shared_3dpoint,
                                             std::vector<Point2Df> & shared_2dpoint,
                                             std::vector<DescriptorMatch> & found_matches,

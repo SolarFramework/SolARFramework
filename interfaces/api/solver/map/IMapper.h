@@ -28,21 +28,23 @@
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 
-#include "datastructure/Keyframe.h"
-#include "datastructure/Frame.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/DescriptorMatch.h"
-#include "datastructure/CloudPoint.h"
-#include "datastructure/Map.h"
+#include "datastructure/Identification.h"
+#include "datastructure/CoordinateSystem.h"
+#include "api/storage/ICovisibilityGraph.h"
+#include "api/storage/IKeyframesManager.h"
+#include "api/storage/IPointCloudManager.h"
+#include "api/reloc/IKeyframeRetriever.h"
 
 namespace SolAR {
     using namespace datastructure;
     namespace api {
+		using namespace storage;
+		using namespace reloc;
         namespace solver {
             namespace map {
 /**
   * @class IMapper
-  * @brief <B>Updates a point map with new triangulated 3D points.</B>
+  * @brief <B>Allow to manage all components of a map.</B>
   * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
   */
 
@@ -54,64 +56,95 @@ public:
    ///
    virtual ~IMapper() {}
 
-   /// @brief update the current map with the new triangulated map points at the insertion of a new keyframe.
-   /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-   /// @param[in,out] map current constructed map.
-   /// @param[in,out] neyKeyframe current new keyframe to insert.
-   /// @param[in] newCloud new triangulated 3D points
-   /// @param[in] newPointMatches new detected matches from the reference keyframe and current frame.
-   /// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
-   /// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode update (SRef<Map> & map,
-                                       SRef<Keyframe> & newKeyframe,
-                                       const std::vector<CloudPoint> & newCloud,
-                                       const std::vector<DescriptorMatch> & newPointsMatches,
-                                       const std::vector<DescriptorMatch> & existingPointsMatches) = 0;
+   /// @brief Set identification component.
+   /// @param[in] an identification instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setIdentification (SRef<Identification> &identification) = 0;
 
-   /// @brief update the current map with the new triangulated map points at the insertion of a new keyframe.
-   /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-   /// @param[in,out] map current constructed map.
-   /// @param[in,out] neyKeyframe current new keyframe to insert.
-   /// @param[in] newCloud new triangulated 3D points
-   /// @param[in] newPointMatches a set of tuple contains information of matches corresponding newCloudPoint. 
-   ///			  The first value is the idx of keypoint in the new keyframe. The remaining values are idx of keyframe and its keypoint.
-   /// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
-   /// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode update(	SRef<Map> & map,
-									   SRef<Keyframe> & newKeyframe,
-									   const std::vector<CloudPoint> & newCloud,
-									   const std::vector<std::tuple<unsigned int, int, unsigned int>> &newPointMatches) = 0;
+   /// @brief Get identification component.
+   /// @param[out] an identification instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getIdentification(SRef<Identification> &identification) = 0;
 
-   /// @brief update the current map/keyframes(poses)with corrected map/keyframes(poses).
-/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-/// @param[in,out] map current constructed map.
-/// @param[in,out] neyKeyframe current new keyframe to insert.
-/// @param[in] newCloud new triangulated 3D points
-/// @param[in] newPointMatches new detected matches from the reference keyframe and current frame.
-/// @param[in] existingPointMatches new detected matches from the reference keyframe and current frame.
-/// @return FrameworkReturnCode::_SUCCESS if the map updating succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode update(const std::vector<Transform3Df> & correctedPoses,
-									  const std::vector<CloudPoint> & correctedMap) = 0;
+   /// @brief Set coordinate system component.
+   /// @param[in] a coordinate system instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setCoordinateSystem(SRef<CoordinateSystem> &coordinateSystem) = 0;
 
-	/// @brief return all the keyframes of the map.
-	/// @return the keyframes of the map.
-    virtual const std::vector<SRef<Keyframe>> &getKeyframes() = 0;
-	/// @brief return a keyframe
-	/// @param[in] Index of the keyframe
-	virtual SRef<Keyframe> &getKeyframe(int index) = 0;
-	/// @brief get local map from reference keyframe and its neighbors
-	virtual void getLocalMap(SRef<Keyframe> refKF, std::vector<CloudPoint> &localCloudPoints) = 0;
-	virtual SRef<Map> getGlobalMap() = 0;
+   /// @brief Get coordinate system component.
+   /// @param[out] a coordinate system instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getCoordinateSystem(SRef<CoordinateSystem> &coordinateSystem) = 0;
 
-	/// @brief get index of cloud point in local map from reference keyframe and its neighbors
-	virtual void getLocalMapIndex(SRef<Keyframe> refKF, std::vector<unsigned int> &idxLocalCloudPoints) = 0;
+   /// @brief Set point cloud component.
+   /// @param[in] a point cloud instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setPointCloudManager(SRef<IPointCloudManager> &pointCloudManager) = 0;
 
-	/// @brief update connections between new keyframe and neighboring keyframes.
-	/// @param[in] a new keyframe.
-	/// @param[in] the minimum number of common point to accept a connection.
-	virtual void updateNeighborConnections(SRef<Keyframe> &newKeyframe, int minDis) = 0;
+   /// @brief Get point cloud component.
+   /// @param[out] a point cloud instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getPointCloudManager(SRef<IPointCloudManager> &pointCloudManager) = 0;
 
- //   virtual SRef<Map> getMap() = 0;
+   /// @brief Set keyframes manager component.
+   /// @param[in] a keyframes manager instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setKeyframesManager(SRef<IKeyframesManager> &keyframesManager) = 0;
+
+   /// @brief Get keyframes manager component.
+   /// @param[out] a keyframes manager instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getKeyframesManager(SRef<IKeyframesManager> &keyframesManager) = 0;
+
+   /// @brief Set covisibility graph component.
+   /// @param[in] a covisibility graph instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
+
+   /// @brief Get covisibility graph component.
+   /// @param[out] a covisibility graph instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
+
+   /// @brief Set keyframe retriever component.
+   /// @param[in] a keyframe retriever instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode setKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
+
+   /// @brief Get keyframe retriever component.
+   /// @param[out] a keyframe retriever instance
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
+
+   /// @brief Get local point cloud seen from the keyframe and its neighbors
+   /// @param[in] keyframe: the keyframe to get local point cloud
+   /// @param[in] minWeightNeighbor: the weight to get keyframe neighbors
+   /// @param[out] localPointCloud: the local point cloud
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode getLocalPointCloud(const SRef<Keyframe> &keyframe, float minWeightNeighbor, std::vector<SRef<CloudPoint>> &localPointCloud) = 0;
+
+   /// @brief Add a point cloud to mapper and update visibility of keyframes and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to add to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode addCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+
+   /// @brief Remove a point cloud from mapper and update visibility of keyframes and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to remove to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode removeCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+
+   /// @brief Remove a keyframe from mapper and update visibility of point cloud and covisibility graph
+   /// @param[in] cloudPoint: the cloud point to add to the mapper
+   /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+   virtual FrameworkReturnCode removeKeyframe(const SRef<Keyframe> &keyframe) = 0;
+
+   /// @brief Save the map to the external file
+	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+   virtual FrameworkReturnCode saveToFile() = 0;
+
+   /// @brief Load the map from the external file
+   /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+   virtual FrameworkReturnCode loadFromFile() = 0;
 };
 
 }
@@ -122,6 +155,6 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
                              "IMapper",
-                             "SolAR::api::solver::map::IMapper defines the interface of a mapper that considered a map, keyframe, point cloud to update the map representation in the 3D scene.");
+                             "SolAR::api::solver::map::IMapper defines the interface of a mapper that manages all components of a map such as point cloud, keyframes, retriever model, coordinate, identification.");
 
 #endif // IMAPPER_H

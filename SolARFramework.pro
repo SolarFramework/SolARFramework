@@ -9,12 +9,13 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.7.0
+VERSION=0.8.1
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
 CONFIG += c++1z
 
+include(findremakenrules.pri)
 
 CONFIG(debug,debug|release) {
     DEFINES += _DEBUG=1
@@ -32,7 +33,7 @@ DEPENDENCIESCONFIG = sharedlib recursive install_recurse
 PROJECTCONFIG = QTVS
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
@@ -40,7 +41,7 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix {
+unix:!android {
 #
 #   if buidling with clang
 #	    QMAKE_CXX = clang++
@@ -66,6 +67,7 @@ win32 {
 
 android {
     QMAKE_LFLAGS += -nostdlib++
+    ANDROID_ABIS="arm64-v8a"
 }
 
 
@@ -98,9 +100,10 @@ header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
 header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
-
 header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
+header_interfaces_storage.path = $${PROJECTDEPLOYDIR}/interfaces/api/storage/
+header_interfaces_storage.files = $$files($${PWD}/interfaces/api/storage/*.h*)
 
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
@@ -135,6 +138,7 @@ INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
+INSTALLS += header_interfaces_storage
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
@@ -144,4 +148,4 @@ OTHER_FILES += \
     packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows

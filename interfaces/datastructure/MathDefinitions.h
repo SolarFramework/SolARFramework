@@ -91,7 +91,7 @@ typedef Maths::Vector3d Vector3d;
 template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
 
-template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Projective, int ColOrRowMajor =Eigen::RowMajor>
+template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Affine, int ColOrRowMajor =Eigen::RowMajor>
 using Transform = Maths::Transform<T,Dim,TransformType,ColOrRowMajor>;
 
 /**

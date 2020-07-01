@@ -1,4 +1,5 @@
 HEADERS += interfaces/SharedBuffer.hpp \
+interfaces/core/SerializationDefinitions.h \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp \
 interfaces/core/SolARFrameworkDefinitions.h \
@@ -48,9 +49,14 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/storage/IKeyframesManager.h \
+interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/ICovisibilityGraph.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/Messages.h \
 interfaces/core/Log.h \
+interfaces/datastructure/Identification.h \
+interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
@@ -61,9 +67,9 @@ interfaces/datastructure/Image.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Frame.h \
-interfaces/datastructure/Map.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
+interfaces/datastructure/PrimitiveInformation.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
@@ -90,7 +96,10 @@ interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h
 
 SOURCES += src/core/SolARFramework.cpp \
+    src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
+	src/datastructure/CoordinateSystem.cpp \
+	src/datastructure/Identification.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \
@@ -98,5 +107,4 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Keyframe.cpp \
     src/datastructure/CloudPoint.cpp \
-    src/datastructure/Map.cpp \
     src/datastructure/PointCloud.cpp
