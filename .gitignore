@@ -63,6 +63,8 @@ x64*
 *.tlog
 *.TMP
 *.tmp
+Debug/
+Release/
 
 # documentation
 doc/

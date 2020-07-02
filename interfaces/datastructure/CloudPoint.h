@@ -45,6 +45,23 @@ class  SOLARFRAMEWORK_API CloudPoint : public Point3Df, public PrimitiveInformat
 public:
     CloudPoint() = default;
 
+	/// @brief CloudPoint constructor with a Point3Df.
+	/// @param[in] point a Point3Df
+	/// @param[in] r (optional): r-channel color value of the cloudpoint.
+	/// @param[in] g (optional): g-channel color value of the cloudpoint.
+	/// @param[in] b (optional): b-channel color value of the cloudpoint.
+	/// @param[in] nx (optional): x-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] ny (optional): y-coordinate of the view direction vector of the cloudpoint.
+	/// @param[in] nz (optional): z-coordinate of the view direction vector of the cloudpoint.
+	CloudPoint( const Point3Df& point,
+				float r = 0.0f,
+				float g = 0.0f,
+				float b = 0.0f,
+				float nx = 0.0f,
+				float ny = 0.0f,
+				float nz = 0.0f,
+				double reproj_error = 0.0);
+
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
     /// @param[in] y: y-coordinate of the cloudpoint.
