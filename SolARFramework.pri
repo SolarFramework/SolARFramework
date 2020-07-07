@@ -43,8 +43,11 @@ interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposerValidation.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h\
+interfaces/api/solver/pose/I3D3DCorrespondencesFinder.h\
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
 interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
@@ -75,10 +78,6 @@ interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
-interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/api/pipeline/IPipeline.h \
