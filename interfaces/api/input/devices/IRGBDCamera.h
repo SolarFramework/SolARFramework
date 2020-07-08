@@ -45,7 +45,7 @@ public:
 
     /// @brief Start the acquisition device reference
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode startRGBD()=0;
+    virtual FrameworkReturnCode start()=0;
 
     /// @brief Provides the last color image, depth image, corresponding 3D point cloud, and aligned images (RGB on depth and depth on RGB).
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
