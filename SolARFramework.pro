@@ -146,3 +146,7 @@ OTHER_FILES += \
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+
+HEADERS += \
+    interfaces/api/loop_closing/ILoopClosingDetector.h \
+    interfaces/api/loop_closing/ILoopCorrector.h
