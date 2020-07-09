@@ -14,9 +14,9 @@
 
 
 namespace SolAR {
-using namespace datastructure;
+// using namespace datastructure;
 namespace api {
-namespace loop_closing {
+namespace loop {
 /**
   * @class ILoopClosingDetector
   * @brief <B>Detects a loop in from a keyframe and a system of 3D points and keyframes.</B>
@@ -36,15 +36,15 @@ namespace loop_closing {
 		/// @param[out] loop_keyframe_id: detected loop keyframe id.
 		/// @param[out] S_c_wl : 3D similarity transformation (Sim(3)) from loop world c.s to reference keyframe c.s..
 		/// @return True : if a loop closing is detected ; False : if no loop closing is detected.
-        virtual  double detectsLoop( uint32_t & reference_keyframe_id, uint32_t & loop_keyframe_id, Transform3Df & S_c_wl ) = 0;
+        // virtual  double detectsLoop( uint32_t & reference_keyframe_id, uint32_t & loop_keyframe_id, Transform3Df & S_c_wl ) = 0;
 };
 }
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::loop_closing::ILoopClosingDetector,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::loop::ILoopClosingDetector,
                              "a267c93a-c1c6-11ea-b3de-0242ac130004",
                              "ILoopClosingDetector",
-                             "SolAR::api::loop_closing::ILoopClosingDetector interface for a bundle adjustement solver.");
+                             "SolAR::api::loop::ILoopClosingDetector interface for a bundle adjustement solver.");
 
 #endif // IMapFilter_H

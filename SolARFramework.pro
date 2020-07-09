@@ -118,6 +118,8 @@ header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 header_interfaces_datastructure.path = $${PROJECTDEPLOYDIR}/interfaces/datastructure/
 header_interfaces_datastructure.files += $$files($${PWD}/interfaces/datastructure/*.h*)
 
+header_interfaces_loop.path = $${PROJECTDEPLOYDIR}/interfaces/api/loop/
+header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -140,6 +142,7 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
+INSTALLS += header_interfaces_loop
 
 OTHER_FILES += \
     packagedependencies.txt
@@ -147,6 +150,4 @@ OTHER_FILES += \
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
 
-HEADERS += \
-    interfaces/api/loop_closing/ILoopClosingDetector.h \
-    interfaces/api/loop_closing/ILoopCorrector.h
+
