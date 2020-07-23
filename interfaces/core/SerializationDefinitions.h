@@ -62,7 +62,7 @@ using InputArchive = ::boost::archive::binary_iarchive;
 #endif
 
 #define DECLARESERIALIZE(T) \
-    template SOLARFRAMEWORK_API void T::serialize<OutputArchive>(OutputArchive &ar, const unsigned int version);\
-    template SOLARFRAMEWORK_API void T::serialize<InputArchive>(InputArchive &ar, const unsigned int version);
+    template <> SOLARFRAMEWORK_API void T::serialize<OutputArchive>(OutputArchive &ar, const unsigned int version);\
+    template <> SOLARFRAMEWORK_API void T::serialize<InputArchive>(InputArchive &ar, const unsigned int version);
 
 #endif // SOLAR_SERIALIZATIONDEFINITIONS_H
