@@ -37,11 +37,6 @@ public:
 	/// @param[out] pointCloud to fill
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode load(const std::string filepath, SRef<PointCloud>& pointCloud) = 0;
-
-	/// @brief Load a PointCloud from configuration file (.pcd or .ply)
-	/// @param[out] pointCloud to fill
-	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode load(SRef<PointCloud>& pointCloud) = 0;
 };
 
 }

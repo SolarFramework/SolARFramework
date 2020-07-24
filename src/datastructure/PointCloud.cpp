@@ -19,12 +19,12 @@
 namespace SolAR {
 namespace datastructure {
 
-const std::vector<Point3Df>& PointCloud::getConstPointCloud() const
+const std::vector<CloudPoint>& PointCloud::getConstPointCloud() const
 {
     return m_points;
 }
 
-std::vector<Point3Df>& PointCloud::getPointCloud()
+std::vector<CloudPoint>& PointCloud::getPointCloud()
 {
     return m_points;
 }

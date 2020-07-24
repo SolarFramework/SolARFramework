@@ -20,8 +20,8 @@
 #include <vector>
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/CloudPoint.h"
 #include "xpcf/core/refs.h"
-//#include "datastructure/BufferInternal.hpp"
 #include <map>
 
 // Definition of PointCloud Class //
@@ -30,106 +30,40 @@
 namespace SolAR {
 namespace datastructure {
 
-///
-/// \brief The PointCloud class
-///
+/**
+* @class PointCloud
+* @brief <B>A 3D cloud composed of multiple CloudPoints.</B>
+* This class provides a point cloud.
+*/
 class  SOLARFRAMEWORK_API PointCloud {
 
-    public:
+   public:
+		///
+		/// @brief Cloudpoint constructor.
+		///
+		PointCloud() = default;
+		PointCloud(const PointCloud& other) = default;
+		PointCloud& operator=(const PointCloud& other) = default;
 
-//    enum PointType {
-//        TYPE_XYZ = 1,  /**< each point is defined by its 3D coordinates */
-//        TYPE_RGB = 2,  /**< each point is defined by its 3D coordinates */
-//        TYPE_XYZRGB = 3, /**< each point is defined by its 3D coordinates and its color (RGB) */
-//        TYPE_NORMAL = 4, /**< each point is defined by its 3D coordinates and its color (RGB) */
-//        TYPE_XYZNORMAL = 5, /**< each point is defined by its 3D coordinates, and its normal */
-//        TYPE_XYZRGBNORMAL = 7, /**< each point is defined by its 3D coordinates, its color (RGB), and its normal */
-//    };
+		///
+		/// \brief ~PointCloud
+		///
+		~PointCloud() = default;
 
-///// static std::map<PointType,int> pointTypeNbElements = {{PointType::TYPE_XYZ, 3}, {PointType::TYPE_XYZRGB, 6}, {PointType::TYPE_XYZRGBNORMAL, 9}, {}};
+		///
+		/// @brief This method returns the point cloud
+		/// @return the point cloud
+		///
+		const std::vector<CloudPoint>& getConstPointCloud() const;
 
-//    enum DataType {
-//        TYPE_32F = 4, /**< each point element is stored in four bytes. */
-//        TYPE_64D = 8  /**< each point element is stored in eight bytes. */
-//    };
-
-//   /** @brief  PointCloud constructor
-//   *  @param pointsData: pointer to an existing array structure storing the points
-//   *  @param dataType: enum to describe the data type of point element (Float32 or double64)
-//   *  @param pointType: enum to describe the type of point
-//   *  @param nbPoints: the number of points stored in the buffer
-//   * The data are copied to get full ownership of the memory allocation.
-//   */
-//   PointCloud(float* pointsData, DataType dataType, PointType pointType, uint32_t nbPoints);
-
-//   /** @brief  PointCloud constructor
-//   *  @param dataType: enum to describe the data type of point element (Float32 or double64)
-//   *  @param pointType: enum to describe the type of point
-//   *  @param nbPoints: the number of points stored in the buffer
-//   * The data are copied to get full ownership of the memory allocation.
-//   */
-//   PointCloud(DataType dataType, PointType pointType, uint32_t nbPoints);
-
-   PointCloud() = default;
-   PointCloud(const PointCloud& other) = default;
-   PointCloud& operator=(const PointCloud& other) = default;
-
-   ///
-   /// \brief ~PointCloud
-   ///
-   ~PointCloud() = default;
-
-//   /** @brief  return the number of points stored in the structure
-//   */
-//   inline uint32_t getNbPoints(void){
-//       return m_nbPoints;
-//   }
-
-//   /** @brief  return the internal storage type of descriptor
-//   */
-//   inline enum PointType getPointType()
-//   {
-//       return m_pointType;
-//   }
-
-//   /** @brief  return the 3D point cloud size in bytes
-//   */
-//   inline uint32_t getPointCloudByteSize(void)
-//   {
-//       return m_nbPoints * m_dataType * 3;
-//   }
-
-//   /** @brief  return the normals point cloud size in bytes
-//   */
-//   inline uint32_t getNormalCloudByteSize(void)
-//   {
-//       if (m_pointType & PointType::TYPE_NORMAL)
-//            return m_nbPoints * m_dataType * 3;
-//       else
-//           return 0;
-//   }
-
-//   /** @brief  return the color point cloud size in bytes
-//   */
-//   inline uint32_t getColorCloudByteSize(void)
-//   {
-//       return m_nbPoints * 3 ;
-//   }
-
-   const std::vector<Point3Df>& getConstPointCloud() const;
-   std::vector<Point3Df>& getPointCloud();
+		///
+		/// @brief This method returns the point cloud
+		/// @return the point cloud
+		///
+		std::vector<CloudPoint>& getPointCloud();
 
     private:
-//        PointType m_pointType;
-//        uint32_t m_nbPoints;
-
-//        SRef<BufferInternal> m_points;
-//        DataType m_dataType;
-//        SRef<BufferInternal> m_normals;
-//        SRef<BufferInternal> m_colors;
-//
-        std::vector<Point3Df> m_points;
-
+        std::vector<CloudPoint> m_points;
 };
 
 }

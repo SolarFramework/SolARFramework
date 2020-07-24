@@ -71,6 +71,9 @@ public:
     /// @brief Get the image resolution of the depth acquisition device
     virtual Sizei getDepthResolution() = 0;
 
+	/// @brief Get the min acquisition distance of the device
+	virtual float getDepthMinDistance() = 0;
+
     /// @return Return the intrinsic depth camera parameters
     virtual const CamCalibration& getIntrinsicsDepthParameters() const = 0;
 

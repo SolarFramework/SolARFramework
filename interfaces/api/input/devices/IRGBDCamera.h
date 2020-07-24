@@ -70,12 +70,12 @@ public:
     /// @brief Provides the pixel of the color image to the projection of a given 3D point
     /// @param in3DPoint The 3D point we want to project on the color image
     /// @return a 2D point representing a pixel of the color image on which the 3D point in projected
-    virtual Point2Di getWorldToPixel (const Point3Df& in3DPoint) const = 0;
+    virtual Point2Di getWorldToPixel (const CloudPoint& in3DPoint) const = 0;
 
     /// @brief Provides the pixels of the color image to the projection of given 3D points
     /// @param in3DPoints The 3D points we want to project on the color image
     /// @return a 2D points vector representing the pixels of the color image on which the 3D points are projected
-    virtual std::vector<Point2Df> getWorldToPixels (const std::vector<Point3Df>& in3DPoints) const = 0;
+    virtual std::vector<Point2Df> getWorldToPixels (const std::vector<CloudPoint>& in3DPoints) const = 0;
 };
 
 }
