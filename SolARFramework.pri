@@ -89,7 +89,9 @@ interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
-interfaces/api/slam/IBootstrapper.h
+interfaces/api/slam/IBootstrapper.h \
+interfaces/api/slam/ITracking.h \
+interfaces/api/slam/IMapping.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/PrimitiveInformation.cpp \
