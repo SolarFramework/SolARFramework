@@ -50,6 +50,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
+interfaces/api/solver/pose/IFiducialMarkerPose.h \
 interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
@@ -87,7 +88,8 @@ interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
 interfaces/api/source/ISourceImage.h \
-interfaces/api/source/ISourceReturnCode.h
+interfaces/api/source/ISourceReturnCode.h \
+interfaces/api/slam/IBootstrapper.h
 
 SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/PrimitiveInformation.cpp \

@@ -121,6 +121,9 @@ header_interfaces_datastructure.files += $$files($${PWD}/interfaces/datastructur
 header_interfaces_loop.path = $${PROJECTDEPLOYDIR}/interfaces/api/loop/
 header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
 
+header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
+header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
+
 INCLUDEPATH += $${PWD}/interfaces
 
 
@@ -143,6 +146,7 @@ INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_slam
 
 OTHER_FILES += \
     packagedependencies.txt
