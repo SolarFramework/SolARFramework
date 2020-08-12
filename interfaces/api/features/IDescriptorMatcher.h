@@ -94,7 +94,7 @@ namespace features {
 			const SRef<Frame> frame,
 			std::vector<DescriptorMatch> &matches,
 			const float radius
-		) { return RetCode::DESCRIPTORS_MATCHER_OK; };
+        ) { return RetCode::DESCRIPTORS_MATCHER_OK; };
     };
 }
 }
