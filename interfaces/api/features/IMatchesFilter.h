@@ -48,7 +48,7 @@ namespace features {
 							const std::vector<Keypoint> & inputKeyPoints2,
 							const Transform3Df &pose1,
 							const Transform3Df &pose2,
-                            const CamCalibration &intrinsicParams) = 0;
+                            const CamCalibration &intrinsicParams) {};
     };
 }
 }
