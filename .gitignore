@@ -53,6 +53,7 @@ build/
 *.*pre1
 *.autosave
 *.project
+*.props
 
 # Visual Studio files
 .vs*
@@ -76,3 +77,8 @@ SolARFramework-InstallDependencies_debug.bat
 SolARFramework-Installvclib-debug.bat
 SolARFramework-Installvclib-release.bat
 SolARFramework-InstallDependencies_release.bat
+Makefile
+Makefile.Debug
+Makefile.Release
+SolARFramework-Installlib-debug.bat
+SolARFramework-Installlib-release.bat

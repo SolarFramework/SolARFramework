@@ -27,45 +27,23 @@ namespace map {
   * <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>
   */
 
-class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
-        public:
-           IBundler() = default;
-           ///
-           ///@brief ~IBundler
-           ///
-           virtual ~IBundler() {}
+	class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
+	public:
+		IBundler() = default;
+		///
+		///@brief ~IBundler
+		///
+		virtual ~IBundler() {}
 
-
-
-           /// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
-           /// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-           /// @param[in,out] framesToAdjust: contains a set of {2D points, camera extrinsics}.
-           /// @param[in,out] mapToAjust: contains a set of of 3D points .
-           /// @param[in,out] K: camera calibration parameters responsible of 3D points generation.
-           /// @param[in,out] D: camera distorsion parameters responsible of 3D points generation
-           /// K, D represent the camera intrinsic parameters
-           /// @return[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
-           /// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
-		   /*
-           virtual  double solve(std::vector<SRef<Keyframe>> & framesToAdjust,
-                                 std::vector<CloudPoint> & mapToAdjust,
-                                 CamCalibration & K,
-                                 CamDistortion & D,
-                                 const std::vector<int> & selectKeyframes) = 0;
-								 */
-
-
-		   virtual  double solve(const std::vector<SRef<Keyframe>> & framesToAdjust,
-							     const std::vector<CloudPoint> & mapToAdjust,
-							     const  CamCalibration & K,
-							     const CamDistortion & D,
-							     const std::vector<int> & selectKeyframes,
-							     std::vector<Transform3Df> & poseAdjusted,
-							     std::vector<CloudPoint>&mapAdjusted,
-							     CamCalibration&KAdjusted,
-							     CamDistortion &DAdjusted) = 0;
-
-
+		/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
+		/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
+		/// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
+		/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
+		/// @param[in] selectKeyframes : selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
+		/// @return the mean re-projection error after optimization.
+		virtual  double bundleAdjustment(CamCalibration & K,
+										CamDistortion & D,
+										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 };
 }
 }

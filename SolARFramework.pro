@@ -27,7 +27,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib recursive install_recurse
+DEPENDENCIESCONFIG = sharedlib install_recurse
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
@@ -98,9 +98,10 @@ header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
 header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
-
 header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
+header_interfaces_storage.path = $${PROJECTDEPLOYDIR}/interfaces/api/storage/
+header_interfaces_storage.files = $$files($${PWD}/interfaces/api/storage/*.h*)
 
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
@@ -117,6 +118,11 @@ header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 header_interfaces_datastructure.path = $${PROJECTDEPLOYDIR}/interfaces/datastructure/
 header_interfaces_datastructure.files += $$files($${PWD}/interfaces/datastructure/*.h*)
 
+header_interfaces_loop.path = $${PROJECTDEPLOYDIR}/interfaces/api/loop/
+header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
+
+header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
+header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -134,13 +140,18 @@ INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
+INSTALLS += header_interfaces_storage
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
+INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_slam
 
 OTHER_FILES += \
     packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+
+
