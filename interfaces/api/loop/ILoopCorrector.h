@@ -30,7 +30,7 @@ namespace loop{
 
 /**
   * @class ILoopCorrector
-  * @brief <B>Optimizes a system of 3D points and keyframes from a loop losing detection. </B>
+  * @brief <B>Optimizes a system of 3D points and keyframes from a loop closing detection. </B>
   * <TT>UUID: 8f05eea8-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
