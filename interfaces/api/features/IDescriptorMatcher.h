@@ -93,7 +93,8 @@ namespace features {
 			const std::vector<SRef<DescriptorBuffer>> & descriptors,
 			const SRef<Frame> frame,
 			std::vector<DescriptorMatch> &matches,
-			const float radius
+			const float radius = 0.f,
+			const float matchingDistanceMax = 0.f
         ) { return RetCode::DESCRIPTORS_MATCHER_OK; };
     };
 }
