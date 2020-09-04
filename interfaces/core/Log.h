@@ -4,13 +4,16 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "spdlog.h"
-#include "sinks/dist_sink.h"
-#include "sinks/file_sinks.h"
-#include "sinks/ostream_sink.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/dist_sink.h"
+#include "spdlog/sinks/stdout_sinks.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/daily_file_sink.h"
+#include "spdlog/sinks/ostream_sink.h"
 #include "SolARFrameworkDefinitions.h"
 #include <fstream>
-#include <fmt/ostr.h>
+#include <spdlog/fmt/ostr.h>
 #include <vector>
 
 namespace SolAR {
@@ -242,7 +245,7 @@ public:
             else
                 LOG_INFO( "{} is open ", fileName.c_str() );
 
-            sink()->add_sink( std::make_shared< spdlog::sinks::simple_file_sink_st >( fileName.c_str() ) );
+                sink()->add_sink( std::make_shared< spdlog::sinks::basic_file_sink_st >( fileName.c_str() ) );
         }
         else{
               LOG_WARNING( "{} is not a directory\n", pathname.c_str() );
@@ -252,7 +255,7 @@ public:
     }
 
     static SOLARFRAMEWORK_API void add_sink_console() {
-         sink()->add_sink(std::make_shared< spdlog::sinks::stdout_sink_mt >());
+         sink()->add_sink( std::make_shared< spdlog::sinks::stdout_sink_mt >());
     }
 
 
