@@ -53,6 +53,7 @@ build/
 *.*pre1
 *.autosave
 *.project
+*.props
 
 # Visual Studio files
 .vs*
