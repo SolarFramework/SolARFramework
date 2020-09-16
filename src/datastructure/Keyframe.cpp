@@ -38,7 +38,7 @@ void Keyframe::serialize(Archive &ar, const unsigned int version) {
 	ar & m_id;
 }
 
-DECLARESERIALIZE(Keyframe);
+IMPLEMENTSERIALIZE(Keyframe);
 
 }
 }

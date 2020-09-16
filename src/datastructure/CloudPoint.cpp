@@ -156,7 +156,7 @@ void CloudPoint::serialize(Archive &ar, const unsigned int version)
     ar & m_reproj_error;
 }
 
-DECLARESERIALIZE(CloudPoint);
+IMPLEMENTSERIALIZE(CloudPoint);
 
 }
 }

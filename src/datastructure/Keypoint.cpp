@@ -65,7 +65,7 @@ void Keypoint::serialize(Archive &ar, const unsigned int version) {
 	ar & m_class_id;
 }
 
-DECLARESERIALIZE(Keypoint);
+IMPLEMENTSERIALIZE(Keypoint);
 
 }
 }

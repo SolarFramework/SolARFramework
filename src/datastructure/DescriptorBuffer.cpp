@@ -231,7 +231,7 @@ DescriptorView DescriptorBufferIterator::operator *() {
     return desc;
 }
 
-DECLARESERIALIZE(DescriptorBuffer);
+IMPLEMENTSERIALIZE(DescriptorBuffer);
 
 }
 }

@@ -104,17 +104,17 @@ const BBox3Df& Identification::getBBox3D() const{
 
 template<typename Archive>
 void Identification::serialize(Archive &ar, const unsigned int version) {
-	ar & m_uuid;
+    /*ar & m_uuid;
 	ar & m_name;
-	ar & m_author;
-	char * ptr_createdTime = reinterpret_cast<char *>(&m_createdTime);
+    ar & m_author;*/
+/*	char * ptr_createdTime = reinterpret_cast<char *>(&m_createdTime);
 	ar & boost::serialization::make_array(ptr_createdTime, sizeof(m_createdTime));
 	char * ptr_updatedTime = reinterpret_cast<char *>(&m_lastUpdatedTime);
 	ar & boost::serialization::make_array(ptr_updatedTime, sizeof(m_lastUpdatedTime));
-	ar & m_bbox;
+    ar & m_bbox;*/
 }
 
-DECLARESERIALIZE(Identification);
+IMPLEMENTSERIALIZE(Identification);
 
 }
 }
