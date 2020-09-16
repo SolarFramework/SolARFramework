@@ -23,6 +23,7 @@
 
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include <core/SerializationDefinitions.h>
 
 // Definition of Keypoint Class //
 // part of SolAR namespace //
@@ -41,7 +42,8 @@ namespace datastructure {
         Keypoint() = default;
 
 
-        Keypoint( float x,
+        Keypoint( unsigned int id,
+                    float x,
                     float  y,
                     float  	size,
                     float  	angle,
@@ -52,7 +54,7 @@ namespace datastructure {
    /// \brief ~Keypoint
    ///
     ~Keypoint();
-/// \brief This method initializes an Keypoint object
+	/// \brief This method initializes an Keypoint object
     /// \param x: x-coordinate of the keypoint
     /// \param y: y-coordinate of the keypoint
     /// \param size: diameter of the meaningful keypoint neighborhood
@@ -61,7 +63,8 @@ namespace datastructure {
     /// \param octave: octave (pyramid layer) from which the keypoint has been extracted
     /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
     ///
-     void init( float  x,
+     void init( unsigned int id,
+                float  x,
                 float  	y,
                 float  	size,
                 float  	angle,
@@ -69,7 +72,13 @@ namespace datastructure {
                 int  	octave,
                 int  	class_id ) ;
 
-    ///
+     ///
+     /// \brief This method returns the id of the keypoint in its frame
+     /// \return id
+     ///
+         inline float getId() const {return m_id;}
+
+     ///
     /// \brief This method returns the angle of an Keypoint
     /// \return angle
     ///
@@ -99,13 +108,21 @@ namespace datastructure {
     ///
         inline int   getClassId() const {return m_class_id;}
 
-    private:     
+	private:
+		friend class boost::serialization::access;
+		template<typename Archive>
+		void serialize(Archive &ar, const unsigned int version);
+
+    private:
+        unsigned int    m_id; // The id of the keypoint in the current frame
         float           m_size;
         float           m_angle;
         float           m_response;
         int             m_octave;
         int             m_class_id;
 	};
+
+	DECLARESERIALIZE(Keypoint);
 
 }
 }  // end of namespace SolAR
