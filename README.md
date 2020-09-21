@@ -1,9 +1,6 @@
 # SolARFramework
 
 [![License](https://img.shields.io/github/license/SolARFramework/SolARFramework?style=flat-square&label=License)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Build Status](http://argo.ci.b-com.com/buildStatus/icon?job=SolAR-Modules%2FSolARFramework%2Fmaster&style=flat-square&subject=Master)](http://argo.ci.b-com.com/job/SolAR-Modules/job/SolARFramework/job/master/)
-[![Build Status](http://argo.ci.b-com.com/buildStatus/icon?job=SolAR-Modules%2FSolARFramework%2Fdevelop&style=flat-square&subject=Dev)](http://argo.ci.b-com.com/job/SolAR-Modules/job/SolARFramework/job/develop/)
-
 
 **SolARFramework** is an open-source framework under [Apache v2 licence](https://www.apache.org/licenses/LICENSE-2.0) making possible to easily create your own camera pose estimation solution to develop Augmented Reality applications. SolAR is dedicated to Augmented Reality (AR).
 
