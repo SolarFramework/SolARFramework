@@ -1,11 +1,3 @@
-*.user
-
-*-Debug
-
-*-Release
-
-*.vcxproj*
-
 # Prerequisites
 *.d
 
@@ -14,7 +6,6 @@
 *.lo
 *.o
 *.obj
-
 build/
 
 # Precompiled Headers
@@ -36,13 +27,52 @@ build/
 *.a
 *.lib
 
+# Visual Studio files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.sln
+*.suo
+*.vcproj
+*vcproj.*.*.user
+*.vcxproj*
+*.user
+*.user.*
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj
+*vcxproj.*
+x64/
+.vs/
+*.bat
+*remakeninfo.txt
+Debug/
+Release/
+*-packagedependencies.*
+*-packagedependencies-win.*
+*-packagedependencies-linux.*
+*-packagedependencies-unix.*
+*-packagedependencies-android.*
+*.pc
+*-Debug
+*-Release
+
 # Executables
 *.exe
 *.out
 *.app
 
-#others
+# Generated documentation
+doc/ 
+doxygen/
 
+# Tests builds
+tests/bin
+
+# Others
+*.*pre1
 *.rej
 *.stash
 *.rc
@@ -50,37 +80,11 @@ build/
 *.exp
 *.ilk
 *.pdb
-*.*pre1
 *.autosave
 *.project
 *.props
-
-# Visual Studio files
-.vs*
-x64*
-
-*.txt
 *.log
 *.tlog
 *.TMP
 *.tmp
-Debug/
-Release/
-
-# documentation
-doc/
-doxygen/
-
-
 .git Merge
-SolARWrapper - Raccourci.lnk
-bcom-SolARFramework.pc
-SolARFramework-InstallDependencies_debug.bat
-SolARFramework-Installvclib-debug.bat
-SolARFramework-Installvclib-release.bat
-SolARFramework-InstallDependencies_release.bat
-Makefile
-Makefile.Debug
-Makefile.Release
-SolARFramework-Installlib-debug.bat
-SolARFramework-Installlib-release.bat
