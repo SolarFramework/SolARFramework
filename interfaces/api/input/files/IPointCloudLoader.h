@@ -27,7 +27,7 @@ namespace api {
 namespace input {
 namespace files {
 
-class IPointCloudLoader : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IPointCloudLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IPointCloudLoader() = default;
     virtual ~IPointCloudLoader() = default;

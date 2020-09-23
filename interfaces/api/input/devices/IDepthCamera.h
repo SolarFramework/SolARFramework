@@ -21,7 +21,7 @@
 #include "datastructure/Image.h"
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"
-#include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -35,7 +35,7 @@ namespace devices {
  *
  * This class describes the interface of a depth camera capture device.
  */
-class IDepthCamera : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IDepthCamera : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief Specify the IDepthCamera constructor class
     IDepthCamera() = default;

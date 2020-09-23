@@ -31,7 +31,7 @@ namespace pose {
  * @class I3DTransformFinderFrom3D3D
  * @brief Finds the 3D transform of a depth sensor from a point cloud captured by this sensor and a point cloud representing a geometric knowledge of the real world.
  */
-class I3DTransformFinderFrom3D3D : public virtual org::bcom::xpcf::IComponentIntrospect {
+class I3DTransformFinderFrom3D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief I3DTransformFinderFrom3D3D default constructor.
         I3DTransformFinderFrom3D3D() = default;

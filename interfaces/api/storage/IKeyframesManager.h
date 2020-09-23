@@ -35,7 +35,7 @@ namespace storage {
 
  */
 
-class IKeyframesManager : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IKeyframesManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeyframesStorage default constructor
     IKeyframesManager() = default;
