@@ -21,6 +21,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "Frame.h"
 #include <map>
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -31,46 +32,46 @@ namespace datastructure {
  *
  * This class provides Keyframe definition.
  */
-class SOLARFRAMEWORK_API Keyframe : public Frame {
-    ///
-    /// @brief ~Keyframe
-    public:
+class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
+public:
+    Keyframe() = default;
 
-    Keyframe(SRef<Frame> frame) : Frame(frame), m_idx(m_keyframeIdx++) {};
+    Keyframe(SRef<Frame> frame) : Frame(frame) {};
 
     Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
              SRef<Keyframe> refKeyframe,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose), m_idx(m_keyframeIdx++){};
+             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose){};
 
     Keyframe(const std::vector<Keypoint> & keypoints,
              SRef<DescriptorBuffer> descriptors,
              SRef<Image> view,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose), m_idx(m_keyframeIdx++){};
+             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose){};
 
     ~Keyframe() = default;	
 
-	// @brief: Get all neighbor keyframes
-	const std::map<unsigned int, unsigned int> & getNeighborKeyframes();
+	///
+	/// @brief Return keyframe id
+	///
+	const uint32_t& getId() const;
 
-	// @brief: Get best neighbor keyframes
-	// return id of the best neighbors
-	std::vector<unsigned int> getBestNeighborKeyframes(int nbKeyframes);
-
-	// @brief: Add a neighbor keyframe with the weight
-	void addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight);
-
-    int m_idx;
+	///
+	/// @brief Set keyframe id
+	/// @param[in] id_keyframe: keyframe id
+	///
+	void setId(const uint32_t& id_keyframe);
 
 private:
-    static int m_keyframeIdx;    
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
-	// @brief: A map storing the neighboring keyframes, where the first element corresponds to the index of a neighboring keyframe, and the second element to the corresponding the weight which is number of common points visble between two keyframes.
-	std::map<unsigned int, unsigned int> m_neighborKeyframes;
-
-	std::mutex m_mutexNeighbor;
+private:
+    uint32_t	m_id;
 };
+
+DECLARESERIALIZE(Keyframe);
 
 }
 }

@@ -9,12 +9,13 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.7.0
+VERSION=0.8.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
 CONFIG += c++1z
 
+include(findremakenrules.pri)
 
 CONFIG(debug,debug|release) {
     DEFINES += _DEBUG=1
@@ -26,13 +27,13 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib recursive install
+DEPENDENCIESCONFIG = sharedlib install_recurse
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
 
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
@@ -40,7 +41,7 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix {
+unix:!android {
 #
 #   if buidling with clang
 #	    QMAKE_CXX = clang++
@@ -65,7 +66,7 @@ win32 {
 }
 
 android {
-    QMAKE_LFLAGS += -nostdlib++
+    ANDROID_ABIS="arm64-v8a"
 }
 
 
@@ -86,6 +87,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCloud/
+header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
@@ -96,9 +99,10 @@ header_interfaces_tracking.path = $${PROJECTDEPLOYDIR}/interfaces/api/tracking/
 header_interfaces_tracking.files = $$files($${PWD}/interfaces/api/tracking/*.h*)
 header_interfaces_solver_pose.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/pose/
 header_interfaces_solver_pose.files = $$files($${PWD}/interfaces/api/solver/pose/*.h*)
-
 header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/map/
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
+header_interfaces_storage.path = $${PROJECTDEPLOYDIR}/interfaces/api/storage/
+header_interfaces_storage.files = $$files($${PWD}/interfaces/api/storage/*.h*)
 
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
@@ -115,6 +119,11 @@ header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
 header_interfaces_datastructure.path = $${PROJECTDEPLOYDIR}/interfaces/datastructure/
 header_interfaces_datastructure.files += $$files($${PWD}/interfaces/datastructure/*.h*)
 
+header_interfaces_loop.path = $${PROJECTDEPLOYDIR}/interfaces/api/loop/
+header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
+
+header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
+header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -126,23 +135,25 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
 INSTALLS += header_interfaces_solver_pose
 INSTALLS += header_interfaces_solver_map
+INSTALLS += header_interfaces_storage
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
-
-solarmacros.path=$${PROJECTDEPLOYDIR}
-solarmacros.files=$$files($${PWD}/solarmacros.cmake)
-INSTALLS += solarmacros
+INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_slam
 
 OTHER_FILES += \
     packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+
+

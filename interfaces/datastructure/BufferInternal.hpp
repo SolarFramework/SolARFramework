@@ -19,6 +19,8 @@
 #define SOLAR_BUFFERINTERNAL_H
 #include <cstdint>
 
+#include <core/SerializationDefinitions.h>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -74,6 +76,14 @@ public:
 
     inline void* data() { return m_storageData.data(); }
     inline const void* data() const  { return m_storageData.data(); }
+
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version) {
+		ar & m_storageData;
+		ar & m_bufferSize;
+	}
 
 private:
     std::vector<uint8_t> m_storageData;
