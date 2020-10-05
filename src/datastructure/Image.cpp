@@ -159,6 +159,13 @@ const void* Image::data() const
     return m_internalImpl->data();
 }
 
+template<typename Archive>
+void Image::serialize(Archive &ar, const unsigned int version) {
+	ar & m_size.height;
+	ar & m_size.width;
+}
+
+IMPLEMENTSERIALIZE(Image);
 //image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
 // conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }

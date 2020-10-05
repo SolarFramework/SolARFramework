@@ -21,35 +21,24 @@
 namespace SolAR {
 namespace datastructure {
 
-int Keyframe::m_keyframeIdx = 0;
-
-const std::map<unsigned int, unsigned int>& Keyframe::getNeighborKeyframes()
+const uint32_t& Keyframe::getId() const
 {
-	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
-	return m_neighborKeyframes;
+	return m_id;
 }
 
-std::vector<unsigned int> Keyframe::getBestNeighborKeyframes(int nbKeyframes)
+void Keyframe::setId(const uint32_t& id_keyframe)
 {
-	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
-	std::vector<std::pair<unsigned int, unsigned int>> weightKf;
-	for (auto it = m_neighborKeyframes.begin(); it != m_neighborKeyframes.end(); it++)
-		weightKf.push_back(std::make_pair(it->second, it->first));
-	std::sort(weightKf.begin(), weightKf.end(), std::greater<std::pair<unsigned int, unsigned int>>());
-	std::vector<unsigned int> out;
-	for (auto it : weightKf) {
-		out.push_back(it.second);
-		if (out.size() == nbKeyframes)
-			break;
-	}
-	return out;
+	m_id = id_keyframe;
 }
 
-void Keyframe::addNeighborKeyframe(unsigned int idxKeyframe, unsigned int weight)
-{
-	std::unique_lock<std::mutex> lock(m_mutexNeighbor);
-	m_neighborKeyframes[idxKeyframe] = weight;
+template<typename Archive>
+void Keyframe::serialize(Archive &ar, const unsigned int version) {
+	ar & boost::serialization::base_object<Frame>(*this);
+	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
+	ar & m_id;
 }
+
+IMPLEMENTSERIALIZE(Keyframe);
 
 }
 }

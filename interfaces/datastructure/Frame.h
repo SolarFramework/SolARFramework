@@ -9,6 +9,7 @@
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
+#include <core/SerializationDefinitions.h>
 
 #include <memory>
 namespace SolAR {
@@ -25,6 +26,7 @@ class SOLARFRAMEWORK_API Frame {
     ///
 
 public:
+	Frame() = default;
     Frame(const SRef<Frame> frame);
 	
 	Frame(const SRef<Keyframe> keyframe);
@@ -43,56 +45,109 @@ public:
     /// @brief ~Frame
     ~Frame() = default;
 
-    SRef<Image> getView();
+	///
+	/// @brief return view image
+	///
+    const SRef<Image>& getView() const;
 
-    Transform3Df getPose();
+	///
+	/// @brief return camera pose
+	///
+    const Transform3Df& getPose() const;
 
+	///
+	/// @brief set pose
+	/// @param[in] pose: camera pose
+	///
     void setPose(const Transform3Df & pose);
+
+	///
+	/// @brief return keypoints
+	///
+	const std::vector<Keypoint> & getKeypoints() const;
+
+    ///
+    /// @brief return keypoints
+    ///
+    const Keypoint & getKeypoint(int i) const;
+
+	///
+	/// @brief set keypoints
+	/// @param[in] kpts: keypoints
+	///
     void setKeypoints(const std::vector<Keypoint>& kpts);
-    void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
-    SRef<Keyframe> getReferenceKeyframe();
+	///
+	/// @brief set reference keyframe
+	/// @param[in] keyframe: reference keyframe
+	///
+    void setReferenceKeyframe(const SRef<Keyframe>& keyframe);
 
-    SRef<DescriptorBuffer> getDescriptors();
+	///
+	/// @brief return reference keyframe
+	///
+	const SRef<Keyframe>& getReferenceKeyframe() const;
 
-    const std::vector<Keypoint> & getKeypoints();
 
-	// @brief: Get all visible keypoints of the refKeyframe
-    const std::map<unsigned int, unsigned int> & getVisibleKeypoints();
+	///
+	/// @brief return descriptors
+	///
+    const SRef<DescriptorBuffer>& getDescriptors() const;
 
-	// @brief: Add visible keypoint of refKeyframe to frame
-    void addVisibleKeypoints(const std::map<unsigned int, unsigned int> & kpVisibility);
+	///
+	/// @brief set descriptors
+	/// @param[in] descriptors: descriptors
+	///
+	void setDescriptors(const SRef<DescriptorBuffer> &descriptors);
 
-	// @brief: Add visible cloud point to frame
-	void addVisibleMapPoints(const std::map<unsigned int, unsigned int>& mapPoints);
+	///
+	/// @brief Get all cloud point visibilities
+	///
+	const std::map<uint32_t, uint32_t> & getVisibility() const;
 
-	// @brief: Add visible of a cloud point to frame
-	void addVisibleMapPoint(unsigned int id_keypoint, unsigned int id_cloudPoint);
+	///
+	/// @brief set visibility
+	/// @param[in] visibilities: a map of cloud pont visibilities, the first element is keypoint id, the second one is cloud point id
+	///
+	void setVisibility(const std::map<uint32_t, uint32_t> &visibilities);
 
-	// @brief: Get all visible cloud point
-	const std::map<unsigned int, unsigned int> & getVisibleMapPoints();
+	///
+	/// @brief Add cloud point visibilities to frame
+	/// @param[in] visibilites: a map of cloud pont visibilities, the first element is keypoint id, the second one is cloud point id
+	void addVisibilities(const std::map<uint32_t, uint32_t>& visibilites);
+
+	///
+	/// @brief Add a cloud point visibility to frame
+	/// @param[in] id_keypoint: id of keypoint
+	/// @param[in] id_cloudPoint: id of cloud point
+	///
+	void addVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
+
+	///
+	/// @brief Remove a visibility
+	/// @param[in] id_keypoint: id of keypoint
+	/// @param[in] id_cloudPoint: id of cloud point
+	/// @return true if remove successfully
+	///
+	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
 
 protected:
-    ///@brief pose of current frame
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<Keypoint>			m_keypoints ;
 
-	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
-	std::map<unsigned int, unsigned int> m_mapVisibility;
-
-	/// @brief: A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the keypoint of the reference keyframe.
-	std::map<unsigned int, unsigned int > m_kpVisibility;
-
-	std::mutex						m_mutexPose;
-	std::mutex						m_mutexKeypoint;
-	std::mutex						m_mutexReferenceKeyframe;
-	std::mutex						m_mutexVisibleKeypoint;
-	std::mutex						m_mutexVisibleMapPoint;
-
+	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
+	std::map<uint32_t, uint32_t>	m_mapVisibility;
 };
+
+DECLARESERIALIZE(Frame);
 
 }
 }

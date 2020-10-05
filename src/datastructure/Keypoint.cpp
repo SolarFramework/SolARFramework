@@ -24,17 +24,19 @@ Keypoint::~Keypoint(){
 
 }
 
-Keypoint::Keypoint( float x,
+Keypoint::Keypoint( unsigned int id,
+                    float x,
                     float y,
                     float size,
                     float angle,
                     float response,
                     int	octave,
-                    int class_id ):Point2Df(x,y),m_size(size),m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id){
+                    int class_id ):m_id(id), Point2Df(x,y),m_size(size),m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id){
 
 
 }
-void Keypoint::init( float x,
+void Keypoint::init( unsigned int id,
+                     float x,
                      float y,
                      float size,
                      float angle,
@@ -42,6 +44,7 @@ void Keypoint::init( float x,
                      int octave,
                      int class_id ){
 
+    m_id = id;
     setX(x);
     setY(y);
     m_size=size;
@@ -50,6 +53,19 @@ void Keypoint::init( float x,
     m_octave=octave;
     m_class_id=class_id;
 }
+
+template<typename Archive>
+void Keypoint::serialize(Archive &ar, const unsigned int version) {
+	ar & boost::serialization::base_object<Point2Df>(*this);
+	ar & m_id;
+	ar & m_size;
+	ar & m_angle;
+	ar & m_response;
+	ar & m_octave;
+	ar & m_class_id;
+}
+
+IMPLEMENTSERIALIZE(Keypoint);
 
 }
 }

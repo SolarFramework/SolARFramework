@@ -43,6 +43,12 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode display(const SRef<Image> img) = 0;
 
+    /// \brief this method displays an image contained in a Image object in a window, and get the key code if pressed
+    /// @param[in] img The image to display in the window
+    /// @param[out] key The pressed key ASCII code, 0 if no key is pressed
+    /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode displayKey(SRef<Image> img, char& key) = 0;
+
 };
 }
 }
