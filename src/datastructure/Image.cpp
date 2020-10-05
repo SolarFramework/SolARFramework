@@ -25,7 +25,7 @@ namespace SolAR {
 namespace datastructure {
 
 /**
- * @class ImageInternal
+ * @class Image::ImageInternal
  * @brief <B>A 2D image buffer.</B>.
  *
  */

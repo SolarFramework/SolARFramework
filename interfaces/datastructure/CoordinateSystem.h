@@ -31,7 +31,7 @@ namespace SolAR {
 namespace datastructure {
 
 /**
-	* @class Coordinate system component
+    * @class CoordinateSystem
 	* @brief <B>This component includes coordinate systems of a map. It can be a floating coordinate system or be related to other coordinate systems.</B>
 	*/
 class SOLARFRAMEWORK_API CoordinateSystem
