@@ -6,6 +6,10 @@
 
 *.vcxproj*
 
+debug*
+
+release*
+
 # Prerequisites
 *.d
 
