@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_PIPELINE_H
-#define SOLAR_PIPELINE_H
+#ifndef SOLAR_POSEESTIMATIONPIPELINE_H
+#define SOLAR_POSEESTIMATIONPIPELINE_H
 
 #include "datastructure/CameraDefinitions.h"
 #include "api/sink/ISinkReturnCode.h"
@@ -35,20 +35,20 @@ using namespace datastructure;
 namespace pipeline {
 
 /**
- * @class IPipeline
+ * @class IPoseEstimationPipeline
  * @brief <B>Defines a pose estimation pipeline.</B>
  * <TT>UUID: b5a6225e-6a91-4050-b298-886f4c17d9d2</TT>
  *
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IPoseEstimationPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IPipeline default constructor
-    IPipeline() = default;
+    /// @brief IPoseEstimationPipeline default constructor
+    IPoseEstimationPipeline() = default;
 
-    /// @brief IPipeline default destructor
-    virtual ~IPipeline() = default;
+    /// @brief IPoseEstimationPipeline default destructor
+    virtual ~IPoseEstimationPipeline() = default;
 
     /// @brief Initialization of the pipeline
     /// Initialize the pipeline by providing a reference to the component manager loaded by the PipelineManager.
@@ -56,7 +56,7 @@ public:
     virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
 
     /// @brief Provide the camera parameters
-    /// @return the camera parameters (its resolution and its focal)
+    /// @return the camera parameters (resolution and focal)
     virtual CameraParameters getCameraParameters() = 0;
 
     /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
@@ -84,9 +84,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IPipeline,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IPoseEstimationPipeline,
                              "b5a6225e-6a91-4050-b298-886f4c17d9d2",
-                             "IPipeline",
+                             "IPoseEstimationPipeline",
                              "The interface to define a video see-throuh pipeline")
 
-#endif // SOLAR_PIPELINE_H
+#endif // SOLAR_POSEESTIMATIONPIPELINE_H

@@ -38,6 +38,8 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
+interfaces/api/pipeline/IMappingPipeline.h \
+interfaces/api/pipeline/IPoseEstimationPipeline.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
@@ -76,6 +78,7 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/PrimitiveInformation.h \
+interfaces/datastructure/Trackable.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
@@ -94,7 +97,6 @@ interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
-interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
