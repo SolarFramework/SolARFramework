@@ -25,6 +25,9 @@ CloudPoint::~CloudPoint(){
 		
 }
 
+CloudPoint::CloudPoint(const Point3Df& point, float r, float g, float b, float nx, float ny, float nz, double reproj_error) :
+	Point3Df(point), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error) {}
+
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error) :
     Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error) {}
 
@@ -153,7 +156,7 @@ void CloudPoint::serialize(Archive &ar, const unsigned int version)
     ar & m_reproj_error;
 }
 
-DECLARESERIALIZE(CloudPoint);
+IMPLEMENTSERIALIZE(CloudPoint);
 
 }
 }

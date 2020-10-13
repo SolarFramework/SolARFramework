@@ -82,6 +82,17 @@ interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/display/I3DPointsViewer.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
+interfaces/api/input/devices/IDepthCamera.h \
+interfaces/datastructure/PointCloud.h \
+interfaces/api/input/devices/IRGBDCamera.h \
+interfaces/api/input/files/IPointCloudLoader.h \
+interfaces/api/pointCloud/IPCFilter.h \
+interfaces/api/pointCloud/IPCFilterCentroid.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/api/pipeline/IPipeline.h \
@@ -105,4 +116,5 @@ SOURCES += src/core/SolARFramework.cpp \
     src/datastructure/SquaredBinaryPattern.cpp \
     src/datastructure/Frame.cpp \
     src/datastructure/Keyframe.cpp \
-    src/datastructure/CloudPoint.cpp
+    src/datastructure/CloudPoint.cpp \
+    src/datastructure/PointCloud.cpp

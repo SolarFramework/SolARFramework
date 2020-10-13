@@ -59,13 +59,13 @@ const Transform3Df& CoordinateSystem::getParentTransform() const {
 template<typename Archive>
 void CoordinateSystem::serialize(Archive &ar, const unsigned int version) {
 	ar & m_isFloating;
-	ar & boost::serialization::make_array(m_absolutePosition.data(), 3);
+    /*ar & boost::serialization::make_array(m_absolutePosition.data(), 3);
 	ar & boost::serialization::make_array(m_absoluteRotation.data(), 3);
 	ar & m_parentId;
-	ar & boost::serialization::make_array(m_parentTransform.data(), 12);
+    ar & boost::serialization::make_array(m_parentTransform.data(), 12);*/
 }
 
-DECLARESERIALIZE(CoordinateSystem);
+IMPLEMENTSERIALIZE(CoordinateSystem);
 }
 }
 

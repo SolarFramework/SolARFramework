@@ -36,7 +36,7 @@ namespace storage {
 
  */
 
-class ICovisibilityGraph : public virtual org::bcom::xpcf::IComponentIntrospect {
+class ICovisibilityGraph : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IVisibilityStorage default constructor
 	ICovisibilityGraph() = default;

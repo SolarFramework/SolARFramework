@@ -66,7 +66,6 @@ win32 {
 }
 
 android {
-    QMAKE_LFLAGS += -nostdlib++
     ANDROID_ABIS="arm64-v8a"
 }
 
@@ -88,6 +87,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCloud/
+header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
@@ -134,6 +135,7 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_source

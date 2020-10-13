@@ -137,7 +137,7 @@ void Frame::serialize(Archive &ar, const unsigned int version) {
 	ar & m_mapVisibility;
 }
 
-DECLARESERIALIZE(Frame);
+IMPLEMENTSERIALIZE(Frame);
 
 }
 }

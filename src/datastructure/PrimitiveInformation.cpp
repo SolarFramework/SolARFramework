@@ -65,7 +65,7 @@ void PrimitiveInformation::serialize(Archive &ar, const unsigned int version)
 	ar & boost::serialization::make_array(ptr, sizeof(m_lastUpdateTime));
     ar & m_semanticId;
 }
-DECLARESERIALIZE(PrimitiveInformation);
+IMPLEMENTSERIALIZE(PrimitiveInformation);
 
 }
 }

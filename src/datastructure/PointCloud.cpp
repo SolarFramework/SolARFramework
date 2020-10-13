@@ -14,31 +14,20 @@
  * limitations under the License.
  */
 
-#include "datastructure/Keyframe.h"
-
-#include <cstddef> //TO DO: remove with a complete implementation
+#include "datastructure/PointCloud.h"
 
 namespace SolAR {
 namespace datastructure {
 
-const uint32_t& Keyframe::getId() const
+const std::vector<CloudPoint>& PointCloud::getConstPointCloud() const
 {
-	return m_id;
+    return m_points;
 }
 
-void Keyframe::setId(const uint32_t& id_keyframe)
+std::vector<CloudPoint>& PointCloud::getPointCloud()
 {
-	m_id = id_keyframe;
+    return m_points;
 }
-
-template<typename Archive>
-void Keyframe::serialize(Archive &ar, const unsigned int version) {
-	ar & boost::serialization::base_object<Frame>(*this);
-	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
-	ar & m_id;
-}
-
-IMPLEMENTSERIALIZE(Keyframe);
 
 }
 }

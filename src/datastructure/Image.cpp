@@ -25,7 +25,7 @@ namespace SolAR {
 namespace datastructure {
 
 /**
- * @class ImageInternal
+ * @class Image::ImageInternal
  * @brief <B>A 2D image buffer.</B>.
  *
  */
@@ -165,7 +165,7 @@ void Image::serialize(Archive &ar, const unsigned int version) {
 	ar & m_size.width;
 }
 
-DECLARESERIALIZE(Image);
+IMPLEMENTSERIALIZE(Image);
 //image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
 // conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }
