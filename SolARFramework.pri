@@ -79,10 +79,13 @@ interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/Trackable.h \
+interfaces/datastructure/Trackable2D.h \
+interfaces/datastructure/FiducialMarker.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
+interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
@@ -107,10 +110,13 @@ interfaces/api/slam/ITracking.h \
 interfaces/api/slam/IMapping.h
 
 SOURCES += src/core/SolARFramework.cpp \
+    src/datastructure/FiducialMarker.cpp \
+    src/datastructure/Trackable.cpp \
+    src/datastructure/Trackable2D.cpp \
     src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
-	src/datastructure/CoordinateSystem.cpp \
-	src/datastructure/Identification.cpp \
+    src/datastructure/CoordinateSystem.cpp \
+    src/datastructure/Identification.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \

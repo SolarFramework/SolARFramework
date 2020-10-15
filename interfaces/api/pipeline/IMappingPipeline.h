@@ -56,12 +56,12 @@ public:
     virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
 
     /// @brief Set the camera parameters
-    /// @param cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const CameraParameters & cameraParams) = 0;
 
     /// @brief Set the object to track during mapping
-    /// @param trackableObject: the trackable object
+    /// @param[in] trackableObject: the trackable object
     /// @return FrameworkReturnCode::_SUCCESS if the trackable object is correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setObjectToTrack(const Trackable & trackableObject) = 0;
 

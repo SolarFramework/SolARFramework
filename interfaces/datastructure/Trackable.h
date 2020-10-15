@@ -17,13 +17,14 @@
 #ifndef TRACKABLE_H
 #define TRACKABLE_H
 
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
 #include "core/SolARFrameworkDefinitions.h"
 #include <core/SerializationDefinitions.h>
+#include "xpcf/core/uuid.h"
 
 // Definition of Trackable Class //
 // part of SolAR namespace //
+
+namespace xpcf  = org::bcom::xpcf;
 
 namespace SolAR {
 namespace datastructure {
@@ -34,32 +35,35 @@ namespace datastructure {
     */
 class SOLARFRAMEWORK_API Trackable
 {
-    ///
-    /// @brief Trackable default constructor
-    /// Assign a unique ID to the instance
-    ///
-    Trackable() {
-        // Assign a unique ID to the trackable object
-        m_uuid = boost::uuids::random_generator()();
-    }
+    public:
+        ///
+        /// @brief Trackable default constructor
+        /// Assign a unique ID to the instance
+        ///
+        Trackable();
 
-    ///
-    /// @brief Trackable default destructor
-    ///
-    virtual ~Trackable() = default;
+        ///
+        /// @brief Trackable default destructor
+        ///
+        virtual ~Trackable() = default;
 
-    /// @brief Return the unique ID of the trackable object
-    boost::uuids::uuid getUUID() {
-        return m_uuid;
-    }
+        ///
+        /// @brief Returns the type of the Trackable object
+        /// i.e. the class name
+        ///
+        virtual std::string getTrackableType() = 0;
 
-    protected:
+        /// @brief Returns the unique ID of the trackable object
+        /// @return the UUID of the trackable object
+        boost::uuids::uuid getUUID();
+
+    private:
         friend class boost::serialization::access;
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
 
     protected:
-        boost::uuids::uuid m_uuid; // The unique id of the trackable object
+        xpcf::uuids::uuid m_uuid; // The unique id of the trackable object
 };
 
 DECLARESERIALIZE(Trackable);
