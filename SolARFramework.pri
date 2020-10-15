@@ -56,6 +56,7 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/solver/map/IMapFusion.h\
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/ICovisibilityGraph.h \
