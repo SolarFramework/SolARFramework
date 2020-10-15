@@ -51,11 +51,11 @@ class SOLARFRAMEWORK_API Trackable
         /// @brief Returns the type of the Trackable object
         /// i.e. the class name
         ///
-        virtual std::string getTrackableType() = 0;
+        virtual std::string getTrackableType() const = 0;
 
         /// @brief Returns the unique ID of the trackable object
         /// @return the UUID of the trackable object
-        boost::uuids::uuid getUUID();
+        boost::uuids::uuid getUUID() const;
 
     private:
         friend class boost::serialization::access;

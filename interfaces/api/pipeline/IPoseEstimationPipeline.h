@@ -17,16 +17,13 @@
 #ifndef SOLAR_POSEESTIMATIONPIPELINE_H
 #define SOLAR_POSEESTIMATIONPIPELINE_H
 
+#include "api/pipeline/IPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "api/sink/ISinkReturnCode.h"
 #include "api/source/ISourceReturnCode.h"
-#include "core/Messages.h"
-#include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/api/IComponentManager.h"
 #include "datastructure/Image.h"
 
 
-namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace api {
 using namespace sink;
@@ -42,7 +39,7 @@ namespace pipeline {
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPoseEstimationPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IPoseEstimationPipeline : virtual public IPipeline {
 public:
     /// @brief IPoseEstimationPipeline default constructor
     IPoseEstimationPipeline() = default;
@@ -50,24 +47,13 @@ public:
     /// @brief IPoseEstimationPipeline default destructor
     virtual ~IPoseEstimationPipeline() = default;
 
-    /// @brief Initialization of the pipeline
-    /// Initialize the pipeline by providing a reference to the component manager loaded by the PipelineManager.
-    /// @param[in] componentManager a shared reference to the component manager which has loaded the components and configuration in the pipleine manager
-    virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
+    /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
+    /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.
+    virtual FrameworkReturnCode start(void* imageDataBuffer) = 0;
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (resolution and focal)
     virtual CameraParameters getCameraParameters() = 0;
-
-    /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
-    /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.
-    ///     /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode start(void* textureHandle) = 0;
-
-    /// @brief Stop the pipeline.
-   /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
-
-    virtual FrameworkReturnCode stop() = 0;
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed

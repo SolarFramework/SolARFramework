@@ -18,9 +18,7 @@
 #define SOLAR_MAPPINGPIPELINE_H
 
 
-#include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/api/IComponentManager.h"
-#include "core/Messages.h"
+#include "api/pipeline/IPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/CloudPoint.h"
@@ -28,7 +26,6 @@
 #include "datastructure/Trackable.h"
 
 
-namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace api {
 using namespace datastructure;
@@ -42,18 +39,13 @@ namespace pipeline {
  * This class provides the interface to define a mapping processing pipeline.
  */
 
-class IMappingPipeline : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IMappingPipeline : virtual public IPipeline {
 public:
     /// @brief IMappingPipeline default constructor
     IMappingPipeline() = default;
 
     /// @brief IMappingPipeline default destructor
     virtual ~IMappingPipeline() = default;
-
-    /// @brief Initialization of the pipeline
-    /// Initialize the pipeline by providing a reference to the component manager loaded by the PipelineManager.
-    /// @param[in] componentManager: a shared reference to the component manager which has loaded the components and configuration in the pipleine manager
-    virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
 
     /// @brief Set the camera parameters
     /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
@@ -64,14 +56,6 @@ public:
     /// @param[in] trackableObject: the trackable object
     /// @return FrameworkReturnCode::_SUCCESS if the trackable object is correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setObjectToTrack(const Trackable & trackableObject) = 0;
-
-    /// @brief Start the pipeline
-    /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode start() = 0;
-
-    /// @brief Stop the pipeline.
-    /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode stop() = 0;
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// Retrieve the new image (and pose) to process, in the current pipeline context

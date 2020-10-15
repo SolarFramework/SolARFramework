@@ -29,15 +29,15 @@ Trackable2D::Trackable2D() {
 
 // Class methods
 
-Sizef Trackable2D::getSize() {
+Sizef Trackable2D::getSize() const {
     return m_size;
 }
 
-float Trackable2D::getWidth() {
+float Trackable2D::getWidth() const {
     return m_size.width;
 }
 
-float Trackable2D::getHeight() {
+float Trackable2D::getHeight() const {
     return m_size.height;
 }
 

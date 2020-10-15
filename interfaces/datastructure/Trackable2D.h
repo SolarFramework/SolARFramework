@@ -48,15 +48,15 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 
         /// @brief Provides the size of the 2D trackable object
         /// @return size value
-        Sizef getSize();
+        Sizef getSize() const;
 
         /// @brief Provides the width of the 2D trackable object
         /// @return width value
-        float getWidth();
+        float getWidth() const;
 
         /// @brief Provides the height of the 2D trackable object
         /// @return height value
-        float getHeight();
+        float getHeight() const;
 
         /// @brief Sets the size of the 2D trackable object
         /// @param[in] size: size value

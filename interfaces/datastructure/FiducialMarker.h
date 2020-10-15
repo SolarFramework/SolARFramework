@@ -55,7 +55,7 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
         /// @brief Returns the type of the Trackable object
         /// i.e. the class name
         ///
-        std::string getTrackableType() override;
+        std::string getTrackableType() const override;
 
         /// @brief Sets the binary pattern of the fiducial marker
         /// @param[in] binaryPattern: the binary pattern of the fiducial marker object
@@ -63,7 +63,7 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
 
         /// @brief Returns the pattern of the fiducial marker
         /// @result SquaredBinaryPattern: the binary pattern of the fiducial marker object
-        SquaredBinaryPattern getPattern();
+        SquaredBinaryPattern getPattern() const;
 
     private:
         friend class boost::serialization::access;

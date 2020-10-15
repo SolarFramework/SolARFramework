@@ -38,6 +38,7 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
+interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
 interfaces/api/reloc/IKeyframeRetriever.h \

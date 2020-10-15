@@ -21,11 +21,11 @@ namespace datastructure {
 
 Trackable::Trackable() {
     // Assign a unique ID to the trackable object
-    xpcf::uuids::random_generator gen;
-    m_uuid = gen();
+//    xpcf::uuids::random_generator gen;
+//    m_uuid = gen();
 }
 
-boost::uuids::uuid Trackable::getUUID() {
+boost::uuids::uuid Trackable::getUUID() const {
     return m_uuid;
 }
 

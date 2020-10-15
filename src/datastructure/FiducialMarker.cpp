@@ -28,7 +28,7 @@ FiducialMarker::FiducialMarker(SquaredBinaryPattern & binaryPattern, Sizef & siz
 // Class methods
 
 // Returns the type (class name) of the trackable object
-std::string FiducialMarker::getTrackableType() {
+std::string FiducialMarker::getTrackableType() const {
     return "FiducialMarker";
 }
 
@@ -38,7 +38,7 @@ void FiducialMarker::setPattern(const SquaredBinaryPattern & binaryPattern) {
 }
 
 // Returns the binary pattern of the fiducial marker
-SquaredBinaryPattern FiducialMarker::getPattern() {
+SquaredBinaryPattern FiducialMarker::getPattern() const {
     return m_pattern;
 }
 
