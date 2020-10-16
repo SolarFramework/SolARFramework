@@ -48,9 +48,9 @@ public:
     ///@brief I2DTransformFinder default deconstructor.
     virtual ~I2DTransformFinder() = default;
     /// @brief Find 2D transform matrix from 2 sets of 2d_points.
-    /// @param[in] Set of 2d_points seen in view_1.
-    /// @param[in] Set of 2d_points seen in view_2.
-    /// @param[out] Estimated 2D transform matrix.
+    /// @param[in] srcPoints set of 2d_points seen in view_1.
+    /// @param[in] dstPoints set of 2d_points seen in view_2.
+    /// @param[out] fundamental estimated 2D transform matrix.
     ///
     virtual Transform2DFinder::RetCode find(const std::vector<Point2Df> & srcPoints,
         const std::vector<Point2Df> & dstPoints,

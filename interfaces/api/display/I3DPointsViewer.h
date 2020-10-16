@@ -43,8 +43,8 @@ public:
     virtual ~I3DPointsViewer() = default;
 
 	/// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
-	/// @param[in] points, Set of 3D points to display in the 3D viewer.
-	/// @param[in] pose, poses of the current camera (transform of the camera defined in world corrdinate system).
+	/// @param[in] points set of 3D points to display in the 3D viewer.
+	/// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
 	/// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
 	/// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
 	/// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
@@ -59,8 +59,8 @@ public:
 
 
     /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
-    /// @param[in] points, Set of 3D points to display in the 3D viewer.
-    /// @param[in] pose, poses of the current camera (transform of the camera defined in world corrdinate system).
+    /// @param[in] points set of 3D points to display in the 3D viewer.
+    /// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
     /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
     /// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
     /// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).

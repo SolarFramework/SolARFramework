@@ -47,7 +47,7 @@ public:
     /// @param[in] img The image to display in the window
     /// @param[out] key The pressed key ASCII code, 0 if no key is pressed
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode displayKey(SRef<Image> img, char& key) = 0;
+    virtual FrameworkReturnCode displayKey(const SRef<Image> img, char& key) = 0;
 
 };
 }
