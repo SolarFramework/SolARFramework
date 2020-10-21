@@ -30,7 +30,7 @@ namespace api {
 namespace loop {
 /**
   * @class IOverlapDetector
-  * @brief <B>Detect an overlap between different maps.</B>
+  * @brief <B>Detects an overlap between different maps.</B>
   * <TT>UUID: fe6a40ca-137c-11eb-adc1-0242ac120002</TT>
   */
 
@@ -49,7 +49,7 @@ namespace loop {
 		/// @brief set global map as a reference 
 		/// @param[in] map: the input map.
 		/// @return FrameworkReturnCode::_SUCCESS_ if the map is set, else FrameworkReturnCode::_ERROR.
-		virtual FrameworkReturnCode setGlobaleMapper(const SRef<api::solver::map::IMapper> &globalMap) = 0 ;
+		virtual FrameworkReturnCode setGlobalMapper(const SRef<api::solver::map::IMapper> &globalMap) = 0 ;
 		/// @brief Detect overlap between two floating maps with different refences.
 		/// @param[in] global mapper as reference.
 		/// @param[in] floating mapper as the map to merge.
