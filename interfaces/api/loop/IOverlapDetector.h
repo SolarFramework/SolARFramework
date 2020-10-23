@@ -55,11 +55,27 @@ namespace loop {
 		/// @param[in] floating mapper as the map to merge.
 		/// @param[out] sim3Transform : 3D similarity transformation (Sim(3)) from query keyframe from the floating map to the detected overlaped keyframe in global map.
 		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
+
+		virtual FrameworkReturnCode detect(SRef<api::solver::map::IMapper> &globalMap,
+											const SRef<api::solver::map::IMapper> &floatingMap,
+											Transform3Df &sim3Transform,
+											Transform3Df&bestGlobalPose,
+											Transform3Df&bestFloatinglPose) = 0;
+
+		/// @brief Detect overlap between two floating maps with different refences.
+		/// @param[in] global mapper as reference.
+		/// @param[in] floating mapper as the map to merge.
+		/// @param[out] sim3Transform : 3D similarity transformation (Sim(3)) from query keyframe from the floating map to the detected overlaped keyframe in global map.
+		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
+
         virtual FrameworkReturnCode detect(SRef<api::solver::map::IMapper> &globalMap,
 										  const SRef<api::solver::map::IMapper> &floatingMap,
-										  Transform3Df &sim3Transform,
-										  Transform3Df&bestGlobalPose,
-										  Transform3Df&bestFloatinglPose) = 0;
+										  std::vector<Transform3Df> &sim3Transform,
+										  std::vector<std::pair<uint32_t, uint32_t>>&overlapIndices,
+										  std::vector<double>&scores)= 0;
+
+
+
 };
 }
 }
