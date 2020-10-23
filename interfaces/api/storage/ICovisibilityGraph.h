@@ -45,52 +45,52 @@ public:
     virtual ~ICovisibilityGraph() = default;
 
     /// @brief This method allow to increase edge between 2 nodes
-    /// @param[in] id of 1st node
-    /// @param[in] id of 2nd node
-    /// @param[in] weight to increase
+    /// @param[in] node1_id id of 1st node
+    /// @param[in] node2_id id of 2nd node
+    /// @param[in] weight weight to increase
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode increaseEdge(uint32_t node1_id, uint32_t node2_id, float weight) = 0;
 
 	/// @brief This method allow to decrease edge between 2 nodes
-	/// @param[in] id of 1st node
-	/// @param[in] id of 2nd node
-	/// @param[in] weight to decrease
+	/// @param[in] node1_id id of 1st node
+	/// @param[in] node2_id id of 2nd node
+	/// @param[in] weight weight to decrease
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode decreaseEdge(uint32_t node1_id, uint32_t node2_id, float weight) = 0;
 
 	/// @brief This method allow to remove an edge between 2 nodes
-	/// @param[in] id of 1st node
-	/// @param[in] id of 2nd node
+	/// @param[in] node1_id id of 1st node
+	/// @param[in] node2_id id of 2nd node
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode removeEdge(uint32_t node1_id, uint32_t node2_id) = 0;
 
 	/// @brief This method allow to get edge between 2 nodes
-	/// @param[in] id of 1st node
-	/// @param[in] id of 2nd node
-	/// @param[out] weight of the edge
+	/// @param[in] node1_id id of 1st node
+	/// @param[in] node2_id id of 2nd node
+	/// @param[out] weight weight of the edge
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getEdge(uint32_t node1_id, uint32_t node2_id, float &weight) = 0;
 
 	/// @brief This method allow to verify that exist an edge between 2 nodes
-	/// @param[in] id of 1st node
-	/// @param[in] id of 2nd node
+	/// @param[in] node1_id id of 1st node
+	/// @param[in] node2_id id of 2nd node
 	/// @return true if exist, else false
 	virtual bool isEdge(uint32_t node1_id, uint32_t node2_id) = 0;
 
 	/// @brief This method allow to get all nodes of the graph
-	/// @param[out] ids of all nodes
+	/// @param[out] nodes_id ids of all nodes
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getAllNodes(std::set<uint32_t> &nodes_id) = 0;
 
 	/// @brief This method allow to suppress a node of the graph
-	/// @param[in] id of the node to suppress
+	/// @param[in] node_id id of the node to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode suppressNode(uint32_t node_id) = 0;
 
 	/// @brief This method allow to get neighbors of a node in the graph
-	/// @param[in] id of the node to get neighbors
-	/// @param[in] min value between this node and a neighbor to accept
-	/// @param[out] a vector of neighbors sorted to greater weighted edge.
+	/// @param[in] node_id id of the node to get neighbors
+	/// @param[in] minWeight min value between this node and a neighbor to accept
+	/// @param[out] neighbors a vector of neighbors sorted to greater weighted edge.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getNeighbors(uint32_t node_id, float minWeight, std::vector<uint32_t> &neighbors) = 0;
 
@@ -107,9 +107,9 @@ public:
 	virtual FrameworkReturnCode maximalSpanningTree(std::vector<std::tuple<uint32_t, uint32_t, float>> &edges_weights, float &maxTotalWeights) = 0;
 
 	/// @brief This method allow to get the shortest (by number of vertices) path between 2 nodes
-	/// @param[in] id of 1st node
-	/// @param[in] id of 2nd node
-	/// @param[out] the shortest path
+	/// @param[in] node1_id id of 1st node
+	/// @param[in] node2_id id of 2nd node
+	/// @param[out] path the shortest path
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getShortestPath(uint32_t node1_id, uint32_t node2_id, std::vector<uint32_t> &path) = 0;
 
@@ -117,14 +117,14 @@ public:
 	virtual FrameworkReturnCode display() = 0;
 
 	/// @brief This method allows to save the graph to the external file
-	/// @param[out] the file name
+	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode saveToFile(std::string file) = 0;
+	virtual FrameworkReturnCode saveToFile(const std::string& file) = 0;
 
 	/// @brief This method allows to load the graph from the external file
-	/// @param[in] the file name
+	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode loadFromFile(std::string file) = 0;
+	virtual FrameworkReturnCode loadFromFile(const std::string& file) = 0;
 };
 
 }

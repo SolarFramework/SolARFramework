@@ -70,18 +70,18 @@ public:
 	virtual FrameworkReturnCode retrieve(const SRef<Frame>& frame, std::set<unsigned int> &canKeyframes_id, std::vector<uint32_t> & retKeyframes_id) = 0;
 
 	/// @brief This method allows to save the keyframe feature to the external file
-	/// @param[out] the file name
+	/// @param[in] the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode saveToFile(std::string file) = 0;
+	virtual FrameworkReturnCode saveToFile(const std::string& file) = 0;
 
 	/// @brief This method allows to load the keyframe feature from the external file
 	/// @param[in] the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode loadFromFile(std::string file) = 0;
+	virtual FrameworkReturnCode loadFromFile(const std::string& file) = 0;
 
 	/// @brief Match a frame with a keyframe
 	/// @param[in] frame: the frame to match
-	/// @param[in] keyframe_id: id of keyframe to match
+	/// @param[in] keyframe: id of keyframe to match
 	/// @param[out] matches: a set of matches between frame and keyframe
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode match(const SRef<Frame>& frame, const SRef<Keyframe>& keyframe, std::vector<DescriptorMatch> &matches) = 0;
@@ -89,7 +89,7 @@ public:
 	/// @brief Match a set of descriptors with a keyframe
 	/// @param[in] indexDescriptors: index of descriptors to match.
 	/// @param[in] descriptors: a descriptor buffer contains all descriptors
-	/// @param[in] keyframe_id: id of keyframe to match
+	/// @param[in] keyframe: id of keyframe to match
 	/// @param[out] matches: a set of matches between frame and keyframe
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode match(const std::vector<int> &indexDescriptors, const SRef<DescriptorBuffer> &descriptors, const SRef<Keyframe> &keyframe, std::vector<DescriptorMatch> &matches) = 0;

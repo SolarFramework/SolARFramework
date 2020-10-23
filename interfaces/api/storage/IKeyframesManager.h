@@ -54,24 +54,24 @@ public:
     virtual FrameworkReturnCode addKeyframe(const Keyframe &keyframe) = 0;
 
 	/// @brief This method allows to get a keyframe by its id
-	/// @param[in] id of the keyframe to get
-	/// @param[out] a keyframe stored in the keyframes manager
+	/// @param[in] id id of the keyframe to get
+	/// @param[out] keyframe a keyframe stored in the keyframes manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getKeyframe(uint32_t id, SRef<Keyframe>& keyframe) = 0;
 
 	/// @brief This method allows to get a set of keyframes by their ids
-	/// @param[in] a vector of ids of the keyframes to get
-	/// @param[out] a vector of keyframes stored in the keyframe manager
+	/// @param[in] ids a vector of ids of the keyframes to get
+	/// @param[out] keyframes a vector of keyframes stored in the keyframe manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getKeyframes(std::vector<uint32_t> &ids, std::vector<SRef<Keyframe>>& keyframes) = 0;
+	virtual FrameworkReturnCode getKeyframes(const std::vector<uint32_t> &ids, std::vector<SRef<Keyframe>>& keyframes) = 0;
 
 	/// @brief This method allows to get all keyframes
-	/// @param[out] the set of keyframes
+	/// @param[out] keyframes the set of keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode getAllKeyframes(std::vector<SRef<Keyframe>>& keyframes) = 0;
 
 	/// @brief This method allow to suppress a keyframe by its id
-	/// @param[in] id of the keyframe to suppress
+	/// @param[in] id id of the keyframe to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode suppressKeyframe(uint32_t id) = 0;
 
@@ -80,11 +80,12 @@ public:
 	virtual DescriptorType getDescriptorType() = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each keyframe
-	/// @return Descriptor type
+	/// @param[in] type the descriptor type
+	/// @return @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode setDescriptorType(DescriptorType type) = 0;
 
 	/// @brief This method allows to know if a keyframe is already stored in the component
-	/// @param[in] Id of this keyframe
+	/// @param[in] id id of this keyframe
 	/// @return true if exist, else false
 	virtual bool isExistKeyframe(uint32_t id) = 0;
 
@@ -93,14 +94,14 @@ public:
 	virtual int getNbKeyframes() = 0;
 
 	/// @brief This method allows to save the keyframes to the external file
-	/// @param[out] the file name
+	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode saveToFile(std::string file) = 0;
+	virtual FrameworkReturnCode saveToFile(const std::string& file) = 0;
 
 	/// @brief This method allows to load the keyframes from the external file
-	/// @param[in] the file name
+	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode loadFromFile(std::string file) = 0;
+	virtual FrameworkReturnCode loadFromFile(const std::string& file) = 0;
 };
 
 }
