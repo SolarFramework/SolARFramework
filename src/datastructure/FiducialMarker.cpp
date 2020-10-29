@@ -20,7 +20,7 @@ namespace SolAR {
 namespace datastructure {
 
 // Construct a new FiducialMarker from a binary pattern and a size (width and height)
-FiducialMarker::FiducialMarker(SquaredBinaryPattern & binaryPattern, Sizef & size) {
+FiducialMarker::FiducialMarker(const SquaredBinaryPattern & binaryPattern, const Sizef & size) {
     m_pattern = binaryPattern;
     m_size = size;
 }
@@ -28,8 +28,8 @@ FiducialMarker::FiducialMarker(SquaredBinaryPattern & binaryPattern, Sizef & siz
 // Class methods
 
 // Returns the type (class name) of the trackable object
-std::string FiducialMarker::getTrackableType() const {
-    return "FiducialMarker";
+TrackableType FiducialMarker::getType() const {
+    return FIDUCIAL_MARKER;
 }
 
 // Sets the binary pattern of the fiducial marker

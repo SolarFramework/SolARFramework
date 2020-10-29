@@ -39,10 +39,9 @@ public:
     virtual ~ITrackableLoader() = default;
 
     /// @brief Loads a specific trackable object and its features.
-    /// @param[in] filePath: path to the trackable object description file
-    /// @param[out] trackableObject: the trackable object created from the description file
-    /// @return FrameworkReturnCode::_SUCCESS if sucessful, either FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode loadTrackable(const std::string & filePath, Trackable & trackableObject) = 0;
+    /// @return Trackable * : the trackable object created from the description file
+    /// or nullptr if an error occurs
+    virtual Trackable * loadTrackable() = 0;
 
 };
 

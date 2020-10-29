@@ -44,18 +44,18 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
         ///
         /// @brief FiducialMarker constructor
         /// with binary pattern and size of fiducial image
-        /// @param binaryPattern: binary pattern of the fiducial marker
-        /// @param size: size (width and height) of the fiducial marker image
+        /// @param[in] binaryPattern: binary pattern of the fiducial marker
+        /// @param[in] size: size (width and height) of the fiducial marker image
         ///
-        FiducialMarker(SquaredBinaryPattern & binaryPattern, Sizef & size);
+        FiducialMarker(const SquaredBinaryPattern & binaryPattern, const Sizef & size);
 
         // Class methods
 
         ///
         /// @brief Returns the type of the Trackable object
-        /// i.e. the class name
+        /// @return TrackableType: the type of the instance
         ///
-        std::string getTrackableType() const override;
+        TrackableType getType() const override;
 
         /// @brief Sets the binary pattern of the fiducial marker
         /// @param[in] binaryPattern: the binary pattern of the fiducial marker object

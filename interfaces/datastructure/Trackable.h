@@ -29,6 +29,16 @@ namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
+///
+/// @brief Enumeration of all trackable object types
+///
+enum TrackableType {
+    UNKNOWN,
+    FIDUCIAL_MARKER,
+    NATURAL_IMAGE_MARKER
+};
+
+
 /**
     * @class Trackable
     * @brief <B>This abstract class defines the generic trackable datastructure.</B>
@@ -49,9 +59,9 @@ class SOLARFRAMEWORK_API Trackable
 
         ///
         /// @brief Returns the type of the Trackable object
-        /// i.e. the class name
+        /// @return TrackableType: the type of the instance
         ///
-        virtual std::string getTrackableType() const = 0;
+        virtual TrackableType getType() const = 0;
 
         /// @brief Returns the unique ID of the trackable object
         /// @return the UUID of the trackable object
