@@ -19,6 +19,8 @@
 
 #include <tuple>
 
+#include <core/SerializationDefinitions.h>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -33,6 +35,7 @@ namespace datastructure {
 class DescriptorMatch
 {
 public:
+
 
     /// \brief DescriptorMatch
     ///  @param descriptor_idX:
@@ -63,8 +66,16 @@ public:
 
     
 private:
+    // for boost serialization
+    DescriptorMatch() = default;
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+
     std::tuple<unsigned int, unsigned int, float> m_match;
 };
+
+DECLARESERIALIZE(DescriptorMatch);
 
 }
 }

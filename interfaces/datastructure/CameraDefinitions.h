@@ -78,4 +78,5 @@ typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
 }
 }
 
+
 #endif // SOLAR_CAMERADEFINITIONS_H

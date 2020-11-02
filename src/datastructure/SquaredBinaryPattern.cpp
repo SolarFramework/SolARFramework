@@ -45,5 +45,14 @@ FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryP
     return FrameworkReturnCode::_SUCCESS;
 };
 
+template <typename Archive>
+void SquaredBinaryPattern::serialize(Archive &ar, const unsigned int version)
+{
+    ar & m_size;
+    ar & m_patternMatrix;
+}
+
+IMPLEMENTSERIALIZE(SquaredBinaryPattern);
+
 }
 }//end namespace SolAR

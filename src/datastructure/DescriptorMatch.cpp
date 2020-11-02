@@ -14,28 +14,20 @@
  * limitations under the License.
  */
 
-#include "datastructure/PointCloud.h"
+#include "datastructure/DescriptorMatch.h"
 
 namespace SolAR {
 namespace datastructure {
 
-const std::vector<CloudPoint>& PointCloud::getConstPointCloud() const
-{
-    return m_points;
-}
-
-std::vector<CloudPoint>& PointCloud::getPointCloud()
-{
-    return m_points;
-}
-
 template <typename Archive>
-void PointCloud::serialize(Archive &ar, const unsigned int version)
+void DescriptorMatch::serialize(Archive &ar, const unsigned int version)
 {
-    ar & m_points;
+    ar & std::get<0>(m_match);
+    ar & std::get<1>(m_match);
+    ar & std::get<2>(m_match);
 }
 
-IMPLEMENTSERIALIZE(PointCloud);
+IMPLEMENTSERIALIZE(DescriptorMatch);
 
 
 }

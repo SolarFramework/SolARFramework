@@ -60,6 +60,7 @@ public:
    /// @brief Set a pointer to the texture buffer to update it with the new image when required.
    /// @param[in] textureBufferPointer the pointer on texture buffer
    /// @return FrameworkReturnCode::_SUCCESS_ if the texture buffer pointer is well set.
+   [[xpcf::ignore]]
    virtual FrameworkReturnCode setTextureBuffer(void* textureBufferPointer) = 0;
 
    virtual void updateFrameDataOGL(int enventID) = 0;

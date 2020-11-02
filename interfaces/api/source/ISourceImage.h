@@ -39,7 +39,7 @@ namespace source {
  * This interface allows to link a texture buffer from a third party to our pipeline
  */
 
-class  ISourceImage : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::ignore]] ISourceImage : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 
    ISourceImage() = default;

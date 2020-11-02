@@ -88,5 +88,30 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::fusion::IVisualInertialFusion,
                          "IVisualInertialFusion",
                          "SolAR::api::fusion::IVisualInertialFusion Interface");
 
+namespace boost { namespace serialization {
+
+template<class Archive>
+inline void serialize(Archive & ar,
+                      SolAR::api::fusion::InertialData & data,
+                      const unsigned int version)
+{
+  ar & boost::serialization::make_binary_object(&data.timestamp, sizeof(data.timestamp));
+  ar & data.accelData;
+  ar & data.gyroData;
+  ar & data.magData;
+}
+
+template<class Archive>
+inline void serialize(Archive & ar,
+                      SolAR::api::fusion::VisionData & data,
+                      const unsigned int version)
+{
+  ar & boost::serialization::make_binary_object(&data.timestamp, sizeof(data.timestamp));
+  ar & data.pose;
+  ar & data.isPoseValid;
+}
+
+}}
+
 #endif // SOLAR_IVISUALINERTIALFUSION_H
 

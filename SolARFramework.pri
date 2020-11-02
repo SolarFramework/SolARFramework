@@ -105,6 +105,7 @@ interfaces/api/slam/ITracking.h \
 interfaces/api/slam/IMapping.h
 
 SOURCES += src/core/SolARFramework.cpp \
+    $$PWD/src/datastructure/DescriptorMatch.cpp \
     src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
 	src/datastructure/CoordinateSystem.cpp \

@@ -56,9 +56,15 @@ public:
     inline int getSize () const { return m_size; }
 
 private :
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+
     SquaredBinaryPatternMatrix m_patternMatrix;
     int m_size;
 };
+
+DECLARESERIALIZE(SquaredBinaryPattern);
 
 }
 }
