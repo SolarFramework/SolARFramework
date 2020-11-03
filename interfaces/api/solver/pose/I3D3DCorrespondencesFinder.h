@@ -68,15 +68,13 @@ namespace pose {
 		/// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
 		/// @param[out] firstCloudPointsIndices: The cloud points indices seen from the first keyframe.
 		/// @param[out] secondCloudPointsIndices: The cloud points indices seen from the second keyframe.
-
+		/// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
 		virtual FrameworkReturnCode find(const SRef<Keyframe> firstKeyframe,
 										 const SRef<Keyframe> secondKeyframe,
 										 const std::vector<DescriptorMatch> & current_matches,
 										 std::vector<uint32_t> & firstCloudPointsIndices,
-										 std::vector<uint32_t> & secondCloudPointsIndices) = 0;
-
-
-
+										 std::vector<uint32_t> & secondCloudPointsIndices,
+										 std::vector<DescriptorMatch> & found_matches) = 0;
     };
 }
 }

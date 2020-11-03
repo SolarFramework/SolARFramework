@@ -39,6 +39,7 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
+interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
