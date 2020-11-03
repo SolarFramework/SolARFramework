@@ -145,7 +145,9 @@ public:
    /// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode saveToFile() = 0;
-
+   /// @brief Set the mapper data from floating mapper
+ /// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
+   virtual FrameworkReturnCode set(const SRef<IMapper> &floating_mapper) = 0;
    /// @brief Load the map from the external file
    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode loadFromFile() = 0;

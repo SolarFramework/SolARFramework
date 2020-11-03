@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keyframe.h"
 #include "core/Messages.h"
 
@@ -40,6 +41,11 @@ namespace loop {
 		///@brief ~ILoopClosingDetector
 		///
 		virtual ~ILoopClosureDetector() = default;
+
+		/// @brief this method is used to set intrinsic parameters and distorsion of the camera
+		/// @param[in] intrinsicParams: Camera calibration matrix parameters.
+		/// @param[in] distortionParams: Camera distortion parameters.
+		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
 
 		/// @brief Detect a loop closure from a given keyframe.
 		/// @param[in] queryKeyframe: the query keyframe.

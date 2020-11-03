@@ -32,6 +32,7 @@ interfaces/api/image/IPerspectiveController.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
+interfaces/api/input/devices/IARDevice.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
@@ -41,6 +42,7 @@ interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
+interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
@@ -58,6 +60,7 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/solver/map/IMapFusion.h\
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/ICovisibilityGraph.h \

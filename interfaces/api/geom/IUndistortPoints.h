@@ -52,7 +52,7 @@ public:
     virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) = 0;
     
     /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistorsionParameters(const CamDistortion & distorsion_parameters) = 0;
+    virtual void setDistortionParameters(const CamDistortion & distorsion_parameters) = 0;
 
 };
 

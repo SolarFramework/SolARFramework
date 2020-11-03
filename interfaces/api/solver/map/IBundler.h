@@ -14,7 +14,7 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Keyframe.h"
-
+#include "api/solver/map/IMapper.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -29,11 +29,16 @@ namespace map {
 
 	class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
 	public:
+		/// @brief IBundler default constructor
 		IBundler() = default;
-		///
-		///@brief ~IBundler
-		///
-		virtual ~IBundler() {}
+
+		///@brief ~IBundler default destructor
+		virtual ~IBundler() = default;
+
+		/// @brief set mapper reference to optimize
+		/// @param[in] map: the input map.
+		/// @return FrameworkReturnCode::_SUCCESS_ if the map is set, else FrameworkReturnCode::_ERROR.
+		virtual FrameworkReturnCode setMapper(const SRef<IMapper> &map) = 0;
 
 		/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
 		/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
@@ -41,7 +46,7 @@ namespace map {
 		/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
 		/// @param[in] selectKeyframes : selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
 		/// @return the mean re-projection error after optimization.
-		virtual  double bundleAdjustment(CamCalibration & K,
+		virtual double bundleAdjustment(CamCalibration & K,
 										CamDistortion & D,
 										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 };

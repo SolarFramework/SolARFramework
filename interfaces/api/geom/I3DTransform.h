@@ -22,9 +22,11 @@
 #include "core/Messages.h"
 #include "datastructure/PointCloud.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "api/solver/map/IMapper.h"
 
 namespace SolAR {
 using namespace datastructure;
+using namespace api::solver::map;
 namespace api {
 namespace geom {
 
@@ -50,6 +52,13 @@ public:
     virtual FrameworkReturnCode transform(const std::vector<Point3Df> & inputPoints,
                                           const Transform3Df & transformation,
                                           std::vector<Point3Df> & outputPoints) = 0;
+
+	/// @brief This method applies a transformation (4x4 float matrix) to a map including point cloud and keyframes	
+	/// @param[in] transformation: transformation the 3D transformation to apply (a 4x4 float matrix)
+	/// @param[in,out] map: the map to apply the transformation
+	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode transform(const Transform3Df & transformation,
+										  SRef<IMapper> & map) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a point cloud
 	/// @param[in] inputPointCloud the point cloud to transform
