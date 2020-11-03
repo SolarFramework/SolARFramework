@@ -44,10 +44,11 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
         ///
         /// @brief FiducialMarker constructor
         /// with binary pattern and size of fiducial image
-        /// @param[in] binaryPattern: binary pattern of the fiducial marker
+        /// @param[in] url: url of the trackable object
         /// @param[in] size: size (width and height) of the fiducial marker image
+        /// @param[in] binaryPattern: binary pattern of the fiducial marker
         ///
-        FiducialMarker(const SquaredBinaryPattern & binaryPattern, const Sizef & size);
+        FiducialMarker(const std::string & url, const Sizef & size, const SquaredBinaryPattern & binaryPattern);
 
         // Class methods
 

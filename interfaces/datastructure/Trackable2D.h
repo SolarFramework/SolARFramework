@@ -35,9 +35,21 @@ namespace datastructure {
 class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
     public:
         ///
-        /// @brief Trackable2D default constructor
+        /// @brief Trackable default constructor
         ///
-        Trackable2D();
+        Trackable2D() = default;
+
+        ///
+        /// @brief Trackable2D constructor
+        /// with url and size
+        ///
+        Trackable2D(const std::string & url, const Sizef & size);
+
+        ///
+        /// @brief Trackable2D constructor
+        /// with url, width and height
+        ///
+        Trackable2D(const std::string & url, const float & width, const float & height);
 
         ///
         /// @brief Trackable2D default destructor
@@ -45,6 +57,12 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
         virtual ~Trackable2D() = default;
 
         // Class methods
+
+        ///
+        /// @brief Returns the type of the Trackable object
+        /// @return TrackableType: the type of the instance
+        ///
+        virtual TrackableType getType() const = 0;
 
         /// @brief Provides the size of the 2D trackable object
         /// @return size value

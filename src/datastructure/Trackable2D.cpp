@@ -16,15 +16,25 @@
 
 #include "datastructure/Trackable2D.h"
 
+#include "core/Log.h"
+
 namespace SolAR {
 namespace datastructure {
 
 // Constructors
 
-// Default constructor
-Trackable2D::Trackable2D() {
-    m_size.width = 0;
-    m_size.height = 0;
+Trackable2D::Trackable2D(const std::string & url, const Sizef & size) : Trackable(url), m_size(size) {
+    LOG_DEBUG("Trackable2D constructor: url = {}, width = {}, height = {}",
+              url, size.width, size.height);
+}
+
+
+Trackable2D::Trackable2D(const std::string & url,
+                         const float & width, const float & height) : Trackable(url) {
+    LOG_DEBUG("Trackable2D constructor: url = {}, width = {}, height = {}", url, width, height);
+
+    m_size.width = width;
+    m_size.height = height;
 }
 
 // Class methods

@@ -16,13 +16,17 @@
 
 #include "datastructure/FiducialMarker.h"
 
+#include "core/Log.h"
+
 namespace SolAR {
 namespace datastructure {
 
 // Construct a new FiducialMarker from a binary pattern and a size (width and height)
-FiducialMarker::FiducialMarker(const SquaredBinaryPattern & binaryPattern, const Sizef & size) {
-    m_pattern = binaryPattern;
-    m_size = size;
+FiducialMarker::FiducialMarker(const std::string & url, const Sizef & size,
+                               const SquaredBinaryPattern & binaryPattern) :
+                                    Trackable(url), Trackable2D(url, size), m_pattern(binaryPattern) {
+    LOG_DEBUG("FiducialMarker constructor: url = {}, width = {}, height = {}, pattern size = {}",
+              url, size.width, size.height, binaryPattern.getSize());
 }
 
 // Class methods

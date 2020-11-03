@@ -72,6 +72,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getDataForVisualization(std::vector<CloudPoint> & outputPointClouds,
                                                         std::vector<SRef<Transform3Df>> & keyframePoses) = 0;
+
 };
 }
 }

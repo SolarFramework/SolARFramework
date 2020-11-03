@@ -16,22 +16,26 @@
 
 #include "datastructure/Trackable.h"
 
+#include "core/Log.h"
+
 namespace SolAR {
 namespace datastructure {
 
-Trackable::Trackable() {
-    // Assign a unique ID to the trackable object
-    xpcf::uuids::random_generator gen;
-    m_uuid = gen();
+Trackable::Trackable(const std::string & url) : m_url(url) {
+    LOG_DEBUG("Trackable constructor with url = {}", url);
 }
 
-boost::uuids::uuid Trackable::getUUID() const {
-    return m_uuid;
+std::string Trackable::getURL() const {
+    return m_url;
+}
+
+void Trackable::setURL(const std::string & url) {
+    m_url = url;
 }
 
 template<typename Archive>
 void Trackable::serialize(Archive &ar, const unsigned int version) {
-    ar & m_uuid;
+    ar & m_url;
 }
 
 IMPLEMENTSERIALIZE(Trackable);

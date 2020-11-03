@@ -19,12 +19,9 @@
 
 #include "core/SolARFrameworkDefinitions.h"
 #include <core/SerializationDefinitions.h>
-#include "xpcf/core/uuid.h"
 
 // Definition of Trackable Class //
 // part of SolAR namespace //
-
-namespace xpcf  = org::bcom::xpcf;
 
 namespace SolAR {
 namespace datastructure {
@@ -48,9 +45,13 @@ class SOLARFRAMEWORK_API Trackable
     public:
         ///
         /// @brief Trackable default constructor
-        /// Assign a unique ID to the instance
         ///
-        Trackable();
+        Trackable() = default;
+
+        ///
+        /// @brief Trackable constructor with url
+        ///
+        Trackable(const std::string & url);
 
         ///
         /// @brief Trackable default destructor
@@ -63,9 +64,12 @@ class SOLARFRAMEWORK_API Trackable
         ///
         virtual TrackableType getType() const = 0;
 
-        /// @brief Returns the unique ID of the trackable object
-        /// @return the UUID of the trackable object
-        boost::uuids::uuid getUUID() const;
+        /// @brief Returns the url of the trackable object
+        /// @return the url of the trackable object
+        std::string getURL() const;
+
+        /// @brief Sets the url of the trackable object
+        void setURL(const std::string & url);
 
     private:
         friend class boost::serialization::access;
@@ -73,7 +77,7 @@ class SOLARFRAMEWORK_API Trackable
         void serialize(Archive &ar, const unsigned int version);
 
     protected:
-        xpcf::uuids::uuid m_uuid; // The unique id of the trackable object
+        std::string m_url; // The url of the trackable object
 };
 
 DECLARESERIALIZE(Trackable);
