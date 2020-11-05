@@ -7,7 +7,7 @@ pipeline {
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
-                name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
+                name: 'BRANCH', defaultValue: 'develop', useRepository: '*.git'
         booleanParam(name: 'RELEASE', defaultValue: false, description: 'Create a Release')
         booleanParam(name: 'PRE_RELEASE', defaultValue: false, description: 'Create a Pre-Release')
         string(name: 'REMAKEN_VERSION', defaultValue: 'stable', description: 'Remaken version to be used')
