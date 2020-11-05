@@ -57,6 +57,18 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the trackable object is correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setObjectToTrack(const Trackable & trackableObject) = 0;
 
+    /// @brief Correct pose and do bootstrap using an image and the associated pose
+    /// This method must be called with successive pairs of (image, pose)
+    /// until the bootstrap process is finished (i.e. isBootstrapFinished returns True)
+    /// @param[in] image: the input image to process
+    /// @param[in] pose: the input pose to process
+    /// @return FrameworkReturnCode::_SUCCESS if the processing is ok, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode correctPoseAndBootstrap(const SRef<Image> & image, const Transform3Df & pose) = 0;
+
+    /// @brief Returns true if the boostrap process is finished
+    /// @return bool::true if the bootstrap is finished, else false
+    virtual bool isBootstrapFinished() const = 0;
+
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// Retrieve the new image (and pose) to process, in the current pipeline context
     /// (camera configuration, fiducial marker, point cloud, key frames, key points)
