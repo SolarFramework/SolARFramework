@@ -49,24 +49,6 @@ namespace map {
 		virtual double bundleAdjustment(CamCalibration & K,
 										CamDistortion & D,
 										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
-
-
-		/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
-		/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-		/// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
-		/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
-		/// @param[in] selectKeyframes : selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
-		/// @return the mean re-projection error after optimization.
-		virtual double optimizeSim3(CamCalibration & K_1,
-									CamCalibration & K_2,
-									const SRef<Keyframe>&kFrame_1,
-									const SRef<Keyframe>&kFrame_2,
-									const std::vector<SRef<CloudPoint>> & mapPoint3D_1,
-									const std::vector<SRef<CloudPoint>> & mapPoint3D_2,
-									Transform3Df & pose,
-									const float th2,
-									const bool bFixScale) = 0;
-
 };
 }
 }
