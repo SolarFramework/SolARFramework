@@ -82,8 +82,8 @@ public:
     /// @param[out] outputPointClouds: pipeline current point clouds
     /// @param[out] keyframePoses: pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDataForVisualization(std::vector<CloudPoint> & outputPointClouds,
-                                                        std::vector<SRef<Transform3Df>> & keyframePoses) = 0;
+    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<CloudPoint>> & outputPointClouds,
+                                                        std::vector<Transform3Df> & keyframePoses) const = 0;
 
 };
 }
