@@ -19,7 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "api/input/files/IMarker2DSquaredBinary.h"
-
+#include "datastructure/FiducialMarker.h"
 #include "core/Messages.h"
 
 #include "datastructure/CameraDefinitions.h"
@@ -52,6 +52,10 @@ namespace pose {
         /// @brief this method is used to set the fiducial marker
         /// @param[in] Fiducial marker.
         virtual void setMarker(const SRef<api::input::files::IMarker2DSquaredBinary> & marker) =0;
+
+        /// @brief this method is used to set the fiducial marker
+        /// @param[in] Fiducial marker.
+        virtual void setMarker(const SRef<datastructure::FiducialMarker> & marker) =0;
 
         /// @brief Estimates camera pose based on a fiducial marker.
         /// @param[in] image: input image.
