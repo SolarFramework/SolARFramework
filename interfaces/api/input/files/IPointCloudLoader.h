@@ -34,7 +34,7 @@ public:
 
 	/// @brief Load a PointCloud from a filepath (.pcd or .ply)
 	/// @param[in] filepath the path to the mesh file
-	/// @param[out] pointCloud to fill
+	/// @param[out] pointCloud the point cloud to fill
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode load(const std::string filepath, SRef<PointCloud>& pointCloud) = 0;
 };

@@ -49,8 +49,8 @@ public:
 
     /// @brief This method unproject a set of 2D image points in the 3D world coordinate system
     /// @param[in] imagePoints the set of 2D points to unproject
-    /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points
+    /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode unproject(const std::vector<Point2Df> & imagePoints,
                                           std::vector<Point3Df> & worldPoints,
@@ -58,8 +58,8 @@ public:
 
     /// @brief This method unproject a set of 2D image points in the 3D world coordinate system
     /// @param[in] imageKeypoints the set of 2D keypoints to unproject
-    /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points
+    /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode unproject(const std::vector<Keypoint> & imageKeypoints,
                                           std::vector<Point3Df> & worldPoints,

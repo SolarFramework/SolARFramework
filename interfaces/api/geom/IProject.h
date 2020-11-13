@@ -43,14 +43,14 @@ public:
     virtual ~IProject() = default;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] Camera calibration matrix parameters.
-    /// @param[in] Camera distorsion parameters.
+    /// @param[in] intrinsicParams camera calibration matrix parameters.
+    /// @param[in] distorsionParams camera distorsion parameters.
     virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
     /// @brief This method project a set of 3D points in the image plane
     /// @param[in] inputPoints the set of 3D points to project
+    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
-    /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode project(const std::vector<Point3Df> & inputPoints,
                                         std::vector<Point2Df> & imagePoints,
@@ -58,8 +58,8 @@ public:
 
     /// @brief This method project a set of 3D cloud points in the image plane
     /// @param[in] inputPoints the set of 3D cloud points to project
+    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
-    /// @param[out] outputPoints the resulting set of 2D points define in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode project(const std::vector<SRef<CloudPoint>> & inputPoints,
                                         std::vector<Point2Df> & imagePoints,
