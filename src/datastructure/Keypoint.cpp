@@ -55,7 +55,7 @@ void Keypoint::init( unsigned int id,
 }
 
 template<typename Archive>
-void Keypoint::serialize(Archive &ar, const unsigned int version) {
+void Keypoint::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 	ar & boost::serialization::base_object<Point2Df>(*this);
 	ar & m_id;
 	ar & m_size;

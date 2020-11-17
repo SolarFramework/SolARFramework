@@ -154,7 +154,7 @@ DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
 	if (type == DescriptorDataType::TYPE_8U) {
 		float *tmp_data = reinterpret_cast<float*>(m_buffer->data());
 		std::vector<uint8_t> tmp_output(m_nb_descriptors * m_nb_elements);
-		for (int i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
+        for (uint32_t i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
 			tmp_output[i] = static_cast<uint8_t>(tmp_data[i]);
 		}
 		output.swap(tmp_output);
@@ -162,7 +162,7 @@ DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
 	else {
 		uint8_t *tmp_data = reinterpret_cast<uint8_t*>(m_buffer->data());
 		std::vector<float> tmp_output(m_nb_descriptors * m_nb_elements);
-		for (int i = 0; i < m_nb_descriptors * m_nb_elements; i++) {			
+        for (uint32_t i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
 			tmp_output[i] = static_cast<float>(tmp_data[i]);
 		}
 		output.insert(output.begin(), reinterpret_cast<uint8_t*>(tmp_output.data()), reinterpret_cast<uint8_t*>(tmp_output.data()) + m_nb_descriptors * m_nb_elements * 4);
@@ -213,7 +213,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
 }
 
 template<typename Archive>
-void DescriptorBuffer::serialize(Archive &ar, const unsigned int version) {
+void DescriptorBuffer::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 	ar & m_buffer;
 	ar & m_nb_descriptors;
 	ar & m_data_type;

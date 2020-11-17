@@ -47,10 +47,12 @@ bool Identification::setUUID(const std::string& uuid) {
 	try
 	{
 		m_uuid = boost::lexical_cast<boost::uuids::uuid>(uuid);
+        return true;
 	}
 	catch (boost::bad_lexical_cast &e)
 	{
 		LOG_WARNING("{}",e.what());
+        return false;
 	}
 }
 
@@ -58,8 +60,8 @@ const boost::uuids::uuid& Identification::getUUID() const{
 	return m_uuid;
 }
 
-const std::string& Identification::getUUIDString() const{
-	return boost::lexical_cast<std::string>(m_uuid);
+const std::string Identification::getUUIDString() const{
+    return boost::lexical_cast<std::string>(m_uuid);
 }
 
 void Identification::setName(const std::string &name) {
@@ -103,7 +105,7 @@ const BBox3Df& Identification::getBBox3D() const{
 }
 
 template<typename Archive>
-void Identification::serialize(Archive &ar, const unsigned int version) {
+void Identification::serialize([[maybe_unused]] Archive &ar, [[maybe_unused]] const unsigned int version) {
     /*ar & m_uuid;
 	ar & m_name;
     ar & m_author;*/
