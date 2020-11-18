@@ -42,13 +42,13 @@ namespace features {
 		/// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
 		/// @param[in] camera's intrinsic parameters.
-		virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
-							std::vector<DescriptorMatch> & outputMatches,
-							const std::vector<Keypoint> & inputKeyPoints1,
-							const std::vector<Keypoint> & inputKeyPoints2,
-							const Transform3Df &pose1,
-							const Transform3Df &pose2,
-                            const CamCalibration &intrinsicParams) {};
+        virtual void filter([[maybe_unused]] const std::vector<DescriptorMatch> & inputMatches,
+                            [[maybe_unused]] std::vector<DescriptorMatch> & outputMatches,
+                            [[maybe_unused]] const std::vector<Keypoint> & inputKeyPoints1,
+                            [[maybe_unused]] const std::vector<Keypoint> & inputKeyPoints2,
+                            [[maybe_unused]] const Transform3Df &pose1,
+                            [[maybe_unused]] const Transform3Df &pose2,
+                            [[maybe_unused]] const CamCalibration &intrinsicParams) {};
     };
 }
 }

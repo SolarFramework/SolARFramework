@@ -93,7 +93,7 @@ void Frame::addVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudP
 	m_mapVisibility[id_keypoint] = id_cloudPoint;
 }
 
-bool Frame::removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint)
+bool Frame::removeVisibility(const uint32_t& id_keypoint, [[maybe_unused]] const uint32_t& id_cloudPoint)
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	if (m_mapVisibility.find(id_keypoint) == m_mapVisibility.end())
@@ -129,7 +129,7 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
 }
 
 template<typename Archive>
-void Frame::serialize(Archive &ar, const unsigned int version) {
+void Frame::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
 	ar & m_view;
 	ar & m_descriptors;
