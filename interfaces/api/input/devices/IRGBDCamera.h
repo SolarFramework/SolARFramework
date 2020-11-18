@@ -17,7 +17,7 @@
 #ifndef SOLAR_IRGBDCAMERA_H
 #define SOLAR_IRGBDCAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "api/input/devices/ICamera.h"
 #include "api/input/devices/IDepthCamera.h"
 #include "core/Messages.h"
@@ -35,17 +35,13 @@ namespace devices {
  *
  * This class describes the interface of a RGBD camera capture device.
  */
-class IRGBDCamera : virtual public org::bcom::xpcf::IComponentIntrospect, public ICamera, public IDepthCamera {
+class IRGBDCamera : virtual public ICamera, virtual public IDepthCamera {
 public:
     /// @brief Specify the IRGBDCamera constructor class
     IRGBDCamera() = default;
 
     /// @brief Specify the IRGBDCamera destructor class
     virtual ~IRGBDCamera() = default;
-
-    /// @brief Start the acquisition device reference
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start()=0;
 
     /// @brief Provides the last color image, depth image, corresponding 3D point cloud, and aligned images (RGB on depth and depth on RGB).
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.

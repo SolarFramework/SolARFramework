@@ -17,7 +17,7 @@
 #ifndef SOLAR_IDEPTHCAMERA_H
 #define SOLAR_IDEPTHCAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "datastructure/Image.h"
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"
@@ -35,7 +35,7 @@ namespace devices {
  *
  * This class describes the interface of a depth camera capture device.
  */
-class IDepthCamera : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IDepthCamera : virtual public IDevice {
 public:
     /// @brief Specify the IDepthCamera constructor class
     IDepthCamera() = default;
@@ -54,10 +54,6 @@ public:
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getPointCloud(SRef<PointCloud>& pc) = 0;
-
-    /// @brief Start the acquisition device reference by its device_id
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start() = 0;
 
     /// @brief Set the depth image resolution of the acquisition device
     virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;

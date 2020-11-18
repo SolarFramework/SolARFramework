@@ -1,7 +1,7 @@
 #ifndef SOLAR_IARDEVICE_H
 #define SOLAR_IARDEVICE_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
@@ -20,21 +20,13 @@ namespace devices {
   *
   * This class describes the interface for retrieving data from a AR device that provides.
   */
-class IARDevice : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IARDevice : virtual public IDevice {
 public:
     /// @brief Specify the IARDevice constructor class
 	IARDevice() = default;
 
     /// @brief Specify the IARDevice destructor class
     virtual ~IARDevice() = default;
-
-    /// @brief Start the connection to the device for sensors data streaming.
-    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
-    virtual FrameworkReturnCode start() = 0;
-
-    /// @brief Stop the connection to the device.
-    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
-    virtual FrameworkReturnCode stop() = 0;
 
 	/// @brief Get number of cameras of the device.
 	/// @return the number of cameras.
