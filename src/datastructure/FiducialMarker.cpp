@@ -47,7 +47,7 @@ SquaredBinaryPattern FiducialMarker::getPattern() const {
 }
 
 template<typename Archive>
-void FiducialMarker::serialize(Archive &ar, const unsigned int version) {
+void FiducialMarker::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 
     SquaredBinaryPatternMatrix matrix = m_pattern.getPatternMatrix();
 
