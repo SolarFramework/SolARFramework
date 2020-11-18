@@ -17,6 +17,7 @@
 
 #ifndef SOLAR_BUFFERINTERNAL_H
 #define SOLAR_BUFFERINTERNAL_H
+#include <cstdint>
 
 #include <core/SerializationDefinitions.h>
 

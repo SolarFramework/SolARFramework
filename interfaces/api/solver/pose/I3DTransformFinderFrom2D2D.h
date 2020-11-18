@@ -44,16 +44,16 @@ namespace pose {
         virtual ~I3DTransformFinderFrom2D2D() = default;
 
         /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-        /// @param[in] Camera calibration matrix parameters.
-        /// @param[in] Camera distorsion parameters.
+        /// @param[in] intrinsicParams camera calibration matrix parameters.
+        /// @param[in] distorsionParams camera distorsion parameters.
         virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
         /// @brief Estimates camera pose from a set of 2D points of the first image which match with a set of 2D points of the second image.
-        /// @param[in] pointsView1, Set of 2D points seen in view 1.
-        /// @param[in] pointsView2, Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
-        /// @param[in] poseView1, Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
-        /// @param[out] poseView2, Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
-        /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
+        /// @param[in] pointsView1 Set of 2D points seen in view 1.
+        /// @param[in] pointsView2 Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
+        /// @param[in] poseView1 Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
+        /// @param[out] poseView2 Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
+        /// @param[in,out] inlierMatches a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
         virtual FrameworkReturnCode estimate(const std::vector<Point2Df> & pointsView1,
                                              const std::vector<Point2Df> & pointsView2,
                                              const Transform3Df & poseView1,
@@ -61,11 +61,11 @@ namespace pose {
                                              std::vector<DescriptorMatch> & inlierMatches) =0;
 
         /// @brief Estimates camera pose from a set of keypoints of the first image which match with a set of keypoints of the second image.
-        /// @param[in] pointsView1, Set of keypoints seen in view 1.
-        /// @param[in] pointsView2, Set of keypoints seen in view 2 and matching with the 2D points of the view 1.
-        /// @param[in] poseView1, Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
-        /// @param[out] poseView2, Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
-        /// @param[in|out] inlierMatches, a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
+        /// @param[in] pointsView1 Set of keypoints seen in view 1.
+        /// @param[in] pointsView2 Set of keypoints seen in view 2 and matching with the 2D points of the view 1.
+        /// @param[in] poseView1 Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
+        /// @param[out] poseView2 Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
+        /// @param[in,out] inlierMatches a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
         virtual FrameworkReturnCode estimate(const std::vector<Keypoint> & pointsView1,
                                              const std::vector<Keypoint> & pointsView2,
                                              const Transform3Df& poseView1,

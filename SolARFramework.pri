@@ -39,6 +39,10 @@ interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
+interfaces/api/pipeline/IPipeline.h \
+interfaces/api/pipeline/IMappingPipeline.h \
+interfaces/api/pipeline/IPoseEstimationPipeline.h \
+interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
@@ -56,6 +60,7 @@ interfaces/api/solver/map/IBundler.h\
 interfaces/api/solver/map/ITriangulator.h\
 interfaces/api/solver/map/IMapFilter.h\
 interfaces/api/solver/map/IMapper.h\
+interfaces/api/solver/map/IMapFusion.h\
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/ICovisibilityGraph.h \
@@ -77,10 +82,14 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/PrimitiveInformation.h \
+interfaces/datastructure/Trackable.h \
+interfaces/datastructure/Trackable2D.h \
+interfaces/datastructure/FiducialMarker.h \
 interfaces/api/input/files/IMarker.h \
 interfaces/api/input/files/IMarker2DNaturalImage.h \
 interfaces/api/input/files/IMarker2DSquared.h \
 interfaces/api/input/files/IMarker2DSquaredBinary.h \
+interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
@@ -95,7 +104,6 @@ interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
-interfaces/api/pipeline/IPipeline.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -106,10 +114,13 @@ interfaces/api/slam/ITracking.h \
 interfaces/api/slam/IMapping.h
 
 SOURCES += src/core/SolARFramework.cpp \
+    src/datastructure/FiducialMarker.cpp \
+    src/datastructure/Trackable.cpp \
+    src/datastructure/Trackable2D.cpp \
     src/datastructure/PrimitiveInformation.cpp \
     src/core/Log.cpp \
-	src/datastructure/CoordinateSystem.cpp \
-	src/datastructure/Identification.cpp \
+    src/datastructure/CoordinateSystem.cpp \
+    src/datastructure/Identification.cpp \
     src/datastructure/DescriptorBuffer.cpp \
     src/datastructure/Image.cpp \
     src/datastructure/Keypoint.cpp \

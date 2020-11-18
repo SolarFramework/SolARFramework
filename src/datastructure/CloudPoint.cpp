@@ -102,13 +102,13 @@ const Vector3f & CloudPoint::getViewDirection() const
 void CloudPoint::setViewDirection(const Vector3f & viewDirection)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_viewDirection = viewDirection;
+	m_viewDirection = viewDirection.normalized();
 }
 
 void CloudPoint::addNewViewDirection(const Vector3f & viewDirection)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_viewDirection = (m_viewDirection * m_visibility.size() + viewDirection) / (m_visibility.size() + 1);
+	m_viewDirection = ((m_viewDirection * m_visibility.size() + viewDirection) / (m_visibility.size() + 1)).normalized();
 }
 
 void CloudPoint::setReprojError(const double & error)

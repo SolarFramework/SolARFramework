@@ -44,8 +44,8 @@ namespace pose {
         virtual ~I3DTransformSACFinderFrom2D3D() = default;
 
         /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-        /// @param[in] Camera calibration matrix parameters.
-        /// @param[in] Camera distorsion parameters.
+        /// @param[in] intrinsicParams camera calibration matrix parameters.
+        /// @param[in] intrinsicParams camera distorsion parameters.
         virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
         /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.

@@ -243,7 +243,7 @@ public:
 	void addNewViewDirection(const Vector3f &viewDirection);
   
 	/// @brief This method sets reprojection error of the PointCloud
-	/// @param[in] the reprojection error
+	/// @param[in] error the reprojection error
 	void setReprojError(const double &error);
 
 	/// @brief This method returns reprojection error of the PointCloud

@@ -51,6 +51,7 @@ public:
 	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
 	/// @param[in] imgSrc input image to convert
 	/// @param[out] imgDst output image converted
+	/// @param[in] destLayout output image converted
 	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
 	virtual FrameworkReturnCode convert(const SRef<Image> imgSrc, SRef<Image> & imgDst, Image::ImageLayout destLayout) = 0;
 
