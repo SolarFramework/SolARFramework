@@ -33,10 +33,6 @@ interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IARDevice.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/pipeline/IPipeline.h \
@@ -96,6 +92,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/input/devices/IDepthCamera.h \
+interfaces/api/input/devices/IDevice.h \
 interfaces/datastructure/PointCloud.h \
 interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/files/IPointCloudLoader.h \

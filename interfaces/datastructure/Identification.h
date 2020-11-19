@@ -72,7 +72,7 @@ public:
 	/// @brief Get UUID of map
 	/// @return the uuid string
 	/// 
-	const std::string& getUUIDString() const;
+    const std::string getUUIDString() const;
 
 	/// 
 	/// @brief Set name of map
