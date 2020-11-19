@@ -21,6 +21,7 @@
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
+#include "api/input/devices/IDevice.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -35,7 +36,7 @@ namespace devices {
  *
  * This class describes the interface of a camera capture device.
  */
-class ICamera : virtual public org::bcom::xpcf::IComponentIntrospect {
+class ICamera : virtual public IDevice {
 public:
     /// @brief Specify the ICamera constructor class
     ICamera() = default;
@@ -46,14 +47,6 @@ public:
     /// @brief Fill the SRef img buffer with a new image captured by the camera device.
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextImage(SRef<Image> & img) = 0;
-    
-    /// @brief Start the acquisition device referenced by its device_id
-    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode start()=0;
-
-    /// @brief Stop the acquisition device
-    /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode stop()=0;
         
     /// @brief Set the acquisition device image resolution
     virtual void setResolution(const Sizei & resolution) = 0;

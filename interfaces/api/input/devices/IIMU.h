@@ -20,6 +20,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
+#include "api/input/devices/IDevice.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -34,17 +35,13 @@ namespace devices {
  *
  * This class describes the interface of an Inertial Measurement Unit capture device.
  */
-class IIMU : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IIMU : virtual public IDevice {
 public:
     /// @brief IIMU default constructor
     IIMU() = default;
 
     /// @brief IIMU default destructor
     virtual ~IIMU() = default;
-
-    /// @brief Start the acquisition device
-    /// @return FrameworkReturnCode to track sucessful or failing event
-    virtual FrameworkReturnCode start() = 0;
 
     /// @brief Get gyroscope data
     /// @param[in,out] gyroData The vector in which the gyroscope data will be stored (in radian per second)

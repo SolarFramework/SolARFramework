@@ -37,7 +37,7 @@ namespace files {
  * <TT>UUID: 12d592ff-aa46-40a6-8d65-7fbfb382d60b</TT>
  *
  */
-class IMarker2DSquaredBinary : virtual public IMarker2DSquared {
+class  [[xpcf::ignore]] IMarker2DSquaredBinary : virtual public IMarker2DSquared {
 public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;

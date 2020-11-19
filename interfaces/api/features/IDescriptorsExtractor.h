@@ -32,7 +32,6 @@
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "datastructure/DescriptorBuffer.h"
 
 namespace SolAR {
 using namespace datastructure;

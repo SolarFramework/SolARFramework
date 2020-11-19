@@ -29,6 +29,7 @@ interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
+interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IIMU.h \
