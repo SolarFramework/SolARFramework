@@ -55,7 +55,7 @@ public:
     /// @brief Set the object to track during mapping
     /// @param[in] trackableObject: the trackable object
     /// @return FrameworkReturnCode::_SUCCESS if the trackable object is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setObjectToTrack(const Trackable & trackableObject) = 0;
+    virtual FrameworkReturnCode setObjectToTrack(const SRef<Trackable> & trackableObject) = 0;
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// Retrieve the new image (and pose) to process, in the current pipeline context

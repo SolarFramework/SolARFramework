@@ -39,9 +39,9 @@ public:
     virtual ~ITrackableLoader() = default;
 
     /// @brief Loads a specific trackable object and its features.
-    /// @return Trackable * : the trackable object created from the description file
-    /// or nullptr if an error occurs
-    virtual Trackable * loadTrackable() = 0;
+    /// @return SRef<Trackable> : the trackable object created from the description file
+    /// or 0 if an error occurs
+    virtual SRef<Trackable> loadTrackable() = 0;
 
 };
 
