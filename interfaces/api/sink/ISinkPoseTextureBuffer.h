@@ -39,7 +39,7 @@ namespace sink {
  * This interface allows to make available a pose to a third party application and to update a texture buffer with a new image.
  */
 
-class  ISinkPoseTextureBuffer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class    [[xpcf::ignore]] ISinkPoseTextureBuffer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    ISinkPoseTextureBuffer() = default;
 
