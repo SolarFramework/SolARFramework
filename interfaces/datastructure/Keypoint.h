@@ -50,10 +50,10 @@ public:
 				float g,
 				float b,
                 float size,
-                float angle,
-                float response,
-                int   octave,
-                int   class_id );
+                float angle = -1.0f,
+                float response = 0.0f,
+                int   octave = 0,
+                int   class_id = -1);
 
 	/// @brief ~Keypoint
     ~Keypoint();
@@ -76,10 +76,10 @@ public:
 				float g,
 				float b,
                 float size,
-                float angle,
-                float response,
-                int   octave,
-                int   class_id ) ;
+                float angle = -1.0f,
+                float response = 0.0f,
+                int   octave = 0,
+                int   class_id = -1 ) ;
 
      /// @brief This method returns the id of the keypoint in its frame
      /// @return id
