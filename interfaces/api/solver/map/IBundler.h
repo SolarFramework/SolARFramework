@@ -49,6 +49,27 @@ namespace map {
 		virtual double bundleAdjustment(CamCalibration & K,
 										CamDistortion & D,
 										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
+
+
+		/// @brief solve a non-linear problem related to sim3D optimization between two overlaped keyframes of two different maps:
+        /// @param[in] K1: camera calibration parameters responsible of 3D points generation from map 1.
+        /// @param[in] K2: camera calibration parameters responsible of 3D points generation from map 2.
+        /// @param[in] keyframe1: first overlapping keyframe from map 1.
+        /// @param[in] keyframe2: second overlapping keyframe from map 2.
+        /// @param[in] matches: matches between two keyframes.
+        /// @param[in] pts3D1: first set of 3D points.
+        /// @param[in] pts3D2: second set of 3D points.
+        /// @param[in, out] pose: Sim3 matrix pose between map1 and map2
+		/// @return the mean re-projection error.
+        virtual double optimizeSim3(CamCalibration& K1,
+                                    CamCalibration& K2,
+                                    const SRef<Keyframe>& keyframe1,
+                                    const SRef<Keyframe>& keyframe2,
+                                    const std::vector<DescriptorMatch>& matches,
+                                    const std::vector<Point3Df> & pts3D1,
+                                    const std::vector<Point3Df> & pts3D2,
+                                    Transform3Df & pose) = 0;
+
 };
 }
 }
