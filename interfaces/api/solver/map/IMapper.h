@@ -140,7 +140,7 @@ public:
 
    /// @brief Prune cloud points and keyframes of a map
    /// @param[in] cloudPoints: the cloud points are checked to prune
-   virtual void pruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
+   virtual int pruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
 
    /// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.

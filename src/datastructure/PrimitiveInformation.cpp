@@ -21,23 +21,21 @@ namespace SolAR {
 namespace datastructure {
 
 PrimitiveInformation::PrimitiveInformation() {
-	m_confidence = 1.0;
 	m_usedTimes = 1;
 	m_lastUpdateTime = std::chrono::system_clock::now();
 	m_semanticId = -1;
 }
 
 void PrimitiveInformation::updateConfidence(bool isGood) {
-	m_confidence = (m_usedTimes * m_confidence + (int)isGood) / (m_usedTimes + 1);
-	m_usedTimes++;
+	if (isGood)
+		m_usedTimes = 1;
+	else
+		m_usedTimes++;
+	m_lastUpdateTime = std::chrono::system_clock::now();
 }
 
-const float& PrimitiveInformation::getConfidence() const {
-	return m_confidence;
-}
-
-const uint32_t& PrimitiveInformation::getUsedTime() const {
-	return m_usedTimes;
+float PrimitiveInformation::getConfidence() const {
+	return 1.f / (float)m_usedTimes;
 }
 
 const std::chrono::system_clock::time_point& PrimitiveInformation::getLastUpdateTime() const {
@@ -59,7 +57,6 @@ void PrimitiveInformation::setSemanticId(const int& semanticId) {
 template<typename Archive>
 void PrimitiveInformation::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
 {
-    ar & m_confidence;
     ar & m_usedTimes;
     char * ptr = reinterpret_cast<char *>(&m_lastUpdateTime);
 	ar & boost::serialization::make_array(ptr, sizeof(m_lastUpdateTime));

@@ -49,13 +49,7 @@ public:
 	/// @brief This method returns the confident score of the primitive element
 	/// @return the confident score
 	///
-	const float& getConfidence() const;
-
-	///
-	/// @brief This method returns the number of used times of the primitive element
-	/// @return the number of used times
-	///
-	const uint32_t& getUsedTime() const;
+	float getConfidence() const;
 
 	///
 	/// @brief This method returns the last updated time of the primitive element
@@ -93,7 +87,6 @@ private:
     void serialize(Archive &ar, const unsigned int version);
 
 private:
-	float										m_confidence;
 	uint32_t									m_usedTimes;
 	std::chrono::system_clock::time_point		m_lastUpdateTime;
 	int											m_semanticId;	
