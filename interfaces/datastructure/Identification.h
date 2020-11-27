@@ -72,7 +72,7 @@ public:
 	/// @brief Get UUID of map
 	/// @return the uuid string
 	/// 
-	const std::string& getUUIDString() const;
+    const std::string getUUIDString() const;
 
 	/// 
 	/// @brief Set name of map
@@ -99,14 +99,14 @@ public:
 	const std::string& getAuthor() const;
 
 	///
-	/// @brief This method returns the last updated time of the primitive element
-	/// @return the last updated time
+	/// @brief This method returns the last created time of the primitive element
+	/// @return the last created time
 	///
 	const std::chrono::system_clock::time_point& getCreatedTime() const;
 
 	///
 	/// @brief This method updates the last updated time of the primitive element
-	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
+	/// @param[in] createdTime: the update time. You can get current time by using std::chrono::system_clock::now()
 	///
 	void setCreatedTime(const std::chrono::system_clock::time_point& createdTime);
 

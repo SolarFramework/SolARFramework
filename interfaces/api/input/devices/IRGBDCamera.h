@@ -17,7 +17,7 @@
 #ifndef SOLAR_IRGBDCAMERA_H
 #define SOLAR_IRGBDCAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "api/input/devices/ICamera.h"
 #include "api/input/devices/IDepthCamera.h"
 #include "core/Messages.h"

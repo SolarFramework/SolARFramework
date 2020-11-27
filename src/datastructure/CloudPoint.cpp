@@ -102,13 +102,13 @@ const Vector3f & CloudPoint::getViewDirection() const
 void CloudPoint::setViewDirection(const Vector3f & viewDirection)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_viewDirection = viewDirection;
+	m_viewDirection = viewDirection.normalized();
 }
 
 void CloudPoint::addNewViewDirection(const Vector3f & viewDirection)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_viewDirection = (m_viewDirection * m_visibility.size() + viewDirection) / (m_visibility.size() + 1);
+	m_viewDirection = ((m_viewDirection * m_visibility.size() + viewDirection) / (m_visibility.size() + 1)).normalized();
 }
 
 void CloudPoint::setReprojError(const double & error)
@@ -132,7 +132,7 @@ void CloudPoint::addVisibility(const uint32_t& keyframe_id, const uint32_t& keyp
 	m_visibility[keyframe_id] = keypoint_id; 
 }
 
-bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id)
+bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, [[maybe_unused]] const uint32_t& keypoint_id)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	if (m_visibility.find(keyframe_id) == m_visibility.end())
@@ -144,7 +144,7 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, const uint32_t& k
 }
 
 template <typename Archive>
-void CloudPoint::serialize(Archive &ar, const unsigned int version)
+void CloudPoint::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
 {
     ar & boost::serialization::base_object<Point3Df>(*this);
     ar & boost::serialization::base_object<PrimitiveInformation>(*this);

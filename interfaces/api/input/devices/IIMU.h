@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMU_H
 #define SOLAR_IIMU_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
 #include "api/input/devices/IDevice.h"

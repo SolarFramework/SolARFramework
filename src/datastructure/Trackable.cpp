@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-#include "datastructure/Keyframe.h"
+#include "datastructure/Trackable.h"
 
-#include <cstddef> //TO DO: remove with a complete implementation
+#include "core/Log.h"
 
 namespace SolAR {
 namespace datastructure {
 
-const uint32_t& Keyframe::getId() const
-{
-	return m_id;
+Trackable::Trackable(const std::string & url) : m_url(url) {
+    LOG_DEBUG("Trackable constructor with url = {}", url);
 }
 
-void Keyframe::setId(const uint32_t& id_keyframe)
-{
-	m_id = id_keyframe;
+std::string Trackable::getURL() const {
+    return m_url;
+}
+
+void Trackable::setURL(const std::string & url) {
+    m_url = url;
 }
 
 template<typename Archive>
-void Keyframe::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
-	ar & boost::serialization::base_object<Frame>(*this);
-	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
-	ar & m_id;
+void Trackable::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+    ar & m_url;
 }
 
-IMPLEMENTSERIALIZE(Keyframe);
+IMPLEMENTSERIALIZE(Trackable);
 
 }
 }

@@ -60,7 +60,7 @@ public:
 
     /// \brief Return the matching score between the two indexed descriptors.
     ///
-    unsigned int getMatchingScore(void) const{
+    float getMatchingScore(void) const{
         return std::get<2>(m_match);
     }
 

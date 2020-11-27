@@ -17,7 +17,7 @@
 #ifndef SOLAR_ICAMERA_H
 #define SOLAR_ICAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"

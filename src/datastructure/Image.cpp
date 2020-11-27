@@ -160,7 +160,7 @@ const void* Image::data() const
 }
 
 template<typename Archive>
-void Image::serialize(Archive &ar, const unsigned int version) {
+void Image::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 	ar & m_size.height;
 	ar & m_size.width;
 }

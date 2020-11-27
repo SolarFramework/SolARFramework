@@ -158,7 +158,7 @@ public:
     }
 
     inline DescriptorView operator *();
-    bool operator !=(const DescriptorBufferIterator & desc) {
+    bool operator !=([[maybe_unused]] const DescriptorBufferIterator & desc) {
         return (m_index != m_nbDescriptors);
     }
 

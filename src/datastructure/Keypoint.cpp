@@ -27,26 +27,33 @@ Keypoint::~Keypoint(){
 Keypoint::Keypoint( unsigned int id,
                     float x,
                     float y,
+					float r,
+					float g,
+					float b,
                     float size,
                     float angle,
                     float response,
                     int	octave,
-                    int class_id ):m_id(id), Point2Df(x,y),m_size(size),m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id){
+                    int class_id ):m_id(id), Point2Df(x,y), m_rgb(r, g, b), m_size(size),m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id){
 
 
 }
-void Keypoint::init( unsigned int id,
-                     float x,
-                     float y,
-                     float size,
-                     float angle,
-                     float response,
-                     int octave,
-                     int class_id ){
+void Keypoint::init(unsigned int id,
+                    float x,
+                    float y,
+					float r,
+					float g,
+					float b,
+                    float size,
+                    float angle,
+                    float response,
+                    int octave,
+                    int class_id ){
 
     m_id = id;
     setX(x);
     setY(y);
+	m_rgb = Vector3f(r, g, b);
     m_size=size;
     m_angle=angle;
     m_response=response;
@@ -55,8 +62,9 @@ void Keypoint::init( unsigned int id,
 }
 
 template<typename Archive>
-void Keypoint::serialize(Archive &ar, const unsigned int version) {
+void Keypoint::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 	ar & boost::serialization::base_object<Point2Df>(*this);
+	ar & boost::serialization::make_array(m_rgb.data(), 3);
 	ar & m_id;
 	ar & m_size;
 	ar & m_angle;

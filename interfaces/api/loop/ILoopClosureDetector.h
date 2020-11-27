@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/MathDefinitions.h"
+#include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keyframe.h"
 #include "core/Messages.h"
 
@@ -41,10 +42,15 @@ namespace loop {
 		///
 		virtual ~ILoopClosureDetector() = default;
 
+		/// @brief this method is used to set intrinsic parameters and distorsion of the camera
+		/// @param[in] intrinsicParams: Camera calibration matrix parameters.
+		/// @param[in] distortionParams: Camera distortion parameters.
+		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
+
 		/// @brief Detect a loop closure from a given keyframe.
 		/// @param[in] queryKeyframe: the query keyframe.
 		/// @param[out] detectedLoopKeyframe: the detected loop keyframe.		
-		/// @param[out] sim3Transform : 3D similarity transformation (Sim(3)) from query keyframe to the detected loop keyframe.
+		/// @param[out] sim3Transform: 3D similarity transformation (Sim(3)) from query keyframe to the detected loop keyframe.
 		/// @param[out] duplicatedPointsIndices: indices of duplicated cloud points. The first index is the id of point cloud seen from the detected loop keyframe. The second one is id of point cloud seen from the query keyframe
 		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
         virtual FrameworkReturnCode detect(const SRef<Keyframe> &queryKeyframe, SRef<Keyframe> &detectedLoopKeyframe, Transform3Df &sim3Transform, std::vector<std::pair<uint32_t, uint32_t>> &duplicatedPointsIndices) = 0;

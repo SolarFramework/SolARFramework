@@ -7,10 +7,13 @@ pipeline {
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', type: 'PT_BRANCH', selectedValue: 'DEFAULT',
-                name: 'BRANCH', defaultValue: 'develop', useRepository: '.*SolARFramework.git'
-        booleanParam(name: 'RELEASE',
-            defaultValue: false,
-            description: 'Create a Release')
+                name: 'BRANCH', defaultValue: 'develop', useRepository: '*.git'
+        booleanParam(name: 'RELEASE', defaultValue: false, description: 'Create a Release')
+        booleanParam(name: 'PRE_RELEASE', defaultValue: false, description: 'Create a Pre-Release')
+        string(name: 'REMAKEN_VERSION', defaultValue: 'stable', description: 'Remaken version to be used')
+        string(name: 'QMAKE_RULES_VERSION', defaultValue: '', description: 'QMake rules version to be used (empty: Rules by default, ?.?.?: Version of the rules, latest: Latest rules on develop branch)')
+        booleanParam(name: 'UPLOAD_CONAN_PACKAGE', defaultValue: false, description: 'Upload the conan packages on the conan-solar remote')
+        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Skip tests during build')        
     }
     stages {
 
@@ -19,7 +22,7 @@ pipeline {
                 script {
                     BRANCH = BRANCH.replace('/','%252F')
                 }   
-                build job: "SolARFramework/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                buildModule("SolARFramework",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
             }
         }
 
@@ -27,32 +30,32 @@ pipeline {
             parallel {
                 stage("SolARModuleOpenCV"){
                     steps {
-                        build job: "SolARModuleOpenCV/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleOpenCV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }
                 stage("SolARModuleOpenGL"){
                     steps {
-                        build job: "SolARModuleOpenGL/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleOpenGL",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }
                 stage("SolARModuleOpenGV"){
                     steps {
-                        build job: "SolARModuleOpenGV/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleOpenGV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }
                 stage("SolARModuleCeres"){
                     steps {
-                        build job: "SolARModuleCeres/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleCeres",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }
                 stage("SolARModuleTools"){
                     steps {
-                        build job: "SolARModuleTools/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleTools",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 } 
                 stage("SolARModuleFBOW"){
                     steps {
-                        build job: "SolARModuleFBOW/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                        buildModule("SolARModuleFBOW",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }                                               
             }
@@ -60,9 +63,13 @@ pipeline {
 
         stage("SolARPipelineManager"){
             steps {
-                build job: "SolARPipelineManager/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE)]
+                buildModule("SolARPipelineManager",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
             }
         }        
 
 }
+}
+
+def buildModule(NAME,BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE) {
+    build job: "SolAR-Modules/${NAME}/${BRANCH}", parameters: [booleanParam(name: 'RELEASE', value: RELEASE),booleanParam(name: 'PRE_RELEASE', value: PRE_RELEASE),string(name:'REMAKEN_VERSION', value:REMAKEN_VERSION), string(name:'QMAKE_RULES_VERSION', value:QMAKE_RULES_VERSION),booleanParam(name: 'SKIP_TESTS', value: SKIP_TESTS),booleanParam(name: 'UPLOAD_CONAN_PACKAGE', value: UPLOAD_CONAN_PACKAGE)]
 }

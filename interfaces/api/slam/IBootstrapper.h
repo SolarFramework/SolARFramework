@@ -23,6 +23,7 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/Image.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -44,13 +45,16 @@ public:
 	virtual ~IBootstrapper() = default;
 
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] Camera calibration matrix parameters.
-	/// @param[in] Camera distorsion parameters.
+	/// @param[in] intrinsicParams camera calibration matrix parameters.
+	/// @param[in] distorsionParams camera distorsion parameters.
 	virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
 
-	/// @brief This method applies a transformation (4x4 float matrix) to a set of 3D points
+	/// @brief This method uses images to boostrap
+	/// @param[in] image: input image to process
+	/// @param[out] view: output image to visualize
+	/// @param[in] pose: the pose of the input image
 	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode run() = 0;
+	virtual FrameworkReturnCode process(const SRef<Image> &image, SRef<Image> &view, const Transform3Df &pose = Transform3Df::Identity()) = 0;
 };
 
 }

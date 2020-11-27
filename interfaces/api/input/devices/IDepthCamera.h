@@ -17,7 +17,7 @@
 #ifndef SOLAR_IDEPTHCAMERA_H
 #define SOLAR_IDEPTHCAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "datastructure/Image.h"
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"

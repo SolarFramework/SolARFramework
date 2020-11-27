@@ -53,14 +53,16 @@ namespace pose {
         /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
         /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
         /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
-        /// @param[out] shared_2dpoint: The 2D point in the current frame that correspond to a 3D point.
+        /// @param[out] shared_2dpoint: The 2D points in the current frame that correspond to 3D points.
+        /// @param[out] corres2D3D: The pairs of 2D-3D correspondences. The first value is the index of keypoint in the current frame and the second one is the corresponding cloud point.
         /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
         /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
-        virtual FrameworkReturnCode find(	const SRef<Frame> lastFrame,
-                                            const SRef<Frame> currentFrame,
+        virtual FrameworkReturnCode find(	const SRef<Frame> &lastFrame,
+                                            const SRef<Frame> &currentFrame,
                                             const std::vector<DescriptorMatch> & current_matches,
                                             std::vector<Point3Df> & shared_3dpoint,
                                             std::vector<Point2Df> & shared_2dpoint,
+											std::vector<std::pair<uint32_t, SRef<CloudPoint>>> &corres2D3D,		
                                             std::vector<DescriptorMatch> & found_matches,
                                             std::vector<DescriptorMatch> & remaining_matches) = 0;
 
