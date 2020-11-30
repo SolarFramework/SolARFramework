@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-#ifndef IDEVICE_H
-#define IDEVICE_H
-
-
-#include <xpcf/api/IComponentIntrospect.h>
-#include "core/Messages.h"
-=======
 /**
  * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
  *
@@ -28,7 +20,6 @@
 
 #include <xpcf/api/IComponentIntrospect.h>
 #include <core/Messages.h>
->>>>>>> feature/mappingPipeline
 
 namespace SolAR {
 namespace api {

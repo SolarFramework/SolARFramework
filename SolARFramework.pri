@@ -116,20 +116,8 @@ src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
 src/datastructure/Keyframe.cpp \
 src/datastructure/Keypoint.cpp \
-src/datastructure/PointCloud.cpp
+src/datastructure/PointCloud.cpp \
 src/datastructure/PrimitiveInformation.cpp \
 src/datastructure/SquaredBinaryPattern.cpp \
 src/datastructure/Trackable.cpp \
 src/datastructure/Trackable2D.cpp
-
-
-
-
-
-
-
-
-
-
-
-
