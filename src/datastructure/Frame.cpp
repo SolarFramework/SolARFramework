@@ -18,6 +18,7 @@
 #include "datastructure/Keyframe.h"
 
 std::mutex						m_mutexPose;
+std::mutex						m_mutexKeyline;
 std::mutex						m_mutexKeypoint;
 std::mutex						m_mutexReferenceKeyframe;
 std::mutex						m_mutexDescriptors;
@@ -96,16 +97,10 @@ void Frame::setDescriptors(const SRef<DescriptorBuffer> &descriptors)
 	m_descriptors = descriptors;
 }
 
-SRef<DescriptorBuffer> Frame::getDescriptorsLine()
+const SRef<DescriptorBuffer>& Frame::getDescriptorsLine() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexDescriptors);
 	return m_descriptorsLine;
-}
-
-void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
-{
-	std::unique_lock<std::mutex> lock(m_mutexVisibility);
-	return m_mapVisibility;
 }
 
 void Frame::setVisibility(const std::map<uint32_t, uint32_t>& visibilities)
@@ -137,11 +132,16 @@ bool Frame::removeVisibility(const uint32_t& id_keypoint, [[maybe_unused]] const
 	}
 }
 
-
-const std::vector<Keyline> & Frame::getKeylines()
+const std::vector<Keyline> & Frame::getKeylines() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexKeyline);
 	return m_keylines;
+}
+
+const Keyline & Frame::getKeyline(int i) const
+{
+	std::unique_lock<std::mutex> lock(m_mutexKeyline);
+	return m_keylines[i];
 }
 
 const std::vector<Keypoint> & Frame::getKeypoints() const

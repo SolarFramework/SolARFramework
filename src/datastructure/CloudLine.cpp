@@ -15,7 +15,6 @@
  */
 
 #include "datastructure/CloudLine.h"
-#include <cstddef> //TO DO: remove with a complete implementation
 
 std::mutex						m_cloudLineMutex;
 

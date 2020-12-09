@@ -74,18 +74,16 @@ public:
 	/// @param[in] pose: camera pose
 	///
     void setPose(const Transform3Df & pose);
-	void setKeylines(const std::vector<Keyline>& klines);
-	void setKeypoints(const std::vector<Keypoint>& kpts);
-    void setReferenceKeyframe(SRef<Keyframe> keyframe);
 
-/* TODO(mpapin): pass on getters (add const ?) */
-    SRef<Keyframe> getReferenceKeyframe();
+	///
+	/// @brief return keylines
+	///
+	const std::vector<Keyline> & getKeylines() const;
 
-    SRef<DescriptorBuffer> getDescriptors();
-
-	SRef<DescriptorBuffer> getDescriptorsLine();
-
-	const std::vector<Keyline> & getKeylines();
+	///
+	/// @brief return keylines
+	///
+	const Keyline & getKeyline(int i) const;
 
 	///
 	/// @brief return keypoints
@@ -96,6 +94,12 @@ public:
     /// @brief return keypoints
     ///
     const Keypoint & getKeypoint(int i) const;
+
+	///
+	/// @brief set keylines
+	/// @param[in] klines: keylines
+	///
+	void setKeylines(const std::vector<Keyline>& klines);
 
 	///
 	/// @brief set keypoints
@@ -116,9 +120,14 @@ public:
 
 
 	///
-	/// @brief return descriptors
+	/// @brief return point descriptors
 	///
     const SRef<DescriptorBuffer>& getDescriptors() const;
+
+	///
+	/// @brief return line descriptors
+	///
+	const SRef<DescriptorBuffer>& getDescriptorsLine() const;
 
 	///
 	/// @brief set descriptors

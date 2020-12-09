@@ -83,6 +83,7 @@ interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
+interfaces/datastructure/CloudLine.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
@@ -93,6 +94,7 @@ interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Identification.h \
 interfaces/datastructure/Image.h \
 interfaces/datastructure/Keyframe.h \
+interfaces/datastructure/Keyline.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/PointCloud.h \
@@ -106,6 +108,7 @@ interfaces/SharedFifo.hpp
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
+src/datastructure/CloudLine.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
@@ -115,6 +118,7 @@ src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
 src/datastructure/Keyframe.cpp \
+src/datastructure/Keyline.cpp \
 src/datastructure/Keypoint.cpp \
 src/datastructure/PointCloud.cpp \
 src/datastructure/PrimitiveInformation.cpp \
