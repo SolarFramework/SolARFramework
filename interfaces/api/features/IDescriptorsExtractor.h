@@ -23,7 +23,6 @@
 
 #include <vector>
 #include "datastructure/Keypoint.h"
-//#include "IDescriptor.h"
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorBuffer.h"
 
@@ -62,30 +61,31 @@ namespace features {
             AKAZE,
             AKAZEUP,
             BRISK,
-            BRIEF,
+            BRIEF
         };
 
         /// @brief IDescriptorsExtractor default constructor
         IDescriptorsExtractor() = default;
 
-       /// @brief IDescriptorsExtractor default destructor
-       virtual ~IDescriptorsExtractor() {};
+		/// @brief IDescriptorsExtractor default destructor
+		virtual ~IDescriptorsExtractor() {};
 
-       ///
-       /// @brief getType
-       /// @return a string describing the type of descriptor used during extraction.
-       ///
+		///
+		/// @brief getType
+		/// @return a string describing the type of descriptor used during extraction.
+		///
 		virtual std::string  getTypeString() = 0;
 
-       ///
-       /// @brief extract the descriptors for a set of keypoints
-       /// @param[in] image The image on which the keypoints have been detected
-       /// @param[in] keypoints The set of keypoints on which the descriptors are extracted
-       /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
-       ///
+		///
+		/// @brief Extracts the descriptors for a set of keypoints
+		/// @param[in] image The image on which the keypoints have been detected
+		/// @param[in] keypoints The set of keypoints on which the descriptors are extracted
+		/// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
+		///
         virtual void extract (const SRef<Image> image,
                               const std::vector< Keypoint > &keypoints,
                               SRef<DescriptorBuffer> & descriptors) = 0;
+
 	};
 
 }

@@ -5,9 +5,11 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
+#include "datastructure/CloudLine.h"
 #include "datastructure/CloudPoint.h"
 #include <core/SerializationDefinitions.h>
 
@@ -42,6 +44,18 @@ public:
           const SRef<Image> view,
           const Transform3Df pose = Transform3Df::Identity());
 
+	Frame(const std::vector<Keyline> & keylines,
+		  const SRef<DescriptorBuffer> descriptors,
+		  const SRef<Image> view,
+		  const Transform3Df pose = Transform3Df::Identity());
+
+	Frame(const std::vector<Keypoint> & keypoints,
+		  const SRef<DescriptorBuffer> descriptorsPoint, 
+		  const std::vector<Keyline> & keylines,
+		  const SRef<DescriptorBuffer> descriptorsLine,
+		  const SRef<Image> view,
+		  const Transform3Df pose = Transform3Df::Identity());
+
     /// @brief ~Frame
     ~Frame() = default;
 
@@ -60,6 +74,18 @@ public:
 	/// @param[in] pose: camera pose
 	///
     void setPose(const Transform3Df & pose);
+	void setKeylines(const std::vector<Keyline>& klines);
+	void setKeypoints(const std::vector<Keypoint>& kpts);
+    void setReferenceKeyframe(SRef<Keyframe> keyframe);
+
+/* TODO(mpapin): pass on getters (add const ?) */
+    SRef<Keyframe> getReferenceKeyframe();
+
+    SRef<DescriptorBuffer> getDescriptors();
+
+	SRef<DescriptorBuffer> getDescriptorsLine();
+
+	const std::vector<Keyline> & getKeylines();
 
 	///
 	/// @brief return keypoints
@@ -140,8 +166,10 @@ protected:
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
-    SRef<DescriptorBuffer>          m_descriptors;
-    std::vector<Keypoint>			m_keypoints ;
+	SRef<DescriptorBuffer>          m_descriptors;
+	SRef<DescriptorBuffer>          m_descriptorsLine;
+	std::vector<Keyline>			m_keylines;
+	std::vector<Keypoint>			m_keypoints;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;

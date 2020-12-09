@@ -41,6 +41,8 @@ public:
     inline void setX(float x) { this->data()[0]=x;}
     inline void setY(float y) { this->data()[1]=y;}
 
+	inline float magnitude() const { return std::sqrt(this->getX()*this->getX() + this->getY()*this->getY()); }
+
     inline Point2Df operator+(const Point2Df& a) const { return Point2Df(getX()+a.getX(), getY()+a.getY());}
     inline Point2Df operator-(const Point2Df& a) const { return Point2Df(getX()-a.getX(), getY()-a.getY());}
 
@@ -144,7 +146,11 @@ private:
 class Edge2Df {
 public:
     Edge2Df() = default;
-    Edge2Df(Point2Df point1, Point2Df point2) : p1(point1), p2(point2){}
+    Edge2Df(Point2Df point1, Point2Df point2) : p1(point1), p2(point2) {}
+	Edge2Df(float point1X, float point1Y,
+			float point2X, float point2Y) :
+		p1(Point2Df(point1X, point1Y)),
+		p2(Point2Df(point2X, point2Y)) {}
     ~Edge2Df() = default;
 
     Point2Df p1;
@@ -207,6 +213,46 @@ private:
 		ar & height;
 		ar & depth;
 	}
+};
+
+/**
+ * @class Edge3Df
+ * @brief <B>A 3D edge with coordinates defined with floats.</B>
+ *
+ */
+class Edge3Df {
+public:
+	Edge3Df() = default;
+    Edge3Df(Point3Df point1, Point3Df point2) : p1(point1), p2(point2) {}
+	Edge3Df(float point1X, float point1Y, float point1Z,
+			float point2X, float point2Y, float point2Z) :
+		p1(Point3Df(point1X, point1Y, point1Z)),
+		p2(Point3Df(point2X, point2Y, point2Z)) {}
+    ~Edge3Df() = default;
+
+	inline float magnitude() const { return p1.magnitude() + p2.magnitude(); }
+
+    Point3Df p1;
+    Point3Df p2;
+
+	inline Edge3Df operator+(const Edge3Df& e) const { return Edge3Df(p1 + e.p1, p2 + e.p2); }
+	inline Edge3Df operator-(const Edge3Df& e) const { return Edge3Df(p1 - e.p1, p2 - e.p2); }
+	inline Edge3Df operator*(const float& f) const { return Edge3Df(p1 * f, p2 * f); }
+};
+
+/**
+ * @class Edge3Di
+ * @brief <B>A 3D edge with coordinates defined with integers.</B>
+ *
+ */
+class Edge3Di {
+public:
+    Edge3Di() = default;
+    Edge3Di(Point3Di point1, Point3Di point2) : p1(point1), p2(point2) {}
+    ~Edge3Di() = default;
+
+    Point3Di p1;
+    Point3Di p2;
 };
 
 /**

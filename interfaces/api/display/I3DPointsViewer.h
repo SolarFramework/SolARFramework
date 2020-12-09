@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
+#include "datastructure/CloudLine.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/PointCloud.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -45,10 +46,10 @@ public:
 	/// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
 	/// @param[in] points set of 3D points to display in the 3D viewer.
 	/// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
-	/// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
-	/// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
+	/// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world coordinate system).
+	/// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world coordinate system).
 	/// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
-	/// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
+	/// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world coordinate system, useful to visualize result of a bundle adjustment).
 	/// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode display(const std::vector<SRef<CloudPoint>>& points,
 										const Transform3Df & pose,
@@ -61,10 +62,10 @@ public:
     /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
     /// @param[in] points set of 3D points to display in the 3D viewer.
     /// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
-    /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
-    /// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
+    /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world coordinate system).
+    /// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world coordinate system).
     /// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
-    /// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
+    /// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world coordinate system, useful to visualize result of a bundle adjustment).
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode display(const SRef<PointCloud> points,
                                         const Transform3Df & pose,
@@ -72,6 +73,36 @@ public:
                                         const std::vector<Transform3Df> framePoses = {},
                                         const SRef<PointCloud> points2 = nullptr,
                                         const std::vector<Transform3Df> keyframePoses2 = {}) = 0;
+
+	/// @brief Display in a windows the 3D line cloud as well as the current camera, and optionally, a second line cloud and other camera poses.
+	/// @param[in] lines, Set of 3D lines to display in the 3D viewer.
+	/// @param[in] pose, pose of the current camera (transform of the camera defined in world coordinate system).
+	/// @param[in] poses2 (optional), poses of a set of keyframes (transform of the camera defined in world coordinate system).
+	/// @param[in] lines2 (optional), a second set of 3D lines to display in the 3D viewer (useful to visualize result of a bundle adjustment).
+	/// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode display(const std::vector<CloudLine> & lines,
+										const Transform3Df & pose,
+										const std::vector<Transform3Df> & poses2 = {},
+										const std::vector<CloudLine> & lines2 = {}) = 0;
+
+	/// @brief Display in a windows the 3D point & line cloud as well as the current camera, and optionally, a second point & line cloud, other camera poses and two sets of keyframes.
+	/// @param[in] points, Set of 3D points to display in the 3D viewer.
+	/// @param[in] lines, Set of 3D lines to display in the 3D viewer.
+	/// @param[in] pose, pose of the current camera (transform of the camera defined in world coordinate system).
+	/// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world coordinate system).
+	/// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
+	/// @param[in] lines2 (optional), a second set of 3D lines to display in the 3D viewer (useful to visualize result of a bundle adjustment).
+	/// @param[in] poses2 (optional), poses from another set of camera poses (transform of the camera defined in world coordinate system).
+	/// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world coordinate system).
+	/// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode display(const std::vector<CloudPoint> & points,
+										const std::vector<CloudLine> & lines,
+										const Transform3Df & pose,
+										const std::vector<Transform3Df>& keyframePoses = {},
+										const std::vector<CloudPoint> & points2 = {},
+										const std::vector<CloudLine> & lines2 = {},
+										const std::vector<Transform3Df> & poses2 = {},
+										const std::vector<Transform3Df>& keyframePoses2 = {}) = 0;
 };
 }
 }

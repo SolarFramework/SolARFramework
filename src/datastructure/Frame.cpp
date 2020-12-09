@@ -28,12 +28,34 @@ namespace datastructure {
 
 Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()) {
-}
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()){}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose) :
+	m_keypoints(keypoints),
+	m_descriptors(descriptors),
+	m_view(view),
+	m_referenceKeyFrame(refKeyframe),
+	m_pose(pose) {}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const Transform3Df pose) :
+	m_keypoints(keypoints),
+	m_descriptors(descriptors),
+	m_view(view),
+	m_pose(pose) {}
+
+Frame::Frame(const std::vector<Keyline> & keylines, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose) :
+	m_keylines(keylines),
+	m_descriptorsLine(descriptors),
+	m_view(view),
+	m_pose(pose) {}
+
+Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptorsPoint, const std::vector<Keyline>& keylines, const SRef<DescriptorBuffer> descriptorsLine, const SRef<Image> view, const Transform3Df pose) :
+	m_keypoints(keypoints),
+	m_descriptors(descriptorsPoint),
+	m_keylines(keylines),
+	m_descriptorsLine(descriptorsLine),
+	m_view(view),
+	m_pose(pose) {}
 
 const SRef<Image>& Frame::getView() const
 {
@@ -50,6 +72,11 @@ void Frame::setPose(const Transform3Df & pose)
 {
 	std::unique_lock<std::mutex> lock(m_mutexPose);
     m_pose = pose;
+}
+
+void Frame::setKeylines(const std::vector<Keyline> & klines) {
+	std::unique_lock<std::mutex> lock(m_mutexKeyline);
+	m_keylines = klines;
 }
 
 void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
@@ -69,7 +96,13 @@ void Frame::setDescriptors(const SRef<DescriptorBuffer> &descriptors)
 	m_descriptors = descriptors;
 }
 
-const std::map<uint32_t, uint32_t>& Frame::getVisibility() const
+SRef<DescriptorBuffer> Frame::getDescriptorsLine()
+{
+	std::unique_lock<std::mutex> lock(m_mutexDescriptors);
+	return m_descriptorsLine;
+}
+
+void Frame::setReferenceKeyframe(SRef<Keyframe> keyframe)
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	return m_mapVisibility;
@@ -104,6 +137,13 @@ bool Frame::removeVisibility(const uint32_t& id_keypoint, [[maybe_unused]] const
 	}
 }
 
+
+const std::vector<Keyline> & Frame::getKeylines()
+{
+	std::unique_lock<std::mutex> lock(m_mutexKeyline);
+	return m_keylines;
+}
+
 const std::vector<Keypoint> & Frame::getKeypoints() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
@@ -126,6 +166,12 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexReferenceKeyframe);
     return m_referenceKeyFrame;
+}
+
+const std::map<uint32_t, uint32_t>& Frame::getVisibility() const
+{
+	std::unique_lock<std::mutex> lock(m_mutexVisibility);
+	return m_mapVisibility;
 }
 
 template<typename Archive>

@@ -289,4 +289,4 @@ DECLARESERIALIZE(CloudPoint);
 }
 }  // end of namespace SolAR
 
-#endif // SolAR_KEYPOINT_H
+#endif // SolAR_CLOUDPOINT_H

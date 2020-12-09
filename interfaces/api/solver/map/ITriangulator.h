@@ -24,11 +24,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
-//#include "datastructure/MathDefinitions.h"
-//#include "datastructure/Image.h"
-//#include "datastructure/Keyframe.h"
-//#include "datastructure/Keypoint.h"
-//#include "datastructure/CloudPoint.h"
+#include "datastructure/Keyline.h"
 #include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
 
@@ -110,16 +106,34 @@ public:
 								const std::pair<unsigned int, unsigned int> & working_views,
 								const Transform3Df & poseView1,
 								const Transform3Df & poseView2,
-								std::vector<SRef<CloudPoint>> & pcloud) =0;
+								std::vector<SRef<CloudPoint>> & pcloud) = 0;
 
 	/// @brief triangulate pairs of points 2d captured from current keyframe with its reference keyframe using their poses (with respect to the camera instrinsic parameters).
 	/// @param[in] curKeyframe current keyframe.
 	/// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
 	/// @param[out] pcloud Set of triangulated 3d_points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-	virtual double triangulate(const SRef<Keyframe>& curKeyframe,
-							   const std::vector<DescriptorMatch>&matches,
-                               std::vector<SRef<CloudPoint>>& pcloud) = 0;
+	virtual double triangulate( const SRef<Keyframe>& curKeyframe,
+							    const std::vector<DescriptorMatch>&matches,
+                                std::vector<SRef<CloudPoint>>& pcloud) = 0;
+
+	/// @brief triangulate pairs of 2D keylines captured from two different views with their associated poses
+	/// @param[in] keylines1, set of keylines detected in the first view.
+	/// @param[in] keylines2, set of keylines detected in the second view.
+	/// @param[in] matches, the matches between the keylines detected in each view.
+	/// @param[in] pose1, camera pose of the first view.
+	/// @param[in] pose2, camera pose of the second view.
+	/// @param[out] linecloud, set of triangulated 3D lines.
+	/// @return the mean re-projection error
+	virtual double triangulate( const std::vector<Keyline> & keylines1,
+								const std::vector<Keyline> & keylines2,
+								const SRef<DescriptorBuffer>& descriptor1,
+								const SRef<DescriptorBuffer>& descriptor2,
+								const std::vector<DescriptorMatch> & matches,
+								const std::pair<unsigned, unsigned>& working_views,
+								const Transform3Df & pose1,
+								const Transform3Df & pose2,
+								std::vector<CloudLine> & lineCloud) = 0;
 };
 
 }
