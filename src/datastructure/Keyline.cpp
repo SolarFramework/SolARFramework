@@ -55,6 +55,16 @@ Keyline::Keyline(	float x,
 									m_class_id(class_id)
 { }
 
+Keyline::Keyline(	float startPointX,
+					float startPointY,
+					float endPointX,
+					float endPointY) :
+					Point2Df( (startPointX + endPointX) / 2.f, (startPointY + endPointY) / 2.f ),
+					m_startPointX(startPointX),
+					m_startPointY(startPointY),
+					m_endPointX(endPointX),
+					m_endPointY(endPointY)
+{ }
 
 void Keyline::init(	float x,
 					float y,

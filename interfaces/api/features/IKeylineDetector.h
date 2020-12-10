@@ -41,8 +41,9 @@ class IKeylineDetector : virtual public org::bcom::xpcf::IComponentIntrospect
 public:
 	enum class KeylineDetectorType
 	{
-		LSD,
-		MSLD
+		FLD, // Fast Line Detector
+		LSD, // Line Segment Detector (FIXME: seem unaccessible in OpenCV 4+)
+		MSLD // Multi Scale Line Detector (TODO? currently not implemented)
 	};
 
 	IKeylineDetector() = default;

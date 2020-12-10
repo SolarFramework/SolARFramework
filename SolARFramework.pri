@@ -65,6 +65,7 @@ interfaces/api/solver/pose/I2DTransformFinder.h \
 interfaces/api/solver/pose/I3D3DCorrespondencesFinder.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D2D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
+interfaces/api/solver/pose/I3DTransformFinderFrom2D3DPointLine.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \

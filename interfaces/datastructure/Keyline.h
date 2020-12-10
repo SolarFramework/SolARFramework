@@ -56,6 +56,11 @@ public:
 			int   octave,
 			int   class_id);
 
+	Keyline(float startPointX,
+			float startPointY,
+			float endPointX,
+			float endPointY);
+
 	~Keyline();
 
 

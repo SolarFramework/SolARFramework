@@ -39,10 +39,10 @@ namespace features {
 		/// @param[out] Filtred matches based on redundancy or geometric relations such as epipolar constraint.
 		/// @param[in] Original keylines associated to desc_1.
 		/// @param[in] Original keylines associated to desc_2.
-		virtual void filter(const std::vector<DescriptorMatch> & inputMatches,
-							std::vector<DescriptorMatch> & outputMatches,
-							const std::vector<Keyline> & keylines_1,
-							const std::vector<Keyline> & keylines_2) {};
+		virtual void filter([[maybe_unused]] const std::vector<DescriptorMatch> & inputMatches,
+							[[maybe_unused]] std::vector<DescriptorMatch> & outputMatches,
+							[[maybe_unused]] const std::vector<Keyline> & keylines_1,
+							[[maybe_unused]] const std::vector<Keyline> & keylines_2) {};
 
 		/// @brief filter matches based fundamental matrix calculated from camera matrices
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
