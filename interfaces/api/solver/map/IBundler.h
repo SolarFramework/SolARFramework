@@ -50,56 +50,21 @@ namespace map {
 										CamDistortion & D,
 										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 
-/* TODO(mpapin): cleanup interface */
-		/// @brief this method is used to set intrinsic parameters and distortion of the camera
-		/// @param[in] Camera calibration matrix parameters.
-		/// @param[in] Camera distortion parameters.
-		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
-
-		/// @brief (Deprecated) Apply bundle adjustment on a set of 3D lines between two frames
-		/// @param[in] originalKeylines: set of 2D correspondences for each given frame.
-		/// @param[in] lineCloud: set of 3D lines as <Edge3Df>.
-		/// @param[in] matches: set of 2D line correspondences.
-		/// @param[in] indices: link 2D line correspondence index from matches vector with the triangulated 3D line from lineCloud.
-		/// @param[in] originalPoses: set of camera poses for each given frame.
-		/// @param[out] correctedLineCloud: corrected 3D line cloud.
-		/// @param[out] correctedPoses: corrected camera poses.
-		/// @return the mean re-projection error after 3D lines and poses correction.
-		virtual double solve(const std::vector<std::vector<Keyline>> & originalKeylines,
-							const std::vector<Edge3Df> & lineCloud,
-							const std::vector<DescriptorMatch> & matches,
-							const std::vector<int> & indices,
-							const std::vector<Transform3Df> originalPoses,
-							std::vector<Edge3Df> & correctedLineCloud,
-							std::vector<Transform3Df> & correctedPoses) = 0;
-
-		/// @brief (Deprecated) Apply bundle adjustment on a set of 3D lines between multiple frames
-		/// @param[in] originalFrames: set of frames with extracted 2D lines and estimated camera poses.
-		/// @param[in] frameTriangulatedLines: set of triangulated <Edge3Df> for each frame pair.
-		/// @param[in] frameMatches: set of 2D line correspondences for each frame pair.
-		/// @param[in] frame2D3DCorrespondences: link 2D line correspondence index with the triangulated 3D line, for each frame pair.
-		/// @param[in] fixedFramesIndices: indices of the frames that will be fixed during optimization.
-		/// @param[out] correctedLineCloud: corrected 3D line cloud.
-		/// @param[out] correctedPoses: corrected camera poses.
-		/// @return the mean re-projection error after 3D lines and poses correction.
-		virtual double solve(const std::vector<SRef<Frame>> & originalFrames,
-							const std::vector<std::vector<Edge3Df>> & frameTriangulatedLines,
-							const std::vector<std::vector<DescriptorMatch>> & frameMatches,
-							const std::vector<std::vector<int>> & frame2D3DCorrespondences,
-							const std::vector<int> & fixedFramesIndices,
-							std::vector<Edge3Df> & correctedLineCloud,
-							std::vector<Transform3Df> & correctedPoses) = 0;
-
 		/// @brief Apply bundle adjustment on a set of 3D lines between multiple frames
 		/// @param[in] originalFrames: set of frames with extracted 2D lines and estimated camera poses.
 		/// @param[in] frameTriangulatedLines: set of triangulated <CloudLine> for each frame pair.
 		/// @param[out] correctedLineCloud: corrected 3D line cloud.
 		/// @param[out] correctedPoses: corrected camera poses.
 		/// @return the mean re-projection error after 3D lines and poses correction.
-		virtual double solve(const std::vector<SRef<Frame>> & originalFrames,
-							const std::vector<std::vector<SRef<CloudLine>>> & frameTriangulatedLines,
-							std::vector<SRef<CloudLine>> & correctedLineCloud,
-							std::vector<Transform3Df> & correctedPoses) = 0;
+		virtual double solve(	const std::vector<SRef<Frame>> & originalFrames,
+								const std::vector<std::vector<SRef<CloudLine>>> & frameTriangulatedLines,
+								std::vector<SRef<CloudLine>> & correctedLineCloud,
+								std::vector<Transform3Df> & correctedPoses) = 0;
+
+		/// @brief this method is used to set intrinsic parameters and distortion of the camera
+		/// @param[in] Camera calibration matrix parameters.
+		/// @param[in] Camera distortion parameters.
+		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
 	};
 }
 }
