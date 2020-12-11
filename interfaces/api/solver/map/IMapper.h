@@ -36,10 +36,7 @@
 #include "api/reloc/IKeyframeRetriever.h"
 
 namespace SolAR {
-    using namespace datastructure;
     namespace api {
-		using namespace storage;
-		using namespace reloc;
         namespace solver {
             namespace map {
 /**
@@ -59,88 +56,88 @@ public:
    /// @brief Set identification component.
    /// @param[in] an identification instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setIdentification (SRef<Identification> &identification) = 0;
+   virtual FrameworkReturnCode setIdentification (SRef<datastructure::Identification> &identification) = 0;
 
    /// @brief Get identification component.
    /// @param[out] an identification instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getIdentification(SRef<Identification> &identification) = 0;
+   virtual FrameworkReturnCode getIdentification(SRef<datastructure::Identification> &identification) = 0;
 
    /// @brief Set coordinate system component.
    /// @param[in] a coordinate system instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setCoordinateSystem(SRef<CoordinateSystem> &coordinateSystem) = 0;
+   virtual FrameworkReturnCode setCoordinateSystem(SRef<datastructure::CoordinateSystem> &coordinateSystem) = 0;
 
    /// @brief Get coordinate system component.
    /// @param[out] a coordinate system instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getCoordinateSystem(SRef<CoordinateSystem> &coordinateSystem) = 0;
+   virtual FrameworkReturnCode getCoordinateSystem(SRef<datastructure::CoordinateSystem> &coordinateSystem) = 0;
 
    /// @brief Set point cloud component.
    /// @param[in] a point cloud instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setPointCloudManager(SRef<IPointCloudManager> &pointCloudManager) = 0;
+   virtual FrameworkReturnCode setPointCloudManager(SRef<storage::IPointCloudManager> &pointCloudManager) = 0;
 
    /// @brief Get point cloud component.
    /// @param[out] a point cloud instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getPointCloudManager(SRef<IPointCloudManager> &pointCloudManager) = 0;
+   virtual FrameworkReturnCode getPointCloudManager(SRef<storage::IPointCloudManager> &pointCloudManager) = 0;
 
    /// @brief Set keyframes manager component.
    /// @param[in] a keyframes manager instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setKeyframesManager(SRef<IKeyframesManager> &keyframesManager) = 0;
+   virtual FrameworkReturnCode setKeyframesManager(SRef<storage::IKeyframesManager> &keyframesManager) = 0;
 
    /// @brief Get keyframes manager component.
    /// @param[out] a keyframes manager instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getKeyframesManager(SRef<IKeyframesManager> &keyframesManager) = 0;
+   virtual FrameworkReturnCode getKeyframesManager(SRef<storage::IKeyframesManager> &keyframesManager) = 0;
 
    /// @brief Set covisibility graph component.
    /// @param[in] a covisibility graph instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
+   virtual FrameworkReturnCode setCovisibilityGraph(SRef<storage::ICovisibilityGraph> &covisibilityGraph) = 0;
 
    /// @brief Get covisibility graph component.
    /// @param[out] a covisibility graph instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getCovisibilityGraph(SRef<ICovisibilityGraph> &covisibilityGraph) = 0;
+   virtual FrameworkReturnCode getCovisibilityGraph(SRef<storage::ICovisibilityGraph> &covisibilityGraph) = 0;
 
    /// @brief Set keyframe retriever component.
    /// @param[in] a keyframe retriever instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode setKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
+   virtual FrameworkReturnCode setKeyframeRetriever(SRef<reloc::IKeyframeRetriever> &keyframeRetriever) = 0;
 
    /// @brief Get keyframe retriever component.
    /// @param[out] a keyframe retriever instance
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getKeyframeRetriever(SRef<IKeyframeRetriever> &keyframeRetriever) = 0;
+   virtual FrameworkReturnCode getKeyframeRetriever(SRef<reloc::IKeyframeRetriever> &keyframeRetriever) = 0;
 
    /// @brief Get local point cloud seen from the keyframe and its neighbors
    /// @param[in] keyframe: the keyframe to get local point cloud
    /// @param[in] minWeightNeighbor: the weight to get keyframe neighbors
    /// @param[out] localPointCloud: the local point cloud
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode getLocalPointCloud(const SRef<Keyframe> &keyframe, float minWeightNeighbor, std::vector<SRef<CloudPoint>> &localPointCloud) = 0;
+   virtual FrameworkReturnCode getLocalPointCloud(const SRef<datastructure::Keyframe> &keyframe, float minWeightNeighbor, std::vector<SRef<datastructure::CloudPoint>> &localPointCloud) = 0;
 
    /// @brief Add a point cloud to mapper and update visibility of keyframes and covisibility graph
    /// @param[in] cloudPoint: the cloud point to add to the mapper
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode addCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+   virtual FrameworkReturnCode addCloudPoint(const SRef<datastructure::CloudPoint> &cloudPoint) = 0;
 
    /// @brief Remove a point cloud from mapper and update visibility of keyframes and covisibility graph
    /// @param[in] cloudPoint: the cloud point to remove to the mapper
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode removeCloudPoint(const SRef<CloudPoint> &cloudPoint) = 0;
+   virtual FrameworkReturnCode removeCloudPoint(const SRef<datastructure::CloudPoint> &cloudPoint) = 0;
 
    /// @brief Remove a keyframe from mapper and update visibility of point cloud and covisibility graph
    /// @param[in] cloudPoint: the cloud point to add to the mapper
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode removeKeyframe(const SRef<Keyframe> &keyframe) = 0;
+   virtual FrameworkReturnCode removeKeyframe(const SRef<datastructure::Keyframe> &keyframe) = 0;
 
    /// @brief Prune cloud points and keyframes of a map
    /// @param[in] cloudPoints: the cloud points are checked to prune
-   virtual void pruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
+   virtual void pruning(const std::vector<SRef<datastructure::CloudPoint>> &cloudPoints = {}) = 0;
 
    /// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.

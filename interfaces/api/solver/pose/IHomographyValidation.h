@@ -23,7 +23,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace pose {
@@ -44,8 +43,8 @@ public:
     /// @brief evaluate the homography according to the projection of the 4 corners of a 2D squared Marker
     /// @param[in] ref2DSquaredMarkerCorners set of 2d_points of the corners in the template view.
     /// @param[in] projected2DSquaredMarkerCorners set of 2d_points of the corners projected in the current view.
-    virtual bool isValid(const std::vector<Point2Df> & ref2DSquaredMarkerCorners,
-                         const std::vector<Point2Df> & projected2DSquaredMarkerCorners) = 0;
+    virtual bool isValid(const std::vector<datastructure::Point2Df> & ref2DSquaredMarkerCorners,
+                         const std::vector<datastructure::Point2Df> & projected2DSquaredMarkerCorners) = 0;
 };
 
 }

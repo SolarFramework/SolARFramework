@@ -21,7 +21,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace devices {

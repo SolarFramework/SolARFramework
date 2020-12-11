@@ -26,7 +26,6 @@
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -42,7 +41,7 @@ public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    virtual const SquaredBinaryPattern & getPattern() const  = 0;
+    virtual const datastructure::SquaredBinaryPattern & getPattern() const  = 0;
 };
 
 }

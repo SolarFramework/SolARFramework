@@ -35,7 +35,6 @@
 #include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
 
@@ -67,9 +66,9 @@ public:
     /// @param[in] image input image on which we are extracting keypoints.
     /// @param[in] contours a set of 2D points defining the contour of the region where keypoints will be detected
     /// @param[out] keypoints The keypoints detected from the given region of the image passed as first argument.
-    virtual void detect (const SRef<Image> image,
-                         const std::vector<Point2Df> & contours,
-                         std::vector<Keypoint> & keypoints) = 0;
+    virtual void detect (const SRef<datastructure::Image> image,
+                         const std::vector<datastructure::Point2Df> & contours,
+                         std::vector<datastructure::Keypoint> & keypoints) = 0;
 };
 
 }

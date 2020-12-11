@@ -25,7 +25,6 @@
 #include "api/input/devices/IDevice.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace devices {
@@ -48,34 +47,34 @@ public:
     /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
     /// @param img the image captured by the RGBD camera
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img) = 0;
+    virtual FrameworkReturnCode getNextDepthFrame(SRef<datastructure::Image>& img) = 0;
 
     /// @brief Provides the corresponding 3D point cloud corresponding to last depth image aquiered (getNextDepthFrame())
     /// Should have no effect if the user didn't call getNextDepthFrame beforehand
     /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getPointCloud(SRef<PointCloud>& pc) = 0;
+    virtual FrameworkReturnCode getPointCloud(SRef<datastructure::PointCloud>& pc) = 0;
 
     /// @brief Set the depth image resolution of the acquisition device
-    virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;
+    virtual FrameworkReturnCode setDepthResolution(datastructure::Sizei resolution) = 0;
 
     /// @brief Set the intrinsic parameters of the depth camera
-    virtual FrameworkReturnCode setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual FrameworkReturnCode setIntrinsicDepthParameters(const datastructure::CamCalibration & intrinsic_parameters) =0;
 
     /// @brief Set the distortion intrinsic parameters of the depth camera
-    virtual FrameworkReturnCode setDistortionDepthParameters(const CamDistortion & distortion_parameters) =0;
+    virtual FrameworkReturnCode setDistortionDepthParameters(const datastructure::CamDistortion & distortion_parameters) =0;
 
     /// @brief Get the image resolution of the depth acquisition device
-    virtual Sizei getDepthResolution() = 0;
+    virtual datastructure::Sizei getDepthResolution() = 0;
 
 	/// @brief Get the min acquisition distance of the device
 	virtual float getDepthMinDistance() = 0;
 
     /// @return Return the intrinsic depth camera parameters
-    virtual const CamCalibration& getIntrinsicsDepthParameters() const = 0;
+    virtual const datastructure::CamCalibration& getIntrinsicsDepthParameters() const = 0;
 
     /// @return Return the distortion depth camera lens parameters
-    virtual const CamDistortion& getDistortionDepthParameters() const = 0;
+    virtual const datastructure::CamDistortion& getDistortionDepthParameters() const = 0;
 };
 
 }

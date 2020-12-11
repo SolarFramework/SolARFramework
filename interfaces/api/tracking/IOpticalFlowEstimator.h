@@ -24,7 +24,6 @@
 #include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace tracking {
 
@@ -52,7 +51,7 @@ public:
    /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<Keypoint> & pointsToTrack, std::vector<Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
+   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage, const SRef<datastructure::Image> currentImage, const std::vector<datastructure::Keypoint> & pointsToTrack, std::vector<datastructure::Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
    /// @brief estimate the optical flow between two images
    /// @param[in] previousImage The previous image
@@ -62,7 +61,7 @@ public:
    /// @param[out] status Specify for each point; each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<Image> previousImage, const SRef<Image> currentImage, const std::vector<Point2Df> & pointsToTrack, std::vector<Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
+   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage, const SRef<datastructure::Image> currentImage, const std::vector<datastructure::Point2Df> & pointsToTrack, std::vector<datastructure::Point2Df> & trackedPoints, std::vector<unsigned char> & status, std::vector<float> & error) = 0;
 
 
 };

@@ -24,7 +24,6 @@
 
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace pose {
@@ -54,9 +53,9 @@ public:
     /// @param[out] fundamental estimated 2D transform matrix.
     ///
     [[grpc::request(findTransform2DRequest)]] [[grpc::response(findTransform2DResponse)]] /// to remove ambiguity with I3D3DCorrespondencesFinder find()
-    virtual Transform2DFinder::RetCode find(const std::vector<Point2Df> & srcPoints,
-        const std::vector<Point2Df> & dstPoints,
-        Transform2Df & fundamental) = 0;
+    virtual Transform2DFinder::RetCode find(const std::vector<datastructure::Point2Df> & srcPoints,
+        const std::vector<datastructure::Point2Df> & dstPoints,
+        datastructure::Transform2Df & fundamental) = 0;
 };
 
 }

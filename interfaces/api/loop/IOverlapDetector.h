@@ -25,7 +25,6 @@
 
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace loop {
 /**
@@ -45,7 +44,7 @@ namespace loop {
 		/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 		/// @param[in] intrinsicParams: Camera calibration matrix parameters.
 		/// @param[in] distortionParams: Camera distortion parameters.
-		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
+		virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distortionParams) = 0;
 
 		/// @brief Detect overlap between two floating maps with different refences.
 		/// @param[in] global mapper as reference.
@@ -55,7 +54,7 @@ namespace loop {
 		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
 		virtual FrameworkReturnCode detect(const SRef<api::solver::map::IMapper> &globalMap,
 											const SRef<api::solver::map::IMapper> &floatingMap,
-											Transform3Df &sim3Transform,
+											datastructure::Transform3Df &sim3Transform,
 											std::vector<std::pair<uint32_t, uint32_t>>&cpOverlapIndices) = 0;
 
 		/// @brief Detect overlap between two floating maps with different refences.
@@ -67,7 +66,7 @@ namespace loop {
 		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
         virtual FrameworkReturnCode detect(const SRef<api::solver::map::IMapper> &globalMap,
 											const SRef<api::solver::map::IMapper> &floatingMap,
-											std::vector<Transform3Df> &sim3Transform,
+											std::vector<datastructure::Transform3Df> &sim3Transform,
 											std::vector<std::pair<uint32_t, uint32_t>>&overlapIndices,
 											std::vector<double>&scores)= 0;
 

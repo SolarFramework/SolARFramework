@@ -25,8 +25,6 @@
 #include "api/solver/map/IMapper.h"
 
 namespace SolAR {
-using namespace datastructure;
-using namespace api::solver::map;
 namespace api {
 namespace geom {
 
@@ -49,23 +47,23 @@ public:
     /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<Point3Df> & inputPoints,
-                                          const Transform3Df & transformation,
-                                          std::vector<Point3Df> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<datastructure::Point3Df> & inputPoints,
+                                          const datastructure::Transform3Df & transformation,
+                                          std::vector<datastructure::Point3Df> & outputPoints) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a map including point cloud and keyframes	
 	/// @param[in] transformation: transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[in,out] map: the map to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transform(const Transform3Df & transformation,
-										  SRef<IMapper> & map) = 0;
+	virtual FrameworkReturnCode transform(const datastructure::Transform3Df & transformation,
+										  SRef<api::solver::map::IMapper> & map) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a point cloud
 	/// @param[in] inputPointCloud the point cloud to transform
 	/// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[out] outputPointCLoud the resulting point cloud after 3D transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transformInPlace(SRef<PointCloud> inputPointCloud, const Transform3Df transformation) const = 0;
+	virtual FrameworkReturnCode transformInPlace(SRef<datastructure::PointCloud> inputPointCloud, const datastructure::Transform3Df transformation) const = 0;
 };
 
 }

@@ -23,7 +23,6 @@
 #include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace geom {
 
@@ -46,9 +45,9 @@ public:
     /// @param[in] transformation the 2D transformation to apply (a 3x3 float matrix)
     /// @param[out] outputPoints the resulting set of 2D points after transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<Point2Df> & inputPoints,
-                                          const Transform2Df & transformation,
-                                          std::vector<Point2Df> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<datastructure::Point2Df> & inputPoints,
+                                          const datastructure::Transform2Df & transformation,
+                                          std::vector<datastructure::Point2Df> & outputPoints) = 0;
 
 };
 

@@ -22,7 +22,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace image {
 
@@ -41,7 +40,7 @@ public:
     /// @param[in] input input image to filter
     /// @param[out] output output image filtred
     /// @return FrameworkReturnCode::_SUCCESS_ id filtering succeed, else FrameworkReturnCode::_ERROR.   
-    virtual FrameworkReturnCode filter(const SRef<Image> input, SRef<Image> & output) = 0;
+    virtual FrameworkReturnCode filter(const SRef<datastructure::Image> input, SRef<datastructure::Image> & output) = 0;
 };
 
 }

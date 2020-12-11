@@ -27,7 +27,6 @@
 #include "core/Messages.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace sink {
 
@@ -51,11 +50,11 @@ public:
    /// @brief Set a new image and pose coming from the pipeline.
    /// @param[in] pose The new pose to be made available to a third party application.
    /// @param[in] image The new image to update a buffer texture when required.
-   virtual void set( const Transform3Df& pose, const SRef<Image>& image ) = 0;
+   virtual void set( const datastructure::Transform3Df& pose, const SRef<datastructure::Image>& image ) = 0;
 
    /// @brief Set a new image without pose.
    /// @param[in] image The new image to update a buffer texture when required.
-   virtual void set( const SRef<Image>& image ) = 0;
+   virtual void set( const SRef<datastructure::Image>& image ) = 0;
 
    /// @brief Set a pointer to the texture buffer to update it with the new image when required.
    /// @param[in] textureBufferPointer the pointer on texture buffer
@@ -70,13 +69,13 @@ public:
    /// @param[in] pose the new pose made available by the pipeline.
    /// @param[in,out] image The new image made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode udpate( Transform3Df& pose) = 0;
+   virtual SinkReturnCode udpate(datastructure::Transform3Df& pose) = 0;
 
    /// @brief Provide an access to the new pose and update the texture buffer with the new image only if the image and the pose have been updated by the pipeline.
    /// The implementation of this interface must be thread safe
    /// @param[in,out] pose the new pose made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image are available, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode tryUpdate( Transform3Df& pose) = 0;
+   virtual SinkReturnCode tryUpdate(datastructure::Transform3Df& pose) = 0;
 
 };
 

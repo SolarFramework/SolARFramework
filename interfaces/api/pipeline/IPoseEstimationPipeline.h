@@ -26,9 +26,6 @@
 
 namespace SolAR {
 namespace api {
-using namespace sink;
-using namespace source;
-using namespace datastructure;
 namespace pipeline {
 
 /**
@@ -53,18 +50,18 @@ public:
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (resolution and focal)
-    virtual CameraParameters getCameraParameters() = 0;
+    virtual datastructure::CameraParameters getCameraParameters() = 0;
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed
-    virtual SinkReturnCode update(datastructure::Transform3Df & pose) = 0;
+    virtual sink::SinkReturnCode update(datastructure::Transform3Df & pose) = 0;
 
     /// @brief load a generic texture buffer.
     /// @param[in] textureHandle a pointer to the texture buffer which will be updated at each call of the update method.    
     /// @param[in] width textureHandle buffer width.
     /// @param[in] width textureHandle buffer height.
     /// @return FrameworkReturnCode::_SUCCESS if the loading succeed, else FrameworkReturnCode::_ERROR_   
-    virtual SourceReturnCode loadSourceImage(void* sourceTextureHandle, int width, int height) = 0;
+    virtual source::SourceReturnCode loadSourceImage(void* sourceTextureHandle, int width, int height) = 0;
 };
 }
 }

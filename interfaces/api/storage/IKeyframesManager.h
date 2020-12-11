@@ -25,7 +25,6 @@
 #include <vector>
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace storage {
 
@@ -46,29 +45,29 @@ public:
     /// @brief This method allow to add a frame to the keyframe manager component
     /// @param[in] frame the frame to add to the set of persistent keyframes
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe>& keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe>& keyframe) = 0;
 
 	/// @brief This method allow to add a frame to the key frame manager component
 	/// @param[in] frame the frame to add to the set of persistent keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const Keyframe &keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const datastructure::Keyframe &keyframe) = 0;
 
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id id of the keyframe to get
 	/// @param[out] keyframe a keyframe stored in the keyframes manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getKeyframe(uint32_t id, SRef<Keyframe>& keyframe) = 0;
+	virtual FrameworkReturnCode getKeyframe(uint32_t id, SRef<datastructure::Keyframe>& keyframe) = 0;
 
 	/// @brief This method allows to get a set of keyframes by their ids
 	/// @param[in] ids a vector of ids of the keyframes to get
 	/// @param[out] keyframes a vector of keyframes stored in the keyframe manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getKeyframes(const std::vector<uint32_t> &ids, std::vector<SRef<Keyframe>>& keyframes) = 0;
+	virtual FrameworkReturnCode getKeyframes(const std::vector<uint32_t> &ids, std::vector<SRef<datastructure::Keyframe>>& keyframes) = 0;
 
 	/// @brief This method allows to get all keyframes
 	/// @param[out] keyframes the set of keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getAllKeyframes(std::vector<SRef<Keyframe>>& keyframes) = 0;
+	virtual FrameworkReturnCode getAllKeyframes(std::vector<SRef<datastructure::Keyframe>>& keyframes) = 0;
 
 	/// @brief This method allow to suppress a keyframe by its id
 	/// @param[in] id id of the keyframe to suppress
@@ -77,12 +76,12 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each keyframe
 	/// @return Descriptor type
-	virtual DescriptorType getDescriptorType() = 0;
+	virtual datastructure::DescriptorType getDescriptorType() = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each keyframe
 	/// @param[in] type the descriptor type
 	/// @return @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode setDescriptorType(DescriptorType type) = 0;
+	virtual FrameworkReturnCode setDescriptorType(datastructure::DescriptorType type) = 0;
 
 	/// @brief This method allows to know if a keyframe is already stored in the component
 	/// @param[in] id id of this keyframe

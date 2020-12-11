@@ -27,7 +27,6 @@
 #include "api/solver/map/IMapper.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace map {
@@ -54,7 +53,7 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode merge(SRef<IMapper> &map, 
 									SRef<IMapper> &globalMap, 
-									Transform3Df &transform, 
+									datastructure::Transform3Df &transform, 
 									uint32_t &nbMatches, 
 									float &error) = 0;
 
@@ -67,7 +66,7 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode merge(SRef<IMapper> &map, 
 									SRef<IMapper> &globalMap, 
-									Transform3Df &transform, 
+									datastructure::Transform3Df &transform, 
 									const std::vector<std::pair<uint32_t, uint32_t>>&cpOverlapIndices,
 									const bool &isRefineTransform = false) = 0;
 };

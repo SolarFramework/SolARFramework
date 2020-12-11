@@ -22,7 +22,6 @@
 #include "datastructure/PointCloud.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -36,7 +35,7 @@ public:
 	/// @param[in] filepath the path to the mesh file
 	/// @param[out] pointCloud the point cloud to fill
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode load(const std::string filepath, SRef<PointCloud>& pointCloud) = 0;
+    virtual FrameworkReturnCode load(const std::string filepath, SRef<datastructure::PointCloud>& pointCloud) = 0;
 };
 
 }

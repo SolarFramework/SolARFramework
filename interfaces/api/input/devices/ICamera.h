@@ -24,7 +24,6 @@
 #include "api/input/devices/IDevice.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace devices {
@@ -46,31 +45,31 @@ public:
 
     /// @brief Fill the SRef img buffer with a new image captured by the camera device.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextImage(SRef<Image> & img) = 0;
+    virtual FrameworkReturnCode getNextImage(SRef<datastructure::Image> & img) = 0;
         
     /// @brief Set the acquisition device image resolution
-    virtual void setResolution(const Sizei & resolution) = 0;
+    virtual void setResolution(const datastructure::Sizei & resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const CamCalibration & intrinsic_parameters) =0;
+    virtual void setIntrinsicParameters(const datastructure::CamCalibration & intrinsic_parameters) =0;
     
     /// @brief Set the distortion intrinsic camera parameters
-    virtual void setDistortionParameters(const CamDistortion & distortion_parameters) =0;
+    virtual void setDistortionParameters(const datastructure::CamDistortion & distortion_parameters) =0;
 
     /// @brief Set the distortion and intrinsic camera parameters
-    virtual void setParameters(const CameraParameters & parameters) =0;
+    virtual void setParameters(const datastructure::CameraParameters & parameters) =0;
 
     /// @brief Get the acquisition device image resolution
-    virtual Sizei getResolution() = 0;
+    virtual datastructure::Sizei getResolution() = 0;
 
     /// @return Return the intrinsic camera parameters
-    virtual const CamCalibration & getIntrinsicsParameters() = 0;
+    virtual const datastructure::CamCalibration & getIntrinsicsParameters() = 0;
 
     /// @return Return the camera parameters
-    virtual const CameraParameters & getParameters() = 0;
+    virtual const datastructure::CameraParameters & getParameters() = 0;
     
     /// @return Return the distortion camera lens parameters
-    virtual const CamDistortion & getDistortionParameters() = 0;
+    virtual const datastructure::CamDistortion & getDistortionParameters() = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...

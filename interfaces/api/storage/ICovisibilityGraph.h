@@ -26,7 +26,6 @@
 #include <tuple>
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace storage {
 
