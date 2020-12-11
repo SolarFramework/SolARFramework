@@ -56,25 +56,6 @@ namespace map {
 		/// @param[in] Camera distortion parameters.
 		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
 
-		/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
-		/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-		/// @param[in,out] framesToAdjust: contains a set of {2D points, camera extrinsics}.
-		/// @param[in,out] mapToAjust: contains a set of of 3D points .
-		/// @param[in] K: camera calibration parameters responsible of 3D points generation.
-		/// @param[in] D: camera distorsion parameters responsible of 3D points generation
-		/// K, D represent the camera intrinsic parameters
-		/// @param[in] selectKeyframes : selected views to bundle following a given strategies (ex: poseGraph).
-		/// @return the mean re-projection error after {pts3d, intrinsic, extrinsic} correction.
-		virtual double solve(const std::vector<SRef<Keyframe>> & framesToAdjust,
-							const std::vector<CloudPoint> & mapToAdjust,
-							const CamCalibration & K,
-							const CamDistortion & D,
-							const std::vector<int> & selectKeyframes,
-							std::vector<Transform3Df> & poseAdjusted,
-							std::vector<CloudPoint> & mapAdjusted,
-							CamCalibration & KAdjusted,
-							CamDistortion & DAdjusted) = 0;
-
 		/// @brief (Deprecated) Apply bundle adjustment on a set of 3D lines between two frames
 		/// @param[in] originalKeylines: set of 2D correspondences for each given frame.
 		/// @param[in] lineCloud: set of 3D lines as <Edge3Df>.
@@ -116,8 +97,8 @@ namespace map {
 		/// @param[out] correctedPoses: corrected camera poses.
 		/// @return the mean re-projection error after 3D lines and poses correction.
 		virtual double solve(const std::vector<SRef<Frame>> & originalFrames,
-							const std::vector<std::vector<CloudLine>> & frameTriangulatedLines,
-							std::vector<CloudLine> & correctedLineCloud,
+							const std::vector<std::vector<SRef<CloudLine>>> & frameTriangulatedLines,
+							std::vector<SRef<CloudLine>> & correctedLineCloud,
 							std::vector<Transform3Df> & correctedPoses) = 0;
 	};
 }
