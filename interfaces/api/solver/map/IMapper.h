@@ -138,9 +138,13 @@ public:
    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
    virtual FrameworkReturnCode removeKeyframe(const SRef<Keyframe> &keyframe) = 0;
 
-   /// @brief Prune cloud points and keyframes of a map
+   /// @brief Prune cloud points of a map
    /// @param[in] cloudPoints: the cloud points are checked to prune
-   virtual int pruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
+   virtual int pointCloudPruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
+
+   /// @brief Prune keyframes of a map
+   /// @param[in] keyframes: the keyframes are checked to prune
+   virtual int keyframePruning(const std::vector<SRef<Keyframe>> &keyframes = {}) = 0;
 
    /// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
