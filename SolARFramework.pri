@@ -8,6 +8,7 @@ interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IDescriptorsExtractor.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
+interfaces/api/features/IKeylineDetector.h \
 interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \

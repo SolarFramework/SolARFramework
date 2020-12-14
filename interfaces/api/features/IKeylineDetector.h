@@ -24,28 +24,26 @@
 #include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
+
+enum class KeylineDetectorType
+{
+	FLD, // Fast Line Detector
+	LSD, // Line Segment Detector (OpenCV 3 only)
+};
 
 /**
  * @class IKeylineDetector
  * @brief <B>Detects the keylines from an image.</B>
  * <TT>UUID: e60589f3-46fe-40c3-b624-389e08682751</TT>
  *
- * This class provides a method to detect the keylines from an image using different kind of method (LSD, MSLD, ...).
+ * This class provides a method to detect the keylines from an image using different kind of method (FLD, LSD...).
  */
 
 class IKeylineDetector : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
-	enum class KeylineDetectorType
-	{
-		FLD, // Fast Line Detector
-		LSD, // Line Segment Detector (FIXME: seem unaccessible in OpenCV 4+)
-		MSLD // Multi Scale Line Detector (TODO? currently not implemented)
-	};
-
 	IKeylineDetector() = default;
 
 	~IKeylineDetector() = default;
@@ -54,7 +52,9 @@ public:
 
 	virtual KeylineDetectorType getType() = 0;
 
-	virtual void detect(const SRef<Image> image, std::vector<Keyline> & keylines) = 0;
+	virtual org::bcom::xpcf::XPCFErrorCode initDetector() = 0;
+
+	virtual void detect(const SRef<datastructure::Image> image, std::vector<datastructure::Keyline> & keylines) = 0;
 };
 }
 }

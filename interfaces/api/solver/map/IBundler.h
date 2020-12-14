@@ -17,7 +17,6 @@
 #include "api/solver/map/IMapper.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace map {
@@ -46,8 +45,8 @@ namespace map {
 		/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
 		/// @param[in] selectKeyframes : selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
 		/// @return the mean re-projection error after optimization.
-		virtual double bundleAdjustment(CamCalibration & K,
-										CamDistortion & D,
+		virtual double bundleAdjustment(datastructure::CamCalibration & K,
+										datastructure::CamDistortion & D,
 										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 
 		/// @brief Apply bundle adjustment on a set of 3D lines between multiple frames
@@ -56,15 +55,15 @@ namespace map {
 		/// @param[out] correctedLineCloud: corrected 3D line cloud.
 		/// @param[out] correctedPoses: corrected camera poses.
 		/// @return the mean re-projection error after 3D lines and poses correction.
-		virtual double solve(	const std::vector<SRef<Frame>> & originalFrames,
-								const std::vector<std::vector<SRef<CloudLine>>> & frameTriangulatedLines,
-								std::vector<SRef<CloudLine>> & correctedLineCloud,
-								std::vector<Transform3Df> & correctedPoses) = 0;
+		virtual double solve(	const std::vector<SRef<datastructure::Frame>> & originalFrames,
+								const std::vector<std::vector<SRef<datastructure::CloudLine>>> & frameTriangulatedLines,
+								std::vector<SRef<datastructure::CloudLine>> & correctedLineCloud,
+								std::vector<datastructure::Transform3Df> & correctedPoses) = 0;
 
 		/// @brief this method is used to set intrinsic parameters and distortion of the camera
 		/// @param[in] Camera calibration matrix parameters.
 		/// @param[in] Camera distortion parameters.
-		virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distortionParams) = 0;
+		virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distortionParams) = 0;
 	};
 }
 }

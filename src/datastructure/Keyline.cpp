@@ -21,49 +21,50 @@ namespace datastructure {
 
 Keyline::~Keyline() { }
 
-Keyline::Keyline(	float x,
-					float y,
-					float startPointX,
-					float startPointY,
-					float sPointInOctaveX,
-					float sPointInOctaveY,
-					float endPointX,
-					float endPointY,
-					float ePointInOctaveX,
-					float ePointInOctaveY,
-					float lineLength,
-					float size,
-					float angle,
-					float response,
-					int numOfPixels,
-					int octave,
-					int class_id) : Point2Df(x, y),
-									m_startPointX(startPointX),
-									m_startPointY(startPointY),
-									m_sPointInOctaveX(sPointInOctaveX),
-									m_sPointInOctaveY(sPointInOctaveY),
-									m_endPointX(endPointX),
-									m_endPointY(endPointY),
-									m_ePointInOctaveX(ePointInOctaveX),
-									m_ePointInOctaveY(ePointInOctaveY),
-									m_lineLength(lineLength),
-									m_size(size),
-									m_angle(angle),
-									m_response(response),
-									m_numOfPixels(numOfPixels),
-									m_octave(octave),
-									m_class_id(class_id)
+Keyline::Keyline(float x,
+				 float y,
+				 float startPointX,
+				 float startPointY,
+				 float sPointInOctaveX,
+				 float sPointInOctaveY,
+				 float endPointX,
+				 float endPointY,
+				 float ePointInOctaveX,
+				 float ePointInOctaveY,
+				 float lineLength,
+				 float size,
+				 float angle,
+				 float response,
+				 int numOfPixels,
+				 int octave,
+				 int class_id) : 
+	Point2Df(x, y),
+	m_startPointX(startPointX),
+	m_startPointY(startPointY),
+	m_sPointInOctaveX(sPointInOctaveX),
+	m_sPointInOctaveY(sPointInOctaveY),
+	m_endPointX(endPointX),
+	m_endPointY(endPointY),
+	m_ePointInOctaveX(ePointInOctaveX),
+	m_ePointInOctaveY(ePointInOctaveY),
+	m_lineLength(lineLength),
+	m_size(size),
+	m_angle(angle),
+	m_response(response),
+	m_numOfPixels(numOfPixels),
+	m_octave(octave),
+	m_class_id(class_id)
 { }
 
-Keyline::Keyline(	float startPointX,
-					float startPointY,
-					float endPointX,
-					float endPointY) :
-					Point2Df( (startPointX + endPointX) / 2.f, (startPointY + endPointY) / 2.f ),
-					m_startPointX(startPointX),
-					m_startPointY(startPointY),
-					m_endPointX(endPointX),
-					m_endPointY(endPointY)
+Keyline::Keyline(float startPointX,
+			 	 float startPointY,
+				 float endPointX,
+				 float endPointY) :
+	Point2Df( (startPointX + endPointX) / 2.f, (startPointY + endPointY) / 2.f ),
+	m_startPointX(startPointX),
+	m_startPointY(startPointY),
+	m_endPointX(endPointX),
+	m_endPointY(endPointY)
 { }
 
 void Keyline::init(	float x,
@@ -103,7 +104,5 @@ void Keyline::init(	float x,
 	m_class_id = class_id;
 }
 
-
 }
 }
-
