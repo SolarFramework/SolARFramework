@@ -35,45 +35,45 @@ namespace pose {
  * @brief <B>Finds the 3D-3D correspondences from feature matches of two keyframes.</B>
  * <TT>UUID: 90068876-655a-4d86-adfc-96a519041ab3</TT>
  */
-    class  I3D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
-    public:
-        /// @brief I3D3DCorrespondencesFinder default constructor.
-        I3D3DCorrespondencesFinder() = default;
+class  I3D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    /// @brief I3D3DCorrespondencesFinder default constructor.
+    I3D3DCorrespondencesFinder() = default;
 
-        /// @brief IFundamentalMatrixDecomposer default destructor.
-        ///
-        virtual ~I3D3DCorrespondencesFinder() = default;
+    /// @brief IFundamentalMatrixDecomposer default destructor.
+    virtual ~I3D3DCorrespondencesFinder() = default;
 
-        /// @brief Define 3D-3D point correspondences of two keyframes based on keypoint matches.
-        /// @param[in] firstKeyframe: The first keyframe.
-        /// @param[in] secondKeyframe: The second keyframe.
-        /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
-        /// @param[out] firstCloudPoints: The cloud points seen from the first keyframe.
-        /// @param[out] secondCloudPoints: The cloud points seen from the second keyframe.
-        /// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
-        /// @param[out] remaining_matches: The remaining matches.
-        virtual FrameworkReturnCode find(	const SRef<datastructure::Keyframe> firstKeyframe,
-                                            const SRef<datastructure::Keyframe> secondKeyframe,
-                                            const std::vector<datastructure::DescriptorMatch> & current_matches,
-                                            std::vector<SRef<datastructure::CloudPoint>> & firstCloudPoints,
-                                            std::vector<SRef<datastructure::CloudPoint>> & secondCloudPoints,
-                                            std::vector<datastructure::DescriptorMatch> & found_matches,
-                                            std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
+    /// @brief Define 3D-3D point correspondences of two keyframes based on keypoint matches.
+    /// @param[in] firstKeyframe: The first keyframe.
+    /// @param[in] secondKeyframe: The second keyframe.
+    /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
+    /// @param[out] firstCloudPoints: The cloud points seen from the first keyframe.
+    /// @param[out] secondCloudPoints: The cloud points seen from the second keyframe.
+    /// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
+    /// @param[out] remaining_matches: The remaining matches.
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode find(	const SRef<datastructure::Keyframe> firstKeyframe,
+                                        const SRef<datastructure::Keyframe> secondKeyframe,
+                                        const std::vector<datastructure::DescriptorMatch> & current_matches,
+                                        std::vector<SRef<datastructure::CloudPoint>> & firstCloudPoints,
+                                        std::vector<SRef<datastructure::CloudPoint>> & secondCloudPoints,
+                                        std::vector<datastructure::DescriptorMatch> & found_matches,
+                                        std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
 
-		/// @brief Define 3D-3D point correspondences of two keyframes based on keypoint matches between different maps.
-		/// @param[in] firstKeyframe: The first keyframe.
-		/// @param[in] secondKeyframe: The second keyframe.
-		/// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
-		/// @param[out] firstCloudPointsIndices: The cloud points indices seen from the first keyframe.
-		/// @param[out] secondCloudPointsIndices: The cloud points indices seen from the second keyframe.
-		/// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
-		virtual FrameworkReturnCode find(const SRef<datastructure::Keyframe> firstKeyframe,
-										 const SRef<datastructure::Keyframe> secondKeyframe,
-										 const std::vector<datastructure::DescriptorMatch> & current_matches,
-										 std::vector<uint32_t> & firstCloudPointsIndices,
-										 std::vector<uint32_t> & secondCloudPointsIndices,
-										 std::vector<datastructure::DescriptorMatch> & found_matches) = 0;
-    };
+    /// @brief Define 3D-3D point correspondences of two keyframes based on keypoint matches between different maps.
+    /// @param[in] firstKeyframe: The first keyframe.
+    /// @param[in] secondKeyframe: The second keyframe.
+    /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
+    /// @param[out] firstCloudPointsIndices: The cloud points indices seen from the first keyframe.
+    /// @param[out] secondCloudPointsIndices: The cloud points indices seen from the second keyframe.
+    /// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
+    virtual FrameworkReturnCode find(const SRef<datastructure::Keyframe> firstKeyframe,
+                                     const SRef<datastructure::Keyframe> secondKeyframe,
+                                     const std::vector<datastructure::DescriptorMatch> & current_matches,
+                                     std::vector<uint32_t> & firstCloudPointsIndices,
+                                     std::vector<uint32_t> & secondCloudPointsIndices,
+                                     std::vector<datastructure::DescriptorMatch> & found_matches) = 0;
+};
 }
 }
 }

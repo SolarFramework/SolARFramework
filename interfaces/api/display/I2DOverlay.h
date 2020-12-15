@@ -48,7 +48,7 @@ public:
     /// Draw a circle on the image displayImage center on the point with specified radius and thickness.
     /// @param[in] point The position of the circle to draw
     /// @param[in,out] displayImage The image on which the the circles will be drawn.
-    virtual void drawCircle(const datastructure::Point2Df& point, SRef<datastructure::Image> displayImage) = 0;
+    virtual void drawCircle(const datastructure::Point2Df & point, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw Circles.
     /// Draw all the circles stored in the vector std::vector <Point2Df> & points on image displayImage with specified radius, thickness and colors (defined in the configuration file).

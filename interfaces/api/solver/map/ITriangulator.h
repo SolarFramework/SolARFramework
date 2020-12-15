@@ -24,11 +24,6 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
-//#include "datastructure/MathDefinitions.h"
-//#include "datastructure/Image.h"
-//#include "datastructure/Keyframe.h"
-//#include "datastructure/Keypoint.h"
-//#include "datastructure/CloudPoint.h"
 #include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
 
@@ -65,13 +60,13 @@ public:
     /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-    virtual double triangulate(const std::vector<datastructure::Point2Df>& pointsView1,
-                               const std::vector<datastructure::Point2Df>& pointView2,
-                               const std::vector<datastructure::DescriptorMatch>&matches,
-                               const std::pair<unsigned int,unsigned int>&working_views,
-                               const datastructure::Transform3Df& poseView1,
-                               const datastructure::Transform3Df& poseView2,
-                               std::vector<SRef<datastructure::CloudPoint>>& pcloud)=0;
+    virtual double triangulate(const std::vector<datastructure::Point2Df> & pointsView1,
+                               const std::vector<datastructure::Point2Df> & pointView2,
+                               const std::vector<datastructure::DescriptorMatch> & matches,
+                               const std::pair<unsigned int,unsigned int> & working_views,
+                               const datastructure::Transform3Df & poseView1,
+                               const datastructure::Transform3Df & poseView2,
+                               std::vector<SRef<datastructure::CloudPoint>> & pcloud)=0;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] keypointsView1 set of keypoints seen in view_1.
@@ -82,13 +77,13 @@ public:
     /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-    virtual double triangulate(const std::vector<datastructure::Keypoint>& keypointsView1,
-                               const std::vector<datastructure::Keypoint>& keypointsView2,
-                               const std::vector<datastructure::DescriptorMatch>&matches,
-                               const std::pair<unsigned int,unsigned int>&working_views,
-                               const datastructure::Transform3Df& poseView1,
-                               const datastructure::Transform3Df& poseView2,
-                               std::vector<SRef<datastructure::CloudPoint>>& pcloud)=0;
+    virtual double triangulate(const std::vector<datastructure::Keypoint> & keypointsView1,
+                               const std::vector<datastructure::Keypoint> & keypointsView2,
+                               const std::vector<datastructure::DescriptorMatch> &matches,
+                               const std::pair<unsigned int,unsigned int> & working_views,
+                               const datastructure::Transform3Df & poseView1,
+                               const datastructure::Transform3Df & poseView2,
+                               std::vector<SRef<datastructure::CloudPoint>> & pcloud)=0;
 
 	/// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
 	/// @param[in] pointsView1 set of keypoints seen in view_1.
@@ -116,9 +111,9 @@ public:
 	/// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
 	/// @param[out] pcloud Set of triangulated 3d_points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-	virtual double triangulate(const SRef<datastructure::Keyframe>& curKeyframe,
-							   const std::vector<datastructure::DescriptorMatch>&matches,
-                               std::vector<SRef<datastructure::CloudPoint>>& pcloud) = 0;
+    virtual double triangulate(const SRef<datastructure::Keyframe> & curKeyframe,
+                               const std::vector<datastructure::DescriptorMatch> &matches,
+                               std::vector<SRef<datastructure::CloudPoint>> & pcloud) = 0;
 };
 
 }

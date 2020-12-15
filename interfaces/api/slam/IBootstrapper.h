@@ -53,7 +53,7 @@ public:
 	/// @param[out] view: output image to visualize
 	/// @param[in] pose: the pose of the input image
 	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode process(const SRef<datastructure::Image> &image, SRef<datastructure::Image> &view, const datastructure::Transform3Df &pose = datastructure::Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode process(const SRef<datastructure::Image> image, SRef<datastructure::Image> & view, const datastructure::Transform3Df & pose = datastructure::Transform3Df::Identity()) = 0;
 };
 
 }
