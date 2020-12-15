@@ -36,7 +36,6 @@ namespace reloc {
  * This class provides a solution to retrieve a set of keyframes corresponding to a given frame.
  */
 
-///@class IKeyframeRetriever
 class IKeyframeRetriever : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IKeyframeRetriever default constructor.
@@ -100,7 +99,7 @@ public:
     virtual FrameworkReturnCode match(const std::vector<int> & indexDescriptors,
                                       const SRef<datastructure::DescriptorBuffer> descriptors,
                                       const SRef<datastructure::Keyframe> keyframe,
-                                      std::vector<datastructure::DescriptorMatch> &matches) = 0;
+                                      std::vector<datastructure::DescriptorMatch> & matches) = 0;
 };
 
 }

@@ -56,7 +56,7 @@ public:
 	/// @param[in,out] map: the map to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode transform(const datastructure::Transform3Df & transformation,
-										  SRef<api::solver::map::IMapper> & map) = 0;
+                                          SRef<api::solver::map::IMapper> map) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a point cloud
 	/// @param[in] inputPointCloud the point cloud to transform
