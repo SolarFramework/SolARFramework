@@ -23,7 +23,7 @@ template <class T>
 class SharedCircularBuffer  : public SharedFifo<T>
 {
 public:
-    SharedCircularBuffer( unsigned int size )
+    explicit SharedCircularBuffer( unsigned int size )
         : SharedFifo<T>()
         , m_pushCursor( 0 )
         , m_popCursor( 0 )
@@ -33,7 +33,7 @@ public:
 
     ~SharedCircularBuffer() = default;
 
-    virtual void push(const T & value)
+    virtual void push(const T & value) override
     {
         std::unique_lock<std::mutex> lock(m_mutex);
         m_data[m_pushCursor] = value;
@@ -67,7 +67,7 @@ protected:
         }
     }
 
-    virtual inline void doPop( T& value )
+    virtual inline void doPop( T& value ) override
     {
         value = m_data[m_popCursor];
         increaseCursor(m_popCursor);
