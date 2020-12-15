@@ -54,7 +54,7 @@ public:
     /// @brief Set the object to track during mapping
     /// @param[in] trackableObject: the trackable object
     /// @return FrameworkReturnCode::_SUCCESS if the trackable object is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setObjectToTrack(const SRef<datastructure::Trackable> & trackableObject) = 0;
+    virtual FrameworkReturnCode setObjectToTrack(const SRef<datastructure::Trackable> trackableObject) = 0;
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// Retrieve the new image (and pose) to process, in the current pipeline context
@@ -62,7 +62,7 @@ public:
     /// @param[in] image: the input image to process
     /// @param[in] pose: the input pose to process
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode mappingProcessRequest(const SRef<datastructure::Image> & image,
+    virtual FrameworkReturnCode mappingProcessRequest(const SRef<datastructure::Image> image,
                                                       const datastructure::Transform3Df & pose) = 0;
 
     /// @brief Provide the current data from the mapping pipeline context for visualization

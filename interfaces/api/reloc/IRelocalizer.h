@@ -34,7 +34,6 @@ namespace reloc {
  * This class provides a solution to get the pose given a frame.
  */
 
-///@class IRelocalizer
 class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
