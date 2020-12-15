@@ -56,7 +56,7 @@ public:
     virtual FrameworkReturnCode detect(const SRef<api::solver::map::IMapper> globalMap,
                                         const SRef<api::solver::map::IMapper> floatingMap,
                                         datastructure::Transform3Df & sim3Transform,
-                                        std::vector<std::pair<uint32_t, uint32_t>> & cpOverlapIndices) = 0;
+                                        std::vector<std::pair<uint32_t, uint32_t>> & cpOverlapIndices) const = 0;
 
     /// @brief Detect overlap between two floating maps with different refences.
     /// @param[in] global mapper as reference.
@@ -69,7 +69,7 @@ public:
                                         const SRef<api::solver::map::IMapper> floatingMap,
                                         std::vector<datastructure::Transform3Df> & sim3Transform,
                                         std::vector<std::pair<uint32_t, uint32_t>> & overlapIndices,
-                                        std::vector<double>&scores) = 0;
+                                        std::vector<double>&scores) const = 0;
 
 };
 }

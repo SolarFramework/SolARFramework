@@ -66,7 +66,7 @@ public:
 	/// @param[in] id id of the point to get
 	/// @param[out] point a 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getPoint(const uint32_t & id, SRef<datastructure::CloudPoint> & point) const = 0;
+    virtual FrameworkReturnCode getPoint(const uint32_t id, SRef<datastructure::CloudPoint> point) const = 0;
 
 	/// @brief This method allows to get a set of 3D points stored in the point cloud by their ids
 	/// @param[in] ids a vector of ids of the points to get
@@ -82,7 +82,7 @@ public:
     /// @brief This method allow to suppress a point stored in the point cloud by its id
     /// @param[in] id of the point to suppress
     /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode suppressPoint(const uint32_t & id) = 0;
+    virtual FrameworkReturnCode suppressPoint(const uint32_t id) = 0;
 
 	/// @brief This method allow to suppress a vector of points stored in the point cloud by their ids
 	/// @param[in] ids the vector of ids of the point to suppress
@@ -91,7 +91,7 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each cloud point
 	/// @return Descriptor type
-	virtual datastructure::DescriptorType getDescriptorType() = 0;
+    virtual datastructure::DescriptorType getDescriptorType() const = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each cloud point
 	/// @param[in] type Descriptor type
@@ -101,7 +101,7 @@ public:
     /// @brief This method allows to know if a point is already stored in the component
 	/// @param[in] id id of this point
     /// @return true if exist, else false
-    virtual bool isExistPoint(const uint32_t & id) = 0;
+    virtual bool isExistPoint(const uint32_t id) const = 0;
 
     /// @brief This method allows to get the number of points stored in the point cloud
     /// @return The number of points
@@ -110,7 +110,7 @@ public:
 	/// @brief This method allows to save the point cloud to the external file
 	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode saveToFile(const std::string& file) = 0;
+    virtual FrameworkReturnCode saveToFile(const std::string& file) const = 0;
 
 	/// @brief This method allows to load the point cloud from the external file
 	/// @param[in] file the file name

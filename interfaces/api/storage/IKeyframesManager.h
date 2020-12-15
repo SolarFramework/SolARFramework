@@ -56,7 +56,7 @@ public:
 	/// @param[in] id id of the keyframe to get
 	/// @param[out] keyframe a keyframe stored in the keyframes manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getKeyframe(const uint32_t & id, SRef<datastructure::Keyframe> & keyframe) const = 0;
+    virtual FrameworkReturnCode getKeyframe(const uint32_t id, SRef<datastructure::Keyframe> & keyframe) const = 0;
 
 	/// @brief This method allows to get a set of keyframes by their ids
 	/// @param[in] ids a vector of ids of the keyframes to get
@@ -72,11 +72,11 @@ public:
 	/// @brief This method allow to suppress a keyframe by its id
 	/// @param[in] id id of the keyframe to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode suppressKeyframe(const uint32_t & id) = 0;
+    virtual FrameworkReturnCode suppressKeyframe(const uint32_t id) = 0;
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each keyframe
 	/// @return Descriptor type
-	virtual datastructure::DescriptorType getDescriptorType() = 0;
+    virtual datastructure::DescriptorType getDescriptorType() const = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each keyframe
 	/// @param[in] type the descriptor type
@@ -86,7 +86,7 @@ public:
 	/// @brief This method allows to know if a keyframe is already stored in the component
 	/// @param[in] id id of this keyframe
 	/// @return true if exist, else false
-    virtual bool isExistKeyframe(const uint32_t & id) = 0;
+    virtual bool isExistKeyframe(const uint32_t id) const = 0;
 
 	/// @brief This method allows to get the number of keyframes stored in the point cloud
 	/// @return The number of keyframes
@@ -95,7 +95,7 @@ public:
 	/// @brief This method allows to save the keyframes to the external file
 	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode saveToFile(const std::string & file) = 0;
+    virtual FrameworkReturnCode saveToFile(const std::string & file) const = 0;
 
 	/// @brief This method allows to load the keyframes from the external file
 	/// @param[in] file the file name

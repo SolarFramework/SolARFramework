@@ -59,7 +59,7 @@ public:
     virtual FrameworkReturnCode detect(const SRef<datastructure::Keyframe> queryKeyframe,
                                        SRef<datastructure::Keyframe> & detectedLoopKeyframe,
                                        datastructure::Transform3Df & sim3Transform,
-                                       std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) = 0;
+                                       std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) const = 0;
 };
 }
 }

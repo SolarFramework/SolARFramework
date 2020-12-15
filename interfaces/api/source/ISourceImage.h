@@ -58,7 +58,7 @@ public:
    /// @brief Get a pointer to the texture buffer to update it with the new image when required.
    /// @param[in,out] image
    /// @return SourceReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_
-   virtual SourceReturnCode getNextImage(SRef<datastructure::Image> image) const = 0;
+   virtual SourceReturnCode getNextImage(SRef<datastructure::Image> & image) const = 0;
 
 };
 

@@ -50,7 +50,7 @@ public:
 
 	/// @brief this method is used to process mapping task.
 	/// @param[in] frame: the input frame.
-	/// @param[in] keyframe: new keyframe or new reference keyframe found.
+    /// @param[out] keyframe: new keyframe or new reference keyframe found.
     virtual FrameworkReturnCode process(const SRef<datastructure::Frame> frame, SRef<datastructure::Keyframe> & keyframe) = 0;
 };
 

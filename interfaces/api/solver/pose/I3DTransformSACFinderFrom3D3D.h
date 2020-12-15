@@ -56,7 +56,7 @@ public:
     virtual FrameworkReturnCode estimate(const std::vector<datastructure::Point3Df> & firstPoints3D,
                                          const std::vector<datastructure::Point3Df> & secondPoints3D,
                                          datastructure::Transform3Df & pose,
-                                         std::vector<int> &inliers) =0;
+                                         std::vector<int> &inliers) = 0;
 
     /// @brief Estimates camera pose from a set of 3D-3D point correspondences.
     /// @param[in] firstKeyframe: first keyframe.
