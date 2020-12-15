@@ -33,33 +33,33 @@ namespace loop {
   * <TT>UUID: a267c93a-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-	class  ILoopClosureDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
-	public:
-		ILoopClosureDetector() = default;
-		///
-		///@brief ~ILoopClosingDetector
-		///
-		virtual ~ILoopClosureDetector() = default;
+class  ILoopClosureDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    ///@brief ILoopClosureDetector default constructor
+    ILoopClosureDetector() = default;
 
-		/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-		/// @param[in] intrinsicParams: Camera calibration matrix parameters.
-		/// @param[in] distortionParams: Camera distortion parameters.
-        virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
-                                         const datastructure::CamDistortion & distortionParams) = 0;
+    ///@brief ILoopClosureDetector default destructor
+    virtual ~ILoopClosureDetector() = default;
 
-		/// @brief Detect a loop closure from a given keyframe.
-		/// @param[in] queryKeyframe: the query keyframe.
-		/// @param[out] detectedLoopKeyframe: the detected loop keyframe.		
-        /// @param[out] sim3Transform: 3D similarity transformation (Sim(3)) from
-        /// query keyframe to the detected loop keyframe.
-        /// @param[out] duplicatedPointsIndices: indices of duplicated cloud points.
-        /// The first index is the id of point cloud seen from the detected loop keyframe.
-        /// The second one is id of point cloud seen from the query keyframe
-		/// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
-        virtual FrameworkReturnCode detect(const SRef<datastructure::Keyframe> & queryKeyframe,
-                                           SRef<datastructure::Keyframe> & detectedLoopKeyframe,
-                                           datastructure::Transform3Df & sim3Transform,
-                                           std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) = 0;
+    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+    /// @param[in] intrinsicParams: Camera calibration matrix parameters.
+    /// @param[in] distortionParams: Camera distortion parameters.
+    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
+                                     const datastructure::CamDistortion & distortionParams) = 0;
+
+    /// @brief Detect a loop closure from a given keyframe.
+    /// @param[in] queryKeyframe: the query keyframe.
+    /// @param[out] detectedLoopKeyframe: the detected loop keyframe.
+    /// @param[out] sim3Transform: 3D similarity transformation (Sim(3)) from
+    /// query keyframe to the detected loop keyframe.
+    /// @param[out] duplicatedPointsIndices: indices of duplicated cloud points.
+    /// The first index is the id of point cloud seen from the detected loop keyframe.
+    /// The second one is id of point cloud seen from the query keyframe
+    /// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode detect(const SRef<datastructure::Keyframe> queryKeyframe,
+                                       SRef<datastructure::Keyframe> & detectedLoopKeyframe,
+                                       datastructure::Transform3Df & sim3Transform,
+                                       std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) = 0;
 };
 }
 }
