@@ -100,7 +100,7 @@ public:
                          float g,
                          float b,
                          double reproj_error,
-                         std::map<unsigned int, unsigned int> & visibility);
+                         const std::map<unsigned int, unsigned int> & visibility);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -124,7 +124,7 @@ public:
                          float ny,
                          float nz,
                          double reproj_error,
-                         std::map<unsigned int, unsigned int> & visibility);
+                         const std::map<unsigned int, unsigned int> & visibility);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -143,7 +143,7 @@ public:
                          float g,
                          float b,
                          double reproj_error,
-                         std::map<unsigned int, unsigned int> & visibility,
+                         const std::map<unsigned int, unsigned int> & visibility,
                          SRef<DescriptorBuffer> descriptor);
 
     /// @brief Cloudpoint constructor.
@@ -169,7 +169,7 @@ public:
                          float ny,
                          float nz,
                          double reproj_error,
-                         std::map<unsigned int, unsigned int> & visibility,
+                         const std::map<unsigned int, unsigned int> & visibility,
                          SRef<DescriptorBuffer> descriptor);
 
     ///
