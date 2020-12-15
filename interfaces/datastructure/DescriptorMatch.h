@@ -42,9 +42,7 @@ public:
     ///  @param descriptor_idY:
     ///  @param matching_score:
     ///
-    DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score){
-        m_match =std::make_tuple(descriptor_idA, descriptor_idB,matching_score);
-    }
+    DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score): m_match(std::make_tuple(descriptor_idA, descriptor_idB,matching_score)){}
 
     /// \brief Return the index of the matching descriptor from a DescriptorBuffer A.
     ///
