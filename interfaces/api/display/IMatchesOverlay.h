@@ -50,7 +50,7 @@ public:
     /// @param[out] outImage: The resulting image merging image1 and image2 in side-by-side. If outImage has not been initialized, it will be done by this method. If its size is not the good one, it will be resized by this method.
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
-    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<datastructure::Image> image1, const SRef<datastructure::Image> image2, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Point2Df> & points_image1, const std::vector <datastructure::Point2Df> & points_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
@@ -60,7 +60,7 @@ public:
     /// @param[out] outImage: The resulting image merging image1 and image2 in side-by-side. If outImage has not been initialized, it will be done by this method. If its size is not the good one, it will be resized by this method.
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
-    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<datastructure::Image> image1, const SRef<datastructure::Image> image2, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Keypoint> & keypoints_image1, const std::vector <datastructure::Keypoint> & keypoints_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
@@ -69,7 +69,7 @@ public:
     /// @param[out] outImage: The resulting image displaying matches in overlay. If outImage has not been initialized, it will be done by this method. If its size is not the good one, it will be resized by this method.
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
-    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<datastructure::Image> image, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Point2Df> & points_image1, const std::vector <datastructure::Point2Df> & points_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
@@ -78,7 +78,7 @@ public:
     /// @param[out] outImage: The resulting image displaying matches in overlay. If outImage has not been initialized, it will be done by this method. If its size is not the good one, it will be resized by this method.
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
-    /// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
+    /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
     virtual void draw(const SRef<datastructure::Image> image, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Keypoint> & keypoints_image1, const std::vector <datastructure::Keypoint> & keypoints_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
 
 };
