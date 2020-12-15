@@ -48,33 +48,33 @@ public:
     /// @param[in] node2_id id of 2nd node
     /// @param[in] weight weight to increase
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode increaseEdge(const uint32_t & node1_id, const uint32_t & node2_id, const float & weight) = 0;
+    virtual FrameworkReturnCode increaseEdge(uint32_t node1_id, uint32_t node2_id, float weight) = 0;
 
 	/// @brief This method allow to decrease edge between 2 nodes
 	/// @param[in] node1_id id of 1st node
 	/// @param[in] node2_id id of 2nd node
 	/// @param[in] weight weight to decrease
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode decreaseEdge(const uint32_t & node1_id, const uint32_t & node2_id, const float & weight) = 0;
+    virtual FrameworkReturnCode decreaseEdge(uint32_t node1_id, uint32_t node2_id, float weight) = 0;
 
 	/// @brief This method allow to remove an edge between 2 nodes
 	/// @param[in] node1_id id of 1st node
 	/// @param[in] node2_id id of 2nd node
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode removeEdge(const uint32_t & node1_id, const uint32_t & node2_id) = 0;
+    virtual FrameworkReturnCode removeEdge(uint32_t node1_id, uint32_t node2_id) = 0;
 
 	/// @brief This method allow to get edge between 2 nodes
 	/// @param[in] node1_id id of 1st node
 	/// @param[in] node2_id id of 2nd node
 	/// @param[out] weight weight of the edge
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getEdge(const uint32_t & node1_id, const uint32_t & node2_id, float & weight) const = 0;
+    virtual FrameworkReturnCode getEdge(uint32_t node1_id, uint32_t node2_id, float & weight) const = 0;
 
 	/// @brief This method allow to verify that exist an edge between 2 nodes
 	/// @param[in] node1_id id of 1st node
 	/// @param[in] node2_id id of 2nd node
 	/// @return true if exist, else false
-    virtual bool isEdge(const uint32_t & node1_id, const uint32_t & node2_id) = 0;
+    virtual bool isEdge(uint32_t node1_id, uint32_t node2_id) = 0;
 
 	/// @brief This method allow to get all nodes of the graph
 	/// @param[out] nodes_id ids of all nodes
@@ -84,14 +84,14 @@ public:
 	/// @brief This method allow to suppress a node of the graph
 	/// @param[in] node_id id of the node to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode suppressNode(const uint32_t & node_id) = 0;
+    virtual FrameworkReturnCode suppressNode(uint32_t node_id) = 0;
 
 	/// @brief This method allow to get neighbors of a node in the graph
 	/// @param[in] node_id id of the node to get neighbors
 	/// @param[in] minWeight min value between this node and a neighbor to accept
 	/// @param[out] neighbors a vector of neighbors sorted to greater weighted edge.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getNeighbors(const uint32_t & node_id, const float & minWeight, std::vector<uint32_t> & neighbors) const = 0;
+    virtual FrameworkReturnCode getNeighbors(uint32_t node_id, float minWeight, std::vector<uint32_t> & neighbors) const = 0;
 
 	/// @brief This method allow to get minimal spanning tree of the graph
 	/// @param[out] edges_weights: the minimal spanning tree graph including edges with weights
@@ -110,7 +110,7 @@ public:
 	/// @param[in] node2_id id of 2nd node
 	/// @param[out] path the shortest path
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getShortestPath(const uint32_t & node1_id, const uint32_t & node2_id, std::vector<uint32_t> & path) = 0;
+    virtual FrameworkReturnCode getShortestPath(uint32_t node1_id, uint32_t node2_id, std::vector<uint32_t> & path) = 0;
 
 	/// @brief This method allow to display all vertices and weighted edges of the covisibility graph
 	virtual FrameworkReturnCode display() = 0;
