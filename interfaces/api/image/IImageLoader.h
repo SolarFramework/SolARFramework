@@ -35,9 +35,9 @@ namespace image {
 class IImageLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
-    ///
-    /// \brief getImage method returns the image previously loaded
-    ///
+
+    /// @brief getImage method returns the image previously loaded
+    /// @param[out] img: image previously loaded
     virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) = 0;
 
     ///

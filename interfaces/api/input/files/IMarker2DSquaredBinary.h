@@ -41,7 +41,9 @@ public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    virtual const datastructure::SquaredBinaryPattern & getPattern() const  = 0;
+    /// @brief Return the pattern of the 2D squared marker
+    /// @return datastructure::SquaredBinaryPattern the pattern of the 2D squared marker
+    virtual const datastructure::SquaredBinaryPattern & getPattern() const = 0;
 };
 
 }

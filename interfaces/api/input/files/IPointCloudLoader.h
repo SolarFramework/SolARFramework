@@ -32,10 +32,10 @@ public:
     virtual ~IPointCloudLoader() = default;
 
 	/// @brief Load a PointCloud from a filepath (.pcd or .ply)
-	/// @param[in] filepath the path to the mesh file
-	/// @param[out] pointCloud the point cloud to fill
+    /// @param[in] filepath: the path to the mesh file
+    /// @param[out] pointCloud: the point cloud to fill
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode load(const std::string filepath, SRef<datastructure::PointCloud>& pointCloud) = 0;
+    virtual FrameworkReturnCode load(const std::string & filepath, SRef<datastructure::PointCloud> & pointCloud) = 0;
 };
 
 }
