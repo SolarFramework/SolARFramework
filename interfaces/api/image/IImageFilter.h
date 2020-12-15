@@ -37,8 +37,8 @@ public:
     virtual ~IImageFilter() = default;
 
     /// @brief This method filters an image source to an image destination.
-    /// @param[in] input input image to filter
-    /// @param[out] output output image filtred
+    /// @param[in] input: input image to filter
+    /// @param[out] output: output image filtred
     /// @return FrameworkReturnCode::_SUCCESS_ id filtering succeed, else FrameworkReturnCode::_ERROR.   
     virtual FrameworkReturnCode filter(const SRef<datastructure::Image> input, SRef<datastructure::Image> & output) = 0;
 };

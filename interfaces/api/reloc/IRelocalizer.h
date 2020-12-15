@@ -39,6 +39,7 @@ class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
     IRelocalizer() = default;
+
     ///@brief IRelocalizer default destructor.
     virtual ~IRelocalizer() = default;
 

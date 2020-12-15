@@ -38,6 +38,7 @@ public:
     virtual ~IMarker() = default;
 
     /// @brief Load a specific marker and its features (size, descriptors..). 
+    /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode loadMarker() = 0;
 
 };

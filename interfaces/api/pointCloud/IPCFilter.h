@@ -41,9 +41,10 @@ public:
    virtual ~IPCFilter() = default;
 
    /// @brief Filter a point cloud
-   /// @param[in] inPointCloud The point cloud to filter
-   /// @param[out] outPointCloud The resulting point cloud after filtering
-   virtual FrameworkReturnCode filter(const SRef<datastructure::PointCloud> inPointCloud, SRef<datastructure::PointCloud>& outPointCloud) const = 0;
+   /// @param[in] inPointCloud: The point cloud to filter
+   /// @param[out] outPointCloud: The resulting point cloud after filtering
+   virtual FrameworkReturnCode filter(const SRef<datastructure::PointCloud> inPointCloud,
+                                      SRef<datastructure::PointCloud> & outPointCloud) const = 0;
 
 };
 }

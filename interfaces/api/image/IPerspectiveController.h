@@ -42,18 +42,18 @@ public:
    virtual ~IPerspectiveController() = default;
 
    /// @brief Warps and crops an image given a set of contour defined with four 2D points
-   /// @param[in] inputImg the original image on which we want to extract sub-images aligned on the set of 2D contours
-   /// @param[in] contours the set of contours each defined with four 2D points
-   /// @param[out] patches the set of sub-images or patches resulting from the warping and cropping of the original image according to the set of 2D contours
+   /// @param[in] inputImg: the original image on which we want to extract sub-images aligned on the set of 2D contours
+   /// @param[in] contours: the set of contours each defined with four 2D points
+   /// @param[out] patches: the set of sub-images or patches resulting from the warping and cropping of the original image according to the set of 2D contours
    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode correct(const SRef<datastructure::Image> inputImg,
                                        const std::vector<datastructure::Contour2Df> & contours,
                                        std::vector<SRef<datastructure::Image>> & patches) = 0;
 
    /// @brief Warps and crops an image given a contour defined with four 2D points
-   /// @param[in] inputImg the original image on which we want to extract sub-image aligned on the 2D contour
-   /// @param[in] contour the contour defined with four 2D points
-   /// @param[out] patch the sub-image or patche resulting from the warping and cropping of the original image according to the 2D contour
+   /// @param[in] inputImg: the original image on which we want to extract sub-image aligned on the 2D contour
+   /// @param[in] contour: the contour defined with four 2D points
+   /// @param[out] patch: the sub-image or patche resulting from the warping and cropping of the original image according to the 2D contour
    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode correct(const SRef<datastructure::Image> inputImg,
                                        const datastructure::Contour2Df & contour,

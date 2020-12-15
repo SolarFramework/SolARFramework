@@ -44,32 +44,41 @@ public:
     virtual ~ICamera() = default;
 
     /// @brief Fill the SRef img buffer with a new image captured by the camera device.
+    /// @param[out] img: the new image captured by the device
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextImage(SRef<datastructure::Image> & img) = 0;
         
     /// @brief Set the acquisition device image resolution
+    /// @param[in] resolution: device image resolution
     virtual void setResolution(const datastructure::Sizei & resolution) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const datastructure::CamCalibration & intrinsic_parameters) =0;
+    /// @param[in] intrinsic_parameters: intrinsic camera parameters
+    virtual void setIntrinsicParameters(const datastructure::CamCalibration & intrinsic_parameters) = 0;
     
-    /// @brief Set the distortion intrinsic camera parameters
-    virtual void setDistortionParameters(const datastructure::CamDistortion & distortion_parameters) =0;
+    /// @brief Set the distortion camera parameters
+    /// @param[in] distortion_parameters: distortion camera parameters
+    virtual void setDistortionParameters(const datastructure::CamDistortion & distortion_parameters) = 0;
 
     /// @brief Set the distortion and intrinsic camera parameters
-    virtual void setParameters(const datastructure::CameraParameters & parameters) =0;
+    /// @param[in] parameters: distortion and intrinsic camera parameters
+    virtual void setParameters(const datastructure::CameraParameters & parameters) = 0;
 
     /// @brief Get the acquisition device image resolution
-    virtual datastructure::Sizei getResolution() = 0;
+    /// @return datastructure::Sizei the acquisition device image resolution
+    virtual datastructure::Sizei getResolution() const = 0;
 
-    /// @return Return the intrinsic camera parameters
-    virtual const datastructure::CamCalibration & getIntrinsicsParameters() = 0;
+    /// @brief Get the intrinsic camera parameters
+    /// @return datastructure::CamCalibration the intrinsic camera parameters
+    virtual const datastructure::CamCalibration & getIntrinsicsParameters() const = 0;
 
-    /// @return Return the camera parameters
-    virtual const datastructure::CameraParameters & getParameters() = 0;
+    /// @brief Get the camera parameters
+    /// @return datastructure::CameraParameters the camera parameters
+    virtual const datastructure::CameraParameters & getParameters() const = 0;
     
-    /// @return Return the distortion camera lens parameters
-    virtual const datastructure::CamDistortion & getDistortionParameters() = 0;
+    /// @brief Get the distortion camera lens parameters
+    /// @return datastructure::CamDistortion the distortion camera lens parameters
+    virtual const datastructure::CamDistortion & getDistortionParameters() const = 0;
 
     //virtual params getCameraIntrinsics() = 0;
     //Frame : image + timestamp image + depth + timestamp depth ...

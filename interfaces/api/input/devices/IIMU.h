@@ -62,7 +62,9 @@ public:
     /// @param[in,out] accelData accelData The vector in which the accelerometer data will be stored (in metre per second squared)
     /// @param[in,out] magData The vector in which the magnetometer data will be stored (in gauss)
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getAllSensorsData(datastructure::Vector3f & gyroData, datastructure::Vector3f & accelData, datastructure::Vector3f & magData) = 0;
+    virtual FrameworkReturnCode getAllSensorsData(datastructure::Vector3f & gyroData,
+                                                  datastructure::Vector3f & accelData,
+                                                  datastructure::Vector3f & magData) = 0;
 
     /// @brief Get gyroscope sensor availability
     /// @return bool Whether the IMU can produce gyroscope data or not

@@ -36,12 +36,14 @@ public:
 	/// @param[out] poses: the associated poses.
 	/// @param[out] timestamp: the timestamp.
 	/// @return FrameworkReturnCode to track successful or failing event.
-	virtual FrameworkReturnCode getData(std::vector<SRef<datastructure::Image>> & images, std::vector<datastructure::Transform3Df> & poses, std::chrono::system_clock::time_point &timestamp) = 0;
+    virtual FrameworkReturnCode getData(std::vector<SRef<datastructure::Image>> & images,
+                                        std::vector<datastructure::Transform3Df> & poses,
+                                        std::chrono::system_clock::time_point &timestamp) = 0;
 
 	/// @brief Get the distortion and intrinsic camera parameters
 	/// @param[in] camera_id: The id of the camera.
 	/// @return the camera parameters
-	virtual const datastructure::CameraParameters & getParameters(const int & camera_id) = 0;
+    virtual const datastructure::CameraParameters & getParameters(const int & camera_id) const = 0;
 
 	/// @brief Set the distortion and intrinsic camera parameters
 	/// @param[in] camera_id: The id of the camera.
