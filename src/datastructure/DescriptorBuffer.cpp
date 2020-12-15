@@ -233,5 +233,5 @@ DescriptorView DescriptorBufferIterator::operator *() {
 
 IMPLEMENTSERIALIZE(DescriptorBuffer);
 
-}
-}
+} // namespace datastructure
+} // namespace SolAR

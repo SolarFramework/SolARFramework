@@ -83,18 +83,20 @@ class SOLARFRAMEWORK_API DescriptorView {
 public:
     DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
     DescriptorView(const DescriptorView & desc) = default;
-    DescriptorView(DescriptorView && desc) :
+    DescriptorView(DescriptorView && desc) noexcept :
+        m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)),
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)),
-        m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)) {}
+        m_type(std::exchange(desc.m_type, DescriptorType::SIFT)){}
 
     DescriptorView& operator= ( const DescriptorView & desc) = default;
 
-    DescriptorView& operator= ( DescriptorView && desc)
+    DescriptorView& operator= ( DescriptorView && desc) noexcept
     {
         m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
         m_length = std::exchange(desc.m_length, 0);
         m_dataType = std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U);
+        m_type = std::exchange(desc.m_type, DescriptorType::SIFT);
         return *this;
     }
 
@@ -325,7 +327,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
     return DescriptorViewTemplate<T>(&pDescriptor[index * buffer->getNbElements()], buffer->getNbElements(), buffer->getDescriptorType());
 }
 
-}
-}
+} // namespace datastructure
+} // namespace SolAR
 
 #endif //SOLAR_DESCRIPTORS_H
