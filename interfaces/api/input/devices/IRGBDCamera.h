@@ -48,7 +48,7 @@ public:
     /// @param[in,out] depthImg the depth image captured by the RGBD camera
     /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode getNextRGBDFrame(SRef<datastructure::Image> & colorImg,
-                                                 SRef<datastructure::Image> & depthImg) const = 0;
+                                                 SRef<datastructure::Image> & depthImg) = 0;
 
     /// @brief Provides a depth image alingned on the color image
     /// @param[in,out] alignedDepthImg the depth image captured by the RGBD camera and aligned on the color image
