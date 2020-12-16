@@ -66,7 +66,7 @@ public:
 	/// @param[in] id id of the point to get
 	/// @param[out] point a 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getPoint(const uint32_t id, SRef<datastructure::CloudPoint> point) const = 0;
+    virtual FrameworkReturnCode getPoint(const uint32_t id, SRef<datastructure::CloudPoint>& point) const = 0;
 
 	/// @brief This method allows to get a set of 3D points stored in the point cloud by their ids
 	/// @param[in] ids a vector of ids of the points to get
