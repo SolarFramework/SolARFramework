@@ -52,7 +52,7 @@ public:
 	/// @brief Suppress a keyframe from the retrieval model
 	/// @param[in] keyframe_id: the keyframe to supress from the retrieval model
 	/// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode suppressKeyframe(uint32_t keyframe_id) = 0;
+    virtual FrameworkReturnCode suppressKeyframe(uint32_t keyframe_id) = 0;
 
 
     /// @brief Retrieve a set of keyframes close to the frame pass in input.
@@ -74,7 +74,7 @@ public:
 	/// @brief This method allows to save the keyframe feature to the external file
     /// @param[in] file: the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode saveToFile(const std::string & file) = 0;
+    virtual FrameworkReturnCode saveToFile(const std::string & file) const = 0;
 
 	/// @brief This method allows to load the keyframe feature from the external file
     /// @param[in] file: the file name
