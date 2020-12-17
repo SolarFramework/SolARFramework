@@ -29,7 +29,6 @@
 
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -42,7 +41,7 @@ namespace files {
  * The origin of the marker is positionned at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
 
  */
-class IMarker2DNaturalImage : virtual public IMarker2DSquared {
+class  [[xpcf::ignore]] IMarker2DNaturalImage : virtual public IMarker2DSquared {
 
 public:
 
@@ -50,9 +49,10 @@ public:
      virtual ~IMarker2DNaturalImage() = default;
 
     ///
-    /// \brief get access to the image of the 2D natural marker
-    /// \param img: a shared reference to the image
-    virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
+    /// @brief get access to the image of the 2D natural marker
+    /// @param[in,out] img: a shared reference to the image
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) const = 0;
 
 
 };

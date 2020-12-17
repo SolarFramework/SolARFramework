@@ -81,20 +81,22 @@ struct inferType<DescriptorDataType::TYPE_32F>
 
 class SOLARFRAMEWORK_API DescriptorView {
 public:
-    DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
+    explicit DescriptorView(void * startAddress, uint32_t length, DescriptorType type);
     DescriptorView(const DescriptorView & desc) = default;
-    DescriptorView(DescriptorView && desc) :
+    DescriptorView(DescriptorView && desc) noexcept :
+        m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)),
         m_baseAddress(std::exchange(desc.m_baseAddress, nullptr)),
         m_length(std::exchange(desc.m_length, 0)),
-        m_dataType(std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U)) {}
+        m_type(std::exchange(desc.m_type, DescriptorType::AKAZE)){}
 
     DescriptorView& operator= ( const DescriptorView & desc) = default;
 
-    DescriptorView& operator= ( DescriptorView && desc)
+    DescriptorView& operator= ( DescriptorView && desc) noexcept
     {
         m_baseAddress = std::exchange(desc.m_baseAddress, nullptr);
         m_length = std::exchange(desc.m_length, 0);
         m_dataType = std::exchange(desc.m_dataType, DescriptorDataType::TYPE_8U);
+        m_type = std::exchange(desc.m_type, DescriptorType::AKAZE);
         return *this;
     }
 
@@ -149,7 +151,7 @@ using DescriptorView32F = DescriptorViewTemplate<float>;
 class DescriptorBuffer;
 class SOLARFRAMEWORK_API DescriptorBufferIterator {
 public:
-    DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc);
+    explicit DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc);
 
     void operator++() {
         if (m_index < m_nbDescriptors) {
@@ -158,7 +160,7 @@ public:
     }
 
     inline DescriptorView operator *();
-    bool operator !=(const DescriptorBufferIterator & desc) {
+    bool operator !=([[maybe_unused]] const DescriptorBufferIterator & desc) {
         return (m_index != m_nbDescriptors);
     }
 
@@ -188,7 +190,7 @@ public :
     * For SBPATTERN descriptors, use another constructor to provide the number of elements !
     * The data are copied to get full ownership of the memory allocation.
     */
-    DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_descriptors);
+    explicit DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_descriptors);
 
     /** @brief  DescriptorBuffer
     *  @param descriptorData: pointer to an existing array structure
@@ -196,7 +198,7 @@ public :
     *  @param nb_descriptors: the number of descriptors stored in the buffer
     * The data are copied to get full ownership of the memory allocation.
     */
-    DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, uint32_t nb_descriptors);
+    explicit DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, uint32_t nb_descriptors);
 
     /** @brief  DescriptorBuffer
     *  @param descriptorData: pointer to an existing array structure
@@ -206,7 +208,7 @@ public :
     *  @param nb_descriptors: the number of descriptors stored in the buffer
     * The data are copied to get full ownership of the memory allocation.
     */
-    DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
+    explicit DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
 
 
     /** @brief  DescriptorBuffer
@@ -216,7 +218,7 @@ public :
     *  @param nb_descriptors: the number of descriptors stored in the buffer
     * The data are copied to get full ownership of the memory allocation.
     */
-    DescriptorBuffer( DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
+    explicit DescriptorBuffer( DescriptorType descriptor_type, DescriptorDataType data_type, uint32_t nb_elements, uint32_t nb_descriptors);
 
     /** @brief  DescriptorBuffer
     * default constructor
@@ -325,7 +327,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
     return DescriptorViewTemplate<T>(&pDescriptor[index * buffer->getNbElements()], buffer->getNbElements(), buffer->getDescriptorType());
 }
 
-}
-}
+} // namespace datastructure
+} // namespace SolAR
 
 #endif //SOLAR_DESCRIPTORS_H

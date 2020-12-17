@@ -23,7 +23,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace image {
 
@@ -36,10 +35,10 @@ namespace image {
 class IImageLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
-    ///
-    /// \brief getImage method returns the image previously loaded
-    ///
-    virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
+
+    /// @brief getImage method returns the image previously loaded
+    /// @param[out] img: image previously loaded
+    virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) = 0;
 
     ///
     /// \brief reloadImage method load a image if its path (set as a configuration parameter of the implemented component) has changed

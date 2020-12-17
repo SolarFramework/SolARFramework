@@ -23,7 +23,6 @@
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace pose {
@@ -32,21 +31,23 @@ namespace pose {
  * @brief Finds the 3D transform of a depth sensor from a point cloud captured by this sensor and a point cloud representing a geometric knowledge of the real world.
  */
 class I3DTransformFinderFrom3D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
-    public:
-        ///@brief I3DTransformFinderFrom3D3D default constructor.
-        I3DTransformFinderFrom3D3D() = default;
-        ///@brief I3DTransformFinderFrom3D3D default destructor.
-        virtual ~I3DTransformFinderFrom3D3D() = default;
+public:
+    ///@brief I3DTransformFinderFrom3D3D default constructor.
+    I3DTransformFinderFrom3D3D() = default;
 
-        /// @brief Estimates depth sensor pose from a set of 3D points captured by the depth sensor and defined in the depth sensor coordinate and a point cloud representing the real world geometry.
-        /// @param[in] sourcePointCloud a point cloud captured by the depth sensor defined in the depth sensor coordinate system.
-        /// @param[in] targetPointCloud a point cloud representing the geometry of the real world.
-        /// @param[out] pose depth camera pose (pose of the depth camera defined in world coordinate system) expressed as a Transform3D.
-        /// @param[in] initialPose (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
-        virtual FrameworkReturnCode estimate(const SRef<PointCloud> sourcePointCloud,
-                                             const SRef<PointCloud> targetPointCloud,
-                                             Transform3Df& pose,
-                                             const Transform3Df& initialPose = Transform3Df::Identity()) =0;
+    ///@brief I3DTransformFinderFrom3D3D default destructor.
+    virtual ~I3DTransformFinderFrom3D3D() = default;
+
+    /// @brief Estimates depth sensor pose from a set of 3D points captured by the depth sensor and defined in the depth sensor coordinate and a point cloud representing the real world geometry.
+    /// @param[in] sourcePointCloud a point cloud captured by the depth sensor defined in the depth sensor coordinate system.
+    /// @param[in] targetPointCloud a point cloud representing the geometry of the real world.
+    /// @param[out] pose depth camera pose (pose of the depth camera defined in world coordinate system) expressed as a Transform3D.
+    /// @param[in] initialPose (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode estimate(const SRef<datastructure::PointCloud> sourcePointCloud,
+                                         const SRef<datastructure::PointCloud> targetPointCloud,
+                                         datastructure::Transform3Df& pose,
+                                         const datastructure::Transform3Df& initialPose = datastructure::Transform3Df::Identity()) =0;
 
 };
 

@@ -37,92 +37,100 @@ namespace datastructure {
  *
  * This class provides Keypoint definition.
  */
-    class  SOLARFRAMEWORK_API Keypoint : public Point2Df {
-	public:
-        Keypoint() = default;
+class  SOLARFRAMEWORK_API Keypoint : public Point2Df {
+public:
+	/// @brief Keypoint constructor.
+    Keypoint() = default;
 
+	/// @brief Keypoint constructor.
+    Keypoint( unsigned int id,
+                float x,
+                float y,
+				float r,
+				float g,
+				float b,
+                float size,
+                float angle = -1.0f,
+                float response = 0.0f,
+                int   octave = 0,
+                int   class_id = -1);
 
-        Keypoint( unsigned int id,
-                    float x,
-                    float  y,
-                    float  	size,
-                    float  	angle,
-                    float  	response,
-                    int  	octave,
-                    int  	class_id );
-   ///
-   /// \brief ~Keypoint
-   ///
+	/// @brief ~Keypoint
     ~Keypoint();
-	/// \brief This method initializes an Keypoint object
-    /// \param x: x-coordinate of the keypoint
-    /// \param y: y-coordinate of the keypoint
-    /// \param size: diameter of the meaningful keypoint neighborhood
-    /// \param angle: orientation of the keypoint
-    /// \param response: the response by which the most strong keypoints have been selected. Can be used for the further sorting or subsampling
-    /// \param octave: octave (pyramid layer) from which the keypoint has been extracted
-    /// \param class_id: object class (if the keypoints need to be clustered by an object they belong to)
-    ///
-     void init( unsigned int id,
-                float  x,
-                float  	y,
-                float  	size,
-                float  	angle,
-                float  	response,
-                int  	octave,
-                int  	class_id ) ;
 
-     ///
-     /// \brief This method returns the id of the keypoint in its frame
-     /// \return id
-     ///
-         inline float getId() const {return m_id;}
+	/// @brief This method initializes an Keypoint object
+    /// @param[in] x: x-coordinate of the keypoint
+    /// @param[in] y: y-coordinate of the keypoint
+	/// @param[in] r: r-channel color value of the keypoint.
+	/// @param[in] g: g-channel color value of the keypoint.
+	/// @param[in] b: b-channel color value of the keypoint.
+    /// @param[in] size: diameter of the meaningful keypoint neighborhood
+    /// @param[in] angle: orientation of the keypoint
+    /// @param[in] response: the response by which the most strong keypoints have been selected. Can be used for the further sorting or subsampling
+    /// @param[in] octave: octave (pyramid layer) from which the keypoint has been extracted
+    /// @param[in] class_id: object class (if the keypoints need to be clustered by an object they belong to)
+    void init( unsigned int id,
+                float x,
+                float y,
+				float r,
+				float g,
+				float b,
+                float size,
+                float angle = -1.0f,
+                float response = 0.0f,
+                int   octave = 0,
+                int   class_id = -1 ) ;
 
-     ///
-    /// \brief This method returns the angle of an Keypoint
-    /// \return angle
-    ///
-        inline float getAngle() const {return m_angle;}
+     /// @brief This method returns the id of the keypoint in its frame
+     /// @return id
+    inline float getId() const {return m_id;}
 
-    ///
-    /// \brief This method returns the size of an Keypoint
-    /// \return size
-    ///
-        inline float getSize() const {return m_size;}
+    /// @brief This method returns the angle of an Keypoint
+    /// @return angle
+    inline float getAngle() const {return m_angle;}
 
-    ///
-    /// \brief GetResponse
-    /// \return
-    ///
-        inline float getResponse() const {return m_response;}
+    /// @brief This method returns the size of an Keypoint
+    /// @return size
+    inline float getSize() const {return m_size;}
 
-    ///
-    /// \brief This method returns the octave of an Keypoint
-    /// \return octave
-    ///
-        inline int   getOctave() const {return m_octave;}
+    /// @brief GetResponse
+    /// @return
+    inline float getResponse() const {return m_response;}
 
-    ///
-    /// \brief This method returns the classid of an Keypoint
-    /// \return classid
-    ///
-        inline int   getClassId() const {return m_class_id;}
+    /// @brief This method returns the octave of an Keypoint
+    /// @return octave
+    inline int   getOctave() const {return m_octave;}
 
-	private:
-		friend class boost::serialization::access;
-		template<typename Archive>
-		void serialize(Archive &ar, const unsigned int version);
+    /// @brief This method returns the classid of an Keypoint
+    /// @return classid
+    inline int   getClassId() const {return m_class_id;}
 
-    private:
-        unsigned int    m_id; // The id of the keypoint in the current frame
-        float           m_size;
-        float           m_angle;
-        float           m_response;
-        int             m_octave;
-        int             m_class_id;
-	};
+	/// @brief These methods returns the color components of the CloudPoint
+	/// @return the RGB color of the CloudPoint
+	inline const Vector3f& getRGB() const { return m_rgb; };
 
-	DECLARESERIALIZE(Keypoint);
+	/// @brief These methods returns the color components of the CloudPoint
+	/// @return the color component of the CloudPoint (Red, Green or Blue)
+	inline const float& getR() const { return m_rgb[0]; };
+	inline const float& getG() const { return m_rgb[1]; };
+	inline const float& getB() const { return m_rgb[2]; };
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
+
+private:
+    unsigned int    m_id; // The id of the keypoint in the current frame
+    float           m_size;
+    float           m_angle;
+    float           m_response;
+    int             m_octave;
+    int             m_class_id;
+	Vector3f		m_rgb = { 0.0, 0.0, 0.0 };
+};
+
+DECLARESERIALIZE(Keypoint);
 
 }
 }  // end of namespace SolAR

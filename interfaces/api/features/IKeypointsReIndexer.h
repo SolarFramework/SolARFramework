@@ -25,7 +25,6 @@
 #include "datastructure/DescriptorMatch.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
 
@@ -49,11 +48,11 @@ public:
     /// @param[out] matchedKeypoints1 The keypoints from the first set that match with one or more keypoints of the second set of keypoints. The nth point of this set match with the nth point of the second set matchedKeypoints2.
     /// @param[out] matchedKeypoints2 The keypoints from the second set that match with one or more keypoints of the first set of keypoints. The nth point of this set match with the nth point of the first set matchedKeypoints1.
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode reindex(const std::vector<Keypoint> & keypoints1,
-                                        const std::vector<Keypoint> & keypoints2,
-                                        const std::vector<DescriptorMatch> & matches,
-                                        std::vector<Point2Df> & matchedKeypoints1,
-                                        std::vector<Point2Df> & matchedKeypoints2) = 0;
+    virtual FrameworkReturnCode reindex(const std::vector<datastructure::Keypoint> & keypoints1,
+                                        const std::vector<datastructure::Keypoint> & keypoints2,
+                                        const std::vector<datastructure::DescriptorMatch> & matches,
+                                        std::vector<datastructure::Point2Df> & matchedKeypoints1,
+                                        std::vector<datastructure::Point2Df> & matchedKeypoints2) = 0;
 
 };
 

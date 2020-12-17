@@ -17,14 +17,14 @@
 #ifndef SOLAR_IDEPTHCAMERA_H
 #define SOLAR_IDEPTHCAMERA_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "datastructure/Image.h"
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
+#include "api/input/devices/IDevice.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace devices {
@@ -35,7 +35,7 @@ namespace devices {
  *
  * This class describes the interface of a depth camera capture device.
  */
-class IDepthCamera : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IDepthCamera : virtual public IDevice {
 public:
     /// @brief Specify the IDepthCamera constructor class
     IDepthCamera() = default;
@@ -44,41 +44,49 @@ public:
     virtual ~IDepthCamera() = default;
 
     /// @brief Provides the last depth image.
-    /// If output parameters are null (nullptr), it means that the implementation, or the requested mode does not provide this feature.
-    /// @param img the image captured by the RGBD camera
+    /// If output parameters are null (nullptr), it means that the implementation,
+    /// or the requested mode does not provide this feature.
+    /// @param[out] img: the image captured by the RGBD camera
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getNextDepthFrame(SRef<Image>& img) = 0;
+    virtual FrameworkReturnCode getNextDepthFrame(SRef<datastructure::Image> & img) = 0;
 
     /// @brief Provides the corresponding 3D point cloud corresponding to last depth image aquiered (getNextDepthFrame())
     /// Should have no effect if the user didn't call getNextDepthFrame beforehand
-    /// @param pc the 3D point cloud reconstructed from the depth image. Points coordinates are defined according to the RGBD camera coordinate system.
+    /// @param[out] pc: the 3D point cloud reconstructed from the depth image.
+    /// Points coordinates are defined according to the RGBD camera coordinate system.
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getPointCloud(SRef<PointCloud>& pc) = 0;
-
-    /// @brief Start the acquisition device reference by its device_id
-    /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode start() = 0;
+    virtual FrameworkReturnCode getPointCloud(SRef<datastructure::PointCloud> & pc) = 0;
 
     /// @brief Set the depth image resolution of the acquisition device
-    virtual FrameworkReturnCode setDepthResolution(Sizei resolution) = 0;
+    /// @param[in] datastructure::Sizei
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode setDepthResolution(datastructure::Sizei resolution) = 0;
 
     /// @brief Set the intrinsic parameters of the depth camera
-    virtual FrameworkReturnCode setIntrinsicDepthParameters(const CamCalibration & intrinsic_parameters) =0;
+    /// @param[in] intrinsic_parameters: intrinsic parameters
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode setIntrinsicDepthParameters(const datastructure::CamCalibration & intrinsic_parameters) = 0;
 
     /// @brief Set the distortion intrinsic parameters of the depth camera
-    virtual FrameworkReturnCode setDistortionDepthParameters(const CamDistortion & distortion_parameters) =0;
+    /// @param[in] distortion_parameters: distortion parameters
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode setDistortionDepthParameters(const datastructure::CamDistortion & distortion_parameters) = 0;
 
     /// @brief Get the image resolution of the depth acquisition device
-    virtual Sizei getDepthResolution() = 0;
+    /// @return datastructure::Size the image resolution
+    virtual datastructure::Sizei getDepthResolution() const = 0;
 
 	/// @brief Get the min acquisition distance of the device
-	virtual float getDepthMinDistance() = 0;
+    /// @return float the min acquisition distance
+    virtual float getDepthMinDistance() const = 0;
 
-    /// @return Return the intrinsic depth camera parameters
-    virtual const CamCalibration& getIntrinsicsDepthParameters() const = 0;
+    /// @brief Get the intrinsic depth of the device
+    /// @return datastructure::CamCalibration the intrinsic depth camera parameters
+    virtual const datastructure::CamCalibration & getIntrinsicsDepthParameters() const = 0;
 
+    /// @brief Get the distortion depth of the camera lens
     /// @return Return the distortion depth camera lens parameters
-    virtual const CamDistortion& getDistortionDepthParameters() const = 0;
+    virtual const datastructure::CamDistortion & getDistortionDepthParameters() const = 0;
 };
 
 }

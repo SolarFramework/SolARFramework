@@ -17,6 +17,7 @@
 
 #ifndef SOLAR_BUFFERINTERNAL_H
 #define SOLAR_BUFFERINTERNAL_H
+#include <cstdint>
 
 #include <core/SerializationDefinitions.h>
 
@@ -32,7 +33,7 @@ class BufferInternal {
 public:
     BufferInternal() = default;
 
-    BufferInternal(uint32_t size)
+    explicit BufferInternal(uint32_t size)
     {
         setSize(size);
     }
@@ -79,7 +80,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version) {
+    void serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
 		ar & m_storageData;
 		ar & m_bufferSize;
 	}

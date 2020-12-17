@@ -38,7 +38,7 @@ public:
     SquaredBinaryPattern() = default;
 
     /// \brief constructs a SquaredBinaryPattern from a given SquaredBinaryPatternMatrix
-    SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
+    explicit SquaredBinaryPattern (const SquaredBinaryPatternMatrix & pattern);
 
     /// \brief defines the destructor
     ~SquaredBinaryPattern() = default;
@@ -56,10 +56,16 @@ public:
     inline int getSize () const { return m_size; }
 
 private :
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+
     SquaredBinaryPatternMatrix m_patternMatrix;
-    int m_size;
+    int m_size = 0;
 };
 
-}
-}
+DECLARESERIALIZE(SquaredBinaryPattern);
+
+} // namespace datastructure
+} // namespace SolAR
 #endif // SOLAR_BINARYPATTERN_H

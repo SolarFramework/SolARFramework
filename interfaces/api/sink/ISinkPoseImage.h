@@ -27,7 +27,6 @@
 #include "core/Messages.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace sink {
 
@@ -39,7 +38,7 @@ namespace sink {
  * This interface allows to store a synchronized pose and image from the pipeline to make it available to a third party application.
  */
 
-class  ISinkPoseImage : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::ignore]] ISinkPoseImage : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 
    ISinkPoseImage() = default;
@@ -50,31 +49,33 @@ public:
    virtual ~ISinkPoseImage() = default;
 
    /// @brief Set a new image and pose coming from the pipeline.
-   /// @param[in] pose The new pose to be made available to a third party application.
-   /// @param[in] image The new image to be made available to a third party application.
-   virtual void set( const Transform3Df& pose, const SRef<Image>& image ) = 0;
+   /// @param[in] pose: The new pose to be made available to a third party application.
+   /// @param[in] image: The new image to be made available to a third party application.
+   virtual void set(const datastructure::Transform3Df & pose, const SRef<datastructure::Image> image) = 0;
 
    /// @brief Set a new image without pose.
-   /// @param[in] image The new image to update a buffer texture when required.
-   virtual void set( const SRef<Image>& image ) = 0;
+   /// @param[in] image: The new image to update a buffer texture when required.
+   virtual void set(const SRef<datastructure::Image> image) = 0;
 
    /// @brief Set a pointer to the texture buffer to update it with the new image when required.
-   /// @param[in] imageBuffer the texture buffer uses to contain the new image
+   /// @param[in] imageBuffer: the texture buffer uses to contain the new image
    /// @return FrameworkReturnCode::_SUCCESS_ if the texture buffer pointer is well set.
    virtual FrameworkReturnCode setImageBuffer(unsigned char* imageBufferPointer) = 0;
 
 
-   /// @brief Provide an access to the new image and pose  made available by t the pipeline.
+   /// @brief Provide an access to the new image and pose  made available by the pipeline.
    /// The implementation of this interface must be thread safe
-   /// @param[in,out] pose the new pose made available by the pipeline.
-   /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode get( Transform3Df& pose ) = 0;
+   /// @param[in,out] pose: the new pose made available by the pipeline.
+   /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated,
+   /// otherwise frameworkReturnCode::_ERROR_.
+   virtual SinkReturnCode get(datastructure::Transform3Df & pose) = 0;
 
-   /// @brief Provide an access to the new image and pose made available by the pipeline only if they have been updated by the pipeline.
+   /// @brief Provide an access to the new image and pose made available by the pipeline
+   /// only if they have been updated by the pipeline.
    /// The implementation of this interface must be thread safe
-   /// @param[in,out] pose the new pose made available by the pipeline.
+   /// @param[in,out] pose: the new pose made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image are available, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode tryGet( Transform3Df& pose ) = 0;
+   virtual SinkReturnCode tryGet(datastructure::Transform3Df& pose ) = 0;
 
 };
 

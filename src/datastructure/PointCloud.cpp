@@ -29,5 +29,14 @@ std::vector<CloudPoint>& PointCloud::getPointCloud()
     return m_points;
 }
 
+template <typename Archive>
+void PointCloud::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
+{
+    ar & m_points;
 }
-}
+
+IMPLEMENTSERIALIZE(PointCloud);
+
+
+} // end of namespace datastructure
+} // end of namespace SolAR

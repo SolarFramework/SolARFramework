@@ -1,14 +1,13 @@
 #ifndef SOLAR_IARDEVICE_H
 #define SOLAR_IARDEVICE_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include "api/input/devices/IDevice.h"
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
 #include <chrono>
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace devices {
@@ -20,21 +19,13 @@ namespace devices {
   *
   * This class describes the interface for retrieving data from a AR device that provides.
   */
-class IARDevice : virtual public org::bcom::xpcf::IComponentIntrospect {
+class IARDevice : virtual public IDevice {
 public:
     /// @brief Specify the IARDevice constructor class
 	IARDevice() = default;
 
     /// @brief Specify the IARDevice destructor class
     virtual ~IARDevice() = default;
-
-    /// @brief Start the connection to the device for sensors data streaming.
-    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
-    virtual FrameworkReturnCode start() = 0;
-
-    /// @brief Stop the connection to the device.
-    /// @return FrameworkReturnCode::_SUCCESS if successful, eiher FrameworkReturnCode::_ERROR_.
-    virtual FrameworkReturnCode stop() = 0;
 
 	/// @brief Get number of cameras of the device.
 	/// @return the number of cameras.
@@ -45,17 +36,19 @@ public:
 	/// @param[out] poses: the associated poses.
 	/// @param[out] timestamp: the timestamp.
 	/// @return FrameworkReturnCode to track successful or failing event.
-	virtual FrameworkReturnCode getData(std::vector<SRef<Image>> & images, std::vector<Transform3Df> & poses, std::chrono::system_clock::time_point &timestamp) = 0;
+    virtual FrameworkReturnCode getData(std::vector<SRef<datastructure::Image>> & images,
+                                        std::vector<datastructure::Transform3Df> & poses,
+                                        std::chrono::system_clock::time_point &timestamp) = 0;
 
 	/// @brief Get the distortion and intrinsic camera parameters
 	/// @param[in] camera_id: The id of the camera.
 	/// @return the camera parameters
-	virtual const CameraParameters & getParameters(const int & camera_id) = 0;
+    virtual const datastructure::CameraParameters & getParameters(const int & camera_id) const = 0;
 
 	/// @brief Set the distortion and intrinsic camera parameters
 	/// @param[in] camera_id: The id of the camera.
 	/// @param[in] parameters: the camera parameters.
-	virtual void setParameters(const int & camera_id, const CameraParameters & parameters) = 0;
+	virtual void setParameters(const int & camera_id, const datastructure::CameraParameters & parameters) = 0;
 };
 
 }

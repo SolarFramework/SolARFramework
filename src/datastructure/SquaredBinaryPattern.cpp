@@ -21,7 +21,7 @@
 namespace SolAR {
 namespace datastructure {
 
-SquaredBinaryPattern::SquaredBinaryPattern(const SquaredBinaryPatternMatrix & pattern)
+SquaredBinaryPattern::SquaredBinaryPattern(const SquaredBinaryPatternMatrix & pattern) : m_size {0}
 {
     if (setPatternMatrix(pattern) != FrameworkReturnCode::_SUCCESS) {
         // should throw ??
@@ -45,5 +45,14 @@ FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryP
     return FrameworkReturnCode::_SUCCESS;
 };
 
+template <typename Archive>
+void SquaredBinaryPattern::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
+{
+    ar & m_size;
+    ar & m_patternMatrix;
 }
+
+IMPLEMENTSERIALIZE(SquaredBinaryPattern);
+
+}//end namespace datastructure
 }//end namespace SolAR

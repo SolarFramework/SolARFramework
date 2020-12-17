@@ -78,4 +78,20 @@ typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
 }
 }
 
+
+namespace boost { namespace serialization {
+
+template<class Archive>
+inline void serialize(Archive & ar,
+                      SolAR::datastructure::CameraParameters & parameters,
+                      const unsigned int version)
+{
+    ar & parameters.resolution;
+    ar & parameters.intrinsic;
+    ar & parameters.distortion;
+}
+
+}} // namespace boost::serialization
+
+
 #endif // SOLAR_CAMERADEFINITIONS_H

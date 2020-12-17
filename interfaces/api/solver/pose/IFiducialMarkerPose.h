@@ -18,7 +18,8 @@
 #define SOLAR_IFIDUCIALMARKERPOSE_H
 
 #include "xpcf/api/IComponentIntrospect.h"
-
+#include "api/input/files/IMarker2DSquaredBinary.h"
+#include "datastructure/FiducialMarker.h"
 #include "core/Messages.h"
 
 #include "datastructure/CameraDefinitions.h"
@@ -26,7 +27,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace pose {
@@ -35,27 +35,35 @@ namespace pose {
  * @brief <B>Estimate camera pose based on a fiducial marker.</B>
  * <TT>UUID: d5247968-b74e-4afb-9abd-546021441ad4</TT>
  */
-    class IFiducialMarkerPose : virtual public org::bcom::xpcf::IComponentIntrospect {
-    public:
-        ///@brief IFiducialMarkerPose default constructor.
-        IFiducialMarkerPose() = default;
+class IFiducialMarkerPose : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    ///@brief IFiducialMarkerPose default constructor.
+    IFiducialMarkerPose() = default;
 
-        ///@brief IFiducialMarkerPose default destructor.
-        virtual ~IFiducialMarkerPose() = default;
+    ///@brief IFiducialMarkerPose default destructor.
+    virtual ~IFiducialMarkerPose() = default;
 
-        /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-        /// @param[in] intrinsicParams camera calibration matrix parameters.
-        /// @param[in] distorsionParams camera distorsion parameters.
-        virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
+    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+    /// @param[in] intrinsicParams camera calibration matrix parameters.
+    /// @param[in] distorsionParams camera distorsion parameters.
+    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
 
-        /// @brief Estimates camera pose based on a fiducial marker.
-        /// @param[in] image: input image.
-        /// @param[out] pose: camera pose.
-		/// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
-        virtual FrameworkReturnCode estimate(const SRef<Image> &image,
-                                             Transform3Df & pose) =0;
+    /// @brief this method is used to set the fiducial marker
+    /// @param[in] Fiducial marker.
+    virtual void setMarker(const SRef<api::input::files::IMarker2DSquaredBinary> marker) =0;
 
-    };
+    /// @brief this method is used to set the fiducial marker
+    /// @param[in] Fiducial marker.
+    virtual void setMarker(const SRef<datastructure::FiducialMarker> marker) =0;
+
+    /// @brief Estimates camera pose based on a fiducial marker.
+    /// @param[in] image: input image.
+    /// @param[out] pose: camera pose.
+    /// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> image,
+                                         datastructure::Transform3Df & pose) =0;
+
+};
 
 }
 }

@@ -24,16 +24,16 @@
 
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace pose {
-    namespace Transform2DFinder {
+    class Transform2DFinder {
+    public:
         enum  RetCode {
             TRANSFORM2D_ESTIMATION_OK = 0, /**< the default OK code*/
             TRANSFORM2D_EMPTY,			  /**< Homgraphy matrix is empty*/
         };
-    }
+    };
 
 /**
   * @class I2DTransformFinder
@@ -51,10 +51,10 @@ public:
     /// @param[in] srcPoints set of 2d_points seen in view_1.
     /// @param[in] dstPoints set of 2d_points seen in view_2.
     /// @param[out] fundamental estimated 2D transform matrix.
-    ///
-    virtual Transform2DFinder::RetCode find(const std::vector<Point2Df> & srcPoints,
-        const std::vector<Point2Df> & dstPoints,
-        Transform2Df & fundamental) = 0;
+    [[grpc::request("findTransform2DRequest")]] [[grpc::response("findTransform2DResponse")]] /// to remove ambiguity with I3D3DCorrespondencesFinder find()
+    virtual Transform2DFinder::RetCode find(const std::vector<datastructure::Point2Df> & srcPoints,
+        const std::vector<datastructure::Point2Df> & dstPoints,
+        datastructure::Transform2Df & fundamental) = 0;
 };
 
 }

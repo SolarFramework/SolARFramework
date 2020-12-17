@@ -31,16 +31,16 @@ public:
 	
 	Frame(const SRef<Keyframe> keyframe);
 
-    Frame(const std::vector<Keypoint> & keypoints,
-          const SRef<DescriptorBuffer> descriptors,
-          const SRef<Image> view,
-          const SRef<Keyframe> refKeyframe,
-          const Transform3Df pose = Transform3Df::Identity());
+    explicit Frame(const std::vector<Keypoint> & keypoints,
+                   const SRef<DescriptorBuffer> descriptors,
+                   const SRef<Image> view,
+                   const SRef<Keyframe> refKeyframe,
+                   const Transform3Df pose = Transform3Df::Identity());
 
-    Frame(const std::vector<Keypoint> & keypoints,
-          const SRef<DescriptorBuffer> descriptors,
-          const SRef<Image> view,
-          const Transform3Df pose = Transform3Df::Identity());
+    explicit Frame(const std::vector<Keypoint> & keypoints,
+                   const SRef<DescriptorBuffer> descriptors,
+                   const SRef<Image> view,
+                   const Transform3Df pose = Transform3Df::Identity());
 
     /// @brief ~Frame
     ~Frame() = default;

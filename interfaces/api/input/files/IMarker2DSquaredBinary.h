@@ -26,7 +26,6 @@
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -37,12 +36,14 @@ namespace files {
  * <TT>UUID: 12d592ff-aa46-40a6-8d65-7fbfb382d60b</TT>
  *
  */
-class IMarker2DSquaredBinary : virtual public IMarker2DSquared {
+class  [[xpcf::ignore]] IMarker2DSquaredBinary : virtual public IMarker2DSquared {
 public:
     IMarker2DSquaredBinary() = default;
     virtual ~IMarker2DSquaredBinary() = default;
 
-    virtual const SquaredBinaryPattern & getPattern() const  = 0;
+    /// @brief Return the pattern of the 2D squared marker
+    /// @return datastructure::SquaredBinaryPattern the pattern of the 2D squared marker
+    virtual const datastructure::SquaredBinaryPattern & getPattern() const = 0;
 };
 
 }
