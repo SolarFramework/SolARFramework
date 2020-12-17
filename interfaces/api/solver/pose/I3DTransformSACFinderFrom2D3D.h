@@ -48,11 +48,11 @@ public:
     virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
-    /// @param[in] imagePoints, set of 2d_points seen in view_1.
-    /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
+    /// @param[in] imagePoints: set of 2d_points seen in view_1.
+    /// @param[in]  worldPoints: set of 3d_points corresponding to view_1.
     /// @param[out] inliers: indices of inlier correspondences.
-    /// @param[out] pose, camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
-    /// @param[in] initialPose (Optional), a transform3D to initialize the pose (reducing the convergence time and improving its success).
+    /// @param[out] pose: camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
+    /// @param[in] initialPose: (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const std::vector<datastructure::Point2Df> & imagePoints,
                                          const std::vector<datastructure::Point3Df> & worldPoints,
