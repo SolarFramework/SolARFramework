@@ -51,7 +51,7 @@ public:
     /// @param[in] srcPoints set of 2d_points seen in view_1.
     /// @param[in] dstPoints set of 2d_points seen in view_2.
     /// @param[out] fundamental estimated 2D transform matrix.
-    [[grpc::request("findTransform2DRequest")]] [[grpc::response("findTransform2DResponse")]] /// to remove ambiguity with I3D3DCorrespondencesFinder find()
+    /*[[grpc::request("findTransform2DRequest")]]*/ /*[[grpc::response("findTransform2DResponse")]]*/ /// to remove ambiguity with I3D3DCorrespondencesFinder find()
     virtual Transform2DFinder::RetCode find(const std::vector<datastructure::Point2Df> & srcPoints,
         const std::vector<datastructure::Point2Df> & dstPoints,
         datastructure::Transform2Df & fundamental) = 0;

@@ -34,7 +34,7 @@ namespace pipeline {
  *
  * This class defines a generic pipeline interface.
  */
-class [[xpcf::ignore]] IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect
+class /*[[xpcf::ignore]]*/ IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
     virtual ~IPipeline() override = default;
