@@ -55,9 +55,9 @@ namespace features {
                             [[maybe_unused]] std::vector<datastructure::DescriptorMatch> & outputMatches,
                             [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints1,
                             [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints2,
-                            [[maybe_unused]] const datastructure::Transform3Df & pose1,
-                            [[maybe_unused]] const datastructure::Transform3Df & pose2,
-                            [[maybe_unused]] const datastructure::CamCalibration & intrinsicParams) {};
+                            [[maybe_unused]] const datastructure::Transform3Df &pose1,
+                            [[maybe_unused]] const datastructure::Transform3Df &pose2,
+                            [[maybe_unused]] const datastructure::CamCalibration &intrinsicParams) {};
     };
 }
 }

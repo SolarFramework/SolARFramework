@@ -23,7 +23,6 @@
 #include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
 /**
@@ -47,7 +46,7 @@ public:
     /// @param[in] inputImg The image on which contours are extracted
     /// @param[out] contours The contours extracted from the image
     /// @return FrameworkReturnCode::_SUCCESS_ if contours ar well extracted, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode extract(const SRef<Image> inputImg, std::vector<Contour2Df> & contours) = 0;
+    virtual FrameworkReturnCode extract(const SRef<datastructure::Image> inputImg, std::vector<datastructure::Contour2Df> & contours) = 0;
 
 };
 }

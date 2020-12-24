@@ -30,7 +30,6 @@
 #include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -46,21 +45,33 @@ class  [[xpcf::ignore]] IMarker2DSquared : virtual public IMarker {
 public:
     IMarker2DSquared() = default;
     virtual ~IMarker2DSquared() = default;
-    ///<define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
+
+    /// @brief define the size of the 2D Marker according to the user-defined unit (the same used for the camera calibration)
+    /// @param[in] width: width of 2D Marker
+    /// @param[in] height: height of 2D Marker
     virtual void setSize (const float & width, const float & height) = 0;
+
+    /// @brief Return the width of the 2D Marker
+    /// @return float: width of 2D Marker
     virtual float getWidth() const = 0;
-    virtual float getHeight() const  = 0;
-    virtual const Sizef & getSize() const = 0;
+
+    /// @brief Return the height of the 2D Marker
+    /// @return float: height of 2D Marker
+    virtual float getHeight() const = 0;
+
+    /// @brief Return the width and height of the 2D Marker
+    /// @return datastructure::Sizef: width and height of 2D Marker
+    virtual const datastructure::Sizef & getSize() const = 0;
 
     /// @brief Provide the position of 2D corners in image coordinate system
-    /// @param[out] imageCorners the 2D corners of the marker in image coordinate system
+    /// @param[out] imageCorners: the 2D corners of the marker in image coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode getImageCorners(std::vector<Point2Df> & imageCorners) const = 0;
+    virtual FrameworkReturnCode getImageCorners(std::vector<datastructure::Point2Df> & imageCorners) const = 0;
 
     /// @brief Provide the position of 3D corners in world coordinate system
-    /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
+    /// @param[out] worldCorners: the 3D corners of the marker in world coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode getWorldCorners(std::vector<Point3Df> & worldCorners) const = 0;
+    virtual FrameworkReturnCode getWorldCorners(std::vector<datastructure::Point3Df> & worldCorners) const = 0;
 };
 
 }

@@ -33,7 +33,6 @@
 #include "xpcf/api/IComponentIntrospect.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
 
@@ -76,16 +75,15 @@ namespace features {
 		///
 		virtual std::string  getTypeString() = 0;
 
-		///
-		/// @brief Extracts the descriptors for a set of keypoints
-		/// @param[in] image The image on which the keypoints have been detected
-		/// @param[in] keypoints The set of keypoints on which the descriptors are extracted
-		/// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
-		///
-        virtual void extract (const SRef<Image> image,
-                              const std::vector< Keypoint > &keypoints,
-                              SRef<DescriptorBuffer> & descriptors) = 0;
-
+       ///
+       /// @brief extract the descriptors for a set of keypoints
+       /// @param[in] image The image on which the keypoints have been detected
+       /// @param[in] keypoints The set of keypoints on which the descriptors are extracted
+       /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
+       ///
+        virtual void extract (const SRef<datastructure::Image> image,
+                              const std::vector<datastructure::Keypoint> & keypoints,
+                              SRef<datastructure::DescriptorBuffer> & descriptors) = 0;
 	};
 
 }

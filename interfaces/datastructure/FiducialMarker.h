@@ -25,8 +25,6 @@
 // Definition of FiducialMarker Class //
 // part of SolAR namespace //
 
-using namespace SolAR::datastructure;
-
 namespace SolAR {
 namespace datastructure {
 

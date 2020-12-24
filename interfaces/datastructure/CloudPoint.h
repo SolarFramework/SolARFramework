@@ -53,14 +53,14 @@ public:
 	/// @param[in] nx (optional): x-coordinate of the view direction vector of the cloudpoint.
 	/// @param[in] ny (optional): y-coordinate of the view direction vector of the cloudpoint.
 	/// @param[in] nz (optional): z-coordinate of the view direction vector of the cloudpoint.
-	CloudPoint( const Point3Df& point,
-				float r = 0.0f,
-				float g = 0.0f,
-				float b = 0.0f,
-				float nx = 0.0f,
-				float ny = 0.0f,
-				float nz = 0.0f,
-				double reproj_error = 0.0);
+    explicit CloudPoint( const Point3Df& point,
+                         float r = 0.0f,
+                         float g = 0.0f,
+                         float b = 0.0f,
+                         float nx = 0.0f,
+                         float ny = 0.0f,
+                         float nz = 0.0f,
+                         double reproj_error = 0.0);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -73,16 +73,16 @@ public:
     /// @param[in] ny (optional): y-coordinate of the view direction vector of the cloudpoint.
     /// @param[in] nz (optional): z-coordinate of the view direction vector of the cloudpoint.
     ///
-    CloudPoint( float x,
-                float y,
-                float z,
-                float r = 0.0f,
-                float g = 0.0f,
-                float b = 0.0f,
-                float nx = 0.0f,
-                float ny = 0.0f,
-                float nz = 0.0f,
-                double reproj_error = 0.0);
+    explicit CloudPoint( float x,
+                         float y,
+                         float z,
+                         float r = 0.0f,
+                         float g = 0.0f,
+                         float b = 0.0f,
+                         float nx = 0.0f,
+                         float ny = 0.0f,
+                         float nz = 0.0f,
+                         double reproj_error = 0.0);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -93,14 +93,14 @@ public:
     /// @param[in] b: b-channel color value of the cloudpoint.
     /// @param[in] visibility: visibility map of the cloudpoint.
     ///
-    CloudPoint( float x,
-                float y,
-                float z,
-                float r,
-                float g,
-                float b,
-                double reproj_error,
-                std::map<unsigned int, unsigned int> &visibility);
+    explicit CloudPoint( float x,
+                         float y,
+                         float z,
+                         float r,
+                         float g,
+                         float b,
+                         double reproj_error,
+                         const std::map<unsigned int, unsigned int> & visibility);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -114,17 +114,17 @@ public:
     /// @param[in] nz: z-coordinate of the view direction vector of the cloudpoint.
     /// @param[in] visibility: visibility map of the cloudpoint.
     ///
-    CloudPoint( float x,
-                float y,
-                float z,
-                float r,
-                float g,
-                float b,
-				float nx,
-				float ny,
-				float nz,
-				double reproj_error,
-                std::map<unsigned int, unsigned int> &visibility);
+    explicit CloudPoint( float x,
+                         float y,
+                         float z,
+                         float r,
+                         float g,
+                         float b,
+                         float nx,
+                         float ny,
+                         float nz,
+                         double reproj_error,
+                         const std::map<unsigned int, unsigned int> & visibility);
 
     /// @brief Cloudpoint constructor.
     /// @param[in] x: x-coordinate of the cloudpoint.
@@ -136,15 +136,15 @@ public:
     /// @param[in] visibility: visibility map of the cloudpoint.
     /// @param[in] descriptor: descriptor of the cloudpoint.
     ///
-    CloudPoint(	float x,
-                float y,
-                float z,
-                float r,
-                float g,
-                float b,
-                double reproj_error,
-                std::map<unsigned int, unsigned int> &visibility,
-                SRef<DescriptorBuffer> descriptor);
+    explicit CloudPoint( float x,
+                         float y,
+                         float z,
+                         float r,
+                         float g,
+                         float b,
+                         double reproj_error,
+                         const std::map<unsigned int, unsigned int> & visibility,
+                         SRef<DescriptorBuffer> descriptor);
 
     /// @brief Cloudpoint constructor.
 	/// @param[in] x: x-coordinate of the cloudpoint.
@@ -159,18 +159,18 @@ public:
 	/// @param[in] visibility: visibility map of the cloudpoint.
 	/// @param[in] descriptor: descriptor of the cloudpoint.
 	///
-	CloudPoint(	float x,
-				float y,
-				float z,
-				float r,
-				float g,
-				float b,
-				float nx,
-				float ny,
-				float nz,
-				double reproj_error,
-                std::map<unsigned int, unsigned int> &visibility,
-                SRef<DescriptorBuffer> descriptor);
+    explicit CloudPoint( float x,
+                         float y,
+                         float z,
+                         float r,
+                         float g,
+                         float b,
+                         float nx,
+                         float ny,
+                         float nz,
+                         double reproj_error,
+                         const std::map<unsigned int, unsigned int> & visibility,
+                         SRef<DescriptorBuffer> descriptor);
 
     ///
     /// \brief ~CloudPoint
@@ -212,8 +212,8 @@ public:
 	const Vector3f& getRGB() const;
 
 	///
-	/// \brief These methods returns the color components of the CloudPoint
-	/// \return the color component of the CloudPoint (Red, Green or Blue)
+    /// @brief These methods returns the color components of the CloudPoint
+    /// @return the color component of the CloudPoint (Red, Green or Blue)
 	///
 	const float& getR() const;
 	const float& getG() const;
@@ -276,7 +276,7 @@ private:
     void serialize(Archive &ar, const unsigned int version);
 
 private:	
-	uint32_t								m_id;
+	uint32_t								m_id = 0;
     SRef<DescriptorBuffer>					m_descriptor = nullptr;
     std::map<unsigned int, unsigned int>	m_visibility = {};
     Vector3f								m_rgb = {0.0, 0.0, 0.0};
@@ -286,7 +286,7 @@ private:
 
 DECLARESERIALIZE(CloudPoint);
 
-}
+}  // end of namespace datastructure
 }  // end of namespace SolAR
 
 #endif // SolAR_CLOUDPOINT_H

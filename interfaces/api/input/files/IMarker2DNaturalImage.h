@@ -29,7 +29,6 @@
 
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -50,9 +49,10 @@ public:
      virtual ~IMarker2DNaturalImage() = default;
 
     ///
-    /// \brief get access to the image of the 2D natural marker
-    /// \param img: a shared reference to the image
-    virtual FrameworkReturnCode getImage(SRef<Image> & img) = 0;
+    /// @brief get access to the image of the 2D natural marker
+    /// @param[in,out] img: a shared reference to the image
+    /// @return FrameworkReturnCode to track sucessful or failing event.
+    virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) const = 0;
 
 
 };

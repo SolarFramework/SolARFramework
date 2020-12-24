@@ -150,7 +150,7 @@ template<   class Archive,
             int MaxCols_>
 inline void serialize(Archive & ar,
                       Eigen::Matrix<S, Rows_, Cols_, Ops_, MaxRows_, MaxCols_> & matrix,
-                      const unsigned int version)
+                      [[maybe_unused]] const unsigned int version)
 {
   int rows = matrix.rows();
   int cols = matrix.cols();

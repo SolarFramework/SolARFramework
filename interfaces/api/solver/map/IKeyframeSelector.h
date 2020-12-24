@@ -30,7 +30,6 @@
 #include "datastructure/DescriptorMatch.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace map {
@@ -42,23 +41,22 @@ namespace map {
   */
 class [[xpcf::ignore]] IKeyframeSelector : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
+    /// @brief IKeyframeSelector default constructor
     IKeyframeSelector() = default;
-    ///
-    ///@brief ~IKeyframeSelector
-    ///
+
+    /// @brief IKeyframeSelector default destructor
     virtual ~IKeyframeSelector() {}
 
     /// @brief  Select if a frame can be considered as a keyframe
-    /// @param[in] frame: the frame tested to know if it could be a Keyframe
-    /// @param[in] matches: the matches between the frame and its keyframe of reference.
+    /// @param[in] frame: the frame tested to know if it could be a keyframe
+    /// @param[in] matches: the matches between the frame and its reference keyframe.
     /// @return true if the frame can be considered as a new keyframe, false otherwise.
-    virtual bool select(const SRef<Frame> & frame, const std::vector<DescriptorMatch> & matches) = 0;
+    virtual bool select(const SRef<datastructure::Frame> frame, const std::vector<datastructure::DescriptorMatch> & matches) const = 0;
 
     /// @brief  Select if a frame can be considered as a keyframe
-    /// @param[in] frame: the frame tested to know if it could be a Keyframe
-    /// The underlying component can use data from SolAR data storage components, based on the frame properties.
+    /// @param[in] frame: the frame tested to know if it could be a keyframe.
     /// @return true if the frame can be considered as a new keyframe, false otherwise.
-    virtual bool select(const SRef<Frame> & frame) = 0;
+    virtual bool select(const SRef<datastructure::Frame> frame) const = 0;
 
     /// @brief  Select if a frame can be considered as a keyframe.
     /// It is based on a selection predicate and provides the mean to use any datastructure in the pipeline context to the decision algorithm.
@@ -66,7 +64,7 @@ public:
     /// @param[in] func: the function predicate used to test the frame.
     /// This predicate can be any lambda capturing its context (matches, point cloud, bow ...) to select the frame.
     /// @return true if the frame can be considered as a new keyframe, false otherwise.
-   virtual bool select(const SRef<Frame> & frame, const std::function<bool(const SRef<Frame> &)> & func) = 0;
+   virtual bool select(const SRef<datastructure::Frame> frame, const std::function<bool(const SRef<datastructure::Frame> &)> & func) const = 0;
 
 };
 }

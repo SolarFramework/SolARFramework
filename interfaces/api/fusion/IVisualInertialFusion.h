@@ -23,7 +23,6 @@
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace fusion {
 
@@ -31,9 +30,9 @@ namespace fusion {
 struct InertialData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    Vector3f accelData;
-    Vector3f gyroData;
-    Vector3f magData;
+    datastructure::Vector3f accelData;
+    datastructure::Vector3f gyroData;
+    datastructure::Vector3f magData;
 };
 
 // TODO move into datastructure
@@ -41,7 +40,7 @@ struct InertialData {
 struct VisionData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    Transform3Df pose;
+    datastructure::Transform3Df pose;
     bool isPoseValid;
 };
 
@@ -75,7 +74,7 @@ public:
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode process(Transform3Df & outputData) = 0;
+    virtual FrameworkReturnCode process(datastructure::Transform3Df & outputData) = 0;
 
 };
 

@@ -33,7 +33,7 @@ class BufferInternal {
 public:
     BufferInternal() = default;
 
-    BufferInternal(uint32_t size)
+    explicit BufferInternal(uint32_t size)
     {
         setSize(size);
     }

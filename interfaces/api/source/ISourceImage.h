@@ -27,7 +27,6 @@
 #include "core/Messages.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace source {
 
@@ -45,21 +44,21 @@ public:
    ISourceImage() = default;
 
    ///
-   /// \brief ~ISourceImage
+   /// @brief ~ISourceImage
    ///
    virtual ~ISourceImage() = default;
 
    /// @brief Set a new image coming from a third party.
-   /// @param [in] sourceTexturehandle. Texture buffer from third party like Unity
-   /// @param [in] width of the image coming from the third party like Unity
-   /// @param [in] height of the image coming from the third party like Unity
+   /// @param [in] sourceTexturehandle: Texture buffer from third party like Unity
+   /// @param [in] width: of the image coming from the third party like Unity
+   /// @param [in] height: of the image coming from the third party like Unity
    /// @return SourceReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_
-   virtual SourceReturnCode setInputTexture(const void* sourceTexturehandle,const int width,const int height) = 0;
+   virtual SourceReturnCode setInputTexture(const void* sourceTexturehandle, const int width, const int height) = 0;
 
    /// @brief Get a pointer to the texture buffer to update it with the new image when required.
    /// @param[in,out] image
    /// @return SourceReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_
-   virtual SourceReturnCode getNextImage(SRef<Image> & image) = 0;
+   virtual SourceReturnCode getNextImage(SRef<datastructure::Image> & image) const = 0;
 
 };
 

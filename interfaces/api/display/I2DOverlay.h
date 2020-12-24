@@ -26,7 +26,6 @@
 #include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace display {
 
@@ -50,19 +49,19 @@ public:
     /// Draw a circle on the image displayImage center on the point with specified radius and thickness.
     /// @param[in] point The position of the circle to draw
     /// @param[in,out] displayImage The image on which the the circles will be drawn.
-    virtual void drawCircle(const Point2Df& point, SRef<Image> displayImage) = 0;
+    virtual void drawCircle(const datastructure::Point2Df & point, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw Circles.
     /// Draw all the circles stored in the vector std::vector <Point2Df> & points on image displayImage with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in] point The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(const std::vector<Point2Df> & points, SRef<Image> displayImage) = 0;
+    virtual void drawCircles(const std::vector<datastructure::Point2Df> & points, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw Circles.
     /// Draw all the circles stored in the vector std::vector <Keypoint> & keypoints on image displayImage with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in] keypoint The positions of the circles to draw
     /// @param[in,out] displayImage The image on which the circles will be drawn.
-    virtual void drawCircles(const std::vector<Keypoint> & keypoints, SRef<Image> displayImage) = 0;
+    virtual void drawCircles(const std::vector<datastructure::Keypoint> & keypoints, SRef<datastructure::Image> displayImage) = 0;
 
 	/// @brief Draw Lines.
 	/// Draw all the lines stored in the vector std::vector <Keyline> & keylines on image displayImage with specified thickness and colors (defined in the configuration file).
@@ -80,23 +79,24 @@ public:
     /// Draw a contour on image displayImage
     /// @param[in] contour The contour in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in,out] displayImage The image on which the contours will be drawn.
-    virtual void drawContour (const Contour2Df& contours, SRef<Image> displayImage) = 0;
+    virtual void drawContour (const datastructure::Contour2Df& contours, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw Contours.
     /// Draw all the contours stored in the vector  std::vector <Contour2Df> & contours on image displayImage
     /// @param[in] contours The vector of contours in 2D to draw with specified radius, thickness and colors (defined in the configuration file).
     /// @param[in,out] displayImage The image on which the contours will be drawn.
-    virtual void drawContours (const std::vector <Contour2Df> & contours, SRef<Image> displayImage) = 0;
+    virtual void drawContours (const std::vector <datastructure::Contour2Df> & contours, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw a Squared Binary Pattern.
     /// @param[in] pattern The squared binary pattern to display.
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
-    virtual void drawSBPattern (const SquaredBinaryPattern & pattern, SRef<Image> displayImage) = 0;
+    virtual void drawSBPattern (const datastructure::SquaredBinaryPattern & pattern, SRef<datastructure::Image> displayImage) = 0;
 	
 	/// @brief Writes text on the image.
 	/// @param[in] text, bottom-left point as origin, fontSize and color
 	/// @param[in,out]  displayImage The image on which the text will be written.
-	virtual void putText(const std::string & text, Point2Df origin, double fontSize, std::vector<int> color, SRef<Image> displayImage) = 0;
+	virtual void putText(const std::string & text, datastructure::Point2Df origin, double fontSize, const std::vector<int> & color, SRef<datastructure::Image> displayImage) = 0;
+
 };
 }
 }

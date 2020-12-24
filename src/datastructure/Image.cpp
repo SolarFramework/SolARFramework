@@ -32,8 +32,8 @@ namespace datastructure {
 class Image::ImageInternal {
 public:
     ImageInternal() = default;
-    ImageInternal(uint32_t size);
-    ImageInternal(void* data, uint32_t size);
+    explicit ImageInternal(uint32_t size);
+    explicit ImageInternal(void* data, uint32_t size);
     ~ImageInternal() = default;
     void setBufferSize(uint32_t size);
     inline uint32_t getBufferSize() { return m_bufferSize; }
