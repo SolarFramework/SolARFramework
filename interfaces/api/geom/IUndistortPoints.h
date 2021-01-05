@@ -21,6 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
+#include "datastructure/Keypoint.h"
 
 namespace SolAR {
 namespace api {
@@ -47,11 +48,18 @@ public:
     virtual FrameworkReturnCode undistort(const std::vector<datastructure::Point2Df> & inputPoints,
                                           std::vector<datastructure::Point2Df> & outputPoints) = 0;
 
-    /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const datastructure::CamCalibration & intrinsic_parameters) = 0;
-    
-    /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistortionParameters(const datastructure::CamDistortion & distorsion_parameters) = 0;
+	/// @brief This method corrects undistortsion to a set of 2D keypoints
+	/// @param[in] inputKeypoints the set of 2D keypoints to correct
+	/// @param[out] outputKeypoints the  undistorted 2D keypoints
+	/// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode undistort(const std::vector<datastructure::Keypoint> & inputKeypoints,
+		std::vector<datastructure::Keypoint> & outputKeypoints) = 0;
+
+	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
+	/// @param[in] Camera calibration matrix parameters.
+	/// @param[in] Camera distorsion parameters.
+	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, 
+									 const datastructure::CamDistortion & distorsionParams) = 0;
 
 };
 
