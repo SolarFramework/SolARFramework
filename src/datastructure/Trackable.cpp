@@ -18,6 +18,8 @@
 
 #include "core/Log.h"
 
+#include "xpcf/core/helpers.h"
+
 namespace SolAR {
 namespace datastructure {
 
@@ -34,7 +36,7 @@ void Trackable::setURL(const std::string & url) {
 }
 
 template<typename Archive>
-void Trackable::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Trackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
     ar & m_url;
 }
 

@@ -18,6 +18,8 @@
 
 #include "core/Log.h"
 
+#include "xpcf/core/helpers.h"
+
 namespace SolAR {
 namespace datastructure {
 
@@ -67,7 +69,7 @@ void Trackable2D::setHeight(const float &height) {
 }
 
 template<typename Archive>
-void Trackable2D::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Trackable2D::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
     ar & m_size.width;
     ar & m_size.height;
 }
