@@ -15,6 +15,9 @@
  */
 
 #include "datastructure/Keypoint.h"
+
+#include "xpcf/core/helpers.h"
+
 #include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
@@ -62,7 +65,7 @@ void Keypoint::init(unsigned int id,
 }
 
 template<typename Archive>
-void Keypoint::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Keypoint::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & boost::serialization::base_object<Point2Df>(*this);
 	ar & boost::serialization::make_array(m_rgb.data(), 3);
 	ar & m_id;

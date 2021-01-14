@@ -3,6 +3,7 @@
 
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 #include "core/Messages.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"
@@ -41,13 +42,13 @@ namespace features {
 		/// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
 		/// @param[in] camera's intrinsic parameters.
-        virtual void filter([[maybe_unused]] const std::vector<datastructure::DescriptorMatch> & inputMatches,
-                            [[maybe_unused]] std::vector<datastructure::DescriptorMatch> & outputMatches,
-                            [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints1,
-                            [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints2,
-                            [[maybe_unused]] const datastructure::Transform3Df &pose1,
-                            [[maybe_unused]] const datastructure::Transform3Df &pose2,
-                            [[maybe_unused]] const datastructure::CamCalibration &intrinsicParams) {};
+        virtual void filter(ATTRIBUTE(maybe_unused) const std::vector<datastructure::DescriptorMatch> & inputMatches,
+                            ATTRIBUTE(maybe_unused) std::vector<datastructure::DescriptorMatch> & outputMatches,
+                            ATTRIBUTE(maybe_unused) const std::vector<datastructure::Keypoint> & inputKeyPoints1,
+                            ATTRIBUTE(maybe_unused) const std::vector<datastructure::Keypoint> & inputKeyPoints2,
+                            ATTRIBUTE(maybe_unused) const datastructure::Transform3Df &pose1,
+                            ATTRIBUTE(maybe_unused) const datastructure::Transform3Df &pose2,
+                            ATTRIBUTE(maybe_unused) const datastructure::CamCalibration &intrinsicParams) {};
     };
 }
 }

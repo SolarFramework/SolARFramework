@@ -19,6 +19,8 @@
 
 #include "datastructure/DescriptorBuffer.h"
 
+#include "xpcf/core/helpers.h"
+
 namespace  SolAR {
 namespace datastructure {
 const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> descriptorType2elementsAndDataType =
@@ -213,7 +215,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
 }
 
 template<typename Archive>
-void DescriptorBuffer::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void DescriptorBuffer::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_buffer;
 	ar & m_nb_descriptors;
 	ar & m_data_type;

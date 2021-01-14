@@ -16,6 +16,8 @@
 
 #include "datastructure/Keyframe.h"
 
+#include "xpcf/core/helpers.h"
+
 #include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
@@ -32,7 +34,7 @@ void Keyframe::setId(const uint32_t& id_keyframe)
 }
 
 template<typename Archive>
-void Keyframe::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Keyframe::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & boost::serialization::base_object<Frame>(*this);
 	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
 	ar & m_id;
