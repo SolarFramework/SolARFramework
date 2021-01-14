@@ -22,6 +22,7 @@
 #endif // _BCOM_SHARED
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 #include "ISourceReturnCode.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
@@ -38,7 +39,7 @@ namespace source {
  * This interface allows to link a texture buffer from a third party to our pipeline
  */
 
-class [[xpcf::ignore]] ISourceImage : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE ISourceImage : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 
    ISourceImage() = default;

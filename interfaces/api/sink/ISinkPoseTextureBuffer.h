@@ -22,6 +22,7 @@
 #endif // _BCOM_SHARED
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 #include "ISinkReturnCode.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
@@ -38,7 +39,7 @@ namespace sink {
  * This interface allows to make available a pose to a third party application and to update a texture buffer with a new image.
  */
 
-class [[xpcf::ignore]] ISinkPoseTextureBuffer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE ISinkPoseTextureBuffer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    ISinkPoseTextureBuffer() = default;
 
