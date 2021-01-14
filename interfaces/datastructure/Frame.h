@@ -29,6 +29,11 @@ public:
 	
 	Frame(const SRef<Keyframe> keyframe);
 
+	explicit Frame(const std::vector<Keypoint> & keypoints,
+				   const SRef<DescriptorBuffer> descriptors,
+				   const SRef<Image> view,
+				   const Transform3Df pose = Transform3Df::Identity());
+
     explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const std::vector<Keypoint> & undistortedKeypoints,
                    const SRef<DescriptorBuffer> descriptors,

@@ -89,12 +89,29 @@ namespace features {
 		/// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
 		virtual RetCode matchInRegion(
             [[maybe_unused]] const std::vector<datastructure::Point2Df> & points2D,
-            [[maybe_unused]] const std::vector<SRef<datastructure::DescriptorBuffer>> & descriptors,
-            [[maybe_unused]] const SRef<datastructure::Frame> frame,
-            [[maybe_unused]] std::vector<datastructure::DescriptorMatch> &matches,
-            [[maybe_unused]] const float radius = 0.f,
-            [[maybe_unused]] const float matchingDistanceMax = 0.f
+			[[maybe_unused]] const std::vector<SRef<datastructure::DescriptorBuffer>> & descriptors,
+			[[maybe_unused]] const SRef<datastructure::Frame> frame,
+			[[maybe_unused]] std::vector<datastructure::DescriptorMatch> &matches,
+			[[maybe_unused]] const float radius = 0.f,
+			[[maybe_unused]] const float matchingDistanceMax = 0.f
         ) { return RetCode::DESCRIPTORS_MATCHER_OK; };
+
+		/// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
+		/// @param[in] currentFrame the current frame.
+		/// @param[in] lastFrame the last frame.
+		/// @param[out] matches a vector of matches between two frames representing pairs of keypoint indices relatively.
+		/// @param[in] radius the radius of search region around each keypoint of the last frame.
+		/// @param[in] matchingDistanceMax the maximum distance to valid a match.
+		/// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
+		virtual RetCode matchInRegion(
+			[[maybe_unused]] const SRef<datastructure::Frame> currentFrame,
+			[[maybe_unused]] const SRef<datastructure::Frame> lastFrame,
+			[[maybe_unused]] std::vector<datastructure::DescriptorMatch> &matches,
+			[[maybe_unused]] const float radius = 0.f,
+			[[maybe_unused]] const float matchingDistanceMax = 0.f
+		) {
+			return RetCode::DESCRIPTORS_MATCHER_OK;
+		};
     };
 }
 }
