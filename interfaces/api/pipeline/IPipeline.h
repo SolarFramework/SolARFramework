@@ -40,10 +40,8 @@ public:
     virtual ~IPipeline() override = default;
 
     /// @brief Initialization of the pipeline
-    /// Initialize the pipeline by providing a reference to the component manager loaded by the PipelineManager.
-    /// @param[in] componentManager: a shared reference to the component manager which has loaded
-    /// the components and configuration in the pipleine manager
-    virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init() = 0;
 
     /// @brief Start the pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
