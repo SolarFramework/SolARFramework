@@ -23,6 +23,8 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 
+#include "api/features/IKeylineDetector.h"
+
 namespace SolAR {
 using namespace datastructure;
 namespace api {
@@ -45,6 +47,16 @@ public:
     /// @brief IDescriptorsExtractorBinary default destructor
     virtual ~IDescriptorsExtractorBinary() {};
 
+    /// @brief Set keyline detector component.
+    /// @param[in] a keyline detector instance
+    /// @return FrameworkReturnCode::_SUCCESS if successful, else FrameworkReturnCode::_ERROR
+    virtual FrameworkReturnCode setDetector(const SRef<IKeylineDetector> detector) = 0;
+
+    /// @brief Get keyline detector component.
+    /// @param[in] a keyline detector instance
+    /// @return FrameworkReturnCode::_SUCCESS if successful, else FrameworkReturnCode::_ERROR
+    virtual FrameworkReturnCode getDetector(SRef<IKeylineDetector> & detector) const = 0;
+
     /// @brief Extracts the descriptors for a set of keylines
     /// @param[in] image The image on which the keylines have been detected
     /// @param[int] keylines The set of keylines on which the descriptors are extracted
@@ -53,7 +65,7 @@ public:
                          const std::vector<Keyline> & keylines,
                          SRef<DescriptorBuffer> & descriptors) = 0;
 
-	/// @brief Detects keyliens and extracts the corresponding descriptors
+	/// @brief Detects keylines and extracts the corresponding descriptors
 	/// @param[in] image The image on which the keylines have been detected
 	/// @param[out] keylines The set of detected keylines on which the descriptors are extracted
 	/// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keyline of the second argument.

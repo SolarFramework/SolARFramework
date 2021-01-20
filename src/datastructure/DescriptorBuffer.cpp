@@ -26,7 +26,8 @@ const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> d
  {DescriptorType::SIFT, {128,DescriptorDataType::TYPE_32F}},
  {DescriptorType::SURF_64, {64,DescriptorDataType::TYPE_32F}},
  {DescriptorType::SURF_128, {128,DescriptorDataType::TYPE_32F}},
- {DescriptorType::ORB, {32,DescriptorDataType::TYPE_8U}}
+ {DescriptorType::ORB, {32,DescriptorDataType::TYPE_8U}},
+ {DescriptorType::BINARY, {32,DescriptorDataType::TYPE_8U}}
 };
 
 DescriptorView::DescriptorView(void * startAddress, uint32_t length, DescriptorType type):
