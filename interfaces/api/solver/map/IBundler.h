@@ -21,7 +21,7 @@ namespace api {
 namespace solver {
 namespace map {
 
-
+/**
 * @class IBundler
 * @brief <B>Optimizes a system of 3D points and keyframes.</B>
 * <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>

@@ -72,7 +72,7 @@ public:
 	/// @param[in] keylines_image1: The keylines of image1 that match with keylines of image2. The Nth keyline of this vector match with the Nth keyline of the vector points_image2.
 	/// @param[in] keylines_image2: The keylines of image2 that match with keylines of image1. The Nth keyline of this vector match with the Nth keyline of the vector points_image1.
 	/// @param[in|out] matches, a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith line of keylines_image1 matches with the ith line of keylines_image2.
-	virtual void draw(const SRef<Image> image1, const SRef<Image> image2, SRef<Image> & outImage, const std::vector <Keyline> & keylines_image1, const std::vector <Keyline> & keylines_image2, const std::vector<DescriptorMatch> matches = std::vector<DescriptorMatch>()) = 0;
+	virtual void draw(const SRef<datastructure::Image> image1, const SRef<datastructure::Image> image2, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Keyline> & keylines_image1, const std::vector <datastructure::Keyline> & keylines_image2, const std::vector<datastructure::DescriptorMatch> & matches = std::vector<datastructure::DescriptorMatch>()) = 0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images

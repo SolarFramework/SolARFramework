@@ -67,13 +67,13 @@ public:
 	/// Draw all the lines stored in the vector std::vector <Keyline> & keylines on image displayImage with specified thickness and colors (defined in the configuration file).
 	/// @param[in] keylines The line descriptors to draw
 	/// @param[in,out] displayImage The image on which the lines will be drawn.
-	virtual void drawLines(const std::vector<Keyline> & keylines, SRef<Image> displayImage) = 0;
+	virtual void drawLines(const std::vector<datastructure::Keyline> & keylines, SRef<datastructure::Image> displayImage) = 0;
 
 	/// @brief Draw Lines.
 	/// Draw all the lines stored in the vector std::vector <Edge2Df> & 2D lines on image displayImage with specified thickness and colors (defined in the configuration file).
 	/// @param[in] ln2d The 2D lines to draw
 	/// @param[in,out] displayImage The image on which the lines will be drawn.
-	virtual void drawLines(const std::vector<Edge2Df> & ln2d, SRef<Image> displayImage) = 0;
+	virtual void drawLines(const std::vector<datastructure::Edge2Df> & ln2d, SRef<datastructure::Image> displayImage) = 0;
 
     /// @brief Draw a Contour.
     /// Draw a contour on image displayImage
