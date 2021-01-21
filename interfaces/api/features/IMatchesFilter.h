@@ -23,7 +23,7 @@ namespace features {
         ///@brief IMatchesFilter default destructor.
         virtual ~IMatchesFilter() = default;
 
-        /// @brief filter matches.
+        /// @brief filter point matches.
         /// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
         /// @param[out] Filtred matches based on redundancy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
@@ -33,7 +33,7 @@ namespace features {
                              const std::vector<datastructure::Keypoint> & keyPoints_1,
                              const std::vector<datastructure::Keypoint> & keyPoints_2) = 0;
 
-		/// @brief filter matches.
+		/// @brief filter line matches.
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
 		/// @param[out] Filtred matches based on redundancy or geometric relations such as epipolar constraint.
 		/// @param[in] Original keylines associated to desc_1.
@@ -43,7 +43,7 @@ namespace features {
 							[[maybe_unused]] const std::vector<datastructure::Keyline> & keylines_1,
 							[[maybe_unused]] const std::vector<datastructure::Keyline> & keylines_2) {};
 
-		/// @brief filter matches based fundamental matrix calculated from camera matrices
+		/// @brief filter point matches based fundamental matrix calculated from camera matrices
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
 		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
 		/// @param[in] Original keypoints associated to desc_1.
@@ -55,9 +55,25 @@ namespace features {
                             [[maybe_unused]] std::vector<datastructure::DescriptorMatch> & outputMatches,
                             [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints1,
                             [[maybe_unused]] const std::vector<datastructure::Keypoint> & inputKeyPoints2,
-                            [[maybe_unused]] const datastructure::Transform3Df &pose1,
-                            [[maybe_unused]] const datastructure::Transform3Df &pose2,
-                            [[maybe_unused]] const datastructure::CamCalibration &intrinsicParams) {};
+                            [[maybe_unused]] const datastructure::Transform3Df & pose1,
+                            [[maybe_unused]] const datastructure::Transform3Df & pose2,
+                            [[maybe_unused]] const datastructure::CamCalibration & intrinsicParams) {};
+        
+        /// @brief filter line matches based fundamental matrix calculated from camera matrices
+		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
+		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
+		/// @param[in] Original keylines associated to desc_1.
+		/// @param[in] Original keylines associated to desc_2.
+		/// @param[in] camera pose 1.
+		/// @param[in] camera pose 2.
+		/// @param[in] camera's intrinsic parameters.
+		virtual void filter([[maybe_unused]] const std::vector<datastructure::DescriptorMatch> & inputMatches,
+							[[maybe_unused]] std::vector<datastructure::DescriptorMatch> & outputMatches,
+							[[maybe_unused]] const std::vector<datastructure::Keyline> & inputKeylines1,
+							[[maybe_unused]] const std::vector<datastructure::Keyline> & inputKeylines2,
+							[[maybe_unused]] const datastructure::Transform3Df & pose1,
+							[[maybe_unused]] const datastructure::Transform3Df & pose2,
+							[[maybe_unused]] const datastructure::CamCalibration & intrinsicParams) {};
     };
 }
 }
