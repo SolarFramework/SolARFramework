@@ -29,8 +29,9 @@ namespace features {
 
 enum class KeylineDetectorType
 {
-	FLD, // Fast Line Detector
-	LSD, // Line Segment Detector (OpenCV 3 only)
+	FLD, 	// Fast Line Detector (non free)
+	HOUGH, 	// HoughLinesP detector (free)
+	LSD, 	// Line Segment Detector (OpenCV 3 only)
 };
 
 /**
@@ -48,7 +49,7 @@ public:
 
 	~IKeylineDetector() = default;
 
-	virtual void setType(KeylineDetectorType type) = 0;
+	virtual org::bcom::xpcf::XPCFErrorCode setType(KeylineDetectorType type) = 0;
 
 	virtual KeylineDetectorType getType() = 0;
 
