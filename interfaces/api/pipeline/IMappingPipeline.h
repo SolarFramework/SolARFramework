@@ -24,6 +24,7 @@
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/Trackable.h"
+#include "xpcf/core/helpers.h"
 
 
 namespace SolAR {
@@ -38,7 +39,8 @@ namespace pipeline {
  * This class provides the interface to define a mapping processing pipeline.
  */
 
-class IMappingPipeline : virtual public IPipeline {
+class XPCF_CLIENTUUID("110a089c-0bb1-488e-b24b-c1b96bc9df3b") XPCF_SERVERUUID("aced265d-832c-44e3-9356-dab531fa153a") IMappingPipeline :
+    virtual public IPipeline {
 public:
     /// @brief IMappingPipeline default constructor
     IMappingPipeline() = default;

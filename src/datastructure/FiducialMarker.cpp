@@ -18,6 +18,8 @@
 
 #include "core/Log.h"
 
+#include "xpcf/core/helpers.h"
+
 namespace SolAR {
 namespace datastructure {
 
@@ -47,7 +49,7 @@ SquaredBinaryPattern FiducialMarker::getPattern() const {
 }
 
 template<typename Archive>
-void FiducialMarker::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void FiducialMarker::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 
     SquaredBinaryPatternMatrix matrix = m_pattern.getPatternMatrix();
 

@@ -16,6 +16,8 @@
 
 #include "datastructure/CloudPoint.h"
 
+#include "xpcf/core/helpers.h"
+
 std::mutex m_mutex;
 
 namespace SolAR {
@@ -132,7 +134,7 @@ void CloudPoint::addVisibility(const uint32_t& keyframe_id, const uint32_t& keyp
 	m_visibility[keyframe_id] = keypoint_id; 
 }
 
-bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, [[maybe_unused]] const uint32_t& keypoint_id)
+bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, ATTRIBUTE(maybe_unused) const uint32_t& keypoint_id)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	if (m_visibility.find(keyframe_id) == m_visibility.end())
@@ -144,7 +146,7 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, [[maybe_unused]] 
 }
 
 template <typename Archive>
-void CloudPoint::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
+void CloudPoint::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & boost::serialization::base_object<Point3Df>(*this);
     ar & boost::serialization::base_object<PrimitiveInformation>(*this);

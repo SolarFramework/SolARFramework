@@ -16,6 +16,8 @@
 
 #include "datastructure/PointCloud.h"
 
+#include "xpcf/core/helpers.h"
+
 namespace SolAR {
 namespace datastructure {
 
@@ -30,7 +32,7 @@ std::vector<CloudPoint>& PointCloud::getPointCloud()
 }
 
 template <typename Archive>
-void PointCloud::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
+void PointCloud::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & m_points;
 }

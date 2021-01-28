@@ -16,6 +16,8 @@
 
 #include <datastructure/Identification.h>
 
+#include "xpcf/core/helpers.h"
+
 namespace SolAR {
 namespace datastructure {
 
@@ -105,7 +107,7 @@ const BBox3Df& Identification::getBBox3D() const{
 }
 
 template<typename Archive>
-void Identification::serialize([[maybe_unused]] Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Identification::serialize(ATTRIBUTE(maybe_unused) Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
     /*ar & m_uuid;
 	ar & m_name;
     ar & m_author;*/
