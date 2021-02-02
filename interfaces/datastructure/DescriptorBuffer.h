@@ -22,6 +22,7 @@
 #include <cstdint>
 
 #include "xpcf/core/refs.h"
+#include "xpcf/core/helpers.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "BufferInternal.hpp"
 
@@ -160,7 +161,7 @@ public:
     }
 
     inline DescriptorView operator *();
-    bool operator !=(/*[[maybe_unused]]*/ const DescriptorBufferIterator & desc) {
+    bool operator !=(ATTRIBUTE(maybe_unused) const DescriptorBufferIterator & desc) {
         return (m_index != m_nbDescriptors);
     }
 

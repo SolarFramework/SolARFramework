@@ -25,6 +25,7 @@
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 #include "core/Messages.h"
 #include "datastructure/Keyframe.h"
 #include "datastructure/DescriptorMatch.h"
@@ -39,7 +40,7 @@ namespace map {
   * <TT>UUID: 4d5f2abe-beb7-11e8-a355-529269fb1459</TT>
   *
   */
-class /*[[xpcf::ignore]]*/ IKeyframeSelector : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IKeyframeSelector : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeyframeSelector default constructor
     IKeyframeSelector() = default;

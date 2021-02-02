@@ -23,6 +23,7 @@
 
 #include "core/Messages.h"
 #include "datastructure/Image.h"
+#include "xpcf/core/helpers.h"
 
 #include "IMarker2DSquared.h"
 #include "xpcf/api/IComponentIntrospect.h"
@@ -41,7 +42,7 @@ namespace files {
  * The origin of the marker is positionned at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
 
  */
-class  /*[[xpcf::ignore]]*/ IMarker2DNaturalImage : virtual public IMarker2DSquared {
+class XPCF_IGNORE IMarker2DNaturalImage : virtual public IMarker2DSquared {
 
 public:
 

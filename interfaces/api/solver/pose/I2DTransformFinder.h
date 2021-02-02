@@ -18,6 +18,7 @@
 #define SOLAR_I2DTRANSFORMFINDER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -51,7 +52,7 @@ public:
     /// @param[in] srcPoints set of 2d_points seen in view_1.
     /// @param[in] dstPoints set of 2d_points seen in view_2.
     /// @param[out] fundamental estimated 2D transform matrix.
-    /*[[grpc::request("findTransform2DRequest")]]*/ /*[[grpc::response("findTransform2DResponse")]]*/ /// to remove ambiguity with I3D3DCorrespondencesFinder find()
+    XPCF_GRPC_REQUEST("findTransform2DRequest") XPCF_GRPC_RESPONSE("findTransform2DResponse") /// to remove ambiguity with I3D3DCorrespondencesFinder find()
     virtual Transform2DFinder::RetCode find(const std::vector<datastructure::Point2Df> & srcPoints,
         const std::vector<datastructure::Point2Df> & dstPoints,
         datastructure::Transform2Df & fundamental) = 0;

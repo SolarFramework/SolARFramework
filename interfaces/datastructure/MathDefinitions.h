@@ -19,6 +19,8 @@
 #ifndef SOLAR_MATHSDEFINITIONS_H
 #define SOLAR_MATHSDEFINITIONS_H
 
+#include "xpcf/core/helpers.h"
+
 //#include <boost/serialization/array.hpp>
 //#define EIGEN_DENSEBASE_PLUGIN <datastructure/EigenDenseSerializationAddon.h>
 
@@ -150,7 +152,7 @@ template<   class Archive,
             int MaxCols_>
 inline void serialize(Archive & ar,
                       Eigen::Matrix<S, Rows_, Cols_, Ops_, MaxRows_, MaxCols_> & matrix,
-                      /*[[maybe_unused]]*/ const unsigned int version)
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
   int rows = matrix.rows();
   int cols = matrix.cols();

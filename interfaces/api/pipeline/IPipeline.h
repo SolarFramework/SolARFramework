@@ -21,6 +21,7 @@
 #include <xpcf/api/IComponentIntrospect.h>
 #include "xpcf/api/IComponentManager.h"
 #include "core/Messages.h"
+#include "xpcf/core/helpers.h"
 
 namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
@@ -34,7 +35,7 @@ namespace pipeline {
  *
  * This class defines a generic pipeline interface.
  */
-class /*[[xpcf::ignore]]*/ IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
     virtual ~IPipeline() override = default;

@@ -22,6 +22,7 @@
 #endif // _BCOM_SHARED
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 
 #include "IMarker.h"
 
@@ -41,7 +42,7 @@ namespace files {
  *
  * The origin of the marker is position at its center. The x-axis points to the right of the marker, the y-axis points to the top of the marker, and the z-axis points frontward.
  */
-class  /*[[xpcf::ignore]]*/ IMarker2DSquared : virtual public IMarker {
+class XPCF_IGNORE IMarker2DSquared : virtual public IMarker {
 public:
     IMarker2DSquared() = default;
     virtual ~IMarker2DSquared() = default;
