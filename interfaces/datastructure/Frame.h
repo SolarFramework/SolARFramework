@@ -54,6 +54,10 @@ public:
 	/// @return view image
     const SRef<Image>& getView() const;
 
+	/// @brief set view image
+	/// @param[in] view: view image
+	void setView(const SRef<Image> &view);
+
 	/// @brief get camera pose
 	/// @return camera pose
     const Transform3Df& getPose() const;

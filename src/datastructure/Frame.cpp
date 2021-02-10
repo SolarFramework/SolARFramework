@@ -44,6 +44,11 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
+void Frame::setView(const SRef<Image>& view)
+{
+	m_view = view;
+}
+
 const Transform3Df& Frame::getPose() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexPose);
