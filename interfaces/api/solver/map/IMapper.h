@@ -36,24 +36,22 @@
 #include "api/reloc/IKeyframeRetriever.h"
 
 namespace SolAR {
-    using namespace datastructure;
-    namespace api {
-		using namespace storage;
-		using namespace reloc;
-        namespace solver {
-            namespace map {
+using namespace datastructure;
+namespace api {
+using namespace storage;
+using namespace reloc;
+namespace solver {
+namespace map {
 /**
-  * @class IMapper
-  * @brief <B>Allow to manage all components of a map.</B>
-  * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
-  */
+* @class IMapper
+* @brief <B>Allow to manage all components of a map.</B>
+* <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
+*/
 
 class  IMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    IMapper() = default;
-   ///
    ///@brief ~IMapper
-   ///
    virtual ~IMapper() {}
 
    /// @brief Set identification component.
@@ -145,13 +143,15 @@ public:
    /// @brief Prune keyframes of a map
    /// @param[in] keyframes: the keyframes are checked to prune
    virtual int keyframePruning(const std::vector<SRef<Keyframe>> &keyframes = {}) = 0;
-
+   
    /// @brief Save the map to the external file
-	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+   /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode saveToFile() = 0;
+   
    /// @brief Set the mapper data from floating mapper
- /// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
+   /// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode set(const SRef<IMapper> &floating_mapper) = 0;
+   
    /// @brief Load the map from the external file
    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
    virtual FrameworkReturnCode loadFromFile() = 0;

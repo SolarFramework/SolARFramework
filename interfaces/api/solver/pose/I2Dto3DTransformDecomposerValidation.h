@@ -18,14 +18,14 @@ namespace pose {
   */
 class  I2Dto3DTransformDecomposerValidation : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-   I2Dto3DTransformDecomposerValidation() = default;
+    /// @brief I2Dto3DTransformDecomposerValidation default constructor.
+    I2Dto3DTransformDecomposerValidation() = default;
 
-   ///
-   /// \brief ~I2Dto3DTransformDecomposerValidation
-   ///
-   virtual ~I2Dto3DTransformDecomposerValidation() = default;
+    /// @brief ~I2Dto3DTransformDecomposerValidation default destructor.
+    virtual ~I2Dto3DTransformDecomposerValidation() = default;
 
-   virtual void testMethod()=0;
+    /// @brief test method
+    virtual void testMethod()=0;
 
 };
 

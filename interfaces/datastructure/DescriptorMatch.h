@@ -19,6 +19,8 @@
 
 #include <tuple>
 
+#include <core/SerializationDefinitions.h>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -34,14 +36,13 @@ class DescriptorMatch
 {
 public:
 
+
     /// \brief DescriptorMatch
     ///  @param descriptor_idX:
     ///  @param descriptor_idY:
     ///  @param matching_score:
     ///
-    DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score){
-        m_match =std::make_tuple(descriptor_idA, descriptor_idB,matching_score);
-    }
+    DescriptorMatch(unsigned int descriptor_idA, unsigned int descriptor_idB, float matching_score): m_match(std::make_tuple(descriptor_idA, descriptor_idB,matching_score)){}
 
     /// \brief Return the index of the matching descriptor from a DescriptorBuffer A.
     ///
@@ -63,8 +64,16 @@ public:
 
     
 private:
+    // for boost serialization
+    DescriptorMatch() = default;
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+
     std::tuple<unsigned int, unsigned int, float> m_match;
 };
+
+DECLARESERIALIZE(DescriptorMatch);
 
 }
 }

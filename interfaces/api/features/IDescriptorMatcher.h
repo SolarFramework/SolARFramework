@@ -31,9 +31,9 @@
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace features {
 
@@ -66,9 +66,9 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual RetCode match(
-               const SRef<DescriptorBuffer> descriptors1,
-               const SRef<DescriptorBuffer> descriptors2,
-               std::vector<DescriptorMatch> & matches
+               const SRef<datastructure::DescriptorBuffer> descriptors1,
+               const SRef<datastructure::DescriptorBuffer> descriptors2,
+               std::vector<datastructure::DescriptorMatch> & matches
             ) = 0;
 
         /// @brief Match two sets of descriptors together. The second set is organized in a vector of descriptors buffer and can be used if the descriptors have been extracted on subsets of an image.
@@ -77,9 +77,9 @@ namespace features {
         /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
         /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
         virtual RetCode match(
-               const SRef<DescriptorBuffer> descriptors1,
-               const std::vector<SRef<DescriptorBuffer>> & descriptors2,
-               std::vector<DescriptorMatch> & matches
+               const SRef<datastructure::DescriptorBuffer> descriptors1,
+               const std::vector<SRef<datastructure::DescriptorBuffer>> & descriptors2,
+               std::vector<datastructure::DescriptorMatch> & matches
             ) = 0;
 
 		/// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
@@ -89,13 +89,30 @@ namespace features {
 		/// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
 		/// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
 		virtual RetCode matchInRegion(
-            [[maybe_unused]] const std::vector<Point2Df> & points2D,
-            [[maybe_unused]] const std::vector<SRef<DescriptorBuffer>> & descriptors,
-            [[maybe_unused]] const SRef<Frame> frame,
-            [[maybe_unused]] std::vector<DescriptorMatch> &matches,
-            [[maybe_unused]] const float radius = 0.f,
-            [[maybe_unused]] const float matchingDistanceMax = 0.f
+            ATTRIBUTE(maybe_unused) const std::vector<datastructure::Point2Df> & points2D,
+            ATTRIBUTE(maybe_unused) const std::vector<SRef<datastructure::DescriptorBuffer>> & descriptors,
+            ATTRIBUTE(maybe_unused) const SRef<datastructure::Frame> frame,
+            ATTRIBUTE(maybe_unused) std::vector<datastructure::DescriptorMatch> &matches,
+            ATTRIBUTE(maybe_unused) const float radius = 0.f,
+            ATTRIBUTE(maybe_unused) const float matchingDistanceMax = 0.f
         ) { return RetCode::DESCRIPTORS_MATCHER_OK; };
+
+		/// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
+		/// @param[in] currentFrame the current frame.
+		/// @param[in] lastFrame the last frame.
+		/// @param[out] matches a vector of matches between two frames representing pairs of keypoint indices relatively.
+		/// @param[in] radius the radius of search region around each keypoint of the last frame.
+		/// @param[in] matchingDistanceMax the maximum distance to valid a match.
+		/// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
+		virtual RetCode matchInRegion(
+			ATTRIBUTE(maybe_unused) const SRef<datastructure::Frame> currentFrame,
+			ATTRIBUTE(maybe_unused) const SRef<datastructure::Frame> lastFrame,
+			ATTRIBUTE(maybe_unused) std::vector<datastructure::DescriptorMatch> &matches,
+			ATTRIBUTE(maybe_unused) const float radius = 0.f,
+			ATTRIBUTE(maybe_unused) const float matchingDistanceMax = 0.f
+		) {
+			return RetCode::DESCRIPTORS_MATCHER_OK;
+		};
     };
 }
 }

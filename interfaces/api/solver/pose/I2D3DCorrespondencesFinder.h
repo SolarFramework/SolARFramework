@@ -27,8 +27,6 @@
 #include "api/storage/IPointCloudManager.h"
 
 namespace SolAR {
-using namespace datastructure;
-using namespace api::storage;
 namespace api {	
 namespace solver {
 namespace pose {
@@ -39,34 +37,34 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
  */
-    class  I2D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
-    public:
-        /// @brief I2D3DCorrespondencesFinder default constructor.
-        I2D3DCorrespondencesFinder() = default;
+class  I2D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    /// @brief I2D3DCorrespondencesFinder default constructor.
+    I2D3DCorrespondencesFinder() = default;
 
-        /// @brief IFundamentalMatrixDecomposer default destructor.
-        ///
-        virtual ~I2D3DCorrespondencesFinder() = default;
+    /// @brief I2D3DCorrespondencesFinder default destructor.
+    virtual ~I2D3DCorrespondencesFinder() = default;
 
-        /// @brief Define 2D-3D point correspondences of the current frame based on keypoint matches between the current frame and the last frame.
-        /// @param[in] lastFrame: The temporally last frame to the current frame.
-        /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
-        /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
-        /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
-        /// @param[out] shared_2dpoint: The 2D points in the current frame that correspond to 3D points.
-        /// @param[out] corres2D3D: The pairs of 2D-3D correspondences. The first value is the index of keypoint in the current frame and the second one is the corresponding cloud point.
-        /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
-        /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
-        virtual FrameworkReturnCode find(	const SRef<Frame> &lastFrame,
-                                            const SRef<Frame> &currentFrame,
-                                            const std::vector<DescriptorMatch> & current_matches,
-                                            std::vector<Point3Df> & shared_3dpoint,
-                                            std::vector<Point2Df> & shared_2dpoint,
-											std::vector<std::pair<uint32_t, SRef<CloudPoint>>> &corres2D3D,		
-                                            std::vector<DescriptorMatch> & found_matches,
-                                            std::vector<DescriptorMatch> & remaining_matches) = 0;
+    /// @brief Define 2D-3D point correspondences of the current frame based on keypoint matches between the current frame and the last frame.
+    /// @param[in] lastFrame: The temporally last frame to the current frame.
+    /// @param[in] currentFrame: The current framr for which we want to find 2D-3D correspondances.
+    /// @param[in] currentMatches: The 2D matches between the current keyframe and its reference keyframe.
+    /// @param[out] shared_3dpoint: The 3D points visible from the current frame.
+    /// @param[out] shared_2dpoint: The 2D points in the current frame that correspond to 3D points.
+    /// @param[out] corres2D3D: The pairs of 2D-3D correspondences. The first value is the index of keypoint in the current frame and the second one is the corresponding cloud point.
+    /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
+    /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode find(	const SRef<datastructure::Frame> lastFrame,
+                                        const SRef<datastructure::Frame> currentFrame,
+                                        const std::vector<datastructure::DescriptorMatch> & current_matches,
+                                        std::vector<datastructure::Point3Df> & shared_3dpoint,
+                                        std::vector<datastructure::Point2Df> & shared_2dpoint,
+                                        std::vector<std::pair<uint32_t, SRef<datastructure::CloudPoint>>> & corres2D3D,
+                                        std::vector<datastructure::DescriptorMatch> & found_matches,
+                                        std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
 
-    };
+};
 }
 }
 }

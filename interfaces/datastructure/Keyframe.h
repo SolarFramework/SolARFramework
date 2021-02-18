@@ -36,18 +36,25 @@ class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
 public:
     Keyframe() = default;
 
-    Keyframe(SRef<Frame> frame) : Frame(frame) {};
+    Keyframe(SRef<Frame> frame) : Frame(frame), m_id(0) {};
 
-    Keyframe(const std::vector<Keypoint> & keypoints,
-             SRef<DescriptorBuffer> descriptors,
-             SRef<Image> view,
-             SRef<Keyframe> refKeyframe,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, refKeyframe, pose){};
+	explicit Keyframe(const std::vector<Keypoint> & keypoints,
+					  SRef<DescriptorBuffer> descriptors,
+					  SRef<Image> view,
+					  Transform3Df pose = Transform3Df::Identity()) : Frame(keypoints, descriptors, view, pose), m_id(0) {};
 
-    Keyframe(const std::vector<Keypoint> & keypoints,
-             SRef<DescriptorBuffer> descriptors,
-             SRef<Image> view,
-             Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, descriptors, view, pose){};
+    explicit Keyframe(const std::vector<Keypoint> & keypoints,
+					  const std::vector<Keypoint> & undistortedKeypoints,
+                      SRef<DescriptorBuffer> descriptors,
+                      SRef<Image> view,
+                      SRef<Keyframe> refKeyframe,
+                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, refKeyframe, pose), m_id(0){};
+
+	explicit Keyframe(const std::vector<Keypoint> & keypoints,
+					  const std::vector<Keypoint> & undistortedKeypoints,
+					  SRef<DescriptorBuffer> descriptors,
+					  SRef<Image> view,
+					  Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, pose), m_id(0){};
 
     ~Keyframe() = default;	
 

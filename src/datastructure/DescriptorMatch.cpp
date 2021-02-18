@@ -14,33 +14,23 @@
  * limitations under the License.
  */
 
-#include "datastructure/Keyframe.h"
+#include "datastructure/DescriptorMatch.h"
 
 #include "xpcf/core/helpers.h"
-
-#include <cstddef> //TO DO: remove with a complete implementation
 
 namespace SolAR {
 namespace datastructure {
 
-const uint32_t& Keyframe::getId() const
+template <typename Archive>
+void DescriptorMatch::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
-	return m_id;
+    ar & std::get<0>(m_match);
+    ar & std::get<1>(m_match);
+    ar & std::get<2>(m_match);
 }
 
-void Keyframe::setId(const uint32_t& id_keyframe)
-{
-	m_id = id_keyframe;
-}
+IMPLEMENTSERIALIZE(DescriptorMatch);
 
-template<typename Archive>
-void Keyframe::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-	ar & boost::serialization::base_object<Frame>(*this);
-	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
-	ar & m_id;
-}
 
-IMPLEMENTSERIALIZE(Keyframe);
-
-}
-}
+} // end of namespace datastructure
+} // end of namespace SolAR

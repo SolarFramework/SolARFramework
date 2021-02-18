@@ -19,6 +19,7 @@
 
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "xpcf/core/helpers.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -32,12 +33,13 @@ namespace files {
  * <TT>UUID: b05f3dbb-f93d-465c-aee1-fb58e1480c42</TT>
  *
  */
-class IMarker : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IMarker : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMarker() = default;
     virtual ~IMarker() = default;
 
     /// @brief Load a specific marker and its features (size, descriptors..). 
+    /// @return FrameworkReturnCode to track sucessful or failing event.
     virtual FrameworkReturnCode loadMarker() = 0;
 
 };

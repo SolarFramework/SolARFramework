@@ -22,7 +22,6 @@
 #include "core/Messages.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace reloc {
 
@@ -35,25 +34,25 @@ namespace reloc {
  * This class provides a solution to get the pose given a frame.
  */
 
-///@class IRelocalizer
 class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
     IRelocalizer() = default;
+
     ///@brief IRelocalizer default destructor.
     virtual ~IRelocalizer() = default;
 
     /// @brief Add a keyframe containing a pose and its keypoints and descriptors to the relocalizer
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(const SRef<Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
 
 
     /// @brief Get the pose of the camera corresponding to the frame.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] pose: the pose of the camera corresponding to the frame
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalize(const SRef<Frame> frame, Transform3Df & pose) = 0;
+    virtual FrameworkReturnCode relocalize(const SRef<datastructure::Frame> frame, datastructure::Transform3Df & pose) = 0;
 };
 
 }

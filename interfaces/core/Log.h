@@ -215,7 +215,7 @@ public:
 
         if(found!=std::string::npos){
         // test if the target directory exists
-            std::string pathname=fileName.substr(0,found);
+            pathname=fileName.substr(0,found);
             if( stat( pathname.c_str(), &info ) != 0 ){
                   LOG_WARNING( "{} doesn't exist", pathname.c_str() );
                   return;

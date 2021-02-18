@@ -26,7 +26,6 @@
 #include "datastructure/Image.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace slam {
 
@@ -47,14 +46,14 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] intrinsicParams camera calibration matrix parameters.
 	/// @param[in] distorsionParams camera distorsion parameters.
-	virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
+	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
 
 	/// @brief This method uses images to boostrap
 	/// @param[in] image: input image to process
 	/// @param[out] view: output image to visualize
 	/// @param[in] pose: the pose of the input image
 	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode process(const SRef<Image> &image, SRef<Image> &view, const Transform3Df &pose = Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode process(const SRef<datastructure::Image> image, SRef<datastructure::Image> & view, const datastructure::Transform3Df & pose = datastructure::Transform3Df::Identity()) = 0;
 };
 
 }

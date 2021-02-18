@@ -21,6 +21,7 @@
 #include <xpcf/api/IComponentIntrospect.h>
 #include "xpcf/api/IComponentManager.h"
 #include "core/Messages.h"
+#include "xpcf/core/helpers.h"
 
 namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
@@ -34,15 +35,15 @@ namespace pipeline {
  *
  * This class defines a generic pipeline interface.
  */
-
-class IPipeline: virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IPipeline : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
     virtual ~IPipeline() override = default;
 
     /// @brief Initialization of the pipeline
     /// Initialize the pipeline by providing a reference to the component manager loaded by the PipelineManager.
-    /// @param[in] componentManager a shared reference to the component manager which has loaded the components and configuration in the pipleine manager
+    /// @param[in] componentManager: a shared reference to the component manager which has loaded
+    /// the components and configuration in the pipleine manager
     virtual FrameworkReturnCode init(SRef<xpcf::IComponentManager> componentManager) = 0;
 
     /// @brief Start the pipeline

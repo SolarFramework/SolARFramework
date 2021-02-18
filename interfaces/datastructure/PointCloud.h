@@ -22,7 +22,11 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/CloudPoint.h"
 #include "xpcf/core/refs.h"
+//#include <xpcf/remoting/ISerializable.h>
 #include <map>
+//#include <iostream>
+//#include <sstream>
+//#include <cstddef>
 
 // Definition of PointCloud Class //
 // part of SolAR namespace //
@@ -63,10 +67,24 @@ class  SOLARFRAMEWORK_API PointCloud {
 		std::vector<CloudPoint>& getPointCloud();
 
     private:
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+
         std::vector<CloudPoint> m_points;
 };
+
+DECLARESERIALIZE(PointCloud);
 
 }
 }  // end of namespace SolAR
 
+/*
+template<> std::vector<uint8_t> org::bcom::xpcf::serialize(const SolAR::datastructure::PointCloud & object)
+{
+    std::ostringstream oss(std::ios::binary);
+    OutputArchive oa(oss);
+    oa << object;
+    std::vector<uint8_t> serialized((std::ostream_iterator<uint8_t>(oss)), std::ostream_iterator<uint8_t>());
+}*/
 #endif // SOLAR_POINTCLOUD_H

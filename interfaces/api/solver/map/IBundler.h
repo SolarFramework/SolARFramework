@@ -17,59 +17,56 @@
 #include "api/solver/map/IMapper.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace solver {
 namespace map {
 /**
-  * @class IBundler
-  * @brief <B>Optimizes a system of 3D points and keyframes.</B>
-  * <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>
-  */
+* @class IBundler
+* @brief <B>Optimizes a system of 3D points and keyframes.</B>
+* <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>
+*/
 
-	class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
-	public:
-		/// @brief IBundler default constructor
-		IBundler() = default;
+class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+	/// @brief IBundler default constructor
+	IBundler() = default;
 
-		///@brief ~IBundler default destructor
-		virtual ~IBundler() = default;
+	///@brief ~IBundler default destructor
+	virtual ~IBundler() = default;
 
-		/// @brief set mapper reference to optimize
-		/// @param[in] map: the input map.
-		/// @return FrameworkReturnCode::_SUCCESS_ if the map is set, else FrameworkReturnCode::_ERROR.
-		virtual FrameworkReturnCode setMapper(const SRef<IMapper> &map) = 0;
+	/// @brief set mapper reference to optimize
+	/// @param[in] map: the input map.
+	/// @return FrameworkReturnCode::_SUCCESS_ if the map is set, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode setMapper(const SRef<IMapper> map) = 0;
 
-		/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
-		/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
-		/// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
-		/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
-		/// @param[in] selectKeyframes : selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
-		/// @return the mean re-projection error after optimization.
-		virtual double bundleAdjustment(CamCalibration & K,
-										CamDistortion & D,
-										const std::vector<uint32_t> & selectKeyframes = {}) = 0;
-
-
-		/// @brief solve a non-linear problem related to sim3D optimization between two overlaped keyframes of two different maps:
-        /// @param[in] K1: camera calibration parameters responsible of 3D points generation from map 1.
-        /// @param[in] K2: camera calibration parameters responsible of 3D points generation from map 2.
-        /// @param[in] keyframe1: first overlapping keyframe from map 1.
-        /// @param[in] keyframe2: second overlapping keyframe from map 2.
-        /// @param[in] matches: matches between two keyframes.
-        /// @param[in] pts3D1: first set of 3D points.
-        /// @param[in] pts3D2: second set of 3D points.
-        /// @param[in, out] pose: Sim3 matrix pose between map1 and map2
-		/// @return the mean re-projection error.
-        virtual double optimizeSim3(CamCalibration& K1,
-                                    CamCalibration& K2,
-                                    const SRef<Keyframe>& keyframe1,
-                                    const SRef<Keyframe>& keyframe2,
-                                    const std::vector<DescriptorMatch>& matches,
-                                    const std::vector<Point3Df> & pts3D1,
-                                    const std::vector<Point3Df> & pts3D2,
-                                    Transform3Df & pose) = 0;
-
+	/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
+	/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
+	/// @param[in, out] K: camera calibration parameters responsible of 3D points generation.
+	/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
+    /// @param[in] selectKeyframes: selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
+	/// @return the mean re-projection error after optimization.
+	virtual double bundleAdjustment(datastructure::CamCalibration & K,
+									datastructure::CamDistortion & D,
+									const std::vector<uint32_t> & selectKeyframes = {}) = 0;
+	
+	/// @brief solve a non-linear problem related to sim3D optimization between two overlaped keyframes of two different maps:
+	/// @param[in] K1: camera calibration parameters responsible of 3D points generation from map 1.
+	/// @param[in] K2: camera calibration parameters responsible of 3D points generation from map 2.
+	/// @param[in] keyframe1: first overlapping keyframe from map 1.
+	/// @param[in] keyframe2: second overlapping keyframe from map 2.
+	/// @param[in] matches: matches between two keyframes.
+	/// @param[in] pts3D1: first set of 3D points.
+	/// @param[in] pts3D2: second set of 3D points.
+	/// @param[in, out] pose: Sim3 matrix pose between map1 and map2
+	/// @return the mean re-projection error.
+	virtual double optimizeSim3(CamCalibration& K1,
+								CamCalibration& K2,
+								const SRef<Keyframe>& keyframe1,
+								const SRef<Keyframe>& keyframe2,
+								const std::vector<DescriptorMatch>& matches,
+								const std::vector<Point3Df> & pts3D1,
+								const std::vector<Point3Df> & pts3D2,
+								Transform3Df & pose) = 0;
 };
 }
 }

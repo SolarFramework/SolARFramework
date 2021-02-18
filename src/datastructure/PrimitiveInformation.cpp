@@ -16,6 +16,7 @@
 
 #include <datastructure/PrimitiveInformation.h>
 
+#include "xpcf/core/helpers.h"
 
 namespace SolAR {
 namespace datastructure {
@@ -55,7 +56,7 @@ void PrimitiveInformation::setSemanticId(const int& semanticId) {
 }
 
 template<typename Archive>
-void PrimitiveInformation::serialize(Archive &ar, [[maybe_unused]] const unsigned int version)
+void PrimitiveInformation::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & m_usedTimes;
     char * ptr = reinterpret_cast<char *>(&m_lastUpdateTime);

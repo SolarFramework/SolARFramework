@@ -22,7 +22,6 @@
 #include "datastructure/Trackable.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace input {
 namespace files {
@@ -39,9 +38,9 @@ public:
     virtual ~ITrackableLoader() = default;
 
     /// @brief Loads a specific trackable object and its features.
-    /// @return SRef<Trackable> : the trackable object created from the description file
+    /// @return SRef<datastructure::Trackable> the trackable object created from the description file
     /// or 0 if an error occurs
-    virtual SRef<Trackable> loadTrackable() = 0;
+    virtual SRef<datastructure::Trackable> loadTrackable() = 0;
 
 };
 

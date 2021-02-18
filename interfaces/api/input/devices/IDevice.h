@@ -44,11 +44,11 @@ public:
 
     /// @brief Start the acquisition device referenced by its device_id
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode start()=0;
+    virtual FrameworkReturnCode start() = 0;
 
     /// @brief Stop the acquisition device
     /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-    virtual FrameworkReturnCode stop()=0;
+    virtual FrameworkReturnCode stop() = 0;
 };
 
 }

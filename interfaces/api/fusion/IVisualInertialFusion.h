@@ -23,7 +23,6 @@
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace fusion {
 
@@ -31,9 +30,9 @@ namespace fusion {
 struct InertialData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    Vector3f accelData;
-    Vector3f gyroData;
-    Vector3f magData;
+    datastructure::Vector3f accelData;
+    datastructure::Vector3f gyroData;
+    datastructure::Vector3f magData;
 };
 
 // TODO move into datastructure
@@ -41,7 +40,7 @@ struct InertialData {
 struct VisionData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    Transform3Df pose;
+    datastructure::Transform3Df pose;
     bool isPoseValid;
 };
 
@@ -75,7 +74,7 @@ public:
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode process(Transform3Df & outputData) = 0;
+    virtual FrameworkReturnCode process(datastructure::Transform3Df & outputData) = 0;
 
 };
 
@@ -87,6 +86,31 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::fusion::IVisualInertialFusion,
                          "3efaa1c6-85e4-11e8-adc0-fa7ae01bbebc",
                          "IVisualInertialFusion",
                          "SolAR::api::fusion::IVisualInertialFusion Interface");
+
+namespace boost { namespace serialization {
+
+template<class Archive>
+inline void serialize(Archive & ar,
+                      SolAR::api::fusion::InertialData & data,
+                      const unsigned int version)
+{
+  ar & boost::serialization::make_binary_object(&data.timestamp, sizeof(data.timestamp));
+  ar & data.accelData;
+  ar & data.gyroData;
+  ar & data.magData;
+}
+
+template<class Archive>
+inline void serialize(Archive & ar,
+                      SolAR::api::fusion::VisionData & data,
+                      const unsigned int version)
+{
+  ar & boost::serialization::make_binary_object(&data.timestamp, sizeof(data.timestamp));
+  ar & data.pose;
+  ar & data.isPoseValid;
+}
+
+}}
 
 #endif // SOLAR_IVISUALINERTIALFUSION_H
 

@@ -18,6 +18,8 @@
 #include <vector>
 #include <map>
 
+#include "xpcf/core/helpers.h"
+
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
 
@@ -32,8 +34,8 @@ namespace datastructure {
 class Image::ImageInternal {
 public:
     ImageInternal() = default;
-    ImageInternal(uint32_t size);
-    ImageInternal(void* data, uint32_t size);
+    explicit ImageInternal(uint32_t size);
+    explicit ImageInternal(void* data, uint32_t size);
     ~ImageInternal() = default;
     void setBufferSize(uint32_t size);
     inline uint32_t getBufferSize() { return m_bufferSize; }
@@ -160,7 +162,7 @@ const void* Image::data() const
 }
 
 template<typename Archive>
-void Image::serialize(Archive &ar, [[maybe_unused]] const unsigned int version) {
+void Image::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_size.height;
 	ar & m_size.width;
 }
