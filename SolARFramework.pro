@@ -68,6 +68,8 @@ win32 {
 }
 
 android {
+    # Needed to access android sink for spdlog
+    DEFINES += __ANDROID__
     ANDROID_ABIS="arm64-v8a"
 }
 

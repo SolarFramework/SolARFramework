@@ -251,11 +251,7 @@ public:
 
     }
 
-    static SOLARFRAMEWORK_API void add_sink_console() {
-         sink()->add_sink(std::make_shared< spdlog::sinks::stdout_sink_mt >());
-    }
-
-
+    static SOLARFRAMEWORK_API void add_sink_console();
 };
 
 }
