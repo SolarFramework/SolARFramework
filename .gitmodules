@@ -1,4 +1,4 @@
 [submodule "SolARWrapper"]
 	path = SolARWrapper
 	url = https://github.com/SolarFramework/SwigWrapper.git
-	branch = master
+	branch = feature/UnityWrapper

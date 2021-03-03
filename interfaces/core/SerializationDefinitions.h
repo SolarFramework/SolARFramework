@@ -34,7 +34,7 @@
 #include <boost/uuid/uuid_serialize.hpp>
 
 // Important note: to change the serialization format used throughout the framework
-// one of the following definitions must be uncommented dependeing on the desired format
+// one of the following definitions must be uncommented depending on the desired format
 // The definition MUST NOT BE PROVIDED with compile time definitions, otherwise the framework users will not have
 // InputArchive and OutputArchive types matching the framework compiled ones
 // When both definitions are uncommented, text serialization is used
