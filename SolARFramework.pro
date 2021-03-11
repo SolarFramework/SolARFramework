@@ -9,7 +9,7 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.9.0
+VERSION=0.9.5
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -129,6 +129,9 @@ header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
 header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
 header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
 
+header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
+header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
+
 INCLUDEPATH += $${PWD}/interfaces
 
 
@@ -153,6 +156,7 @@ INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_slam
+INSTALLS += header_interfaces_sfm
 
 OTHER_FILES += \
     packagedependencies.txt

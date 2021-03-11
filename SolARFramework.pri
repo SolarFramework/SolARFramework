@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/sfm/IStructureFromMotion.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/display/IImageViewer.h \
