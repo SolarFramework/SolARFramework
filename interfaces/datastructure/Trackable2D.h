@@ -58,12 +58,6 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 
         // Class methods
 
-        ///
-        /// @brief Returns the type of the Trackable object
-        /// @return TrackableType: the type of the instance
-        ///
-        virtual TrackableType getType() const = 0;
-
         /// @brief Provides the size of the 2D trackable object
         /// @return size value
         Sizef getSize() const;
