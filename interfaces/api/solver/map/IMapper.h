@@ -64,22 +64,22 @@ public:
 	/// @brief Set identification component.
 	/// @param[in] an identification instance
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setIdentification (const SRef<datastructure::Identification> identification) = 0;
+    virtual FrameworkReturnCode setIdentification (const SRef<SolAR::datastructure::Identification> identification) = 0;
 
 	/// @brief Get identification component.
 	/// @param[out] an identification instance
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getIdentification(SRef<datastructure::Identification> & identification) const = 0;
+    virtual FrameworkReturnCode getIdentification(SRef<SolAR::datastructure::Identification> & identification) const = 0;
 
 	/// @brief Set coordinate system component.
 	/// @param[in] a coordinate system instance
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCoordinateSystem(const SRef<datastructure::CoordinateSystem> coordinateSystem) = 0;
+    virtual FrameworkReturnCode setCoordinateSystem(const SRef<SolAR::datastructure::CoordinateSystem> coordinateSystem) = 0;
 
 	/// @brief Get coordinate system component.
 	/// @param[out] a coordinate system instance
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCoordinateSystem(SRef<datastructure::CoordinateSystem> & coordinateSystem) const = 0;
+    virtual FrameworkReturnCode getCoordinateSystem(SRef<SolAR::datastructure::CoordinateSystem> & coordinateSystem) const = 0;
 
 	/// @brief Set point cloud component.
 	/// @param[in] a point cloud instance
@@ -126,26 +126,26 @@ public:
 	/// @param[in] minWeightNeighbor: the weight to get keyframe neighbors
 	/// @param[out] localPointCloud: the local point cloud
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getLocalPointCloud(const SRef<datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<datastructure::CloudPoint>> &localPointCloud) const = 0;
+    virtual FrameworkReturnCode getLocalPointCloud(const SRef<SolAR::datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<SolAR::datastructure::CloudPoint>> &localPointCloud) const = 0;
 
 	/// @brief Add a point cloud to mapper and update visibility of keyframes and covisibility graph
 	/// @param[in] cloudPoint: the cloud point to add to the mapper
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
+    virtual FrameworkReturnCode addCloudPoint(const SRef<SolAR::datastructure::CloudPoint> cloudPoint) = 0;
 
 	/// @brief Remove a point cloud from mapper and update visibility of keyframes and covisibility graph
 	/// @param[in] cloudPoint: the cloud point to remove to the mapper
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode removeCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
+    virtual FrameworkReturnCode removeCloudPoint(const SRef<SolAR::datastructure::CloudPoint> cloudPoint) = 0;
 
 	/// @brief Remove a keyframe from mapper and update visibility of point cloud and covisibility graph
 	/// @param[in] cloudPoint: the cloud point to add to the mapper
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode removeKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode removeKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
 	/// @brief Prune cloud points and keyframes of a map
 	/// @param[in] cloudPoints: the cloud points are checked to prune
-    virtual void pruning(const std::vector<SRef<datastructure::CloudPoint>> & cloudPoints = {}) = 0;
+    virtual void pruning(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & cloudPoints = {}) = 0;
 
 	/// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.

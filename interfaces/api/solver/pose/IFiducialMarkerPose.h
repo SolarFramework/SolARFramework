@@ -46,22 +46,22 @@ public:
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams camera calibration matrix parameters.
     /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief this method is used to set the fiducial marker
     /// @param[in] Fiducial marker.
-    virtual void setMarker(const SRef<api::input::files::IMarker2DSquaredBinary> marker) =0;
+    virtual void setMarker(const SRef<SolAR::api::input::files::IMarker2DSquaredBinary> marker) =0;
 
     /// @brief this method is used to set the fiducial marker
     /// @param[in] Fiducial marker.
-    virtual void setMarker(const SRef<datastructure::FiducialMarker> marker) =0;
+    virtual void setMarker(const SRef<SolAR::datastructure::FiducialMarker> marker) =0;
 
     /// @brief Estimates camera pose based on a fiducial marker.
     /// @param[in] image: input image.
     /// @param[out] pose: camera pose.
     /// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> image,
-                                         datastructure::Transform3Df & pose) =0;
+    virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> image,
+                                         SolAR::datastructure::Transform3Df & pose) =0;
 
 };
 

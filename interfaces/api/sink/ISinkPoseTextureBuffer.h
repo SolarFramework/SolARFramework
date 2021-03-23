@@ -51,11 +51,11 @@ public:
    /// @brief Set a new image and pose coming from the pipeline.
    /// @param[in] pose: The new pose to be made available to a third party application.
    /// @param[in] image: The new image to update a buffer texture when required.
-   virtual void set(const datastructure::Transform3Df & pose, const SRef<datastructure::Image> image) = 0;
+   virtual void set(const SolAR::datastructure::Transform3Df & pose, const SRef<SolAR::datastructure::Image> image) = 0;
 
    /// @brief Set a new image without pose.
    /// @param[in] image: The new image to update a buffer texture when required.
-   virtual void set(const SRef<datastructure::Image> image) = 0;
+   virtual void set(const SRef<SolAR::datastructure::Image> image) = 0;
 
    /// @brief Set a pointer to the texture buffer to update it with the new image when required.
    /// @param[in] textureBufferPointer: the pointer on texture buffer

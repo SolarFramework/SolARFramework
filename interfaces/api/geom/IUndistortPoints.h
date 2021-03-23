@@ -44,14 +44,14 @@ public:
     /// @param[in] inputPoints the set of 2D points to correct
     /// @param[out] outputPoints the  undistorted 2D Points
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode undistort(const std::vector<datastructure::Point2Df> & inputPoints,
-                                          std::vector<datastructure::Point2Df> & outputPoints) = 0;
+    virtual FrameworkReturnCode undistort(const std::vector<SolAR::datastructure::Point2Df> & inputPoints,
+                                          std::vector<SolAR::datastructure::Point2Df> & outputPoints) = 0;
 
     /// @brief Set the intrinsic camera parameters
-    virtual void setIntrinsicParameters(const datastructure::CamCalibration & intrinsic_parameters) = 0;
+    virtual void setIntrinsicParameters(const SolAR::datastructure::CamCalibration & intrinsic_parameters) = 0;
     
     /// @brief Set the distorsion intrinsic camera parameters
-    virtual void setDistortionParameters(const datastructure::CamDistortion & distorsion_parameters) = 0;
+    virtual void setDistortionParameters(const SolAR::datastructure::CamDistortion & distorsion_parameters) = 0;
 
 };
 

@@ -50,7 +50,7 @@ public:
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (resolution and focal)
-    virtual datastructure::CameraParameters getCameraParameters() const = 0;
+    virtual SolAR::datastructure::CameraParameters getCameraParameters() const = 0;
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed

@@ -44,7 +44,7 @@ public:
     /// @param[in] digitalPoints the 2D points we want to map in 3D world coordinate system.
     /// @param[out] worldPoints the resulting 3D poitns after 3D mapping
     /// @return FrameworkReturnCode::_SUCCESS_ if mapping succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode map(const std::vector<datastructure::Point2Df> & digitalPoints, std::vector<datastructure::Point3Df> & worldPoints) = 0;
+    virtual FrameworkReturnCode map(const std::vector<SolAR::datastructure::Point2Df> & digitalPoints, std::vector<SolAR::datastructure::Point3Df> & worldPoints) = 0;
 };
 
 }

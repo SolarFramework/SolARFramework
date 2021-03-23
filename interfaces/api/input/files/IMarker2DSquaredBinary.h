@@ -44,8 +44,8 @@ public:
     virtual ~IMarker2DSquaredBinary() = default;
 
     /// @brief Return the pattern of the 2D squared marker
-    /// @return datastructure::SquaredBinaryPattern the pattern of the 2D squared marker
-    virtual const datastructure::SquaredBinaryPattern & getPattern() const = 0;
+    /// @return SolAR::datastructure::SquaredBinaryPattern the pattern of the 2D squared marker
+    virtual const SolAR::datastructure::SquaredBinaryPattern & getPattern() const = 0;
 };
 
 }

@@ -45,9 +45,9 @@ public:
    /// @param[in] inPointCloud: The point cloud to filter
    /// @param[in] centroid: The 3D point of reference used to filter the point cloud.
    /// @param[out] outPointCloud: The resulting point cloud after filtering
-   virtual FrameworkReturnCode filter(const SRef<datastructure::PointCloud> inPointCloud,
-                                      const SRef<datastructure::Point3Df> centroid,
-                                      SRef<datastructure::PointCloud>& outPointCloud) const = 0;
+   virtual FrameworkReturnCode filter(const SRef<SolAR::datastructure::PointCloud> inPointCloud,
+                                      const SRef<SolAR::datastructure::Point3Df> centroid,
+                                      SRef<SolAR::datastructure::PointCloud>& outPointCloud) const = 0;
 
 };
 }
