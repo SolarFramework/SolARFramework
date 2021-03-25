@@ -53,7 +53,7 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode merge(SRef<IMapper> map,
                                     SRef<IMapper> globalMap,
-									datastructure::Transform3Df &transform, 
+                                    SolAR::datastructure::Transform3Df &transform,
 									uint32_t &nbMatches, 
 									float &error) = 0;
 
@@ -66,7 +66,7 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode merge(SRef<IMapper> map,
                                     SRef<IMapper> globalMap,
-									datastructure::Transform3Df &transform, 
+                                    SolAR::datastructure::Transform3Df &transform,
 									const std::vector<std::pair<uint32_t, uint32_t>>&cpOverlapIndices,
                                     bool isRefineTransform = false) = 0;
 };
