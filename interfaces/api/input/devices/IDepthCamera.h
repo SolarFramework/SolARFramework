@@ -60,7 +60,7 @@ public:
     /// @brief Set the depth image resolution of the acquisition device
     /// @param[in] SolAR::datastructure::Sizei
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode setDepthResolution(datastructure::Sizei resolution) = 0;
+    virtual FrameworkReturnCode setDepthResolution(SolAR::datastructure::Sizei resolution) = 0;
 
     /// @brief Set the intrinsic parameters of the depth camera
     /// @param[in] intrinsic_parameters: intrinsic parameters

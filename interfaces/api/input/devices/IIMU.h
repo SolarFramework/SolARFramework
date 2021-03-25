@@ -45,24 +45,24 @@ public:
     /// @brief Get gyroscope data
     /// @param[in,out] gyroData The vector in which the gyroscope data will be stored (in radian per second)
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getGyroscopeData(datastructure::Vector3f & gyroData) = 0;
+    virtual FrameworkReturnCode getGyroscopeData(SolAR::datastructure::Vector3f & gyroData) = 0;
 
     /// @brief Get accelerometer data
     /// @param[in,out] accelData The vector in which the accelerometer data will be stored (in metre per second squared)
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getAccelerometerData(datastructure::Vector3f & accelData) = 0;
+    virtual FrameworkReturnCode getAccelerometerData(SolAR::datastructure::Vector3f & accelData) = 0;
 
     /// @brief Get magnetometer data
     /// @param[in,out] magData The vector in which the magnetometer data will be stored (in gauss)
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getMagnetometerData(datastructure::Vector3f & magData) = 0;
+    virtual FrameworkReturnCode getMagnetometerData(SolAR::datastructure::Vector3f & magData) = 0;
 
     /// @brief Get gyroscope, accelerometer and magnetometer data
     /// @param[in,out] gyroData The vector in which the gyroscope data will be stored (in radian per second)
     /// @param[in,out] accelData accelData The vector in which the accelerometer data will be stored (in metre per second squared)
     /// @param[in,out] magData The vector in which the magnetometer data will be stored (in gauss)
     /// @return FrameworkReturnCode to track sucessful or failing event.
-    virtual FrameworkReturnCode getAllSensorsData(datastructure::Vector3f & gyroData,
+    virtual FrameworkReturnCode getAllSensorsData(SolAR::datastructure::Vector3f & gyroData,
                                                   SolAR::datastructure::Vector3f & accelData,
                                                   SolAR::datastructure::Vector3f & magData) = 0;
 
