@@ -22,10 +22,21 @@ namespace SolAR {
 namespace datastructure {
 
 PrimitiveInformation::PrimitiveInformation() {
+	m_isValid = true;
 	m_confidence = 1.f;
 	m_usedTimes = 1;
 	m_lastUpdateTime = std::chrono::system_clock::now();
 	m_semanticId = -1;
+}
+
+bool PrimitiveInformation::isValid() const
+{
+	return m_isValid;
+}
+
+void PrimitiveInformation::setInvalid()
+{
+	m_isValid = false;
 }
 
 void PrimitiveInformation::updateConfidence(bool isGood) {
