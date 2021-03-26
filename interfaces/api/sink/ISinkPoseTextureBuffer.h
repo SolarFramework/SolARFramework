@@ -69,13 +69,13 @@ public:
    /// The implementation of this interface must be thread safe
    /// @param[in,out] pose: the new pose made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image have been updated, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode udpate(datastructure::Transform3Df & pose) = 0;
+   virtual SinkReturnCode udpate(SolAR::datastructure::Transform3Df & pose) = 0;
 
    /// @brief Provide an access to the new pose and update the texture buffer with the new image only if the image and the pose have been updated by the pipeline.
    /// The implementation of this interface must be thread safe
    /// @param[in,out] pose: the new pose made available by the pipeline.
    /// @return return FrameworkReturnCode::_SUCCESS if a new pose and image are available, otherwise frameworkReturnCode::_ERROR_.
-   virtual SinkReturnCode tryUpdate(datastructure::Transform3Df & pose) = 0;
+   virtual SinkReturnCode tryUpdate(SolAR::datastructure::Transform3Df & pose) = 0;
 
 };
 

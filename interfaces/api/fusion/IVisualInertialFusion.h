@@ -74,7 +74,7 @@ public:
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode process(datastructure::Transform3Df & outputData) = 0;
+    virtual FrameworkReturnCode process(SolAR::datastructure::Transform3Df & outputData) = 0;
 
 };
 
