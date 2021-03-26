@@ -17,8 +17,6 @@
 #ifndef TRACKABLE2D_H
 #define TRACKABLE2D_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include <core/SerializationDefinitions.h>
 #include <datastructure/Trackable.h>
 #include <datastructure/GeometryDefinitions.h>
 

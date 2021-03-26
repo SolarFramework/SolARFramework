@@ -17,8 +17,6 @@
 #ifndef FIDUCIALMARKER_H
 #define FIDUCIALMARKER_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include <core/SerializationDefinitions.h>
 #include <datastructure/SquaredBinaryPattern.h>
 #include <datastructure/Trackable2D.h>
 

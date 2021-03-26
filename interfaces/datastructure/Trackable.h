@@ -17,7 +17,7 @@
 #ifndef TRACKABLE_H
 #define TRACKABLE_H
 
-#include "core/SolARFrameworkDefinitions.h"
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
 // Definition of Trackable Class //
@@ -32,7 +32,7 @@ namespace datastructure {
 enum TrackableType {
     UNKNOWN,
     FIDUCIAL_MARKER,
-    NATURAL_IMAGE_MARKER
+    IMAGE_MARKER
 };
 
 

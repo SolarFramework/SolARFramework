@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+    $$PWD/interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/display/IImageViewer.h \
@@ -30,10 +31,6 @@ interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
@@ -68,7 +65,6 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
-interfaces/api/solver/pose/IFiducialMarkerPose.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
@@ -92,6 +88,7 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Identification.h \
 interfaces/datastructure/Image.h \
+interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/MathDefinitions.h \
@@ -114,6 +111,7 @@ src/datastructure/FiducialMarker.cpp \
 src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
+src/datastructure/ImageMarker.cpp \
 src/datastructure/Keyframe.cpp \
 src/datastructure/Keypoint.cpp \
 src/datastructure/PointCloud.cpp \
