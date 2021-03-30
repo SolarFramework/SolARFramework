@@ -15,6 +15,7 @@ interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/IMatchesFilter.h \
 interfaces/api/features/ISBPatternReIndexer.h \
+interfaces/api/features/ICornerRefinement.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
