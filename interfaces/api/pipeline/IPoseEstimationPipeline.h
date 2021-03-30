@@ -36,7 +36,7 @@ namespace pipeline {
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPoseEstimationPipeline : virtual public IPipeline {
+class XPCF_IGNORE IPoseEstimationPipeline : virtual public IPipeline {
 public:
     /// @brief IPoseEstimationPipeline default constructor
     IPoseEstimationPipeline() = default;

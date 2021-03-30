@@ -49,6 +49,11 @@ unix:!android {
 #
 }
 
+linux {
+    QMAKE_LFLAGS += -ldl
+    LIBS += -L/home/linuxbrew/.linuxbrew/lib # temporary fix caused by grpc with -lre2 ... without -L in grpc.pc
+}
+
 macx {
     DEFINES += _MACOS_TARGET_
     QMAKE_MAC_SDK= macosx

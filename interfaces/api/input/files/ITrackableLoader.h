@@ -40,7 +40,7 @@ public:
     /// @brief Loads a specific trackable object and its features.
     /// @param [in,out] trackable: the loaded trackable loaded
     /// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode loadTrackable(SRef<datastructure::Trackable>& trackable) = 0;
+    virtual FrameworkReturnCode loadTrackable(SRef<SolAR::datastructure::Trackable>& trackable) = 0;
 
 };
 

@@ -45,7 +45,7 @@ namespace map {
   * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
   */
 
-class  IMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapper default constructor
 	IMapper() = default;

@@ -36,7 +36,7 @@ namespace map {
 * <TT>UUID: eb9b9921-b063-42a8-8282-9ed53ee21d96</TT>
 */
 
-class  IMapFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  XPCF_IGNORE IMapFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapFusion default constructor
 	IMapFusion() = default;
