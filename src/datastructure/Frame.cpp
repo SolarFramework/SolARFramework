@@ -28,18 +28,25 @@ std::mutex						m_mutexVisibility;
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()){}
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()) {
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()) {
 }
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const Transform3Df pose) : m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose) {}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
 
 const SRef<Image>& Frame::getView() const
 {
     return m_view;
+}
+
+void Frame::setView(const SRef<Image>& view)
+{
+	m_view = view;
 }
 
 const Transform3Df& Frame::getPose() const
@@ -57,6 +64,24 @@ void Frame::setPose(const Transform3Df & pose)
 void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
 	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
     m_keypoints  = kpts;
+}
+
+const std::vector<Keypoint>& Frame::getUndistortedKeypoints() const
+{
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
+	return m_keypointsUndistort;
+}
+
+const Keypoint & Frame::getUndistortedKeypoint(int i) const
+{
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
+	return m_keypointsUndistort[i];
+}
+
+void Frame::setUndistortedKeypoints(const std::vector<Keypoint>& kpts)
+{
+	std::unique_lock<std::mutex> lock(m_mutexKeypoint);
+	m_keypointsUndistort = kpts;
 }
 
 const SRef<DescriptorBuffer>& Frame::getDescriptors() const
@@ -136,6 +161,7 @@ void Frame::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int ve
 	ar & m_view;
 	ar & m_descriptors;
 	ar & m_keypoints;
+	ar & m_keypointsUndistort;
 	ar & m_mapVisibility;
 }
 
