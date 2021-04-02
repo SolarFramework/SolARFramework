@@ -19,7 +19,6 @@
 
 #include <datastructure/Image.h>
 #include <datastructure/Trackable2D.h>
-#include <core/Messages.h>
 
 // Definition of ImageMarker Class //
 // part of SolAR namespace //
@@ -67,11 +66,6 @@ class SOLARFRAMEWORK_API ImageMarker : virtual public Trackable2D {
         /// @param[out] imageCorners the 2D corners of the marker in image coordinate system
         /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
         FrameworkReturnCode getImageCorners(std::vector<SolAR::datastructure::Point2Df> & imageCorners) const;
-
-        /// @brief Provide the position of 3D corners in world coordinate system
-        /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
-        /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
-        FrameworkReturnCode getWorldCorners(std::vector<SolAR::datastructure::Point3Df> & worldCorners) const;
 
     private:
         friend class boost::serialization::access;

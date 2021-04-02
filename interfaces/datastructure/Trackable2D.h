@@ -19,6 +19,7 @@
 
 #include <datastructure/Trackable.h>
 #include <datastructure/GeometryDefinitions.h>
+#include <core/Messages.h>
 
 // Definition of Trackable2D Class //
 // part of SolAR namespace //
@@ -79,6 +80,11 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
         /// @brief Sets the height of the 2D trackable object
         /// @param[in] height: height value
         void setHeight(const float & height);
+
+        /// @brief Provide the position of 3D corners in world coordinate system
+        /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
+        /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+        FrameworkReturnCode getWorldCorners(std::vector<SolAR::datastructure::Point3Df> & worldCorners) const;
 
     private:
         friend class boost::serialization::access;

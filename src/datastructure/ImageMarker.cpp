@@ -65,17 +65,6 @@ FrameworkReturnCode ImageMarker::getImageCorners(std::vector<Point2Df> & imageCo
     return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode ImageMarker::getWorldCorners(std::vector<Point3Df> & worldCorners) const
-{
-    worldCorners.clear();
-    worldCorners.push_back(Point3Df(-m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(m_size.width/2.0f, m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(-m_size.width/2.0f, m_size.height/2.0f, 0.0f));
-
-    return FrameworkReturnCode::_SUCCESS;
-}
-
 template<typename Archive>
 void ImageMarker::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
     ar & m_image;
