@@ -24,11 +24,11 @@
 #include <core/SerializationDefinitions.h>
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/Lockable.h"
 #include "core/Log.h"
 #include <iostream>
 #include <string>
 #include <chrono>
-#include <mutex>
 
 namespace SolAR {
 namespace datastructure {
@@ -37,7 +37,7 @@ namespace datastructure {
 	* @class Identification component
 	* @brief <B>This component includes identification informations specified a map.</B>
 	*/
-class SOLARFRAMEWORK_API Identification
+class SOLARFRAMEWORK_API Identification : public Lockable
 {
 public:
 	///

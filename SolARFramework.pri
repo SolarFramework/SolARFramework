@@ -101,6 +101,13 @@ interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/Trackable.h \
 interfaces/datastructure/Trackable2D.h \
+interfaces/datastructure/CovisibilityGraph.h \
+interfaces/datastructure/KeyframeRetrieval.h \
+interfaces/datastructure/FeatureCloudPoint.h \
+interfaces/datastructure/KeyframeCollection.h \
+interfaces/datastructure/Lockable.h \
+interfaces/datastructure/Map.h \
+interfaces/datastructure/SparseMap.h \
 interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp
@@ -117,8 +124,13 @@ src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
 src/datastructure/Keyframe.cpp \
 src/datastructure/Keypoint.cpp \
-src/datastructure/PointCloud.cpp \
 src/datastructure/PrimitiveInformation.cpp \
 src/datastructure/SquaredBinaryPattern.cpp \
 src/datastructure/Trackable.cpp \
-src/datastructure/Trackable2D.cpp
+src/datastructure/Trackable2D.cpp \
+src/datastructure/CovisibilityGraph.cpp \
+src/datastructure/KeyframeRetrieval.cpp \
+src/datastructure/FeatureCloudPoint.cpp \
+src/datastructure/KeyframeCollection.cpp \
+src/datastructure/Map.cpp \
+src/datastructure/SparseMap.cpp

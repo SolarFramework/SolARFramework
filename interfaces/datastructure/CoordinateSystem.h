@@ -24,8 +24,8 @@
 #include <core/SerializationDefinitions.h>
 #include "GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
+#include "datastructure/Lockable.h"
 #include <chrono>
-#include <mutex>
 
 namespace SolAR {
 namespace datastructure {
@@ -34,7 +34,7 @@ namespace datastructure {
     * @class CoordinateSystem
 	* @brief <B>This component includes coordinate systems of a map. It can be a floating coordinate system or be related to other coordinate systems.</B>
 	*/
-class SOLARFRAMEWORK_API CoordinateSystem
+class SOLARFRAMEWORK_API CoordinateSystem : public Lockable
 {
 public:
 	///
