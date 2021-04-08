@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef IMAPPER_H
-#define IMAPPER_H
+#ifndef IMAPMANAGER_H
+#define IMAPMANAGER_H
 
 #ifndef _BCOM_SHARED
 #define _BCOM_SHARED
@@ -27,10 +27,8 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
-
-#include "datastructure/Identification.h"
-#include "datastructure/CoordinateSystem.h"
-#include "api/storage/ICovisibilityGraph.h"
+#include "datastructure/Map.h"
+#include "api/storage/ICovisibilityGraphManager.h"
 #include "api/storage/IKeyframesManager.h"
 #include "api/storage/IPointCloudManager.h"
 #include "api/reloc/IKeyframeRetriever.h"
@@ -43,86 +41,28 @@ using namespace reloc;
 namespace solver {
 namespace map {
 /**
-* @class IMapper
+* @class IMapManager
 * @brief <B>Allow to manage all components of a map.</B>
 * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
 */
 
-class  IMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  IMapManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-	/// @brief IMapper default constructor
-	IMapper() = default;
+	/// @brief IMapManager default constructor
+	IMapManager() = default;
 
-	/// @brief IMapper default destructor
-	virtual ~IMapper() {}
+	/// @brief IMapManager default destructor
+	virtual ~IMapManager() {}
 
-	/// @brief Set the mapper
+	/// @brief Set the map
+	/// @param[in] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode set(const SRef<IMapper> mapper) = 0;
+	virtual FrameworkReturnCode setMap(const SRef<Map> map) = 0;
 
-	/// @brief Get the mapper
+	/// @brief Get the map
+	/// @param[out] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode get(SRef<IMapper> & mapper) = 0;
-
-	/// @brief Set identification component.
-	/// @param[in] an identification instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setIdentification(const SRef<datastructure::Identification> identification) = 0;
-
-	/// @brief Get identification component.
-	/// @param[out] an identification instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getIdentification(SRef<datastructure::Identification> & identification) const = 0;
-
-	/// @brief Set coordinate system component.
-	/// @param[in] a coordinate system instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setCoordinateSystem(const SRef<datastructure::CoordinateSystem> coordinateSystem) = 0;
-
-	/// @brief Get coordinate system component.
-	/// @param[out] a coordinate system instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getCoordinateSystem(SRef<datastructure::CoordinateSystem> & coordinateSystem) const = 0;
-
-	/// @brief Set point cloud component.
-	/// @param[in] a point cloud instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setPointCloudManager(const SRef<storage::IPointCloudManager> pointCloudManager) = 0;
-
-	/// @brief Get point cloud component.
-	/// @param[out] a point cloud instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getPointCloudManager(SRef<storage::IPointCloudManager> & pointCloudManager) const = 0;
-
-	/// @brief Set keyframes manager component.
-	/// @param[in] a keyframes manager instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setKeyframesManager(const SRef<storage::IKeyframesManager> keyframesManager) = 0;
-
-	/// @brief Get keyframes manager component.
-	/// @param[out] a keyframes manager instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getKeyframesManager(SRef<storage::IKeyframesManager> & keyframesManager) const = 0;
-
-	/// @brief Set covisibility graph component.
-	/// @param[in] a covisibility graph instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setCovisibilityGraph(const SRef<storage::ICovisibilityGraph> covisibilityGraph) = 0;
-
-	/// @brief Get covisibility graph component.
-	/// @param[out] a covisibility graph instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getCovisibilityGraph(SRef<storage::ICovisibilityGraph> & covisibilityGraph) const = 0;
-
-	/// @brief Set keyframe retriever component.
-	/// @param[in] a keyframe retriever instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setKeyframeRetriever(const SRef<reloc::IKeyframeRetriever> keyframeRetriever) = 0;
-
-	/// @brief Get keyframe retriever component.
-	/// @param[out] a keyframe retriever instance
-	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getKeyframeRetriever(SRef<reloc::IKeyframeRetriever> & keyframeRetriever) const = 0;
+	virtual FrameworkReturnCode getMap(SRef<Map> & map) = 0;
 
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
 	/// @param[in] keyframe: the keyframe to get local point cloud
@@ -168,9 +108,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapper,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapManager,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
                              "IMapper",
                              "SolAR::api::solver::map::IMapper defines the interface of a mapper that manages all components of a map such as point cloud, keyframes, retriever model, coordinate, identification.");
 
-#endif // IMAPPER_H
+#endif // IMAPMANAGER_H

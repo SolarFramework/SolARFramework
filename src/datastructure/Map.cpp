@@ -15,10 +15,19 @@
  */
 
 #include <datastructure/Map.h>
+#include "xpcf/component/ComponentFactory.h"
 #include "xpcf/core/helpers.h"
+
+namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
 namespace datastructure {
+
+Map::Map()
+{	
+	m_identification = xpcf::utils::make_shared<Identification>();
+	m_coordinateSystem = xpcf::utils::make_shared<CoordinateSystem>();
+}
 
 const SRef<Identification>& Map::getConstIdentification() const
 {
@@ -52,10 +61,83 @@ void Map::setCoordinateSystem(const SRef<CoordinateSystem> coordinateSystem)
 	m_coordinateSystem = coordinateSystem;
 }
 
+const SRef<PointCloud>& Map::getConstPointCloud() const
+{
+	return m_pointCloud;
+}
+
+std::unique_lock<std::mutex> Map::getPointCloud(SRef<PointCloud>& pointCloud)
+{
+	pointCloud = m_pointCloud;
+	return m_pointCloud->acquireLock();
+}
+
+void Map::setPointCloud(const SRef<PointCloud> pointCloud)
+{
+	m_mapSupportedTypes = m_mapSupportedTypes | MapType::_PointCloud;
+	m_pointCloud = pointCloud;
+}
+
+const SRef<KeyframeCollection>& Map::getConstKeyframeCollection() const
+{
+	return m_keyframeCollection;
+}
+
+std::unique_lock<std::mutex> Map::getKeyframeCollection(SRef<KeyframeCollection>& keyframeCollection)
+{
+	keyframeCollection = m_keyframeCollection;
+	return m_keyframeCollection->acquireLock();
+}
+
+void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection)
+{
+	m_mapSupportedTypes = m_mapSupportedTypes | MapType::_Keyframe;
+	m_keyframeCollection = keyframeCollection;
+}
+
+const SRef<CovisibilityGraph>& Map::getConstCovisibilityGraph() const
+{
+	return m_covisibilityGraph;
+}
+
+std::unique_lock<std::mutex> Map::getCovisibilityGraph(SRef<CovisibilityGraph>& covisibilityGraph)
+{
+	covisibilityGraph = m_covisibilityGraph;
+	return m_covisibilityGraph->acquireLock();
+}
+
+void Map::setCovisibilityGraph(const SRef<CovisibilityGraph> covisibilityGraph)
+{
+	m_mapSupportedTypes = m_mapSupportedTypes | MapType::_CovisibilityGraph;
+	m_covisibilityGraph = covisibilityGraph;
+}
+
+const SRef<KeyframeRetrieval>& Map::getConstKeyframeRetrieval() const
+{
+	return m_keyframeRetrieval;
+}
+
+std::unique_lock<std::mutex> Map::getKeyframeRetrieval(SRef<KeyframeRetrieval>& keyframeRetrieval)
+{
+	keyframeRetrieval = m_keyframeRetrieval;
+	return m_keyframeRetrieval->acquireLock();
+}
+
+void Map::setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval)
+{
+	m_mapSupportedTypes = m_mapSupportedTypes | MapType::_KFRetriever;
+	m_keyframeRetrieval = keyframeRetrieval;
+}
+
 template<typename Archive>
 void Identification::serialize(ATTRIBUTE(maybe_unused) Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;
+	ar & m_pointCloud;
+	ar & m_keyframeCollection;
+	ar & m_covisibilityGraph;
+	ar & m_keyframeRetrieval;
 }
 
 IMPLEMENTSERIALIZE(Map);

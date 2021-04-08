@@ -22,6 +22,10 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Identification.h"
 #include "datastructure/CoordinateSystem.h"
+#include "datastructure/PointCloud.h"
+#include "datastructure/KeyframeCollection.h"
+#include "datastructure/CovisibilityGraph.h"
+#include "datastructure/KeyframeRetrieval.h"
 #include "xpcf/core/refs.h"
 #include <map>
 
@@ -38,17 +42,33 @@ namespace datastructure {
 */
 class  SOLARFRAMEWORK_API Map {
 public:
+	typedef enum {
+		_PointCloud = 0x01,
+		_Keyframe = 0x02,
+		_CovisibilityGraph = 0x04,
+		_KFRetriever = 0x08
+	} MapType;
+
 	///
     /// @brief Map constructor.
     ///
-	Map() = default;
+	Map();
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
+	Map(MapType type) { m_mapSupportedTypes = type; };
 
 	///
     /// @brief ~Map
 	///
     ~Map() = default;
+
+	///
+	/// @brief This method is to check an element existed in the map
+	/// @return true if this element exist
+	///
+	bool handles(MapType type) {
+		return (type & m_mapSupportedTypes);
+	}
 
 	///
 	/// @brief This method returns the identification
@@ -88,13 +108,94 @@ public:
 	///
 	void setCoordinateSystem(const SRef<CoordinateSystem> coordinateSystem);
 
+	///
+	/// @brief This method returns the point cloud
+	/// @return the point cloud
+	///
+	const SRef<PointCloud> & getConstPointCloud() const;
+
+	///
+	/// @brief This method returns the point cloud
+	/// @param[out] pointCloud the point cloud
+	/// @return the point cloud
+	///
+	std::unique_lock<std::mutex> getPointCloud(SRef<PointCloud>& pointCloud);
+
+	///
+	/// @brief This method is to set the point cloud
+	/// @param[in] pointCloud the point cloud
+	///
+	void setPointCloud(const SRef<PointCloud> pointCloud);
+
+	///
+	/// @brief This method returns the keyframe collection
+	/// @return the keyframe collection
+	///
+	const SRef<KeyframeCollection> & getConstKeyframeCollection() const;
+
+	///
+	/// @brief This method returns the keyframe collection
+	/// @param[out] keyframeCollection the keyframe collection of map
+	/// @return the keyframe collection
+	///
+	std::unique_lock<std::mutex> getKeyframeCollection(SRef<KeyframeCollection>& keyframeCollection);
+
+	///
+	/// @brief This method is to set the keyframe collection
+	/// @param[in] keyframeCollection the keyframe collection of map
+	///
+	void setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection);
+
+	///
+	/// @brief This method returns the covisibility graph
+	/// @return the covisibility graph
+	///
+	const SRef<CovisibilityGraph> & getConstCovisibilityGraph() const;
+
+	///
+	/// @brief This method returns the covisibility graph
+	/// @param[out] covisibilityGraph the covisibility graph of map
+	/// @return the covisibility graph
+	///
+	std::unique_lock<std::mutex> getCovisibilityGraph(SRef<CovisibilityGraph>& covisibilityGraph);
+
+	///
+	/// @brief This method is to set the covisibility graph
+	/// @param[in] covisibilityGraph the covisibility graph of map
+	///
+	void setCovisibilityGraph(const SRef<CovisibilityGraph> covisibilityGraph);
+
+	///
+	/// @brief This method returns the keyframe retrieval
+	/// @return the keyframe retrieval
+	///
+	const SRef<KeyframeRetrieval> & getConstKeyframeRetrieval() const;
+
+	///
+	/// @brief This method returns the keyframe retrieval
+	/// @param[out] keyframeRetrieval the keyframe retrieval of map
+	/// @return the keyframe retrieval
+	///
+	std::unique_lock<std::mutex> getKeyframeRetrieval(SRef<KeyframeRetrieval>& keyframeRetrieval);
+
+	///
+	/// @brief This method is to set the keyframe retrieval
+	/// @param[in] keyframeRetrieval the keyframe retrieval of map
+	///
+	void setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval);
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-	SRef<Identification>	m_identification;
-	SRef<CoordinateSystem>	m_coordinateSystem;
+	uint32_t						m_mapSupportedTypes;
+	SRef<Identification>			m_identification;
+	SRef<CoordinateSystem>			m_coordinateSystem;
+	SRef<PointCloud>				m_pointCloud;
+	SRef<KeyframeCollection>		m_keyframeCollection;
+	SRef<CovisibilityGraph>			m_covisibilityGraph;
+	SRef<KeyframeRetrieval>			m_keyframeRetrieval;
 };
 
 DECLARESERIALIZE(Map);

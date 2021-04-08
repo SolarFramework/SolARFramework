@@ -23,7 +23,7 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-FrameworkReturnCode SparsePointCloud::addPoint(const SRef<CloudPoint> point)
+FrameworkReturnCode PointCloud::addPoint(const SRef<CloudPoint> point)
 {
 	point->setId(m_id);
 	m_pointCloud[m_id] = point;
@@ -31,7 +31,7 @@ FrameworkReturnCode SparsePointCloud::addPoint(const SRef<CloudPoint> point)
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::addPoints(const std::vector<SRef<CloudPoint>>& points)
+FrameworkReturnCode PointCloud::addPoints(const std::vector<SRef<CloudPoint>>& points)
 {
 	for (auto &it : points) {
 		it->setId(m_id);
@@ -41,7 +41,7 @@ FrameworkReturnCode SparsePointCloud::addPoints(const std::vector<SRef<CloudPoin
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::addPoint(const CloudPoint & point)
+FrameworkReturnCode PointCloud::addPoint(const CloudPoint & point)
 {
 	SRef<CloudPoint> point_ptr = xpcf::utils::make_shared<CloudPoint>(point);
 	point_ptr->setId(m_id);
@@ -50,7 +50,7 @@ FrameworkReturnCode SparsePointCloud::addPoint(const CloudPoint & point)
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::addPoints(const std::vector<CloudPoint>& points)
+FrameworkReturnCode PointCloud::addPoints(const std::vector<CloudPoint>& points)
 {
 	for (auto &it : points) {
 		SRef<CloudPoint> point_ptr = xpcf::utils::make_shared<CloudPoint>(it);
@@ -61,9 +61,9 @@ FrameworkReturnCode SparsePointCloud::addPoints(const std::vector<CloudPoint>& p
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::getPoint(const uint32_t id, SRef<CloudPoint>& point) const
+FrameworkReturnCode PointCloud::getPoint(const uint32_t id, SRef<CloudPoint>& point) const
 {
-	std::map< uint32_t, SRef<CloudPoint>>::const_iterator pointIt = m_pointCloud.find(id);
+	auto pointIt = m_pointCloud.find(id);
 	if (pointIt != m_pointCloud.end()) {
 		point = pointIt->second;
 		return FrameworkReturnCode::_SUCCESS;
@@ -74,10 +74,10 @@ FrameworkReturnCode SparsePointCloud::getPoint(const uint32_t id, SRef<CloudPoin
 	}
 }
 
-FrameworkReturnCode SparsePointCloud::getPoints(const std::vector<uint32_t>& ids, std::vector<SRef<CloudPoint>>& points) const
+FrameworkReturnCode PointCloud::getPoints(const std::vector<uint32_t>& ids, std::vector<SRef<CloudPoint>>& points) const
 {
 	for (auto &it : ids) {
-		std::map< uint32_t, SRef<CloudPoint>>::const_iterator pointIt = m_pointCloud.find(it);
+		auto pointIt = m_pointCloud.find(it);
 		if (pointIt == m_pointCloud.end()) {
 			LOG_DEBUG("Cannot find cloud point with id {} to get", it);
 			return FrameworkReturnCode::_ERROR_;
@@ -87,16 +87,16 @@ FrameworkReturnCode SparsePointCloud::getPoints(const std::vector<uint32_t>& ids
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::getAllPoints(std::vector<SRef<CloudPoint>>& points) const
+FrameworkReturnCode PointCloud::getAllPoints(std::vector<SRef<CloudPoint>>& points) const
 {
-	for (auto pointIt = m_pointCloud.begin(); pointIt != m_pointCloud.end(); pointIt++)
-		points.push_back(pointIt->second);
+	for (const auto& pointIt : m_pointCloud)
+		points.push_back(pointIt.second);
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SparsePointCloud::suppressPoint(const uint32_t id)
+FrameworkReturnCode PointCloud::suppressPoint(const uint32_t id)
 {
-	std::map< uint32_t, SRef<CloudPoint>>::iterator pointIt = m_pointCloud.find(id);
+	auto pointIt = m_pointCloud.find(id);
 	if (pointIt != m_pointCloud.end()) {
 		m_pointCloud.erase(pointIt);
 		return FrameworkReturnCode::_SUCCESS;
@@ -107,10 +107,10 @@ FrameworkReturnCode SparsePointCloud::suppressPoint(const uint32_t id)
 	}
 }
 
-FrameworkReturnCode SparsePointCloud::suppressPoints(const std::vector<uint32_t>& ids)
+FrameworkReturnCode PointCloud::suppressPoints(const std::vector<uint32_t>& ids)
 {
 	for (auto &it : ids) {
-		std::map< uint32_t, SRef<CloudPoint>>::iterator pointIt = m_pointCloud.find(it);
+		auto pointIt = m_pointCloud.find(it);
 		if (pointIt == m_pointCloud.end()) {
 			LOG_DEBUG("Cannot find cloud point with id {} to suppress", it);
 			return FrameworkReturnCode::_ERROR_;
@@ -120,18 +120,18 @@ FrameworkReturnCode SparsePointCloud::suppressPoints(const std::vector<uint32_t>
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-DescriptorType SparsePointCloud::getDescriptorType() const
+DescriptorType PointCloud::getDescriptorType() const
 {
 	return m_descriptorType;
 }
 
-FrameworkReturnCode SparsePointCloud::setDescriptorType(const DescriptorType & type)
+FrameworkReturnCode PointCloud::setDescriptorType(const DescriptorType & type)
 {
 	m_descriptorType = type;
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-bool SparsePointCloud::isExistPoint(const uint32_t id) const
+bool PointCloud::isExistPoint(const uint32_t id) const
 {
 	if (m_pointCloud.find(id) != m_pointCloud.end())
 		return true;
@@ -139,20 +139,20 @@ bool SparsePointCloud::isExistPoint(const uint32_t id) const
 		return false;
 }
 
-int SparsePointCloud::getNbPoints() const
+int PointCloud::getNbPoints() const
 {
 	return static_cast<int>(m_pointCloud.size());
 }
 
 template <typename Archive>
-void SparsePointCloud::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void PointCloud::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
 	ar & m_id;
 	ar & m_descriptorType;
 	ar & m_pointCloud;
 }
 
-IMPLEMENTSERIALIZE(SparsePointCloud);
+IMPLEMENTSERIALIZE(PointCloud);
 
 } // end of namespace datastructure
 } // end of namespace SolAR

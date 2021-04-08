@@ -21,7 +21,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/Keyframe.h"
-
+#include "datastructure/KeyframeCollection.h"
 #include <vector>
 
 namespace SolAR {
@@ -101,6 +101,19 @@ public:
 	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromFile(const std::string & file) = 0;
+
+	/// @brief This method returns the keyframe collection
+	/// @return the keyframe collection
+	virtual const SRef<datastructure::KeyframeCollection> & getConstKeyframeCollection() const = 0;
+
+	/// @brief This method returns the keyframe collection
+	/// @param[out] keyframeCollection the keyframe collection of map
+	/// @return the keyframe collection
+	virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<datastructure::KeyframeCollection>& keyframeCollection) = 0;
+
+	/// @brief This method is to set the keyframe collection
+	/// @param[in] keyframeCollection the keyframe collection of map
+	virtual void setKeyframeCollection(const SRef<datastructure::KeyframeCollection> keyframeCollection) = 0;
 };
 
 }

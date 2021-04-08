@@ -19,6 +19,7 @@
 
 #include "datastructure/Keyframe.h"
 #include "datastructure/Frame.h"
+#include "datastructure/KeyframeRetrieval.h"
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
 #include <set>
@@ -100,6 +101,19 @@ public:
                                       const SRef<datastructure::DescriptorBuffer> descriptors,
                                       const SRef<datastructure::Keyframe> keyframe,
                                       std::vector<datastructure::DescriptorMatch> & matches) = 0;
+
+	/// @brief This method returns the keyframe retrieval
+	/// @return the keyframe retrieval
+	virtual const SRef<datastructure::KeyframeRetrieval> & getConstKeyframeRetrieval() const = 0;
+
+	/// @brief This method returns the keyframe retrieval
+	/// @param[out] keyframeRetrieval the keyframe retrieval of map
+	/// @return the keyframe retrieval
+	virtual std::unique_lock<std::mutex> getKeyframeRetrieval(SRef<datastructure::KeyframeRetrieval>& keyframeRetrieval) = 0;
+
+	/// @brief This method is to set the keyframe retrieval
+	/// @param[in] keyframeRetrieval the keyframe retrieval of map
+	virtual void setKeyframeRetrieval(const SRef<datastructure::KeyframeRetrieval> keyframeRetrieval) = 0;
 };
 
 }

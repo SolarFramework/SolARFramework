@@ -1,4 +1,4 @@
-HEADERS += interfaces/api/display/I2DOverlay.h \
+HEADERS += interfaces/api/display/I2DOverlay.h \    
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/display/IImageViewer.h \
@@ -57,7 +57,6 @@ interfaces/api/solver/map/IBundler.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/solver/map/IMapFilter.h \
 interfaces/api/solver/map/IMapFusion.h \
-interfaces/api/solver/map/IMapper.h \
 interfaces/api/solver/map/ITriangulator.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
@@ -73,9 +72,10 @@ interfaces/api/solver/pose/IFiducialMarkerPose.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
-interfaces/api/storage/ICovisibilityGraph.h \
+interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Messages.h \
@@ -103,11 +103,9 @@ interfaces/datastructure/Trackable.h \
 interfaces/datastructure/Trackable2D.h \
 interfaces/datastructure/CovisibilityGraph.h \
 interfaces/datastructure/KeyframeRetrieval.h \
-interfaces/datastructure/FeatureCloudPoint.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
-interfaces/datastructure/SparseMap.h \
 interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp
@@ -124,13 +122,12 @@ src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
 src/datastructure/Keyframe.cpp \
 src/datastructure/Keypoint.cpp \
+src/datastructure/PointCloud.cpp \
 src/datastructure/PrimitiveInformation.cpp \
 src/datastructure/SquaredBinaryPattern.cpp \
 src/datastructure/Trackable.cpp \
 src/datastructure/Trackable2D.cpp \
 src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
-src/datastructure/FeatureCloudPoint.cpp \
 src/datastructure/KeyframeCollection.cpp \
-src/datastructure/Map.cpp \
-src/datastructure/SparseMap.cpp
+src/datastructure/Map.cpp
