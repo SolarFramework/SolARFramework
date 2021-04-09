@@ -42,8 +42,8 @@ public:
 	/// @brief PointCloud constructor.
 	///
 	PointCloud() { m_id = 0; };
-	PointCloud(const PointCloud& other) = default;
-	PointCloud& operator=(const PointCloud& other) = default;
+	PointCloud(const PointCloud& other): m_id(other.m_id), m_descriptorType(other.m_descriptorType), m_pointCloud(other.m_pointCloud){};
+	PointCloud& operator=(const PointCloud& other) { return *this; };
 
 	///
 	/// @brief ~PointCloud

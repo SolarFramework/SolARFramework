@@ -24,7 +24,7 @@
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
-#include "api/solver/map/IMapper.h"
+#include "datastructure/Map.h"
 
 namespace SolAR {
 namespace api {
@@ -45,27 +45,27 @@ public:
 	virtual ~IMapFusion() = default;
 
 	/// @brief Merge a map in the global map. The map can be a local map (know transformation to the global map) or a floating map.
-	/// @param[in,out] map: local map or floating map to merge
-	/// @param[in,out] globalMap: the global map
-	/// @param[in,out] transform: the transformation to the global map (null for floating map). It can be refined by fusion process.
-	/// @param[out] nbMatches: the number of matched cloud points.
-    /// @param[out] error: the error of fusion process that is the mean of error distances of the matched cloud points.
+	/// @param[in,out] map local map or floating map to merge
+	/// @param[in,out] globalMap the global map
+	/// @param[in,out] transform the transformation to the global map (null for floating map). It can be refined by fusion process.
+	/// @param[out] nbMatches the number of matched cloud points.
+    /// @param[out] error the error of fusion process that is the mean of error distances of the matched cloud points.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode merge(SRef<IMapper> map,
-                                    SRef<IMapper> globalMap,
+    virtual FrameworkReturnCode merge(SRef<datastructure::Map> map,
+                                    SRef<datastructure::Map> globalMap,
 									datastructure::Transform3Df &transform, 
 									uint32_t &nbMatches, 
 									float &error) = 0;
 
 	/// @brief Merge a map in the global map. The map can be a local map (know transformation to the global map) or a floating map.
-	/// @param[in,out] map: local map or floating map to merge
-	/// @param[in,out] globalMap: the global map	
-	/// @param[in,out] transform: the transformation to the global map (null for floating map). It can be refined by fusion process.
-	/// @param[in] cpOverlapIndices : pairs of detected overlap cloud points indices of floating map and global map.
-	/// @param[in] isRefineTransform : refine the 3D transformation if it's true.
+	/// @param[in,out] map local map or floating map to merge
+	/// @param[in,out] globalMap the global map	
+	/// @param[in,out] transform the transformation to the global map (null for floating map). It can be refined by fusion process.
+	/// @param[in] cpOverlapIndices pairs of detected overlap cloud points indices of floating map and global map.
+	/// @param[in] isRefineTransform refine the 3D transformation if it's true.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode merge(SRef<IMapper> map,
-                                    SRef<IMapper> globalMap,
+    virtual FrameworkReturnCode merge(SRef<datastructure::Map> map,
+                                    SRef<datastructure::Map> globalMap,
 									datastructure::Transform3Df &transform, 
 									const std::vector<std::pair<uint32_t, uint32_t>>&cpOverlapIndices,
                                     bool isRefineTransform = false) = 0;

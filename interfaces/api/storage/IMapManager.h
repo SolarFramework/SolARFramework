@@ -21,7 +21,7 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-// Definition of IMapper Class //
+// Definition of IMapManager Class //
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
@@ -34,12 +34,8 @@
 #include "api/reloc/IKeyframeRetriever.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
-using namespace storage;
-using namespace reloc;
-namespace solver {
-namespace map {
+namespace storage {
 /**
 * @class IMapManager
 * @brief <B>Allow to manage all components of a map.</B>
@@ -57,42 +53,47 @@ public:
 	/// @brief Set the map
 	/// @param[in] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode setMap(const SRef<Map> map) = 0;
+	virtual FrameworkReturnCode setMap(const SRef<datastructure::Map> map) = 0;
 
 	/// @brief Get the map
 	/// @param[out] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getMap(SRef<Map> & map) = 0;
+	virtual FrameworkReturnCode getMap(SRef<datastructure::Map> & map) = 0;
 
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
-	/// @param[in] keyframe: the keyframe to get local point cloud
-	/// @param[in] minWeightNeighbor: the weight to get keyframe neighbors
-	/// @param[out] localPointCloud: the local point cloud
+	/// @param[in] keyframe the keyframe to get local point cloud
+	/// @param[in] minWeightNeighbor the weight to get keyframe neighbors
+	/// @param[out] localPointCloud the local point cloud
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode getLocalPointCloud(const SRef<datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<datastructure::CloudPoint>> &localPointCloud) const = 0;
 
-	/// @brief Add a point cloud to mapper and update visibility of keyframes and covisibility graph
-	/// @param[in] cloudPoint: the cloud point to add to the mapper
+	/// @brief Add a point cloud to map manager and update visibility of keyframes and covisibility graph
+	/// @param[in] cloudPoint the cloud point to add to the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode addCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
 
-	/// @brief Remove a point cloud from mapper and update visibility of keyframes and covisibility graph
-	/// @param[in] cloudPoint: the cloud point to remove to the mapper
+	/// @brief Remove a point cloud from map manager and update visibility of keyframes and covisibility graph
+	/// @param[in] cloudPoint the cloud point to remove to the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode removeCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
 
-	/// @brief Remove a keyframe from mapper and update visibility of point cloud and covisibility graph
-	/// @param[in] cloudPoint: the cloud point to add to the mapper
+	/// @brief Add a keyframe to map manager
+	/// @param[in] keyframe the keyframe to add to the map manager
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+
+	/// @brief Remove a keyframe from map manager and update visibility of point cloud and covisibility graph
+	/// @param[in] keyframe the keyframe to remove from the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode removeKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
 
 	/// @brief Prune cloud points of a map
 	/// @param[in] cloudPoints: the cloud points are checked to prune
-	virtual int pointCloudPruning(const std::vector<SRef<CloudPoint>> &cloudPoints = {}) = 0;
+	virtual int pointCloudPruning(const std::vector<SRef<datastructure::CloudPoint>> &cloudPoints = {}) = 0;
 
 	/// @brief Prune keyframes of a map
 	/// @param[in] keyframes: the keyframes are checked to prune
-	virtual int keyframePruning(const std::vector<SRef<Keyframe>> &keyframes = {}) = 0;
+	virtual int keyframePruning(const std::vector<SRef<datastructure::Keyframe>> &keyframes = {}) = 0;
 
 	/// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
@@ -106,11 +107,10 @@ public:
 }
 }
 }
-}
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::map::IMapManager,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::IMapManager,
                              "90075c1b-915b-469d-b92d-41c5d575bf15",
-                             "IMapper",
-                             "SolAR::api::solver::map::IMapper defines the interface of a mapper that manages all components of a map such as point cloud, keyframes, retriever model, coordinate, identification.");
+                             "IMapManager",
+                             "SolAR::api::storage::IMapManager defines the interface of a map manager that manages all components of a map such as point cloud, keyframes, retriever model, coordinate, identification.");
 
 #endif // IMAPMANAGER_H

@@ -143,7 +143,7 @@ public:
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::ICovisibilityGraphManager,
                              "15455f5a-0e99-49e5-a3fb-39de3eeb5b9b",
-                             "ICovisibilityGraph",
+                             "ICovisibilityGraphManager",
                              "A component interface for storing a persistent covisibility graph between keyframes.");
 
 
