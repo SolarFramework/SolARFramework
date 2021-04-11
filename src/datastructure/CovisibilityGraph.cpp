@@ -263,7 +263,7 @@ FrameworkReturnCode CovisibilityGraph::getShortestPath(const uint32_t node1_id, 
 
 	std::vector<TreeNode> trees;
 	trees.reserve(m_nodes.size() * 4);
-	std::vector<bool> visited(m_nodes.size(), false);
+	std::vector<bool> visited(*(m_nodes.rbegin()) + 1, false);
 	trees.push_back({ node1_id,std::numeric_limits<uint32_t>::max() });
 	size_t curNode = 0;
 	bool found = false;
