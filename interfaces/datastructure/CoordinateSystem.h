@@ -95,6 +95,12 @@ public:
 	/// 
 	const Transform3Df& getParentTransform() const;
 
+	/// 
+	/// @brief Check this map is a floating map
+	/// @return true if this is a floating map, false for otherwise
+	/// 
+	bool isFloating() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>

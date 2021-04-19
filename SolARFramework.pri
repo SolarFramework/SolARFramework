@@ -57,6 +57,7 @@ interfaces/api/solver/map/IBundler.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/solver/map/IMapFilter.h \
 interfaces/api/solver/map/IMapFusion.h \
+interfaces/api/solver/map/IMapUpdate.h \
 interfaces/api/solver/map/ITriangulator.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \

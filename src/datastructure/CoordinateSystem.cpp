@@ -52,10 +52,16 @@ const boost::uuids::uuid& CoordinateSystem::getParentId() const {
 
 void CoordinateSystem::setParentTransform(const Transform3Df& parent_transform) {
 	m_parentTransform = parent_transform;
+	m_isFloating = false;
 }
 
 const Transform3Df& CoordinateSystem::getParentTransform() const {
 	return m_parentTransform;
+}
+
+bool CoordinateSystem::isFloating() const
+{
+	return m_isFloating;
 }
 
 template<typename Archive>
