@@ -43,6 +43,7 @@ interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
+interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
