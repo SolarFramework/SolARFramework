@@ -24,7 +24,6 @@
 #include <set>
 
 namespace SolAR {
-using namespace datastructure;
 namespace api {
 namespace reloc {
 
@@ -37,7 +36,6 @@ namespace reloc {
  * This class provides a solution to learn and define a set of 3D world coordinates corresponding to a set of 2D descriptors.
  */
 
-///@class IKeyframeRetriever
 class IRegression : public virtual org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRegression default constructor.
@@ -46,28 +44,29 @@ public:
     virtual ~IRegression() = default;
 
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] Camera calibration matrix parameters.
-	/// @param[in] Camera distorsion parameters.
-	virtual void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) = 0;
+	/// @param[in] intrinsicParams camera calibration matrix parameters.
+	/// @param[in] distorsionParams camera distorsion parameters.
+	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief Add 2D descriptor and 3D location correspondences
-    /// @param[in] descriptors: a set of descriptors
-    /// @param[in] points3D: a set of corresponding 3D locations
+    /// @param[in] descriptors a set of descriptors
+    /// @param[in] points3D a set of corresponding 3D locations
     /// @return FrameworkReturnCode::_SUCCESS if adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode add(const std::vector<SRef<DescriptorBuffer>> &descriptors, const std::vector<Point3Df> &points3D) = 0;
+    virtual FrameworkReturnCode add(const std::vector<SRef<datastructure::DescriptorBuffer>> &descriptors, const std::vector<datastructure::Point3Df> &points3D) = 0;
 
 
     /// @brief Regress a set of descriptors to define 2D-3D point correspondences
-    /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] keyframes: a set of keyframe which are close to the frame pass in input
+    /// @param[in] frame the frame contains descriptors for regression.
+    /// @param[out] points2D a set of 2D points
+    /// @param[out] points3D a set of 3D points
     /// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode regress(const SRef<Frame> &frame, std::vector<Point2Df> &points2D, std::vector<Point3Df> &points3D) = 0;
+    virtual FrameworkReturnCode regress(const SRef<datastructure::Frame> &frame, std::vector<datastructure::Point2Df> &points2D, std::vector<datastructure::Point3Df> &points3D) = 0;
 
 	/// @brief Update regression model
-	/// @param[in] inliers: inliers and outliers are defined for each 2D point
-	/// @param[in] cameraPose: camera pose of the current frame
+	/// @param[in] inliers inliers and outliers are defined for each 2D point
+	/// @param[in] cameraPose camera pose of the current frame
 	/// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode update(std::vector<bool> &inliers, Transform3Df &cameraPose) = 0;
+	virtual FrameworkReturnCode update(std::vector<bool> &inliers, datastructure::Transform3Df &cameraPose) = 0;
 
 	/// @brief Load regression model
 	/// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
@@ -95,4 +94,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::reloc::IRegression,
                              "IRegression",
                              "SolAR::api::reloc::IRegression describes the interface to learn and regress image descriptors to define 2D-3D point correspondences.");
 
-#endif // SOLAR_IKEYFRAMERETRIEVER_H
+#endif // IREGRESSION_H
