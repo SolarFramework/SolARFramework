@@ -87,6 +87,7 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
         FrameworkReturnCode getWorldCorners(std::vector<SolAR::datastructure::Point3Df> & worldCorners) const;
 
     private:
+
         friend class boost::serialization::access;
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
@@ -96,6 +97,7 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 };
 
 DECLARESERIALIZE(Trackable2D);
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Trackable2D);
 
 }
 } // end of namespace SolAR

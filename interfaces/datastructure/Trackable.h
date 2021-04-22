@@ -20,6 +20,8 @@
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
+#include "core/Log.h"
+
 // Definition of Trackable Class //
 // part of SolAR namespace //
 
@@ -72,6 +74,7 @@ class SOLARFRAMEWORK_API Trackable
         void setURL(const std::string & url);
 
     private:
+
         friend class boost::serialization::access;
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
@@ -81,6 +84,7 @@ class SOLARFRAMEWORK_API Trackable
 };
 
 DECLARESERIALIZE(Trackable);
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Trackable);
 
 }
 } // end of namespace SolAR
