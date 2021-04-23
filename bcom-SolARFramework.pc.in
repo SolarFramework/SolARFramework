@@ -5,7 +5,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/interfaces
 Name: SolARFramework
 Description:
-Version: 0.9.4
+Version: 0.9.5
 Requires:
 Libs: -L${libdir} -l${libname}
 Libs.private: ${libdir}/${pfx}${libname}.${lext}
