@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+    $$PWD/interfaces/api/features/IDescriptorsExtractorFromImage.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -10,6 +11,7 @@ interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IDescriptorsExtractor.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
+interfaces/api/features/IImageMatcher.h \
 interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \
