@@ -16,8 +16,6 @@
 
 #include "datastructure/FiducialMarker.h"
 
-#include "core/Log.h"
-
 #include "xpcf/core/helpers.h"
 
 #include <boost/serialization/export.hpp>

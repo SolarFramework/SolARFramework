@@ -18,6 +18,8 @@
 
 #include "xpcf/core/helpers.h"
 
+#include <boost/serialization/export.hpp>
+
 std::mutex m_mutex;
 
 namespace SolAR {
@@ -148,8 +150,10 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id, ATTRIBUTE(maybe_u
 template <typename Archive>
 void CloudPoint::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
+    ar.template register_type<CloudPoint>();
     ar & boost::serialization::base_object<Point3Df>(*this);
     ar & boost::serialization::base_object<PrimitiveInformation>(*this);
+
     ar & m_id;
     ar & m_descriptor;
     ar & m_visibility;
@@ -162,3 +166,6 @@ IMPLEMENTSERIALIZE(CloudPoint);
 
 } // namespace datastructure
 } // namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CloudPoint)
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CloudPoint)
