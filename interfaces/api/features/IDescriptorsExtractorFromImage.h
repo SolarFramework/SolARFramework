@@ -59,7 +59,7 @@ namespace features {
        /// @brief getType
        /// @return a string describing the type of descriptor used during extraction.
        ///
-        virtual std::string  getTypeString() = 0;
+       virtual std::string  getTypeString() = 0;
 
        ///
        /// @brief extract the descriptors directly from an image

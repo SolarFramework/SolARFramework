@@ -23,10 +23,13 @@
 #include "datastructure/Keypoint.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
+#include "core/Messages.h"
+
 
 namespace SolAR {
 namespace api {
 namespace features {
+
 /**
  * @class IImageMatcher
  * @brief <B>Matches keypoint between two input images.</B>
@@ -39,7 +42,10 @@ namespace features {
 class IImageMatcher: virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
-    virtual ~IImageMatcher() override = default;
+    /// @brief IDescriptorsExtractorFromImage default constructor
+    IImageMatcher() = default;
+
+    virtual ~IImageMatcher() {};
 
     /// @brief match keypoints between two input images.
     /// @param[in] image1, the first image.
@@ -50,8 +56,8 @@ public:
     /// @param[out] descriptors2, The descriptors of keypoint of image1.
     /// @param[out] matches, the keypoint matches between the first and second image
     /// @return FrameworkReturnCode::_SUCCESS_ if images are well matched, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode match( const SRef<datastructure::Image image1,
-                                       const SRef<datastructure::Image image1,
+    virtual FrameworkReturnCode match( const SRef<datastructure::Image> image1,
+                                       const SRef<datastructure::Image> image2,
                                        std::vector<datastructure::Keypoint> & keypoints1,
                                        std::vector<datastructure::Keypoint> & keypoints2,
                                        SRef<datastructure::DescriptorBuffer> descriptors1,
@@ -59,9 +65,11 @@ public:
                                        std::vector<datastructure::DescriptorMatch> & matches) = 0;
 };
 
+}
+}
+}  // end of namespace SolAR
 
-
-template <> struct org::bcom::xpcf::InterfaceTraits<IImageMatcher>
+template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::features::IImageMatcher>
 {
     static constexpr const char * UUID = "{157ec340-0682-4e6c-bf69-e4d95fa760d3}";
     static constexpr const char * NAME = "IImageMatcher";
