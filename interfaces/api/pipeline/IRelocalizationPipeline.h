@@ -31,7 +31,7 @@ namespace pipeline {
 /**
  * @class IRelocalizationPipeline
  * @brief <B>Defines a relocalization pipeline.</B>
- * <TT>UUID: 2dc3cd33-5a11-4748-94a3-e7ab40462097</TT>
+ * <TT>UUID: ef2a631d-93c9-4979-ad1e-5fa16d5d00ef</TT>
  *
  * This class provides the interface to define a relocalization processing pipeline.
  */
@@ -68,7 +68,7 @@ public:
 }
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IRelocalizationPipeline,
-                             "2dc3cd33-5a11-4748-94a3-e7ab40462097",
+                             "ef2a631d-93c9-4979-ad1e-5fa16d5d00ef",
                              "IRelocalizationPipeline",
                              "The interface to define a relocalization processing pipeline")
 
