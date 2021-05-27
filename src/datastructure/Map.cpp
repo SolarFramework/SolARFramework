@@ -130,7 +130,7 @@ void Map::setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval)
 }
 
 template<typename Archive>
-void Identification::serialize(ATTRIBUTE(maybe_unused) Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;
