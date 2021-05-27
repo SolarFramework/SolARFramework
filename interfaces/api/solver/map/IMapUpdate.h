@@ -49,14 +49,14 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] intrinsicParams Camera calibration matrix parameters.
 	/// @param[in] distortionParams Camera distortion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
-									 const datastructure::CamDistortion & distortionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
+                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
 
 	/// @brief Update the global map.
 	/// @param[in,out] globalMap the global map
 	/// @param[in] newKeyframeIds the ids of new keyframes.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode update(SRef<datastructure::Map> globalMap,
+    virtual FrameworkReturnCode update(SRef<SolAR::datastructure::Map> globalMap,
 									   const std::vector<uint32_t>& newKeyframeIds) = 0;
 };
 

@@ -104,16 +104,16 @@ public:
 
 	/// @brief This method returns the keyframe collection
 	/// @return the keyframe collection
-	virtual const SRef<datastructure::KeyframeCollection> & getConstKeyframeCollection() const = 0;
+    virtual const SRef<SolAR::datastructure::KeyframeCollection> & getConstKeyframeCollection() const = 0;
 
 	/// @brief This method returns the keyframe collection
 	/// @param[out] keyframeCollection the keyframe collection of map
 	/// @return the keyframe collection
-	virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<datastructure::KeyframeCollection>& keyframeCollection) = 0;
+    virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<SolAR::datastructure::KeyframeCollection>& keyframeCollection) = 0;
 
 	/// @brief This method is to set the keyframe collection
 	/// @param[in] keyframeCollection the keyframe collection of map
-	virtual void setKeyframeCollection(const SRef<datastructure::KeyframeCollection> keyframeCollection) = 0;
+    virtual void setKeyframeCollection(const SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection) = 0;
 };
 
 }

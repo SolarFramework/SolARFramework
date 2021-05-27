@@ -84,8 +84,8 @@ public:
 	/// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[in,out] keyframeCollection the keyframe collection to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transformInPlace(const datastructure::Transform3Df & transformation,
-										SRef<datastructure::KeyframeCollection> keyframeCollection) = 0;
+    virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation,
+                                        SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection) = 0;
 };
 
 }

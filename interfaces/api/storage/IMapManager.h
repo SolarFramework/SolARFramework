@@ -53,47 +53,47 @@ public:
 	/// @brief Set the map
 	/// @param[in] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if all data structures successfully setted, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode setMap(const SRef<datastructure::Map> map) = 0;
+    virtual FrameworkReturnCode setMap(const SRef<SolAR::datastructure::Map> map) = 0;
 
 	/// @brief Get the map
 	/// @param[out] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode getMap(SRef<datastructure::Map> & map) = 0;
+    virtual FrameworkReturnCode getMap(SRef<SolAR::datastructure::Map> & map) = 0;
 
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
 	/// @param[in] keyframe the keyframe to get local point cloud
 	/// @param[in] minWeightNeighbor the weight to get keyframe neighbors
 	/// @param[out] localPointCloud the local point cloud
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode getLocalPointCloud(const SRef<datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<datastructure::CloudPoint>> &localPointCloud) const = 0;
+    virtual FrameworkReturnCode getLocalPointCloud(const SRef<SolAR::datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<SolAR::datastructure::CloudPoint>> &localPointCloud) const = 0;
 
 	/// @brief Add a point cloud to map manager and update visibility of keyframes and covisibility graph
 	/// @param[in] cloudPoint the cloud point to add to the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode addCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
+    virtual FrameworkReturnCode addCloudPoint(const SRef<SolAR::datastructure::CloudPoint> cloudPoint) = 0;
 
 	/// @brief Remove a point cloud from map manager and update visibility of keyframes and covisibility graph
 	/// @param[in] cloudPoint the cloud point to remove to the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode removeCloudPoint(const SRef<datastructure::CloudPoint> cloudPoint) = 0;
+    virtual FrameworkReturnCode removeCloudPoint(const SRef<SolAR::datastructure::CloudPoint> cloudPoint) = 0;
 
 	/// @brief Add a keyframe to map manager
 	/// @param[in] keyframe the keyframe to add to the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
 	/// @brief Remove a keyframe from map manager and update visibility of point cloud and covisibility graph
 	/// @param[in] keyframe the keyframe to remove from the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode removeKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode removeKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
 	/// @brief Prune cloud points of a map
 	/// @param[in] cloudPoints: the cloud points are checked to prune
-	virtual int pointCloudPruning(const std::vector<SRef<datastructure::CloudPoint>> &cloudPoints = {}) = 0;
+    virtual int pointCloudPruning(const std::vector<SRef<SolAR::datastructure::CloudPoint>> &cloudPoints = {}) = 0;
 
 	/// @brief Prune keyframes of a map
 	/// @param[in] keyframes: the keyframes are checked to prune
-	virtual int keyframePruning(const std::vector<SRef<datastructure::Keyframe>> &keyframes = {}) = 0;
+    virtual int keyframePruning(const std::vector<SRef<SolAR::datastructure::Keyframe>> &keyframes = {}) = 0;
 
 	/// @brief Save the map to the external file
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.

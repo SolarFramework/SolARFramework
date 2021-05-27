@@ -125,16 +125,16 @@ public:
 
 	/// @brief This method returns the covisibility graph
 	/// @return the covisibility graph
-	virtual const SRef<datastructure::CovisibilityGraph> & getConstCovisibilityGraph() const = 0;
+    virtual const SRef<SolAR::datastructure::CovisibilityGraph> & getConstCovisibilityGraph() const = 0;
 
 	/// @brief This method returns the covisibility graph
 	/// @param[out] covisibilityGraph the covisibility graph of map
 	/// @return the covisibility graph
-	virtual std::unique_lock<std::mutex> getCovisibilityGraph(SRef<datastructure::CovisibilityGraph>& covisibilityGraph) = 0;
+    virtual std::unique_lock<std::mutex> getCovisibilityGraph(SRef<SolAR::datastructure::CovisibilityGraph>& covisibilityGraph) = 0;
 
 	/// @brief This method is to set the covisibility graph
 	/// @param[in] covisibilityGraph the covisibility graph of map
-	virtual void setCovisibilityGraph(const SRef<datastructure::CovisibilityGraph> covisibilityGraph) = 0;
+    virtual void setCovisibilityGraph(const SRef<SolAR::datastructure::CovisibilityGraph> covisibilityGraph) = 0;
 };
 
 }

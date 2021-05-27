@@ -108,12 +108,12 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each cloud point
 	/// @return Descriptor type
-	datastructure::DescriptorType getDescriptorType() const;
+    DescriptorType getDescriptorType() const;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each cloud point
 	/// @param[in] type the descriptor type
 	/// @return @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode setDescriptorType(const datastructure::DescriptorType & type);
+    FrameworkReturnCode setDescriptorType(const DescriptorType & type);
 
 private:
 	friend class boost::serialization::access;
@@ -121,7 +121,7 @@ private:
 	void serialize(Archive &ar, const unsigned int version);
 
 	std::map<uint32_t, SRef<CloudPoint>>	m_pointCloud;
-	datastructure::DescriptorType			m_descriptorType;
+    DescriptorType                          m_descriptorType;
 	uint32_t								m_id;
 };
 
