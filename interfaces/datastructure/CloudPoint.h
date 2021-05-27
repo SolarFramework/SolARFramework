@@ -26,8 +26,6 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/PrimitiveInformation.h"
-#include <mutex>
-
 #include <core/SerializationDefinitions.h>
 
 
@@ -35,8 +33,6 @@
 // part of SolAR namespace //
 namespace SolAR {
 namespace datastructure {
-class Keyframe;
-
 /**
  * @class CloudPoint
  * @brief <B>A 3D point stored in a cloud of points.</B>
@@ -268,7 +264,7 @@ public:
 	/// @param[in] keyframe_id: the id of the keyframe to which the keypoint belong
 	/// @param[in] keypoint_id: the id of the keypoint of the keyframe
 	/// @return true if remove successfully
-	bool removeVisibility(const uint32_t& keyframe_id, const uint32_t& keypoint_id);
+	bool removeVisibility(const uint32_t& keyframe_id);
 
 private:
 	friend class boost::serialization::access;
@@ -282,6 +278,7 @@ private:
     Vector3f								m_rgb = {0.0, 0.0, 0.0};
     Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
+	bool									m_isFeatureCP;
 };
 
 DECLARESERIALIZE(CloudPoint);

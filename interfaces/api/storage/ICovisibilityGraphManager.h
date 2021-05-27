@@ -14,34 +14,32 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ICOVISIBILITYGRAPH_H
-#define SOLAR_ICOVISIBILITYGRAPH_H
+#ifndef SOLAR_ICOVISIBILITYGRAPHMANAGER_H
+#define SOLAR_ICOVISIBILITYGRAPHMANAGER_H
 
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
-#include <set>
-#include <map>
-#include <tuple>
+#include "datastructure/CovisibilityGraph.h"
 
 namespace SolAR {
 namespace api {
 namespace storage {
 
 /**
- * @class ICovisibilityGraph
+ * @class ICovisibilityGraphManager
  * @brief Allows to store the covisibility graph between keyframes. This storage component can be accessed by processing components to share persistent data.
  * <TT>UUID: 15455f5a-0e99-49e5-a3fb-39de3eeb5b9b</TT>
  */
 
-class ICovisibilityGraph : virtual public org::bcom::xpcf::IComponentIntrospect {
+class ICovisibilityGraphManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief ICovisibilityGraph default constructor
-	ICovisibilityGraph() = default;
+    /// @brief ICovisibilityGraphManager default constructor
+	ICovisibilityGraphManager() = default;
 
-    /// @brief ICovisibilityGraph default destructor
-    virtual ~ICovisibilityGraph() = default;
+    /// @brief ICovisibilityGraphManager default destructor
+    virtual ~ICovisibilityGraphManager() = default;
 
     /// @brief This method allow to increase edge between 2 nodes
     /// @param[in] node1_id id of 1st node
@@ -124,17 +122,30 @@ public:
 	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromFile(const std::string & file) = 0;
+
+	/// @brief This method returns the covisibility graph
+	/// @return the covisibility graph
+	virtual const SRef<datastructure::CovisibilityGraph> & getConstCovisibilityGraph() const = 0;
+
+	/// @brief This method returns the covisibility graph
+	/// @param[out] covisibilityGraph the covisibility graph of map
+	/// @return the covisibility graph
+	virtual std::unique_lock<std::mutex> getCovisibilityGraph(SRef<datastructure::CovisibilityGraph>& covisibilityGraph) = 0;
+
+	/// @brief This method is to set the covisibility graph
+	/// @param[in] covisibilityGraph the covisibility graph of map
+	virtual void setCovisibilityGraph(const SRef<datastructure::CovisibilityGraph> covisibilityGraph) = 0;
 };
 
 }
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::ICovisibilityGraph,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::storage::ICovisibilityGraphManager,
                              "15455f5a-0e99-49e5-a3fb-39de3eeb5b9b",
-                             "ICovisibilityGraph",
+                             "ICovisibilityGraphManager",
                              "A component interface for storing a persistent covisibility graph between keyframes.");
 
 
-#endif //SOLAR_ICOVISIBILITYGRAPH_H
+#endif //SOLAR_ICOVISIBILITYGRAPHMANAGER_H
 
