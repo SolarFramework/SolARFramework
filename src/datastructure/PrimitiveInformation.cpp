@@ -81,6 +81,7 @@ void PrimitiveInformation::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const 
 	ar & boost::serialization::make_array(ptr, sizeof(m_lastUpdateTime));
     ar & m_semanticId;
 }
+
 IMPLEMENTSERIALIZE(PrimitiveInformation);
 
 }

@@ -16,9 +16,9 @@
 
 #include "datastructure/FiducialMarker.h"
 
-#include "core/Log.h"
-
 #include "xpcf/core/helpers.h"
+
+#include <boost/serialization/export.hpp>
 
 namespace SolAR {
 namespace datastructure {
@@ -51,16 +51,16 @@ SquaredBinaryPattern FiducialMarker::getPattern() const {
 template<typename Archive>
 void FiducialMarker::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 
-    SquaredBinaryPatternMatrix matrix = m_pattern.getPatternMatrix();
+    ar.template register_type<FiducialMarker>();
+    ar & boost::serialization::base_object<Trackable2D>(*this);
 
-    for (unsigned int row = 0; row < matrix.rows(); row++) {
-        for (unsigned int col = 0; col < matrix.cols(); col++) {
-        ar & matrix(row, col);
-      }
-    }
+    ar & m_pattern;
 }
 
 IMPLEMENTSERIALIZE(FiducialMarker);
 
 }
 }
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::FiducialMarker)
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::FiducialMarker)

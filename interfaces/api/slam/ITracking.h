@@ -46,17 +46,17 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams: camera calibration matrix parameters.
     /// @param[in] distorsionParams: camera distorsion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
 	/// @brief this method is used to update reference keyframe to track
 	/// @param[in] refKeyframe: the new reference keyframe.
-    virtual void updateReferenceKeyframe(const SRef<datastructure::Keyframe> refKeyframe) = 0;
+    virtual void updateReferenceKeyframe(const SRef<SolAR::datastructure::Keyframe> refKeyframe) = 0;
 	
 	/// @brief this method is used to process tracking
 	/// @param[in] frame: the input frame.
 	/// @param[out] displayImage: the image to display.
 	/// @return FrameworkReturnCode::_SUCCESS if tracking succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode process(const SRef<datastructure::Frame> frame, SRef<datastructure::Image> &displayImage) = 0;
+    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Image> &displayImage) = 0;
 };
 
 }

@@ -44,8 +44,8 @@ public:
     /// @param[in] ref2DSquaredMarkerCorners set of 2d_points of the corners in the template view.
     /// @param[in] projected2DSquaredMarkerCorners set of 2d_points of the corners projected in the current view.
     /// @return true if succeed, else false
-    virtual bool isValid(const std::vector<datastructure::Point2Df> & ref2DSquaredMarkerCorners,
-                         const std::vector<datastructure::Point2Df> & projected2DSquaredMarkerCorners) = 0;
+    virtual bool isValid(const std::vector<SolAR::datastructure::Point2Df> & ref2DSquaredMarkerCorners,
+                         const std::vector<SolAR::datastructure::Point2Df> & projected2DSquaredMarkerCorners) = 0;
 };
 
 }

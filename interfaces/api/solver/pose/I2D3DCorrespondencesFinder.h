@@ -55,14 +55,14 @@ public:
     /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
     /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode find(	const SRef<datastructure::Frame> lastFrame,
-                                        const SRef<datastructure::Frame> currentFrame,
-                                        const std::vector<datastructure::DescriptorMatch> & current_matches,
-                                        std::vector<datastructure::Point3Df> & shared_3dpoint,
-                                        std::vector<datastructure::Point2Df> & shared_2dpoint,
-                                        std::vector<std::pair<uint32_t, SRef<datastructure::CloudPoint>>> & corres2D3D,
-                                        std::vector<datastructure::DescriptorMatch> & found_matches,
-                                        std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
+    virtual FrameworkReturnCode find(	const SRef<SolAR::datastructure::Frame> lastFrame,
+                                        const SRef<SolAR::datastructure::Frame> currentFrame,
+                                        const std::vector<SolAR::datastructure::DescriptorMatch> & current_matches,
+                                        std::vector<SolAR::datastructure::Point3Df> & shared_3dpoint,
+                                        std::vector<SolAR::datastructure::Point2Df> & shared_2dpoint,
+                                        std::vector<std::pair<uint32_t, SRef<SolAR::datastructure::CloudPoint>>> & corres2D3D,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & found_matches,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & remaining_matches) = 0;
 
 };
 }

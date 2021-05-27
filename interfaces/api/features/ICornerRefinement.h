@@ -54,7 +54,7 @@ public:
     /// @brief This method refines the corner locations
     /// @param[in] image Input image on which we are extracting keypoints.
     /// @param[in,out] corners Initial coordinates of the input corners and refined coordinates provided for output.
-    virtual void refine(const SRef<datastructure::Image> image, std::vector<datastructure::Point2Df> & corners) = 0;
+    virtual void refine(const SRef<SolAR::datastructure::Image> image, std::vector<SolAR::datastructure::Point2Df> & corners) = 0;
 
 };
 

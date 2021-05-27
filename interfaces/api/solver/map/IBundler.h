@@ -45,8 +45,8 @@ public:
 	/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
     /// @param[in] selectKeyframes: selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
 	/// @return the mean re-projection error after optimization.
-	virtual double bundleAdjustment(datastructure::CamCalibration & K,
-									datastructure::CamDistortion & D,
+    virtual double bundleAdjustment(SolAR::datastructure::CamCalibration & K,
+                                    SolAR::datastructure::CamDistortion & D,
 									const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 	
 	/// @brief solve a non-linear problem related to sim3D optimization between two overlaped keyframes of two different maps:

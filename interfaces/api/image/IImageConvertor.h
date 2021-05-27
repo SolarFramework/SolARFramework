@@ -45,20 +45,20 @@ public:
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image converted
 	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convert(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst) = 0;
+	virtual FrameworkReturnCode convert(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst) = 0;
 
 	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image converted
     /// @param[in] destLayout: output image converted
 	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convert(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst, datastructure::Image::ImageLayout destLayout) = 0;
+	virtual FrameworkReturnCode convert(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst, SolAR::datastructure::Image::ImageLayout destLayout) = 0;
 
 	/// @brief This method converts an image source to image destination according to a look up table attribute defined in the component
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image  with a look up table
 	/// @return FrameworkReturnCode::_SUCCESS_ id color mapping succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convertLookUpTable(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst) = 0;
+	virtual FrameworkReturnCode convertLookUpTable(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst) = 0;
 
 };
 

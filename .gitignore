@@ -88,3 +88,4 @@ tests/bin
 *.TMP
 *.tmp
 .git Merge
+SolARWrapper

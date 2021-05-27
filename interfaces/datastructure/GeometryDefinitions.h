@@ -84,6 +84,9 @@ private:
 	}
 };
 
+DECLARESERIALIZE(Point3Df);
+IMPLEMENTSERIALIZE(Point3Df);
+
 /**
  * @class Point2Di
  * @brief <B>A 2D point with coordinates defined with integers.</B>
