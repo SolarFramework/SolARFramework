@@ -47,12 +47,12 @@ public:
 	/// @brief Set the camera parameters
 	/// @param[in] cameraParams: the camera parameters (its resolution and its focal)
 	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setCameraParameters(const datastructure::CameraParameters & cameraParams) = 0;
+    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
 	/// @brief Request to the map update pipeline to update the global map from a local map
 	/// @param[in] image: the input image to process
 	/// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode mapUpdateRequest(const SRef<datastructure::Map> map) = 0;
+    virtual FrameworkReturnCode mapUpdateRequest(const SRef<SolAR::datastructure::Map> map) = 0;
 };
 }
 }

@@ -120,16 +120,16 @@ public:
 
 	/// @brief This method returns the point cloud
 	/// @return the point cloud
-	virtual const SRef<datastructure::PointCloud> & getConstPointCloud() const = 0;
+    virtual const SRef<SolAR::datastructure::PointCloud> & getConstPointCloud() const = 0;
 
 	/// @brief This method returns the point cloud
 	/// @param[out] pointCloud the point cloud
 	/// @return the point cloud
-	virtual std::unique_lock<std::mutex> getPointCloud(SRef<datastructure::PointCloud>& pointCloud) = 0;
+    virtual std::unique_lock<std::mutex> getPointCloud(SRef<SolAR::datastructure::PointCloud>& pointCloud) = 0;
 
 	/// @brief This method is to set the point cloud
 	/// @param[in] pointCloud the point cloud
-	virtual void setPointCloud(const SRef<datastructure::PointCloud> pointCloud) = 0;
+    virtual void setPointCloud(const SRef<SolAR::datastructure::PointCloud> pointCloud) = 0;
 };
 
 }
