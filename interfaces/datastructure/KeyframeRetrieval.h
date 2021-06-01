@@ -16,6 +16,20 @@ namespace SolAR {
 namespace datastructure {
 
 /**
+ * @typedef BoW
+ * @brief <B>Bag of words datastructure.</B>
+ *
+ */
+typedef std::map<uint32_t, float> BoW;
+
+/**
+ * @typedef BoW2
+ * @brief <B>Bag of words with augmented information.</B>
+ *  For each word, keeps information about the indices of the elements that have been classified into the word it is computed at the desired level.
+ */
+typedef std::map<uint32_t, std::vector<uint32_t>> BoW2;
+
+/**
 * @class KeyframeRetrieval
 * @brief <B>A bag of word of keyframe.</B>
 * This class provides a data structure of keyframe retrieval model (BoW).
