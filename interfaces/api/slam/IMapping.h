@@ -46,12 +46,12 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] Camera calibration matrix parameters.
 	/// @param[in] Camera distorsion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
 	/// @brief this method is used to process mapping task.
 	/// @param[in] frame: the input frame.
     /// @param[out] keyframe: new keyframe or new reference keyframe found.
-    virtual FrameworkReturnCode process(const SRef<datastructure::Frame> frame, SRef<datastructure::Keyframe> & keyframe) = 0;
+    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Keyframe> & keyframe) = 0;
 };
 
 }

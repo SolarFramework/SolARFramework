@@ -36,7 +36,7 @@ namespace pipeline {
  * This class provides the interface to define a video see-through pipeline.
  */
 
-class IPoseEstimationPipeline : virtual public IPipeline {
+class XPCF_IGNORE IPoseEstimationPipeline : virtual public IPipeline {
 public:
     /// @brief IPoseEstimationPipeline default constructor
     IPoseEstimationPipeline() = default;
@@ -50,13 +50,13 @@ public:
 
     /// @brief Provide the camera parameters
     /// @return the camera parameters (resolution and focal)
-    virtual datastructure::CameraParameters getCameraParameters() const = 0;
+    virtual SolAR::datastructure::CameraParameters getCameraParameters() const = 0;
 
     /// @brief update the pipeline
     /// Get the new pose and update the texture buffer with the image that has to be displayed
     /// @param[out] pose: the new pose given by the pipeline
     /// @return sink::SinkReturnCode result code
-    virtual sink::SinkReturnCode update(datastructure::Transform3Df & pose) = 0;
+    virtual sink::SinkReturnCode update(SolAR::datastructure::Transform3Df & pose) = 0;
 
     /// @brief load a generic texture buffer.
     /// @param[in] sourceTextureHandle: a pointer to the texture buffer which will be updated at each call of the update method.

@@ -34,58 +34,46 @@ namespace datastructure {
 class SOLARFRAMEWORK_API PrimitiveInformation
 {
 public:
-	///
 	/// @brief PrimitiveInformation constructor
-	///
 	PrimitiveInformation();
 
-	///
+	/// @brief PrimitiveInformation deconstruction
+	~PrimitiveInformation() = default;
+
+	/// @brief This method is to known an element being valid or not
+	/// @return isValid value
+	bool isValid() const;
+
+	/// @brief This method is to set an element being invalid
+	void setInvalid();
+
 	/// @brief This method updates the confident score of the primitive element
 	/// @param[in] isGood: it is true if the primitive element is considered as an inlier for this use. It is false in the otherwise.
-	///
 	void updateConfidence(bool isGood);
 
-	///
 	/// @brief This method returns the confident score of the primitive element
 	/// @return the confident score
-	///
-	const float& getConfidence() const;
+	float getConfidence() const;
 
-	///
 	/// @brief This method returns the number of used times of the primitive element
 	/// @return the number of used times
-	///
-	const uint32_t& getUsedTime() const;
+	uint32_t getUsedTime() const;
 
-	///
 	/// @brief This method returns the last updated time of the primitive element
 	/// @return the last updated time
-	///
 	const std::chrono::system_clock::time_point& getLastUpdateTime() const;
 
-	///
 	/// @brief This method updates the last updated time of the primitive element
 	/// @param[in] updateTime: the update time. You can get current time by using std::chrono::system_clock::now()
-	///
 	void setLastUpdateTime(const std::chrono::system_clock::time_point& updateTime);
 
-	///
 	/// @brief This method returns the semantic id of the primitive element
 	/// @return the semantic id
-	///
-	const int& getSemanticId() const;
+	int getSemanticId() const;
 
-	///
 	/// @brief This method sets the semantic id of the primitive element
 	/// @param semanticId: the semantic id
-	///
-	void setSemanticId(const int& semanticId);
-	
-
-	///
-	/// \brief ~PrimitiveInformation
-	///
-	~PrimitiveInformation() = default;
+	void setSemanticId(const int& semanticId);	
 
 private:
 	friend class boost::serialization::access;
@@ -96,7 +84,8 @@ private:
 	float										m_confidence;
 	uint32_t									m_usedTimes;
 	std::chrono::system_clock::time_point		m_lastUpdateTime;
-	int											m_semanticId;	
+	int											m_semanticId;
+	bool										m_isValid;
 };
 
 DECLARESERIALIZE(PrimitiveInformation);

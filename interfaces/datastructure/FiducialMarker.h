@@ -17,8 +17,6 @@
 #ifndef FIDUCIALMARKER_H
 #define FIDUCIALMARKER_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include <core/SerializationDefinitions.h>
 #include <datastructure/SquaredBinaryPattern.h>
 #include <datastructure/Trackable2D.h>
 
@@ -67,7 +65,7 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
     private:
         friend class boost::serialization::access;
         template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+        void serialize(Archive &ar,  const unsigned int version);
 
     private:
         SquaredBinaryPattern m_pattern; // Binary pattern of the fiducial marker

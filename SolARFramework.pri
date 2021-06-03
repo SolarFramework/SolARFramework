@@ -1,5 +1,11 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+<<<<<<< HEAD
 interfaces/api/sfm/IStructureFromMotion.h \
+=======
+interfaces/api/pipeline/IRelocalizationPipeline.h \
+interfaces/api/solver/pose/ITrackablePose.h \
+interfaces/api/input/devices/IDepthCamera.h \
+>>>>>>> 0.9.3
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/display/IImageViewer.h \
@@ -14,6 +20,7 @@ interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/IMatchesFilter.h \
 interfaces/api/features/ISBPatternReIndexer.h \
+interfaces/api/features/ICornerRefinement.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
@@ -31,10 +38,6 @@ interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
-interfaces/api/input/files/IMarker.h \
-interfaces/api/input/files/IMarker2DNaturalImage.h \
-interfaces/api/input/files/IMarker2DSquared.h \
-interfaces/api/input/files/IMarker2DSquaredBinary.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
@@ -43,6 +46,7 @@ interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
+interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
@@ -57,7 +61,7 @@ interfaces/api/solver/map/IBundler.h \
 interfaces/api/solver/map/IKeyframeSelector.h \
 interfaces/api/solver/map/IMapFilter.h \
 interfaces/api/solver/map/IMapFusion.h \
-interfaces/api/solver/map/IMapper.h \
+interfaces/api/solver/map/IMapUpdate.h \
 interfaces/api/solver/map/ITriangulator.h \
 interfaces/api/solver/pose/I2D3DCorrespondencesFinder.h \
 interfaces/api/solver/pose/I2Dto3DTransformDecomposer.h \
@@ -69,13 +73,13 @@ interfaces/api/solver/pose/I3DTransformFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
-interfaces/api/solver/pose/IFiducialMarkerPose.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
-interfaces/api/storage/ICovisibilityGraph.h \
+interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Messages.h \
@@ -93,6 +97,7 @@ interfaces/datastructure/Frame.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Identification.h \
 interfaces/datastructure/Image.h \
+interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/MathDefinitions.h \
@@ -101,6 +106,11 @@ interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/Trackable.h \
 interfaces/datastructure/Trackable2D.h \
+interfaces/datastructure/CovisibilityGraph.h \
+interfaces/datastructure/KeyframeRetrieval.h \
+interfaces/datastructure/KeyframeCollection.h \
+interfaces/datastructure/Lockable.h \
+interfaces/datastructure/Map.h \
 interfaces/SharedBuffer.hpp \
 interfaces/SharedCircularBuffer.hpp \
 interfaces/SharedFifo.hpp
@@ -115,10 +125,15 @@ src/datastructure/FiducialMarker.cpp \
 src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
+src/datastructure/ImageMarker.cpp \
 src/datastructure/Keyframe.cpp \
 src/datastructure/Keypoint.cpp \
 src/datastructure/PointCloud.cpp \
 src/datastructure/PrimitiveInformation.cpp \
 src/datastructure/SquaredBinaryPattern.cpp \
 src/datastructure/Trackable.cpp \
-src/datastructure/Trackable2D.cpp
+src/datastructure/Trackable2D.cpp \
+src/datastructure/CovisibilityGraph.cpp \
+src/datastructure/KeyframeRetrieval.cpp \
+src/datastructure/KeyframeCollection.cpp \
+src/datastructure/Map.cpp
