@@ -49,7 +49,7 @@ public:
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(std::vector<SRef<datastructure::CloudPoint>> map) = 0;
+    virtual FrameworkReturnCode createMap(std::vector<SRef<SolAR::datastructure::CloudPoint>> map) = 0;
 };
 
 
