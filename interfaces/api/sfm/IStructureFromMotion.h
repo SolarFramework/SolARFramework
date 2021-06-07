@@ -23,7 +23,7 @@
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
 #include "core/Messages.h"
-#include "datastructure/CloudPoint.h"
+#include "datastructure/Map.h"
 
 namespace SolAR {
 namespace api {
@@ -49,7 +49,7 @@ public:
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(std::vector<SRef<SolAR::datastructure::CloudPoint>> map) = 0;
+    virtual FrameworkReturnCode createMap(SRef<SolAR::datastructure::Map> map) = 0;
 };
 
 
