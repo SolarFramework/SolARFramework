@@ -22,7 +22,6 @@
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
-#include "api/input/devices/IDevice.h"
 
 namespace SolAR {
 namespace api {

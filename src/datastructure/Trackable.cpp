@@ -37,6 +37,7 @@ void Trackable::setURL(const std::string & url) {
 
 template<typename Archive>
 void Trackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+
     ar & m_url;
 }
 

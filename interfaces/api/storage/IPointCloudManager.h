@@ -20,6 +20,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/CloudPoint.h"
+#include "datastructure/PointCloud.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/DescriptorBuffer.h"
@@ -116,6 +117,19 @@ public:
 	/// @param[in] file the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
 	virtual FrameworkReturnCode loadFromFile(const std::string& file) = 0;
+
+	/// @brief This method returns the point cloud
+	/// @return the point cloud
+    virtual const SRef<SolAR::datastructure::PointCloud> & getConstPointCloud() const = 0;
+
+	/// @brief This method returns the point cloud
+	/// @param[out] pointCloud the point cloud
+	/// @return the point cloud
+    virtual std::unique_lock<std::mutex> getPointCloud(SRef<SolAR::datastructure::PointCloud>& pointCloud) = 0;
+
+	/// @brief This method is to set the point cloud
+	/// @param[in] pointCloud the point cloud
+    virtual void setPointCloud(const SRef<SolAR::datastructure::PointCloud> pointCloud) = 0;
 };
 
 }
