@@ -77,6 +77,11 @@ interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
+interfaces/api/stereo/IStereoCalibration.h \
+interfaces/api/stereo/IStereoDepthEstimation.h \
+interfaces/api/stereo/IStereoDescriptorMatcher.h \
+interfaces/api/stereo/IStereoMappingBootstrapper.h \
+interfaces/api/stereo/IStereoRectification.h \
 interfaces/core/Log.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
@@ -84,6 +89,7 @@ interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
+interfaces/datastructure/StereoCameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
