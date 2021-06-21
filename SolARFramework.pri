@@ -82,6 +82,7 @@ interfaces/api/stereo/IStereoDepthEstimation.h \
 interfaces/api/stereo/IStereoDescriptorMatcher.h \
 interfaces/api/stereo/IStereoMappingBootstrapper.h \
 interfaces/api/stereo/IStereoRectification.h \
+interfaces/api/stereo/IStereoFeatureExtractionAndDepthEstimation.h \
 interfaces/core/Log.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \

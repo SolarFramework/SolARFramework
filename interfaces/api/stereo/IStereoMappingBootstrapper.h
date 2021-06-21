@@ -28,7 +28,7 @@ namespace api {
 namespace stereo {
 
 /** @class IStereoMappingBootstrapper
-* @brief <B>Calibrate and rectify a stereo camera.</B>
+* @brief <B>Perform mapping bootstrapper using stereo camera.</B>
 * <TT>UUID: 4d868108-795f-4bc4-90d2-a9bea24ed6c5</TT>
 */
 class  IStereoMappingBootstrapper : virtual public org::bcom::xpcf::IComponentIntrospect {
@@ -47,7 +47,7 @@ public:
 	/// @param[in] frame input image to process
 	/// @param[out] view output image to visualize
 	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame>& image, 
+	virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame>& frame, 
 										SRef<SolAR::datastructure::Image> & view) = 0;
 };
 
