@@ -50,9 +50,14 @@ public:
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
 	/// @brief Request to the map update pipeline to update the global map from a local map
-	/// @param[in] image: the input image to process
+    /// @param[in] map: the input local map to process
 	/// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode mapUpdateRequest(const SRef<SolAR::datastructure::Map> map) = 0;
+
+    /// @brief Request to the map update pipeline to get the global map
+    /// @param[out] map: the output global map
+    /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }
 }
