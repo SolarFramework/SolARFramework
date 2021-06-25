@@ -43,7 +43,7 @@ namespace features {
 /**
  * @class IDescriptorsExtractorFromImage
  * @brief <B>Extracts descriptors from a set of keypoints.</B>
- * <TT>UUID: 1eab2c72-a1e0-11eb-bcbc-0242ac130002</TT>
+ * <TT>UUID: 1cd4f5f1-6b74-413b-9725-69653aee48ef</TT>
  *
  * This class provides a method to extract descriptors directly from an image
  */
@@ -78,7 +78,7 @@ namespace features {
 }  // end of namespace SolAR
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorsExtractorFromImage,
-                             "c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e",
+                             "1cd4f5f1-6b74-413b-9725-69653aee48ef",
                              "IDescriptorsExtractorFromImage",
                              "SolAR::api::features::IDescriptorsExtractorFromImage");
 
