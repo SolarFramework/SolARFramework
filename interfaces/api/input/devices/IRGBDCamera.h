@@ -73,7 +73,7 @@ public:
     /// @brief Provides the pixels of the color image to the projection of given 3D points
     /// @param[in] in3DPoints The 3D points we want to project on the color image
     /// @return a 2D points vector representing the pixels of the color image on which the 3D points are projected
-    virtual std::vector<SolAR::datastructure::Point2Df> getWorldToPixels (const std::vector<SolAR::datastructure::CloudPoint>& in3DPoints) const = 0;
+    virtual std::vector<SolAR::datastructure::Point2Df> getWorldToPixels (const std::vector<SRef<SolAR::datastructure::CloudPoint>>& in3DPoints) const = 0;
 };
 
 }
