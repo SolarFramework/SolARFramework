@@ -53,10 +53,8 @@ public:
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(std::map<uint32_t, SRef<datastructure::Image>> images,
-                                          SRef<datastructure::Map>& map,
-                                          std::map<uint32_t,std::vector<datastructure::Keypoint>>& keypoints,
-                                          std::map<uint32_t,SRef<datastructure::DescriptorBuffer>> &descriptors) = 0; //last argument for test
+    virtual FrameworkReturnCode createMap(std::vector<SRef<datastructure::Image>>& images,
+                                          SRef<datastructure::Map>& map) = 0; //last argument for test
 };
 
 
