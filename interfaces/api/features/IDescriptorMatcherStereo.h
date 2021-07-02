@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ISTEREODESCRIPTORMATCHER_H
-#define SOLAR_ISTEREODESCRIPTORMATCHER_H
+#ifndef SOLAR_IDESCRIPTORMATCHERSTEREO_H
+#define SOLAR_IDESCRIPTORMATCHERSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
@@ -28,19 +28,19 @@
 
 namespace SolAR {
 namespace api {
-namespace stereo {
+namespace features {
 
-/** @class IStereoDescriptorMatcher
+/** @class IDescriptorMatcherStereo
 * @brief <B>Matches two sets of descriptors from stereo images.</B>
 * <TT>UUID: 272f1ef0-c269-4631-b75c-fc7316d10915</TT>
 */
-class  IStereoDescriptorMatcher : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  IDescriptorMatcherStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-	/// @brief IStereoDescriptorMatcher constructor
-	IStereoDescriptorMatcher() = default;
+    /// @brief IDescriptorMatcherStereo constructor
+    IDescriptorMatcherStereo() = default;
 
-	/// @brief ~IStereoDescriptorMatcher
-	virtual ~IStereoDescriptorMatcher() {};
+    /// @brief ~IDescriptorMatcherStereo
+    virtual ~IDescriptorMatcherStereo() {};
 
 	/// @brief Match two sets of descriptors from stereo images.
 	/// @param[in] descriptors1 Descirptors of the first image.
@@ -50,21 +50,21 @@ public:
 	/// @param[in] type Stereo type (horizontal or vertical).
 	/// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
 	/// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors1,
-									const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors2,
-									const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
-									const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
-									SolAR::datastructure::StereoType type,
-									std::vector<SolAR::datastructure::DescriptorMatch> &matches) = 0;
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors1,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors2,
+                                      const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
+                                      const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
+                                      SolAR::datastructure::StereoType type,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) = 0;
 };
 
 }
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoDescriptorMatcher,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IDescriptorMatcherStereo,
 							"272f1ef0-c269-4631-b75c-fc7316d10915",
-							"IStereoDescriptorMatcher",
-							"SolAR::api::stereo::IStereoDescriptorMatcher interface");
+                            "IDescriptorMatcherStereo",
+                            "SolAR::api::features::IDescriptorMatcherStereo interface");
 
-#endif // SOLAR_ISTEREODESCRIPTORMATCHER_H
+#endif // SOLAR_IDESCRIPTORMATCHERSTEREO_H

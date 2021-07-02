@@ -40,8 +40,16 @@ typedef enum {
  */
 struct RectificationParameters
 {
+    // This matrix brings points given in the unrectified camera coordinate system to points in the rectified camera coordinate system
     Maths::Matrix3f rotation;
+    // Projects points given in the rectified camera coordinate system into the rectified image coordinate system.
     Maths::Matrix<float, 3, 4> projection;
+    // Stereo type
+    SolAR::datastructure::StereoType type;
+    // Stereo baseline in meters
+    float baseline;
+    // Stereo baseline multiplied by focal
+    float fb;
 };
 
 }

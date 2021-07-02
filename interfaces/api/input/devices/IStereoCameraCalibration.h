@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ISTEREOCALIBRATION_H
-#define SOLAR_ISTEREOCALIBRATION_H
+#ifndef SOLAR_ISTEREOCAMERACALIBRATION_H
+#define SOLAR_ISTEREOCAMERACALIBRATION_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
@@ -24,28 +24,29 @@
 
 namespace SolAR {
 namespace api {
-namespace stereo {
+namespace input {
+namespace devices {
 
-/** @class IStereoCalibration
+/** @class IStereoCameraCalibration
 * @brief <B>Calibrate and rectify a stereo camera.</B>
 * <TT>UUID: b4fad0ff-c636-492e-ba12-710927a760c7</TT>
 */
-class  IStereoCalibration : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  IStereoCameraCalibration : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-	/// @brief IStereoCalibration constructor
-	IStereoCalibration() = default;
+	/// @brief IStereoCameraCalibration constructor
+	IStereoCameraCalibration() = default;
 
-	/// @brief ~IStereoCalibration
-	virtual ~IStereoCalibration() {};
+	/// @brief ~IStereoCameraCalibration
+    virtual ~IStereoCameraCalibration() = default;
 
 	/// @brief Calibrate a stereo camera from a set of captured images and output the result in the given file
 	/// @param[in] images1 Set of images from the first camera
 	/// @param[in] images2 Set of images from the second camera
 	/// @param[in] calibrationFilePath file path
 	/// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images1,
-										const std::vector<SRef<SolAR::datastructure::Image>>& images2,
-										const std::string & calibrationFilePath) = 0;
+    virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images1,
+                                          const std::vector<SRef<SolAR::datastructure::Image>>& images2,
+                                          const std::string & calibrationFilePath) = 0;
 
 	/// @brief Computes rectification transforms of a calibrated stereo camera and output the result in the given file
 	/// @param[in] calibrationFilePath calibration file path
@@ -69,11 +70,12 @@ public:
 
 }
 }
+}
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoCalibration,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoCameraCalibration,
                              "b4fad0ff-c636-492e-ba12-710927a760c7",
-                             "IStereoCalibration",
-                             "SolAR::api::stereo::IStereoCalibration interface");
+                             "IStereoCameraCalibration",
+                             "SolAR::api::input::devices::IStereoCameraCalibration interface");
 
-#endif // SOLAR_ISTEREOCALIBRATION_H
+#endif // SOLAR_ISTEREOCAMERACALIBRATION_H

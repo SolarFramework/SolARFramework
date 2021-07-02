@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ISTEREOFEATUREEXTRACTIONANDDEPTHESTIMATION_H
-#define SOLAR_ISTEREOFEATUREEXTRACTIONANDDEPTHESTIMATION_H
+#ifndef SOLAR_IFEATUREWITHDEPTHFROMSTEREO_H
+#define SOLAR_IFEATUREWITHDEPTHFROMSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/CameraDefinitions.h"
@@ -26,25 +26,31 @@
 
 namespace SolAR {
 namespace api {
-namespace stereo {
+namespace features {
 
-/** @class IStereoFeatureExtractionAndDepthEstimation
+/** @class IFeatureWithDepthFromStereo
 * @brief <B>Perform feature extraction and keypoint depth estimation from each stereo images.</B>
 * <TT>UUID: 10853f36-c0c0-4afb-81b8-0b1a06ca4e71</TT>
 */
-class  IStereoFeatureExtractionAndDepthEstimation : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  IFeatureWithDepthFromStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IStereoFeatureExtractionAndDepthEstimation constructor
-    IStereoFeatureExtractionAndDepthEstimation() = default;
+    /// @brief IFeatureWithDepthFromStereo constructor
+    IFeatureWithDepthFromStereo() = default;
 
-    /// @brief ~IStereoFeatureExtractionAndDepthEstimation
-    virtual ~IStereoFeatureExtractionAndDepthEstimation() {};
+    /// @brief ~IFeatureWithDepthFromStereo
+    virtual ~IFeatureWithDepthFromStereo() {};
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] Camera calibration matrix parameters.
-    /// @param[in] Camera distorsion parameters.
+    /// @param[in] intrinsicParams Camera calibration matrix parameters.
+    /// @param[in] distortionParams Camera distorsion parameters.
     virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
                                      const SolAR::datastructure::CamDistortion & distortionParams) = 0;
+
+    /// @brief this method is used to set rectification parameters of the stereo camera
+    /// @param[in] rectParams1 Rectification parameters of the first camera.
+    /// @param[in] rectParams2 Rectification parameters of the second camera.
+    virtual void setRectificationParameters(const SolAR::datastructure::RectificationParameters & rectParams1,
+                                            const SolAR::datastructure::RectificationParameters & rectParams2) = 0;
 
     /// @brief Perform feature extraction and keypoint depth estimation
     /// @param[in] image1 The first image.
@@ -61,9 +67,9 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoFeatureExtractionAndDepthEstimation,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IFeatureWithDepthFromStereo,
                             "10853f36-c0c0-4afb-81b8-0b1a06ca4e71",
-                            "IStereoFeatureExtractionAndDepthEstimation",
-                            "SolAR::api::stereo::IStereoFeatureExtractionAndDepthEstimation interface");
+                            "IFeatureWithDepthFromStereo",
+                            "SolAR::api::features::IFeatureWithDepthFromStereo interface");
 
-#endif // SOLAR_ISTEREOFEATUREEXTRACTIONANDDEPTHESTIMATION_H
+#endif // SOLAR_IFEATUREWITHDEPTHFROMSTEREO_H

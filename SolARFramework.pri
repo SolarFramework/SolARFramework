@@ -9,6 +9,7 @@ interfaces/api/display/IMatchesOverlay.h \
 interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorMatcher.h \
+interfaces/api/features/IDescriptorMatcherStereo.h \
 interfaces/api/features/IDescriptorsExtractor.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
 interfaces/api/features/IKeypointDetector.h \
@@ -17,6 +18,7 @@ interfaces/api/features/IKeypointsReIndexer.h \
 interfaces/api/features/IMatchesFilter.h \
 interfaces/api/features/ISBPatternReIndexer.h \
 interfaces/api/features/ICornerRefinement.h \
+interfaces/api/features/IFeatureWithDepthFromStereo.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I3DTransform.h \
@@ -24,16 +26,20 @@ interfaces/api/geom/IImage2WorldMapper.h \
 interfaces/api/geom/IProject.h \
 interfaces/api/geom/IUndistortPoints.h \
 interfaces/api/geom/IUnproject.h \
+interfaces/api/geom/IDepthEstimation.h \
+interfaces/api/geom/IReprojectionStereo.h \
 interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
+interfaces/api/image/IRectification.h \
 interfaces/api/input/devices/IARDevice.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
 interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
+interfaces/api/input/devices/IStereoCameraCalibration.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
@@ -51,6 +57,7 @@ interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
 interfaces/api/slam/IBootstrapper.h \
+interfaces/api/slam/IBootstrapperStereo.h \
 interfaces/api/slam/IMapping.h \
 interfaces/api/slam/ITracking.h \
 interfaces/api/solver/map/IBundler.h \
@@ -77,12 +84,6 @@ interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
-interfaces/api/stereo/IStereoCalibration.h \
-interfaces/api/stereo/IStereoDepthEstimation.h \
-interfaces/api/stereo/IStereoDescriptorMatcher.h \
-interfaces/api/stereo/IStereoMappingBootstrapper.h \
-interfaces/api/stereo/IStereoRectification.h \
-interfaces/api/stereo/IStereoFeatureExtractionAndDepthEstimation.h \
 interfaces/core/Log.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \

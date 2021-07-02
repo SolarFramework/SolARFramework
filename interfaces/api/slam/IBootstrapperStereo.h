@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ISTEREOMAPPINGBOOTSTRAPPER_H
-#define SOLAR_ISTEREOMAPPINGBOOTSTRAPPER_H
+#ifndef SOLAR_IBOOTSTRAPPERSTEREO_H
+#define SOLAR_IBOOTSTRAPPERSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
@@ -25,25 +25,25 @@
 
 namespace SolAR {
 namespace api {
-namespace stereo {
+namespace slam {
 
-/** @class IStereoMappingBootstrapper
+/** @class IBootstrapperStereo
 * @brief <B>Perform mapping bootstrapper using stereo camera.</B>
 * <TT>UUID: 4d868108-795f-4bc4-90d2-a9bea24ed6c5</TT>
 */
-class  IStereoMappingBootstrapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  IBootstrapperStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-	/// @brief IStereoMappingBootstrapper constructor
-	IStereoMappingBootstrapper() = default;
+    /// @brief IBootstrapperStereo constructor
+    IBootstrapperStereo() = default;
 
-	/// @brief ~IStereoMappingBootstrapper
-	virtual ~IStereoMappingBootstrapper() {};
+    /// @brief ~IBootstrapperStereo
+    virtual ~IBootstrapperStereo() = default;
 
 	/// @brief this method is used to set intrinsic parameters of the camera
 	/// @param[in] intrinsicParams camera calibration matrix parameters.
 	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams) = 0;
 
-	/// @brief This method uses images to boostrap mapping
+    /// @brief This method uses images to boostrap mapping using a stereo camera
 	/// @param[in] frame input image to process
 	/// @param[out] view output image to visualize
 	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
@@ -55,9 +55,9 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoMappingBootstrapper,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IBootstrapperStereo,
 							"4d868108-795f-4bc4-90d2-a9bea24ed6c5",
-							"IStereoMappingBootstrapper",
-							"SolAR::api::stereo::IStereoMappingBootstrapper interface");
+                            "IBootstrapperStereo",
+                            "SolAR::api::slam::IBootstrapperStereo interface");
 
-#endif // SOLAR_ISTEREOMAPPINGBOOTSTRAPPER_H
+#endif // SOLAR_IBOOTSTRAPPERSTEREO_H
