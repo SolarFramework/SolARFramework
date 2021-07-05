@@ -64,9 +64,9 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IReprojectionStereo,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::IReprojectionStereo,
                             "166a0aad-8c0a-4cdc-9edf-41ff9e514212",
                             "IReprojectionStereo",
-                            "SolAR::api::stereo::IReprojectionStereo interface");
+                            "SolAR::api::geom::IReprojectionStereo interface");
 
 #endif // SOLAR_IREPROJECTIONSTEREO_H

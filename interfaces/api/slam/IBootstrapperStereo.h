@@ -55,7 +55,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IBootstrapperStereo,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::slam::IBootstrapperStereo,
 							"4d868108-795f-4bc4-90d2-a9bea24ed6c5",
                             "IBootstrapperStereo",
                             "SolAR::api::slam::IBootstrapperStereo interface");

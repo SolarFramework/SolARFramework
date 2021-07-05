@@ -40,12 +40,6 @@ public:
     /// @brief ~IFeatureWithDepthFromStereo
     virtual ~IFeatureWithDepthFromStereo() {};
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams Camera calibration matrix parameters.
-    /// @param[in] distortionParams Camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
-                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
-
     /// @brief this method is used to set rectification parameters of the stereo camera
     /// @param[in] rectParams1 Rectification parameters of the first camera.
     /// @param[in] rectParams2 Rectification parameters of the second camera.
@@ -67,7 +61,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IFeatureWithDepthFromStereo,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IFeatureWithDepthFromStereo,
                             "10853f36-c0c0-4afb-81b8-0b1a06ca4e71",
                             "IFeatureWithDepthFromStereo",
                             "SolAR::api::features::IFeatureWithDepthFromStereo interface");

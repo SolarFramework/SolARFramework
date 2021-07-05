@@ -73,7 +73,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IStereoCameraCalibration,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::IStereoCameraCalibration,
                              "b4fad0ff-c636-492e-ba12-710927a760c7",
                              "IStereoCameraCalibration",
                              "SolAR::api::input::devices::IStereoCameraCalibration interface");

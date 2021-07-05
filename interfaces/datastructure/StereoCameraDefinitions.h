@@ -18,6 +18,7 @@
 #define SOLAR_STEREOCAMERADEFINITIONS_H
 
 #include <datastructure/GeometryDefinitions.h>
+#include <datastructure/CameraDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -40,6 +41,8 @@ typedef enum {
  */
 struct RectificationParameters
 {
+	// camera parameter of the origin image
+	CameraParameters camParams;
     // This matrix brings points given in the unrectified camera coordinate system to points in the rectified camera coordinate system
     Maths::Matrix3f rotation;
     // Projects points given in the rectified camera coordinate system into the rectified image coordinate system.

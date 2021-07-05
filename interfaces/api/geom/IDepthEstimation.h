@@ -60,7 +60,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IDepthEstimation,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::IDepthEstimation,
 							"0d3c4b5d-bbb2-4adc-80b0-b7e8720a704d",
                             "IDepthEstimation",
                             "SolAR::api::geom::IDepthEstimation interface");

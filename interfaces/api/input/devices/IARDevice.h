@@ -5,6 +5,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
+#include "datastructure/StereoCameraDefinitions.h"
 #include <chrono>
 
 namespace SolAR {
@@ -32,23 +33,25 @@ public:
 	virtual int getNbCameras() = 0;
 
 	/// @brief Retrieve a set of images and their associated poses from the sensors as well as timestamp.
-	/// @param[out] images: the captured images.
-	/// @param[out] poses: the associated poses.
-	/// @param[out] timestamp: the timestamp.
-	/// @return FrameworkReturnCode to track successful or failing event.
+    /// @param[out] images the captured images.
+    /// @param[out] poses the associated poses.
+    /// @param[out] timestamp the timestamp.
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getData(std::vector<SRef<SolAR::datastructure::Image>> & images,
                                         std::vector<SolAR::datastructure::Transform3Df> & poses,
                                         std::chrono::system_clock::time_point &timestamp) = 0;
 
 	/// @brief Get the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
+    /// @param[in] camera_id The id of the camera.
 	/// @return the camera parameters
     virtual const SolAR::datastructure::CameraParameters & getParameters(const int & camera_id) const = 0;
 
-	/// @brief Set the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
-	/// @param[in] parameters: the camera parameters.
-	virtual void setParameters(const int & camera_id, const SolAR::datastructure::CameraParameters & parameters) = 0;
+    /// @brief Get the rectification parameters of a stereo camera
+    /// @param[in] pairCameraIds The pair ids of the stereo camera.
+    /// @param[out] rectParams The vector of rectification parameters of the stereo camera
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getRectificationParameters(const std::pair<uint32_t, uint32_t>& pairCameraIds,
+                                                           std::vector<SolAR::datastructure::RectificationParameters>& rectParams) const = 0;
 };
 
 }

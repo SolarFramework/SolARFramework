@@ -72,7 +72,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IRectification,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IRectification,
 							"188e9e9c-6d73-4495-9d9f-3bc5d35c4b43",
 							"IRectification",
                             "SolAR::api::image::IRectification interface");

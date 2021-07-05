@@ -62,7 +62,7 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::stereo::IDescriptorMatcherStereo,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcherStereo,
 							"272f1ef0-c269-4631-b75c-fc7316d10915",
                             "IDescriptorMatcherStereo",
                             "SolAR::api::features::IDescriptorMatcherStereo interface");
