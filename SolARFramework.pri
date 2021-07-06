@@ -10,6 +10,8 @@ interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IDescriptorMatcherStereo.h \
+interfaces/api/features/IDescriptorMatcherGeometric.h \
+interfaces/api/features/IDescriptorMatcherRegion.h \
 interfaces/api/features/IDescriptorsExtractor.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
 interfaces/api/features/IKeypointDetector.h \

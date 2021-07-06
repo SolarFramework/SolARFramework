@@ -134,9 +134,6 @@ header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
 header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
 header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
 
-header_interfaces_stereo.path = $${PROJECTDEPLOYDIR}/interfaces/api/stereo/
-header_interfaces_stereo.files += $$files($${PWD}/interfaces/api/stereo/*.h*)
-
 INCLUDEPATH += $${PWD}/interfaces
 
 
