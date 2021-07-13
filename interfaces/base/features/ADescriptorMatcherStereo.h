@@ -14,48 +14,44 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IDESCRIPTORMATCHERSTEREO_H
-#define SOLAR_IDESCRIPTORMATCHERSTEREO_H
+#ifndef SOLAR_ADESCRIPTORMATCHERSTEREO_H
+#define SOLAR_ADESCRIPTORMATCHERSTEREO_H
 
-#include "xpcf/api/IComponentIntrospect.h"
-#include "datastructure/Image.h"
-#include "datastructure/Frame.h"
-#include "datastructure/CameraDefinitions.h"
-#include "datastructure/DescriptorBuffer.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/DescriptorMatch.h"
-#include "core/Messages.h"
+#ifndef _BCOM_SHARED
+#define _BCOM_SHARED
+#endif // _BCOM_SHARED
+
+#include "core/SolARFrameworkDefinitions.h"
+#include "api/features/IDescriptorMatcherStereo.h"
+#include <xpcf/component/ConfigurableBase.h>
 
 namespace SolAR {
-namespace api {
+namespace base {
 namespace features {
 
-/** @class IDescriptorMatcherStereo
-* @brief <B>Matches two sets of descriptors from stereo images.</B>
-* <TT>UUID: 272f1ef0-c269-4631-b75c-fc7316d10915</TT>
-*/
-class  IDescriptorMatcherStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
+class SOLARFRAMEWORK_API ADescriptorMatcherStereo : public org::bcom::xpcf::ConfigurableBase,
+													virtual public SolAR::api::features::IDescriptorMatcherStereo {
 public:
-    /// @brief IDescriptorMatcherStereo constructor
-    IDescriptorMatcherStereo() = default;
+    /// @brief ADescriptorMatcherStereo constructor
+    ADescriptorMatcherStereo(std::map<std::string,std::string> componentInfosMap);
 
-    /// @brief ~IDescriptorMatcherStereo
-    virtual ~IDescriptorMatcherStereo() {};
-
-	/// @brief Match two sets of descriptors from stereo images.
-	/// @param[in] descriptors1 Descirptors of the first image.
-	/// @param[in] descriptors2 Descirptors of the second image.
+    virtual ~ADescriptorMatcherStereo() override = default;
+    void unloadComponent () override;
+    /// @brief Match two sets of descriptors from stereo images.
+    /// @param[in] descriptors1 Descirptors of the first image.
+    /// @param[in] descriptors2 Descirptors of the second image.
     /// @param[in] undistortedKeypoints1 Undistorted keypoints of the first image.
     /// @param[in] undistortedKeypoints2 Undistorted keypoints of the second image.
-	/// @param[in] type Stereo type (horizontal or vertical).
-	/// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
-	/// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
+    /// @param[in] type Stereo type (horizontal or vertical).
+    /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
+    /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors1,
                                       const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors2,
                                       const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints1,
                                       const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints2,
                                       SolAR::datastructure::StereoType type,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) = 0;
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) override
+	{ return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Match two sets of descriptors from stereo images.
     /// @param[in] frame1 The first frame containing descriptors and undistorted keypoints.
@@ -66,16 +62,13 @@ public:
     virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::Frame> frame1,
                                       const SRef<SolAR::datastructure::Frame> frame2,
                                       SolAR::datastructure::StereoType type,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) = 0;
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) override;
+
+
 };
-
 }
 }
-}  // end of namespace Solar
+}  // end of namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcherStereo,
-							"272f1ef0-c269-4631-b75c-fc7316d10915",
-                            "IDescriptorMatcherStereo",
-                            "SolAR::api::features::IDescriptorMatcherStereo interface");
 
-#endif // SOLAR_IDESCRIPTORMATCHERSTEREO_H
+#endif // SOLAR_ADESCRIPTORMATCHERSTEREO_H

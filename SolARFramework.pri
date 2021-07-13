@@ -116,9 +116,10 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
-interfaces/SharedBuffer.hpp \
-interfaces/SharedCircularBuffer.hpp \
-interfaces/SharedFifo.hpp
+interfaces/base/features/ADescriptorMatcher.h \
+interfaces/base/features/ADescriptorMatcherGeometric.h \
+interfaces/base/features/ADescriptorMatcherRegion.h \
+interfaces/base/features/ADescriptorMatcherStereo.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
@@ -141,4 +142,8 @@ src/datastructure/Trackable2D.cpp \
 src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
-src/datastructure/Map.cpp
+src/datastructure/Map.cpp \
+src/base/features/ADescriptorMatcher.cpp \
+src/base/features/ADescriptorMatcherGeometric.cpp \
+src/base/features/ADescriptorMatcherRegion.cpp \
+src/base/features/ADescriptorMatcherStereo.cpp

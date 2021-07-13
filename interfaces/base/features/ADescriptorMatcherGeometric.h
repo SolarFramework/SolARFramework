@@ -14,38 +14,29 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IDESCRIPTORMATCHERGEOMETRIC_H
-#define SOLAR_IDESCRIPTORMATCHERGEOMETRIC_H
+#ifndef SOLAR_ADESCRIPTORMATCHERGEOMETRIC_H
+#define SOLAR_ADESCRIPTORMATCHERGEOMETRIC_H
 
 #ifndef _BCOM_SHARED
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include <vector>
-#include "datastructure/DescriptorBuffer.h"
-#include "datastructure/DescriptorMatch.h"
-#include "datastructure/Frame.h"
-#include "datastructure/CameraDefinitions.h"
-#include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/core/helpers.h"
-#include "core/Messages.h"
+#include "core/SolARFrameworkDefinitions.h"
+#include "api/features/IDescriptorMatcherGeometric.h"
+#include <xpcf/component/ConfigurableBase.h>
 
 namespace SolAR {
-namespace api {
+namespace base {
 namespace features {
 
-/**
- * @class IDescriptorMatcherGeometric
- * @brief <B>Matches two sets of descriptors based on geometric constraints.</B>
- * <TT>UUID: 2ed445a6-32f3-44a1-9dc5-3b0cfec778db</TT>
- */
-class IDescriptorMatcherGeometric : virtual public org::bcom::xpcf::IComponentIntrospect {
+class SOLARFRAMEWORK_API ADescriptorMatcherGeometric : public org::bcom::xpcf::ConfigurableBase,
+													virtual public SolAR::api::features::IDescriptorMatcherGeometric {
 public:
-    /// @brief IDescriptorMatcherGeometric default constructor
-    IDescriptorMatcherGeometric() = default;
+    /// @brief ADescriptorMatcherGeometric constructor
+    ADescriptorMatcherGeometric(std::map<std::string,std::string> componentInfosMap);
 
-    /// @brief IDescriptorMatcherGeometric default destructor
-    virtual ~IDescriptorMatcherGeometric() = default;
+    virtual ~ADescriptorMatcherGeometric() override = default;
+    void unloadComponent () override;
 
     /// @brief Match two sets of descriptors from two frames based on epipolar constraint.
     /// @param[in] descriptors1 The first set of descriptors.
@@ -66,7 +57,8 @@ public:
                                       const SolAR::datastructure::Transform3Df& pose2,
                                       const SolAR::datastructure::CamCalibration& intrinsicParameters,
                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches,
-                                      const std::vector<uint32_t>& mask = {}) = 0;
+                                      const std::vector<uint32_t>& mask = {}) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Match two sets of descriptors from two frames based on epipolar constraint.
     /// @param[in] frame1 The first frame containing descriptors and undistorted keypoints.
@@ -79,15 +71,11 @@ public:
                                       const SRef<SolAR::datastructure::Frame> frame2,
                                       const SolAR::datastructure::CamCalibration& intrinsicParameters,
                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches,
-                                      const std::vector<uint32_t>& mask = {}) = 0;
+                                      const std::vector<uint32_t>& mask = {}) override;
 };
 }
 }
 }  // end of namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IDescriptorMatcherGeometric,
-                             "2ed445a6-32f3-44a1-9dc5-3b0cfec778db",
-                             "IDescriptorMatcherGeometric",
-                             "SolAR::api::features::IDescriptorMatcherGeometric");
 
-#endif // SOLAR_IDESCRIPTORMATCHERGEOMETRIC_H
+#endif // SOLAR_ADESCRIPTORMATCHERGEOMETRIC_H

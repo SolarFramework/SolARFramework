@@ -206,7 +206,7 @@ template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
 inline void from_json(const BasicJsonType& j, Eigen::Transform<T, Dim_, Mode_, Options_ >& eigenData)
 {
 	std::vector<float> data = j.get<std::vector<float>>();
-	eigenData = Eigen::Map<datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
+	eigenData = Eigen::Map<SolAR::datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
 	eigenData.makeAffine();
 }
 } // namespace Eigen

@@ -28,6 +28,7 @@
 #include "datastructure/CameraDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
 #include "xpcf/core/helpers.h"
+#include "core/Messages.h"
 
 namespace SolAR {
 namespace api {
@@ -40,37 +41,29 @@ namespace features {
  */
 class  IDescriptorMatcher : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    enum  RetCode {
-        DESCRIPTORS_MATCHER_OK=0,   /**< the default OK code*/
-        DESCRIPTORS_DONT_MATCH,     /**< try to match descriptors of different types*/
-        DESCRIPTOR_TYPE_UNDEFINED,  /**< one of the descriptor sets is is unknown*/
-        DESCRIPTOR_EMPTY            /**< One set is empty*/
-    };
-
     /// @brief IDescriptorMatcher default constructor
     IDescriptorMatcher() = default;
 
     /// @brief IDescriptorMatcher default destructor
     virtual ~IDescriptorMatcher() = default;
 
-
     /// @brief Match two sets of descriptors together
     /// @param[in] descriptors1 The first set of descriptors organized in a dedicated buffer structure.
     /// @param[in] descriptors2 The second set of descriptors organized in a dedicated buffer structure.
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
-    /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
-    virtual RetCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
-                          const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
-                          std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
+	/// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
 
     /// @brief Match two sets of descriptors together. The second set is organized in a vector of descriptors buffer and can be used if the descriptors have been extracted on subsets of an image.
     /// @param[in] descriptors1 The first set of descriptors organized in a dedicated buffer structure.
     /// @param[in] descriptors2 The second set of descriptors organized in a vector of dedicated buffer structure.
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
-    /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
-    virtual RetCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
-                          const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>> & descriptors2,
-                          std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
+	/// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                      const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>> & descriptors2,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
 };
 
 }
