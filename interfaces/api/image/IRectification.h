@@ -21,7 +21,6 @@
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keypoint.h"
-#include "datastructure/StereoCameraDefinitions.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -42,28 +41,34 @@ public:
 
 	/// @brief Rectify image
 	/// @param[in] image The input image
+	/// @param[in] camParams The camera parameters of camera
 	/// @param[in] rectParams The rectification parameters of camera
 	/// @param[out] rectifiedImage The rectified image	
 	/// @return FrameworkReturnCode::_SUCCESS if rectifying succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode rectify(SRef<SolAR::datastructure::Image> image, 
+    virtual FrameworkReturnCode rectify(SRef<SolAR::datastructure::Image> image,
+                                        const SolAR::datastructure::CameraParameters& camParams,
 										const SolAR::datastructure::RectificationParameters& rectParams,
 										SRef<SolAR::datastructure::Image>& rectifiedImage) = 0;
 
 	/// @brief Rectify 2D points
 	/// @param[in] points2D The input 2D points
+    /// @param[in] camParams The camera parameters of camera
 	/// @param[in] rectParams The rectification parameters of camera
 	/// @param[out] rectifiedPoints2D The rectified 2D points
 	/// @return FrameworkReturnCode::_SUCCESS if rectifying succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode rectify(const std::vector<SolAR::datastructure::Point2Df>& points2D,
+                                        const SolAR::datastructure::CameraParameters& camParams,
 										const SolAR::datastructure::RectificationParameters& rectParams,
 										std::vector<SolAR::datastructure::Point2Df>& rectifiedPoints2D) = 0;
 
 	/// @brief Rectify 2D keypoints
 	/// @param[in] keypoints The input 2D keypoints
+    /// @param[in] camParams The camera parameters of camera
 	/// @param[in] rectParams The rectification parameters of camera
 	/// @param[out] rectifiedKeypoints The rectified 2D keypoints
 	/// @return FrameworkReturnCode::_SUCCESS if rectifying succeed, else FrameworkReturnCode::_ERROR_
 	virtual FrameworkReturnCode rectify(const std::vector<SolAR::datastructure::Keypoint>& keypoints,
+                                        const SolAR::datastructure::CameraParameters& camParams,
 										const SolAR::datastructure::RectificationParameters& rectParams,
 										std::vector<SolAR::datastructure::Keypoint>& rectifiedKeypoints) = 0;
 };

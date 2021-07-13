@@ -47,11 +47,30 @@ public:
     /// @brief IDescriptorMatcherRegion default destructor
     virtual ~IDescriptorMatcherRegion() = default;
 
-    /// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
+    /// @brief Match each descriptor of the first set to descriptors in its searching region of the second set.
+    /// @param[in] descriptors1 The first set of descriptors.
+    /// @param[in] descriptors2 The second set of descriptors.
+    /// @param[in] points2D1 The positions of the first set of descriptors.
+    /// @param[in] points2D2 The positions of the second set of descriptors.
+    /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
+    /// @param[in] radius the radius of search region around each keypoint of the first set.
+    /// @param[in] matchingDistanceMax the maximum distance to valid a match.
+    /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
+                                      const std::vector<SolAR::datastructure::Point2Df> & points2D1,
+                                      const std::vector<SolAR::datastructure::Point2Df> & points2D2,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches,
+                                      const float radius = -1.f,
+                                      const float matchingDistanceMax = -1.f) = 0;
+
+    /// @brief Match each descriptor input to descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
     /// @param[in] points2D The center points of searching regions
     /// @param[in] descriptors The descriptors organized in a vector of dedicated buffer structure.
     /// @param[in] frame The frame contains descriptors to match.
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
+    /// @param[in] radius the radius of search region around each keypoint of the first set.
+    /// @param[in] matchingDistanceMax the maximum distance to valid a match.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode match(const std::vector<SolAR::datastructure::Point2Df> & points2D,
                                       const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>> & descriptors,
@@ -60,16 +79,16 @@ public:
                                       const float radius = -1.f,
                                       const float matchingDistanceMax = -1.f) = 0;
 
-    /// @brief Match each descriptor input with descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius
+    /// @brief Match each descriptor of the current frame to descriptors of the last frame in a region. The searching space is a circle which is defined by a 2D center and a radius
     /// @param[in] currentFrame the current frame.
     /// @param[in] lastFrame the last frame.
     /// @param[out] matches a vector of matches between two frames representing pairs of keypoint indices relatively.
     /// @param[in] radius the radius of search region around each keypoint of the last frame.
     /// @param[in] matchingDistanceMax the maximum distance to valid a match.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode match(const SRef<datastructure::Frame> currentFrame,
-                                      const SRef<datastructure::Frame> lastFrame,
-                                      std::vector<datastructure::DescriptorMatch> &matches,
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::Frame> currentFrame,
+                                      const SRef<SolAR::datastructure::Frame> lastFrame,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches,
                                       const float radius = -1.f,
                                       const float matchingDistanceMax = -1.f) = 0;
 };

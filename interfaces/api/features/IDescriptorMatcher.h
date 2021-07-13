@@ -65,7 +65,7 @@ public:
 
     /// @brief Match two sets of descriptors together. The second set is organized in a vector of descriptors buffer and can be used if the descriptors have been extracted on subsets of an image.
     /// @param[in] descriptors1 The first set of descriptors organized in a dedicated buffer structure.
-    /// @param[in] descriptors2 The second set of descriptors organized in a vectir of dedicated buffer structure.
+    /// @param[in] descriptors2 The second set of descriptors organized in a vector of dedicated buffer structure.
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
     /// @return DesciptorMatcher::DESCRIPTORS_MATCHER_OK if matching succeeds, DesciptorMatcher::DESCRIPTORS_DONT_MATCH if the types of descriptors are different, DesciptorMatcher::DESCRIPTOR_TYPE_UNDEFINED if one of the descriptors set is unknown, or DesciptorMatcher::DESCRIPTOR_EMPTY if one of the set is empty.
     virtual RetCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,

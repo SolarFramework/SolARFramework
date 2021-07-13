@@ -42,30 +42,17 @@ public:
 	/// @brief Calibrate a stereo camera from a set of captured images and output the result in the given file
 	/// @param[in] images1 Set of images from the first camera
 	/// @param[in] images2 Set of images from the second camera
-	/// @param[in] calibrationFilePath file path
+	/// @param[in] camParams1 Camera parameters of the first camera
+	/// @param[in] camParams2 Camera parameters of the second camera
+	/// @param[out] rectParams1 Rectification parameters of the first camera
+	/// @param[out] rectParams2 Rectification parameters of the second camera
 	/// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images1,
                                           const std::vector<SRef<SolAR::datastructure::Image>>& images2,
-                                          const std::string & calibrationFilePath) = 0;
-
-	/// @brief Computes rectification transforms of a calibrated stereo camera and output the result in the given file
-	/// @param[in] calibrationFilePath calibration file path
-	/// @param[in] rectificationFilePath rectification file path
-	/// @return FrameworkReturnCode::_SUCCESS if rectification succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode rectify(const std::string & calibrationFilePath,
-										const std::string & rectificationFilePath) = 0;
-
-	/// @brief this method is used to set camera parameters for the first camera
-	/// @param[in] camParams camera parameters of the first camera
-	virtual void setCameraParameters1(const SolAR::datastructure::CameraParameters & camParams) = 0;
-
-	/// @brief this method is used to set camera parameters for the second camera
-	/// @param[in] camParams camera parameters of the second camera
-	virtual void setCameraParameters2(const SolAR::datastructure::CameraParameters & camParams) = 0;
-
-	/// @brief Set configuration of stereo calibration
-	/// @param[in] configFile configuration file
-	virtual void setConfiguration(const std::string & configFile) = 0;
+                                          const SolAR::datastructure::CameraParameters & camParams1,
+                                          const SolAR::datastructure::CameraParameters & camParams2,
+                                          SolAR::datastructure::RectificationParameters & rectParams1,
+                                          SolAR::datastructure::RectificationParameters & rectParams2) = 0;
 };
 
 }

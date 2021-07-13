@@ -22,7 +22,6 @@
 #include "datastructure/Keypoint.h"
 #include "datastructure/Frame.h"
 #include "datastructure/CloudPoint.h"
-#include "datastructure/StereoCameraDefinitions.h"
 #include "core/Messages.h"
 
 namespace SolAR {

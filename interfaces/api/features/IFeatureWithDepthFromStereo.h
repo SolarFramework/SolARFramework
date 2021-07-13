@@ -21,7 +21,6 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Frame.h"
 #include "datastructure/Image.h"
-#include "datastructure/StereoCameraDefinitions.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -41,9 +40,13 @@ public:
     virtual ~IFeatureWithDepthFromStereo() {};
 
     /// @brief this method is used to set rectification parameters of the stereo camera
+    /// @param[in] camParams1 Camera parameters of the first camera.
+    /// @param[in] camParams2 Camera parameters of the second camera.
     /// @param[in] rectParams1 Rectification parameters of the first camera.
     /// @param[in] rectParams2 Rectification parameters of the second camera.
-    virtual void setRectificationParameters(const SolAR::datastructure::RectificationParameters & rectParams1,
+    virtual void setRectificationParameters(const SolAR::datastructure::CameraParameters& camParams1,
+                                            const SolAR::datastructure::CameraParameters& camParams2,
+                                            const SolAR::datastructure::RectificationParameters & rectParams1,
                                             const SolAR::datastructure::RectificationParameters & rectParams2) = 0;
 
     /// @brief Perform feature extraction and keypoint depth estimation
@@ -51,6 +54,7 @@ public:
     /// @param[in] image2 The second image.
     /// @param[out] frame1 The first frame that contains features and estimated depths of the first image.
     /// @param[out] frame2 The second frame that contains features and estimated depths of the second image.
+    /// /// @return FrameworkReturnCode::_SUCCESS if computing succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode compute(SRef<SolAR::datastructure::Image> image1,
                                         SRef<SolAR::datastructure::Image> image2,
                                         SRef<SolAR::datastructure::Frame> &frame1,

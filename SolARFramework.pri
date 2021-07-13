@@ -93,7 +93,6 @@ interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
-interfaces/datastructure/StereoCameraDefinitions.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \

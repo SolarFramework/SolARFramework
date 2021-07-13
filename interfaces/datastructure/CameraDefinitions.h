@@ -21,6 +21,14 @@
 
 //#define EIGEN_DEFAULT_TO_ROW_MAJOR
 #include <datastructure/GeometryDefinitions.h>
+#include <datastructure/MathDefinitions.h>
+#include <core/Log.h>
+#include <nlohmann/json.hpp>
+#include <iomanip>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <map>
 
 #define SOLAR_PI           3.14159265358979323846
 #define SOLAR_RAD2DEG      57.29577951308233
@@ -50,13 +58,6 @@ typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> CamCalibration;
  */
 typedef Maths::Matrix<float, 5, 1> CamDistortion;
 
-struct CameraParameters
-{
-    Sizei resolution;
-    CamCalibration intrinsic;
-    CamDistortion distortion;
-};
-
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -73,7 +74,69 @@ struct CameraParameters
  *  \f[ \begin{matrix} R_{11} & R_{12} & R_{13} & T_x \\ R_{21} & R_{22} & R_{23} & T_y \\ R_{31} & R_{32} & R_{33} & T_z \\ 0 & 0 & 0  & 1  \end{matrix}\f]
  *  Where \f$R\f$ is the 3x3 rotation matrix and \f$T\f$ is the translation vector.
  */
-typedef Maths::Matrix<float, 4, 4> PoseMatrix ;
+typedef Maths::Matrix<float, 4, 4, Eigen::RowMajor> PoseMatrix;
+
+/**
+* @typedef CameraType
+* @brief <B>The CameraType enum.</B>
+*/
+typedef enum {
+	RGB = 0,
+	Gray = 1
+} CameraType;
+
+/**
+* @typedef StereoType
+* @brief <B>The StereoType enum.</B>
+*/
+typedef enum {
+	Horizontal = 0,
+	Vertical = 1
+} StereoType;
+
+/**
+ * @typedef CameraParameters
+ * @brief <B>Define parameters of a camera.</B>
+ */
+struct CameraParameters
+{
+    std::string name;
+    uint32_t id;
+    CameraType type;
+    Sizei resolution;
+    CamCalibration intrinsic;
+    CamDistortion distortion;    
+};
+
+/**
+ * @typedef RectificationParameters
+ * @brief <B>Define rectification parameters of a camera.</B>
+ * Rectification parameters consists of two elements: rotation matrix and projection matrix.
+ * The first one brings points given in the unrectified camera's coordinate system to points in the rectified camera's coordinate system.
+ * The second one projects points given in the rectified first camera coordinate system into the rectified first camera's image.
+ */
+struct RectificationParameters
+{
+	// This matrix brings points given in the unrectified camera coordinate system to points in the rectified camera coordinate system
+	Rotation rotation;
+	// Projects points given in the rectified camera coordinate system into the rectified image coordinate system.
+	Projection projection;
+	// Stereo type
+	SolAR::datastructure::StereoType type;
+	// Stereo baseline in meters
+	float baseline;
+};
+
+/**
+ * @typedef CameraRigParameters
+ * @brief <B>Define parameters of a camera rig.</B>
+ */
+struct CameraRigParameters
+{
+	std::map<uint32_t, CameraParameters> cameraParams;
+	std::map<std::pair<uint32_t, uint32_t>, Transform3Df> transformations;
+	std::map<std::pair<uint32_t, uint32_t>, std::pair<RectificationParameters, RectificationParameters>> rectificationParams;
+};
 
 }
 }
@@ -86,12 +149,219 @@ inline void serialize(Archive & ar,
                       SolAR::datastructure::CameraParameters & parameters,
                       const unsigned int version)
 {
+    ar & parameters.name;
+    ar & parameters.id;
+    ar & parameters.type;
     ar & parameters.resolution;
     ar & parameters.intrinsic;
     ar & parameters.distortion;
 }
 
+template<class Archive>
+inline void serialize(Archive & ar,
+	SolAR::datastructure::RectificationParameters & parameters,
+	const unsigned int version)
+{
+	ar & parameters.baseline;
+	ar & parameters.type;
+	ar & parameters.rotation;
+	ar & parameters.projection;	
+}
+
+template<class Archive>
+inline void serialize(Archive & ar,
+	SolAR::datastructure::CameraRigParameters & parameters,
+	const unsigned int version)
+{
+	ar & parameters.cameraParams;
+	ar & parameters.rectificationParams;
+	ar & parameters.transformations;
+}
+
 }} // namespace boost::serialization
+
+namespace Eigen{
+template <class BasicJsonType, class T, int Rows_, int Cols_, int Ops_, int MaxRows_, int MaxCols_>
+inline void to_json(BasicJsonType& j, const Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>& eigenData)
+{
+	std::vector<float> data(eigenData.data(), eigenData.data() + eigenData.rows() * eigenData.cols());
+	j = data;
+}
+
+template <class BasicJsonType, class T, int Rows_, int Cols_, int Ops_, int MaxRows_, int MaxCols_>
+inline void from_json(const BasicJsonType& j, Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>& eigenData)
+{
+	std::vector<float> data = j.get<std::vector<float>>();
+	eigenData = Eigen::Map<Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>>(data.data());
+}
+
+template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
+inline void to_json(BasicJsonType& j, const Eigen::Transform<T, Dim_, Mode_, Options_>& eigenData)
+{
+	std::vector<float> data(eigenData.matrix().data(), eigenData.matrix().data() + eigenData.matrix().rows() * eigenData.matrix().cols());
+	j = data;
+}
+
+template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
+inline void from_json(const BasicJsonType& j, Eigen::Transform<T, Dim_, Mode_, Options_ >& eigenData)
+{
+	std::vector<float> data = j.get<std::vector<float>>();
+	eigenData = Eigen::Map<datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
+	eigenData.makeAffine();
+}
+} // namespace Eigen
+
+namespace SolAR{
+namespace datastructure {
+template <typename BasicJsonType>
+inline void to_json(BasicJsonType& j, const CameraParameters& camParams)
+{
+    j["name"] = camParams.name;
+    j["id"] = camParams.id;
+    j["type"] = camParams.type;
+    j["resolution"]["width"] = camParams.resolution.width;
+    j["resolution"]["height"] = camParams.resolution.height;
+    j["intrinsic"] = camParams.intrinsic;
+    j["distortion"] = camParams.distortion;
+}
+
+template <typename BasicJsonType>
+inline void from_json(BasicJsonType& j, CameraParameters& camParams)
+{
+    camParams.name = j["name"].get<std::string>();
+    camParams.id = j["id"].get<uint32_t>();
+    camParams.type = j["type"].get<CameraType>();
+    camParams.resolution.width = j["resolution"]["width"].get<uint32_t>();
+    camParams.resolution.height = j["resolution"]["height"].get<uint32_t>();
+    camParams.intrinsic = j["intrinsic"].get<CamCalibration>();
+    camParams.distortion = j["distortion"].get<CamDistortion>();
+}
+
+template <typename BasicJsonType>
+inline void to_json(BasicJsonType& j, const RectificationParameters& rectParams)
+{
+	j["type"] = rectParams.type;
+	j["baseline"] = rectParams.baseline;
+	j["rotation"] = rectParams.rotation;
+	j["projection"] = rectParams.projection;
+}
+
+template <typename BasicJsonType>
+inline void from_json(BasicJsonType& j, RectificationParameters& rectParams)
+{
+	rectParams.type = j["type"].get<StereoType>();
+	rectParams.baseline = j["baseline"].get<float>();
+	rectParams.rotation = j["rotation"].get<Rotation>();
+	rectParams.projection = j["projection"].get<Projection>();
+}
+
+inline void saveToFile(const SolAR::datastructure::CameraParameters& camParams, std::string filePath)
+{
+    nlohmann::ordered_json j;
+    j["CameraParameters"] = camParams;
+    std::ofstream f(filePath);
+    f << std::setw(4) << j;
+    f.close();
+}
+
+inline void loadFromFile(SolAR::datastructure::CameraParameters& camParams, std::string filePath)
+{
+    std::ifstream f(filePath);
+    nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
+    camParams = j["CameraParameters"].get<SolAR::datastructure::CameraParameters>();
+    f.close();
+}
+
+inline void saveToFile(const SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
+{
+	nlohmann::ordered_json j;
+	j["Rectification"] = rectParams;
+	std::ofstream f(filePath);
+	f << std::setw(4) << j;
+	f.close();
+}
+
+inline void loadFromFile(SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
+{
+	std::ifstream f(filePath);
+	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
+	rectParams = j["Rectification"].get<SolAR::datastructure::RectificationParameters>();
+	f.close();
+}
+
+inline void saveToFile(const SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
+{
+	nlohmann::ordered_json j;
+	// write camera parameters to json
+	int nbCameras = camParams.cameraParams.size();
+	j["NbCameras"] = nbCameras;
+	int countCamera(0);
+	for (const auto& it : camParams.cameraParams) {
+		j["CameraParameters " + std::to_string(countCamera)] = it.second;
+		countCamera++;
+	}
+	// write rectifications to json
+	int nbRects = camParams.rectificationParams.size();
+	j["NbRectifications"] = nbRects;
+	int countRect(0);
+	for (const auto& it : camParams.rectificationParams) {
+		std::string nodeName = "Rectification " + std::to_string(countRect);
+		j[nodeName]["Id1"] = it.first.first;
+		j[nodeName]["Rect1"] = it.second.first;
+		j[nodeName]["Id2"] = it.first.second;
+		j[nodeName]["Rect2"] = it.second.second;
+		countRect++;
+	}
+	// write transformations to json
+	int nbTransformations = camParams.transformations.size();
+	j["NbTransformations"] = nbTransformations;
+	int countTrans(0);
+	for (const auto& it : camParams.transformations) {
+		std::string nodeName = "Transformation " + std::to_string(countTrans);
+		j[nodeName]["Id1"] = it.first.first;
+		j[nodeName]["Id2"] = it.first.second;
+		j[nodeName]["Transform"] = it.second;
+		countTrans++;
+	}
+	// save to file
+	std::ofstream f(filePath);
+	f << std::setw(4) << j;
+	f.close();
+}
+
+inline void loadFromFile(SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
+{
+	std::ifstream f(filePath);
+	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
+	// load camera parameters to json
+	int nbCameras = j["NbCameras"].get<int>();
+	for (int i = 0; i < nbCameras; ++i) {
+		CameraParameters cam = j["CameraParameters " + std::to_string(i)].get<CameraParameters>();
+		camParams.cameraParams[cam.id] = cam;
+	}
+	// load rectifications to json
+	int nbRects = j["NbRectifications"].get<int>();
+	for (int i = 0; i < nbRects; ++i) {
+		std::string nodeName = "Rectification " + std::to_string(i);
+		uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
+		uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
+		RectificationParameters rect1 = j[nodeName]["Rect1"].get<RectificationParameters>();
+		RectificationParameters rect2 = j[nodeName]["Rect2"].get<RectificationParameters>();
+		camParams.rectificationParams[std::make_pair(id1, id2)] = std::make_pair(rect1, rect2);
+	}
+	// load transformations to json
+	int nbTransformations = j["NbTransformations"].get<int>();
+	for (int i = 0; i < nbTransformations; ++i) {
+		std::string nodeName = "Transformation " + std::to_string(i);
+		uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
+		uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
+		Transform3Df transform = j[nodeName]["Transform"].get<Transform3Df>();
+		camParams.transformations[std::make_pair(id1, id2)] = transform;
+	}
+	f.close();
+}
+}
+}// namespace SolAR::datastructure
 
 
 #endif // SOLAR_CAMERADEFINITIONS_H

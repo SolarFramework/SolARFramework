@@ -21,7 +21,6 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/DescriptorMatch.h"
-#include "datastructure/StereoCameraDefinitions.h"
 #include "core/Messages.h"
 
 namespace SolAR {
