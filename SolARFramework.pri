@@ -101,10 +101,7 @@ interfaces/datastructure/PointCloud.h \
 interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
 interfaces/datastructure/Trackable.h \
-interfaces/datastructure/Trackable2D.h \
-interfaces/SharedBuffer.hpp \
-interfaces/SharedCircularBuffer.hpp \
-interfaces/SharedFifo.hpp
+interfaces/datastructure/Trackable2D.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
