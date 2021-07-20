@@ -107,10 +107,7 @@ interfaces/datastructure/CovisibilityGraph.h \
 interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
-interfaces/datastructure/Map.h \
-interfaces/SharedBuffer.hpp \
-interfaces/SharedCircularBuffer.hpp \
-interfaces/SharedFifo.hpp
+interfaces/datastructure/Map.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
