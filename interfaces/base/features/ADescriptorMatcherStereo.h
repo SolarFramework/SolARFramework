@@ -36,7 +36,7 @@ public:
     ADescriptorMatcherStereo(std::map<std::string,std::string> componentInfosMap);
 
     virtual ~ADescriptorMatcherStereo() override = default;
-    void unloadComponent () override;
+
     /// @brief Match two sets of descriptors from stereo images.
     /// @param[in] descriptors1 Descirptors of the first image.
     /// @param[in] descriptors2 Descirptors of the second image.

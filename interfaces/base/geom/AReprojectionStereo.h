@@ -14,32 +14,28 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IREPROJECTIONSTEREO_H
-#define SOLAR_IREPROJECTIONSTEREO_H
+#ifndef SOLAR_AREPROJECTIONSTEREO_H
+#define SOLAR_AREPROJECTIONSTEREO_H
 
-#include "xpcf/api/IComponentIntrospect.h"
-#include "datastructure/CameraDefinitions.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/Frame.h"
-#include "datastructure/CloudPoint.h"
-#include "core/Messages.h"
+#ifndef _BCOM_SHARED
+#define _BCOM_SHARED
+#endif // _BCOM_SHARED
+
+#include "core/SolARFrameworkDefinitions.h"
+#include <xpcf/component/ConfigurableBase.h>
+#include "api/geom/IReprojectionStereo.h"
 
 namespace SolAR {
-namespace api {
+namespace base {
 namespace geom {
 
-/** @class IReprojectionStereo
-* @brief <B>Reproject keypoints with estimating depth to 3D cloud points.</B>
-* <TT>UUID: 166a0aad-8c0a-4cdc-9edf-41ff9e514212</TT>
-* Just implement the first and second interface, the third interface is implemented in AReprojectionStereo.
-*/
-class  IReprojectionStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
+class SOLARFRAMEWORK_API AReprojectionStereo : public org::bcom::xpcf::ConfigurableBase,
+                                            virtual public SolAR::api::geom::IReprojectionStereo {
 public:
-    /// @brief IReprojectionStereo constructor
-    IReprojectionStereo() = default;
+    /// @brief AReprojectionStereo constructor
+    AReprojectionStereo(std::map<std::string,std::string> componentInfosMap);
 
-    /// @brief ~IReprojectionStereo
-    virtual ~IReprojectionStereo() = default;
+    virtual ~AReprojectionStereo() override = default;
 
     /// @brief Reproject depth of rectified keypoints to unrectified keypoints
     /// @param[in] rectifiedKeypoints The rectified keypoints containing depth information.
@@ -48,7 +44,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if reprojecting succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode reprojectToUnrectification(const std::vector<SolAR::datastructure::Keypoint>& rectifiedKeypoints,
                                                            const SolAR::datastructure::RectificationParameters& rectParams,
-                                                           std::vector<SolAR::datastructure::Keypoint>& unrectifiedKeypoints) = 0;
+                                                           std::vector<SolAR::datastructure::Keypoint>& unrectifiedKeypoints) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Reproject 2D keypoints with depths to 3D cloud points in the world coordinate system
     /// @param[in] keypoints The keypoints of image.
@@ -59,7 +56,8 @@ public:
     virtual FrameworkReturnCode reprojectToCloudPoints(const std::vector<SolAR::datastructure::Keypoint>& keypoints,
                                                        const SolAR::datastructure::Transform3Df& pose,
                                                        const SolAR::datastructure::CamCalibration& intrinsicParams,
-                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) = 0;
+                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Reproject 2D keypoints with depths of a frame to 3D cloud points in the world coordinate system
     /// @param[in] frame The frame including keypoints with their depth estimations.
@@ -68,16 +66,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if reprojecting succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode reprojectToCloudPoints(SRef<SolAR::datastructure::Frame> frame,
                                                        const SolAR::datastructure::CamCalibration& intrinsicParams,
-                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) = 0;
+                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) override;
 };
-
 }
 }
-}  // end of namespace Solar
+}  // end of namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::IReprojectionStereo,
-                            "166a0aad-8c0a-4cdc-9edf-41ff9e514212",
-                            "IReprojectionStereo",
-                            "SolAR::api::geom::IReprojectionStereo interface");
 
-#endif // SOLAR_IREPROJECTIONSTEREO_H
+#endif // SOLAR_AREPROJECTIONSTEREO_H

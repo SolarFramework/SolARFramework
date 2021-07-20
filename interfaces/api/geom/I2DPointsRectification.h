@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IRECTIFICATION_H
-#define SOLAR_IRECTIFICATION_H
+#ifndef SOLAR_I2DPOINTSRECTIFICATION_H
+#define SOLAR_I2DPOINTSRECTIFICATION_H
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
@@ -25,30 +25,20 @@
 
 namespace SolAR {
 namespace api {
-namespace image {
+namespace geom {
 
-/** @class IRectification
-* @brief <B>Rectiy image or 2D points.</B>
+/** @class I2DPointsRectification
+* @brief <B>Rectify 2D points.</B>
 * <TT>UUID: 188e9e9c-6d73-4495-9d9f-3bc5d35c4b43</TT>
+* Just implement the first interface, the second interface is implemented in A2DPointsRectification.
 */
-class  IRectification : virtual public org::bcom::xpcf::IComponentIntrospect {
+class  I2DPointsRectification : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-	/// @brief IRectification constructor
-	IRectification() = default;
+    /// @brief I2DPointsRectification constructor
+    I2DPointsRectification() = default;
 
-	/// @brief ~IRectification
-    virtual ~IRectification() = default;
-
-	/// @brief Rectify image
-	/// @param[in] image The input image
-	/// @param[in] camParams The camera parameters of camera
-	/// @param[in] rectParams The rectification parameters of camera
-	/// @param[out] rectifiedImage The rectified image	
-	/// @return FrameworkReturnCode::_SUCCESS if rectifying succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode rectify(SRef<SolAR::datastructure::Image> image,
-                                        const SolAR::datastructure::CameraParameters& camParams,
-										const SolAR::datastructure::RectificationParameters& rectParams,
-										SRef<SolAR::datastructure::Image>& rectifiedImage) = 0;
+    /// @brief ~I2DPointsRectification
+    virtual ~I2DPointsRectification() = default;
 
 	/// @brief Rectify 2D points
 	/// @param[in] points2D The input 2D points
@@ -77,9 +67,9 @@ public:
 }
 }  // end of namespace Solar
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::image::IRectification,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::geom::I2DPointsRectification,
 							"188e9e9c-6d73-4495-9d9f-3bc5d35c4b43",
-							"IRectification",
-                            "SolAR::api::image::IRectification interface");
+                            "I2DPointsRectification",
+                            "SolAR::api::geom::I2DPointsRectification interface");
 
-#endif // SOLAR_IRECTIFICATION_H
+#endif // SOLAR_I2DPOINTSRECTIFICATION_H

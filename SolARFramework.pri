@@ -23,6 +23,7 @@ interfaces/api/features/ICornerRefinement.h \
 interfaces/api/features/IFeatureWithDepthFromStereo.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
+interfaces/api/geom/I2DPointsRectification.h \
 interfaces/api/geom/I3DTransform.h \
 interfaces/api/geom/IImage2WorldMapper.h \
 interfaces/api/geom/IProject.h \
@@ -34,7 +35,7 @@ interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
 interfaces/api/image/IPerspectiveController.h \
-interfaces/api/image/IRectification.h \
+interfaces/api/image/IImageRectification.h \
 interfaces/api/input/devices/IARDevice.h \
 interfaces/api/input/devices/ICamera.h \
 interfaces/api/input/devices/ICameraCalibration.h \
@@ -119,7 +120,9 @@ interfaces/datastructure/Map.h \
 interfaces/base/features/ADescriptorMatcher.h \
 interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
-interfaces/base/features/ADescriptorMatcherStereo.h
+interfaces/base/features/ADescriptorMatcherStereo.h \
+interfaces/base/geom/A2DPointsRectification.h \
+interfaces/base/geom/AReprojectionStereo.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
@@ -146,4 +149,6 @@ src/datastructure/Map.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
-src/base/features/ADescriptorMatcherStereo.cpp
+src/base/features/ADescriptorMatcherStereo.cpp \
+src/base/geom/A2DPointsRectification.cpp \
+src/base/geom/AReprojectionStereo.cpp

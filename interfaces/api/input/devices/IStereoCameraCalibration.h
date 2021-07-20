@@ -44,6 +44,7 @@ public:
 	/// @param[in] images2 Set of images from the second camera
 	/// @param[in] camParams1 Camera parameters of the first camera
 	/// @param[in] camParams2 Camera parameters of the second camera
+	/// @param[out] transformation Transformation matrix from the frist camera to the second camera
 	/// @param[out] rectParams1 Rectification parameters of the first camera
 	/// @param[out] rectParams2 Rectification parameters of the second camera
 	/// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
@@ -51,6 +52,7 @@ public:
                                           const std::vector<SRef<SolAR::datastructure::Image>>& images2,
                                           const SolAR::datastructure::CameraParameters & camParams1,
                                           const SolAR::datastructure::CameraParameters & camParams2,
+                                          SolAR::datastructure::Transform3Df & transformation,
                                           SolAR::datastructure::RectificationParameters & rectParams1,
                                           SolAR::datastructure::RectificationParameters & rectParams2) = 0;
 };

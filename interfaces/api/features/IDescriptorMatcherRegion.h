@@ -38,6 +38,7 @@ namespace features {
  * @class IDescriptorMatcherRegion
  * @brief <B>Matches two sets of descriptors based on region constraints.</B>
  * <TT>UUID: bdef063d-96de-4425-83c5-fec7b7e448c8</TT>
+ * Just implement the first interface, the second and third interface are implemented in ADescriptorMatcherRegion.
  */
 class  IDescriptorMatcherRegion : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:

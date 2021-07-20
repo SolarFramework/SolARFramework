@@ -27,14 +27,6 @@ ADescriptorMatcherRegion::ADescriptorMatcherRegion(std::map<std::string,std::str
     declareInterface<SolAR::api::features::IDescriptorMatcherRegion>(this);
 }
 
-void ADescriptorMatcherRegion::unloadComponent ()
-{
-    // provide component cleanup strategy
-    // default strategy is to delete self, uncomment following line in this case :
-    delete this;
-    return;
-}
-
 FrameworkReturnCode ADescriptorMatcherRegion::match(const std::vector<SolAR::datastructure::Point2Df>& points2D, const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>>& descriptors, const SRef<SolAR::datastructure::Frame> frame, std::vector<SolAR::datastructure::DescriptorMatch>& matches, const float radius, const float matchingDistanceMax)
 {
 	SRef<datastructure::DescriptorBuffer> descBuff = xpcf::utils::make_shared<datastructure::DescriptorBuffer>(frame->getDescriptors()->getDescriptorType(), 0);

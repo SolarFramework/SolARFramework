@@ -27,23 +27,15 @@ ADescriptorMatcherGeometric::ADescriptorMatcherGeometric(std::map<std::string,st
     declareInterface<SolAR::api::features::IDescriptorMatcherGeometric>(this);
 }
 
-void ADescriptorMatcherGeometric::unloadComponent ()
-{
-    // provide component cleanup strategy
-    // default strategy is to delete self, uncomment following line in this case :
-    delete this;
-    return;
-}
-
 FrameworkReturnCode ADescriptorMatcherGeometric::match(const SRef<SolAR::datastructure::Frame> frame1,
                                                        const SRef<SolAR::datastructure::Frame> frame2,
-                                                       const SolAR::datastructure::CamCalibration& intrinsicParameters,
+                                                       const SolAR::datastructure::CameraParameters & camParams,
                                                        std::vector<SolAR::datastructure::DescriptorMatch> & matches,
                                                        const std::vector<uint32_t>& mask)
 {	
     return match(frame1->getDescriptors(), frame2->getDescriptors(),
 		frame1->getUndistortedKeypoints(), frame2->getUndistortedKeypoints(), frame1->getPose(), 
-		frame2->getPose(), intrinsicParameters, matches, mask);
+        frame2->getPose(), camParams, matches, mask);
 }
 
 }

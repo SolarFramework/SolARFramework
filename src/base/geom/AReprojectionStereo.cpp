@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-#include "base/features/ADescriptorMatcherStereo.h"
+#include "base/geom/AReprojectionStereo.h"
 
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {
 namespace base {
-namespace features {
+namespace geom {
 
-ADescriptorMatcherStereo::ADescriptorMatcherStereo(std::map<std::string,std::string> componentInfosMap):xpcf::ConfigurableBase(componentInfosMap)
+AReprojectionStereo::AReprojectionStereo(std::map<std::string,std::string> componentInfosMap):xpcf::ConfigurableBase(componentInfosMap)
 {
-    declareInterface<SolAR::api::features::IDescriptorMatcherStereo>(this);
+    declareInterface<IReprojectionStereo>(this);
 }
 
-FrameworkReturnCode ADescriptorMatcherStereo::match(const SRef<SolAR::datastructure::Frame> frame1, const SRef<SolAR::datastructure::Frame> frame2, SolAR::datastructure::StereoType type, std::vector<SolAR::datastructure::DescriptorMatch>& matches)
+FrameworkReturnCode AReprojectionStereo::reprojectToCloudPoints(SRef<SolAR::datastructure::Frame> frame, const SolAR::datastructure::CamCalibration & intrinsicParams, std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints)
 {
-	return match(frame1->getDescriptors(), frame2->getDescriptors(), frame1->getUndistortedKeypoints(),
-		frame2->getUndistortedKeypoints(), type, matches);
+	return reprojectToCloudPoints(frame->getKeypoints(), frame->getPose(), intrinsicParams, cloudPoints);
 }
+
+
 
 }
 }

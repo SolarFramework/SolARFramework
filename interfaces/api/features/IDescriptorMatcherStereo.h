@@ -33,6 +33,7 @@ namespace features {
 /** @class IDescriptorMatcherStereo
 * @brief <B>Matches two sets of descriptors from stereo images.</B>
 * <TT>UUID: 272f1ef0-c269-4631-b75c-fc7316d10915</TT>
+* Just implement the first interface, the second interface is implemented in ADescriptorMatcherStereo.
 */
 class  IDescriptorMatcherStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:

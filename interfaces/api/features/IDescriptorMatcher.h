@@ -38,6 +38,7 @@ namespace features {
  * @class IDescriptorMatcher
  * @brief <B>Matches two sets of descriptors together.</B>
  * <TT>UUID: dda38a40-c50a-4e7d-8433-0f04c7c98518</TT>
+ * Just implement the first interface, the second interface is implemented in ADescriptorMatcher.
  */
 class  IDescriptorMatcher : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:

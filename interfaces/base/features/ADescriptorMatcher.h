@@ -36,8 +36,7 @@ public:
 	ADescriptorMatcher(std::map<std::string,std::string> componentInfosMap);
 
 
-    virtual ~ADescriptorMatcher() override = default;
-    void unloadComponent () override;
+    virtual ~ADescriptorMatcher() override = default;    
 
     /// @brief Match two sets of descriptors together
     /// @param[in] descriptors1 The first set of descriptors organized in a dedicated buffer structure.

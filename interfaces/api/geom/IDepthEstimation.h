@@ -40,8 +40,8 @@ public:
     virtual ~IDepthEstimation() = default;
 
     /// @brief Depth estimation based on disparity of matched rectified keypoints in a stereo camera
-    /// @param[in,out] rectKeypoints1 Rectified keypoints of the first image and the depth estimation is stored in the keypoints.
-    /// @param[in,out] rectKeypoints2 Rectified keypoints of the second image and the depth estimation is stored in the keypoints.
+    /// @param[in,out] rectKeypoints1 Rectified keypoints of the first image. The implementation stores depth estimation in the keypoints.
+    /// @param[in,out] rectKeypoints2 Rectified keypoints of the second image. The implementation stores depth estimation in the keypoints.
 	/// @param[in] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
 	/// @param[in] focal The common focal of the camera.
 	/// @param[in] baseline The baseline distance of two cameras.
@@ -50,9 +50,9 @@ public:
     virtual FrameworkReturnCode estimate(std::vector<SolAR::datastructure::Keypoint>& rectKeypoints1,
                                          std::vector<SolAR::datastructure::Keypoint>& rectKeypoints2,
                                          const std::vector<SolAR::datastructure::DescriptorMatch>& matches,
-                                         const float& focal,
-                                         const float& baseline,
-                                         const SolAR::datastructure::StereoType& type) = 0;
+                                         float focal,
+                                         float baseline,
+                                         SolAR::datastructure::StereoType type) = 0;
 };
 
 }

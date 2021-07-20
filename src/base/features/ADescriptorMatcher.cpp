@@ -27,14 +27,6 @@ ADescriptorMatcher::ADescriptorMatcher(std::map<std::string,std::string> compone
     declareInterface<IDescriptorMatcher>(this);
 }
 
-void ADescriptorMatcher::unloadComponent ()
-{
-    // provide component cleanup strategy
-    // default strategy is to delete self, uncomment following line in this case :
-    delete this;
-    return;
-}
-
 FrameworkReturnCode ADescriptorMatcher::match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1, const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>>& descriptors2, std::vector<SolAR::datastructure::DescriptorMatch>& matches)
 {
 	SRef<datastructure::DescriptorBuffer> buff2 = xpcf::utils::make_shared<datastructure::DescriptorBuffer>(descriptors1->getDescriptorType(), 0);

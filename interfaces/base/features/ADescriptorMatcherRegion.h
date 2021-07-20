@@ -36,7 +36,6 @@ public:
     ADescriptorMatcherRegion(std::map<std::string,std::string> componentInfosMap);
 
     virtual ~ADescriptorMatcherRegion() override = default;
-    void unloadComponent () override;
 
     /// @brief Match each descriptor of the first set to descriptors in its searching region of the second set.
     /// @param[in] descriptors1 The first set of descriptors.
