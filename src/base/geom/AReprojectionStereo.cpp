@@ -29,7 +29,7 @@ AReprojectionStereo::AReprojectionStereo(std::map<std::string,std::string> compo
 
 FrameworkReturnCode AReprojectionStereo::reprojectToCloudPoints(SRef<SolAR::datastructure::Frame> frame, const SolAR::datastructure::CamCalibration & intrinsicParams, std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints)
 {
-	return reprojectToCloudPoints(frame->getKeypoints(), frame->getPose(), intrinsicParams, cloudPoints);
+    return reprojectToCloudPoints(frame->getUndistortedKeypoints(), frame->getDescriptors(), frame->getPose(), intrinsicParams, cloudPoints);
 }
 
 

@@ -51,12 +51,14 @@ public:
                                                            std::vector<SolAR::datastructure::Keypoint>& unrectifiedKeypoints) = 0;
 
     /// @brief Reproject 2D keypoints with depths to 3D cloud points in the world coordinate system
-    /// @param[in] keypoints The keypoints of image.
+    /// @param[in] undistortedKeypoints The undistorted keypoints of image.
+    /// @param[in] descriptors The descriptors corresponding to the keypoints.
     /// @param[in] pose The pose of image.
     /// @param[in] intrinsicParams The intrinsic parameters of the camera.
     /// @param[out] cloudPoints The output cloud points.
     /// @return FrameworkReturnCode::_SUCCESS if reprojecting succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode reprojectToCloudPoints(const std::vector<SolAR::datastructure::Keypoint>& keypoints,
+    virtual FrameworkReturnCode reprojectToCloudPoints(const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints,
+                                                       const SRef<SolAR::datastructure::DescriptorBuffer> descriptors,
                                                        const SolAR::datastructure::Transform3Df& pose,
                                                        const SolAR::datastructure::CamCalibration& intrinsicParams,
                                                        std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) = 0;

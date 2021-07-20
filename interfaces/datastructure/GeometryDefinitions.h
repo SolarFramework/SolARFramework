@@ -205,7 +205,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-	void serialize(Archive &ar, const unsigned int version){
+    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version){
 		ar & corner;
 		ar & width;
 		ar & height;
@@ -218,7 +218,6 @@ private:
  * @brief <B>A contours defined with 2D points with coordinates defined with floats.</B>
  *
  */
-// TODO : maintain SRef here ???
 typedef std::vector<Point2Df> Contour2Df;
 
 /**
@@ -226,8 +225,7 @@ typedef std::vector<Point2Df> Contour2Df;
  * @brief <B>A contours defined with 2D points with coordinates defined with integers.</B>
  *
  */
-// TODO : maintain SRef here ???
-typedef std::vector<SRef<Point2Di>> Contour2Di;
+typedef std::vector<Point2Di> Contour2Di;
 
 /**
  * @typedef QuadContour2Df
@@ -282,7 +280,7 @@ namespace boost { namespace serialization {
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Sizef & size,
-                      const unsigned int version)
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & size.width;
     ar & size.height;
@@ -291,7 +289,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Sizei & size,
-                      const unsigned int version)
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & size.width;
     ar & size.height;
@@ -300,7 +298,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Rectanglei & rect,
-                      const unsigned int version)
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & rect.startX;
     ar & rect.startY;

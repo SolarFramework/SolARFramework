@@ -147,7 +147,7 @@ namespace boost { namespace serialization {
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::CameraParameters & parameters,
-                      const unsigned int version)
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & parameters.name;
     ar & parameters.id;
@@ -159,8 +159,8 @@ inline void serialize(Archive & ar,
 
 template<class Archive>
 inline void serialize(Archive & ar,
-	SolAR::datastructure::RectificationParameters & parameters,
-	const unsigned int version)
+                      SolAR::datastructure::RectificationParameters & parameters,
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
 	ar & parameters.baseline;
 	ar & parameters.type;
@@ -170,8 +170,8 @@ inline void serialize(Archive & ar,
 
 template<class Archive>
 inline void serialize(Archive & ar,
-	SolAR::datastructure::CameraRigParameters & parameters,
-	const unsigned int version)
+                      SolAR::datastructure::CameraRigParameters & parameters,
+                      ATTRIBUTE(maybe_unused) const unsigned int version)
 {
 	ar & parameters.cameraParams;
 	ar & parameters.rectificationParams;
@@ -255,41 +255,59 @@ inline void from_json(BasicJsonType& j, RectificationParameters& rectParams)
 	rectParams.projection = j["projection"].get<Projection>();
 }
 
-inline void saveToFile(const SolAR::datastructure::CameraParameters& camParams, std::string filePath)
+inline bool saveToFile(const SolAR::datastructure::CameraParameters& camParams, std::string filePath)
 {
     nlohmann::ordered_json j;
     j["CameraParameters"] = camParams;
     std::ofstream f(filePath);
     f << std::setw(4) << j;
     f.close();
+    return true;
 }
 
-inline void loadFromFile(SolAR::datastructure::CameraParameters& camParams, std::string filePath)
+inline bool loadFromFile(SolAR::datastructure::CameraParameters& camParams, std::string filePath)
 {
     std::ifstream f(filePath);
-    nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
-    camParams = j["CameraParameters"].get<SolAR::datastructure::CameraParameters>();
+    nlohmann::ordered_json j = nlohmann::ordered_json::parse(f, nullptr, false);
+	if (j.is_discarded()) {
+		LOG_ERROR("Error when parsing file: {}", filePath);
+		return false;
+	}
+	std::string key = "CameraParameters";
+	if (!j.contains(key))
+		return false;
+    camParams = j[key].get<SolAR::datastructure::CameraParameters>();
     f.close();
+	return true;
 }
 
-inline void saveToFile(const SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
+inline bool saveToFile(const SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
 {
 	nlohmann::ordered_json j;
 	j["Rectification"] = rectParams;
 	std::ofstream f(filePath);
 	f << std::setw(4) << j;
 	f.close();
+    return true;
 }
 
-inline void loadFromFile(SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
+inline bool loadFromFile(SolAR::datastructure::RectificationParameters& rectParams, std::string filePath)
 {
 	std::ifstream f(filePath);
-	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
-	rectParams = j["Rectification"].get<SolAR::datastructure::RectificationParameters>();
+	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f, nullptr, false);
+	if (j.is_discarded()) {
+		LOG_ERROR("Error when parsing file: {}", filePath);
+		return false;
+	}
+	std::string key = "Rectification";
+	if (!j.contains(key))
+		return false;
+	rectParams = j[key].get<SolAR::datastructure::RectificationParameters>();
 	f.close();
+	return true;
 }
 
-inline void saveToFile(const SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
+inline bool saveToFile(const SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
 {
 	nlohmann::ordered_json j;
 	// write camera parameters to json
@@ -327,12 +345,19 @@ inline void saveToFile(const SolAR::datastructure::CameraRigParameters& camParam
 	std::ofstream f(filePath);
 	f << std::setw(4) << j;
 	f.close();
+    return true;
 }
 
-inline void loadFromFile(SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
+inline bool loadFromFile(SolAR::datastructure::CameraRigParameters& camParams, std::string filePath)
 {
 	std::ifstream f(filePath);
-	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f);
+	nlohmann::ordered_json j = nlohmann::ordered_json::parse(f, nullptr, false);
+	if (j.is_discarded()){
+		LOG_ERROR("Error when parsing file: {}", filePath);
+		return false;
+	}
+	if (!j.contains("NbCameras"))
+		return false;
 	// load camera parameters to json
 	int nbCameras = j["NbCameras"].get<int>();
 	for (int i = 0; i < nbCameras; ++i) {
@@ -340,25 +365,30 @@ inline void loadFromFile(SolAR::datastructure::CameraRigParameters& camParams, s
 		camParams.cameraParams[cam.id] = cam;
 	}
 	// load rectifications to json
-	int nbRects = j["NbRectifications"].get<int>();
-	for (int i = 0; i < nbRects; ++i) {
-		std::string nodeName = "Rectification " + std::to_string(i);
-		uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
-		uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
-		RectificationParameters rect1 = j[nodeName]["Rect1"].get<RectificationParameters>();
-		RectificationParameters rect2 = j[nodeName]["Rect2"].get<RectificationParameters>();
-		camParams.rectificationParams[std::make_pair(id1, id2)] = std::make_pair(rect1, rect2);
+	if (j.contains("NbRectifications")) {
+		int nbRects = j["NbRectifications"].get<int>();
+		for (int i = 0; i < nbRects; ++i) {
+			std::string nodeName = "Rectification " + std::to_string(i);
+			uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
+			uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
+			RectificationParameters rect1 = j[nodeName]["Rect1"].get<RectificationParameters>();
+			RectificationParameters rect2 = j[nodeName]["Rect2"].get<RectificationParameters>();
+			camParams.rectificationParams[std::make_pair(id1, id2)] = std::make_pair(rect1, rect2);
+		}
 	}
 	// load transformations to json
-	int nbTransformations = j["NbTransformations"].get<int>();
-	for (int i = 0; i < nbTransformations; ++i) {
-		std::string nodeName = "Transformation " + std::to_string(i);
-		uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
-		uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
-		Transform3Df transform = j[nodeName]["Transform"].get<Transform3Df>();
-		camParams.transformations[std::make_pair(id1, id2)] = transform;
+	if (j.contains("NbTransformations")) {
+		int nbTransformations = j["NbTransformations"].get<int>();
+		for (int i = 0; i < nbTransformations; ++i) {
+			std::string nodeName = "Transformation " + std::to_string(i);
+			uint32_t id1 = j[nodeName]["Id1"].get<uint32_t>();
+			uint32_t id2 = j[nodeName]["Id2"].get<uint32_t>();
+			Transform3Df transform = j[nodeName]["Transform"].get<Transform3Df>();
+			camParams.transformations[std::make_pair(id1, id2)] = transform;
+		}
 	}
 	f.close();
+	return true;
 }
 }
 }// namespace SolAR::datastructure
