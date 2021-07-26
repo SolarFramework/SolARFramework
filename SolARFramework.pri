@@ -56,6 +56,7 @@ interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
+interfaces/api/reloc/IRegression.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
