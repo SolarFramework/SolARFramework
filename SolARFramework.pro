@@ -152,6 +152,7 @@ INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_slam
+INSTALLS += header_base_features
 INSTALLS += header_base_geom
 
 OTHER_FILES += \
