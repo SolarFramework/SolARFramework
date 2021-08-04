@@ -36,7 +36,7 @@ namespace reloc {
  * This class provides a solution to learn and define a set of 3D world coordinates corresponding to a set of 2D descriptors.
  */
 
-class IRegression : public virtual org::bcom::xpcf::IComponentIntrospect {
+class IRegression : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRegression default constructor.
 	IRegression() = default;
