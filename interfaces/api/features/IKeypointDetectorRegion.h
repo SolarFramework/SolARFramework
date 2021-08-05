@@ -56,11 +56,11 @@ public:
 
     /// @brief Set the type of method used to detect keypoints in the image
     /// @param[in] type The type of method used to detect keypoints.
-    virtual void setType(IKeypointDetector::KeypointDetectorType type) = 0;
+    virtual void setType(SolAR::api::features::IKeypointDetector::KeypointDetectorType type) = 0;
 
     /// @brief Get the type of method used to detect keypoints in the image
     /// @return The type of method used to detect keypoints.
-    virtual IKeypointDetector::KeypointDetectorType  getType() = 0;
+    virtual SolAR::api::features::IKeypointDetector::KeypointDetectorType  getType() = 0;
 
     /// @brief This method detects keypoints in an input Image
     /// @param[in] image input image on which we are extracting keypoints.

@@ -46,13 +46,13 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] intrinsicParams camera calibration matrix parameters.
 	/// @param[in] distorsionParams camera distorsion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief Add 2D descriptor and 3D location correspondences
     /// @param[in] descriptors a set of descriptors
     /// @param[in] points3D a set of corresponding 3D locations
     /// @return FrameworkReturnCode::_SUCCESS if adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode add(const std::vector<SRef<datastructure::DescriptorBuffer>> &descriptors, const std::vector<datastructure::Point3Df> &points3D) = 0;
+    virtual FrameworkReturnCode add(const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>> &descriptors, const std::vector<SolAR::datastructure::Point3Df> &points3D) = 0;
 
 
     /// @brief Regress a set of descriptors to define 2D-3D point correspondences
@@ -60,13 +60,13 @@ public:
     /// @param[out] points2D a set of 2D points
     /// @param[out] points3D a set of 3D points
     /// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode regress(const SRef<datastructure::Frame> &frame, std::vector<datastructure::Point2Df> &points2D, std::vector<datastructure::Point3Df> &points3D) = 0;
+    virtual FrameworkReturnCode regress(const SRef<SolAR::datastructure::Frame> &frame, std::vector<SolAR::datastructure::Point2Df> &points2D, std::vector<SolAR::datastructure::Point3Df> &points3D) = 0;
 
 	/// @brief Update regression model
 	/// @param[in] inliers inliers and outliers are defined for each 2D point
 	/// @param[in] cameraPose camera pose of the current frame
 	/// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode update(std::vector<bool> &inliers, datastructure::Transform3Df &cameraPose) = 0;
+    virtual FrameworkReturnCode update(std::vector<bool> &inliers, SolAR::datastructure::Transform3Df &cameraPose) = 0;
 
 	/// @brief Load regression model
 	/// @return FrameworkReturnCode::_SUCCESS if the regression succeed, else FrameworkReturnCode::_ERROR_
