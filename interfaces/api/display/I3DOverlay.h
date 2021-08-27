@@ -43,13 +43,13 @@ public:
     virtual ~I3DOverlay() = default;
 
     /// @brief Set the intrinsic parameters and distorsion of the camera
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsic_parameters, const datastructure::CamDistortion & distorsion_parameters) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsic_parameters, const SolAR::datastructure::CamDistortion & distorsion_parameters) = 0;
 
     /// @brief Draw a box on the given Image
     /// The box is displayed according to the pose given in parameter. The reference of the box is positionned on the center of its bottom face.
     /// @param[in] Transfomr3Df The pose of the camera from which the box is viewed.
     /// @param[in,out] displayImage The image on which the box will be drawn
-    virtual void draw (const datastructure::Transform3Df & pose, SRef<datastructure::Image> displayImage) = 0;
+    virtual void draw (const SolAR::datastructure::Transform3Df & pose, SRef<SolAR::datastructure::Image> displayImage) = 0;
 
 };
 }

@@ -30,9 +30,9 @@ namespace fusion {
 struct InertialData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    datastructure::Vector3f accelData;
-    datastructure::Vector3f gyroData;
-    datastructure::Vector3f magData;
+    SolAR::datastructure::Vector3f accelData;
+    SolAR::datastructure::Vector3f gyroData;
+    SolAR::datastructure::Vector3f magData;
 };
 
 // TODO move into datastructure
@@ -40,7 +40,7 @@ struct InertialData {
 struct VisionData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    datastructure::Transform3Df pose;
+    SolAR::datastructure::Transform3Df pose;
     bool isPoseValid;
 };
 
@@ -74,7 +74,7 @@ public:
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode process(datastructure::Transform3Df & outputData) = 0;
+    virtual FrameworkReturnCode process(SolAR::datastructure::Transform3Df & outputData) = 0;
 
 };
 

@@ -44,10 +44,10 @@ public:
     /// @param[out] pose depth camera pose (pose of the depth camera defined in world coordinate system) expressed as a Transform3D.
     /// @param[in] initialPose (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode estimate(const SRef<datastructure::PointCloud> sourcePointCloud,
-                                         const SRef<datastructure::PointCloud> targetPointCloud,
-                                         datastructure::Transform3Df& pose,
-                                         const datastructure::Transform3Df& initialPose = datastructure::Transform3Df::Identity()) =0;
+    virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::PointCloud> sourcePointCloud,
+                                         const SRef<SolAR::datastructure::PointCloud> targetPointCloud,
+                                         SolAR::datastructure::Transform3Df& pose,
+                                         const SolAR::datastructure::Transform3Df& initialPose = SolAR::datastructure::Transform3Df::Identity()) =0;
 
 };
 

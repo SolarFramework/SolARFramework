@@ -68,8 +68,21 @@ void Trackable2D::setHeight(const float &height) {
         m_size.height = height;
 }
 
+FrameworkReturnCode Trackable2D::getWorldCorners(std::vector<Point3Df> & worldCorners) const {
+    worldCorners.clear();
+    worldCorners.push_back(Point3Df(-m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
+    worldCorners.push_back(Point3Df(m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
+    worldCorners.push_back(Point3Df(m_size.width/2.0f, m_size.height/2.0f, 0.0f));
+    worldCorners.push_back(Point3Df(-m_size.width/2.0f, m_size.height/2.0f, 0.0f));
+
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 template<typename Archive>
 void Trackable2D::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+
+    ar & boost::serialization::base_object<Trackable>(*this);
+
     ar & m_size.width;
     ar & m_size.height;
 }

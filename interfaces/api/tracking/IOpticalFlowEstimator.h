@@ -53,10 +53,10 @@ public:
    /// if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error: Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage,
-                                        const SRef<datastructure::Image> currentImage,
-                                        const std::vector<datastructure::Keypoint> & pointsToTrack,
-                                        std::vector<datastructure::Point2Df> & trackedPoints,
+   virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> previousImage,
+                                        const SRef<SolAR::datastructure::Image> currentImage,
+                                        const std::vector<SolAR::datastructure::Keypoint> & pointsToTrack,
+                                        std::vector<SolAR::datastructure::Point2Df> & trackedPoints,
                                         std::vector<unsigned char> & status,
                                         std::vector<float> & error) = 0;
 
@@ -70,10 +70,10 @@ public:
    /// if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error: Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage,
-                                        const SRef<datastructure::Image> currentImage,
-                                        const std::vector<datastructure::Point2Df> & pointsToTrack,
-                                        std::vector<datastructure::Point2Df> & trackedPoints,
+   virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> previousImage,
+                                        const SRef<SolAR::datastructure::Image> currentImage,
+                                        const std::vector<SolAR::datastructure::Point2Df> & pointsToTrack,
+                                        std::vector<SolAR::datastructure::Point2Df> & trackedPoints,
                                         std::vector<unsigned char> & status,
                                         std::vector<float> & error) = 0;
 
