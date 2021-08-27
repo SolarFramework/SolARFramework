@@ -1,0 +1,1 @@
+xpcf|2.5.0|xpcf|github|https://github.com/SolarFramework/binaries/releases/download|shared|
