@@ -53,7 +53,7 @@ public:
     /// @param[in] dstPoints set of 2d_points seen in view_2.
     /// @param[out] fundamental estimated 2D transform matrix.
     XPCF_GRPC_REQUEST("findTransform2DRequest") XPCF_GRPC_RESPONSE("findTransform2DResponse") /// to remove ambiguity with I3D3DCorrespondencesFinder find()
-    virtual Transform2DFinder::RetCode find(const std::vector<SolAR::datastructure::Point2Df> & srcPoints,
+    virtual SolAR::api::solver::pose::Transform2DFinder::RetCode find(const std::vector<SolAR::datastructure::Point2Df> & srcPoints,
         const std::vector<SolAR::datastructure::Point2Df> & dstPoints,
         SolAR::datastructure::Transform2Df & fundamental) = 0;
 };
