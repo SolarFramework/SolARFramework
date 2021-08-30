@@ -82,9 +82,9 @@ namespace features {
        /// @param[in] keypoints The set of keypoints on which the descriptors are extracted
        /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
        ///
-        virtual void extract (const SRef<datastructure::Image> image,
-                              const std::vector<datastructure::Keypoint> &keypoints,
-                              SRef<datastructure::DescriptorBuffer> & descriptors) = 0;
+        virtual void extract (const SRef<SolAR::datastructure::Image> image,
+                              const std::vector<SolAR::datastructure::Keypoint> &keypoints,
+                              SRef<SolAR::datastructure::DescriptorBuffer> & descriptors) = 0;
 	};
 
 }

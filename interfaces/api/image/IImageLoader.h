@@ -38,7 +38,7 @@ public:
 
     /// @brief getImage method returns the image previously loaded
     /// @param[out] img: image previously loaded
-    virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) = 0;
+    virtual FrameworkReturnCode getImage(SRef<SolAR::datastructure::Image> & img) = 0;
 
     ///
     /// \brief reloadImage method load a image if its path (set as a configuration parameter of the implemented component) has changed

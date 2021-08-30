@@ -17,10 +17,9 @@
 #ifndef TRACKABLE2D_H
 #define TRACKABLE2D_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include <core/SerializationDefinitions.h>
 #include <datastructure/Trackable.h>
 #include <datastructure/GeometryDefinitions.h>
+#include <core/Messages.h>
 
 // Definition of Trackable2D Class //
 // part of SolAR namespace //
@@ -58,12 +57,6 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 
         // Class methods
 
-        ///
-        /// @brief Returns the type of the Trackable object
-        /// @return TrackableType: the type of the instance
-        ///
-        virtual TrackableType getType() const = 0;
-
         /// @brief Provides the size of the 2D trackable object
         /// @return size value
         Sizef getSize() const;
@@ -88,7 +81,13 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
         /// @param[in] height: height value
         void setHeight(const float & height);
 
+        /// @brief Provide the position of 3D corners in world coordinate system
+        /// @param[out] worldCorners the 3D corners of the marker in world coordinate system
+        /// @return FrameworkReturnCode::_SUCCESS if sucessful, eiher FrameworkRetunrnCode::_ERROR_.
+        FrameworkReturnCode getWorldCorners(std::vector<SolAR::datastructure::Point3Df> & worldCorners) const;
+
     private:
+
         friend class boost::serialization::access;
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
@@ -98,6 +97,7 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 };
 
 DECLARESERIALIZE(Trackable2D);
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Trackable2D);
 
 }
 } // end of namespace SolAR
