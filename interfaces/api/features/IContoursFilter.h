@@ -45,7 +45,7 @@ public:
    /// @brief Filter a set of contours
    /// @param[in] inContours The contours to filter
    /// @param[out] outContours The resulting vector of contours after filtering
-   virtual FrameworkReturnCode filter(const std::vector<datastructure::Contour2Df> & inContours, std::vector<datastructure::Contour2Df> & outContours) = 0;
+   virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::Contour2Df> & inContours, std::vector<SolAR::datastructure::Contour2Df> & outContours) = 0;
 
 };
 }

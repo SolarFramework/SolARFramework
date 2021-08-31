@@ -20,6 +20,9 @@
 
 #include "xpcf/core/helpers.h"
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/vector.hpp>;
+
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
 
@@ -44,9 +47,16 @@ public:
     inline const void* data() const  { return m_storageData.data(); }
 
 private:
+    friend class boost::serialization::access;
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+
+private:
     std::vector<uint8_t> m_storageData;
     uint32_t m_bufferSize = 0;
 };
+
+DECLARESERIALIZE(Image::ImageInternal);
 
 Image::ImageInternal::ImageInternal(uint32_t size)
 {
@@ -63,7 +73,7 @@ void Image::ImageInternal::setBufferSize(uint32_t size)
     m_bufferSize = size;
     if (m_bufferSize == 0) { // invalid size
         return;
-    }    
+    }
     m_storageData.reserve(m_bufferSize);
     m_storageData.resize(m_bufferSize);
     //memset(m_storageData.data(),0,m_bufferSize); // Normally not useful
@@ -77,6 +87,14 @@ void Image::ImageInternal::setData(void * data, uint32_t size)
     m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
 }
 
+template<typename Archive>
+void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+
+    ar & m_storageData;
+    ar & m_bufferSize;
+}
+
+IMPLEMENTSERIALIZE(Image::ImageInternal);
 
 static std::map<Image::ImageLayout,uint32_t> layoutChannelMapInfos = {{Image::ImageLayout::LAYOUT_RGB,3},
                                                                            {Image::ImageLayout::LAYOUT_GRB,3},
@@ -121,7 +139,7 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
 }
 
 SRef<Image> Image::copy() const
-{    
+{
     // NB : maybe we should consider redefining the image copy constructor
     return xpcf::utils::make_shared<Image>(m_internalImpl->data(), m_size.width, m_size.height, m_layout, m_pixOrder, m_type);
 }
@@ -163,8 +181,16 @@ const void* Image::data() const
 
 template<typename Archive>
 void Image::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-	ar & m_size.height;
-	ar & m_size.width;
+
+    ar & m_size;
+    ar & m_layout;
+    ar & m_pixOrder;
+    ar & m_type;
+    ar & m_nbChannels;
+    ar & m_nbPlanes;
+    ar & m_nbBitsPerComponent;
+
+    ar & m_internalImpl;
 }
 
 IMPLEMENTSERIALIZE(Image);
@@ -173,4 +199,11 @@ IMPLEMENTSERIALIZE(Image);
 }
 }
 
-
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image)
+//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image)
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image::ImageInternal)
+//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image::ImageInternal)
+BOOST_CLASS_TYPE_INFO(
+SolAR::datastructure::Image::ImageInternal,
+boost::serialization::extended_type_info_typeid<SolAR::datastructure::Image::ImageInternal>
+)
