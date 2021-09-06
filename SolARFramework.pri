@@ -1,5 +1,4 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-interfaces/api/pipeline/IRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -10,7 +9,9 @@ interfaces/api/features/IContoursExtractor.h \
 interfaces/api/features/IContoursFilter.h \
 interfaces/api/features/IDescriptorMatcher.h \
 interfaces/api/features/IDescriptorsExtractor.h \
+interfaces/api/features/IDescriptorsExtractorFromImage.h \
 interfaces/api/features/IDescriptorsExtractorSBPattern.h \
+interfaces/api/features/IImageMatcher.h \
 interfaces/api/features/IKeypointDetector.h \
 interfaces/api/features/IKeypointDetectorRegion.h \
 interfaces/api/features/IKeypointsReIndexer.h \
@@ -43,6 +44,7 @@ interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
+interfaces/api/pipeline/IRelocalizationPipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
