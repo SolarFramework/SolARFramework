@@ -191,7 +191,7 @@ inline void to_json(BasicJsonType& j, const Eigen::Matrix<T, Rows_, Cols_, Ops_,
 template <class BasicJsonType, class T, int Rows_, int Cols_, int Ops_, int MaxRows_, int MaxCols_>
 inline void from_json(const BasicJsonType& j, Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>& eigenData)
 {
-	std::vector<float> data = j.get<std::vector<float>>();
+    std::vector<float> data = j.template get<std::vector<float>>();
 	eigenData = Eigen::Map<Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>>(data.data());
 }
 
@@ -205,7 +205,7 @@ inline void to_json(BasicJsonType& j, const Eigen::Transform<T, Dim_, Mode_, Opt
 template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
 inline void from_json(const BasicJsonType& j, Eigen::Transform<T, Dim_, Mode_, Options_ >& eigenData)
 {
-	std::vector<float> data = j.get<std::vector<float>>();
+    std::vector<float> data = j.template get<std::vector<float>>();
 	eigenData = Eigen::Map<SolAR::datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
 	eigenData.makeAffine();
 }
@@ -228,13 +228,13 @@ inline void to_json(BasicJsonType& j, const CameraParameters& camParams)
 template <typename BasicJsonType>
 inline void from_json(BasicJsonType& j, CameraParameters& camParams)
 {
-    camParams.name = j["name"].get<std::string>();
-    camParams.id = j["id"].get<uint32_t>();
-    camParams.type = j["type"].get<CameraType>();
-    camParams.resolution.width = j["resolution"]["width"].get<uint32_t>();
-    camParams.resolution.height = j["resolution"]["height"].get<uint32_t>();
-    camParams.intrinsic = j["intrinsic"].get<CamCalibration>();
-    camParams.distortion = j["distortion"].get<CamDistortion>();
+    camParams.name = j["name"].template get<std::string>();
+    camParams.id = j["id"].template get<uint32_t>();
+    camParams.type = j["type"].template get<CameraType>();
+    camParams.resolution.width = j["resolution"]["width"].template get<uint32_t>();
+    camParams.resolution.height = j["resolution"]["height"].template get<uint32_t>();
+    camParams.intrinsic = j["intrinsic"].template get<CamCalibration>();
+    camParams.distortion = j["distortion"].template get<CamDistortion>();
 }
 
 template <typename BasicJsonType>
@@ -249,10 +249,10 @@ inline void to_json(BasicJsonType& j, const RectificationParameters& rectParams)
 template <typename BasicJsonType>
 inline void from_json(BasicJsonType& j, RectificationParameters& rectParams)
 {
-	rectParams.type = j["type"].get<StereoType>();
-	rectParams.baseline = j["baseline"].get<float>();
-	rectParams.rotation = j["rotation"].get<Rotation>();
-	rectParams.projection = j["projection"].get<Projection>();
+    rectParams.type = j["type"].template get<StereoType>();
+    rectParams.baseline = j["baseline"].template get<float>();
+    rectParams.rotation = j["rotation"].template get<Rotation>();
+    rectParams.projection = j["projection"].template get<Projection>();
 }
 
 inline bool saveToFile(const SolAR::datastructure::CameraParameters& camParams, std::string filePath)
