@@ -27,28 +27,18 @@ public:
     /// @brief Specify the IARDevice destructor class
     virtual ~IARDevice() = default;
 
-	/// @brief Get number of cameras of the device.
-	/// @return the number of cameras.
-	virtual int getNbCameras() = 0;
-
 	/// @brief Retrieve a set of images and their associated poses from the sensors as well as timestamp.
-	/// @param[out] images: the captured images.
-	/// @param[out] poses: the associated poses.
-	/// @param[out] timestamp: the timestamp.
-	/// @return FrameworkReturnCode to track successful or failing event.
+    /// @param[out] images the captured images.
+    /// @param[out] poses the associated poses.
+    /// @param[out] timestamp the timestamp.
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getData(std::vector<SRef<SolAR::datastructure::Image>> & images,
                                         std::vector<SolAR::datastructure::Transform3Df> & poses,
                                         std::chrono::system_clock::time_point &timestamp) = 0;
 
-	/// @brief Get the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
-	/// @return the camera parameters
-    virtual const SolAR::datastructure::CameraParameters & getParameters(const int & camera_id) const = 0;
-
-	/// @brief Set the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
-	/// @param[in] parameters: the camera parameters.
-	virtual void setParameters(const int & camera_id, const SolAR::datastructure::CameraParameters & parameters) = 0;
+	/// @brief Get parameters of a camera rig
+	/// @return the camera rig parameters
+    virtual const SolAR::datastructure::CameraRigParameters & getCameraParameters() const = 0;
 };
 
 }

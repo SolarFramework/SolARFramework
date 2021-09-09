@@ -44,9 +44,8 @@ public:
 	virtual ~IMapping() = default;
 
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] Camera calibration matrix parameters.
-	/// @param[in] Camera distorsion parameters.
-	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
+    /// @param[in] camParams  Camera parameters.
+    virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
 
 	/// @brief this method is used to process mapping task.
 	/// @param[in] frame: the input frame.
