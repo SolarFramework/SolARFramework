@@ -137,6 +137,7 @@ void DescriptorBuffer::append(const DescriptorView8U & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()),descriptor.length());
+	m_nb_descriptors++;
 }
 
 void DescriptorBuffer::append(const DescriptorView32F & descriptor)
@@ -146,6 +147,7 @@ void DescriptorBuffer::append(const DescriptorView32F & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * DescriptorView32F::sDataType);
+	m_nb_descriptors++;
 }
 
 DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
@@ -212,6 +214,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
+	m_nb_descriptors++;
 }
 
 template<typename Archive>

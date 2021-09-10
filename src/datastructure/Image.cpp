@@ -21,7 +21,7 @@
 #include "xpcf/core/helpers.h"
 
 #include <boost/serialization/export.hpp>
-#include <boost/serialization/vector.hpp>;
+#include <boost/serialization/vector.hpp>
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;

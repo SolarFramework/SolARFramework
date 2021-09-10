@@ -35,7 +35,8 @@ namespace pipeline {
  * This class provides the interface to define a map update pipeline.
  */
 
-class XPCF_CLIENTUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008") XPCF_SERVERUUID("82f9fdff-06ee-471f-a260-b7f4ac414627") IMapUpdatePipeline :
+class XPCF_CLIENTUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008") XPCF_SERVERUUID("82f9fdff-06ee-471f-a260-b7f4ac414627")
+      XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1") IMapUpdatePipeline :
 	virtual public IPipeline {
 public:
 	/// @brief IMapUpdatePipeline default constructor
@@ -52,12 +53,12 @@ public:
 	/// @brief Request to the map update pipeline to update the global map from a local map
     /// @param[in] map: the input local map to process
 	/// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode mapUpdateRequest(const SRef<SolAR::datastructure::Map> map) = 0;
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode mapUpdateRequest(const SRef<SolAR::datastructure::Map> map) = 0;
 
     /// @brief Request to the map update pipeline to get the global map
     /// @param[out] map: the output global map
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }
 }
