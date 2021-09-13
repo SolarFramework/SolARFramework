@@ -63,7 +63,6 @@ interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
 interfaces/api/slam/IBootstrapper.h \
-interfaces/api/slam/IBootstrapperStereo.h \
 interfaces/api/slam/IMapping.h \
 interfaces/api/slam/ITracking.h \
 interfaces/api/solver/map/IBundler.h \

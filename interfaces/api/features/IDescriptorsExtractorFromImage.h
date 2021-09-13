@@ -38,40 +38,35 @@ namespace SolAR {
 namespace api {
 namespace features {
 
-
-
 /**
  * @class IDescriptorsExtractorFromImage
- * @brief <B>Extracts descriptors from a set of keypoints.</B>
+ * @brief <B>Detect keypoints and compute the descriptors from an image.</B>
  * <TT>UUID: 1cd4f5f1-6b74-413b-9725-69653aee48ef</TT>
  *
  * This class provides a method to extract descriptors directly from an image
  */
-    class  IDescriptorsExtractorFromImage : virtual public org::bcom::xpcf::IComponentIntrospect {
-    public:
-        /// @brief IDescriptorsExtractorFromImage default constructor
-        IDescriptorsExtractorFromImage() = default;
+class  IDescriptorsExtractorFromImage : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    /// @brief IDescriptorsExtractorFromImage default constructor
+    IDescriptorsExtractorFromImage() = default;
 
-       /// @brief IDescriptorsExtractorFromImage default destructor
-       virtual ~IDescriptorsExtractorFromImage() {};
+    /// @brief IDescriptorsExtractorFromImage default destructor
+    virtual ~IDescriptorsExtractorFromImage() {};
 
-       ///
-       /// @brief getType
-       /// @return a string describing the type of descriptor used during extraction.
-       ///
-       virtual std::string  getTypeString() = 0;
+    /// @brief getType
+    /// @return a string describing the type of descriptor used during extraction.
+    virtual std::string  getTypeString() = 0;
 
-       ///
-       /// @brief extract the descriptors directly from an image
-       /// @param[in] image The image on which the keypoints have been detected
-       /// @param[out] keypoints The set of keypoints on which the descriptors are extracted
-       /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
-       ///
-       virtual FrameworkReturnCode extract (const SRef<SolAR::datastructure::Image> image,
-                                            std::vector<SolAR::datastructure::Keypoint> &keypoints,
-                                            SRef<SolAR::datastructure::DescriptorBuffer> & descriptors) = 0;
+    /// @brief detect keypoints and compute the descriptors.
+    /// @param[in] image image on which the keypoint and their descriptor will be detected and extracted.
+    /// @param[out] keypoints The keypoints detected in the input image.
+    /// @param[out] descriptors The descriptors of keypoints of the input image.
+    /// @return FrameworkReturnCode::_SUCCESS_ if images are well matched, else FrameworkReturnCode::_ERROR
+    virtual FrameworkReturnCode extract(const SRef<SolAR::datastructure::Image> image,
+                                        std::vector<SolAR::datastructure::Keypoint> &keypoints,
+                                        SRef<SolAR::datastructure::DescriptorBuffer> & descriptors) = 0;
 
-    };
+};
 
 }
 }
