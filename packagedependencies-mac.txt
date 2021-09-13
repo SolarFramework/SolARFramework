@@ -1,0 +1,1 @@
+xpcf|2.5.0|xpcf|http|https://artifact.b-com.com/thirdparties-generic-virtual|shared|

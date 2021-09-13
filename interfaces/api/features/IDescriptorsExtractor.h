@@ -85,7 +85,6 @@ namespace features {
         virtual void extract (const SRef<SolAR::datastructure::Image> image,
                               const std::vector<SolAR::datastructure::Keypoint> &keypoints,
                               SRef<SolAR::datastructure::DescriptorBuffer> & descriptors) = 0;
-
 	};
 
 }
