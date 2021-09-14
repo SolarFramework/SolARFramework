@@ -56,13 +56,13 @@ public:
     /// @param[out] descriptors2, The descriptors of keypoint of image1.
     /// @param[out] matches, the keypoint matches between the first and second image
     /// @return FrameworkReturnCode::_SUCCESS_ if images are well matched, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode match( const SRef<datastructure::Image> image1,
-                                       const SRef<datastructure::Image> image2,
-                                       std::vector<datastructure::Keypoint> & keypoints1,
-                                       std::vector<datastructure::Keypoint> & keypoints2,
-                                       SRef<datastructure::DescriptorBuffer> descriptors1,
-                                       SRef<datastructure::DescriptorBuffer> descriptors2,
-                                       std::vector<datastructure::DescriptorMatch> & matches) = 0;
+    virtual FrameworkReturnCode match( const SRef<SolAR::datastructure::Image> image1,
+                                       const SRef<SolAR::datastructure::Image> image2,
+                                       std::vector<SolAR::datastructure::Keypoint> & keypoints1,
+                                       std::vector<SolAR::datastructure::Keypoint> & keypoints2,
+                                       SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                       SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
+                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
 };
 
 }
