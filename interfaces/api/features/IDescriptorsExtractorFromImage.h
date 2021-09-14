@@ -22,7 +22,6 @@
 #endif // _BCOM_SHARED
 
 #include <vector>
-#include "api/features/IDescriptorsExtractor.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorBuffer.h"
