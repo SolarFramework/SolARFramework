@@ -24,6 +24,7 @@
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
+#include "datastructure/Frame.h"
 
 namespace SolAR {
 namespace api {
@@ -45,15 +46,16 @@ public:
 
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] intrinsicParams camera calibration matrix parameters.
-	/// @param[in] distortionParams camera distorsion parameters.
-	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distortionParams) = 0;
+	/// @param[in] distorsionParams camera distorsion parameters.
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
+                                     const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
-	/// @brief This method uses images to boostrap
-	/// @param[in] image: input image to process
-	/// @param[out] view: output image to visualize
-	/// @param[in] pose: the pose of the input image
-	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Image> image, SRef<SolAR::datastructure::Image> & view, const SolAR::datastructure::Transform3Df & pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
+    /// @brief This method uses images to boostrap mapping
+    /// @param[in] frame input image to process
+    /// @param[out] view output image to visualize
+    /// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame>& frame,
+                                        SRef<SolAR::datastructure::Image> & view) = 0;
 };
 
 }
