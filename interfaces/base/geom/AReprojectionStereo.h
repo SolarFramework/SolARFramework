@@ -29,7 +29,7 @@ namespace SolAR {
 namespace base {
 namespace geom {
 
-class SOLARFRAMEWORK_API AReprojectionStereo : public org::bcom::xpcf::ConfigurableBase,
+class XPCF_IGNORE SOLARFRAMEWORK_API AReprojectionStereo : public org::bcom::xpcf::ConfigurableBase,
                                             virtual public SolAR::api::geom::IReprojectionStereo {
 public:
     /// @brief AReprojectionStereo constructor

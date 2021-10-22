@@ -32,7 +32,8 @@ namespace geom {
 * <TT>UUID: 188e9e9c-6d73-4495-9d9f-3bc5d35c4b43</TT>
 * Just implement the first interface, the second interface is implemented in A2DPointsRectification.
 */
-class  I2DPointsRectification : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("7ec39cd6-c0e1-4b4d-a064-e42e56fc258b")]] [[xpcf::serverUUID("e02ef0d2-b3b1-4a2d-b088-f236b9447fed")]] I2DPointsRectification :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DPointsRectification constructor
     I2DPointsRectification() = default;

@@ -42,7 +42,8 @@ namespace storage {
 * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
 */
 
-class  IMapManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("9c68f766-3b6f-427f-91d3-1e5126d27326")]] [[xpcf::serverUUID("41cbf117-f6cd-4efa-a7d9-a3c92b3656e4")]] IMapManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapManager default constructor
 	IMapManager() = default;

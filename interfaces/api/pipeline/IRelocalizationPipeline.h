@@ -36,7 +36,7 @@ namespace pipeline {
  * This class provides the interface to define a relocalization processing pipeline.
  */
 
-class XPCF_CLIENTUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584") XPCF_SERVERUUID("234bb765-ac3b-4755-8825-5cd92145b7a8") IRelocalizationPipeline :
+class [[xpcf::clientUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584")]] [[xpcf::serverUUID("234bb765-ac3b-4755-8825-5cd92145b7a8")]] IRelocalizationPipeline :
     virtual public IPipeline {
 public:
     /// @brief IRelocalizationPipeline default constructor

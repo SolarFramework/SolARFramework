@@ -51,7 +51,8 @@ struct VisionData {
  *
  * This class provides a fusion method to process inputs from both visual and inertial sensors.
  */
-class IVisualInertialFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("71f122b4-e42a-498e-8792-4a4807f7d61d")]] [[xpcf::serverUUID("10fa56bd-9679-47c3-86d8-2956edc18783")]] IVisualInertialFusion :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IVisualInertialFusion default constructor
     IVisualInertialFusion() = default;

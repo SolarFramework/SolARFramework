@@ -31,7 +31,8 @@ namespace features {
 * @brief <B>Perform feature extraction and keypoint depth estimation from each stereo images.</B>
 * <TT>UUID: 10853f36-c0c0-4afb-81b8-0b1a06ca4e71</TT>
 */
-class  IFeatureWithDepthFromStereo : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("23c6b83f-d6a2-415b-a7ba-21556d28cad9")]] [[xpcf::serverUUID("a5a81922-7bac-44b1-a561-9c7b83a07589")]] IFeatureWithDepthFromStereo :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IFeatureWithDepthFromStereo constructor
     IFeatureWithDepthFromStereo() = default;

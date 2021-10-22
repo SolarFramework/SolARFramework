@@ -29,7 +29,7 @@ namespace SolAR {
 namespace base {
 namespace features {
 
-class SOLARFRAMEWORK_API ADescriptorMatcherGeometric : public org::bcom::xpcf::ConfigurableBase,
+class XPCF_IGNORE SOLARFRAMEWORK_API ADescriptorMatcherGeometric : public org::bcom::xpcf::ConfigurableBase,
 													virtual public SolAR::api::features::IDescriptorMatcherGeometric {
 public:
     /// @brief ADescriptorMatcherGeometric constructor

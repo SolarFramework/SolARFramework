@@ -32,7 +32,8 @@ namespace pointCloud {
  * This class provides a filtering method to prune a point cloud.
  */
 
-class  IPCFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("34192941-748e-4521-8d30-e12c06f5e226")]] [[xpcf::serverUUID("44842913-0e76-44bc-84ae-c8a0850ac97e")]] IPCFilter :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IPCFilter default constructor
    IPCFilter() = default;

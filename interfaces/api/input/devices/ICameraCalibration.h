@@ -31,7 +31,8 @@ namespace devices {
   * @brief <B>Calibrates a camera.</B>
   * <TT>UUID: 0e83b228-b9ca-413d-9dc2-db45c427428b</TT>
   */
-class  ICameraCalibration : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("b3774427-f712-483b-bbed-060d2ce6134a")]] [[xpcf::serverUUID("ee5fc0d6-281e-4185-9898-c41606a7a0fc")]] ICameraCalibration :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ~ICameraCalibration
     /// ICameraCalibration() = default;

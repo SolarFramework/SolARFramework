@@ -35,7 +35,8 @@ namespace tracking {
  * This interface is defined to implement components to estimate the optical flow between two images.
  */
 
-class  IOpticalFlowEstimator : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("acc7cbc7-ea8d-4034-a568-363d9b820eed")]] [[xpcf::serverUUID("af06b587-5be2-4d1a-87ed-ad900d47fe82")]] IOpticalFlowEstimator :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IOpticalFlow default constructor
    IOpticalFlowEstimator() = default;

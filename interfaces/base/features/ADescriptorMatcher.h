@@ -29,7 +29,7 @@ namespace SolAR {
 namespace base {
 namespace features {
 
-class SOLARFRAMEWORK_API ADescriptorMatcher : public org::bcom::xpcf::ConfigurableBase,
+class XPCF_IGNORE SOLARFRAMEWORK_API ADescriptorMatcher : public org::bcom::xpcf::ConfigurableBase,
 											virtual public SolAR::api::features::IDescriptorMatcher {
 public:
     /// @brief ADescriptorMatcher constructor

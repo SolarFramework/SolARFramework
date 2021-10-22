@@ -16,7 +16,8 @@ namespace features {
      * @brief <B>Filters a set of matches.</B>
      * <TT>UUID: e0d6cc82-6af2-493d-901a-2384fca0b16f</TT>
      */
-    class IMatchesFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+    class  [[xpcf::clientUUID("72253404-a06f-4b3f-996e-b17d5aaba9b4")]] [[xpcf::serverUUID("04f5af9a-c533-4776-ad25-f7f0f80315ee")]]IMatchesFilter :
+        virtual public org::bcom::xpcf::IComponentIntrospect {
     public:
         ///@brief IMatchesFilter default constructor.
         IMatchesFilter() = default;
