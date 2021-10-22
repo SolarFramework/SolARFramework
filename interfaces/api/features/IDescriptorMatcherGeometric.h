@@ -40,7 +40,8 @@ namespace features {
  * <TT>UUID: 2ed445a6-32f3-44a1-9dc5-3b0cfec778db</TT>
  * Just implement the first interface, the second interface is implemented in ADescriptorMatcherGeometric.
  */
-class IDescriptorMatcherGeometric : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("1bd62a3f-3376-45c3-a980-94d042ae509f")]] [[xpcf::serverUUID("75930efc-a96e-4d07-86b0-2ab2d9ea0102")]] IDescriptorMatcherGeometric :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDescriptorMatcherGeometric default constructor
     IDescriptorMatcherGeometric() = default;

@@ -33,7 +33,8 @@ namespace display {
  *
  * This class provides a viewer to display points cloud in a window.
  */
-class I3DPointsViewer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("423cd9a6-f93a-4e1b-88f0-0762c1db5db3")]] [[xpcf::serverUUID("15e7a40b-9269-40a1-b95d-7139cff7ee4c")]] I3DPointsViewer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DPointsViewer default constructor
     I3DPointsViewer() = default;

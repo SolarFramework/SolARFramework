@@ -34,7 +34,8 @@ namespace devices {
  *
  * This class describes the interface of a camera capture device.
  */
-class ICamera : virtual public IDevice {
+class [[xpcf::clientUUID("dcd976a6-3f65-4c8b-8126-e00ad6a49212")]] [[xpcf::serverUUID("84cf5434-d8bb-4aa5-a518-a4d369161e0b")]] ICamera :
+    virtual public IDevice {
 public:
     /// @brief Specify the ICamera constructor class
     ICamera() = default;

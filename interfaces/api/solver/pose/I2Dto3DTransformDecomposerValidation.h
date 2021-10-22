@@ -16,7 +16,8 @@ namespace pose {
   * @brief <B>Validates if a transform decomposition is correct.</B>
   * <TT>UUID: ee990fc4-ec74-4365-8fa8-b2c94845fde6</TT>
   */
-class  I2Dto3DTransformDecomposerValidation : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("21d1a9c4-c018-4b9a-99b8-68055b82c869")]] [[xpcf::serverUUID("447acd52-ad9f-4338-aff1-f61084bd0621")]] I2Dto3DTransformDecomposerValidation :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2Dto3DTransformDecomposerValidation default constructor.
     I2Dto3DTransformDecomposerValidation() = default;

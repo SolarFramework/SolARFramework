@@ -36,7 +36,8 @@ namespace slam {
 * <TT>UUID: b0515c62-cc81-4600-835c-8acdfedf39b5</TT>
 */
 
-class IBootstrapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("d593b615-efcf-4b4c-82eb-148065f85008")]] [[xpcf::serverUUID("a7509f5c-f214-408d-be3a-acb38dd8512b")]] IBootstrapper :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IBootstrapper default constructor
 	IBootstrapper() = default;

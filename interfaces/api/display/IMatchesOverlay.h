@@ -35,7 +35,8 @@ namespace display {
  *
  * This class provides drawing method to overlay matches between two images.
  */
-class IMatchesOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("a35aa6c7-ce39-4158-866d-5b0210267c12")]] [[xpcf::serverUUID("ef9096d0-c4ec-430d-8424-993b9010e3e3")]] IMatchesOverlay :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMatchesOverlay default constructor
     IMatchesOverlay() = default;

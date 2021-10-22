@@ -29,7 +29,7 @@ namespace SolAR {
 namespace base {
 namespace geom {
 
-class SOLARFRAMEWORK_API A2DPointsRectification : public org::bcom::xpcf::ConfigurableBase,
+class XPCF_IGNORE SOLARFRAMEWORK_API A2DPointsRectification : public org::bcom::xpcf::ConfigurableBase,
                                             virtual public SolAR::api::geom::I2DPointsRectification {
 public:
     /// @brief A2DPointsRectification constructor

@@ -33,12 +33,13 @@ namespace geom {
  * <TT>UUID: 21113a74-de60-4a3c-8b65-f3112beb3dc6</TT>
  */
 
-class IUnproject : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("7e71a7db-6a67-4c28-ad40-1922370fdc00")]] [[xpcf::serverUUID("10dc5091-bf42-4a0d-8573-0a099220da39")]] IUnproject :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief I3DTransform default constructor
+    /// @brief IUnproject default constructor
     IUnproject() = default;
 
-    /// @brief I3DTransform default destructor
+    /// @brief IUnproject default destructor
     virtual ~IUnproject() = default;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera

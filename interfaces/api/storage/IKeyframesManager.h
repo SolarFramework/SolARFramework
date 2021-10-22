@@ -34,7 +34,8 @@ namespace storage {
  * <TT>UUID: 2c147595-6c74-4f69-b63d-91e162c311ed</TT>
  */
 
-class IKeyframesManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("445e19fd-10d8-426c-a307-0a76db3ff6df")]] [[xpcf::serverUUID("6df23e91-6e2f-46ea-81bd-036f0cd0951a")]] IKeyframesManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeyframesStorage default constructor
     IKeyframesManager() = default;

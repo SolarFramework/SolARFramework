@@ -32,7 +32,8 @@ namespace geom {
  * <TT>UUID: 67bcd080-258d-4b16-b693-cd30c013eb05</TT>
  */
 
-class IImage2WorldMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("79e05ea9-ff48-45fd-aa04-bad8441bf8b0")]] [[xpcf::serverUUID("2dcd37ad-0c08-4793-b249-b0dd56b5bf12")]] IImage2WorldMapper :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IImage2WorldMapper default constructor
     IImage2WorldMapper() = default;

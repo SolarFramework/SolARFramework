@@ -37,7 +37,8 @@ namespace reloc {
  * This class provides a solution to retrieve a set of keyframes corresponding to a given frame.
  */
 
-class IKeyframeRetriever : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("109b5128-90d5-46ed-8906-0c8f22e0d212")]] [[xpcf::serverUUID("e17374fc-bac7-42cf-b732-5d1222da7e9d")]] IKeyframeRetriever :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IKeyframeRetriever default constructor.
     IKeyframeRetriever() = default;

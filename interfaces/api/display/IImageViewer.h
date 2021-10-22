@@ -32,7 +32,8 @@ namespace display {
  * This class provides a viewer to display an image in a window.
  */
 
-class IImageViewer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("a580d26e-331d-42d4-8bfe-f19913ba97fb")]] [[xpcf::serverUUID("b99d8c4e-10ef-4d7a-ba7c-dfa114cf1620")]] IImageViewer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;
 

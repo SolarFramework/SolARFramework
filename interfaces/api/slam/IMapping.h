@@ -35,7 +35,8 @@ namespace slam {
 * <TT>UUID: 33db5a56-9be2-4e5a-8fdc-de25e1633cf6</TT>
 */
 
-class IMapping : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("9edd1642-4b42-4c08-a11f-e46839f7fd63")]] [[xpcf::serverUUID("352d5136-b5eb-4ee6-bfbd-012cb23e935d")]] IMapping :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapping default constructor
 	IMapping() = default;

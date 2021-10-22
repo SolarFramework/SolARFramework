@@ -33,7 +33,8 @@ namespace storage {
  * <TT>UUID: 15455f5a-0e99-49e5-a3fb-39de3eeb5b9b</TT>
  */
 
-class ICovisibilityGraphManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("e25a8ca5-a9f5-4e38-8648-726ffbd6cbf3")]] [[xpcf::serverUUID("e41e71f3-08e4-4599-8cbc-a3021d1096f5")]] ICovisibilityGraphManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ICovisibilityGraphManager default constructor
 	ICovisibilityGraphManager() = default;

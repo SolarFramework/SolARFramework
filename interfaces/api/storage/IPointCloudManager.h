@@ -35,7 +35,8 @@ namespace storage {
  * <TT>UUID: 264d4406-b726-4ce9-a430-35d8b5e70331</TT>
  */
 
-class IPointCloudManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("e031a343-a38d-4712-8cae-3b3b90b897d4")]] [[xpcf::serverUUID("3c2ddd1a-8e68-4b01-ae63-ec33666be9d1")]] IPointCloudManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPointCloudStorage default constructor
 	IPointCloudManager() = default;
