@@ -38,7 +38,8 @@ namespace pipeline {
  * This class provides the interface to define a mapping processing pipeline.
  */
 
-class [[xpcf::clientUUID("110a089c-0bb1-488e-b24b-c1b96bc9df3b")]] [[xpcf::serverUUID("aced265d-832c-44e3-9356-dab531fa153a")]] IMappingPipeline :
+class [[xpcf::clientUUID("110a089c-0bb1-488e-b24b-c1b96bc9df3b")]] [[xpcf::serverUUID("aced265d-832c-44e3-9356-dab531fa153a")]]
+    XPCF_GRPC_CLIENT_RECV_SIZE("-1") IMappingPipeline :
     virtual public IPipeline {
 public:
     /// @brief IMappingPipeline default constructor
