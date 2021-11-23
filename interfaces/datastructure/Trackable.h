@@ -34,7 +34,8 @@ namespace datastructure {
 enum TrackableType {
     UNKNOWN,
     FIDUCIAL_MARKER,
-    IMAGE_MARKER
+    IMAGE_MARKER,
+    QRCODE
 };
 
 
