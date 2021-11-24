@@ -1,1 +1,1 @@
-
+opencv|4.5.2|opencv|conan-solar@conan|conan-solar|default|with_gtk=True#gtk_version=system#with_ffmpeg=True

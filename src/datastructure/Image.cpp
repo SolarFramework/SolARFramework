@@ -23,6 +23,8 @@
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
 
+#include "opencv2/imgcodecs.hpp"
+
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
 
@@ -88,8 +90,8 @@ void Image::ImageInternal::setData(void * data, uint32_t size)
 }
 
 template<typename Archive>
-void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-
+void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+{
     ar & m_storageData;
     ar & m_bufferSize;
 }
@@ -179,6 +181,20 @@ const void* Image::data() const
     return m_internalImpl->data();
 }
 
+static std::map<std::tuple<uint32_t,std::size_t,uint32_t>,int> solar2cvTypeConvertMap =
+{
+    {std::make_tuple(8,1,3),CV_8UC3},
+    {std::make_tuple(8,1,1),CV_8UC1},
+    {std::make_tuple(16,1,1),CV_16UC1}
+};
+
+static std::map<int,std::pair<Image::ImageLayout,Image::DataType>> cv2solarTypeConvertMap =
+{
+    {CV_8UC3,{Image::ImageLayout::LAYOUT_BGR,Image::DataType::TYPE_8U}},
+    {CV_8UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_8U}}
+};
+
+/*
 template<typename Archive>
 void Image::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 
@@ -191,6 +207,86 @@ void Image::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int ve
     ar & m_nbBitsPerComponent;
 
     ar & m_internalImpl;
+
+    std::vector<int> param(2);
+    param[0] = cv::IMWRITE_JPEG_QUALITY;
+    param[1] = 80;
+    cv::Mat imgCV(m_size.height, m_size.width,
+                  solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
+                  m_internalImpl->data());
+    std::vector<unsigned char> encodingBuffer;
+    cv::imencode(".jpg", imgCV, encodingBuffer, param);
+}
+*/
+template<class Archive>
+void Image::save(Archive & ar, const unsigned int version) const
+{
+    ar & m_size;
+    ar & m_layout;
+    ar & m_pixOrder;
+    ar & m_type;
+    ar & m_nbChannels;
+    ar & m_nbPlanes;
+    ar & m_nbBitsPerComponent;
+
+    ar & m_imageEncoding;
+
+    if (m_imageEncoding == ENCODING_JPEG) {
+        std::cout << "===> Image::ImageInternal::save : ENCODING_JPEG" << std::endl;
+        // JPEG encoding
+        std::vector<int> param(2);
+        param[0] = cv::IMWRITE_JPEG_QUALITY;
+        param[1] = 80;
+        cv::Mat imgCV(m_size.height, m_size.width,
+                      solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
+                      m_internalImpl->data());
+        std::vector<unsigned char> encodingBuffer;
+        cv::imencode(".jpg", imgCV, encodingBuffer, param);
+
+        ar & encodingBuffer;
+    }
+    else if (m_imageEncoding == ENCODING_PNG) {
+        std::cout << "===> Image::ImageInternal::save : ENCODING_PNG" << std::endl;
+
+        ar & m_internalImpl;
+    }
+    else {
+        std::cout << "===> Image::ImageInternal::save : ENCODING_NONE" << std::endl;
+
+        ar & m_internalImpl;
+    }
+}
+
+template<class Archive>
+void Image::load(Archive & ar, const unsigned int version)
+{
+    ar & m_size;
+    ar & m_layout;
+    ar & m_pixOrder;
+    ar & m_type;
+    ar & m_nbChannels;
+    ar & m_nbPlanes;
+    ar & m_nbBitsPerComponent;
+
+    ar & m_imageEncoding;
+
+    if (m_imageEncoding == ENCODING_JPEG) {
+        // JPEG decoding
+        std::vector<unsigned char> decodingBuffer;
+        ar & decodingBuffer;
+        cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
+        m_internalImpl->setData(imageDecode.ptr(), computeImageBufferSize());
+    }
+    else if (m_imageEncoding == ENCODING_PNG) {
+        std::cout << "===> Image::ImageInternal::load : ENCODING_PNG" << std::endl;
+
+        ar & m_internalImpl;
+    }
+    else {
+        std::cout << "===> Image::ImageInternal::load : ENCODING_NONE" << std::endl;
+
+        ar & m_internalImpl;
+    }
 }
 
 IMPLEMENTSERIALIZE(Image);
