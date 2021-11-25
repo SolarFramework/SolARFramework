@@ -23,7 +23,8 @@
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "opencv2/imgcodecs.hpp"
+//#include "opencv2/imgcodecs.hpp"
+#include <opencv2/opencv.hpp>
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
@@ -63,6 +64,7 @@ DECLARESERIALIZE(Image::ImageInternal);
 Image::ImageInternal::ImageInternal(uint32_t size)
 {
     setBufferSize(size);
+    std::cout << "===> Image::ImageInternal::ImageInternal buffer size = " << size << std::endl;
 }
 
 Image::ImageInternal::ImageInternal(void* data,uint32_t size)
@@ -83,9 +85,9 @@ void Image::ImageInternal::setBufferSize(uint32_t size)
 
 void Image::ImageInternal::setData(void * data, uint32_t size)
 {
-    if (m_bufferSize < size) {
-        setBufferSize(size);
-    }
+    setBufferSize(size);
+
+    m_storageData.clear();
     m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
 }
 
@@ -94,6 +96,9 @@ void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const 
 {
     ar & m_storageData;
     ar & m_bufferSize;
+
+    std::cout << "===> Image::ImageInternal::serialize m_storageData.size() = " << m_storageData.size() << std::endl;
+    std::cout << "===> Image::ImageInternal::serialize m_bufferSize = " << m_bufferSize << std::endl;
 }
 
 IMPLEMENTSERIALIZE(Image::ImageInternal);
@@ -181,6 +186,36 @@ const void* Image::data() const
     return m_internalImpl->data();
 }
 
+void Image::setImageEncoding(enum ImageEncoding encoding)
+{
+    m_imageEncoding = encoding;
+
+    // JPEG: set quality to 95 by default
+    if (m_imageEncoding == ENCODING_JPEG) {
+        m_imageEncodingQuality = 95;
+    }
+    // PNG: set quality to 9 by default
+    if (m_imageEncoding == ENCODING_PNG) {
+        m_imageEncodingQuality = 9;
+    }
+}
+
+void Image::setImageEncodingQuality(u_int8_t encodingQuality)
+{
+    // JPEG quality between 0 and 100
+    if (m_imageEncoding == ENCODING_JPEG) {
+        if (encodingQuality <= 100) {
+            m_imageEncodingQuality = encodingQuality;
+        }
+    }
+    // PNG quality between 0 and 9
+    else if (m_imageEncoding == ENCODING_PNG) {
+        if (encodingQuality <= 9) {
+            m_imageEncodingQuality = encodingQuality;
+        }
+    }
+}
+
 static std::map<std::tuple<uint32_t,std::size_t,uint32_t>,int> solar2cvTypeConvertMap =
 {
     {std::make_tuple(8,1,3),CV_8UC3},
@@ -191,33 +226,10 @@ static std::map<std::tuple<uint32_t,std::size_t,uint32_t>,int> solar2cvTypeConve
 static std::map<int,std::pair<Image::ImageLayout,Image::DataType>> cv2solarTypeConvertMap =
 {
     {CV_8UC3,{Image::ImageLayout::LAYOUT_BGR,Image::DataType::TYPE_8U}},
-    {CV_8UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_8U}}
+    {CV_8UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_8U}},
+    {CV_16UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_16U}}
 };
 
-/*
-template<typename Archive>
-void Image::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-
-    ar & m_size;
-    ar & m_layout;
-    ar & m_pixOrder;
-    ar & m_type;
-    ar & m_nbChannels;
-    ar & m_nbPlanes;
-    ar & m_nbBitsPerComponent;
-
-    ar & m_internalImpl;
-
-    std::vector<int> param(2);
-    param[0] = cv::IMWRITE_JPEG_QUALITY;
-    param[1] = 80;
-    cv::Mat imgCV(m_size.height, m_size.width,
-                  solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
-                  m_internalImpl->data());
-    std::vector<unsigned char> encodingBuffer;
-    cv::imencode(".jpg", imgCV, encodingBuffer, param);
-}
-*/
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int version) const
 {
@@ -230,30 +242,54 @@ void Image::save(Archive & ar, const unsigned int version) const
     ar & m_nbBitsPerComponent;
 
     ar & m_imageEncoding;
+/*
+    std::cout << "===> m_size.heigh = " << m_size.height << std::endl;
+    std::cout << "===> m_size.width = " << m_size.width << std::endl;
+    std::cout << "===> m_pixOrder = " << m_pixOrder << std::endl;
+    std::cout << "===> m_type = " << m_type << std::endl;
+    std::cout << "===> m_nbChannels = " << m_nbChannels << std::endl;
+    std::cout << "===> m_nbPlanes = " << m_nbPlanes << std::endl;
+    std::cout << "===> m_nbBitsPerComponent = " << m_nbBitsPerComponent << std::endl;
+    std::cout << "===> m_imageEncoding = " << m_imageEncoding << std::endl;
+*/
+    if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
+        if (m_imageEncoding == ENCODING_JPEG)
+            std::cout << "===> Image::ImageInternal::save : ENCODING_JPEG" << std::endl;
+        else
+            std::cout << "===> Image::ImageInternal::save : ENCODING_PNG" << std::endl;
 
-    if (m_imageEncoding == ENCODING_JPEG) {
-        std::cout << "===> Image::ImageInternal::save : ENCODING_JPEG" << std::endl;
-        // JPEG encoding
-        std::vector<int> param(2);
-        param[0] = cv::IMWRITE_JPEG_QUALITY;
-        param[1] = 80;
+        // JPEG or PNG encoding
+        uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
+        std::cout << "===> Original image size = " << image_size << std::endl;
         cv::Mat imgCV(m_size.height, m_size.width,
                       solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
                       m_internalImpl->data());
-        std::vector<unsigned char> encodingBuffer;
-        cv::imencode(".jpg", imgCV, encodingBuffer, param);
+
+//        cv::imshow("Image before encoding", imgCV);
+//        cv::waitKey(0);
+
+        std::vector<uchar> encodingBuffer;
+        std::vector<int> param(2);
+
+        if (m_imageEncoding == ENCODING_JPEG) {
+            param[0] = cv::IMWRITE_JPEG_QUALITY;
+            param[1] = m_imageEncodingQuality;
+            cv::imencode(".jpg", imgCV, encodingBuffer, param);
+        }
+        else {
+            param[0] = cv::IMWRITE_PNG_COMPRESSION;
+            param[1] = m_imageEncodingQuality;
+            cv::imencode(".png", imgCV, encodingBuffer, param);
+        }
 
         ar & encodingBuffer;
-    }
-    else if (m_imageEncoding == ENCODING_PNG) {
-        std::cout << "===> Image::ImageInternal::save : ENCODING_PNG" << std::endl;
 
-        ar & m_internalImpl;
+        std::cout << "===> Encoding buffer size = " << encodingBuffer.size() << std::endl;
     }
     else {
         std::cout << "===> Image::ImageInternal::save : ENCODING_NONE" << std::endl;
-
         ar & m_internalImpl;
+        std::cout << "===> Image::ImageInternal::save m_internalImpl.getBufferSize = " << m_internalImpl->getBufferSize() << std::endl;
     }
 }
 
@@ -270,17 +306,32 @@ void Image::load(Archive & ar, const unsigned int version)
 
     ar & m_imageEncoding;
 
-    if (m_imageEncoding == ENCODING_JPEG) {
-        // JPEG decoding
-        std::vector<unsigned char> decodingBuffer;
-        ar & decodingBuffer;
-        cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
-        m_internalImpl->setData(imageDecode.ptr(), computeImageBufferSize());
-    }
-    else if (m_imageEncoding == ENCODING_PNG) {
-        std::cout << "===> Image::ImageInternal::load : ENCODING_PNG" << std::endl;
+    if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
+        if (m_imageEncoding == ENCODING_JPEG)
+            std::cout << "===> Image::ImageInternal::load : ENCODING_JPEG" << std::endl;
+        else
+            std::cout << "===> Image::ImageInternal::load : ENCODING_PNG" << std::endl;
 
-        ar & m_internalImpl;
+        // JPEG or PNG decoding
+        std::vector<uchar> decodingBuffer;
+        ar & decodingBuffer;
+        std::cout << "===> Decoding buffer size = " << decodingBuffer.size() << std::endl;
+        cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
+        std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
+//        cv::imshow("Image after decoding", imageDecode);
+//        cv::waitKey(0);
+        m_internalImpl = utils::make_shared<Image::ImageInternal>();
+        m_internalImpl->setData(imageDecode.ptr(), imageDecode.total() * imageDecode.elemSize());
+
+/*
+        std::cout << "===> Image width = " << imgDest->getWidth() << std::endl;
+        std::cout << "===> Image height = " << imgDest->getHeight() << std::endl;
+        std::cout << "===> Image layout = " << imgDest->getImageLayout() << std::endl;
+        std::cout << "===> Image pixOrder = " << imgDest->getPixelOrder() << std::endl;
+        std::cout << "===> Image type = " << imgDest->getDataType() << std::endl;
+        std::cout << "===> Image nbChannels = " << imgDest->getNbChannels() << std::endl;
+        std::cout << "===> Image nbBitsPerComponent = " << imgDest->getNbBitsPerComponent() << std::endl;
+*/
     }
     else {
         std::cout << "===> Image::ImageInternal::load : ENCODING_NONE" << std::endl;

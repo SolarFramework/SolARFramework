@@ -188,11 +188,21 @@ public:
 
     /** @brief  set encoding for the image
      */
-    inline void setImageEncoding(enum ImageEncoding encoding) { m_imageEncoding = encoding; }
+    void setImageEncoding(enum ImageEncoding encoding);
 
     /** @brief  returns encoding of the image
      */
     inline enum ImageEncoding getImageEncoding() const { return m_imageEncoding; }
+
+    /** @brief  set encoding quality for the image
+     *  JPEG: 0 To 100
+     *  PNG: 0 to 9
+     */
+    void setImageEncodingQuality(u_int8_t encodingQuality);
+
+    /** @brief  returns encoding quality of the image
+     */
+    inline u_int8_t getImageEncodingQuality() const { return m_imageEncodingQuality; }
 
     class ImageInternal;
 
@@ -222,6 +232,7 @@ private:
     uint32_t m_nbBitsPerComponent;
 
     enum ImageEncoding m_imageEncoding = ENCODING_NONE;
+    uint8_t m_imageEncodingQuality = 0;
 };
 
 
