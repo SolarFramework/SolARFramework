@@ -80,10 +80,10 @@ void Image::ImageInternal::setBufferSize(uint32_t size)
 }
 
 void Image::ImageInternal::setData(void * data, uint32_t size)
-{
-    if (m_bufferSize < size) {
-        setBufferSize(size);
-    }
+{    
+    setBufferSize(size);
+
+    m_storageData.clear();
     m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
 }
 
