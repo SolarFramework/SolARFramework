@@ -242,22 +242,8 @@ void Image::save(Archive & ar, const unsigned int version) const
     ar & m_nbBitsPerComponent;
 
     ar & m_imageEncoding;
-/*
-    std::cout << "===> m_size.heigh = " << m_size.height << std::endl;
-    std::cout << "===> m_size.width = " << m_size.width << std::endl;
-    std::cout << "===> m_pixOrder = " << m_pixOrder << std::endl;
-    std::cout << "===> m_type = " << m_type << std::endl;
-    std::cout << "===> m_nbChannels = " << m_nbChannels << std::endl;
-    std::cout << "===> m_nbPlanes = " << m_nbPlanes << std::endl;
-    std::cout << "===> m_nbBitsPerComponent = " << m_nbBitsPerComponent << std::endl;
-    std::cout << "===> m_imageEncoding = " << m_imageEncoding << std::endl;
-*/
-    if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
-        if (m_imageEncoding == ENCODING_JPEG)
-            std::cout << "===> Image::ImageInternal::save : ENCODING_JPEG" << std::endl;
-        else
-            std::cout << "===> Image::ImageInternal::save : ENCODING_PNG" << std::endl;
 
+    if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
         // JPEG or PNG encoding
         uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
         std::cout << "===> Original image size = " << image_size << std::endl;
@@ -284,12 +270,10 @@ void Image::save(Archive & ar, const unsigned int version) const
 
         ar & encodingBuffer;
 
-        std::cout << "===> Encoding buffer size = " << encodingBuffer.size() << std::endl;
+        std::cout << "===> Encoded image size = " << encodingBuffer.size() << std::endl;
     }
     else {
-        std::cout << "===> Image::ImageInternal::save : ENCODING_NONE" << std::endl;
         ar & m_internalImpl;
-        std::cout << "===> Image::ImageInternal::save m_internalImpl.getBufferSize = " << m_internalImpl->getBufferSize() << std::endl;
     }
 }
 
@@ -307,35 +291,20 @@ void Image::load(Archive & ar, const unsigned int version)
     ar & m_imageEncoding;
 
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
-        if (m_imageEncoding == ENCODING_JPEG)
-            std::cout << "===> Image::ImageInternal::load : ENCODING_JPEG" << std::endl;
-        else
-            std::cout << "===> Image::ImageInternal::load : ENCODING_PNG" << std::endl;
-
         // JPEG or PNG decoding
         std::vector<uchar> decodingBuffer;
         ar & decodingBuffer;
-        std::cout << "===> Decoding buffer size = " << decodingBuffer.size() << std::endl;
+        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
         cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
         std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
+
 //        cv::imshow("Image after decoding", imageDecode);
 //        cv::waitKey(0);
+
         m_internalImpl = utils::make_shared<Image::ImageInternal>();
         m_internalImpl->setData(imageDecode.ptr(), imageDecode.total() * imageDecode.elemSize());
-
-/*
-        std::cout << "===> Image width = " << imgDest->getWidth() << std::endl;
-        std::cout << "===> Image height = " << imgDest->getHeight() << std::endl;
-        std::cout << "===> Image layout = " << imgDest->getImageLayout() << std::endl;
-        std::cout << "===> Image pixOrder = " << imgDest->getPixelOrder() << std::endl;
-        std::cout << "===> Image type = " << imgDest->getDataType() << std::endl;
-        std::cout << "===> Image nbChannels = " << imgDest->getNbChannels() << std::endl;
-        std::cout << "===> Image nbBitsPerComponent = " << imgDest->getNbBitsPerComponent() << std::endl;
-*/
     }
     else {
-        std::cout << "===> Image::ImageInternal::load : ENCODING_NONE" << std::endl;
-
         ar & m_internalImpl;
     }
 }
