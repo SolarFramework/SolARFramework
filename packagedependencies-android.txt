@@ -1,1 +1,0 @@
-xpcf|2.5.1|xpcf|http|https://artifact.b-com.com/bcom-generic-public|shared|
