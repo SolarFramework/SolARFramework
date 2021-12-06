@@ -64,7 +64,7 @@ DECLARESERIALIZE(Image::ImageInternal);
 Image::ImageInternal::ImageInternal(uint32_t size)
 {
     setBufferSize(size);
-    std::cout << "===> Image::ImageInternal::ImageInternal buffer size = " << size << std::endl;
+//    std::cout << "===> Image::ImageInternal::ImageInternal buffer size = " << size << std::endl;
 }
 
 Image::ImageInternal::ImageInternal(void* data,uint32_t size)
@@ -97,8 +97,8 @@ void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const 
     ar & m_storageData;
     ar & m_bufferSize;
 
-    std::cout << "===> Image::ImageInternal::serialize m_storageData.size() = " << m_storageData.size() << std::endl;
-    std::cout << "===> Image::ImageInternal::serialize m_bufferSize = " << m_bufferSize << std::endl;
+//    std::cout << "===> Image::ImageInternal::serialize m_storageData.size() = " << m_storageData.size() << std::endl;
+//    std::cout << "===> Image::ImageInternal::serialize m_bufferSize = " << m_bufferSize << std::endl;
 }
 
 IMPLEMENTSERIALIZE(Image::ImageInternal);
@@ -246,7 +246,7 @@ void Image::save(Archive & ar, const unsigned int version) const
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
         // JPEG or PNG encoding
         uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
-        std::cout << "===> Original image size = " << image_size << std::endl;
+//        std::cout << "===> Original image size = " << image_size << std::endl;
         cv::Mat imgCV(m_size.height, m_size.width,
                       solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
                       m_internalImpl->data());
@@ -270,7 +270,7 @@ void Image::save(Archive & ar, const unsigned int version) const
 
         ar & encodingBuffer;
 
-        std::cout << "===> Encoded image size = " << encodingBuffer.size() << std::endl;
+//        std::cout << "===> Encoded image size = " << encodingBuffer.size() << std::endl;
     }
     else {
         ar & m_internalImpl;
@@ -294,9 +294,9 @@ void Image::load(Archive & ar, const unsigned int version)
         // JPEG or PNG decoding
         std::vector<uchar> decodingBuffer;
         ar & decodingBuffer;
-        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
+//        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
         cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
-        std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
+//        std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
 
 //        cv::imshow("Image after decoding", imageDecode);
 //        cv::waitKey(0);

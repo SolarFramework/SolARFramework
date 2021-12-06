@@ -9,7 +9,7 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.10.0
+VERSION=0.11.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -165,5 +165,8 @@ OTHER_FILES += \
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
 
 DISTFILES +=
+
+HEADERS += \
+    interfaces/api/pipeline/IAsyncRelocalizationPipeline.h
 
 
