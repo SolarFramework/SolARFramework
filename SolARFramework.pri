@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
