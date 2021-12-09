@@ -46,6 +46,7 @@ interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
+interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \

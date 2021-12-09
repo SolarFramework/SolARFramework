@@ -29,6 +29,7 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <cassert>
 
 #define SOLAR_PI           3.14159265358979323846
 #define SOLAR_RAD2DEG      57.29577951308233
@@ -181,33 +182,58 @@ inline void serialize(Archive & ar,
 }} // namespace boost::serialization
 
 namespace Eigen{
+//Explicit template specialization SquaredBinaryPatternMatrix
+template <class BasicJsonType, int Ops_, int MaxRows_, int MaxCols_>
+inline void to_json(BasicJsonType& j, const Eigen::Matrix<bool, Dynamic, Dynamic, Ops_, MaxRows_, MaxCols_>& eigenData)
+{
+    std::vector<int> data;
+    int size = eigenData.rows();
+    for (int x = 0; x < size; ++x)
+        for (int y = 0; y < size; ++y)
+            data.push_back((int)eigenData(x, y));
+    j = data;
+}
+
+//Explicit template specialization SquaredBinaryPatternMatrix
+template <class BasicJsonType, int Ops_, int MaxRows_, int MaxCols_>
+inline void from_json(const BasicJsonType& j, Eigen::Matrix<bool, Dynamic, Dynamic, Ops_, MaxRows_, MaxCols_>& eigenData)
+{
+    std::vector<int> data = j.template get<std::vector<int>>();
+    int size = (int)std::sqrt(data.size());
+    assert((size * size == data.size()) && "Must be a squared matrix");
+    eigenData.resize(size, size);
+    for (int x = 0; x < size; ++x)
+        for (int y = 0; y < size; ++y)
+            eigenData(x, y) = (bool)data[x * size + y];
+}
+
 template <class BasicJsonType, class T, int Rows_, int Cols_, int Ops_, int MaxRows_, int MaxCols_>
 inline void to_json(BasicJsonType& j, const Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>& eigenData)
 {
-	std::vector<float> data(eigenData.data(), eigenData.data() + eigenData.rows() * eigenData.cols());
-	j = data;
+    std::vector<T> data(eigenData.data(), eigenData.data() + eigenData.rows() * eigenData.cols());
+    j = data;
 }
 
 template <class BasicJsonType, class T, int Rows_, int Cols_, int Ops_, int MaxRows_, int MaxCols_>
 inline void from_json(const BasicJsonType& j, Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>& eigenData)
 {
-    std::vector<float> data = j.template get<std::vector<float>>();
-	eigenData = Eigen::Map<Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>>(data.data());
+    std::vector<T> data = j.template get<std::vector<T>>();
+    eigenData = Eigen::Map<Eigen::Matrix<T, Rows_, Cols_, Ops_, MaxRows_, MaxCols_>>(data.data());
 }
 
 template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
 inline void to_json(BasicJsonType& j, const Eigen::Transform<T, Dim_, Mode_, Options_>& eigenData)
 {
-	std::vector<float> data(eigenData.matrix().data(), eigenData.matrix().data() + eigenData.matrix().rows() * eigenData.matrix().cols());
-	j = data;
+    std::vector<T> data(eigenData.matrix().data(), eigenData.matrix().data() + eigenData.matrix().rows() * eigenData.matrix().cols());
+    j = data;
 }
 
 template <class BasicJsonType, class T, int Dim_, int Mode_, int Options_>
 inline void from_json(const BasicJsonType& j, Eigen::Transform<T, Dim_, Mode_, Options_ >& eigenData)
 {
-    std::vector<float> data = j.template get<std::vector<float>>();
-	eigenData = Eigen::Map<SolAR::datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
-	eigenData.makeAffine();
+    std::vector<T> data = j.template get<std::vector<T>>();
+    eigenData = Eigen::Map<SolAR::datastructure::Matrix<T, Dim_ + 1, Dim_ + 1>>(data.data());
+    eigenData.makeAffine();
 }
 } // namespace Eigen
 

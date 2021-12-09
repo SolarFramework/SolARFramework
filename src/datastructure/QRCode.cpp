@@ -22,14 +22,14 @@ namespace SolAR {
 namespace datastructure {
 
 QRCode::QRCode(const std::string & url, const Sizef & size, const std::string & code) :
-    Trackable2D(url, size), m_code(code)
+    Trackable(url), Trackable2D(url, size), m_code(code)
 {
     LOG_DEBUG("QRCode constructor: url = {}, width = {}, height = {}, code = {}",
               url, size.width, size.height, code);
 }
 
 TrackableType QRCode::getType() const {
-    return TrackableType::QRCODE;
+    return TrackableType::QRCODE_MARKER;
 }
 
 void QRCode::setCode(const std::string & code) {

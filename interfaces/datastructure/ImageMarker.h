@@ -74,6 +74,24 @@ class SOLARFRAMEWORK_API ImageMarker : virtual public Trackable2D {
 
     private:
         SRef<Image> m_image; // image of the image marker
+
+    public:
+        template <typename JsonType>
+        friend void to_json(JsonType& j, const ImageMarker& marker)
+        {
+            j["url"] = marker.m_url;
+            j["transform3D"] = marker.m_transform3D;
+            j["size"]["width"] = marker.m_size.width;
+            j["size"]["height"] = marker.m_size.height;
+        }
+        template <typename JsonType>
+        friend void from_json(JsonType& j, ImageMarker& marker)
+        {
+            marker.m_url = j.at("url");
+            marker.m_transform3D = j.at("transform3D");
+            marker.m_size.width = j["size"]["width"].template get<float>();
+            marker.m_size.height = j["size"]["height"].template get<float>();
+        }
 };
 
 DECLARESERIALIZE(ImageMarker);

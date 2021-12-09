@@ -66,6 +66,26 @@ class SOLARFRAMEWORK_API QRCode : virtual public Trackable2D {
 
     private:
         std::string m_code; // the decoding code
+
+    public:
+        template <typename JsonType>
+        friend void to_json(JsonType& j, const QRCode& marker)
+        {
+            j["url"] = marker.m_url;
+            j["transform3D"] = marker.m_transform3D;
+            j["size"]["width"] = marker.m_size.width;
+            j["size"]["height"] = marker.m_size.height;
+            j["code"] = marker.m_code;
+        }
+        template <typename JsonType>
+        friend void from_json(JsonType& j, QRCode& marker)
+        {
+            marker.m_url = j.at("url");
+            marker.m_transform3D = j.at("transform3D");
+            marker.m_size.width = j["size"]["width"].template get<float>();
+            marker.m_size.height = j["size"]["height"].template get<float>();
+            marker.m_code = j.at("code");
+        }
 };
 
 DECLARESERIALIZE(QRCode);
