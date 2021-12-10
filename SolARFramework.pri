@@ -83,6 +83,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
+interfaces/api/solver/pose/IMultiTrackablesPose.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/storage/ICovisibilityGraphManager.h \
