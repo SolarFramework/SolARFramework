@@ -32,47 +32,17 @@ using namespace org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-/**
- * @class Image::ImageInternal
- * @brief <B>A 2D image buffer.</B>.
- *
- */
-class Image::ImageInternal {
-public:
-    ImageInternal() = default;
-    explicit ImageInternal(uint32_t size);
-    explicit ImageInternal(void* data, uint32_t size);
-    ~ImageInternal() = default;
-    void setBufferSize(uint32_t size);
-    inline uint32_t getBufferSize() { return m_bufferSize; }
-    void setData(void * data, uint32_t size);
-    inline void* data() { return m_storageData.data(); }
-    inline const void* data() const  { return m_storageData.data(); }
-
-private:
-    friend class boost::serialization::access;
-    template<typename Archive>
-    void serialize(Archive &ar, const unsigned int version);
-
-private:
-    std::vector<uint8_t> m_storageData;
-    uint32_t m_bufferSize = 0;
-};
-
-DECLARESERIALIZE(Image::ImageInternal);
-
-Image::ImageInternal::ImageInternal(uint32_t size)
+ImageInternal::ImageInternal(uint32_t size)
 {
     setBufferSize(size);
-//    std::cout << "===> Image::ImageInternal::ImageInternal buffer size = " << size << std::endl;
 }
 
-Image::ImageInternal::ImageInternal(void* data,uint32_t size)
+ImageInternal::ImageInternal(void* data,uint32_t size)
 {
    setData(data,size);
 }
 
-void Image::ImageInternal::setBufferSize(uint32_t size)
+void ImageInternal::setBufferSize(uint32_t size)
 {
     m_bufferSize = size;
     if (m_bufferSize == 0) { // invalid size
@@ -80,10 +50,9 @@ void Image::ImageInternal::setBufferSize(uint32_t size)
     }
     m_storageData.reserve(m_bufferSize);
     m_storageData.resize(m_bufferSize);
-    //memset(m_storageData.data(),0,m_bufferSize); // Normally not useful
 }
 
-void Image::ImageInternal::setData(void * data, uint32_t size)
+void ImageInternal::setData(void * data, uint32_t size)
 {
     setBufferSize(size);
 
@@ -92,16 +61,13 @@ void Image::ImageInternal::setData(void * data, uint32_t size)
 }
 
 template<typename Archive>
-void Image::ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
     ar & m_storageData;
     ar & m_bufferSize;
-
-//    std::cout << "===> Image::ImageInternal::serialize m_storageData.size() = " << m_storageData.size() << std::endl;
-//    std::cout << "===> Image::ImageInternal::serialize m_bufferSize = " << m_bufferSize << std::endl;
 }
 
-IMPLEMENTSERIALIZE(Image::ImageInternal);
+IMPLEMENTSERIALIZE(ImageInternal);
 
 static std::map<Image::ImageLayout,uint32_t> layoutChannelMapInfos = {{Image::ImageLayout::LAYOUT_RGB,3},
                                                                            {Image::ImageLayout::LAYOUT_GRB,3},
@@ -246,15 +212,11 @@ void Image::save(Archive & ar, const unsigned int version) const
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
         // JPEG or PNG encoding
         uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
-//        std::cout << "===> Original image size = " << image_size << std::endl;
         cv::Mat imgCV(m_size.height, m_size.width,
                       solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
                       m_internalImpl->data());
 
-//        cv::imshow("Image before encoding", imgCV);
-//        cv::waitKey(0);
-
-        std::vector<uchar> encodingBuffer;
+		std::vector<uchar> encodingBuffer;
         std::vector<int> param(2);
 
         if (m_imageEncoding == ENCODING_JPEG) {
@@ -267,10 +229,7 @@ void Image::save(Archive & ar, const unsigned int version) const
             param[1] = m_imageEncodingQuality;
             cv::imencode(".png", imgCV, encodingBuffer, param);
         }
-
         ar & encodingBuffer;
-
-//        std::cout << "===> Encoded image size = " << encodingBuffer.size() << std::endl;
     }
     else {
         ar & m_internalImpl;
@@ -301,7 +260,7 @@ void Image::load(Archive & ar, const unsigned int version)
 //        cv::imshow("Image after decoding", imageDecode);
 //        cv::waitKey(0);
 
-        m_internalImpl = utils::make_shared<Image::ImageInternal>();
+        m_internalImpl = utils::make_shared<ImageInternal>();
         m_internalImpl->setData(imageDecode.ptr(), imageDecode.total() * imageDecode.elemSize());
     }
     else {
@@ -317,9 +276,9 @@ IMPLEMENTSERIALIZE(Image);
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image)
 //BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image)
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image::ImageInternal)
-//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image::ImageInternal)
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::ImageInternal)
+//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::ImageInternal)
 BOOST_CLASS_TYPE_INFO(
-SolAR::datastructure::Image::ImageInternal,
-boost::serialization::extended_type_info_typeid<SolAR::datastructure::Image::ImageInternal>
+SolAR::datastructure::ImageInternal,
+boost::serialization::extended_type_info_typeid<SolAR::datastructure::ImageInternal>
 )
