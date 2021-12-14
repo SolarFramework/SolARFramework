@@ -198,11 +198,11 @@ public:
      *  JPEG: 0 To 100
      *  PNG: 0 to 9
      */
-    void setImageEncodingQuality(u_int8_t encodingQuality);
+    void setImageEncodingQuality(uint8_t encodingQuality);
 
     /** @brief  returns encoding quality of the image
      */
-    inline u_int8_t getImageEncodingQuality() const { return m_imageEncodingQuality; }
+    inline uint8_t getImageEncodingQuality() const { return m_imageEncodingQuality; }
 
     class ImageInternal;
 

@@ -200,7 +200,7 @@ void Image::setImageEncoding(enum ImageEncoding encoding)
     }
 }
 
-void Image::setImageEncodingQuality(u_int8_t encodingQuality)
+void Image::setImageEncodingQuality(uint8_t encodingQuality)
 {
     // JPEG quality between 0 and 100
     if (m_imageEncoding == ENCODING_JPEG) {
