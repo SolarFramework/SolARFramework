@@ -47,7 +47,7 @@ public:
     /// @param[out] masks The binary masks corresponding to the bounding boxes. For each mask, regions with a value of 1 correspond to the object, otherwise the background.
     /// @param[out] classIds The id of each object in the bounding box.
     /// @param[out] scores The corresponding confidence scores.
-    /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode segment(const SRef<SolAR::datastructure::Image> image,
                                         std::vector<SolAR::datastructure::Rectanglei> &boxes,
                                         std::vector<SRef<SolAR::datastructure::Image>> &masks,
