@@ -25,7 +25,12 @@ namespace SolAR {
 namespace api {
 namespace input {
 namespace files {
-
+/**
+ * @class IPointCloudLoader
+ * @brief <B>Loads a point cloud from a file.</B>
+ * <TT>UUID: 1abd8117-87d3-4c6c-8fb6-c2fdb7359ee2</TT>
+ *
+ */
 class [[xpcf::clientUUID("dd80a6fa-db2f-4ba7-ba69-5207a68cfb03")]] [[xpcf::serverUUID("19780d21-e6a8-4f28-bf63-483f50b2af9d")]] IPointCloudLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
