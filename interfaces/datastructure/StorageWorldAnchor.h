@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef WORLDANCHOR_H
-#define WORLDANCHOR_H
+#ifndef STORAGEWORLDANCHOR_H
+#define STORAGEWORLDANCHOR_H
 
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
@@ -23,26 +23,26 @@
 
 #include "core/Log.h"
 
-// Definition of WorldAnchor Class //
+// Definition of StorageWorldAnchor Class //
 // part of SolAR namespace //
 
 namespace SolAR {
 namespace datastructure {
 /**
-    * @class WorldAnchor
+    * @class StorageWorldAnchor
     * @brief <B>This class defines the generic WorldAnchor datastructure.</B>
     */
-class SOLARFRAMEWORK_API WorldAnchor : virtual public WorldElement {
+class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public WorldElement {
     public:
         ///
         /// @brief WorldAnchor default constructor
         ///
-        WorldAnchor() = default;
+        StorageWorldAnchor() = default;
 
         ///
         /// @brief WorldAnchor default destructor
         ///
-        virtual ~WorldAnchor() = default;
+        virtual ~StorageWorldAnchor() = default;
 
     private:
 
@@ -53,9 +53,9 @@ class SOLARFRAMEWORK_API WorldAnchor : virtual public WorldElement {
     protected:
 };
 
-DECLARESERIALIZE(WorldAnchor);
+DECLARESERIALIZE(StorageWorldAnchor);
 
 }
 } // end of namespace SolAR
 
-#endif // WORLDANCHOR_H
+#endif // STORAGEWORLDANCHOR_H
