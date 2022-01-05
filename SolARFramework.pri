@@ -87,6 +87,7 @@ interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/IWorldGraphManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
@@ -119,6 +120,9 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
+interfaces/datastructure/WorldElement.h \
+interfaces/datastructure/StorageTrackable.h \
+interfaces/datastructure/WorldAnchor.h \
 interfaces/base/features/ADescriptorMatcher.h \
 interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
@@ -148,6 +152,9 @@ src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
+interfaces/datastructure/WorldElement.cpp \
+interfaces/datastructure/StorageTrackable.cpp \
+interfaces/datastructure/WorldAnchor.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
