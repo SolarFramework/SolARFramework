@@ -38,7 +38,6 @@ StorageTrackable::StorageTrackable(boost::uuids::uuid author, datastructure::Tra
     m_LocalCrs = LocalCrs;
     m_unitSystem = unitSystem;
     m_scale = scale;
-
     //TODO extraction des features et les mettre dans m_url?
 }
 
@@ -128,6 +127,14 @@ void StorageTrackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsi
     ar & m_LocalCrs;
     ar & m_unitSystem;
     ar & m_scale;
+}
+
+bool isWorldAnchor() {
+    return false;
+}
+
+bool isTrackable() {
+    return true;
 }
 
 IMPLEMENTSERIALIZE(StorageTrackable);

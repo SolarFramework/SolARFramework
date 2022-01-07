@@ -132,6 +132,10 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
         const std::vector<std::byte> &payload() const;
         void setPayload(const std::vector<std::byte> &newPayload);
 
+        bool isWorldAnchor();
+
+        bool isTrackable();
+
 private:
 
         boost::uuids::uuid m_author;

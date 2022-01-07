@@ -70,6 +70,10 @@ public :
     /// @brief Add a new tag to associate to the element
     void addTag(std::string, std::string);
 
+    virtual bool isWorldAnchor()=0;
+
+    virtual bool isTrackable()=0;
+
     private:
 
         friend class boost::serialization::access;

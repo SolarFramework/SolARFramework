@@ -44,6 +44,11 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public WorldElement {
         ///
         virtual ~StorageWorldAnchor() = default;
 
+        bool isWorldAnchor();
+
+        bool isTrackable();
+
+
     private:
 
         friend class boost::serialization::access;

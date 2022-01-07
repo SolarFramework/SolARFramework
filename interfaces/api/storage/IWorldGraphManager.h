@@ -56,6 +56,12 @@ public:
                                             datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
                                             std::multimap<std::string, std::string> tags) = 0;
 
+    /// @brief this methods returns all the trackables that are in the world graph
+    /// @return a list of all the trackables that are in the world graph
+    virtual std::list<datastructure::StorageTrackable> getTrackables() = 0;
+
+    virtual std::string magic() =0;
+
 };
 }
 }
