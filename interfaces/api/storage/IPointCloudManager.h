@@ -31,8 +31,10 @@ namespace storage {
 
 /**
  * @class IPointCloudManager
- * @brief Allows to store a point cloud. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store a point cloud.</B>
  * <TT>UUID: 264d4406-b726-4ce9-a430-35d8b5e70331</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
 class [[xpcf::clientUUID("e031a343-a38d-4712-8cae-3b3b90b897d4")]] [[xpcf::serverUUID("3c2ddd1a-8e68-4b01-ae63-ec33666be9d1")]] IPointCloudManager :
