@@ -26,11 +26,10 @@ namespace api {
 namespace pointCloud {
 
 /**
- * @class IPCFilter
- * @brief filters a point cloud
- *
- * This class provides a filtering method to prune a point cloud.
- */
+  * @class IPCFilter
+  * @brief <B>Filters a point cloud</B>
+  * <TT>UUID: 3e068943-5230-4e6c-abd7-959f293f9829</TT>
+  */
 
 class [[xpcf::clientUUID("34192941-748e-4521-8d30-e12c06f5e226")]] [[xpcf::serverUUID("44842913-0e76-44bc-84ae-c8a0850ac97e")]] IPCFilter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
