@@ -1,1 +1,4 @@
+libgtk2.0-dev||libgtk2.0-dev|apt-get@system|
+libva-dev||libva-dev|apt-get@system|
+libvdpau-dev||libvdpau-dev|apt-get@system|
 opencv|4.5.2|opencv|conan-solar@conan|conan-solar|default|with_gtk=True#gtk_version=system#with_ffmpeg=True
