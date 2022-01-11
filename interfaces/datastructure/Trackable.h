@@ -21,6 +21,9 @@
 #include <core/SerializationDefinitions.h>
 
 #include "core/Log.h"
+#include "MathDefinitions.h"
+#include "CameraDefinitions.h"
+#include "nlohmann/json.hpp"
 
 // Definition of Trackable Class //
 // part of SolAR namespace //
@@ -34,7 +37,8 @@ namespace datastructure {
 enum TrackableType {
     UNKNOWN,
     FIDUCIAL_MARKER,
-    IMAGE_MARKER
+    IMAGE_MARKER,
+    QRCODE_MARKER
 };
 
 
@@ -71,7 +75,16 @@ class SOLARFRAMEWORK_API Trackable
         std::string getURL() const;
 
         /// @brief Sets the url of the trackable object
+        /// @param[in] url the url
         void setURL(const std::string & url);
+
+        /// @brief Returns the 3D transform from the trackable object to the world coordinates system
+        /// @return the 3D transform to the world coordinates system
+        datastructure::Transform3Df getTransform3D() const;
+
+        /// @brief Sets the 3D transform to the world coordinates system
+        /// @param[in] transform3D the 3D transform to the world coordinates system
+        void setTransform3D(const datastructure::Transform3Df & transform3D);
 
     private:
 
@@ -81,6 +94,7 @@ class SOLARFRAMEWORK_API Trackable
 
     protected:
         std::string m_url; // The url of the trackable object
+        datastructure::Transform3Df m_transform3D = Transform3Df::Identity(); // The 3D transform to the world coordinates system
 };
 
 DECLARESERIALIZE(Trackable);

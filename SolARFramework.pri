@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -46,6 +47,7 @@ interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
+interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
@@ -101,6 +103,7 @@ interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
 interfaces/datastructure/DescriptorMatch.h \
 interfaces/datastructure/FiducialMarker.h \
+interfaces/datastructure/QRCode.h \
 interfaces/datastructure/Frame.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Identification.h \
@@ -133,6 +136,7 @@ src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
 src/datastructure/DescriptorMatch.cpp \
 src/datastructure/FiducialMarker.cpp \
+src/datastructure/QRCode.cpp \
 src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
