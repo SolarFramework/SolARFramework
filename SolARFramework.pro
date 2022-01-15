@@ -41,12 +41,9 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix:!android {
-#
-#   if buidling with clang
-#	    QMAKE_CXX = clang++
-#   	QMAKE_LINK= clang++
-#
+unix {
+    # Avoids adding install steps manually. To be commented to have a better control over them.
+    QMAKE_POST_LINK += "make install"
 }
 
 linux {
