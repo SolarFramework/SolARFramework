@@ -51,16 +51,26 @@ public:
     /// @param scale The dimension of the trackable that we are looking to add to the worldgraph
     /// @param tags A map where the key is an enum and the value is a string corresponding to a tag associated with the trackable that we are looking to add to the worldgraph
     /// @return the uuid of the newly created & added Trackable
-    virtual boost::uuids::uuid addTrackable(boost::uuids::uuid author, datastructure::TrackableType type,
+    virtual boost::uuids::uuid addTrackable(boost::uuids::uuid author, datastructure::StorageTrackableType type,
                                             datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
                                             datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
                                             std::multimap<std::string, std::string> tags) = 0;
 
+
+    /// @brief this methods returns from the world graph the trackable with id {trackableId}
+    /// @param The Id of the Trackable that is going to be fetched
+    /// @return void
+    virtual datastructure::StorageTrackable getTrackable(boost::uuids::uuid trackableId) = 0;
+
+
+    /// @brief this methods deletes the trackable with id from the world graph
+    /// @param The Id of the Trackable that is going to be deleted
+    /// @return true if the trackable has been deleted from the worldgraph
+    virtual bool removeTrackable(boost::uuids::uuid trackableId) = 0;
+
     /// @brief this methods returns all the trackables that are in the world graph
     /// @return a list of all the trackables that are in the world graph
-    virtual std::list<datastructure::StorageTrackable> getTrackables() = 0;
-
-    virtual std::string magic() =0;
+    virtual std::vector<datastructure::StorageTrackable> getTrackables() = 0;
 
 };
 }

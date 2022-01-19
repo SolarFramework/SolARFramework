@@ -27,7 +27,7 @@ StorageTrackable::StorageTrackable(const std::string & url) : m_url(url) {
     LOG_DEBUG("StorageTrackable constructor with url = {}", url);
 }
 
-StorageTrackable::StorageTrackable(boost::uuids::uuid author, datastructure::TrackableType type,
+StorageTrackable::StorageTrackable(boost::uuids::uuid author, datastructure::StorageTrackableType type,
                      datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
                      datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
                      std::multimap<std::string, std::string> tags) : WorldElement(tags){
@@ -99,7 +99,7 @@ void StorageTrackable::setScale(const datastructure::Vector3d &newScale)
     m_scale = newScale;
 }
 
-const std::vector<std::byte> &StorageTrackable::payload() const
+const std::vector<std::byte> &StorageTrackable::getPayload() const
 {
     return m_payload;
 }
@@ -109,7 +109,11 @@ void StorageTrackable::setPayload(const std::vector<std::byte> &newPayload)
     m_payload = newPayload;
 }
 
-void StorageTrackable::setType(datastructure::TrackableType newType)
+StorageTrackableType StorageTrackable::getType() const{
+    return m_type;
+}
+
+void StorageTrackable::setType(datastructure::StorageTrackableType newType)
 {
     m_type = newType;
 }
@@ -129,11 +133,11 @@ void StorageTrackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsi
     ar & m_scale;
 }
 
-bool isWorldAnchor() {
+bool StorageTrackable::isWorldAnchor() {
     return false;
 }
 
-bool isTrackable() {
+bool StorageTrackable::isTrackable() {
     return true;
 }
 
