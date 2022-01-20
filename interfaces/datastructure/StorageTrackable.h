@@ -3,7 +3,7 @@
 
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
-#include <datastructure/WorldElement.h>
+#include <datastructure/StorageWorldElement.h>
 #include "datastructure/MathDefinitions.h"
 #include <datastructure/Trackable.h>
 #include <nlohmann/json.hpp>
@@ -147,7 +147,7 @@ struct EncodingInfo {
     * @class StorageTrackable
     * @brief <B>This class defines the generic trackable datastructure defined in the world graph.</B>
     */
-class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
+class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
 {
     public:
         ///
@@ -158,7 +158,7 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
         ///
         /// @brief StorageTrackable constructor from abstract supertype WorldElement
         ///
-        StorageTrackable(const WorldElement& elem) : WorldElement(elem) {};
+        StorageTrackable(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
 
         ///
         /// @brief StorageTrackable constructor with url
@@ -168,7 +168,7 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
         ///
         /// @brief StorageTrackable constructor with all its attributes
         ///
-        StorageTrackable(boost::uuids::uuid author, datastructure::StorageTrackableType type,
+        StorageTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
                   datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
                   datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
                   std::multimap<std::string, std::string> tags);
@@ -195,9 +195,9 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
         void setType(datastructure::StorageTrackableType newType);
 
         /// @brief Gets the author ID of the Trackable
-        const boost::uuids::uuid &getAuthor() const;
+        const org::bcom::xpcf::uuids::uuid &getAuthor() const;
         /// @brief Sets the author ID of the Trackable
-        void setAuthor(const boost::uuids::uuid &newAuthor);
+        void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
 
         /// @brief Sets the Encoding informations
@@ -232,7 +232,7 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public WorldElement
 
 private:
 
-        boost::uuids::uuid m_author;
+        org::bcom::xpcf::uuids::uuid m_author;
         datastructure::StorageTrackableType m_type;
         datastructure::EncodingInfo m_encodingInfo;
         datastructure::Transform3Df m_LocalCrs;

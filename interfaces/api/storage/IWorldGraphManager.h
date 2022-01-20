@@ -19,10 +19,10 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
-#include "boost/uuid/uuid.hpp"
-#include "datastructure/WorldElement.h"
+#include "datastructure/StorageWorldElement.h"
 #include "datastructure/StorageTrackable.h"
 #include "datastructure/MathDefinitions.h"
+#include <xpcf/core/uuid.h>
 
 namespace SolAR {
 namespace api {
@@ -41,6 +41,7 @@ public:
     /// @brief IWorldGraphManager default destructor
     virtual ~IWorldGraphManager() = default;
 
+
     /// @brief this methods adds a trackable to the world graph
     /// @param author The UID of the creator of the trackable that we are looking to add to the worldgraph
     /// @param type The type of trackable that we are looking to add to the worldgraph
@@ -51,7 +52,7 @@ public:
     /// @param scale The dimension of the trackable that we are looking to add to the worldgraph
     /// @param tags A map where the key is an enum and the value is a string corresponding to a tag associated with the trackable that we are looking to add to the worldgraph
     /// @return the uuid of the newly created & added Trackable
-    virtual boost::uuids::uuid addTrackable(boost::uuids::uuid author, datastructure::StorageTrackableType type,
+    virtual org::bcom::xpcf::uuids::uuid addTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
                                             datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
                                             datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
                                             std::multimap<std::string, std::string> tags) = 0;
@@ -60,17 +61,17 @@ public:
     /// @brief this methods returns from the world graph the trackable with id {trackableId}
     /// @param The Id of the Trackable that is going to be fetched
     /// @return void
-    virtual datastructure::StorageTrackable getTrackable(boost::uuids::uuid trackableId) = 0;
+    virtual SRef<datastructure::StorageTrackable> getTrackable(org::bcom::xpcf::uuids::uuid trackableId) = 0;
 
 
     /// @brief this methods deletes the trackable with id from the world graph
     /// @param The Id of the Trackable that is going to be deleted
     /// @return true if the trackable has been deleted from the worldgraph
-    virtual bool removeTrackable(boost::uuids::uuid trackableId) = 0;
+    virtual bool removeTrackable(org::bcom::xpcf::uuids::uuid trackableId) = 0;
 
     /// @brief this methods returns all the trackables that are in the world graph
     /// @return a list of all the trackables that are in the world graph
-    virtual std::vector<datastructure::StorageTrackable> getTrackables() = 0;
+    virtual std::vector<SRef<datastructure::StorageTrackable>> getTrackables() = 0;
 
 };
 }

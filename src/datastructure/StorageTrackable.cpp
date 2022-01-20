@@ -27,10 +27,10 @@ StorageTrackable::StorageTrackable(const std::string & url) : m_url(url) {
     LOG_DEBUG("StorageTrackable constructor with url = {}", url);
 }
 
-StorageTrackable::StorageTrackable(boost::uuids::uuid author, datastructure::StorageTrackableType type,
+StorageTrackable::StorageTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
                      datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
                      datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
-                     std::multimap<std::string, std::string> tags) : WorldElement(tags){
+                     std::multimap<std::string, std::string> tags) : StorageWorldElement(tags){
     m_author = author;
     m_type = type;
     m_encodingInfo = encodingInfo;
@@ -49,12 +49,12 @@ void StorageTrackable::setURL(const std::string & url) {
     m_url = url;
 }
 
-const boost::uuids::uuid &StorageTrackable::getAuthor() const
+const org::bcom::xpcf::uuids::uuid &StorageTrackable::getAuthor() const
 {
     return m_author;
 }
 
-void StorageTrackable::setAuthor(const boost::uuids::uuid &newAuthor)
+void StorageTrackable::setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor)
 {
     m_author = newAuthor;
 }
@@ -122,7 +122,7 @@ template<typename Archive>
 void StorageTrackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 
 
-    ar & boost::serialization::base_object<WorldElement>(*this);
+    ar & boost::serialization::base_object<StorageWorldElement>(*this);
     ar & m_url;
     ar & m_author;
     ar & m_type;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-#ifndef WORLDELEMENT_H
-#define WORLDELEMENT_H
+#ifndef STORAGEWORLDELEMENT_H
+#define STORAGEWORLDELEMENT_H
 
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
-#include "boost/uuid/uuid.hpp"
+#include "xpcf/core/uuid.h"
 #include "core/Log.h"
 
 
@@ -34,31 +34,31 @@ namespace datastructure {
     * @class WorldElement
     * @brief <B>This abstract class defines the generic world element datastructure.</B>
     */
-class SOLARFRAMEWORK_API WorldElement
+class SOLARFRAMEWORK_API StorageWorldElement
 {
 public :
     ///
     /// @brief WorldElement default constructor
     ///
-    WorldElement() = default;
+    StorageWorldElement() = default;
 
     ///
     /// @brief WorldElement constructor
     ///
-    WorldElement(std::multimap<std::string, std::string>);
+    StorageWorldElement(std::multimap<std::string, std::string>);
 
 
     ///
     /// @brief WorldElement default destructor
     ///
-    virtual ~WorldElement() = default;
+    virtual ~StorageWorldElement() = default;
 
     /// @brief Returns the id of the WorldElement object
     /// @return the id of the WorldElement object
-    boost::uuids::uuid getID() const;
+    org::bcom::xpcf::uuids::uuid getID() const;
 
     /// @brief Sets the id of the WorldElement object
-    void setID(const boost::uuids::uuid & id);
+    void setID(const org::bcom::xpcf::uuids::uuid & id);
 
     /// @brief Returns the list of tags associated with the element
     /// @return the list of tags associated with the element
@@ -82,15 +82,15 @@ public :
 
     protected:
 
-        boost::uuids::uuid m_id;
+        org::bcom::xpcf::uuids::uuid m_id;
         std::multimap<std::string, std::string> m_tags;
 
 
 };
 
-DECLARESERIALIZE(WorldElement);
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(WorldElement);
+DECLARESERIALIZE(StorageWorldElement);
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(StorageWorldElement);
 
 }
 }
-#endif // WORLDELEMENT_H
+#endif // STORAGEWORLDELEMENT_H

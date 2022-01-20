@@ -1,5 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
     $$PWD/interfaces/datastructure/StorageWorldAnchor.h \
+    $$PWD/interfaces/datastructure/StorageWorldElement.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -121,7 +122,6 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
-interfaces/datastructure/WorldElement.h \
 interfaces/datastructure/StorageTrackable.h \
 interfaces/base/features/ADescriptorMatcher.h \
 interfaces/base/features/ADescriptorMatcherGeometric.h \
@@ -132,6 +132,7 @@ interfaces/base/geom/AReprojectionStereo.h
 
 SOURCES += src/core/Log.cpp \
     $$PWD/src/datastructure/StorageWorldAnchor.cpp \
+    $$PWD/src/datastructure/StorageWorldElement.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \
@@ -154,7 +155,6 @@ src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
 src/datastructure/StorageTrackable.cpp \
-src/datastructure/WorldElement.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \

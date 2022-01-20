@@ -19,7 +19,7 @@
 
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
-#include <datastructure/WorldElement.h>
+#include <datastructure/StorageWorldElement.h>
 
 #include "core/Log.h"
 
@@ -32,7 +32,7 @@ namespace datastructure {
     * @class StorageWorldAnchor
     * @brief <B>This class defines the generic WorldAnchor datastructure.</B>
     */
-class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public WorldElement {
+class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement {
     public:
         ///
         /// @brief WorldAnchor default constructor

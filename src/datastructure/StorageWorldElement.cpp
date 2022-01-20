@@ -14,51 +14,48 @@
  * limitations under the License.
  */
 
-#include "datastructure/WorldElement.h"
+#include "datastructure/StorageWorldElement.h"
 
 #include "core/Log.h"
 
 #include "xpcf/core/helpers.h"
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 
 namespace SolAR {
 namespace datastructure {
 
-WorldElement::WorldElement(std::multimap<std::string, std::string> tags){
-    m_id = boost::uuids::random_generator()();
+StorageWorldElement::StorageWorldElement(std::multimap<std::string, std::string> tags){
+    m_id = org::bcom::xpcf::uuids::random_generator()();
     m_tags = tags;
-    LOG_DEBUG("WorldElement constructor with id = ", boost::uuids::to_string(m_id));
+    LOG_DEBUG("WorldElement constructor with id = ", org::bcom::xpcf::uuids::to_string(m_id));
 }
 
-boost::uuids::uuid WorldElement::getID() const {
+org::bcom::xpcf::uuids::uuid StorageWorldElement::getID() const {
     return m_id;
 }
 
-void WorldElement::setID(const boost::uuids::uuid & id) {
+void StorageWorldElement::setID(const org::bcom::xpcf::uuids::uuid & id) {
     m_id = id;
 }
 
-std::multimap<std::string, std::string> WorldElement::getTags() const {
+std::multimap<std::string, std::string> StorageWorldElement::getTags() const {
     return m_tags;
 }
 
-void WorldElement::setTags(std::multimap<std::string, std::string> tags) {
+void StorageWorldElement::setTags(std::multimap<std::string, std::string> tags) {
     this->m_tags = tags;
 }
 
-void WorldElement::addTag(std::string dataType, std::string value){
+void StorageWorldElement::addTag(std::string dataType, std::string value){
     m_tags.insert({dataType, value});
 }
 
 template<typename Archive>
-void WorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void StorageWorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
     ar & m_id;
     ar & m_tags;
 }
 
-IMPLEMENTSERIALIZE(WorldElement);
+IMPLEMENTSERIALIZE(StorageWorldElement);
 
 }
 }
