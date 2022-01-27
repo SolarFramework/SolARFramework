@@ -35,7 +35,7 @@ namespace storage {
  * This storage component can be accessed by processing components to share persistent data.
  */
 
-class [[xpcf::clientUUID("e25a8ca5-a9f5-4e38-8648-726ffbd6cbf3")]] [[xpcf::serverUUID("e41e71f3-08e4-4599-8cbc-a3021d1096f5")]] ICovisibilityGraphManager :
+class XPCF_IGNORE ICovisibilityGraphManager :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ICovisibilityGraphManager default constructor
