@@ -1,1 +1,1 @@
-opencv|4.5.2|opencv|conan-solar@conan|conan-solar|default|dnn=False#world=True
+opencv|4.5.2|opencv|conan-solar@conan|conan-solar#https://artifact.b-com.com/api/conan/solar-conan-local#0|default|dnn=False#world=True

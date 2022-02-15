@@ -37,7 +37,7 @@ namespace storage {
  * This storage component can be accessed by processing components to share persistent data.
  */
 
-class [[xpcf::clientUUID("e031a343-a38d-4712-8cae-3b3b90b897d4")]] [[xpcf::serverUUID("3c2ddd1a-8e68-4b01-ae63-ec33666be9d1")]] IPointCloudManager :
+class XPCF_IGNORE IPointCloudManager :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPointCloudStorage default constructor
