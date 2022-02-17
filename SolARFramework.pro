@@ -124,6 +124,8 @@ header_base_features.path = $${PROJECTDEPLOYDIR}/interfaces/base/features/
 header_base_features.files += $$files($${PWD}/interfaces/base/features/*.h*)
 header_base_geom.path = $${PROJECTDEPLOYDIR}/interfaces/base/geom/
 header_base_geom.files += $$files($${PWD}/interfaces/base/geom/*.h*)
+header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
+header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -150,6 +152,7 @@ INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_slam
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
+INSTALLS += header_interfaces_segm
 
 OTHER_FILES += \
     packagedependencies.txt \
