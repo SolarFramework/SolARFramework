@@ -91,8 +91,9 @@ public:
 	/// @param[in] node_id id of the node to get neighbors
 	/// @param[in] minWeight min value between this node and a neighbor to accept
 	/// @param[out] neighbors a vector of neighbors sorted to greater weighted edge.
+	/// @param[in] maxNbNeighbors the maximum number of neighbors. If it is zero, find all neighbors.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t> & neighbors) const = 0;
+    virtual FrameworkReturnCode getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t> & neighbors, const uint32_t maxNbNeighbors = 0) const = 0;
 
 	/// @brief This method allow to get minimal spanning tree of the graph
 	/// @param[out] edges_weights: the minimal spanning tree graph including edges with weights

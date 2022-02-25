@@ -48,6 +48,10 @@ public:
     /// @param[in] camParams  Camera parameters.
     virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
 
+    /// @brief check the mapping process is idle
+    /// @return true if the mapping process is idle, else false
+    virtual bool idle() = 0;
+
 	/// @brief this method is used to process mapping task.
 	/// @param[in] frame: the input frame.
     /// @param[out] keyframe: new keyframe or new reference keyframe found.
