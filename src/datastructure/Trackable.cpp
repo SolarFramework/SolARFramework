@@ -27,6 +27,9 @@ Trackable::Trackable(const std::string & url) : m_url(url) {
     LOG_DEBUG("Trackable constructor with url = {}", url);
 }
 
+Trackable::~Trackable()
+{}
+
 std::string Trackable::getURL() const {
     return m_url;
 }
