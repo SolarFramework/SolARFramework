@@ -40,8 +40,7 @@ Trackable2D::Trackable2D(const std::string & url,
 }
 
 // destructor
-Trackable2D::~Trackable2D()
-{}
+Trackable2D::~Trackable2D() = default;
 
 // Class methods
 
