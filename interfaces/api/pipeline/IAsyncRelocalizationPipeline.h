@@ -65,13 +65,27 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
+    /// @brief Specify if the Mapping Service should be requested, to process relocalization and mapping
+    /// @param[in] processMapping: 'true' to process mapping, 'false' otherwise
+    /// @return FrameworkReturnCode::_SUCCESS if the mapping process state is correctly set, else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode setMapping(const bool processMapping) {
+        m_doMappingProcess = processMapping;
+        return FrameworkReturnCode::_SUCCESS;
+    };
+
+    /// @brief Indicate if the Mapping Service should be requested
+    /// @return 'true' if the Mapping Service should be requested, 'false' otherwise
+    bool getMapping() const {
+        return m_doMappingProcess;
+    };
+
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
     /// @param[in] image: the image to process
     /// @param[in] pose: the original pose in the client coordinates system
     /// @param[in] timestamp: the timestamp of the image
     /// @param[out] transform3DStatus: the status of the current 3D transformation matrix
-    /// @param[out] transform3D : the current 3D transformation matrix (if available)
+    /// @param[out] transform3D: the current 3D transformation matrix (if available)
     /// @param[out] confidence: the confidence score of the 3D transformation matrix
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
@@ -89,6 +103,10 @@ public:
     virtual FrameworkReturnCode get3DTransformRequest(TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) const = 0;
+
+private:
+    /// @brief Indicate if the Mapping Service should be requested ('true' by default)
+    bool m_doMappingProcess = true;
 };
 }
 }
