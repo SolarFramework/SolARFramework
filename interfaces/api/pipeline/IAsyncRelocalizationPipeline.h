@@ -73,16 +73,6 @@ public:
     /// @brief IAsyncRelocalizationPipeline default destructor
     virtual ~IAsyncRelocalizationPipeline() = default;
 
-    /// @brief Set the camera parameters
-    /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
-    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
-
-    /// @brief Get the camera parameters
-    /// @param[out] cameraParams: the camera parameters (its resolution and its focal)
-    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
-
     /// @brief Specify the mode for the pipeline processing
     /// @param[in] pipelineMode: mode to use for pipeline processing
     /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
@@ -93,6 +83,16 @@ public:
     PipelineMode getProcessingMode() const {
         return m_PipelineMode;
     };
+
+    /// @brief Set the camera parameters
+    /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
+    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
+
+    /// @brief Get the camera parameters
+    /// @param[out] cameraParams: the camera parameters (its resolution and its focal)
+    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
@@ -110,7 +110,8 @@ public:
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence) = 0;
 
-    /// @brief Request the asynchronous relocalization pipeline to get the 3D transform to the SolAR coordinates system
+    /// @brief Request the asynchronous relocalization pipeline to get the 3D transform offset
+    /// between the device coordinate system and the SolAR coordinate system
     /// @param[out] transform3DStatus: the status of the current 3D transformation matrix
     /// @param[out] transform3D : the current 3D transformation matrix (if available)
     /// @param[out] confidence: the confidence score of the 3D transformation matrix
@@ -128,7 +129,7 @@ public:
     virtual FrameworkReturnCode getLastPose(SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
-private:
+protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
     PipelineMode m_PipelineMode = RELOCALIZATION_AND_MAPPING;
 };
