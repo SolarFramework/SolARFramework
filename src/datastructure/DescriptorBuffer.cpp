@@ -160,7 +160,7 @@ DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
 		float *tmp_data = reinterpret_cast<float*>(m_buffer->data());
 		std::vector<uint8_t> tmp_output(m_nb_descriptors * m_nb_elements);
         for (uint32_t i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
-			tmp_output[i] = static_cast<uint8_t>(tmp_data[i]);
+            tmp_output[i] = static_cast<uint8_t>(tmp_data[i] + 0.5);
 		}
 		output.swap(tmp_output);
 	}
