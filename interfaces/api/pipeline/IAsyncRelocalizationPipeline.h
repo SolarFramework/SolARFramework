@@ -28,15 +28,33 @@ namespace SolAR {
 namespace api {
 namespace pipeline {
 
-/**
-* @typedef TransformStatus
-* @brief <B>Indicate the status of the 3D transformation matrix</B>
-*/
+///
+/// @typedef TransformStatus
+/// @brief <B>Indicate the status of the 3D transformation matrix</B>
+///
 typedef enum {
     NO_3DTRANSFORM = 0,       // No 3D transform available
     PREVIOUS_3DTRANSFORM = 1, // 3D transform previously given by the relocalization service
     NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
 } TransformStatus;
+
+///
+/// @typedef PipelineMode
+/// @brief <B>Modes available for the pipeline processing</B>
+///
+typedef enum {
+    RELOCALIZATION_AND_MAPPING = 0,  // Relocalization and mapping
+    RELOCALIZATION_ONLY = 1          // Only relocalization
+} PipelineMode;
+
+///
+/// @typedef PoseType
+/// @brief <B>Type of pose according to a specific coordinate system</B>
+///
+typedef enum {
+    SOLAR_POSE = 0,  // Pose in the SolAR coordinate system
+    DEVICE_POSE = 1  // Pose in the device coordinate system
+} PoseType;
 
 /**
  * @class IAsyncRelocalizationPipeline
@@ -65,18 +83,15 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
-    /// @brief Specify if the Mapping Service should be requested, to process relocalization and mapping
-    /// @param[in] processMapping: 'true' to process mapping, 'false' otherwise
-    /// @return FrameworkReturnCode::_SUCCESS if the mapping process state is correctly set, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode setMapping(const bool processMapping) {
-        m_doMappingProcess = processMapping;
-        return FrameworkReturnCode::_SUCCESS;
-    };
+    /// @brief Specify the mode for the pipeline processing
+    /// @param[in] pipelineMode: mode to use for pipeline processing
+    /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode initProcessingMode(const PipelineMode pipelineMode) = 0;
 
-    /// @brief Indicate if the Mapping Service should be requested
-    /// @return 'true' if the Mapping Service should be requested, 'false' otherwise
-    bool getMapping() const {
-        return m_doMappingProcess;
+    /// @brief Return the current mode used for the pipeline processing
+    /// @return current mode
+    PipelineMode getProcessingMode() const {
+        return m_PipelineMode;
     };
 
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
@@ -104,9 +119,18 @@ public:
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) const = 0;
 
+    /// @brief Return the last pose processed by the pipeline
+    /// @param[out] pose: the last pose if available
+    /// @param[in] poseType: the type of the requested pose
+    ///            - in the SolAR coordinate system (by default)
+    ///            - in the device coordinate system
+    /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getLastPose(SolAR::datastructure::Transform3Df & pose,
+                                            const PoseType poseType = SOLAR_POSE) const = 0;
+
 private:
-    /// @brief Indicate if the Mapping Service should be requested ('true' by default)
-    bool m_doMappingProcess = true;
+    /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
+    PipelineMode m_PipelineMode = RELOCALIZATION_AND_MAPPING;
 };
 }
 }
