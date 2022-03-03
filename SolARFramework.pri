@@ -92,6 +92,7 @@ interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
+interfaces/core/Timer.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
