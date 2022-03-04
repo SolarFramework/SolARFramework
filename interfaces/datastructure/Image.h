@@ -251,11 +251,14 @@ protected:
     template<typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 */
+#ifndef SWIG
     template<class Archive>
     void save(Archive & ar, const unsigned int version) const;
     template<class Archive>
     void load(Archive & ar, const unsigned int version) ;
+
     BOOST_SERIALIZATION_SPLIT_MEMBER()
+#endif
 
 private:
     SRef<ImageInternal> m_internalImpl;
