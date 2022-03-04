@@ -73,16 +73,16 @@ public:
     /// @brief IAsyncRelocalizationPipeline default destructor
     virtual ~IAsyncRelocalizationPipeline() = default;
 
-    /// @brief Specify the mode for the pipeline processing
+    /// @brief Init the pipeline and specify the mode for the pipeline processing
     /// @param[in] pipelineMode: mode to use for pipeline processing
     /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode initProcessingMode(const PipelineMode pipelineMode) = 0;
+    virtual FrameworkReturnCode init(PipelineMode pipelineMode) = 0;
 
     /// @brief Return the current mode used for the pipeline processing
     /// @return current mode
     PipelineMode getProcessingMode() const {
         return m_PipelineMode;
-    };
+    }
 
     /// @brief Set the camera parameters
     /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
