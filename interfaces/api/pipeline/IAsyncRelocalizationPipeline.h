@@ -73,6 +73,8 @@ public:
     /// @brief IAsyncRelocalizationPipeline default destructor
     virtual ~IAsyncRelocalizationPipeline() = default;
 
+    using IPipeline::init;
+
     /// @brief Init the pipeline and specify the mode for the pipeline processing
     /// @param[in] pipelineMode: mode to use for pipeline processing
     /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
