@@ -15,6 +15,7 @@
  */
 
 #include "datastructure/Image.h"
+#include "core/Log.h"
 #include <vector>
 #include <map>
 
@@ -25,6 +26,9 @@
 
 //#include "opencv2/imgcodecs.hpp"
 #include <opencv2/opencv.hpp>
+
+#include <OpenImageIO/filesystem.h>
+#include <OpenImageIO/imageio.h>
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
@@ -114,6 +118,7 @@ static std::map<Image::DataType,uint32_t> typeSizeMapInfos = {{Image::DataType::
                                                                       {Image::DataType::TYPE_16U,16},
                                                                       {Image::DataType::TYPE_32U,32},
                                                                       {Image::DataType::TYPE_64U,64}};
+
 //Add stride notion
 // Hypothese : pas de bits per component : only full format image YUV444, RGB888, RGB 555 but not YUV420, RGB565 and so on or YUV422 with splatting
 
@@ -230,6 +235,23 @@ static std::map<int,std::pair<Image::ImageLayout,Image::DataType>> cv2solarTypeC
     {CV_16UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_16U}}
 };
 
+/*static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataType::TYPE_8U, OIIO::TypeDesc::UINT8},
+                                                                  {Image::DataType::TYPE_16U, OIIO::TypeDesc::INT16},
+                                                                  {Image::DataType::TYPE_32U, OIIO::TypeDesc::FLOAT},
+                                                                  {Image::DataType::TYPE_64U, OIIO::TypeDesc::DOUBLE}};
+
+static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
+                                                                                 {{"G","R","B"}, Image::ImageLayout::LAYOUT_GRB},
+                                                                                 {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
+                                                                                 {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
+                                                                                 {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
+static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
+                                                                                 {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
+                                                                                 {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
+*/
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int version) const
 {
@@ -294,15 +316,59 @@ void Image::load(Archive & ar, const unsigned int version)
         // JPEG or PNG decoding
         std::vector<uchar> decodingBuffer;
         ar & decodingBuffer;
-//        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
+
+        OIIO::Filesystem::IOMemReader memreader (decodingBuffer.data(), decodingBuffer.size());
+
+        std::string filename;
+        switch (m_imageEncoding)
+        {
+            case ENCODING_JPEG:
+                filename="in.jpeg";
+                break;
+            case ENCODING_PNG:
+                filename = "in.png";
+                break;
+        }
+
+        auto in = OIIO::ImageInput::open (filename, nullptr, &memreader);
+/*        const OIIO::ImageSpec & spec = in->spec();
+        m_size.width = spec.width;
+        m_size.height = spec.height;
+        m_nbChannels = spec.nchannels;
+
+        OIIO::imagesize_t buffersize = spec.image_bytes(true);
+        unsigned char* pixels = new unsigned char [buffersize];
+//        in->read_image(OIIO::TypeDesc::UNKOWN, pixels);
+
+        switch (spec.nchannels)
+        {
+            case 1:
+                m_layout = Image::LAYOUT_GREY;
+                m_nbChannels = 1;
+                break;
+            case 3:
+            case 4:
+                //m_layout = OIIO2SolARLayout[spec.channelnames];
+                m_nbChannels = (unsigned int)spec.nchannels;
+                break;
+            //default:
+                //LOG_ERROR("Try to decode a image with {} channels. Only 1, 3 or 4 channels are supported", spec.nchannels);
+
+        }
+
+
+/*
+        //        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
         cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
 //        std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
 
 //        cv::imshow("Image after decoding", imageDecode);
 //        cv::waitKey(0);
+*/
 
-        m_internalImpl = utils::make_shared<Image::ImageInternal>();
-        m_internalImpl->setData(imageDecode.ptr(), imageDecode.total() * imageDecode.elemSize());
+//        m_internalImpl = utils::make_shared<Image::ImageInternal>();
+//        m_internalImpl->setData(pixels, spec.image_bytes(true));
+//        in->close();
     }
     else {
         ar & m_internalImpl;

@@ -1,1 +1,1 @@
-opencv|4.5.2|opencv|conan-solar@conan|conan-solar#https://artifact.b-com.com/api/conan/solar-conan-local#0|default|with_gtk=True#gtk_version=system#with_ffmpeg=True
+opencv|4.5.3|opencv|conan-solar@conan|conan-solar#https://artifact.b-com.com/api/conan/solar-conan-local#0|default|
