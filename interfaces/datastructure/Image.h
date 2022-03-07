@@ -235,7 +235,7 @@ private:
     uint32_t m_nbBitsPerComponent;
 
     enum ImageEncoding m_imageEncoding = ENCODING_NONE;
-    uint8_t m_imageEncodingQuality = 0;
+    int m_imageEncodingQuality = -1;
 };
 
 

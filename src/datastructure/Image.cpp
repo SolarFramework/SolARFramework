@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/Image.h"
-#include "core/Log.h"
+//#include "core/Log.h"
 #include <vector>
 #include <map>
 
@@ -24,11 +24,11 @@
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
 
-//#include "opencv2/imgcodecs.hpp"
-#include <opencv2/opencv.hpp>
-
-#include <OpenImageIO/filesystem.h>
+#include <core/Log.h>
 #include <OpenImageIO/imageio.h>
+#include <OpenImageIO/filesystem.h>
+
+using namespace OIIO;
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
@@ -221,37 +221,34 @@ void Image::setImageEncodingQuality(uint8_t encodingQuality)
     }
 }
 
-static std::map<std::tuple<uint32_t,std::size_t,uint32_t>,int> solar2cvTypeConvertMap =
-{
-    {std::make_tuple(8,1,3),CV_8UC3},
-    {std::make_tuple(8,1,1),CV_8UC1},
-    {std::make_tuple(16,1,1),CV_16UC1}
-};
+static std::map<Image::DataType,TypeDesc> SolAR2OIIOType = {{Image::DataType::TYPE_8U, TypeDesc::UINT8},
+                                                                  {Image::DataType::TYPE_16U, TypeDesc::INT16},
+                                                                  {Image::DataType::TYPE_32U, TypeDesc::FLOAT},
+                                                                  {Image::DataType::TYPE_64U, TypeDesc::DOUBLE}};
 
-static std::map<int,std::pair<Image::ImageLayout,Image::DataType>> cv2solarTypeConvertMap =
-{
-    {CV_8UC3,{Image::ImageLayout::LAYOUT_BGR,Image::DataType::TYPE_8U}},
-    {CV_8UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_8U}},
-    {CV_16UC1,{Image::ImageLayout::LAYOUT_GREY,Image::DataType::TYPE_16U}}
-};
-
-/*static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataType::TYPE_8U, OIIO::TypeDesc::UINT8},
-                                                                  {Image::DataType::TYPE_16U, OIIO::TypeDesc::INT16},
-                                                                  {Image::DataType::TYPE_32U, OIIO::TypeDesc::FLOAT},
-                                                                  {Image::DataType::TYPE_64U, OIIO::TypeDesc::DOUBLE}};
+static std::map<TypeDesc,Image::DataType> OIIO2SolAR2Type = {{TypeDesc::UINT8, Image::DataType::TYPE_8U},
+                                                             {TypeDesc::INT8, Image::DataType::TYPE_8U},
+                                                             {TypeDesc::UINT16, Image::DataType::TYPE_16U},
+                                                             {TypeDesc::INT16, Image::DataType::TYPE_16U},
+                                                             {TypeDesc::UINT32, Image::DataType::TYPE_32U},
+                                                             {TypeDesc::INT32, Image::DataType::TYPE_32U},
+                                                             {TypeDesc::UINT64, Image::DataType::TYPE_64U},
+                                                             {TypeDesc::INT64, Image::DataType::TYPE_64U},
+                                                             {TypeDesc::FLOAT, Image::DataType::TYPE_32U},
+                                                             {TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
 
 static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GRB},
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
                                                                                  {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
-static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
-                                                                                 {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
-                                                                                 {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
-                                                                                 {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
-                                                                                 {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
-                                                                                 {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
-*/
+static std::map<Image::ImageLayout,std::initializer_list<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
+                                                                                           {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
+                                                                                           {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
+                                                                                           {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
+                                                                                           {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
+                                                                                           {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
+
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int version) const
 {
@@ -268,31 +265,41 @@ void Image::save(Archive & ar, const unsigned int version) const
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
         // JPEG or PNG encoding
         uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
-//        std::cout << "===> Original image size = " << image_size << std::endl;
-        cv::Mat imgCV(m_size.height, m_size.width,
-                      solar2cvTypeConvertMap.at(std::forward_as_tuple(m_nbBitsPerComponent,1,m_nbChannels)),
-                      m_internalImpl->data());
 
-//        cv::imshow("Image before encoding", imgCV);
-//        cv::waitKey(0);
+        // ImageSpec describing the image we want to write.
+        ImageSpec spec (m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType[m_type]);
 
-        std::vector<uchar> encodingBuffer;
+        spec.channelnames.assign(SolAR2OIIOLayout[m_layout]);
+
+        std::vector<unsigned char> file_buffer;  // bytes will go here
+        Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object
         std::vector<int> param(2);
 
-        if (m_imageEncoding == ENCODING_JPEG) {
-            param[0] = cv::IMWRITE_JPEG_QUALITY;
-            param[1] = m_imageEncodingQuality;
-            cv::imencode(".jpg", imgCV, encodingBuffer, param);
-        }
-        else {
-            param[0] = cv::IMWRITE_PNG_COMPRESSION;
-            param[1] = m_imageEncodingQuality;
-            cv::imencode(".png", imgCV, encodingBuffer, param);
+        std::string filename;
+        switch (m_imageEncoding)
+        {
+            case ENCODING_JPEG:
+                filename="out.jpeg";
+                spec.decode_compression_metadata("jpeg", m_imageEncodingQuality);
+                break;
+            case ENCODING_PNG:
+                filename = "out.png";
+                spec.decode_compression_metadata("png", m_imageEncodingQuality);
+                break;
+            default:
+                filename = "out.jpeg";
         }
 
-        ar & encodingBuffer;
+        auto out = ImageOutput::create ("filename", &encodingBuffer);
+        out->open ("filename", spec);
+        out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data());
 
-//        std::cout << "===> Encoded image size = " << encodingBuffer.size() << std::endl;
+        ar & file_buffer;
+
+        LOG_DEBUG("===> Original image size = {}", image_size);
+        LOG_DEBUG("===> Encoded image size = {}", file_buffer.size());
+
+        out->close ();
     }
     else {
         ar & m_internalImpl;
@@ -314,10 +321,10 @@ void Image::load(Archive & ar, const unsigned int version)
 
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
         // JPEG or PNG decoding
-        std::vector<uchar> decodingBuffer;
+        std::vector<unsigned char> decodingBuffer;
         ar & decodingBuffer;
 
-        OIIO::Filesystem::IOMemReader memreader (decodingBuffer.data(), decodingBuffer.size());
+        Filesystem::IOMemReader memreader(decodingBuffer.data(), decodingBuffer.size());
 
         std::string filename;
         switch (m_imageEncoding)
@@ -328,17 +335,20 @@ void Image::load(Archive & ar, const unsigned int version)
             case ENCODING_PNG:
                 filename = "in.png";
                 break;
+            default:
+                filename="in.jpeg";
+                break;
         }
 
-        auto in = OIIO::ImageInput::open (filename, nullptr, &memreader);
-/*        const OIIO::ImageSpec & spec = in->spec();
+        auto in = ImageInput::open (filename, nullptr, &memreader);
+        const ImageSpec & spec = in->spec();
         m_size.width = spec.width;
         m_size.height = spec.height;
         m_nbChannels = spec.nchannels;
 
-        OIIO::imagesize_t buffersize = spec.image_bytes(true);
+        imagesize_t buffersize = spec.image_bytes(true);
         unsigned char* pixels = new unsigned char [buffersize];
-//        in->read_image(OIIO::TypeDesc::UNKOWN, pixels);
+        in->read_image(TypeDesc::UNKNOWN, pixels);
 
         switch (spec.nchannels)
         {
@@ -348,27 +358,22 @@ void Image::load(Archive & ar, const unsigned int version)
                 break;
             case 3:
             case 4:
-                //m_layout = OIIO2SolARLayout[spec.channelnames];
+                if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
+                    m_layout = OIIO2SolARLayout[spec.channelnames];
+                LOG_ERROR("Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported");
                 m_nbChannels = (unsigned int)spec.nchannels;
                 break;
-            //default:
-                //LOG_ERROR("Try to decode a image with {} channels. Only 1, 3 or 4 channels are supported", spec.nchannels);
+            default:
+                LOG_ERROR("Try to decode an image with {} channels. Only 1, 3 or 4 channels are supported", spec.nchannels);
 
         }
 
+        LOG_DEBUG("===> Encoded image size = {}", decodingBuffer.size());
+        LOG_DEBUG("===> Decoded image size = {}", buffersize);
 
-/*
-        //        std::cout << "===> Encoded image size = " << decodingBuffer.size() << std::endl;
-        cv::Mat imageDecode = cv::imdecode(decodingBuffer, 1);
-//        std::cout << "===> Decoded image size = " << imageDecode.total() * imageDecode.elemSize() << std::endl;
-
-//        cv::imshow("Image after decoding", imageDecode);
-//        cv::waitKey(0);
-*/
-
-//        m_internalImpl = utils::make_shared<Image::ImageInternal>();
-//        m_internalImpl->setData(pixels, spec.image_bytes(true));
-//        in->close();
+        m_internalImpl = utils::make_shared<Image::ImageInternal>();
+        m_internalImpl->setData(pixels, spec.image_bytes(true));
+        in->close();
     }
     else {
         ar & m_internalImpl;
