@@ -48,7 +48,7 @@ FrameworkReturnCode KeyframeCollection::getKeyframe(const uint32_t id, SRef<Keyf
 		return FrameworkReturnCode::_SUCCESS;
 	}
 	else {
-		LOG_ERROR("Cannot find keyframe with id {} to get", id);
+		LOG_DEBUG("Cannot find keyframe with id {} to get", id);
 		return FrameworkReturnCode::_ERROR_;
 	}
 }
@@ -58,7 +58,7 @@ FrameworkReturnCode KeyframeCollection::getKeyframes(const std::vector<uint32_t>
 	for (auto &it : ids) {
 		std::map< uint32_t, SRef<Keyframe>>::const_iterator keyframeIt = m_keyframes.find(it);
 		if (keyframeIt == m_keyframes.end()) {
-			LOG_ERROR("Cannot find keyframe with id {} to get", it);
+			LOG_DEBUG("Cannot find keyframe with id {} to get", it);
 			return FrameworkReturnCode::_ERROR_;
 		}
 		keyframes.push_back(keyframeIt->second);
@@ -81,7 +81,7 @@ FrameworkReturnCode KeyframeCollection::suppressKeyframe(const uint32_t id)
 		return FrameworkReturnCode::_SUCCESS;
 	}
 	else {
-		LOG_ERROR("Cannot find keyframe with id {} to suppress", id);
+		LOG_DEBUG("Cannot find keyframe with id {} to suppress", id);
 		return FrameworkReturnCode::_ERROR_;
 	}
 }
