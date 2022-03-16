@@ -1,5 +1,4 @@
 #include "core/Log.h"
-
 using namespace SolAR;
 
 std::shared_ptr<spdlog::logger>&  Log::logger(){
