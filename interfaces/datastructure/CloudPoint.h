@@ -28,6 +28,7 @@
 #include "datastructure/PrimitiveInformation.h"
 #include <core/SerializationDefinitions.h>
 
+#include <Eigen/Dense>
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -266,6 +267,9 @@ public:
 	/// @return true if remove successfully
 	bool removeVisibility(const uint32_t& keyframe_id);
 
+
+    //void updateSemanticVector(const SRef<Keyframe> &keyframe);
+
 private:
 	friend class boost::serialization::access;
     template <typename Archive>
@@ -279,6 +283,12 @@ private:
     Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
 	bool									m_isFeatureCP;
+
+    Eigen::VectorXd                         m_probabilityVector;
+    int                                                  m_class;
+
+
+
 };
 
 DECLARESERIALIZE(CloudPoint);

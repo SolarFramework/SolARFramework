@@ -17,6 +17,7 @@
 #define POINTCLOUD_H
 
 #include "core/SolARFrameworkDefinitions.h"
+#include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/CloudPoint.h"
 #include "datastructure/Lockable.h"
@@ -49,6 +50,12 @@ public:
 	/// @brief ~PointCloud
 	///
 	~PointCloud() = default;
+
+
+
+
+
+
 
 	/// @brief This method allow to add a 3D point to the point cloud
 	/// @param[in] point the 3D point to add to the persistent point cloud
@@ -123,6 +130,7 @@ private:
     std::map<uint32_t, SRef<SolAR::datastructure::CloudPoint>>	m_pointCloud;
     SolAR::datastructure::DescriptorType                        m_descriptorType;
     uint32_t                                                    m_id;
+
 };
 
 DECLARESERIALIZE(PointCloud);

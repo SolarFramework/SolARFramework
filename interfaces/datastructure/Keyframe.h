@@ -22,6 +22,7 @@
 #include "Frame.h"
 #include <map>
 #include <core/SerializationDefinitions.h>
+#include <Eigen/Dense>
 
 namespace SolAR {
 namespace datastructure {
@@ -36,25 +37,25 @@ class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
 public:
     Keyframe() = default;
 
-    Keyframe(SRef<Frame> frame) : Frame(frame), m_id(0) {};
+    Keyframe(SRef<Frame> frame) : Frame(frame), m_id(0), m_probamap(NULL),m_timestamp(0) {};
 
 	explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  SRef<DescriptorBuffer> descriptors,
 					  SRef<Image> view,
-					  Transform3Df pose = Transform3Df::Identity()) : Frame(keypoints, descriptors, view, pose), m_id(0) {};
+                      Transform3Df pose = Transform3Df::Identity()) : Frame(keypoints, descriptors, view, pose), m_id(0), m_probamap(NULL),m_timestamp(0) {};
 
     explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  const std::vector<Keypoint> & undistortedKeypoints,
                       SRef<DescriptorBuffer> descriptors,
                       SRef<Image> view,
                       SRef<Keyframe> refKeyframe,
-                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, refKeyframe, pose), m_id(0){};
+                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, refKeyframe, pose), m_id(0), m_probamap(NULL),m_timestamp(0){};
 
 	explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  const std::vector<Keypoint> & undistortedKeypoints,
 					  SRef<DescriptorBuffer> descriptors,
 					  SRef<Image> view,
-					  Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, pose), m_id(0){};
+                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, pose), m_id(0), m_probamap(NULL),m_timestamp(0){};
 
     ~Keyframe() = default;	
 
@@ -68,14 +69,21 @@ public:
 	/// @param[in] id_keyframe: keyframe id
 	///
 	void setId(const uint32_t& id_keyframe);
+    void setTimestamp(const double t);
+    double getTimestamp();
+    void readProbamap();
 
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
 
+
 private:
     uint32_t	m_id;
+    double m_timestamp;
+	Eigen::MatrixXd * m_probamap;
+
 };
 
 DECLARESERIALIZE(Keyframe);
