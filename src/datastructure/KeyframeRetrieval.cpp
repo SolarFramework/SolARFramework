@@ -23,16 +23,16 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-FrameworkReturnCode KeyframeRetrieval::addDescriptor(uint32_t id, const fbow::fBow & fbowDesc, const fbow::fBow2 & fbow2Desc)
+FrameworkReturnCode KeyframeRetrieval::addDescriptor(uint32_t id, const SolAR::datastructure::BoWFeature& bowDesc, const SolAR::datastructure::BoWLevelFeature& bowLevelDesc)
 {
-	if (m_list_KFBoW.find(id) != m_list_KFBoW.end())
+    if (m_listBoWFeature.find(id) != m_listBoWFeature.end())
 		return FrameworkReturnCode::_ERROR_;
 	// Add bow desc to the database
-	m_list_KFBoW[id] = fbowDesc;
-	m_list_KFBoW2[id] = fbow2Desc;
+    m_listBoWFeature[id] = bowDesc;
+    m_listBoWLevelFeature[id] = bowLevelDesc;
 
 	// Add inverted index to the database
-	for (auto const &it : fbow2Desc)
+    for (auto const &it : bowLevelDesc)
 		m_invertedIndexKfs[it.first].insert(id);
 
 	return FrameworkReturnCode::_SUCCESS;
@@ -40,37 +40,37 @@ FrameworkReturnCode KeyframeRetrieval::addDescriptor(uint32_t id, const fbow::fB
 
 FrameworkReturnCode KeyframeRetrieval::removeDescriptor(uint32_t id)
 {
-	auto it_KFBoW2 = m_list_KFBoW2.find(id);
-	if (it_KFBoW2 == m_list_KFBoW2.end())
+    auto it_BoWLevelFeature = m_listBoWLevelFeature.find(id);
+    if (it_BoWLevelFeature == m_listBoWLevelFeature.end())
 		return FrameworkReturnCode::_ERROR_;
 
 	// remove inverted index
-	const fbow::fBow2 &v_bow2 = it_KFBoW2->second;
-	for (auto const &it : v_bow2)
+    const BoWLevelFeature &v_bowLevelFeature = it_BoWLevelFeature->second;
+    for (auto const &it : v_bowLevelFeature)
 		m_invertedIndexKfs[it.first].erase(id);
 
 	// remove keyframe descriptors
-	m_list_KFBoW.erase(id);
-	m_list_KFBoW2.erase(id);
+    m_listBoWFeature.erase(id);
+    m_listBoWLevelFeature.erase(id);
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode KeyframeRetrieval::getFBow(uint32_t id, fbow::fBow & fbowDesc)
+FrameworkReturnCode KeyframeRetrieval::getBoWFeature(uint32_t id, SolAR::datastructure::BoWFeature& bowDesc)
 {
-	auto it_KFBoW = m_list_KFBoW.find(id);
-	if (it_KFBoW != m_list_KFBoW.end()) {
-		fbowDesc = it_KFBoW->second;
+    auto it_BoWFeature = m_listBoWFeature.find(id);
+    if (it_BoWFeature != m_listBoWFeature.end()) {
+        bowDesc = it_BoWFeature->second;
 		return FrameworkReturnCode::_SUCCESS;
 	}
 	else
 		return FrameworkReturnCode::_ERROR_;
 }
 
-FrameworkReturnCode KeyframeRetrieval::getFBow2(uint32_t id, fbow::fBow2 & fbow2Desc)
+FrameworkReturnCode KeyframeRetrieval::getBoWLevelFeature(uint32_t id, SolAR::datastructure::BoWLevelFeature& bowLevelDesc)
 {
-	auto it_KFBoW2 = m_list_KFBoW2.find(id);
-	if (it_KFBoW2 != m_list_KFBoW2.end()) {
-		fbow2Desc = it_KFBoW2->second;
+    auto it_BoWLevelFeature = m_listBoWLevelFeature.find(id);
+    if (it_BoWLevelFeature != m_listBoWLevelFeature.end()) {
+        bowLevelDesc = it_BoWLevelFeature->second;
 		return FrameworkReturnCode::_SUCCESS;
 	}
 	else
@@ -91,8 +91,8 @@ FrameworkReturnCode KeyframeRetrieval::getInvertedIndex(uint32_t nodeId, std::se
 template <typename Archive>
 void KeyframeRetrieval::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {
-	ar & m_list_KFBoW;
-	ar & m_list_KFBoW2;
+    ar & m_listBoWFeature;
+    ar & m_listBoWLevelFeature;
 	ar & m_invertedIndexKfs;
 }
 

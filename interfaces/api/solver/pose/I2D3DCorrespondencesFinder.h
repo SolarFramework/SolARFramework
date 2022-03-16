@@ -37,7 +37,8 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
  */
-class  I2D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("5752dde3-a6b6-4828-83d9-914c9fe1954c")]] [[xpcf::serverUUID("c459012f-0923-400c-9340-b91b1525a7bb")]] I2D3DCorrespondencesFinder :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2D3DCorrespondencesFinder default constructor.
     I2D3DCorrespondencesFinder() = default;
@@ -55,14 +56,14 @@ public:
     /// @param[out] found_matches: The matches between the current frame and its reference keyframe which have a 3 correspondant.
     /// @param[out] remaining_matches: The matches between the current frame and its reference keyframe for which no 3D points have been found.
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode find(	const SRef<datastructure::Frame> lastFrame,
-                                        const SRef<datastructure::Frame> currentFrame,
-                                        const std::vector<datastructure::DescriptorMatch> & current_matches,
-                                        std::vector<datastructure::Point3Df> & shared_3dpoint,
-                                        std::vector<datastructure::Point2Df> & shared_2dpoint,
-                                        std::vector<std::pair<uint32_t, SRef<datastructure::CloudPoint>>> & corres2D3D,
-                                        std::vector<datastructure::DescriptorMatch> & found_matches,
-                                        std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
+    virtual FrameworkReturnCode find(	const SRef<SolAR::datastructure::Frame> lastFrame,
+                                        const SRef<SolAR::datastructure::Frame> currentFrame,
+                                        const std::vector<SolAR::datastructure::DescriptorMatch> & current_matches,
+                                        std::vector<SolAR::datastructure::Point3Df> & shared_3dpoint,
+                                        std::vector<SolAR::datastructure::Point2Df> & shared_2dpoint,
+                                        std::vector<std::pair<uint32_t, SRef<SolAR::datastructure::CloudPoint>>> & corres2D3D,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & found_matches,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & remaining_matches) = 0;
 
 };
 }

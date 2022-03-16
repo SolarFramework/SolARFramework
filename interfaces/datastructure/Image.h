@@ -22,8 +22,37 @@
 #include "GeometryDefinitions.h"
 #include <memory>
 #include <core/SerializationDefinitions.h>
+
 namespace SolAR {
 namespace datastructure {
+
+/**
+* @class ImageInternal
+* @brief <B>A 2D image buffer.</B>.
+*
+*/
+class SOLARFRAMEWORK_API ImageInternal {
+public:
+	ImageInternal() = default;
+	explicit ImageInternal(uint32_t size);
+	explicit ImageInternal(void* data, uint32_t size);
+	~ImageInternal() = default;
+	void setBufferSize(uint32_t size);
+	inline uint32_t getBufferSize() { return m_bufferSize; }
+	void setData(void * data, uint32_t size);
+	inline void* data() { return m_storageData.data(); }
+	inline const void* data() const { return m_storageData.data(); }
+
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
+
+private:
+	std::vector<uint8_t> m_storageData;
+	uint32_t m_bufferSize = 0;
+};
+DECLARESERIALIZE(ImageInternal);
 
 //Add stride notion
 // Hypothese : pas de bits per component : only full format image YUV444, RGB888, RGB 555 but not YUV420, RGB565 and so on or YUV422 with splatting
@@ -69,7 +98,14 @@ public:
         PER_CHANNEL /**< means data buffer holds separately each image channel. For instance for an RGBA layout image, pixels are stored gathered by layer : RRRR....GGGG....BBBB....AAAA.... */
     };
 
-	Image() = default;
+    // Encoding types available for image serialization
+    enum ImageEncoding {
+        ENCODING_NONE=0,
+        ENCODING_JPEG,
+        ENCODING_PNG
+    };
+
+    Image() = default;
 
     /** @brief Image
      *  @param pixLayout: defined by ImageLayout
@@ -178,13 +214,53 @@ public:
 
     inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
 
-private:
-	friend class boost::serialization::access;
-	template<typename Archive>
-	void serialize(Archive &ar, const unsigned int version);
+    /** @brief  set encoding for the image
+     */
+    void setImageEncoding(enum ImageEncoding encoding);
+
+    /** @brief  returns encoding of the image
+     */
+    inline enum ImageEncoding getImageEncoding() const { return m_imageEncoding; }
+
+    /** @brief  set encoding quality for the image
+     *  JPEG: 0 To 100
+     *  PNG: 0 to 9
+     */
+    void setImageEncodingQuality(uint8_t encodingQuality);
+
+    /** @brief  returns encoding quality of the image
+     */
+    inline uint8_t getImageEncodingQuality() const { return m_imageEncodingQuality; }
+
+	/// @brief Get pixel value.
+	/// @param[in] row row index.
+	/// @param[in] col column index.
+	/// @return the pixel value
+	template<typename T> T& getPixel(int row, int col);
+
+	/// @brief Get pixel value.
+	/// @param[in] row row index.
+	/// @param[in] col column index.
+	/// @return the pixel value
+	template<typename T> const T& getPixel(int row, int col) const;
 
 private:
-    class ImageInternal;
+    friend class boost::serialization::access;
+protected:
+/*
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
+*/
+#ifndef SWIG
+    template<class Archive>
+    void save(Archive & ar, const unsigned int version) const;
+    template<class Archive>
+    void load(Archive & ar, const unsigned int version) ;
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+#endif
+
+private:
     SRef<ImageInternal> m_internalImpl;
 
     uint32_t computeImageBufferSize();
@@ -195,9 +271,26 @@ private:
     uint32_t m_nbChannels;
     uint32_t m_nbPlanes;
     uint32_t m_nbBitsPerComponent;
-};
 
+    enum ImageEncoding m_imageEncoding = ENCODING_NONE;
+    uint8_t m_imageEncodingQuality = 0;
+};
 DECLARESERIALIZE(Image);
+
+template<typename T>
+inline T & Image::getPixel(int row, int col)
+{
+	assert((sizeof(T) == m_nbChannels * (m_nbBitsPerComponent / 8)) && "type not allowed to get pixel value");
+	return ((T*)((uint8_t*)m_internalImpl->data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
+}
+
+template<typename T>
+inline const T & Image::getPixel(int row, int col) const
+{
+	assert((sizeof(T) == m_nbChannels * (m_nbBitsPerComponent / 8)) && "type not allowed to get pixel value");
+	return ((const T*)((uint8_t*)m_internalImpl->data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
+}
+
 //image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
 // conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }

@@ -27,13 +27,15 @@ namespace api {
 namespace pointCloud {
 
 /**
- * @class IPCFilterCentroid
- * @brief filters a point cloud according a given 3D point
- *
- * This class provides a filtering method to prune a point cloud according to a given 3D point.
- */
+  * @class IPCFilterCentroid
+  * @brief <B>Filters a point cloud according a given 3D point</B>
+  * <TT>UUID: b293048a-1b04-4598-b2e5-7f485402acc0</TT>
+  *
+  * This class provides a filtering method to prune a point cloud according to a given 3D point.
+  */
 
-class  IPCFilterCentroid : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("1c9544b4-5b79-44fa-a9fe-82d1d94a00c8")]] [[xpcf::serverUUID("97aad71f-ce23-4015-bded-2c31f1aeb312")]] IPCFilterCentroid :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IPCFilterCentroid default constructor
    IPCFilterCentroid() = default;
@@ -45,9 +47,9 @@ public:
    /// @param[in] inPointCloud: The point cloud to filter
    /// @param[in] centroid: The 3D point of reference used to filter the point cloud.
    /// @param[out] outPointCloud: The resulting point cloud after filtering
-   virtual FrameworkReturnCode filter(const SRef<datastructure::PointCloud> inPointCloud,
-                                      const SRef<datastructure::Point3Df> centroid,
-                                      SRef<datastructure::PointCloud>& outPointCloud) const = 0;
+   virtual FrameworkReturnCode filter(const SRef<SolAR::datastructure::PointCloud> inPointCloud,
+                                      const SRef<SolAR::datastructure::Point3Df> centroid,
+                                      SRef<SolAR::datastructure::PointCloud>& outPointCloud) const = 0;
 
 };
 }

@@ -30,7 +30,8 @@ namespace pose {
  * @class I3DTransformFinderFrom3D3D
  * @brief Finds the 3D transform of a depth sensor from a point cloud captured by this sensor and a point cloud representing a geometric knowledge of the real world.
  */
-class I3DTransformFinderFrom3D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("894e87bc-c3a1-4728-844f-a8c565d06522")]] [[xpcf::serverUUID("51f343ee-9231-4a7a-af03-fe90e857d676")]] I3DTransformFinderFrom3D3D :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformFinderFrom3D3D default constructor.
     I3DTransformFinderFrom3D3D() = default;
@@ -44,10 +45,10 @@ public:
     /// @param[out] pose depth camera pose (pose of the depth camera defined in world coordinate system) expressed as a Transform3D.
     /// @param[in] initialPose (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode estimate(const SRef<datastructure::PointCloud> sourcePointCloud,
-                                         const SRef<datastructure::PointCloud> targetPointCloud,
-                                         datastructure::Transform3Df& pose,
-                                         const datastructure::Transform3Df& initialPose = datastructure::Transform3Df::Identity()) =0;
+    virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::PointCloud> sourcePointCloud,
+                                         const SRef<SolAR::datastructure::PointCloud> targetPointCloud,
+                                         SolAR::datastructure::Transform3Df& pose,
+                                         const SolAR::datastructure::Transform3Df& initialPose = SolAR::datastructure::Transform3Df::Identity()) =0;
 
 };
 

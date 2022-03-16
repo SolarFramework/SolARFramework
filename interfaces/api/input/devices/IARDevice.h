@@ -19,7 +19,8 @@ namespace devices {
   *
   * This class describes the interface for retrieving data from a AR device that provides.
   */
-class IARDevice : virtual public IDevice {
+class [[xpcf::clientUUID("33dd6e3b-3fb5-449f-b90b-9fd97c59227c")]] [[xpcf::serverUUID("98ce0f5b-a279-4eae-95a9-798bf8c54a33")]] IARDevice :
+    virtual public IDevice {
 public:
     /// @brief Specify the IARDevice constructor class
 	IARDevice() = default;
@@ -27,28 +28,18 @@ public:
     /// @brief Specify the IARDevice destructor class
     virtual ~IARDevice() = default;
 
-	/// @brief Get number of cameras of the device.
-	/// @return the number of cameras.
-	virtual int getNbCameras() = 0;
-
 	/// @brief Retrieve a set of images and their associated poses from the sensors as well as timestamp.
-	/// @param[out] images: the captured images.
-	/// @param[out] poses: the associated poses.
-	/// @param[out] timestamp: the timestamp.
-	/// @return FrameworkReturnCode to track successful or failing event.
-    virtual FrameworkReturnCode getData(std::vector<SRef<datastructure::Image>> & images,
-                                        std::vector<datastructure::Transform3Df> & poses,
+    /// @param[out] images the captured images.
+    /// @param[out] poses the associated poses.
+    /// @param[out] timestamp the timestamp.
+	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getData(std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                        std::vector<SolAR::datastructure::Transform3Df> & poses,
                                         std::chrono::system_clock::time_point &timestamp) = 0;
 
-	/// @brief Get the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
-	/// @return the camera parameters
-    virtual const datastructure::CameraParameters & getParameters(const int & camera_id) const = 0;
-
-	/// @brief Set the distortion and intrinsic camera parameters
-	/// @param[in] camera_id: The id of the camera.
-	/// @param[in] parameters: the camera parameters.
-	virtual void setParameters(const int & camera_id, const datastructure::CameraParameters & parameters) = 0;
+	/// @brief Get parameters of a camera rig
+	/// @return the camera rig parameters
+    virtual const SolAR::datastructure::CameraRigParameters & getCameraParameters() const = 0;
 };
 
 }

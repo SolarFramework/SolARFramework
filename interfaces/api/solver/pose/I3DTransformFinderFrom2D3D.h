@@ -34,7 +34,8 @@ namespace pose {
  * @brief <B>Finds the 3D transform of 2D-3D points correspondences.</B>
  * <TT>UUID: 77281cda-47c2-4bb7-bde6-5b0d02e75dae</TT>
  */
-class I3DTransformFinderFrom2D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("201fb9e7-9452-42e2-a587-9e9b3e49c889")]] [[xpcf::serverUUID("cf5a7828-f6e1-482a-bb0c-b8e44ac9a22d")]] I3DTransformFinderFrom2D3D :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformFinderFrom2D3D default constructor.
     I3DTransformFinderFrom2D3D() = default;
@@ -45,7 +46,7 @@ public:
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams camera calibration matrix parameters.
     /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
     /// @param[in] imagePoints set of 2d_points seen in view_1.
@@ -53,10 +54,10 @@ public:
     /// @param[out] pose camera pose (pose of the camera defined in world corrdinate system) expressed as a Transform3D.
     /// @param[in] initialPose (Optional) a transform3D to initialize the pose (reducing the convergence time and improving its success).
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode estimate(const std::vector<datastructure::Point2Df> & imagePoints,
-                                         const std::vector<datastructure::Point3Df> & worldPoints,
-                                         datastructure::Transform3Df & pose,
-                                         const datastructure::Transform3Df initialPose = datastructure::Transform3Df::Identity()) =0;
+    virtual FrameworkReturnCode estimate(const std::vector<SolAR::datastructure::Point2Df> & imagePoints,
+                                         const std::vector<SolAR::datastructure::Point3Df> & worldPoints,
+                                         SolAR::datastructure::Transform3Df & pose,
+                                         const SolAR::datastructure::Transform3Df initialPose = SolAR::datastructure::Transform3Df::Identity()) =0;
 };
 
 }

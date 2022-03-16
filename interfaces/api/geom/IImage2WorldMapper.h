@@ -32,7 +32,8 @@ namespace geom {
  * <TT>UUID: 67bcd080-258d-4b16-b693-cd30c013eb05</TT>
  */
 
-class IImage2WorldMapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("79e05ea9-ff48-45fd-aa04-bad8441bf8b0")]] [[xpcf::serverUUID("2dcd37ad-0c08-4793-b249-b0dd56b5bf12")]] IImage2WorldMapper :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IImage2WorldMapper default constructor
     IImage2WorldMapper() = default;
@@ -44,7 +45,7 @@ public:
     /// @param[in] digitalPoints the 2D points we want to map in 3D world coordinate system.
     /// @param[out] worldPoints the resulting 3D poitns after 3D mapping
     /// @return FrameworkReturnCode::_SUCCESS_ if mapping succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode map(const std::vector<datastructure::Point2Df> & digitalPoints, std::vector<datastructure::Point3Df> & worldPoints) = 0;
+    virtual FrameworkReturnCode map(const std::vector<SolAR::datastructure::Point2Df> & digitalPoints, std::vector<SolAR::datastructure::Point3Df> & worldPoints) = 0;
 };
 
 }

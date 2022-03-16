@@ -35,7 +35,8 @@ namespace geom {
  * <TT>UUID: 9c1052b2-46c0-467b-8363-36f19b6b445f</TT>
  */
 
-class I3DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("600dd260-12ff-4fa3-877a-0db9d490e20e")]] [[xpcf::serverUUID("a8c4d66c-b112-49a2-9eae-d9e1fd0e34b5")]] I3DTransform :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DTransform default constructor
     I3DTransform() = default;
@@ -48,30 +49,44 @@ public:
     /// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
     /// @param[out] outputPoints the resulting set of 3D points after 3D transformation
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode transform(const std::vector<datastructure::Point3Df> & inputPoints,
-                                          const datastructure::Transform3Df & transformation,
-                                          std::vector<datastructure::Point3Df> & outputPoints) = 0;
+    virtual FrameworkReturnCode transform(const std::vector<SolAR::datastructure::Point3Df> & inputPoints,
+                                          const SolAR::datastructure::Transform3Df & transformation,
+                                          std::vector<SolAR::datastructure::Point3Df> & outputPoints) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a map including point cloud and keyframes	
 	/// @param[in] transformation: transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[in,out] map: the map to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transformInPlace(const datastructure::Transform3Df & transformation,
-                                          SRef<datastructure::Map> map) = 0;
+	virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation,
+                                          SRef<SolAR::datastructure::Map> map) = 0;
+
+    /// @brief This method applies a transformation (4x4 float matrix) to a point cloud
+    /// @param[in] transformation: transformation the 3D transformation to apply (a 4x4 float matrix)
+    /// @param[in,out] pointCloud: the point cloud to apply the transformation
+    /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation,
+                                          std::vector<SRef<SolAR::datastructure::CloudPoint>>& pointCloud) = 0;
+
+    /// @brief This method applies a transformation (4x4 float matrix) to a set of keyframes
+    /// @param[in] transformation: transformation the 3D transformation to apply (a 4x4 float matrix)
+    /// @param[in,out] keyframes: the set of keyframes to apply the transformation
+    /// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation,
+                                          std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a point cloud
 	/// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[in,out] pointCloud the point cloud to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transformInPlace(const datastructure::Transform3Df & transformation, 
-										SRef<datastructure::PointCloud> pointCloud) = 0;
+	virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation, 
+										SRef<SolAR::datastructure::PointCloud> pointCloud) = 0;
 
 	/// @brief This method applies a transformation (4x4 float matrix) to a keyframe collection
 	/// @param[in] transformation the 3D transformation to apply (a 4x4 float matrix)
 	/// @param[in,out] keyframeCollection the keyframe collection to apply the transformation
 	/// @return FrameworkReturnCode::_SUCCESS_ if 3D transformation succeed, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode transformInPlace(const datastructure::Transform3Df & transformation,
-										SRef<datastructure::KeyframeCollection> keyframeCollection) = 0;
+    virtual FrameworkReturnCode transformInPlace(const SolAR::datastructure::Transform3Df & transformation,
+                                        SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection) = 0;
 };
 
 }

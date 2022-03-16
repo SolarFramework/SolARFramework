@@ -36,7 +36,7 @@ namespace map {
 * <TT>UUID: eb9b9921-b063-42a8-8282-9ed53ee21d96</TT>
 */
 
-class  IMapFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IMapFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapFusion default constructor
 	IMapFusion() = default;
@@ -51,9 +51,9 @@ public:
 	/// @param[out] nbMatches the number of matched cloud points.
     /// @param[out] error the error of fusion process that is the mean of error distances of the matched cloud points.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode merge(SRef<datastructure::Map> map,
-                                    SRef<datastructure::Map> globalMap,
-									datastructure::Transform3Df &transform, 
+    virtual FrameworkReturnCode merge(SRef<SolAR::datastructure::Map> map,
+                                    SRef<SolAR::datastructure::Map> globalMap,
+									SolAR::datastructure::Transform3Df &transform, 
 									uint32_t &nbMatches, 
 									float &error) = 0;
 
@@ -64,9 +64,9 @@ public:
 	/// @param[in] cpOverlapIndices pairs of detected overlap cloud points indices of floating map and global map.
 	/// @param[in] isRefineTransform refine the 3D transformation if it's true.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode merge(SRef<datastructure::Map> map,
-                                    SRef<datastructure::Map> globalMap,
-									datastructure::Transform3Df &transform, 
+    virtual FrameworkReturnCode merge(SRef<SolAR::datastructure::Map> map,
+                                    SRef<SolAR::datastructure::Map> globalMap,
+									SolAR::datastructure::Transform3Df &transform, 
 									const std::vector<std::pair<uint32_t, uint32_t>>&cpOverlapIndices,
                                     bool isRefineTransform = false) = 0;
 };

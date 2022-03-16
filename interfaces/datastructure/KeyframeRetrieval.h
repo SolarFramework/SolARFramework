@@ -2,18 +2,32 @@
 #define KEYFRAMERETRIEVAL_H
 
 #include "core/SolARFrameworkDefinitions.h"
+#include <core/SerializationDefinitions.h>
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Lockable.h"
 #include "core/Messages.h"
 #include "xpcf/core/refs.h"
 #include <map>
-#include "fbow.h"
 
 // Definition of KeyframeRetrieval Class //
 // part of SolAR namespace //
 
 namespace SolAR {
 namespace datastructure {
+
+/**
+ * @typedef BoW
+ * @brief <B>Bag of words feature.</B>
+ *
+ */
+typedef std::map<uint32_t, float> BoWFeature;
+
+/**
+ * @typedef BoWLevelFeature
+ * @brief <B>Bag of words with augmented information.</B>
+ *  For each word, keeps information about the indices of the elements that have been classified into the word it is computed at the desired level.
+ */
+typedef std::map<uint32_t, std::vector<uint32_t>> BoWLevelFeature;
 
 /**
 * @class KeyframeRetrieval
@@ -37,27 +51,27 @@ public:
 
 	/// @brief This method allow to add a keyframe descriptor to keyframe retrieval 
 	/// @param[in] id the id of the keyframe
-	/// @param[in] fbowDesc fbow descriptor
-	/// @param[in] fbow2Desc fbow2 descriptor
+    /// @param[in] bowDesc fbow descriptor
+    /// @param[in] bowLevelDesc fbow2 descriptor
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode addDescriptor(uint32_t id, const fbow::fBow& fbowDesc, const fbow::fBow2& fbow2Desc);
+    FrameworkReturnCode addDescriptor(uint32_t id, const SolAR::datastructure::BoWFeature& bowDesc, const SolAR::datastructure::BoWLevelFeature& bowLevelDesc);
 
 	/// @brief This method allow to remove a keyframe descriptor in keyframe retrieval 
 	/// @param[in] id the id of the keyframe
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	FrameworkReturnCode removeDescriptor(uint32_t id);
 
-	/// @brief This method allow to get fbow descirptor
+    /// @brief This method allow to get bow descirptor
 	/// @param[in] id the id of the keyframe
-	/// @param[out] fbowDesc fbow descriptor
+    /// @param[out] bowDesc bow descriptor
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode getFBow(uint32_t id, fbow::fBow& fbowDesc);
+    FrameworkReturnCode getBoWFeature(uint32_t id, SolAR::datastructure::BoWFeature& bowDesc);
 
-	/// @brief This method allow to get fbow2 descirptor
+    /// @brief This method allow to get bow descirptor at the desired level
 	/// @param[in] id the id of the keyframe
-	/// @param[out] fbow2Desc fbow2 descriptor
+    /// @param[out] bowLevelDesc bow level descriptor
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode getFBow2(uint32_t id, fbow::fBow2& fbow2Desc);
+    FrameworkReturnCode getBoWLevelFeature(uint32_t id, SolAR::datastructure::BoWLevelFeature& bowLevelDesc);
 
 	/// @brief This method allow to get inverted index at each node
 	/// @param[in] nodeId the id of node
@@ -70,9 +84,9 @@ private:
 	template <typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
 	
-	std::map<uint32_t, fbow::fBow> m_list_KFBoW;				// A map BoW descriptor of keyframes		
-	std::map<uint32_t, fbow::fBow2> m_list_KFBoW2;				// A map BoW2 descriptor of keyframes which save index of feature at nodes of the expected level	
-	std::map<uint32_t, std::set<uint32_t>> m_invertedIndexKfs;	// For each node at level m_level stores a set of frames that contain it
+    std::map<uint32_t, SolAR::datastructure::BoWFeature> m_listBoWFeature;				// A map BoW descriptor of keyframes
+    std::map<uint32_t, SolAR::datastructure::BoWLevelFeature> m_listBoWLevelFeature;    // A map BoW2 descriptor of keyframes which save index of feature at nodes of the expected level
+    std::map<uint32_t, std::set<uint32_t>> m_invertedIndexKfs;                          // For each node at level m_level stores a set of frames that contain it
 };
 
 DECLARESERIALIZE(KeyframeRetrieval);

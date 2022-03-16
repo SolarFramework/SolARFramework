@@ -32,15 +32,16 @@ namespace files {
  * <TT>UUID: 8e54d5d0-f7a3-4d62-b012-728e5704b46a</TT>
  *
  */
-class ITrackableLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("7f62f9da-c21c-44fe-aebe-fedca94f6be6")]] [[xpcf::serverUUID("9361175d-d517-4a54-ac49-e41610b6d64f")]] ITrackableLoader :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ITrackableLoader() = default;
     virtual ~ITrackableLoader() = default;
 
     /// @brief Loads a specific trackable object and its features.
-    /// @return SRef<datastructure::Trackable> the trackable object created from the description file
-    /// or 0 if an error occurs
-    virtual SRef<datastructure::Trackable> loadTrackable() = 0;
+    /// @param [in,out] trackable: the loaded trackable loaded
+    /// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode loadTrackable(SRef<SolAR::datastructure::Trackable>& trackable) = 0;
 
 };
 

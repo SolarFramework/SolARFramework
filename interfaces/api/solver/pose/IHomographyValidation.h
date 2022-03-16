@@ -32,7 +32,8 @@ namespace pose {
   * @brief <B>Tests if a homography is valid.</B>
   * <TT>UUID: e95e8f70-dd32-11e7-9296-cec278b6b50a</TT>
   */
-class  IHomographyValidation : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("55221e5e-67cc-487c-a277-1d56e3637e42")]] [[xpcf::serverUUID("ca9cda6e-6cf1-495d-a51d-da1286f4f3d3")]] IHomographyValidation :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IHomographyValidation default constructor
     IHomographyValidation() = default;
@@ -44,8 +45,8 @@ public:
     /// @param[in] ref2DSquaredMarkerCorners set of 2d_points of the corners in the template view.
     /// @param[in] projected2DSquaredMarkerCorners set of 2d_points of the corners projected in the current view.
     /// @return true if succeed, else false
-    virtual bool isValid(const std::vector<datastructure::Point2Df> & ref2DSquaredMarkerCorners,
-                         const std::vector<datastructure::Point2Df> & projected2DSquaredMarkerCorners) = 0;
+    virtual bool isValid(const std::vector<SolAR::datastructure::Point2Df> & ref2DSquaredMarkerCorners,
+                         const std::vector<SolAR::datastructure::Point2Df> & projected2DSquaredMarkerCorners) = 0;
 };
 
 }

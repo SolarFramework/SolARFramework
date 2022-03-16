@@ -34,7 +34,8 @@ namespace reloc {
  * This class provides a solution to get the pose given a frame.
  */
 
-class IRelocalizer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("fcbc25a8-d706-4a80-9d18-820bebbe45d6")]] [[xpcf::serverUUID("cc39b0cc-9236-46b2-8188-937992010c9f")]] IRelocalizer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.
     IRelocalizer() = default;
@@ -45,14 +46,14 @@ public:
     /// @brief Add a keyframe containing a pose and its keypoints and descriptors to the relocalizer
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
 
     /// @brief Get the pose of the camera corresponding to the frame.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] pose: the pose of the camera corresponding to the frame
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalize(const SRef<datastructure::Frame> frame, datastructure::Transform3Df & pose) = 0;
+    virtual FrameworkReturnCode relocalize(const SRef<SolAR::datastructure::Frame> frame, SolAR::datastructure::Transform3Df & pose) = 0;
 };
 
 }

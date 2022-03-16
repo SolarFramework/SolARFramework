@@ -31,11 +31,14 @@ namespace storage {
 
 /**
  * @class IPointCloudManager
- * @brief Allows to store a point cloud. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store a point cloud.</B>
  * <TT>UUID: 264d4406-b726-4ce9-a430-35d8b5e70331</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
-class IPointCloudManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IPointCloudManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPointCloudStorage default constructor
 	IPointCloudManager() = default;
@@ -46,39 +49,39 @@ public:
     /// @brief This method allow to add a 3D point to the point cloud
     /// @param[in] point the 3D point to add to the persistent point cloud
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addPoint(const SRef<datastructure::CloudPoint> point) = 0;
+    virtual FrameworkReturnCode addPoint(const SRef<SolAR::datastructure::CloudPoint> point) = 0;
 
 	/// @brief This method allow to add a vector of 3D points to the point cloud
 	/// @param[in] points a vector of the 3D points to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addPoints(const std::vector<SRef<datastructure::CloudPoint>> & points) = 0;
+    virtual FrameworkReturnCode addPoints(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points) = 0;
 
 	/// @brief This method allow to add a 3D point to the point cloud
 	/// @param[in] point the 3D point to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addPoint(const datastructure::CloudPoint & point) = 0;
+    virtual FrameworkReturnCode addPoint(const SolAR::datastructure::CloudPoint & point) = 0;
 
 	/// @brief This method allow to add a vector of 3D points to the point cloud
 	/// @param[in] points a vector of the 3D points to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addPoints(const std::vector<datastructure::CloudPoint> & points) = 0;
+    virtual FrameworkReturnCode addPoints(const std::vector<SolAR::datastructure::CloudPoint> & points) = 0;
 
 	/// @brief This method allows to get a 3D point stored in the point cloud by its id
 	/// @param[in] id id of the point to get
 	/// @param[out] point a 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getPoint(const uint32_t id, SRef<datastructure::CloudPoint>& point) const = 0;
+    virtual FrameworkReturnCode getPoint(const uint32_t id, SRef<SolAR::datastructure::CloudPoint>& point) const = 0;
 
 	/// @brief This method allows to get a set of 3D points stored in the point cloud by their ids
 	/// @param[in] ids a vector of ids of the points to get
 	/// @param[out] points a vector of 3D points stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getPoints(const std::vector<uint32_t> & ids, std::vector<SRef<datastructure::CloudPoint>> & points) const = 0;
+    virtual FrameworkReturnCode getPoints(const std::vector<uint32_t> & ids, std::vector<SRef<SolAR::datastructure::CloudPoint>> & points) const = 0;
 
 	/// @brief This method allows to get all 3D points stored in the point cloud
 	/// @param[out] points the set of 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getAllPoints(std::vector<SRef<datastructure::CloudPoint>> & points) const = 0;
+    virtual FrameworkReturnCode getAllPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>> & points) const = 0;
 
     /// @brief This method allow to suppress a point stored in the point cloud by its id
     /// @param[in] id of the point to suppress
@@ -92,12 +95,12 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each cloud point
 	/// @return Descriptor type
-    virtual datastructure::DescriptorType getDescriptorType() const = 0;
+    virtual SolAR::datastructure::DescriptorType getDescriptorType() const = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each cloud point
 	/// @param[in] type Descriptor type
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode setDescriptorType(const datastructure::DescriptorType & type) = 0;
+    virtual FrameworkReturnCode setDescriptorType(const SolAR::datastructure::DescriptorType & type) = 0;
 
     /// @brief This method allows to know if a point is already stored in the component
 	/// @param[in] id id of this point
@@ -120,16 +123,16 @@ public:
 
 	/// @brief This method returns the point cloud
 	/// @return the point cloud
-	virtual const SRef<datastructure::PointCloud> & getConstPointCloud() const = 0;
+    virtual const SRef<SolAR::datastructure::PointCloud> & getConstPointCloud() const = 0;
 
 	/// @brief This method returns the point cloud
 	/// @param[out] pointCloud the point cloud
 	/// @return the point cloud
-	virtual std::unique_lock<std::mutex> getPointCloud(SRef<datastructure::PointCloud>& pointCloud) = 0;
+    virtual std::unique_lock<std::mutex> getPointCloud(SRef<SolAR::datastructure::PointCloud>& pointCloud) = 0;
 
 	/// @brief This method is to set the point cloud
 	/// @param[in] pointCloud the point cloud
-	virtual void setPointCloud(const SRef<datastructure::PointCloud> pointCloud) = 0;
+    virtual void setPointCloud(const SRef<SolAR::datastructure::PointCloud> pointCloud) = 0;
 };
 
 }

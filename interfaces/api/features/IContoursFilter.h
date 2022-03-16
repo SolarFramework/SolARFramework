@@ -34,7 +34,8 @@ namespace features {
  * This class provides a filtering method to prune a set of contours.
  */
 
-class  IContoursFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("a8cad1a4-be07-43df-90f3-4bf7d7481528")]] [[xpcf::serverUUID("571317b1-4fe5-44cc-bf86-4c4c079150c3")]] IContoursFilter :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IContoursFilter default constructor
    IContoursFilter() = default;
@@ -45,7 +46,7 @@ public:
    /// @brief Filter a set of contours
    /// @param[in] inContours The contours to filter
    /// @param[out] outContours The resulting vector of contours after filtering
-   virtual FrameworkReturnCode filter(const std::vector<datastructure::Contour2Df> & inContours, std::vector<datastructure::Contour2Df> & outContours) = 0;
+   virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::Contour2Df> & inContours, std::vector<SolAR::datastructure::Contour2Df> & outContours) = 0;
 
 };
 }

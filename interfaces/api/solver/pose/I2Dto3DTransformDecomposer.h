@@ -33,24 +33,25 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe. *
  */
-class  I2Dto3DTransformDecomposer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("861a828d-bdda-424b-a00b-3a6a7ef48f8e")]] [[xpcf::serverUUID("eded8db8-d32b-49bc-8b72-db936a63ec9f")]] I2Dto3DTransformDecomposer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2Dto3DTransformDecomposer default constructor.
     I2Dto3DTransformDecomposer() = default;
 
-    /// @brief IFundamentalMatrixDecomposer default destructor.
+    /// @brief I2Dto3DTransformDecomposer default destructor.
     virtual ~I2Dto3DTransformDecomposer() = default;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.
     /// @param[in] Camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief decompose a transform 2d to a transform 3d (4  possible poses {R1,t1},{R1,t2}, {R2,t1}, {R2,t2}).
     /// @param[in] Transform 2D (fundamental matrxi, homgraphy..).
     /// @param[out] Set (04 possibles cases) of the decomposed camera poses in the world coordinate system expressed as Transform3D.
     /// @return true if succeed, else false
-    virtual bool decompose(const datastructure::Transform2Df & F, std::vector<datastructure::Transform3Df> & decomposedPoses)= 0;
+    virtual bool decompose(const SolAR::datastructure::Transform2Df & F, std::vector<SolAR::datastructure::Transform3Df> & decomposedPoses)= 0;
 };
 }
 }

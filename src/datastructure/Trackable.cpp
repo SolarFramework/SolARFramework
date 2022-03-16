@@ -35,8 +35,17 @@ void Trackable::setURL(const std::string & url) {
     m_url = url;
 }
 
+datastructure::Transform3Df Trackable::getTransform3D() const{
+    return m_transform3D;
+}
+
+void Trackable::setTransform3D(const datastructure::Transform3Df & transform3D){
+    m_transform3D = transform3D;
+}
+
 template<typename Archive>
 void Trackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+
     ar & m_url;
 }
 

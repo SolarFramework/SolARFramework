@@ -30,11 +30,14 @@ namespace storage {
 
 /**
  * @class IKeyframesManager
- * @brief Allows to store a set of keyframes. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store a set of keyframes.</B>
  * <TT>UUID: 2c147595-6c74-4f69-b63d-91e162c311ed</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
-class IKeyframesManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IKeyframesManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeyframesStorage default constructor
     IKeyframesManager() = default;
@@ -45,29 +48,29 @@ public:
     /// @brief This method allow to add a frame to the keyframe manager component
     /// @param[in] frame the frame to add to the set of persistent keyframes
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const SRef<datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
 	/// @brief This method allow to add a frame to the key frame manager component
 	/// @param[in] frame the frame to add to the set of persistent keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const datastructure::Keyframe & keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe) = 0;
 
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id id of the keyframe to get
 	/// @param[out] keyframe a keyframe stored in the keyframes manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getKeyframe(const uint32_t id, SRef<datastructure::Keyframe> & keyframe) const = 0;
+    virtual FrameworkReturnCode getKeyframe(const uint32_t id, SRef<SolAR::datastructure::Keyframe> & keyframe) const = 0;
 
 	/// @brief This method allows to get a set of keyframes by their ids
 	/// @param[in] ids a vector of ids of the keyframes to get
 	/// @param[out] keyframes a vector of keyframes stored in the keyframe manager
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getKeyframes(const std::vector<uint32_t> & ids, std::vector<SRef<datastructure::Keyframe>> & keyframes) const = 0;
+    virtual FrameworkReturnCode getKeyframes(const std::vector<uint32_t> & ids, std::vector<SRef<SolAR::datastructure::Keyframe>> & keyframes) const = 0;
 
 	/// @brief This method allows to get all keyframes
 	/// @param[out] keyframes the set of keyframes
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getAllKeyframes(std::vector<SRef<datastructure::Keyframe>> & keyframes) const = 0;
+    virtual FrameworkReturnCode getAllKeyframes(std::vector<SRef<SolAR::datastructure::Keyframe>> & keyframes) const = 0;
 
 	/// @brief This method allow to suppress a keyframe by its id
 	/// @param[in] id id of the keyframe to suppress
@@ -76,12 +79,12 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each keyframe
 	/// @return Descriptor type
-    virtual datastructure::DescriptorType getDescriptorType() const = 0;
+    virtual SolAR::datastructure::DescriptorType getDescriptorType() const = 0;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each keyframe
 	/// @param[in] type the descriptor type
 	/// @return @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode setDescriptorType(const datastructure::DescriptorType & type) = 0;
+    virtual FrameworkReturnCode setDescriptorType(const SolAR::datastructure::DescriptorType & type) = 0;
 
 	/// @brief This method allows to know if a keyframe is already stored in the component
 	/// @param[in] id id of this keyframe
@@ -104,16 +107,16 @@ public:
 
 	/// @brief This method returns the keyframe collection
 	/// @return the keyframe collection
-	virtual const SRef<datastructure::KeyframeCollection> & getConstKeyframeCollection() const = 0;
+    virtual const SRef<SolAR::datastructure::KeyframeCollection> & getConstKeyframeCollection() const = 0;
 
 	/// @brief This method returns the keyframe collection
 	/// @param[out] keyframeCollection the keyframe collection of map
 	/// @return the keyframe collection
-	virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<datastructure::KeyframeCollection>& keyframeCollection) = 0;
+    virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<SolAR::datastructure::KeyframeCollection>& keyframeCollection) = 0;
 
 	/// @brief This method is to set the keyframe collection
 	/// @param[in] keyframeCollection the keyframe collection of map
-	virtual void setKeyframeCollection(const SRef<datastructure::KeyframeCollection> keyframeCollection) = 0;
+    virtual void setKeyframeCollection(const SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection) = 0;
 };
 
 }

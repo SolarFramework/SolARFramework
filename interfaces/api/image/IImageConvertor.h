@@ -33,7 +33,8 @@ namespace image {
   * @brief <B>Converts image with a specific layout.</B>
   * <TT>UUID: 9c982719-6cb4-4831-aa88-9e01afacbd16</TT>
   */
-class  IImageConvertor : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("1977563c-c43f-4e5f-8df2-464d162889c3")]] [[xpcf::serverUUID("36458944-2986-49be-8ebf-55f2d12cc9dc")]] IImageConvertor :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	IImageConvertor() = default;
 	///
@@ -45,20 +46,20 @@ public:
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image converted
 	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convert(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst) = 0;
+	virtual FrameworkReturnCode convert(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst) = 0;
 
 	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image converted
     /// @param[in] destLayout: output image converted
 	/// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convert(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst, datastructure::Image::ImageLayout destLayout) = 0;
+	virtual FrameworkReturnCode convert(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst, SolAR::datastructure::Image::ImageLayout destLayout) = 0;
 
 	/// @brief This method converts an image source to image destination according to a look up table attribute defined in the component
     /// @param[in] imgSrc: input image to convert
     /// @param[out] imgDst: output image  with a look up table
 	/// @return FrameworkReturnCode::_SUCCESS_ id color mapping succeed, else FrameworkReturnCode::_ERROR.   
-	virtual FrameworkReturnCode convertLookUpTable(const SRef<datastructure::Image> imgSrc, SRef<datastructure::Image> & imgDst) = 0;
+	virtual FrameworkReturnCode convertLookUpTable(const SRef<SolAR::datastructure::Image> imgSrc, SRef<SolAR::datastructure::Image> & imgDst) = 0;
 
 };
 

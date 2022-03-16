@@ -26,7 +26,8 @@ namespace map {
 * <TT>UUID: 35b9bdb7-d23c-4909-984f-ae7f9a292e6c</TT>
 */
 
-class  IBundler : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("258dfecc-850e-4ec7-9b25-77c5bca8694a")]] [[xpcf::serverUUID("96d272a9-fbc8-4a77-83ad-63edd60a8065")]] IBundler :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IBundler default constructor
 	IBundler() = default;
@@ -37,7 +38,7 @@ public:
 	/// @brief set map reference to optimize
 	/// @param[in] map the input map.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the map is set, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode setMap(const SRef<datastructure::Map> map) = 0;
+    virtual FrameworkReturnCode setMap(const SRef<SolAR::datastructure::Map> map) = 0;
 
 	/// @brief solve a non-linear problem related to bundle adjustement statement expressed as:
 	/// minArg(pts3ds,intrinsics,extrinsics) = MIN_cam_i(MIN_3d_j(pts2d_j - reproje(pt3ds_j,intrinsics_i,extrinsics_i)),
@@ -45,8 +46,8 @@ public:
 	/// @param[in, out] D: camera distorsion parameters responsible of 3D points generation
     /// @param[in] selectKeyframes: selected views to bundle following a given strategies. If it is empty then take all keyframes into account to perform global bundle adjustment.
 	/// @return the mean re-projection error after optimization.
-	virtual double bundleAdjustment(datastructure::CamCalibration & K,
-									datastructure::CamDistortion & D,
+    virtual double bundleAdjustment(SolAR::datastructure::CamCalibration & K,
+                                    SolAR::datastructure::CamDistortion & D,
 									const std::vector<uint32_t> & selectKeyframes = {}) = 0;
 	
 	/// @brief solve a non-linear problem related to sim3D optimization between two overlaped keyframes of two different maps:
@@ -59,14 +60,14 @@ public:
 	/// @param[in] pts3D2: second set of 3D points.
 	/// @param[in, out] pose: Sim3 matrix pose between map1 and map2
 	/// @return the mean re-projection error.
-	virtual double optimizeSim3(datastructure::CamCalibration& K1,
-								datastructure::CamCalibration& K2,
-								const SRef<datastructure::Keyframe>& keyframe1,
-								const SRef<datastructure::Keyframe>& keyframe2,
-								const std::vector<datastructure::DescriptorMatch>& matches,
-								const std::vector<datastructure::Point3Df> & pts3D1,
-								const std::vector<datastructure::Point3Df> & pts3D2,
-								datastructure::Transform3Df & pose) = 0;
+    virtual double optimizeSim3(SolAR::datastructure::CamCalibration& K1,
+                                SolAR::datastructure::CamCalibration& K2,
+                                const SRef<SolAR::datastructure::Keyframe>& keyframe1,
+                                const SRef<SolAR::datastructure::Keyframe>& keyframe2,
+                                const std::vector<SolAR::datastructure::DescriptorMatch>& matches,
+                                const std::vector<SolAR::datastructure::Point3Df> & pts3D1,
+                                const std::vector<SolAR::datastructure::Point3Df> & pts3D2,
+                                SolAR::datastructure::Transform3Df & pose) = 0;
 };
 }
 }

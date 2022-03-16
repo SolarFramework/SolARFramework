@@ -38,7 +38,8 @@ namespace map {
 * @brief <B>Filters a map of 3D points.</B>
 * <TT>UUID: 68dc9152-5199-11ea-8d77-2e728ce88125</TT>
 */
-class  IMapFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("eae4a8bc-3780-4f62-823a-b69d2b92c87e")]] [[xpcf::serverUUID("c9be934a-fbb6-43d6-ae21-c30898a7ea6b")]] IMapFilter :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMapFilter default constructor
     IMapFilter() = default;
@@ -51,7 +52,7 @@ public:
     /// @param[in] pose2: the second pose used for building the point cloud.
     /// @param[in] input: The set of points to filter
     /// @param[out] output: the filtered point cloud
-    virtual void  filter(const datastructure::Transform3Df & pose1, const datastructure::Transform3Df & pose2, const std::vector<SRef<datastructure::CloudPoint>> & input,  std::vector<SRef<datastructure::CloudPoint>> & output) = 0;
+    virtual void  filter(const SolAR::datastructure::Transform3Df & pose1, const SolAR::datastructure::Transform3Df & pose2, const std::vector<SRef<SolAR::datastructure::CloudPoint>> & input,  std::vector<SRef<SolAR::datastructure::CloudPoint>> & output) = 0;
 
 	/// @brief  Filter point cloud reconstructed from 2 viewpoints
 	/// @param[in] pose1: the first pose used for building the point cloud.
@@ -59,7 +60,7 @@ public:
 	/// @param[in] input: The set of points to filter
 	/// @param[out] output: the filtered point cloud
 	/// @param[out] index: the index of filtered point cloud
-	virtual void  filter(const datastructure::Transform3Df & pose1, const datastructure::Transform3Df & pose2, const std::vector<SRef<datastructure::CloudPoint>>& input, std::vector<SRef<datastructure::CloudPoint>>& output, std::vector<int> &index) = 0;
+	virtual void  filter(const SolAR::datastructure::Transform3Df & pose1, const SolAR::datastructure::Transform3Df & pose2, const std::vector<SRef<SolAR::datastructure::CloudPoint>>& input, std::vector<SRef<SolAR::datastructure::CloudPoint>>& output, std::vector<int> &index) = 0;
 };
 }
 

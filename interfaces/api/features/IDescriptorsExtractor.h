@@ -46,7 +46,8 @@ namespace features {
  *
  * This class provides a method to extract descriptors from a set of keypoints
  */
-    class  IDescriptorsExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
+    class [[xpcf::clientUUID("79b1a2c4-639c-42ef-832f-130cf6131271")]] [[xpcf::serverUUID("a5bcfadd-4a12-45b3-a90f-0f1a82d51d12")]] IDescriptorsExtractor :
+        virtual public org::bcom::xpcf::IComponentIntrospect {
 	public:
         ///
         /// \brief The DescriptorsExtractorType enum
@@ -82,9 +83,9 @@ namespace features {
        /// @param[in] keypoints The set of keypoints on which the descriptors are extracted
        /// @param[out] descriptors The extracted descriptors. The nth descriptor corresponds to the nth keypoint of the second argument.
        ///
-        virtual void extract (const SRef<datastructure::Image> image,
-                              const std::vector<datastructure::Keypoint> &keypoints,
-                              SRef<datastructure::DescriptorBuffer> & descriptors) = 0;
+        virtual void extract (const SRef<SolAR::datastructure::Image> image,
+                              const std::vector<SolAR::datastructure::Keypoint> &keypoints,
+                              SRef<SolAR::datastructure::DescriptorBuffer> & descriptors) = 0;
 	};
 
 }

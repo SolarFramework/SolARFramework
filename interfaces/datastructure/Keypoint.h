@@ -115,6 +115,14 @@ public:
 	inline const float& getG() const { return m_rgb[1]; };
 	inline const float& getB() const { return m_rgb[2]; };
 
+    /// @brief This method returns the depth value of an Keypoint in the camera coordinate system
+    /// @return depth value
+    inline float getDepth() const {return m_depth;}
+
+    /// @brief This method allows to set the depth value of an Keypoint in the camera coordinate system
+    /// @param[in] depth  Depth value
+    inline void setDepth(float depth) {m_depth = depth;}
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -128,6 +136,7 @@ private:
     int             m_octave;
     int             m_class_id;
 	Vector3f		m_rgb = { 0.0, 0.0, 0.0 };
+    float           m_depth = -1.f;
 };
 
 DECLARESERIALIZE(Keypoint);

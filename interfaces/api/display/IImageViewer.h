@@ -32,7 +32,8 @@ namespace display {
  * This class provides a viewer to display an image in a window.
  */
 
-class IImageViewer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("a580d26e-331d-42d4-8bfe-f19913ba97fb")]] [[xpcf::serverUUID("b99d8c4e-10ef-4d7a-ba7c-dfa114cf1620")]] IImageViewer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;
 
@@ -40,13 +41,13 @@ public:
     /// \brief this method displays an image contained in a Image object in a window
     /// @param[in] img The image to display in the window
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const SRef<datastructure::Image> img) = 0;
+    virtual FrameworkReturnCode display(const SRef<SolAR::datastructure::Image> img) = 0;
 
     /// \brief this method displays an image contained in a Image object in a window, and get the key code if pressed
     /// @param[in] img The image to display in the window
     /// @param[out] key The pressed key ASCII code, 0 if no key is pressed
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode displayKey(const SRef<datastructure::Image> img, char& key) = 0;
+    virtual FrameworkReturnCode displayKey(const SRef<SolAR::datastructure::Image> img, char& key) = 0;
 
 };
 }

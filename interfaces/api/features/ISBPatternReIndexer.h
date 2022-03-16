@@ -32,7 +32,8 @@ namespace features {
  * @brief <B>Gives both the 4 corners of a pattern in its reference coordinate system (pixels, cells, etc.) and the 4 corners in pixels of this pattern in the current image.</B>
  * <TT>UUID: 79c5b810-d557-11e7-9296-cec278b6b50a</TT>
  */
-class  ISBPatternReIndexer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("f6633107-382c-44d1-bbee-e3223946f608")]] [[xpcf::serverUUID("2c59c1e6-c757-4147-9c97-12cd7878f88d")]] ISBPatternReIndexer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ISBPatternReIndexer default constructor
     ISBPatternReIndexer() = default;
@@ -46,10 +47,10 @@ public:
     /// @param[out] patternPoints The 4 corners of the pattern that has been recognized in the image. These corners are defined in a user-defined coordinate system (e.g.the image marker image coordinate system defined in pixels, or the pattern coordinate system defined in cells, etc.). Be sure to use the same coordinate system in the whole pipeline when you are defining 2D points referencing the pattern (For example in the first parameter of the method IImage2WorldMapper::setParameters).
     /// @param[out] imagePoints the 4 corners in the current image of the recognized pattern. These corners are defined in the image coordinate system (in pixels).
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode reindex(const std::vector<datastructure::Contour2Df> & candidateContours,
-                                        const std::vector<datastructure::DescriptorMatch> & matches,
-                                        std::vector<datastructure::Point2Df> & patternPoints,
-                                        std::vector<datastructure::Point2Df> & imagePoints) = 0;
+    virtual FrameworkReturnCode reindex(const std::vector<SolAR::datastructure::Contour2Df> & candidateContours,
+                                        const std::vector<SolAR::datastructure::DescriptorMatch> & matches,
+                                        std::vector<SolAR::datastructure::Point2Df> & patternPoints,
+                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints) = 0;
 
 };
 

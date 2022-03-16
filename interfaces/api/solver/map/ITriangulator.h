@@ -35,10 +35,11 @@ namespace map {
 
 /**
  * @class ITriangulator
- * @brief <B>Triangulates a set of 2D-2D points correspondances with known respective camera poses.</B>
+ * @brief <B>Triangulates a set of 2D-2D undistorted points correspondances with known respective camera poses.</B>
  * <TT>UUID: 3a01b0e9-9a76-43f5-97b3-85bb6979b953</TT>
  */
-class  ITriangulator : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("1b6be40f-030c-4436-a920-913d6e4421f4")]] [[xpcf::serverUUID("9cb53cc2-2887-4606-8d07-d9d4ae3108b2")]] ITriangulator :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ITriangulator default constructor
     ITriangulator() = default;
@@ -49,7 +50,7 @@ public:
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams camera calibration matrix parameters.
     /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] pointsView1 set of 2D points seen in view_1.
@@ -60,13 +61,13 @@ public:
     /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-    virtual double triangulate(const std::vector<datastructure::Point2Df> & pointsView1,
-                               const std::vector<datastructure::Point2Df> & pointView2,
-                               const std::vector<datastructure::DescriptorMatch> & matches,
-                               const std::pair<unsigned int,unsigned int> & working_views,
-                               const datastructure::Transform3Df & poseView1,
-                               const datastructure::Transform3Df & poseView2,
-                               std::vector<SRef<datastructure::CloudPoint>> & pcloud)=0;
+    virtual double triangulate(const std::vector<SolAR::datastructure::Point2Df> & pointsView1,
+                               const std::vector<SolAR::datastructure::Point2Df> & pointView2,
+                               const std::vector<SolAR::datastructure::DescriptorMatch> & matches,
+                               const std::pair<uint32_t, uint32_t> & working_views,
+                               const SolAR::datastructure::Transform3Df & poseView1,
+                               const SolAR::datastructure::Transform3Df & poseView2,
+                               std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud)=0;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] keypointsView1 set of keypoints seen in view_1.
@@ -77,13 +78,13 @@ public:
     /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-    virtual double triangulate(const std::vector<datastructure::Keypoint> & keypointsView1,
-                               const std::vector<datastructure::Keypoint> & keypointsView2,
-                               const std::vector<datastructure::DescriptorMatch> &matches,
-                               const std::pair<unsigned int,unsigned int> & working_views,
-                               const datastructure::Transform3Df & poseView1,
-                               const datastructure::Transform3Df & poseView2,
-                               std::vector<SRef<datastructure::CloudPoint>> & pcloud)=0;
+    virtual double triangulate(const std::vector<SolAR::datastructure::Keypoint> & keypointsView1,
+                               const std::vector<SolAR::datastructure::Keypoint> & keypointsView2,
+                               const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
+                               const std::pair<uint32_t, uint32_t> & working_views,
+                               const SolAR::datastructure::Transform3Df & poseView1,
+                               const SolAR::datastructure::Transform3Df & poseView2,
+                               std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud)=0;
 
 	/// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
 	/// @param[in] pointsView1 set of keypoints seen in view_1.
@@ -96,24 +97,30 @@ public:
 	/// @param[in] poseView2 Camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
 	/// @param[out] pcloud Set of triangulated 3d_points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-	virtual double triangulate(	const std::vector<datastructure::Keypoint> & keypointsView1,
-								const std::vector<datastructure::Keypoint> & keypointsView2,
-								const SRef<datastructure::DescriptorBuffer> & descriptor1,
-								const SRef<datastructure::DescriptorBuffer> & descriptor2,
-								const std::vector<datastructure::DescriptorMatch> & matches,
-								const std::pair<unsigned int, unsigned int> & working_views,
-								const datastructure::Transform3Df & poseView1,
-								const datastructure::Transform3Df & poseView2,
-								std::vector<SRef<datastructure::CloudPoint>> & pcloud) =0;
+	virtual double triangulate(	const std::vector<SolAR::datastructure::Keypoint> & keypointsView1,
+								const std::vector<SolAR::datastructure::Keypoint> & keypointsView2,
+								const SRef<SolAR::datastructure::DescriptorBuffer> & descriptor1,
+								const SRef<SolAR::datastructure::DescriptorBuffer> & descriptor2,
+								const std::vector<SolAR::datastructure::DescriptorMatch> & matches,
+								const std::pair<uint32_t, uint32_t> & working_views,
+								const SolAR::datastructure::Transform3Df & poseView1,
+								const SolAR::datastructure::Transform3Df & poseView2,
+								std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud) =0;
 
-	/// @brief triangulate pairs of points 2d captured from current keyframe with its reference keyframe using their poses (with respect to the camera instrinsic parameters).
-	/// @param[in] curKeyframe current keyframe.
-	/// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
+	/// @brief calculating 3D cloud points by triangulating pairs of matched features or using depth information of keypoints.
+	/// @param[in] frame1 the first frame.
+	/// @param[in] frame2 the second frame.
+	/// @param[in] matches the matches between these two frames.
+	/// @param[in] working_views a pair representing the id of the two views
 	/// @param[out] pcloud Set of triangulated 3d_points.
+	/// @param[in] onlyDepth if it is true, using only depth information of keypoints for computing 3D cloud points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
-    virtual double triangulate(const SRef<datastructure::Keyframe> & curKeyframe,
-                               const std::vector<datastructure::DescriptorMatch> &matches,
-                               std::vector<SRef<datastructure::CloudPoint>> & pcloud) = 0;
+    virtual double triangulate(SRef<SolAR::datastructure::Frame> frame1,
+							   SRef<SolAR::datastructure::Frame> frame2,
+                               const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
+							   const std::pair<uint32_t, uint32_t> & working_views,
+                               std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud,
+							   const bool& onlyDepth = false) = 0;
 };
 
 }

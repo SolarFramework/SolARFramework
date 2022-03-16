@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IFIDUCIALMARKERPOSE_H
-#define SOLAR_IFIDUCIALMARKERPOSE_H
+#ifndef SOLAR_ITrackablePose_H
+#define SOLAR_ITrackablePose_H
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "api/input/files/IMarker2DSquaredBinary.h"
-#include "datastructure/FiducialMarker.h"
+#include "datastructure/Trackable.h"
 #include "core/Messages.h"
 
 #include "datastructure/CameraDefinitions.h"
@@ -31,37 +30,34 @@ namespace api {
 namespace solver {
 namespace pose {
 /**
- * @class IFiducialMarkerPose
- * @brief <B>Estimate camera pose based on a fiducial marker.</B>
+ * @class ITrackablePose
+ * @brief <B>Estimate camera pose based on a given trackable.</B>
  * <TT>UUID: d5247968-b74e-4afb-9abd-546021441ad4</TT>
  */
-class IFiducialMarkerPose : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("ad79b898-f2b0-446f-835e-7daf3458fe50")]] [[xpcf::serverUUID("cd7858b0-0bfa-4ece-b16a-3e02fa309495")]] ITrackablePose :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    ///@brief IFiducialMarkerPose default constructor.
-    IFiducialMarkerPose() = default;
+    ///@brief ITrackablePose default constructor.
+    ITrackablePose() = default;
 
-    ///@brief IFiducialMarkerPose default destructor.
-    virtual ~IFiducialMarkerPose() = default;
+    ///@brief ITrackablePose default destructor.
+    virtual ~ITrackablePose() = default;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams camera calibration matrix parameters.
     /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
-    /// @brief this method is used to set the fiducial marker
-    /// @param[in] Fiducial marker.
-    virtual void setMarker(const SRef<api::input::files::IMarker2DSquaredBinary> marker) =0;
-
-    /// @brief this method is used to set the fiducial marker
-    /// @param[in] Fiducial marker.
-    virtual void setMarker(const SRef<datastructure::FiducialMarker> marker) =0;
+    /// @brief this method is used to set the trackable used to estimate the pose.
+    /// @param[in] the trackable used to estimate the pose.
+    virtual FrameworkReturnCode setTrackable(const SRef<SolAR::datastructure::Trackable> trackable) =0;
 
     /// @brief Estimates camera pose based on a fiducial marker.
     /// @param[in] image: input image.
     /// @param[out] pose: camera pose.
     /// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> image,
-                                         datastructure::Transform3Df & pose) =0;
+    virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> image,
+                                         SolAR::datastructure::Transform3Df & pose) =0;
 
 };
 
@@ -70,9 +66,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::IFiducialMarkerPose,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::solver::pose::ITrackablePose,
                              "d5247968-b74e-4afb-9abd-546021441ad4",
-                             "IFiducialMarkerPose",
-                             "SolAR::api::solver::pose::IFiducialMarkerPose");
+                             "ITrackablePose",
+                             "SolAR::api::solver::pose::ITrackablePose");
                             
-#endif // SOLAR_IFIDUCIALMARKERPOSE_H
+#endif // SOLAR_ITrackablePose_H

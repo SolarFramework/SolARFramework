@@ -30,9 +30,9 @@ namespace fusion {
 struct InertialData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    datastructure::Vector3f accelData;
-    datastructure::Vector3f gyroData;
-    datastructure::Vector3f magData;
+    SolAR::datastructure::Vector3f accelData;
+    SolAR::datastructure::Vector3f gyroData;
+    SolAR::datastructure::Vector3f magData;
 };
 
 // TODO move into datastructure
@@ -40,7 +40,7 @@ struct InertialData {
 struct VisionData {
     std::chrono::high_resolution_clock::time_point timestamp;
 
-    datastructure::Transform3Df pose;
+    SolAR::datastructure::Transform3Df pose;
     bool isPoseValid;
 };
 
@@ -51,7 +51,8 @@ struct VisionData {
  *
  * This class provides a fusion method to process inputs from both visual and inertial sensors.
  */
-class IVisualInertialFusion : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("71f122b4-e42a-498e-8792-4a4807f7d61d")]] [[xpcf::serverUUID("10fa56bd-9679-47c3-86d8-2956edc18783")]] IVisualInertialFusion :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IVisualInertialFusion default constructor
     IVisualInertialFusion() = default;
@@ -74,7 +75,7 @@ public:
     /// @brief Carry out one step of the fusion process to estimate a pose
     /// @param[out] outputData the estimated pose
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode process(datastructure::Transform3Df & outputData) = 0;
+    virtual FrameworkReturnCode process(SolAR::datastructure::Transform3Df & outputData) = 0;
 
 };
 

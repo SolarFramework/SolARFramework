@@ -42,7 +42,8 @@ namespace features {
  *
  * This class provides a method to refine the corner locations.
  */
-class ICornerRefinement : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("b33148d7-0366-4167-a641-1efb43869715")]] [[xpcf::serverUUID("c730d426-c7ee-41ec-acae-31bc0a98329c")]] ICornerRefinement :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:    
     /// @brief ICornerRefinement default constructor
@@ -54,7 +55,7 @@ public:
     /// @brief This method refines the corner locations
     /// @param[in] image Input image on which we are extracting keypoints.
     /// @param[in,out] corners Initial coordinates of the input corners and refined coordinates provided for output.
-    virtual void refine(const SRef<datastructure::Image> image, std::vector<datastructure::Point2Df> & corners) = 0;
+    virtual void refine(const SRef<SolAR::datastructure::Image> image, std::vector<SolAR::datastructure::Point2Df> & corners) = 0;
 
 };
 

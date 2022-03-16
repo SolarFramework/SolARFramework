@@ -33,7 +33,8 @@ namespace loop {
   * <TT>UUID: a267c93a-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-class  ILoopClosureDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("ee57ff66-30d0-11ec-8d3d-0242ac130003")]] [[xpcf::serverUUID("fd612992-30d0-11ec-8d3d-0242ac130003")]] ILoopClosureDetector :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ILoopClosureDetector default constructor
     ILoopClosureDetector() = default;
@@ -44,8 +45,8 @@ public:
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams: Camera calibration matrix parameters.
     /// @param[in] distortionParams: Camera distortion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
-                                     const datastructure::CamDistortion & distortionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
+                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
 
     /// @brief Detect a loop closure from a given keyframe.
     /// @param[in] queryKeyframe: the query keyframe.
@@ -56,9 +57,9 @@ public:
     /// The first index is the id of point cloud seen from the detected loop keyframe.
     /// The second one is id of point cloud seen from the query keyframe
     /// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode detect(const SRef<datastructure::Keyframe> queryKeyframe,
-                                       SRef<datastructure::Keyframe> & detectedLoopKeyframe,
-                                       datastructure::Transform3Df & sim3Transform,
+    virtual FrameworkReturnCode detect(const SRef<SolAR::datastructure::Keyframe> queryKeyframe,
+                                       SRef<SolAR::datastructure::Keyframe> & detectedLoopKeyframe,
+                                       SolAR::datastructure::Transform3Df & sim3Transform,
                                        std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) const = 0;
 };
 }

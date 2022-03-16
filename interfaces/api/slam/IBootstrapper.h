@@ -24,6 +24,7 @@
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
+#include "datastructure/Frame.h"
 
 namespace SolAR {
 namespace api {
@@ -35,7 +36,8 @@ namespace slam {
 * <TT>UUID: b0515c62-cc81-4600-835c-8acdfedf39b5</TT>
 */
 
-class IBootstrapper : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("d593b615-efcf-4b4c-82eb-148065f85008")]] [[xpcf::serverUUID("a7509f5c-f214-408d-be3a-acb38dd8512b")]] IBootstrapper :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IBootstrapper default constructor
 	IBootstrapper() = default;
@@ -46,14 +48,15 @@ public:
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
 	/// @param[in] intrinsicParams camera calibration matrix parameters.
 	/// @param[in] distorsionParams camera distorsion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
+                                     const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
-	/// @brief This method uses images to boostrap
-	/// @param[in] image: input image to process
-	/// @param[out] view: output image to visualize
-	/// @param[in] pose: the pose of the input image
-	/// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode process(const SRef<datastructure::Image> image, SRef<datastructure::Image> & view, const datastructure::Transform3Df & pose = datastructure::Transform3Df::Identity()) = 0;
+    /// @brief This method uses images to boostrap mapping
+    /// @param[in] frame input image to process
+    /// @param[out] view output image to visualize
+    /// @return FrameworkReturnCode::_SUCCESS_ if initialization succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame>& frame,
+                                        SRef<SolAR::datastructure::Image> & view) = 0;
 };
 
 }

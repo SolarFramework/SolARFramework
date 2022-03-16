@@ -33,7 +33,8 @@ namespace loop {
   * <TT>UUID: fe6a40ca-137c-11eb-adc1-0242ac120002</TT>
   */
 
-class  IOverlapDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("ccc5e7f8-2f9c-4b2f-a7f1-f151a9aa2191")]] [[xpcf::serverUUID("1befd83d-c1b4-4bee-acab-5b63e371c788")]] IOverlapDetector :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IOverlapDetector default constructor
     IOverlapDetector() = default;
@@ -42,10 +43,10 @@ public:
     virtual ~IOverlapDetector() = default;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams Camera calibration matrix parameters.
-    /// @param[in] distortionParams Camera distortion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
-                                     const datastructure::CamDistortion & distortionParams) = 0;
+    /// @param[in] intrinsicParams: Camera calibration matrix parameters.
+    /// @param[in] distortionParams: Camera distortion parameters.
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
+                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
 
     /// @brief Detect overlap between two floating maps with different refences.
     /// @param[in] globalMap global map as reference.
@@ -53,9 +54,9 @@ public:
     /// @param[out] sim3Transform 3D similarity transformation (Sim(3)) from the floating map to the global map.
     /// @param[out] cpOverlapIndices pairs of detected overlap cloud points indices of floating map and global map.
     /// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode detect(const SRef<datastructure::Map> globalMap,
-                                        const SRef<datastructure::Map> floatingMap,
-                                        datastructure::Transform3Df & sim3Transform,
+    virtual FrameworkReturnCode detect(const SRef<SolAR::datastructure::Map> globalMap,
+                                        const SRef<SolAR::datastructure::Map> floatingMap,
+                                        SolAR::datastructure::Transform3Df & sim3Transform,
                                         std::vector<std::pair<uint32_t, uint32_t>> & cpOverlapIndices) const = 0;
 
     /// @brief Detect overlap between two floating maps with different refences.
@@ -65,9 +66,9 @@ public:
     /// @param[out] overlapIndices pairs of detected overlap keyframe indices of floating map and global map.
     /// @param[out] scores : represent scores of overlap candidates.
     /// @return FrameworkReturnCode::_SUCCESS if detect a loop closure, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode detect(const SRef<datastructure::Map> globalMap,
-                                        const SRef<datastructure::Map> floatingMap,
-                                        std::vector<datastructure::Transform3Df> & sim3Transform,
+    virtual FrameworkReturnCode detect(const SRef<SolAR::datastructure::Map> globalMap,
+                                        const SRef<SolAR::datastructure::Map> floatingMap,
+                                        std::vector<SolAR::datastructure::Transform3Df> & sim3Transform,
                                         std::vector<std::pair<uint32_t, uint32_t>> & overlapIndices,
                                         std::vector<double>&scores) const = 0;
 

@@ -31,7 +31,8 @@ namespace image {
   * <TT>UUID: f7948ae2-e994-416f-be40-dd404ca03a83</TT>
   *
   */
-class IImageFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("4b446acb-eb14-4f06-952d-722dd21ee4da")]] [[xpcf::serverUUID("639e76f5-322c-4599-a72c-bc8cfa2ceae3")]] IImageFilter :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
     virtual ~IImageFilter() = default;
@@ -40,7 +41,7 @@ public:
     /// @param[in] input: input image to filter
     /// @param[out] output: output image filtred
     /// @return FrameworkReturnCode::_SUCCESS_ id filtering succeed, else FrameworkReturnCode::_ERROR.   
-    virtual FrameworkReturnCode filter(const SRef<datastructure::Image> input, SRef<datastructure::Image> & output) = 0;
+    virtual FrameworkReturnCode filter(const SRef<SolAR::datastructure::Image> input, SRef<SolAR::datastructure::Image> & output) = 0;
 };
 
 }

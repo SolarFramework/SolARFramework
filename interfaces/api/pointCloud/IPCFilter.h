@@ -26,13 +26,13 @@ namespace api {
 namespace pointCloud {
 
 /**
- * @class IPCFilter
- * @brief filters a point cloud
- *
- * This class provides a filtering method to prune a point cloud.
- */
+  * @class IPCFilter
+  * @brief <B>Filters a point cloud</B>
+  * <TT>UUID: 3e068943-5230-4e6c-abd7-959f293f9829</TT>
+  */
 
-class  IPCFilter : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("34192941-748e-4521-8d30-e12c06f5e226")]] [[xpcf::serverUUID("44842913-0e76-44bc-84ae-c8a0850ac97e")]] IPCFilter :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IPCFilter default constructor
    IPCFilter() = default;
@@ -43,8 +43,8 @@ public:
    /// @brief Filter a point cloud
    /// @param[in] inPointCloud: The point cloud to filter
    /// @param[out] outPointCloud: The resulting point cloud after filtering
-   virtual FrameworkReturnCode filter(const SRef<datastructure::PointCloud> inPointCloud,
-                                      SRef<datastructure::PointCloud> & outPointCloud) const = 0;
+   virtual FrameworkReturnCode filter(const SRef<SolAR::datastructure::PointCloud> inPointCloud,
+                                      SRef<SolAR::datastructure::PointCloud> & outPointCloud) const = 0;
 
 };
 }

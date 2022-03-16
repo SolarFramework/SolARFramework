@@ -25,8 +25,14 @@ namespace SolAR {
 namespace api {
 namespace input {
 namespace files {
-
-class IPointCloudLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
+/**
+ * @class IPointCloudLoader
+ * @brief <B>Loads a point cloud from a file.</B>
+ * <TT>UUID: 1abd8117-87d3-4c6c-8fb6-c2fdb7359ee2</TT>
+ *
+ */
+class [[xpcf::clientUUID("dd80a6fa-db2f-4ba7-ba69-5207a68cfb03")]] [[xpcf::serverUUID("19780d21-e6a8-4f28-bf63-483f50b2af9d")]] IPointCloudLoader :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IPointCloudLoader() = default;
     virtual ~IPointCloudLoader() = default;
@@ -35,7 +41,7 @@ public:
     /// @param[in] filepath: the path to the mesh file
     /// @param[out] pointCloud: the point cloud to fill
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode load(const std::string & filepath, SRef<datastructure::PointCloud> & pointCloud) = 0;
+    virtual FrameworkReturnCode load(const std::string & filepath, SRef<SolAR::datastructure::PointCloud> & pointCloud) = 0;
 };
 
 }

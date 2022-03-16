@@ -53,39 +53,39 @@ public:
 	/// @brief This method allow to add a 3D point to the point cloud
 	/// @param[in] point the 3D point to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode addPoint(const SRef<CloudPoint> point);
+    FrameworkReturnCode addPoint(const SRef<SolAR::datastructure::CloudPoint> point);
 
 	/// @brief This method allow to add a vector of 3D points to the point cloud
 	/// @param[in] a vector of the 3D points to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode addPoints(const std::vector<SRef<CloudPoint>>& points);
+    FrameworkReturnCode addPoints(const std::vector<SRef<SolAR::datastructure::CloudPoint>>& points);
 
 	/// @brief This method allow to add a 3D point to the point cloud
 	/// @param[in] point the 3D point to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode addPoint(const CloudPoint &point);
+    FrameworkReturnCode addPoint(const SolAR::datastructure::CloudPoint &point);
 
 	/// @brief This method allow to add a vector of 3D points to the point cloud
 	/// @param[in] a vector of the 3D points to add to the persistent point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode addPoints(const std::vector<CloudPoint> &points);
+    FrameworkReturnCode addPoints(const std::vector<SolAR::datastructure::CloudPoint> &points);
 
 	/// @brief This method allows to get a 3D point stored in the point cloud by its id
 	/// @param[in] id of the point to get
 	/// @param[out] a 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode getPoint(const uint32_t id, SRef<CloudPoint>& point) const;
+    FrameworkReturnCode getPoint(const uint32_t id, SRef<SolAR::datastructure::CloudPoint>& point) const;
 
 	/// @brief This method allows to get a set of 3D points stored in the point cloud by their ids
 	/// @param[in] a vector of ids of the points to get
 	/// @param[out] a vector of 3D points stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode getPoints(const std::vector<uint32_t> &ids, std::vector<SRef<CloudPoint>>& points) const;
+    FrameworkReturnCode getPoints(const std::vector<uint32_t> &ids, std::vector<SRef<SolAR::datastructure::CloudPoint>>& points) const;
 
 	/// @brief This method allows to get all 3D points stored in the point cloud
 	/// @param[out] the set of 3D point stored in the point cloud
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode getAllPoints(std::vector<SRef<CloudPoint>>& points) const;
+    FrameworkReturnCode getAllPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& points) const;
 
 	/// @brief This method allow to suppress a point stored in the point cloud by its id
 	/// @param[in] id of the point to suppress
@@ -108,21 +108,21 @@ public:
 
 	/// @brief This method allows to get the descriptor type used to extract descriptor for each cloud point
 	/// @return Descriptor type
-	datastructure::DescriptorType getDescriptorType() const;
+    SolAR::datastructure::DescriptorType getDescriptorType() const;
 
 	/// @brief This method allows to set the descriptor type used to extract descriptor for each cloud point
 	/// @param[in] type the descriptor type
 	/// @return @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-	FrameworkReturnCode setDescriptorType(const datastructure::DescriptorType & type);
+    FrameworkReturnCode setDescriptorType(const SolAR::datastructure::DescriptorType & type);
 
 private:
 	friend class boost::serialization::access;
 	template <typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
 
-	std::map<uint32_t, SRef<CloudPoint>>	m_pointCloud;
-	datastructure::DescriptorType			m_descriptorType;
-	uint32_t								m_id;
+    std::map<uint32_t, SRef<SolAR::datastructure::CloudPoint>>	m_pointCloud;
+    SolAR::datastructure::DescriptorType                        m_descriptorType;
+    uint32_t                                                    m_id;
 };
 
 DECLARESERIALIZE(PointCloud);

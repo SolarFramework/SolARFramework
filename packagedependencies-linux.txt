@@ -1,0 +1,2 @@
+//opencv|4.5.2|opencv|conan-solar@conan|conan-solar|default|with_gtk=True#gtk_version=system#with_ffmpeg=True
+opencv|4.5.2|opencv|conan|conan-center|shared|with_gtk=True#with_ffmpeg=True#with_cuda=True#contrib=True#dnn_cuda=True#with_cudnn=True#with_cublas=True

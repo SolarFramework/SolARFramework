@@ -38,7 +38,8 @@ namespace map {
 * <TT>UUID: 943dd9a0-4889-489a-80a7-84be1a6c1650</TT>
 */
 
-class  IMapUpdate : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("2c2b7702-6a34-4add-b645-547ef0185253")]] [[xpcf::serverUUID("4c496a20-693c-4729-93dc-7c2b06157604")]] IMapUpdate :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapUpdate default constructor
 	IMapUpdate() = default;
@@ -46,17 +47,15 @@ public:
 	/// @brief IMapUpdate default destructor
 	virtual ~IMapUpdate() = default;
 
-	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] intrinsicParams Camera calibration matrix parameters.
-	/// @param[in] distortionParams Camera distortion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
-									 const datastructure::CamDistortion & distortionParams) = 0;
+    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+    /// @param[in] camParams  Camera parameters.
+    virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
 
 	/// @brief Update the global map.
 	/// @param[in,out] globalMap the global map
 	/// @param[in] newKeyframeIds the ids of new keyframes.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode update(SRef<datastructure::Map> globalMap,
+    virtual FrameworkReturnCode update(SRef<SolAR::datastructure::Map> globalMap,
 									   const std::vector<uint32_t>& newKeyframeIds) = 0;
 };
 

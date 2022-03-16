@@ -87,6 +87,12 @@ typedef Maths::Vector4f Vector4f;
 typedef Maths::Vector3f Vector3f;
 
 /**
+ * @typedef Vector3b
+ * @brief <B>A vector of 3 unsigned char.</B>
+ */
+typedef Vector<uint8_t, 3> Vector3b;
+
+/**
  * @typedef Vector3d
  * @brief <B>A vector of 3 doubles.</B>
  */
@@ -135,6 +141,18 @@ using Quaternion = Maths::Quaternion<T>;
  * @brief <B>Quaternion defined with floats.</B>
  */
 typedef Quaternion<float> Quaternionf;
+
+/**
+ * @typedef Rotation
+ * @brief <B>A 3x3 matrix defining a 3D rotation.</B>
+ */
+typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> Rotation;
+
+/**
+ * @typedef Projection
+ * @brief <B>A 3x4 matrix defining a projection matrix.</B>
+ */
+typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> Projection;
 
 }
 }

@@ -35,7 +35,8 @@ namespace tracking {
  * This interface is defined to implement components to estimate the optical flow between two images.
  */
 
-class  IOpticalFlowEstimator : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("acc7cbc7-ea8d-4034-a568-363d9b820eed")]] [[xpcf::serverUUID("af06b587-5be2-4d1a-87ed-ad900d47fe82")]] IOpticalFlowEstimator :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IOpticalFlow default constructor
    IOpticalFlowEstimator() = default;
@@ -53,10 +54,10 @@ public:
    /// if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error: Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage,
-                                        const SRef<datastructure::Image> currentImage,
-                                        const std::vector<datastructure::Keypoint> & pointsToTrack,
-                                        std::vector<datastructure::Point2Df> & trackedPoints,
+   virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> previousImage,
+                                        const SRef<SolAR::datastructure::Image> currentImage,
+                                        const std::vector<SolAR::datastructure::Keypoint> & pointsToTrack,
+                                        std::vector<SolAR::datastructure::Point2Df> & trackedPoints,
                                         std::vector<unsigned char> & status,
                                         std::vector<float> & error) = 0;
 
@@ -70,10 +71,10 @@ public:
    /// if the flow for the corresponding features has been found, otherwise, it is set to 0.
    /// @param[out] error: Specify for each point the tracking error
    /// @return FrameworkReturnCode::_SUCCESS if the estimation is ok, otherwise frameworkReturnCode::_ERROR_
-   virtual FrameworkReturnCode estimate(const SRef<datastructure::Image> previousImage,
-                                        const SRef<datastructure::Image> currentImage,
-                                        const std::vector<datastructure::Point2Df> & pointsToTrack,
-                                        std::vector<datastructure::Point2Df> & trackedPoints,
+   virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> previousImage,
+                                        const SRef<SolAR::datastructure::Image> currentImage,
+                                        const std::vector<SolAR::datastructure::Point2Df> & pointsToTrack,
+                                        std::vector<SolAR::datastructure::Point2Df> & trackedPoints,
                                         std::vector<unsigned char> & status,
                                         std::vector<float> & error) = 0;
 

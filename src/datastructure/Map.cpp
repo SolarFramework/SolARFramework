@@ -27,6 +27,10 @@ Map::Map()
 {	
 	m_identification = xpcf::utils::make_shared<Identification>();
 	m_coordinateSystem = xpcf::utils::make_shared<CoordinateSystem>();
+	m_pointCloud = xpcf::utils::make_shared<PointCloud>();
+	m_keyframeCollection = xpcf::utils::make_shared<KeyframeCollection>();
+	m_covisibilityGraph = xpcf::utils::make_shared<CovisibilityGraph>();
+	m_keyframeRetrieval = xpcf::utils::make_shared<KeyframeRetrieval>();
 }
 
 const SRef<Identification>& Map::getConstIdentification() const
@@ -130,7 +134,7 @@ void Map::setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval)
 }
 
 template<typename Archive>
-void Identification::serialize(ATTRIBUTE(maybe_unused) Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;

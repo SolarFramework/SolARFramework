@@ -33,7 +33,8 @@ namespace geom {
  * <TT>UUID: b485f37d-a8ea-49f6-b361-f2b30777d9ba</TT>
  */
 
-class IProject : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("64351b8a-7801-4ca9-841f-a4254506abc3")]] [[xpcf::serverUUID("8edec0aa-8547-49b0-a1a5-0eb148e44386")]] IProject :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IProjection default constructor
     IProject() = default;
@@ -44,25 +45,25 @@ public:
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] intrinsicParams camera calibration matrix parameters.
     /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
     /// @brief This method project a set of 3D points in the image plane
     /// @param[in] inputPoints the set of 3D points to project
     /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode project(const std::vector<datastructure::Point3Df> & inputPoints,
-                                        std::vector<datastructure::Point2Df> & imagePoints,
-                                        const datastructure::Transform3Df& pose = datastructure::Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode project(const std::vector<SolAR::datastructure::Point3Df> & inputPoints,
+                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints,
+                                        const SolAR::datastructure::Transform3Df& pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
     /// @brief This method project a set of 3D cloud points in the image plane
     /// @param[in] inputPoints the set of 3D cloud points to project
     /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode project(const std::vector<SRef<datastructure::CloudPoint>> & inputPoints,
-                                        std::vector<datastructure::Point2Df> & imagePoints,
-                                        const datastructure::Transform3Df& pose = datastructure::Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode project(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & inputPoints,
+                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints,
+                                        const SolAR::datastructure::Transform3Df& pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
 
 };

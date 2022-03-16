@@ -17,8 +17,6 @@
 #ifndef FIDUCIALMARKER_H
 #define FIDUCIALMARKER_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include <core/SerializationDefinitions.h>
 #include <datastructure/SquaredBinaryPattern.h>
 #include <datastructure/Trackable2D.h>
 
@@ -67,10 +65,32 @@ class SOLARFRAMEWORK_API FiducialMarker : virtual public Trackable2D {
     private:
         friend class boost::serialization::access;
         template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+        void serialize(Archive &ar,  const unsigned int version);
 
     private:
         SquaredBinaryPattern m_pattern; // Binary pattern of the fiducial marker
+
+    public:
+        template <typename JsonType>
+        friend void to_json(JsonType& j, const FiducialMarker& marker)
+        {
+            j["url"] = marker.m_url;
+            j["transform3D"] = marker.m_transform3D;
+            j["size"]["width"] = marker.m_size.width;
+            j["size"]["height"] = marker.m_size.height;
+            j["pattern"] = marker.m_pattern.getPatternMatrix();
+        }
+        template <typename JsonType>
+        friend void from_json(JsonType& j, FiducialMarker& marker)
+        {
+            marker.m_url = j.at("url");
+            marker.m_transform3D = j.at("transform3D");
+            marker.m_size.width = j["size"]["width"].template get<float>();
+            marker.m_size.height = j["size"]["height"].template get<float>();
+            SquaredBinaryPatternMatrix spm;
+            spm = j["pattern"].template get<SquaredBinaryPatternMatrix>();
+            marker.m_pattern.setPatternMatrix(spm);
+        }
 };
 
 DECLARESERIALIZE(FiducialMarker);

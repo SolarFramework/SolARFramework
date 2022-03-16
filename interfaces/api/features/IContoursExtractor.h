@@ -34,7 +34,8 @@ namespace features {
  */
 
 
-class  IContoursExtractor : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("892788ad-8366-4d79-aec8-92aa4ed34665")]] [[xpcf::serverUUID("a2e6ed26-7795-407b-b7e6-e04140c8ab80")]] IContoursExtractor :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IContoursExtractor default constructor
     IContoursExtractor() = default;
@@ -46,7 +47,7 @@ public:
     /// @param[in] inputImg The image on which contours are extracted
     /// @param[out] contours The contours extracted from the image
     /// @return FrameworkReturnCode::_SUCCESS_ if contours ar well extracted, else FrameworkReturnCode::_ERROR
-    virtual FrameworkReturnCode extract(const SRef<datastructure::Image> inputImg, std::vector<datastructure::Contour2Df> & contours) = 0;
+    virtual FrameworkReturnCode extract(const SRef<SolAR::datastructure::Image> inputImg, std::vector<SolAR::datastructure::Contour2Df> & contours) = 0;
 
 };
 }

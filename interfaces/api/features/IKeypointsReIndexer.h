@@ -33,7 +33,8 @@ namespace features {
  * @brief <B>Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.</B>
  * <TT>UUID: 920e64a2-df17-11e7-80c1-9a214cf093ae</TT>
  */
-class  IKeypointsReIndexer : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("681727ef-5122-4b21-8cd0-e56314c215bc")]] [[xpcf::serverUUID("0305c89a-f5f2-46ce-a3a3-c795179f8e8c")]] IKeypointsReIndexer :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeypointsReIndexer default constructor
     IKeypointsReIndexer() = default;
@@ -48,11 +49,11 @@ public:
     /// @param[out] matchedKeypoints1 The keypoints from the first set that match with one or more keypoints of the second set of keypoints. The nth point of this set match with the nth point of the second set matchedKeypoints2.
     /// @param[out] matchedKeypoints2 The keypoints from the second set that match with one or more keypoints of the first set of keypoints. The nth point of this set match with the nth point of the first set matchedKeypoints1.
     /// @return FrameworkReturnCode::_SUCCESS_ if reindexing succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode reindex(const std::vector<datastructure::Keypoint> & keypoints1,
-                                        const std::vector<datastructure::Keypoint> & keypoints2,
-                                        const std::vector<datastructure::DescriptorMatch> & matches,
-                                        std::vector<datastructure::Point2Df> & matchedKeypoints1,
-                                        std::vector<datastructure::Point2Df> & matchedKeypoints2) = 0;
+    virtual FrameworkReturnCode reindex(const std::vector<SolAR::datastructure::Keypoint> & keypoints1,
+                                        const std::vector<SolAR::datastructure::Keypoint> & keypoints2,
+                                        const std::vector<SolAR::datastructure::DescriptorMatch> & matches,
+                                        std::vector<SolAR::datastructure::Point2Df> & matchedKeypoints1,
+                                        std::vector<SolAR::datastructure::Point2Df> & matchedKeypoints2) = 0;
 
 };
 

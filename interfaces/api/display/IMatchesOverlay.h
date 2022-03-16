@@ -35,7 +35,8 @@ namespace display {
  *
  * This class provides drawing method to overlay matches between two images.
  */
-class IMatchesOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("a35aa6c7-ce39-4158-866d-5b0210267c12")]] [[xpcf::serverUUID("ef9096d0-c4ec-430d-8424-993b9010e3e3")]] IMatchesOverlay :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMatchesOverlay default constructor
     IMatchesOverlay() = default;
@@ -51,7 +52,7 @@ public:
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<datastructure::Image> image1, const SRef<datastructure::Image> image2, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Point2Df> & points_image1, const std::vector <datastructure::Point2Df> & points_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
+    virtual void draw(const SRef<SolAR::datastructure::Image> image1, const SRef<SolAR::datastructure::Image> image2, SRef<SolAR::datastructure::Image> & outImage, const std::vector <SolAR::datastructure::Point2Df> & points_image1, const std::vector <SolAR::datastructure::Point2Df> & points_image2, const std::vector<SolAR::datastructure::DescriptorMatch>& matches = std::vector<SolAR::datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -61,7 +62,7 @@ public:
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<datastructure::Image> image1, const SRef<datastructure::Image> image2, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Keypoint> & keypoints_image1, const std::vector <datastructure::Keypoint> & keypoints_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
+    virtual void draw(const SRef<SolAR::datastructure::Image> image1, const SRef<SolAR::datastructure::Image> image2, SRef<SolAR::datastructure::Image> & outImage, const std::vector <SolAR::datastructure::Keypoint> & keypoints_image1, const std::vector <SolAR::datastructure::Keypoint> & keypoints_image2, const std::vector<SolAR::datastructure::DescriptorMatch>& matches = std::vector<SolAR::datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -70,7 +71,7 @@ public:
     /// @param[in] points_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] points_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<datastructure::Image> image, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Point2Df> & points_image1, const std::vector <datastructure::Point2Df> & points_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
+    virtual void draw(const SRef<SolAR::datastructure::Image> image, SRef<SolAR::datastructure::Image> & outImage, const std::vector <SolAR::datastructure::Point2Df> & points_image1, const std::vector <SolAR::datastructure::Point2Df> & points_image2, const std::vector<SolAR::datastructure::DescriptorMatch>& matches = std::vector<SolAR::datastructure::DescriptorMatch>())=0;
 
     /// @brief draw Match Lines.
     /// Draw all the lines joining the keypoints that match between two images
@@ -79,7 +80,7 @@ public:
     /// @param[in] keypoints_image1: The keypoints of image1 that match with keypoints of image2. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image2.
     /// @param[in] keypoints_image2: The keypoints of image2 that match with keypoints of image1. The Nth keypoint of this vector match with the Nth keypoint of the vector points_image1.
     /// @param[in] matches: a vector of matches between the first and second image that will be displayed. If this vector is empty, we consider that the ith point of points_image1 matches with the ith point of points_image2.
-    virtual void draw(const SRef<datastructure::Image> image, SRef<datastructure::Image> & outImage, const std::vector <datastructure::Keypoint> & keypoints_image1, const std::vector <datastructure::Keypoint> & keypoints_image2, const std::vector<datastructure::DescriptorMatch>& matches = std::vector<datastructure::DescriptorMatch>())=0;
+    virtual void draw(const SRef<SolAR::datastructure::Image> image, SRef<SolAR::datastructure::Image> & outImage, const std::vector <SolAR::datastructure::Keypoint> & keypoints_image1, const std::vector <SolAR::datastructure::Keypoint> & keypoints_image2, const std::vector<SolAR::datastructure::DescriptorMatch>& matches = std::vector<SolAR::datastructure::DescriptorMatch>())=0;
 
 };
 }

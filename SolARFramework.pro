@@ -9,7 +9,7 @@ CONFIG -= qt
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.9.5
+VERSION=0.11.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -41,12 +41,13 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-unix:!android {
-#
-#   if buidling with clang
-#	    QMAKE_CXX = clang++
-#   	QMAKE_LINK= clang++
-#
+unix {
+    # Avoids adding install steps manually. To be commented to have a better control over them.
+    QMAKE_POST_LINK += "make install"
+}
+
+linux {
+    QMAKE_LFLAGS += -ldl
 }
 
 macx {
@@ -107,27 +108,24 @@ header_interfaces_solver_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/solver/m
 header_interfaces_solver_map.files = $$files($${PWD}/interfaces/api/solver/map/*.h*)
 header_interfaces_storage.path = $${PROJECTDEPLOYDIR}/interfaces/api/storage/
 header_interfaces_storage.files = $$files($${PWD}/interfaces/api/storage/*.h*)
-
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
-
-header_interfaces_example.path = $${PROJECTDEPLOYDIR}/interfaces/api/example/
-header_interfaces_example.files = $$files($${PWD}/interfaces/api/example/*.h*)
-
 header_interfaces_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/api/pipeline/
 header_interfaces_pipeline.files = $$files($${PWD}/interfaces/api/pipeline/*.h*)
-
 header_interfaces_core.path = $${PROJECTDEPLOYDIR}/interfaces/core/
 header_interfaces_core.files += $$files($${PWD}/interfaces/core/*.h*)
-
 header_interfaces_datastructure.path = $${PROJECTDEPLOYDIR}/interfaces/datastructure/
 header_interfaces_datastructure.files += $$files($${PWD}/interfaces/datastructure/*.h*)
-
 header_interfaces_loop.path = $${PROJECTDEPLOYDIR}/interfaces/api/loop/
 header_interfaces_loop.files += $$files($${PWD}/interfaces/api/loop/*.h*)
-
 header_interfaces_slam.path = $${PROJECTDEPLOYDIR}/interfaces/api/slam/
 header_interfaces_slam.files += $$files($${PWD}/interfaces/api/slam/*.h*)
+header_base_features.path = $${PROJECTDEPLOYDIR}/interfaces/base/features/
+header_base_features.files += $$files($${PWD}/interfaces/base/features/*.h*)
+header_base_geom.path = $${PROJECTDEPLOYDIR}/interfaces/base/geom/
+header_base_geom.files += $$files($${PWD}/interfaces/base/geom/*.h*)
+header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
+header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -149,15 +147,28 @@ INSTALLS += header_interfaces_solver_map
 INSTALLS += header_interfaces_storage
 INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
-INSTALLS += header_interfaces_example
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_slam
+INSTALLS += header_base_features
+INSTALLS += header_base_geom
+INSTALLS += header_interfaces_segm
 
 OTHER_FILES += \
-    packagedependencies.txt
+    packagedependencies.txt \
+    packagedependencies-win.txt \
+    packagedependencies-linux.txt \
+    packagedependencies-mac.txt \
+    packagedependencies-android.txt \
+    installpackages.txt \
+    installpackages-linux.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
+
+DISTFILES +=
+
+HEADERS += \
+    interfaces/api/pipeline/IAsyncRelocalizationPipeline.h
 
 

@@ -32,13 +32,14 @@ namespace image {
   * <TT>UUID: 6fcdaa8d-6ea9-4c3f-97b0-46cd11b67a9b</TT>
   *
   */
-class IImageLoader : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("abafe791-48df-4120-a164-b0bbfbc7bd81")]] [[xpcf::serverUUID("a37a908e-5c62-4083-b45c-2a81b7fb9a8d")]] IImageLoader :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;
 
     /// @brief getImage method returns the image previously loaded
     /// @param[out] img: image previously loaded
-    virtual FrameworkReturnCode getImage(SRef<datastructure::Image> & img) = 0;
+    virtual FrameworkReturnCode getImage(SRef<SolAR::datastructure::Image> & img) = 0;
 
     ///
     /// \brief reloadImage method load a image if its path (set as a configuration parameter of the implemented component) has changed

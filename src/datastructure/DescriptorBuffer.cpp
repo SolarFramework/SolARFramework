@@ -26,6 +26,7 @@ namespace datastructure {
 const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> descriptorType2elementsAndDataType =
 {{DescriptorType::AKAZE, {61,DescriptorDataType::TYPE_8U}},
  {DescriptorType::SIFT, {128,DescriptorDataType::TYPE_32F}},
+ {DescriptorType::SIFT_UINT8, {128,DescriptorDataType::TYPE_8U}},
  {DescriptorType::SURF_64, {64,DescriptorDataType::TYPE_32F}},
  {DescriptorType::SURF_128, {128,DescriptorDataType::TYPE_32F}},
  {DescriptorType::ORB, {32,DescriptorDataType::TYPE_8U}}
@@ -137,6 +138,7 @@ void DescriptorBuffer::append(const DescriptorView8U & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()),descriptor.length());
+	m_nb_descriptors++;
 }
 
 void DescriptorBuffer::append(const DescriptorView32F & descriptor)
@@ -146,6 +148,7 @@ void DescriptorBuffer::append(const DescriptorView32F & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * DescriptorView32F::sDataType);
+	m_nb_descriptors++;
 }
 
 DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
@@ -157,7 +160,7 @@ DescriptorBuffer DescriptorBuffer::convertTo(DescriptorDataType type) const
 		float *tmp_data = reinterpret_cast<float*>(m_buffer->data());
 		std::vector<uint8_t> tmp_output(m_nb_descriptors * m_nb_elements);
         for (uint32_t i = 0; i < m_nb_descriptors * m_nb_elements; i++) {
-			tmp_output[i] = static_cast<uint8_t>(tmp_data[i]);
+            tmp_output[i] = static_cast<uint8_t>(tmp_data[i] + 0.5);
 		}
 		output.swap(tmp_output);
 	}
@@ -212,6 +215,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
         return;
     }
     m_buffer->appendData(static_cast<const void*>(descriptor.data()), descriptor.length() * descriptor.dataType());
+	m_nb_descriptors++;
 }
 
 template<typename Archive>

@@ -35,7 +35,8 @@ namespace pose {
  * @brief <B>Finds the 3D-3D correspondences from feature matches of two keyframes.</B>
  * <TT>UUID: 90068876-655a-4d86-adfc-96a519041ab3</TT>
  */
-class  I3D3DCorrespondencesFinder : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("0fe355bf-17f5-426f-af10-f630331d7476")]] [[xpcf::serverUUID("c758fd66-bd9e-4aae-9580-008afe3a37c0")]] I3D3DCorrespondencesFinder :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3D3DCorrespondencesFinder default constructor.
     I3D3DCorrespondencesFinder() = default;
@@ -52,13 +53,13 @@ public:
     /// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
     /// @param[out] remaining_matches: The remaining matches.
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode find(	const SRef<datastructure::Keyframe> firstKeyframe,
-                                        const SRef<datastructure::Keyframe> secondKeyframe,
-                                        const std::vector<datastructure::DescriptorMatch> & current_matches,
-                                        std::vector<SRef<datastructure::CloudPoint>> & firstCloudPoints,
-                                        std::vector<SRef<datastructure::CloudPoint>> & secondCloudPoints,
-                                        std::vector<datastructure::DescriptorMatch> & found_matches,
-                                        std::vector<datastructure::DescriptorMatch> & remaining_matches) = 0;
+    virtual FrameworkReturnCode find(	const SRef<SolAR::datastructure::Keyframe> firstKeyframe,
+                                        const SRef<SolAR::datastructure::Keyframe> secondKeyframe,
+                                        const std::vector<SolAR::datastructure::DescriptorMatch> & current_matches,
+                                        std::vector<SRef<SolAR::datastructure::CloudPoint>> & firstCloudPoints,
+                                        std::vector<SRef<SolAR::datastructure::CloudPoint>> & secondCloudPoints,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & found_matches,
+                                        std::vector<SolAR::datastructure::DescriptorMatch> & remaining_matches) = 0;
 
     /// @brief Define 3D-3D point correspondences of two keyframes based on keypoint matches between different maps.
     /// @param[in] firstKeyframe: The first keyframe.
@@ -67,12 +68,12 @@ public:
     /// @param[out] firstCloudPointsIndices: The cloud points indices seen from the first keyframe.
     /// @param[out] secondCloudPointsIndices: The cloud points indices seen from the second keyframe.
     /// @param[out] found_matches: The matches allow to define 3D-3D correspondences.
-    virtual FrameworkReturnCode find(const SRef<datastructure::Keyframe> firstKeyframe,
-                                     const SRef<datastructure::Keyframe> secondKeyframe,
-                                     const std::vector<datastructure::DescriptorMatch> & current_matches,
+    virtual FrameworkReturnCode find(const SRef<SolAR::datastructure::Keyframe> firstKeyframe,
+                                     const SRef<SolAR::datastructure::Keyframe> secondKeyframe,
+                                     const std::vector<SolAR::datastructure::DescriptorMatch> & current_matches,
                                      std::vector<uint32_t> & firstCloudPointsIndices,
                                      std::vector<uint32_t> & secondCloudPointsIndices,
-                                     std::vector<datastructure::DescriptorMatch> & found_matches) = 0;
+                                     std::vector<SolAR::datastructure::DescriptorMatch> & found_matches) = 0;
 };
 }
 }

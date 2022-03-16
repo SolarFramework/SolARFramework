@@ -35,7 +35,8 @@ namespace slam {
 * <TT>UUID: 33db5a56-9be2-4e5a-8fdc-de25e1633cf6</TT>
 */
 
-class IMapping : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("9edd1642-4b42-4c08-a11f-e46839f7fd63")]] [[xpcf::serverUUID("352d5136-b5eb-4ee6-bfbd-012cb23e935d")]] IMapping :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapping default constructor
 	IMapping() = default;
@@ -44,14 +45,17 @@ public:
 	virtual ~IMapping() = default;
 
 	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] Camera calibration matrix parameters.
-	/// @param[in] Camera distorsion parameters.
-	virtual void setCameraParameters(const datastructure::CamCalibration & intrinsicParams, const datastructure::CamDistortion & distorsionParams) = 0;
+    /// @param[in] camParams  Camera parameters.
+    virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
+
+    /// @brief check the mapping process is idle
+    /// @return true if the mapping process is idle, else false
+    virtual bool idle() = 0;
 
 	/// @brief this method is used to process mapping task.
 	/// @param[in] frame: the input frame.
     /// @param[out] keyframe: new keyframe or new reference keyframe found.
-    virtual FrameworkReturnCode process(const SRef<datastructure::Frame> frame, SRef<datastructure::Keyframe> & keyframe) = 0;
+    virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Keyframe> & keyframe) = 0;
 };
 
 }

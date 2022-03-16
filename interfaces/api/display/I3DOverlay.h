@@ -34,7 +34,8 @@ namespace display {
  *
  * This class provides drawing method to overlay 3D debug informations on top of an image.
  */
-class I3DOverlay : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("ce48f688-bb48-4d61-800c-e504c0d060a8")]] [[xpcf::serverUUID("cb391967-f407-4a67-b092-26d44de001ce")]] I3DOverlay :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DOverlay default constructor
     I3DOverlay() = default;
@@ -43,13 +44,13 @@ public:
     virtual ~I3DOverlay() = default;
 
     /// @brief Set the intrinsic parameters and distorsion of the camera
-    virtual void setCameraParameters(const datastructure::CamCalibration & intrinsic_parameters, const datastructure::CamDistortion & distorsion_parameters) = 0;
+    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsic_parameters, const SolAR::datastructure::CamDistortion & distorsion_parameters) = 0;
 
     /// @brief Draw a box on the given Image
     /// The box is displayed according to the pose given in parameter. The reference of the box is positionned on the center of its bottom face.
     /// @param[in] Transfomr3Df The pose of the camera from which the box is viewed.
     /// @param[in,out] displayImage The image on which the box will be drawn
-    virtual void draw (const datastructure::Transform3Df & pose, SRef<datastructure::Image> displayImage) = 0;
+    virtual void draw (const SolAR::datastructure::Transform3Df & pose, SRef<SolAR::datastructure::Image> displayImage) = 0;
 
 };
 }
