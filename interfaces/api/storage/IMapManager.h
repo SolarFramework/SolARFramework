@@ -61,6 +61,15 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode getMap(SRef<SolAR::datastructure::Map> & map) = 0;
 
+	/// @brief Get the submap around a centered keyframe
+	/// @param[in] idCenteredKeyframe the id of the centered keyframe
+	/// @param[in] nbKeyframes the maximum number of keyframes of the submap
+	/// @param[out] submap the submap
+	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode getSubmap(uint32_t idCenteredKeyframe,
+										  uint32_t nbKeyframes,
+										  SRef<SolAR::datastructure::Map> & submap) = 0;
+
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
 	/// @param[in] keyframe the keyframe to get local point cloud
 	/// @param[in] minWeightNeighbor the weight to get keyframe neighbors

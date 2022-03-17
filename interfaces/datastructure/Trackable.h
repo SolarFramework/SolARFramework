@@ -60,9 +60,9 @@ class SOLARFRAMEWORK_API Trackable
         Trackable(const std::string & url);
 
         ///
-        /// @brief Trackable default destructor
+        /// @brief Trackable destructor
         ///
-        virtual ~Trackable() = default;
+        virtual ~Trackable();
 
         ///
         /// @brief Returns the type of the Trackable object
