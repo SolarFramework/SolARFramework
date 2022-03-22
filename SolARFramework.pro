@@ -166,4 +166,7 @@ include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install
 
 DISTFILES +=
 
+HEADERS += \
+    interfaces/datastructure/StorageWorldLink.h
+
 

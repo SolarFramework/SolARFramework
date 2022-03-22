@@ -7,6 +7,7 @@
 #include "datastructure/MathDefinitions.h"
 #include <datastructure/Trackable.h>
 #include <nlohmann/json.hpp>
+#include <datastructure/UnitSystem.h>
 
 #include "core/Log.h"
 
@@ -41,69 +42,6 @@ static  std::string resolveTrackableType(StorageTrackableType input){
     if(input == StorageTrackableType::IMAGE_MARKER){return "IMAGE_MARKER";}
     return "OTHER";
 }
-
-///
-/// @brief Enumeration of all units of measurement
-///
-enum class UnitSystem : char {
-
-    //metric units
-
-    //millimeter
-    MM,
-    //centimeter
-    CM,
-    //decimeter
-    DM,
-    //meter
-    M,
-    //decameter
-    DAM,
-    //hectometer
-    HM,
-    //kilometer
-    KM,
-
-    //imperial units
-
-    INCH,
-    FOOT,
-    YARD,
-    MILE,
-    INVALID
-
-};
-
-static UnitSystem resolveUnitSystem(std::string input){
-    if(input == "MM" || input == "mm"){return UnitSystem::MM;}
-    if(input == "CM" || input == "cm"){return UnitSystem::CM;}
-    if(input == "DM" || input == "dm"){return UnitSystem::DM;}
-    if(input == "M" || input == "m"){return UnitSystem::M;}
-    if(input == "DAM" || input == "dam"){return UnitSystem::DAM;}
-    if(input == "HM" || input == "hm"){return UnitSystem::HM;}
-    if(input == "KM" || input == "km"){return UnitSystem::KM;}
-    if(input == "INCH" || input == "inch"){return UnitSystem::INCH;}
-    if(input == "FOOT" || input == "foot"){return UnitSystem::FOOT;}
-    if(input == "YARD" || input == "yard"){return UnitSystem::YARD;}
-    if(input == "MILE" || input == "mile"){return UnitSystem::MILE;}
-    return UnitSystem::INVALID;
-}
-
-static std::string resolveUnitSystem(UnitSystem input){
-    if(input == UnitSystem::MM){return "MM";}
-    if(input == UnitSystem::CM){return "CM";}
-    if(input == UnitSystem::DM){return "DM";}
-    if(input == UnitSystem::M){return "M";}
-    if(input == UnitSystem::DAM){return "DAM";}
-    if(input == UnitSystem::HM){return "HM";}
-    if(input == UnitSystem::KM){return "KM";}
-    if(input == UnitSystem::INCH){return "INCH";}
-    if(input == UnitSystem::FOOT){return "FOOT";}
-    if(input == UnitSystem::YARD){return "YARD";}
-    if(input == UnitSystem::MILE){return "MILE";}
-    return "INVALID";
-}
-
 
 ///
 /// @brief The EncodingInfo struct
@@ -150,10 +88,20 @@ struct EncodingInfo {
 class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
 {
     public:
+
+        ////////////////////////////
+        ///     CONSTRUCTORS    ////
+        ////////////////////////////
+
         ///
         /// @brief StorageTrackable default constructor
         ///
         StorageTrackable() = default;
+
+        ///
+        /// @brief StorageTrackable default destructor
+        ///
+        virtual ~StorageTrackable() = default;
 
         ///
         /// @brief StorageTrackable constructor from abstract supertype WorldElement
@@ -168,76 +116,69 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         ///
         /// @brief StorageTrackable constructor with all its attributes
         ///
-        StorageTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
-                  datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
-                  datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
+        StorageTrackable(org::bcom::xpcf::uuids::uuid author, StorageTrackableType type,
+                  EncodingInfo encodingInfo, std::vector<std::byte> payload, Transform3Df localCrs,
+                  UnitSystem unitSystem, Vector3d scale,
                   std::multimap<std::string, std::string> tags);
 
-        ///
-        /// @brief StorageTrackable default destructor
-        ///
-        ~StorageTrackable() = default;
+        ////////////////////////////
+        /// GETTERS AND SETTERS ////
+        ////////////////////////////
 
-        /// @brief Returns the url of the trackable object
-        /// @return the url of the trackable object
+        /// @brief Getter for the url of the trackable object
         std::string getURL() const;
-
-        /// @brief Sets the url of the trackable object
+        /// @brief Setter for the url of the trackable object
         void setURL(const std::string & url);
 
-        ///
-        /// @brief Returns the type of the StorageTrackable object
-        /// @return StorageTrackableType: the type of Trackable (MAP, FIDUCIAL, IMAGE or UNKNOWN)
-        ///
+        /// @brief Getter for the type of Trackable
         StorageTrackableType getType() const;
+        /// @brief Setter for the type of Trackable
+        void setType(StorageTrackableType newType);
 
-        /// @brief Sets the type of Trackable
-        void setType(datastructure::StorageTrackableType newType);
-
-        /// @brief Gets the author ID of the Trackable
+        /// @brief Getter for the author ID of the Trackable
         const org::bcom::xpcf::uuids::uuid &getAuthor() const;
-        /// @brief Sets the author ID of the Trackable
+        /// @brief Setter for the author ID of the Trackable
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
+        /// @brief Setter for the Encoding informations
+        void setEncodingInfo(const EncodingInfo &newEncodingInfo);
+        /// @brief Getter for the Encoding informations
+        const EncodingInfo &getEncodingInfo() const;
 
-        /// @brief Sets the Encoding informations
-        void setEncodingInfo(const datastructure::EncodingInfo &newEncodingInfo);
-        /// @brief Gets the Encoding informations
-        const datastructure::EncodingInfo &getEncodingInfo() const;
+        /// @brief Setter for the local reference system of the trackable
+        void setLocalCrs(const Transform3Df &newLocalCrs);
+        /// @brief Getter for the local reference system of the trackable
+        const Transform3Df &getLocalCrs() const;
 
-
-        /// @brief Sets the local reference system of the trackable
-        void setLocalCrs(const datastructure::Transform3Df &newLocalCrs);
-        /// @brief Gets the local reference system of the trackable
-        const datastructure::Transform3Df &getLocalCrs() const;
-
-
-        /// @brief Sets the unit system
+        /// @brief Getter for the unit system
         UnitSystem getUnitSystem() const;
+        /// @brief Setter for the unit system
         void setUnitSystem(UnitSystem newUnitSystem);
 
+        /// @brief Getter for the dimension of the trackable
+        const Vector3d &getScale() const;
+        /// @brief Setter for the dimension of the trackable
+        void setScale(const Vector3d &newScale);
 
-        /// @brief Sets the dimension of the trackable
-        const datastructure::Vector3d &getScale() const;
-        void setScale(const datastructure::Vector3d &newScale);
-
-
-        /// @brief Sets the buffer for the payload contained by the trackable
+        /// @brief Getter for the buffer for the payload contained by the trackable
         const std::vector<std::byte> &getPayload() const;
+        /// @brief Setter for the buffer for the payload contained by the trackable
         void setPayload(const std::vector<std::byte> &newPayload);
 
-        bool isWorldAnchor();
+        bool isWorldAnchor() override;
 
-        bool isTrackable();
+        bool isWorldLink() override;
 
-private:
+        bool isTrackable() override;
+
+    private:
 
         org::bcom::xpcf::uuids::uuid m_author;
-        datastructure::StorageTrackableType m_type;
-        datastructure::EncodingInfo m_encodingInfo;
-        datastructure::Transform3Df m_LocalCrs;
+        StorageTrackableType m_type;
+        EncodingInfo m_encodingInfo;
+        Transform3Df m_LocalCrs;
         UnitSystem m_unitSystem;
-        datastructure::Vector3d m_scale;
+        Vector3d m_scale;
         std::vector<std::byte> m_payload;
 
         friend class boost::serialization::access;

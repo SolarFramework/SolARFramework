@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef STORAGEWORLDANCHOR_H
-#define STORAGEWORLDANCHOR_H
+#ifndef STORAGEWORLDLINK_H
+#define STORAGEWORLDLINK_H
 
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
@@ -25,16 +25,16 @@
 
 #include "core/Log.h"
 
-// Definition of StorageWorldAnchor Class //
+// Definition of StorageWorldLink Class //
 // part of SolAR namespace //
 
 namespace SolAR {
 namespace datastructure {
 /**
-    * @class StorageWorldAnchor
-    * @brief <B>This class defines the generic WorldAnchor datastructure.</B>
+    * @class StorageWorldLink
+    * @brief <B>This class defines the generic WorldLink datastructure.</B>
     */
-class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
+class SOLARFRAMEWORK_API StorageWorldLink : virtual public StorageWorldElement
 {
     public:
 
@@ -43,40 +43,51 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         ////////////////////////////
 
         ///
-        /// @brief WorldAnchor default constructor
+        /// @brief StorageWorldLink default constructor
         ///
-        StorageWorldAnchor() = default;
+        StorageWorldLink() = default;
 
         ///
-        /// @brief WorldAnchor default destructor
+        /// @brief StorageWorldLink default destructor
         ///
-        virtual ~StorageWorldAnchor() = default;
+        virtual ~StorageWorldLink() = default;
 
         ///
         /// @brief WorldAnchor constructor from abstract supertype WorldElement
         ///
-        StorageWorldAnchor(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
+        StorageWorldLink(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
 
         ///
-        /// @brief WorldAnchor constructor with all its attributes
+        /// @brief StorageWorldLink constructor with all its attributes
         ///
-        StorageWorldAnchor(org::bcom::xpcf::uuids::uuid author, Transform3Df localCrs,
-                           UnitSystem unitSystem, Vector3d scale,
-                           std::multimap<std::string, std::string> tags);
+        StorageWorldLink(org::bcom::xpcf::uuids::uuid author, org::bcom::xpcf::uuids::uuid fromElement,
+                         org::bcom::xpcf::uuids::uuid toElement, Transform3Df transform,
+                         UnitSystem unitSystem, Vector3d scale,
+                         std::multimap<std::string, std::string> tags);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
         ////////////////////////////
 
-        /// @brief Getter for the author ID of the Anchor
+        /// @brief Getter for the author ID of the WorldLink
         const org::bcom::xpcf::uuids::uuid &getAuthor() const;
-        /// @brief Setter for the author ID of the Anchor
+        /// @brief Setter for the author ID of the WorldLink
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
-        /// @brief Getter for the local reference system of the Anchor
-        const Transform3Df &getLocalCrs() const;
-        /// @brief Setter for the local reference system of the Anchor
-        void setLocalCrs(const Transform3Df &newLocalCrs);
+        /// @brief Getter for the origin element ID of the WorldLink
+        const org::bcom::xpcf::uuids::uuid &getFromElement() const;
+        /// @brief Setter for the origin element ID of the WorldLink
+        void setFromElement(const org::bcom::xpcf::uuids::uuid &newFromElement);
+
+        /// @brief Getter for the destination element ID of the WorldLink
+        const org::bcom::xpcf::uuids::uuid &getToElement() const;
+        /// @brief Setter for the destination element ID of the WorldLink
+        void setToElement(const org::bcom::xpcf::uuids::uuid &newToElement);
+
+        /// @brief Getter for the transform of the WorldLink
+        const Transform3Df &getTransform() const;
+        /// @brief Setter for the transform of the WorldLink
+        void setTransform(const Transform3Df &newTransform);
 
         /// @brief Getter for the unit system
         UnitSystem getUnitSystem() const;
@@ -94,11 +105,12 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
 
         bool isTrackable() override;
 
-
     private:
 
         org::bcom::xpcf::uuids::uuid m_author;
-        Transform3Df m_LocalCrs;
+        org::bcom::xpcf::uuids::uuid m_fromElement;
+        org::bcom::xpcf::uuids::uuid m_toElement;
+        Transform3Df m_transform;
         UnitSystem m_unitSystem;
         Vector3d m_scale;
 
@@ -106,12 +118,13 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
 
-    protected:
+
+
 };
 
-DECLARESERIALIZE(StorageWorldAnchor);
+DECLARESERIALIZE(StorageWorldLink);
 
 }
 } // end of namespace SolAR
 
-#endif // STORAGEWORLDANCHOR_H
+#endif // STORAGEWORLDLINK_H

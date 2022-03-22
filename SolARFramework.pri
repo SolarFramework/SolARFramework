@@ -1,6 +1,7 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
     $$PWD/interfaces/datastructure/StorageWorldAnchor.h \
     $$PWD/interfaces/datastructure/StorageWorldElement.h \
+    $$PWD/interfaces/datastructure/UnitSystem.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -133,6 +134,7 @@ interfaces/base/geom/AReprojectionStereo.h
 SOURCES += src/core/Log.cpp \
     $$PWD/src/datastructure/StorageWorldAnchor.cpp \
     $$PWD/src/datastructure/StorageWorldElement.cpp \
+    $$PWD/src/datastructure/StorageWorldLink.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \

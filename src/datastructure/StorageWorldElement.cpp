@@ -23,39 +23,39 @@
 namespace SolAR {
 namespace datastructure {
 
-StorageWorldElement::StorageWorldElement(std::multimap<std::string, std::string> tags){
-    m_id = org::bcom::xpcf::uuids::random_generator()();
-    m_tags = tags;
-    LOG_DEBUG("WorldElement constructor with id = ", org::bcom::xpcf::uuids::to_string(m_id));
-}
+    StorageWorldElement::StorageWorldElement(std::multimap<std::string, std::string> tags){
+        m_id = org::bcom::xpcf::uuids::random_generator()();
+        m_tags = tags;
+        LOG_DEBUG("WorldElement constructor with id = ", org::bcom::xpcf::uuids::to_string(m_id));
+    }
 
-org::bcom::xpcf::uuids::uuid StorageWorldElement::getID() const {
-    return m_id;
-}
+    org::bcom::xpcf::uuids::uuid StorageWorldElement::getID() const {
+        return m_id;
+    }
 
-void StorageWorldElement::setID(const org::bcom::xpcf::uuids::uuid & id) {
-    m_id = id;
-}
+    void StorageWorldElement::setID(const org::bcom::xpcf::uuids::uuid & id) {
+        m_id = id;
+    }
 
-std::multimap<std::string, std::string> StorageWorldElement::getTags() const {
-    return m_tags;
-}
+    std::multimap<std::string, std::string> StorageWorldElement::getTags() const {
+        return m_tags;
+    }
 
-void StorageWorldElement::setTags(std::multimap<std::string, std::string> tags) {
-    this->m_tags = tags;
-}
+    void StorageWorldElement::setTags(std::multimap<std::string, std::string> tags) {
+        this->m_tags = tags;
+    }
 
-void StorageWorldElement::addTag(std::string dataType, std::string value){
-    m_tags.insert({dataType, value});
-}
+    void StorageWorldElement::addTag(std::string dataType, std::string value){
+        m_tags.insert({dataType, value});
+    }
 
-template<typename Archive>
-void StorageWorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-    ar & m_id;
-    ar & m_tags;
-}
+    template<typename Archive>
+    void StorageWorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+        ar & m_id;
+        ar & m_tags;
+    }
 
-IMPLEMENTSERIALIZE(StorageWorldElement);
+    IMPLEMENTSERIALIZE(StorageWorldElement);
 
 }
 }
