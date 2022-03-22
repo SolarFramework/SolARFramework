@@ -99,11 +99,6 @@ using RowVector = Maths::Matrix<T,1,Cols>;
 template <class T, int Dim, Eigen::TransformTraits TransformType =Maths::Affine, int ColOrRowMajor =Eigen::RowMajor>
 using Transform = Maths::Transform<T,Dim,TransformType,ColOrRowMajor>;
 
-using SolARMathIOFormat = Maths::IOFormat;
-
-static SolARMathIOFormat SolARMatrixOctaveFmt(Maths::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
-static SolARMathIOFormat SolARMatrixHeavyFmt(Maths::FullPrecision, 0, ", ", ";\n", "[", "]", "[", "]");
-
 /**
  * @typedef Transform3Df
  * @brief <B>A transform in 3D space.</B>

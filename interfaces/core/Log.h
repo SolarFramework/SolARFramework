@@ -4,19 +4,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/dist_sink.h>
-#include <spdlog/sinks/basic_file_sink.h>
-#include <spdlog/sinks/ostream_sink.h>
-#include <spdlog/sinks/stdout_sinks.h>
-#include <spdlog/sinks/android_sink.h>
-#include <spdlog/fmt/bundled/format.h>
-#include <type_traits>
+#include "spdlog.h"
+#include "sinks/dist_sink.h"
+#include "sinks/file_sinks.h"
+#include "sinks/ostream_sink.h"
 #include "SolARFrameworkDefinitions.h"
-#include "datastructure/MathDefinitions.h"
 #include <fstream>
-#include <sstream>
-//#include <fmt/ostr.h>
+#include <fmt/ostr.h>
 #include <vector>
 
 namespace SolAR {
@@ -248,131 +242,19 @@ public:
             else
                 LOG_INFO( "{} is open ", fileName.c_str() );
 
-            sink()->add_sink(std::make_shared< spdlog::sinks::basic_file_sink_mt>( fileName.c_str() ) );
+            sink()->add_sink( std::make_shared< spdlog::sinks::simple_file_sink_st >( fileName.c_str() ) );
         }
         else{
               LOG_WARNING( "{} is not a directory\n", pathname.c_str() );
               return;
         }
 
-    }   
+    }
 
     static SOLARFRAMEWORK_API void add_sink_console();
 };
+
 }
-
-
-
-/**
- * Formatter for SolAR Matrix<>.
- *
- * @tparam Rows Number of rows.
- * @tparam Cols Number of columns.
- * @tparam ColOrRowMajor Column or row major.
- */
-template <int Rows, int Cols, int ColOrRowMajor>
-struct fmt::formatter<SolAR::datastructure::Matrix<float, Rows, Cols, ColOrRowMajor>> :
-        fmt::formatter<std::string> {
-  /**
-   * Storage for format specifier.
-   */
-  char presentation = 'f';
-
-  /**
-   * Format string parser.
-   *
-   * @param ctx Format string context.
-   */
-  constexpr auto parse(fmt::format_parse_context& ctx) {
-    auto it = ctx.begin(), end = ctx.end();
-    if (it != end && (*it == 'f' || *it == 'e')) {
-      presentation = *it++;
-    }
-
-    if (it != end && *it != '}') {
-      throw fmt::format_error("invalid format");
-    }
-
-    return it;
-  }
-
-  /**
-   * Writes out a formatted matrix.
-   *
-   * @tparam FormatContext Format string context type.
-   * @param mat Matrix to format.
-   * @param ctx Format string context.
-   */
-  template <typename FormatCtx>
-  auto format(const SolAR::datastructure::Matrix<float, Rows, Cols, ColOrRowMajor>& mat,
-              FormatCtx& ctx) {
-
-    auto out = ctx.out();
-    std::stringstream ss;
-    ss << mat.format(SolAR::datastructure::SolARMatrixHeavyFmt);
-    return fmt::formatter<std::string>::format(ss.str(), ctx);
-    return out;
-  }
-};
-
-/**
- * Formatter for Transform<>.
- *
- * @tparam Dim Dimension of the Transform.
- * @tparam TransformType Type of the transform (affine or not).
- * @tparam ColOrRowMajor Column or row major
- */
-
-// Need to add operator to format TransformTraits to int
-static std::ostream &operator<<(std::ostream& os, SolAR::datastructure::Maths::TransformTraits transformType) {
-  return os << static_cast<int>(transformType);
-}
-
-template <int Dim, SolAR::datastructure::Maths::TransformTraits TransformType, int ColOrRowMajor>
-struct fmt::formatter<SolAR::datastructure::Transform<float, Dim, TransformType, ColOrRowMajor>> :
-        fmt::formatter<std::string> {
-  /**
-   * Storage for format specifier.
-   */
-  char presentation = 'f';
-
-  /**
-   * Format string parser.
-   *
-   * @param ctx Format string context.
-   */
-  constexpr auto parse(fmt::format_parse_context& ctx) {
-    auto it = ctx.begin(), end = ctx.end();
-    if (it != end && (*it == 'f' || *it == 'e')) {
-      presentation = *it++;
-    }
-
-    if (it != end && *it != '}') {
-      throw fmt::format_error("invalid format");
-    }
-
-    return it;
-  }
-
-  /**
-   * Writes out a formatted transform.
-   *
-   * @tparam FormatContext Format string context type.
-   * @param transform Transform to format.
-   * @param ctx Format string context.
-   */
-  template <typename FormatCtx>
-  auto format(const SolAR::datastructure::Transform<float, Dim, TransformType, ColOrRowMajor>& transform,
-              FormatCtx& ctx) {
-
-    auto out = ctx.out();
-    std::stringstream ss;
-    ss << transform.matrix().format(SolAR::datastructure::SolARMatrixHeavyFmt);
-    return fmt::formatter<std::string>::format(ss.str(), ctx);
-    return out;
-  }
-};
-
 #define SPDLOG_TRACE_ON
 #define SPDLOG_DEBUG_ON
 
