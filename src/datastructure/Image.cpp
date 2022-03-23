@@ -189,31 +189,18 @@ const void* Image::data() const
 void Image::setImageEncoding(enum ImageEncoding encoding)
 {
     m_imageEncoding = encoding;
-
-    // JPEG: set quality to 95 by default
-    if (m_imageEncoding == ENCODING_JPEG) {
-        m_imageEncodingQuality = 95;
-    }
-    // PNG: set quality to 9 by default
-    if (m_imageEncoding == ENCODING_PNG) {
-        m_imageEncodingQuality = 9;
-    }
 }
 
 void Image::setImageEncodingQuality(uint8_t encodingQuality)
 {
-    // JPEG quality between 0 and 100
-    if (m_imageEncoding == ENCODING_JPEG) {
-        if (encodingQuality <= 100) {
-            m_imageEncodingQuality = encodingQuality;
-        }
+    if (encodingQuality <= 100) {
+        m_imageEncodingQuality = encodingQuality;
     }
-    // PNG quality between 0 and 9
-    else if (m_imageEncoding == ENCODING_PNG) {
-        if (encodingQuality <= 9) {
-            m_imageEncodingQuality = encodingQuality;
-        }
-    }
+	else
+	{
+		std::cout << "Warning: Image encoding quality cannot be more than 100 for JPEG. Set to 70 by default.";
+		m_imageEncodingQuality = 70;
+	}
 }
 
 static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataType::TYPE_8U, OIIO::TypeDesc::UINT8},
@@ -279,7 +266,8 @@ void Image::save(Archive & ar, const unsigned int version) const
                 break;
             case ENCODING_PNG:
                 filename = "out.png";
-                spec.decode_compression_metadata("png", m_imageEncodingQuality);
+				// PNG encoding quality must be set between 0 and 9.
+                spec.decode_compression_metadata("png", floor(m_imageEncodingQuality/10.0f));
                 break;
             default:
                 filename = "out.jpeg";
