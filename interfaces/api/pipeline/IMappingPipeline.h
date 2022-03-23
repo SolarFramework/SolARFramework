@@ -30,6 +30,17 @@ namespace SolAR {
 namespace api {
 namespace pipeline {
 
+///
+/// @typedef MappingStatus
+/// @brief <B>Indicate the status of the mapping pipeline</B>
+///
+typedef enum {
+    BOOTSTRAP = 0,      // bootstrapping to initialize the map
+    MAPPING = 1,        // mapping
+    TRACKING_LOST = 2,  // tracking lost need to relocalization
+    LOOP_CLOSURE = 3    // loop closure optimization
+} MappingStatus;
+
 /**
  * @class IMappingPipeline
  * @brief <B>Defines a mapping pipeline.</B>
@@ -58,11 +69,17 @@ public:
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// Retrieve the new image (and pose) to process, in the current pipeline context
     /// (camera configuration, fiducial marker, point cloud, key frames, key points)
-    /// @param[in] image: the input image to process
-    /// @param[in] pose: the input pose to process
+    /// @param[in] image the input image to process
+    /// @param[in] pose the input pose in the device coordinate system
+    /// @param[in] transform the transformation matrix from the device coordinate system to the world coordinate system
+    /// @param[out] updatedTransform the refined transformation by a loop closure detection
+    /// @param[out] status the current status of the mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode mappingProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                      const SolAR::datastructure::Transform3Df & pose) = 0;
+                                                      const SolAR::datastructure::Transform3Df & pose,
+                                                      const SolAR::datastructure::Transform3Df & transform,
+                                                      SolAR::datastructure::Transform3Df & updatedTransform,
+                                                      MappingStatus & status) = 0;
 
     /// @brief Provide the current data from the mapping pipeline context for visualization
     /// (resulting from all mapping processing since the start of the pipeline)
