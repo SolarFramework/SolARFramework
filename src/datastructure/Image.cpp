@@ -189,31 +189,18 @@ const void* Image::data() const
 void Image::setImageEncoding(enum ImageEncoding encoding)
 {
     m_imageEncoding = encoding;
-
-    // JPEG: set quality to 95 by default
-    if (m_imageEncoding == ENCODING_JPEG) {
-        m_imageEncodingQuality = 95;
-    }
-    // PNG: set quality to 9 by default
-    if (m_imageEncoding == ENCODING_PNG) {
-        m_imageEncodingQuality = 9;
-    }
 }
 
 void Image::setImageEncodingQuality(uint8_t encodingQuality)
 {
-    // JPEG quality between 0 and 100
-    if (m_imageEncoding == ENCODING_JPEG) {
-        if (encodingQuality <= 100) {
-            m_imageEncodingQuality = encodingQuality;
-        }
+    if (encodingQuality <= 100) {
+        m_imageEncodingQuality = encodingQuality;
     }
-    // PNG quality between 0 and 9
-    else if (m_imageEncoding == ENCODING_PNG) {
-        if (encodingQuality <= 9) {
-            m_imageEncodingQuality = encodingQuality;
-        }
-    }
+	else
+	{
+		std::cout << "Warning: Image encoding quality cannot be more than 100 for JPEG. Set to 70 by default.";
+		m_imageEncodingQuality = 70;
+	}
 }
 
 static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataType::TYPE_8U, OIIO::TypeDesc::UINT8},
@@ -237,7 +224,8 @@ static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = 
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
                                                                                  {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
-static std::map<Image::ImageLayout,std::initializer_list<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
+//static std::map<Image::ImageLayout,std::initializer_list<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
+static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
                                                                                            {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
                                                                                            {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
                                                                                            {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
@@ -258,35 +246,51 @@ void Image::save(Archive & ar, const unsigned int version) const
     ar & m_imageEncoding;
 
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
-        // JPEG or PNG encoding
-        uint32_t image_size = m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
 
         // ImageSpec describing the image we want to write.
-        OIIO::ImageSpec spec (m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType[m_type]);
+        OIIO::ImageSpec spec;
+        if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+            spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels);
+        else
+            spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
 
-        spec.channelnames.assign(SolAR2OIIOLayout[m_layout]);
+        if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
+            spec.channelnames = SolAR2OIIOLayout.at(m_layout);
 
         std::vector<unsigned char> file_buffer;  // bytes will go here
-        OIIO::Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object
-        std::vector<int> param(2);
+        OIIO::Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object;
 
         std::string filename;
         switch (m_imageEncoding)
         {
             case ENCODING_JPEG:
                 filename="out.jpeg";
-                spec.decode_compression_metadata("jpeg", m_imageEncodingQuality);
+                spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
                 break;
             case ENCODING_PNG:
                 filename = "out.png";
-                spec.decode_compression_metadata("png", m_imageEncodingQuality);
+                if (m_imageEncodingQuality==0)
+                    spec.attribute ("png:compressionLevel", 0);
+                else if (m_imageEncodingQuality==0)
+                    spec.attribute ("png:compressionLevel", 9);
+                else
+                {
+                    // PNG encoding quality should be defined between 0 and 9.
+                    spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
+                }
                 break;
             default:
-                filename = "out.jpeg";
+                filename = "out";
         }
 
-        auto out = OIIO::ImageOutput::create ("filename", &encodingBuffer);
-        out->open ("filename", spec);
+        auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
+        if (!out->supports("ioproxy"))
+        {
+            std::cout << "Decoding image to a buffer based on OIIO::ioporxy is not supported for this image format. Save image in raw format.)";
+            ar & m_internalImpl;
+            return;
+        }
+        out->open (filename, spec);
         out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data());
 
         ar & file_buffer;
@@ -325,13 +329,13 @@ void Image::load(Archive & ar, const unsigned int version)
          switch (m_imageEncoding)
          {
              case ENCODING_JPEG:
-                 filename="in.jpeg";
+                 filename="in.jpg";
                  break;
              case ENCODING_PNG:
                  filename = "in.png";
                  break;
              default:
-                 filename="in.jpeg";
+                 filename="in.jpg";
                  break;
          }
 
@@ -354,7 +358,7 @@ void Image::load(Archive & ar, const unsigned int version)
              case 3:
              case 4:
                  if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
-                     m_layout = OIIO2SolARLayout[spec.channelnames];
+                     m_layout = OIIO2SolARLayout.at(spec.channelnames);
                  else
                     std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
                  //LOG_ERROR("Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported");
