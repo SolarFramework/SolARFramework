@@ -116,10 +116,10 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         ///
         /// @brief StorageTrackable constructor with all its attributes
         ///
-        StorageTrackable(org::bcom::xpcf::uuids::uuid author, StorageTrackableType type,
-                  EncodingInfo encodingInfo, std::vector<std::byte> payload, Transform3Df localCrs,
-                  UnitSystem unitSystem, Vector3d scale,
-                  std::multimap<std::string, std::string> tags);
+        StorageTrackable(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                         Vector3d size, SRef<StorageWorldElement> parent, Transform3Df transformFromParent,
+                         std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
+                         StorageTrackableType type, EncodingInfo encodingInfo, std::vector<std::byte> payload);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
@@ -135,30 +135,10 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         /// @brief Setter for the type of Trackable
         void setType(StorageTrackableType newType);
 
-        /// @brief Getter for the author ID of the Trackable
-        const org::bcom::xpcf::uuids::uuid &getAuthor() const;
-        /// @brief Setter for the author ID of the Trackable
-        void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
-
         /// @brief Setter for the Encoding informations
         void setEncodingInfo(const EncodingInfo &newEncodingInfo);
         /// @brief Getter for the Encoding informations
         const EncodingInfo &getEncodingInfo() const;
-
-        /// @brief Setter for the local reference system of the trackable
-        void setLocalCrs(const Transform3Df &newLocalCrs);
-        /// @brief Getter for the local reference system of the trackable
-        const Transform3Df &getLocalCrs() const;
-
-        /// @brief Getter for the unit system
-        UnitSystem getUnitSystem() const;
-        /// @brief Setter for the unit system
-        void setUnitSystem(UnitSystem newUnitSystem);
-
-        /// @brief Getter for the dimension of the trackable
-        const Vector3d &getScale() const;
-        /// @brief Setter for the dimension of the trackable
-        void setScale(const Vector3d &newScale);
 
         /// @brief Getter for the buffer for the payload contained by the trackable
         const std::vector<std::byte> &getPayload() const;
@@ -167,19 +147,9 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
 
         bool isWorldAnchor() override;
 
-        bool isWorldLink() override;
-
         bool isTrackable() override;
 
     private:
-
-        org::bcom::xpcf::uuids::uuid m_author;
-        StorageTrackableType m_type;
-        EncodingInfo m_encodingInfo;
-        Transform3Df m_LocalCrs;
-        UnitSystem m_unitSystem;
-        Vector3d m_scale;
-        std::vector<std::byte> m_payload;
 
         friend class boost::serialization::access;
         template<typename Archive>
@@ -187,6 +157,9 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
 
 protected:
 
+        StorageTrackableType m_type;
+        EncodingInfo m_encodingInfo;
+        std::vector<std::byte> m_payload;
         std::string m_url; // The url of the trackable object
 
 };

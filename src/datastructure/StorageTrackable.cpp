@@ -27,18 +27,16 @@ namespace datastructure {
         LOG_DEBUG("StorageTrackable constructor with url = {}", url);
     }
 
-    StorageTrackable::StorageTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
-                         datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df localCrs,
-                         datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
-                         std::multimap<std::string, std::string> tags) : StorageWorldElement(tags)
+    StorageTrackable::StorageTrackable(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                                       Vector3d size, SRef<StorageWorldElement> parent, Transform3Df transformFromParent,
+                                       std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
+                                       StorageTrackableType type, EncodingInfo encodingInfo, std::vector<std::byte> payload) : StorageWorldElement(creatorId, localCRS, unitSystem,
+                                                                                                                                                   size, parent, transformFromParent,
+                                                                                                                                                   children, tags)
     {
-        m_author = author;
         m_type = type;
         m_encodingInfo = encodingInfo;
         m_payload = payload;
-        m_LocalCrs = localCrs;
-        m_unitSystem = unitSystem;
-        m_scale = scale;
         //TODO extraction des features et les mettre dans m_url?
     }
 
@@ -50,16 +48,6 @@ namespace datastructure {
         m_url = url;
     }
 
-    const org::bcom::xpcf::uuids::uuid &StorageTrackable::getAuthor() const
-    {
-        return m_author;
-    }
-
-    void StorageTrackable::setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor)
-    {
-        m_author = newAuthor;
-    }
-
     const datastructure::EncodingInfo &StorageTrackable::getEncodingInfo() const
     {
         return m_encodingInfo;
@@ -68,36 +56,6 @@ namespace datastructure {
     void StorageTrackable::setEncodingInfo(const datastructure::EncodingInfo &newEncodingInfo)
     {
         m_encodingInfo = newEncodingInfo;
-    }
-
-    const datastructure::Transform3Df &StorageTrackable::getLocalCrs() const
-    {
-        return m_LocalCrs;
-    }
-
-    void StorageTrackable::setLocalCrs(const datastructure::Transform3Df &newLocalCrs)
-    {
-        m_LocalCrs = newLocalCrs;
-    }
-
-    UnitSystem StorageTrackable::getUnitSystem() const
-    {
-        return m_unitSystem;
-    }
-
-    void StorageTrackable::setUnitSystem(UnitSystem newUnitSystem)
-    {
-        m_unitSystem = newUnitSystem;
-    }
-
-    const datastructure::Vector3d &StorageTrackable::getScale() const
-    {
-        return m_scale;
-    }
-
-    void StorageTrackable::setScale(const datastructure::Vector3d &newScale)
-    {
-        m_scale = newScale;
     }
 
     const std::vector<std::byte> &StorageTrackable::getPayload() const
@@ -125,20 +83,12 @@ namespace datastructure {
 
         ar & boost::serialization::base_object<StorageWorldElement>(*this);
         ar & m_url;
-        ar & m_author;
         ar & m_type;
         ar & m_encodingInfo;
         ar & m_payload;
-        ar & m_LocalCrs;
-        ar & m_unitSystem;
-        ar & m_scale;
     }
 
     bool StorageTrackable::isWorldAnchor() {
-        return false;
-    }
-
-    bool StorageTrackable::isWorldLink() {
         return false;
     }
 

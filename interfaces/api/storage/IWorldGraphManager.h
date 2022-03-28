@@ -43,10 +43,22 @@ public:
     /// @brief IWorldGraphManager default destructor
     virtual ~IWorldGraphManager() = default;
 
-    //////////////////////////
-    /// TRACKABLE METHODS ////
-    //////////////////////////
+    ////////////////////////////
+    /// WORLDELEMENT METHODS ///
+    ////////////////////////////
 
+    /// @brief this methods returns from the world graph the worldElement with id {worldElementId}
+    /// @param worldElementId : The Id of the WorldElement that is going to be fetched
+    /// @return the worldElement with id {worldElementId}
+    virtual SRef<datastructure::StorageWorldElement> getWorldElement(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
+
+    /// @brief this methods returns all the world graph the worldElement currently in the world graph
+    /// @return all the worldElements in the worldgrpah
+    virtual std::vector<SRef<datastructure::StorageWorldElement>> getWorldElements() = 0;
+
+    /////////////////////////
+    /// TRACKABLE METHODS ///
+    /////////////////////////
 
     /// @brief creates a Trackable and adds it to the worldGraph
     /// @param author : The id of the trackable creator
@@ -79,9 +91,9 @@ public:
     /// @return a vector of all the trackables that are in the world graph
     virtual std::vector<SRef<datastructure::StorageTrackable>> getTrackables() = 0;
 
-    ////////////////////////////
-    /// WORLDANCHOR METHODS ////
-    ////////////////////////////
+    ///////////////////////////
+    /// WORLDANCHOR METHODS ///
+    ///////////////////////////
 
     /// @brief this methods adds a world anchor to the world graph
     /// @param author : The UID of the creator of the world anchor that we are looking to add to the worldgraph
@@ -110,9 +122,9 @@ public:
     /// @return a vector of all the world anchors that are in the world graph
     virtual std::vector<SRef<datastructure::StorageWorldAnchor>> getWorldAnchors() = 0;
 
-    //////////////////////////
-    /// WORLDLINK METHODS ////
-    //////////////////////////
+    /////////////////////////
+    /// WORLDLINK METHODS ///
+    /////////////////////////
 
     /// @brief this methods adds a world link to the world graph
     /// @param author : The UID of the creator of the world link that we are looking to add to the worldgraph
@@ -143,6 +155,11 @@ public:
     /// @brief this methods returns all the world links that are in the world graph
     /// @return a vector of all the world links that are in the world graph
     virtual std::vector<SRef<datastructure::StorageWorldLink>> getWorldLinks() = 0;
+
+    /// @brief this methods returns the elements that are connected to a given world link
+    /// @return a vector of the 2 elements that are connected to the worldLink (in position 0 the element where it comes from, i nposition 1 the element to which its pointing)
+    virtual std::vector<SRef<datastructure::StorageWorldElement>> getConnectedElements(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
+
 
 };
 }

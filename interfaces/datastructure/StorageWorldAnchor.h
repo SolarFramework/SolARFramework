@@ -60,47 +60,16 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         ///
         /// @brief WorldAnchor constructor with all its attributes
         ///
-        StorageWorldAnchor(org::bcom::xpcf::uuids::uuid author, Transform3Df localCrs,
-                           UnitSystem unitSystem, Vector3d scale,
-                           std::multimap<std::string, std::string> tags);
-
-        ////////////////////////////
-        /// GETTERS AND SETTERS ////
-        ////////////////////////////
-
-        /// @brief Getter for the author ID of the Anchor
-        const org::bcom::xpcf::uuids::uuid &getAuthor() const;
-        /// @brief Setter for the author ID of the Anchor
-        void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
-
-        /// @brief Getter for the local reference system of the Anchor
-        const Transform3Df &getLocalCrs() const;
-        /// @brief Setter for the local reference system of the Anchor
-        void setLocalCrs(const Transform3Df &newLocalCrs);
-
-        /// @brief Getter for the unit system
-        UnitSystem getUnitSystem() const;
-        /// @brief Setter for the unit system
-        void setUnitSystem(UnitSystem newUnitSystem);
-
-        /// @brief Getter for the dimension of the trackable
-        const Vector3d &getScale() const;
-        /// @brief Setter for the dimension of the trackable
-        void setScale(const Vector3d &newScale);
+        StorageWorldAnchor(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                           Vector3d size, SRef<StorageWorldElement> parent, Transform3Df transformFromParent,
+                           std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags);
 
         bool isWorldAnchor() override;
-
-        bool isWorldLink() override;
 
         bool isTrackable() override;
 
 
     private:
-
-        org::bcom::xpcf::uuids::uuid m_author;
-        Transform3Df m_LocalCrs;
-        UnitSystem m_unitSystem;
-        Vector3d m_scale;
 
         friend class boost::serialization::access;
         template<typename Archive>
