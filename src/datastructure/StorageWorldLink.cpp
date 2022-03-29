@@ -27,6 +27,8 @@ namespace datastructure {
                                        UnitSystem unitSystem, Vector3d scale,
                                        std::multimap<std::string, std::string> tags)
     {
+        m_id = org::bcom::xpcf::uuids::random_generator()();
+        m_tags = tags;
         m_author = author;
         m_fromElement = fromElement;
         m_toElement = toElement;
@@ -34,6 +36,14 @@ namespace datastructure {
         m_unitSystem = unitSystem;
         m_scale = scale;
         m_tags = tags;
+    }
+
+    org::bcom::xpcf::uuids::uuid StorageWorldLink::getID() const {
+        return m_id;
+    }
+
+    void StorageWorldLink::setID(const org::bcom::xpcf::uuids::uuid & id) {
+        m_id = id;
     }
 
     const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getAuthor() const
@@ -90,33 +100,33 @@ namespace datastructure {
         return m_scale;
     }
 
+    std::multimap<std::string, std::string> StorageWorldLink::getTags() const {
+        return m_tags;
+    }
+
+    void StorageWorldLink::setTags(std::multimap<std::string, std::string> tags) {
+        this->m_tags = tags;
+    }
+
     void StorageWorldLink::setScale(const Vector3d &newScale)
     {
         m_scale = newScale;
     }
 
+    void StorageWorldLink::addTag(std::string dataType, std::string value){
+        m_tags.insert({dataType, value});
+    }
+
     template<typename Archive>
     void StorageWorldLink::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-
-        ar & boost::serialization::base_object<StorageWorldElement>(*this);
+        ar & m_id;
+        ar & m_tags;
         ar & m_author;
         ar & m_fromElement;
         ar & m_toElement;
         ar & m_transform;
         ar & m_unitSystem;
         ar & m_scale;
-    }
-
-    bool StorageWorldLink::isWorldAnchor() {
-        return false;
-    }
-
-    bool StorageWorldLink::isWorldLink() {
-        return true;
-    }
-
-    bool StorageWorldLink::isTrackable() {
-        return false;
     }
 
     IMPLEMENTSERIALIZE(StorageWorldLink);

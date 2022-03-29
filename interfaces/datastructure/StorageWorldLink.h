@@ -34,7 +34,7 @@ namespace datastructure {
     * @class StorageWorldLink
     * @brief <B>This class defines the generic WorldLink datastructure.</B>
     */
-class SOLARFRAMEWORK_API StorageWorldLink : virtual public StorageWorldElement
+class SOLARFRAMEWORK_API StorageWorldLink
 {
     public:
 
@@ -55,7 +55,7 @@ class SOLARFRAMEWORK_API StorageWorldLink : virtual public StorageWorldElement
         ///
         /// @brief WorldAnchor constructor from abstract supertype WorldElement
         ///
-        StorageWorldLink(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
+        StorageWorldLink(const StorageWorldElement& elem);
 
         ///
         /// @brief StorageWorldLink constructor with all its attributes
@@ -68,6 +68,18 @@ class SOLARFRAMEWORK_API StorageWorldLink : virtual public StorageWorldElement
         ////////////////////////////
         /// GETTERS AND SETTERS ////
         ////////////////////////////
+
+        /// @brief Returns the id of the WorldElement object
+        /// @return the id of the WorldElement object
+        org::bcom::xpcf::uuids::uuid getID() const;
+        /// @brief Sets the id of the WorldElement object
+        void setID(const org::bcom::xpcf::uuids::uuid & id);
+
+        /// @brief Returns the list of tags associated with the element
+        /// @return the list of tags associated with the element
+        std::multimap<std::string, std::string> getTags() const;
+        /// @brief Sets the list of tags associated with the element
+        void setTags(const std::multimap<std::string, std::string> tags);
 
         /// @brief Getter for the author ID of the WorldLink
         const org::bcom::xpcf::uuids::uuid &getAuthor() const;
@@ -99,24 +111,25 @@ class SOLARFRAMEWORK_API StorageWorldLink : virtual public StorageWorldElement
         /// @brief Setter for the dimension of the trackable
         void setScale(const Vector3d &newScale);
 
-        bool isWorldAnchor() override;
-
-        bool isWorldLink() override;
-
-        bool isTrackable() override;
+        /// @brief Add a new tag to associate to the element
+        void addTag(std::string, std::string);
 
     private:
 
+        friend class boost::serialization::access;
+        template<typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+
+    protected:
+
+        org::bcom::xpcf::uuids::uuid m_id;
+        std::multimap<std::string, std::string> m_tags;
         org::bcom::xpcf::uuids::uuid m_author;
         org::bcom::xpcf::uuids::uuid m_fromElement;
         org::bcom::xpcf::uuids::uuid m_toElement;
         Transform3Df m_transform;
         UnitSystem m_unitSystem;
         Vector3d m_scale;
-
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
 
 
 

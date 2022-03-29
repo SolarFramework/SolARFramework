@@ -72,8 +72,6 @@ public :
 
     virtual bool isWorldAnchor()=0;
 
-    virtual bool isWorldLink()=0;
-
     virtual bool isTrackable()=0;
 
     private:

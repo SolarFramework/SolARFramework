@@ -24,7 +24,7 @@ namespace datastructure {
 
     StorageWorldAnchor::StorageWorldAnchor(org::bcom::xpcf::uuids::uuid author, Transform3Df localCrs,
                                            UnitSystem unitSystem, Vector3d scale,
-                                           std::multimap<std::string, std::string> tags)
+                                           std::multimap<std::string, std::string> tags) : StorageWorldElement(tags)
     {
         m_author = author;
         m_LocalCrs = localCrs;
@@ -79,10 +79,6 @@ namespace datastructure {
 
     bool StorageWorldAnchor::isWorldAnchor() {
         return true;
-    }
-
-    bool StorageWorldAnchor::isWorldLink() {
-        return false;
     }
 
     bool StorageWorldAnchor::isTrackable() {

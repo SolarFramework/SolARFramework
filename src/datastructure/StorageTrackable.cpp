@@ -138,10 +138,6 @@ namespace datastructure {
         return false;
     }
 
-    bool StorageTrackable::isWorldLink() {
-        return false;
-    }
-
     bool StorageTrackable::isTrackable() {
         return true;
     }

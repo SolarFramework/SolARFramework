@@ -90,8 +90,6 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
 
         bool isWorldAnchor() override;
 
-        bool isWorldLink() override;
-
         bool isTrackable() override;
 
 
