@@ -70,12 +70,21 @@ public:
 										  uint32_t nbKeyframes,
 										  SRef<SolAR::datastructure::Map> & submap) = 0;
 
+    /// @brief Get local point cloud seen from the keyframes
+    /// @param[in] keyframes the keyframes to get local point cloud
+    /// @param[out] localPointCloud the local point cloud seen by the keyframes
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getLocalPointCloud(const std::vector<SRef<SolAR::datastructure::Keyframe>> &keyframes,
+                                                   std::vector<SRef<SolAR::datastructure::CloudPoint>> &localPointCloud) const = 0;
+
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
 	/// @param[in] keyframe the keyframe to get local point cloud
 	/// @param[in] minWeightNeighbor the weight to get keyframe neighbors
 	/// @param[out] localPointCloud the local point cloud
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getLocalPointCloud(const SRef<SolAR::datastructure::Keyframe> keyframe, const float minWeightNeighbor, std::vector<SRef<SolAR::datastructure::CloudPoint>> &localPointCloud) const = 0;
+    virtual FrameworkReturnCode getLocalPointCloud(const SRef<SolAR::datastructure::Keyframe> keyframe,
+                                                   const float minWeightNeighbor,
+                                                   std::vector<SRef<SolAR::datastructure::CloudPoint>> &localPointCloud) const = 0;
 
 	/// @brief Add a point cloud to map manager and update visibility of keyframes and covisibility graph
 	/// @param[in] cloudPoint the cloud point to add to the map manager
