@@ -265,6 +265,7 @@ void Image::save(Archive & ar, const unsigned int version) const
         {
             case ENCODING_JPEG:
                 filename="out.jpeg";
+                std::cout << "JPEG compression quality : " << std::to_string(m_imageEncodingQuality);
                 spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
                 break;
             case ENCODING_PNG:
@@ -284,6 +285,8 @@ void Image::save(Archive & ar, const unsigned int version) const
         }
 
         auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
+        std::cout << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+
         if (!out->supports("ioproxy"))
         {
             std::cout << "Decoding image to a buffer based on OIIO::ioporxy is not supported for this image format. Save image in raw format.)";
@@ -291,7 +294,11 @@ void Image::save(Archive & ar, const unsigned int version) const
             return;
         }
         out->open (filename, spec);
-        out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data());
+        if (!out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data()))
+        {
+            std::cout << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
+            return;
+        }
 
         ar & file_buffer;
 
