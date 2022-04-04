@@ -120,7 +120,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the 3D transform is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode get3DTransformRequest(TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
-                                                      float_t & confidence) const = 0;
+                                                      float_t & confidence) = 0;
 
     /// @brief Return the last pose processed by the pipeline
     /// @param[out] pose: the last pose if available
