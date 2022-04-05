@@ -346,7 +346,7 @@ void Image::load(Archive & ar, const unsigned int version)
          //LOG_DEBUG("===> Encoded image size = {}", decodingBuffer.size());
          //LOG_DEBUG("===> Decoded image size = {}", buffersize);
 
-         m_internalImpl = utils::make_shared<Image::ImageInternal>();
+         m_internalImpl = utils::make_shared<ImageInternal>();
          m_internalImpl->setData(pixels, spec.image_bytes(true));
          in->close();
      }
