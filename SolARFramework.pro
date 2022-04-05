@@ -27,7 +27,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib install_recurse
+DEPENDENCIESCONFIG = sharedlib
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
@@ -160,8 +160,8 @@ OTHER_FILES += \
     packagedependencies-linux.txt \
     packagedependencies-mac.txt \
     packagedependencies-android.txt \
-    installpackages.txt \
-    installpackages-linux.txt
+    extra-packages.txt \
+    extra-packages-linux.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows

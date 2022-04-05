@@ -223,8 +223,7 @@ public:
     inline enum ImageEncoding getImageEncoding() const { return m_imageEncoding; }
 
     /** @brief  set encoding quality for the image
-     *  JPEG: 0 To 100
-     *  PNG: 0 to 9
+     *  Must be set between 100 and 0: 100 for loseless compression, 0 to low quality and high compression rate
      */
     void setImageEncodingQuality(uint8_t encodingQuality);
 
@@ -273,7 +272,7 @@ private:
     uint32_t m_nbBitsPerComponent;
 
     enum ImageEncoding m_imageEncoding = ENCODING_NONE;
-    uint8_t m_imageEncodingQuality = 0;
+    uint8_t m_imageEncodingQuality = 70;
 };
 DECLARESERIALIZE(Image);
 
