@@ -209,28 +209,27 @@ static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataTy
                                                                   {Image::DataType::TYPE_64U, OIIO::TypeDesc::DOUBLE}};
 
 static std::map<OIIO::TypeDesc,Image::DataType> OIIO2SolAR2Type = {{OIIO::TypeDesc::UINT8, Image::DataType::TYPE_8U},
-                                                             {OIIO::TypeDesc::INT8, Image::DataType::TYPE_8U},
-                                                             {OIIO::TypeDesc::UINT16, Image::DataType::TYPE_16U},
-                                                             {OIIO::TypeDesc::INT16, Image::DataType::TYPE_16U},
-                                                             {OIIO::TypeDesc::UINT32, Image::DataType::TYPE_32U},
-                                                             {OIIO::TypeDesc::INT32, Image::DataType::TYPE_32U},
-                                                             {OIIO::TypeDesc::UINT64, Image::DataType::TYPE_64U},
-                                                             {OIIO::TypeDesc::INT64, Image::DataType::TYPE_64U},
-                                                             {OIIO::TypeDesc::FLOAT, Image::DataType::TYPE_32U},
-                                                             {OIIO::TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
+                                                                   {OIIO::TypeDesc::INT8, Image::DataType::TYPE_8U},
+                                                                   {OIIO::TypeDesc::UINT16, Image::DataType::TYPE_16U},
+                                                                   {OIIO::TypeDesc::INT16, Image::DataType::TYPE_16U},
+                                                                   {OIIO::TypeDesc::UINT32, Image::DataType::TYPE_32U},
+                                                                   {OIIO::TypeDesc::INT32, Image::DataType::TYPE_32U},
+                                                                   {OIIO::TypeDesc::UINT64, Image::DataType::TYPE_64U},
+                                                                   {OIIO::TypeDesc::INT64, Image::DataType::TYPE_64U},
+                                                                   {OIIO::TypeDesc::FLOAT, Image::DataType::TYPE_32U},
+                                                                   {OIIO::TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
 
 static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GRB},
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
                                                                                  {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
-//static std::map<Image::ImageLayout,std::initializer_list<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
 static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
-                                                                                           {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
-                                                                                           {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
-                                                                                           {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
-                                                                                           {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
-                                                                                           {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
+                                                                                 {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
+                                                                                 {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
+                                                                                 {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
 
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int version) const
@@ -265,7 +264,6 @@ void Image::save(Archive & ar, const unsigned int version) const
         {
             case ENCODING_JPEG:
                 filename="out.jpeg";
-                std::cout << "JPEG compression quality : " << std::to_string(m_imageEncodingQuality);
                 spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
                 break;
             case ENCODING_PNG:
@@ -285,7 +283,8 @@ void Image::save(Archive & ar, const unsigned int version) const
         }
 
         auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
-        std::cout << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+        if (!out)
+            std::cout << "ImageOutput::create : " << OIIO::geterror() << std::endl;
 
         if (!out->supports("ioproxy"))
         {
@@ -299,13 +298,9 @@ void Image::save(Archive & ar, const unsigned int version) const
             std::cout << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
             return;
         }
+        out->close ();
 
         ar & file_buffer;
-
-        //LOG_DEBUG("===> Original image size = {}", image_size);
-        //LOG_DEBUG("===> Encoded image size = {}", file_buffer.size());
-
-        out->close ();
     }
     else {
         ar & m_internalImpl;
@@ -368,19 +363,13 @@ void Image::load(Archive & ar, const unsigned int version)
                      m_layout = OIIO2SolARLayout.at(spec.channelnames);
                  else
                     std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
-                 //LOG_ERROR("Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported");
                  m_nbChannels = (unsigned int)spec.nchannels;
                  break;
              default:
                 std::cout << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
-                //LOG_ERROR("Try to decode an image with {} channels. Only 1, 3 or 4 channels are supported", spec.nchannels);
-
          }
 
-         //LOG_DEBUG("===> Encoded image size = {}", decodingBuffer.size());
-         //LOG_DEBUG("===> Decoded image size = {}", buffersize);
-
-         m_internalImpl = utils::make_shared<Image::ImageInternal>();
+         m_internalImpl = utils::make_shared<ImageInternal>();
          m_internalImpl->setData(pixels, spec.image_bytes(true));
          in->close();
      }
@@ -390,15 +379,11 @@ void Image::load(Archive & ar, const unsigned int version)
 }
 
 IMPLEMENTSERIALIZE(Image);
-//image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
-// conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }
 }
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image)
-//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image)
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image::ImageInternal)
-//BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image::ImageInternal)
 BOOST_CLASS_TYPE_INFO(
 SolAR::datastructure::Image::ImageInternal,
 boost::serialization::extended_type_info_typeid<SolAR::datastructure::Image::ImageInternal>
