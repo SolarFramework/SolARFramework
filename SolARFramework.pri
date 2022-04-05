@@ -129,6 +129,7 @@ interfaces/base/features/ADescriptorMatcherRegion.h \
 interfaces/base/features/ADescriptorMatcherStereo.h \
 interfaces/base/geom/A2DPointsRectification.h \
 interfaces/base/geom/AReprojectionStereo.h \
+interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
@@ -161,4 +162,5 @@ src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
 src/base/features/ADescriptorMatcherStereo.cpp \
 src/base/geom/A2DPointsRectification.cpp \
-src/base/geom/AReprojectionStereo.cpp
+src/base/geom/AReprojectionStereo.cpp \
+src/base/pipeline/AMappingPipeline.cpp
