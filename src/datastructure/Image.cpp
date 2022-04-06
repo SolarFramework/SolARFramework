@@ -236,7 +236,7 @@ void Image::save(Archive & ar, const unsigned int version) const
                 filename = "out.png";
                 if (m_imageEncodingQuality==0)
                     spec.attribute ("png:compressionLevel", 0);
-                else if (m_imageEncodingQuality==0)
+                else if (m_imageEncodingQuality==9)
                     spec.attribute ("png:compressionLevel", 9);
                 else
                 {
@@ -349,7 +349,7 @@ IMPLEMENTSERIALIZE(Image);
 }
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image)
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image::ImageInternal)
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::ImageInternal)
 BOOST_CLASS_TYPE_INFO(
 SolAR::datastructure::ImageInternal,
 boost::serialization::extended_type_info_typeid<SolAR::datastructure::ImageInternal>
