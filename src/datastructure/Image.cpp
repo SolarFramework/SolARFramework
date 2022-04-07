@@ -236,7 +236,7 @@ void Image::save(Archive & ar, const unsigned int version) const
                 filename = "out.png";
                 if (m_imageEncodingQuality==0)
                     spec.attribute ("png:compressionLevel", 0);
-                else if (m_imageEncodingQuality==9)
+                else if (m_imageEncodingQuality>=100)
                     spec.attribute ("png:compressionLevel", 9);
                 else
                 {
