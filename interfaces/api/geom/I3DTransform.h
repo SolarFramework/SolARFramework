@@ -35,7 +35,8 @@ namespace geom {
  * <TT>UUID: 9c1052b2-46c0-467b-8363-36f19b6b445f</TT>
  */
 
-class I3DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("600dd260-12ff-4fa3-877a-0db9d490e20e")]] [[xpcf::serverUUID("a8c4d66c-b112-49a2-9eae-d9e1fd0e34b5")]] I3DTransform :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DTransform default constructor
     I3DTransform() = default;

@@ -31,11 +31,14 @@ namespace storage {
 
 /**
  * @class IPointCloudManager
- * @brief Allows to store a point cloud. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store a point cloud.</B>
  * <TT>UUID: 264d4406-b726-4ce9-a430-35d8b5e70331</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
-class IPointCloudManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IPointCloudManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPointCloudStorage default constructor
 	IPointCloudManager() = default;

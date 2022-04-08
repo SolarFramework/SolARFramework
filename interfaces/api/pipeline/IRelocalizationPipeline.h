@@ -21,6 +21,7 @@
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
+#include "datastructure/Map.h"
 #include "xpcf/core/helpers.h"
 
 
@@ -36,8 +37,11 @@ namespace pipeline {
  * This class provides the interface to define a relocalization processing pipeline.
  */
 
-class XPCF_CLIENTUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584") XPCF_SERVERUUID("234bb765-ac3b-4755-8825-5cd92145b7a8") IRelocalizationPipeline :
-    virtual public IPipeline {
+class [[xpcf::clientUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584")]] [[xpcf::serverUUID("234bb765-ac3b-4755-8825-5cd92145b7a8")]] 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
+	XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
+#endif
+	IRelocalizationPipeline : virtual public IPipeline {
 public:
     /// @brief IRelocalizationPipeline default constructor
     IRelocalizationPipeline() = default;
@@ -62,6 +66,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose, float_t & confidence) = 0;
+
+	/// @brief Request to the relocalization pipeline to get the map
+	/// @param[out] map the output map
+	/// @return FrameworkReturnCode::_SUCCESS if the map is available, else FrameworkReturnCode::_ERROR_
+	[[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }
 }

@@ -42,7 +42,8 @@ namespace storage {
 * <TT>UUID: 90075c1b-915b-469d-b92d-41c5d575bf15</TT>
 */
 
-class  IMapManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("9c68f766-3b6f-427f-91d3-1e5126d27326")]] [[xpcf::serverUUID("41cbf117-f6cd-4efa-a7d9-a3c92b3656e4")]] IMapManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapManager default constructor
 	IMapManager() = default;
@@ -59,6 +60,15 @@ public:
 	/// @param[out] map the data of map
 	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode getMap(SRef<SolAR::datastructure::Map> & map) = 0;
+
+	/// @brief Get the submap around a centered keyframe
+	/// @param[in] idCenteredKeyframe the id of the centered keyframe
+	/// @param[in] nbKeyframes the maximum number of keyframes of the submap
+	/// @param[out] submap the submap
+	/// @return FrameworkReturnCode::_SUCCESS_ if successfully, else FrameworkReturnCode::_ERROR.
+	virtual FrameworkReturnCode getSubmap(uint32_t idCenteredKeyframe,
+										  uint32_t nbKeyframes,
+										  SRef<SolAR::datastructure::Map> & submap) = 0;
 
 	/// @brief Get local point cloud seen from the keyframe and its neighbors
 	/// @param[in] keyframe the keyframe to get local point cloud

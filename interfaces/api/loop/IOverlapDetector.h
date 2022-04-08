@@ -33,7 +33,8 @@ namespace loop {
   * <TT>UUID: fe6a40ca-137c-11eb-adc1-0242ac120002</TT>
   */
 
-class  IOverlapDetector : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("ccc5e7f8-2f9c-4b2f-a7f1-f151a9aa2191")]] [[xpcf::serverUUID("1befd83d-c1b4-4bee-acab-5b63e371c788")]] IOverlapDetector :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IOverlapDetector default constructor
     IOverlapDetector() = default;

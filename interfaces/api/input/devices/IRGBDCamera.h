@@ -34,7 +34,8 @@ namespace devices {
  *
  * This class describes the interface of a RGBD camera capture device.
  */
-class IRGBDCamera : virtual public ICamera, virtual public IDepthCamera {
+class [[xpcf::clientUUID("1c8df185-f8d9-4899-8206-74d1f64a7ad9")]] [[xpcf::serverUUID("01bb552a-9e6c-47fe-8b57-bce2a4c0ce42")]] IRGBDCamera :
+    virtual public ICamera, virtual public IDepthCamera {
 public:
     /// @brief Specify the IRGBDCamera constructor class
     IRGBDCamera() = default;
@@ -73,7 +74,7 @@ public:
     /// @brief Provides the pixels of the color image to the projection of given 3D points
     /// @param[in] in3DPoints The 3D points we want to project on the color image
     /// @return a 2D points vector representing the pixels of the color image on which the 3D points are projected
-    virtual std::vector<SolAR::datastructure::Point2Df> getWorldToPixels (const std::vector<SolAR::datastructure::CloudPoint>& in3DPoints) const = 0;
+    virtual std::vector<SolAR::datastructure::Point2Df> getWorldToPixels (const std::vector<SRef<SolAR::datastructure::CloudPoint>>& in3DPoints) const = 0;
 };
 
 }

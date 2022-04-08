@@ -35,7 +35,8 @@ namespace pose {
  * @brief <B>Finds the 3D transform of 3D-3D points correspondences with a SAmple Consensus.</B>
  * <TT>UUID: 940bddba-da70-4a6e-a327-890c1e61386d</TT>
  */
-class I3DTransformSACFinderFrom3D3D : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("c5d93531-de0c-4424-b48f-00709822dd4a")]] [[xpcf::serverUUID("22e36805-4596-4440-b87d-18114e73ff6d")]] I3DTransformSACFinderFrom3D3D :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformSACFinderFrom3D3D default constructor.
     I3DTransformSACFinderFrom3D3D() = default;

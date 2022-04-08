@@ -22,6 +22,7 @@
 #include "GeometryDefinitions.h"
 #include <memory>
 #include <core/SerializationDefinitions.h>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -67,6 +68,13 @@ public:
     enum PixelOrder {
         INTERLEAVED=0,          /**< means channels are interleaved. For instance for LAYOUT RGBA, pixels are stored RGBARGBARGBA and so on... */
         PER_CHANNEL /**< means data buffer holds separately each image channel. For instance for an RGBA layout image, pixels are stored gathered by layer : RRRR....GGGG....BBBB....AAAA.... */
+    };
+
+    // Encoding types available for image serialization
+    enum ImageEncoding {
+        ENCODING_NONE=0,
+        ENCODING_JPEG,
+        ENCODING_PNG
     };
 
     Image() = default;
@@ -178,12 +186,41 @@ public:
 
     inline uint32_t getStep() const { return m_size.width * m_nbChannels * (m_nbBitsPerComponent/8); }
 
+    /** @brief  set encoding for the image
+     */
+    void setImageEncoding(enum ImageEncoding encoding);
+
+    /** @brief  returns encoding of the image
+     */
+    inline enum ImageEncoding getImageEncoding() const { return m_imageEncoding; }
+
+    /** @brief  set encoding quality for the image
+     *  JPEG: 0 To 100
+     *  PNG: 0 to 9
+     */
+    void setImageEncodingQuality(uint8_t encodingQuality);
+
+    /** @brief  returns encoding quality of the image
+     */
+    inline uint8_t getImageEncodingQuality() const { return m_imageEncodingQuality; }
+
     class ImageInternal;
 
 private:
     friend class boost::serialization::access;
+protected:
+/*
     template<typename Archive>
     void serialize(Archive &ar, const unsigned int version);
+*/
+#ifndef SWIG
+    template<class Archive>
+    void save(Archive & ar, const unsigned int version) const;
+    template<class Archive>
+    void load(Archive & ar, const unsigned int version) ;
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+#endif
 
 private:
     SRef<ImageInternal> m_internalImpl;
@@ -196,7 +233,11 @@ private:
     uint32_t m_nbChannels;
     uint32_t m_nbPlanes;
     uint32_t m_nbBitsPerComponent;
+
+    enum ImageEncoding m_imageEncoding = ENCODING_NONE;
+    uint8_t m_imageEncodingQuality = 0;
 };
+
 
 DECLARESERIALIZE(Image);
 

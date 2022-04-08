@@ -39,6 +39,9 @@ Trackable2D::Trackable2D(const std::string & url,
     m_size.height = height;
 }
 
+// destructor
+Trackable2D::~Trackable2D() = default;
+
 // Class methods
 
 Sizef Trackable2D::getSize() const {
@@ -70,10 +73,16 @@ void Trackable2D::setHeight(const float &height) {
 
 FrameworkReturnCode Trackable2D::getWorldCorners(std::vector<Point3Df> & worldCorners) const {
     worldCorners.clear();
-    worldCorners.push_back(Point3Df(-m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(m_size.width/2.0f, m_size.height/2.0f, 0.0f));
-    worldCorners.push_back(Point3Df(-m_size.width/2.0f, m_size.height/2.0f, 0.0f));
+    std::vector<Point3Df> local3DPts;
+    local3DPts.push_back(Point3Df(-m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
+    local3DPts.push_back(Point3Df(m_size.width/2.0f, -m_size.height/2.0f, 0.0f));
+    local3DPts.push_back(Point3Df(m_size.width/2.0f, m_size.height/2.0f, 0.0f));
+    local3DPts.push_back(Point3Df(-m_size.width/2.0f, m_size.height/2.0f, 0.0f));
+    for (const auto & pt3D : local3DPts){
+        Vector3f inVec3f(pt3D.getX(),pt3D.getY(), pt3D.getZ());
+        Vector3f outVec3f = m_transform3D * inVec3f;
+        worldCorners.push_back(Point3Df(outVec3f[0], outVec3f[1], outVec3f[2]));
+    }
 
     return FrameworkReturnCode::_SUCCESS;
 }

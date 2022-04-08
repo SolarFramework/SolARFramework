@@ -45,7 +45,8 @@ namespace features {
  *
  * This class provides a method to detect the keypoint from an given region of an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class  IKeypointDetectorRegion : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("984ae965-bc03-42d4-8acd-7dcb4e9ac4aa")]] [[xpcf::serverUUID("ecce7865-2ae3-4b51-b267-28067beb742c")]] IKeypointDetectorRegion :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:
     /// @brief IKeypointDetectorRegion default constructor
@@ -56,11 +57,11 @@ public:
 
     /// @brief Set the type of method used to detect keypoints in the image
     /// @param[in] type The type of method used to detect keypoints.
-    virtual void setType(IKeypointDetector::KeypointDetectorType type) = 0;
+    virtual void setType(SolAR::api::features::IKeypointDetector::KeypointDetectorType type) = 0;
 
     /// @brief Get the type of method used to detect keypoints in the image
     /// @return The type of method used to detect keypoints.
-    virtual IKeypointDetector::KeypointDetectorType  getType() = 0;
+    virtual SolAR::api::features::IKeypointDetector::KeypointDetectorType  getType() = 0;
 
     /// @brief This method detects keypoints in an input Image
     /// @param[in] image input image on which we are extracting keypoints.

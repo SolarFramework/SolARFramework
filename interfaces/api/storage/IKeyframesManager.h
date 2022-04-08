@@ -30,11 +30,14 @@ namespace storage {
 
 /**
  * @class IKeyframesManager
- * @brief Allows to store a set of keyframes. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store a set of keyframes.</B>
  * <TT>UUID: 2c147595-6c74-4f69-b63d-91e162c311ed</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
-class IKeyframesManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IKeyframesManager :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeyframesStorage default constructor
     IKeyframesManager() = default;

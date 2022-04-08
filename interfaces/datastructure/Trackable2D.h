@@ -51,9 +51,9 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
         Trackable2D(const std::string & url, const float & width, const float & height);
 
         ///
-        /// @brief Trackable2D default destructor
+        /// @brief Trackable2D destructor
         ///
-        virtual ~Trackable2D() = default;
+        virtual ~Trackable2D();
 
         // Class methods
 
@@ -94,6 +94,7 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 
     protected:
         Sizef m_size; // Size (width and height) of 2D trackable object
+
 };
 
 DECLARESERIALIZE(Trackable2D);

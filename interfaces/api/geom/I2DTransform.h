@@ -32,7 +32,8 @@ namespace geom {
  * <TT>UUID: dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f</TT>
  */
 
-class I2DTransform : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("125ebd15-d7b2-4f20-98a9-572a48d477bf")]] [[xpcf::serverUUID("e59ed354-1ddc-4f89-b445-31001e0acc67")]] I2DTransform :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2DTransform default constructor
     I2DTransform() = default;

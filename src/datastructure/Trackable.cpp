@@ -27,12 +27,22 @@ Trackable::Trackable(const std::string & url) : m_url(url) {
     LOG_DEBUG("Trackable constructor with url = {}", url);
 }
 
+Trackable::~Trackable() = default;
+
 std::string Trackable::getURL() const {
     return m_url;
 }
 
 void Trackable::setURL(const std::string & url) {
     m_url = url;
+}
+
+datastructure::Transform3Df Trackable::getTransform3D() const{
+    return m_transform3D;
+}
+
+void Trackable::setTransform3D(const datastructure::Transform3Df & transform3D){
+    m_transform3D = transform3D;
 }
 
 template<typename Archive>

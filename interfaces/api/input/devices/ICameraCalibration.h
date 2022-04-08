@@ -19,6 +19,8 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "datastructure/Image.h"
+#include "datastructure/CameraDefinitions.h"
+#include "core/Messages.h"
 
 namespace SolAR {
 namespace api {
@@ -29,29 +31,21 @@ namespace devices {
   * @brief <B>Calibrates a camera.</B>
   * <TT>UUID: 0e83b228-b9ca-413d-9dc2-db45c427428b</TT>
   */
-class  ICameraCalibration : virtual public org::bcom::xpcf::IComponentIntrospect {
+class [[xpcf::clientUUID("b3774427-f712-483b-bbed-060d2ce6134a")]] [[xpcf::serverUUID("ee5fc0d6-281e-4185-9898-c41606a7a0fc")]] ICameraCalibration :
+    virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-   ICameraCalibration() = default;
+    /// @brief ~ICameraCalibration
+    /// ICameraCalibration() = default;
 
-   ///
-   /// @brief ~ICameraCalibration
-   ///
-   virtual ~ICameraCalibration() {};
+	/// @brief ~ICameraCalibration
+	virtual ~ICameraCalibration() {};
 
-   /// @brief Calibrate the camera device referenced relative
-   /// to a captured video and output the result in the given file
-   /// @param[in] inputVideo: input video
-   /// @param[in] cailbrationFilePath: file path
-   virtual bool calibrate(const std::string & inputVideo, const std::string & cailbrationFilePath) = 0;
-
-   /// @brief Calibrate the camera device referenced by its id and output the result in the given file
-   /// @param[in] camera_id: camera id
-   /// @param[in] cailbrationFilePath: file path
-   virtual bool calibrate(const int camera_id, const std::string & cailbrationFilePath) = 0;
-
-   /// @brief Set the camera device calibration parameters
-   /// @param[in] config_file: camera configuration file
-   virtual bool setParameters(const std::string & config_file) = 0;
+    /// @brief Calibrate the camera device from a sequence of images
+    /// @param[in] images The set of images for calibration
+    /// @param[out] camParams The camera paramters
+    /// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images,
+                                          SolAR::datastructure::CameraParameters & camParams) = 0;
 };
 
 }
