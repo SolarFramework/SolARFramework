@@ -24,15 +24,14 @@ namespace SolAR {
 namespace datastructure {
 
     StorageWorldElement::StorageWorldElement(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                             Vector3d size, SRef<StorageWorldElement> parent, Transform3Df transformFromParent,
+                                             Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
                                              std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags){
         m_id = org::bcom::xpcf::uuids::random_generator()();
         m_creatorId = creatorId;
         m_localCRS = localCRS;
         m_unitSystem = unitSystem;
         m_size = size;
-        m_parent = parent;
-        m_transformFromParent = transformFromParent;
+        m_parents = parents;
         m_children = children;
         m_tags = tags;
         LOG_DEBUG("WorldElement constructor with id = ", org::bcom::xpcf::uuids::to_string(m_id));
@@ -78,20 +77,12 @@ namespace datastructure {
         m_size = newSize;
     }
 
-    SRef<StorageWorldElement> StorageWorldElement::getParent() const{
-        return m_parent;
+    std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> StorageWorldElement::getParents() const{
+        return m_parents;
     }
 
-    void StorageWorldElement::setParent(const SRef<StorageWorldElement> parent){
-        m_parent = parent;
-    }
-
-    Transform3Df StorageWorldElement::getTransform() const{
-        return m_transformFromParent;
-    }
-
-    void StorageWorldElement::setTransform(const Transform3Df newTransform){
-        m_transformFromParent = newTransform;
+    void StorageWorldElement::setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents){
+        m_parents = parents;
     }
 
     std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> StorageWorldElement::getChildren() const{
@@ -118,6 +109,48 @@ namespace datastructure {
         m_children.insert({child->getID(),child});
     }
 
+    void StorageWorldElement::addParent(SRef<StorageWorldElement> parent, Transform3Df transform){
+        m_parents.insert({parent->getID(), {parent, transform}});
+    }
+
+    bool StorageWorldElement::removeChild(org::bcom::xpcf::uuids::uuid childId){
+        if (m_children.erase(childId) == 1){
+            return true;
+        }
+        return false;
+    }
+
+    bool StorageWorldElement::removeParent(org::bcom::xpcf::uuids::uuid parentId){
+        if (m_parents.erase(parentId) == 1){
+            return true;
+        }
+        return false;
+    }
+
+    bool StorageWorldElement::hasChild(org::bcom::xpcf::uuids::uuid childId){
+        auto it = m_children.find(childId);
+        if(it != m_children.end()){
+            return true;
+        }
+        return false;
+    }
+
+    bool StorageWorldElement::hasParent(org::bcom::xpcf::uuids::uuid parentId){
+        auto it = m_parents.find(parentId);
+        if(it != m_parents.end()){
+            return true;
+        }
+        return false;
+    }
+
+    std::pair<SRef<StorageWorldElement>, Transform3Df> StorageWorldElement::getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId){
+        if (hasParent(parentId)){
+            auto it = m_parents.find(parentId);
+            return it->second;
+        }
+        return {SRef<StorageWorldElement>{nullptr}, Transform3Df()};
+    }
+
     template<typename Archive>
     void StorageWorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
         ar & m_id;
@@ -125,8 +158,7 @@ namespace datastructure {
         ar & m_localCRS;
         ar & m_unitSystem;
         ar & m_size;
-        ar & m_parent;
-        ar & m_transformFromParent;
+        ar & m_parents;
         ar & m_children;
         ar & m_tags;
     }

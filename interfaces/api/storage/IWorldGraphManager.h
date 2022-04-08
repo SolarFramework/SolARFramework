@@ -56,24 +56,36 @@ public:
     /// @return all the worldElements in the worldgrpah
     virtual std::vector<SRef<datastructure::StorageWorldElement>> getWorldElements() = 0;
 
+    /// @brief this methods returns all the parents of the given worldElement and the tranforms that points to it
+    /// @param worldElementId : The Id of the WorldElement which parents we want
+    /// @return the parents of the given worldElement and the tranforms that points to it
+    virtual std::vector<std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> getParents(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
+
+    /// @brief this methods returns all the children of the given world element
+    /// @param worldElementId : The Id of the WorldElement which children we want
+    /// @return the children of the given world element
+    virtual std::vector<SRef<datastructure::StorageWorldElement>> getChildren(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
+
     /////////////////////////
     /// TRACKABLE METHODS ///
     /////////////////////////
 
     /// @brief creates a Trackable and adds it to the worldGraph
-    /// @param author : The id of the trackable creator
+    /// @param creatorId : The id of the trackable creator
+    /// @param localCrs : the local reference system
+    /// @param unitSystem : the system of measurement unit used for the trackable
+    /// @param size : the dimensions of the trackable
+    /// @param parents : the world elements that are parents of the trackable taht we want to add
+    /// @param children : the world elements that are children of the trackable taht we want to add
+    /// @param tags : a list of tags associated with a key (e.g. : {<Author, nchambron>, <Date, 25/10/2021>}
     /// @param type : the trackable type
     /// @param encodingInfo : The information given to decode the trackable and extract its features
     /// @param payload : the buffer in wich the trackables informations are stored
-    /// @param localCrs : the local reference system
-    /// @param unitSystem : the system of measurement unit used for the trackable
-    /// @param scale : the dimensions of the trackable
-    /// @param tags : a list of tags associated with a key (e.g. : {<Author, nchambron>, <Date, 25/10/2021>}
     /// @return the ID of the newly created & added trackable
-    virtual org::bcom::xpcf::uuids::uuid addTrackable(org::bcom::xpcf::uuids::uuid author, datastructure::StorageTrackableType type,
-                                            datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload, datastructure::Transform3Df LocalCrs,
-                                            datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
-                                            std::multimap<std::string, std::string> tags) = 0;
+    virtual org::bcom::xpcf::uuids::uuid addTrackable(org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
+                                                      datastructure::Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> parents,
+                                                      std::map<org::bcom::xpcf::uuids::uuid, SRef<datastructure::StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
+                                                      datastructure::StorageTrackableType type, datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload) = 0;
 
 
     /// @brief this methods returns from the world graph the trackable with id {trackableId}
@@ -96,15 +108,17 @@ public:
     ///////////////////////////
 
     /// @brief this methods adds a world anchor to the world graph
-    /// @param author : The UID of the creator of the world anchor that we are looking to add to the worldgraph
+    /// @param creatorId : The UID of the creator of the world anchor that we are looking to add to the worldgraph
     /// @param localCrs : the local reference system
     /// @param unitSystem : The mesurement system used for the world anchor that we are looking to add to the worldgraph
-    /// @param scale : The dimension of the world anchor that we are looking to add to the worldgraph
+    /// @param size : The dimension of the world anchor that we are looking to add to the worldgraph
+    /// @param parents : the world elements that are parents of the anchor taht we want to add
+    /// @param children : the world elements that are children of the anchor taht we want to add
     /// @param tags : A map where the key is an enum and the value is a string corresponding to a tag associated with the world anchor that we are looking to add to the worldgraph
     /// @return the uuid of the newly created & added world anchor
-    virtual org::bcom::xpcf::uuids::uuid addWorldAnchor(org::bcom::xpcf::uuids::uuid authorID, datastructure::Transform3Df localCrs,
-                                                      datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
-                                                      std::multimap<std::string, std::string> tags) = 0;
+    virtual org::bcom::xpcf::uuids::uuid addWorldAnchor(org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
+                                                        datastructure::Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> parents,
+                                                        std::map<org::bcom::xpcf::uuids::uuid, SRef<datastructure::StorageWorldElement>> children, std::multimap<std::string, std::string> tags) = 0;
 
 
     /// @brief this methods returns from the world graph the world anchor with id {worldAnchorId}
@@ -126,39 +140,35 @@ public:
     /// WORLDLINK METHODS ///
     /////////////////////////
 
-    /// @brief this methods adds a world link to the world graph
-    /// @param author : The UID of the creator of the world link that we are looking to add to the worldgraph
-    /// @param fromElement : The UID of the WorldElement that our world link originates from
-    /// @param fromElement : The UID of the WorldElement that our world link targets
-    /// @param transform : The transformation between the two world elements
-    /// @param unitSystem : The mesurement system used for the world link that we are looking to add to the worldgraph
-    /// @param scale : The dimension of the world link that we are looking to add to the worldgraph
-    /// @param tags : A map where the key is an enum and the value is a string corresponding to a tag associated with the world link that we are looking to add to the worldgraph
-    /// @return the uuid of the newly created & added world link
-    virtual org::bcom::xpcf::uuids::uuid addWorldLink(org::bcom::xpcf::uuids::uuid authorID, org::bcom::xpcf::uuids::uuid fromElementID,
-                                                      org::bcom::xpcf::uuids::uuid toElementID, datastructure::Transform3Df transform,
-                                                      datastructure::UnitSystem unitSystem, datastructure::Vector3d scale,
-                                                      std::multimap<std::string, std::string> tags) = 0;
+    /// @brief this methods adds a transfrom between two world elements
+    /// @param parentId : The UID of the parent world element
+    /// @param childId : The UID of the child world element
+    /// @param transform : The transform between the two elemetns
+    virtual org::bcom::xpcf::uuids::uuid addWorldLink(org::bcom::xpcf::uuids::uuid authorId, org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId, datastructure::Transform3Df transform) = 0;
 
 
-    /// @brief this methods returns from the world graph the world link with id {worldLinkId}
-    /// @param worldLinkId : The Id of the world link that is going to be fetched
-    /// @return the world link with id {worldLinkId}
-    virtual SRef<datastructure::StorageWorldLink> getWorldLink(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
+    /// @brief this methods returns from the world graph the worldLink connecting the two elements given as parameters
+    /// @param parentId : The UID of the parent world element
+    /// @param childId : The UID of the child world element
+    /// @return The worldLink connecting the two elements given as parameters
+    virtual SRef<datastructure::StorageWorldLink> getWorldLink(org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId) = 0;
 
 
-    /// @brief this methods deletes the world link with id {worldLinkId} from the world graph
-    /// @param worldLinkId : The Id of the world link that is going to be deleted
+    /// @brief this methods returns from the world graph the worldLink with the given ID
+    /// @param linkId : The UID of the link that is to be deleted
+    /// @return The worldLink with the given ID
+    virtual SRef<datastructure::StorageWorldLink> getWorldLink(org::bcom::xpcf::uuids::uuid linkId) = 0;
+
+
+    /// @brief this methods deletes from the world graph the transform between two given world elements
+    /// @param parentId : The UID of the link that is to be deleted
     /// @return true if the world link has been deleted from the worldgraph
-    virtual bool removeWorldLink(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
+    virtual bool removeWorldLink(org::bcom::xpcf::uuids::uuid linkId) = 0;
 
     /// @brief this methods returns all the world links that are in the world graph
     /// @return a vector of all the world links that are in the world graph
     virtual std::vector<SRef<datastructure::StorageWorldLink>> getWorldLinks() = 0;
 
-    /// @brief this methods returns the elements that are connected to a given world link
-    /// @return a vector of the 2 elements that are connected to the worldLink (in position 0 the element where it comes from, i nposition 1 the element to which its pointing)
-    virtual std::vector<SRef<datastructure::StorageWorldElement>> getConnectedElements(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
 
 
 };

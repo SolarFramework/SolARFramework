@@ -1,5 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
     $$PWD/interfaces/datastructure/StorageWorldAnchor.h \
+    $$PWD/interfaces/datastructure/StorageWorldLink.h \
     $$PWD/interfaces/datastructure/StorageWorldElement.h \
     $$PWD/interfaces/datastructure/UnitSystem.h \
 interfaces/api/solver/pose/ITrackablePose.h \

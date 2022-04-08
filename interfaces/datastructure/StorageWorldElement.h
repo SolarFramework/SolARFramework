@@ -49,7 +49,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
 
         /// @brief WorldElement constructor
         StorageWorldElement(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, SRef<StorageWorldElement> parent, Transform3Df transformFromParent,
+                            Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
                             std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags);
 
         /// @brief WorldElement default destructor
@@ -85,14 +85,9 @@ class SOLARFRAMEWORK_API StorageWorldElement
         void setSize(const Vector3d &newSize);
 
         /// @brief Getter for the parent of the element
-        SRef<StorageWorldElement> getParent() const;
+        std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> getParents() const;
         /// @brief Setter for the parent of the element
-        void setParent(const SRef<StorageWorldElement> parent);
-
-        /// @brief Getter for the transform of the element
-        Transform3Df getTransform() const;
-        /// @brief Setter for the transform of the element
-        void setTransform(const Transform3Df newTransform);
+        void setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents);
 
         /// @brief Getter for the children of the element
         std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> getChildren() const;
@@ -114,6 +109,24 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Add a new child to the element
         void addChild(SRef<StorageWorldElement> child);
 
+        /// @brief Add a new parent to the element
+        void addParent(SRef<StorageWorldElement> parent, Transform3Df transform);
+
+        /// @brief removes a child from the element
+        bool removeChild(org::bcom::xpcf::uuids::uuid childId);
+
+        /// @brief removes a parent from the element
+        bool removeParent(org::bcom::xpcf::uuids::uuid parentId);
+
+        /// @brief Checks if the caller has the element with given id as a child
+        bool hasChild(org::bcom::xpcf::uuids::uuid childId);
+
+        /// @brief Checks if the caller has the element with given id as a parent
+        bool hasParent(org::bcom::xpcf::uuids::uuid parentId);
+
+        /// @brief Gets the parent with given id and the tansformation between the parent and the caller
+        std::pair<SRef<StorageWorldElement>, Transform3Df> getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId);
+
         virtual bool isWorldAnchor()=0;
 
         virtual bool isTrackable()=0;
@@ -131,8 +144,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         Transform3Df m_localCRS;
         UnitSystem m_unitSystem;
         Vector3d m_size;
-        SRef<StorageWorldElement> m_parent;
-        Transform3Df m_transformFromParent;
+        std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> m_parents;
         std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> m_children;
         std::multimap<std::string, std::string> m_tags;
 
