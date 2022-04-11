@@ -151,12 +151,9 @@ INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_slam
-<<<<<<< HEAD
 INSTALLS += header_interfaces_sfm
-=======
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
->>>>>>> develop
 
 OTHER_FILES += \
     packagedependencies.txt \
