@@ -49,9 +49,13 @@ public:
     /// @param[in] distorsionParams: camera distorsion parameters.
 	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
 
-	/// @brief this method is used to update reference keyframe to track
-	/// @param[in] refKeyframe: the new reference keyframe.
-    virtual void updateReferenceKeyframe(const SRef<SolAR::datastructure::Keyframe> refKeyframe) = 0;
+	/// @brief this method is used to set new keyframe for tracking process
+	/// @param[in] newKeyframme the new keyframe
+    virtual void setNewKeyframe(const SRef<SolAR::datastructure::Keyframe> newKeyframe) = 0;
+
+    /// @brief check need to create a new keyframe
+    /// @return true if need to create a new keyframe, else false
+    virtual bool checkNeedNewKeyframe() = 0;
 	
 	/// @brief this method is used to process tracking
 	/// @param[in] frame: the input frame.

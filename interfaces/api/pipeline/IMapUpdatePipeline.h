@@ -36,8 +36,10 @@ namespace pipeline {
  */
 
 class [[xpcf::clientUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008")]] [[xpcf::serverUUID("82f9fdff-06ee-471f-a260-b7f4ac414627")]]
-      XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1") IMapUpdatePipeline :
-	virtual public IPipeline {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
+    XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
+#endif
+    IMapUpdatePipeline : virtual public IPipeline {
 public:
 	/// @brief IMapUpdatePipeline default constructor
 	IMapUpdatePipeline() = default;
@@ -59,6 +61,13 @@ public:
     /// @param[out] map: the output global map
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
+
+	/// @brief Request to the map update pipeline to get a submap based on a query frame.
+	/// @param[in] frame the query frame
+	/// @param[out] map the output submap
+	/// @return FrameworkReturnCode::_SUCCESS if submap is found, else FrameworkReturnCode::_ERROR_
+	[[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getSubmapRequest(const SRef<SolAR::datastructure::Frame> frame, 
+																					SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }
 }

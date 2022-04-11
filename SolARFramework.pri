@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -92,6 +93,7 @@ interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
+interfaces/core/Timer.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
@@ -127,7 +129,11 @@ interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
 interfaces/base/features/ADescriptorMatcherStereo.h \
 interfaces/base/geom/A2DPointsRectification.h \
-interfaces/base/geom/AReprojectionStereo.h
+interfaces/base/geom/AReprojectionStereo.h \
+interfaces/base/pipeline/AMappingPipeline.h \
+interfaces/api/segm/IInstanceSegmentation.h \
+interfaces/api/segm/ISemanticSegmentation.h \
+interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
@@ -157,4 +163,5 @@ src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
 src/base/features/ADescriptorMatcherStereo.cpp \
 src/base/geom/A2DPointsRectification.cpp \
-src/base/geom/AReprojectionStereo.cpp
+src/base/geom/AReprojectionStereo.cpp \
+src/base/pipeline/AMappingPipeline.cpp

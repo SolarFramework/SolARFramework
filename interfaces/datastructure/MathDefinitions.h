@@ -87,6 +87,12 @@ typedef Maths::Vector4f Vector4f;
 typedef Maths::Vector3f Vector3f;
 
 /**
+ * @typedef Vector3b
+ * @brief <B>A vector of 3 unsigned char.</B>
+ */
+typedef Vector<uint8_t, 3> Vector3b;
+
+/**
  * @typedef Vector3d
  * @brief <B>A vector of 3 doubles.</B>
  */

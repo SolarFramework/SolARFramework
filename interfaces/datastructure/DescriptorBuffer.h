@@ -42,6 +42,7 @@ enum DescriptorDataType {
 enum DescriptorType{
     AKAZE, /**<AKAZE descriptor, assumes 61 elements per descriptor stores as one byte per element */
     SIFT,  /**<SIFT descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
+    SIFT_UINT8,  /**<SIFT descriptor, assumes 128 elements (uint8) per descriptor normalized between 0-255*/
     SURF_64 , /**<SURF descriptor, assumes 64 elements per descriptor stores as four bytes per element*/
     SURF_128, /**<SURF descriptor, assumes 128 elements per descriptor stores as four bytes per element*/
     ORB, /**<ORB descriptor, assumes 32 elements per descriptor stores as one byte per element */

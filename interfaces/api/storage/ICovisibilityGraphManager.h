@@ -29,11 +29,13 @@ namespace storage {
 
 /**
  * @class ICovisibilityGraphManager
- * @brief Allows to store the covisibility graph between keyframes. This storage component can be accessed by processing components to share persistent data.
+ * @brief <B>Allows to store the covisibility graph between keyframes.</B>
  * <TT>UUID: 15455f5a-0e99-49e5-a3fb-39de3eeb5b9b</TT>
+ *
+ * This storage component can be accessed by processing components to share persistent data.
  */
 
-class [[xpcf::clientUUID("e25a8ca5-a9f5-4e38-8648-726ffbd6cbf3")]] [[xpcf::serverUUID("e41e71f3-08e4-4599-8cbc-a3021d1096f5")]] ICovisibilityGraphManager :
+class XPCF_IGNORE ICovisibilityGraphManager :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ICovisibilityGraphManager default constructor
@@ -89,8 +91,9 @@ public:
 	/// @param[in] node_id id of the node to get neighbors
 	/// @param[in] minWeight min value between this node and a neighbor to accept
 	/// @param[out] neighbors a vector of neighbors sorted to greater weighted edge.
+	/// @param[in] maxNbNeighbors the maximum number of neighbors. If it is zero, find all neighbors.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t> & neighbors) const = 0;
+    virtual FrameworkReturnCode getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t> & neighbors, const uint32_t maxNbNeighbors = 0) const = 0;
 
 	/// @brief This method allow to get minimal spanning tree of the graph
 	/// @param[out] edges_weights: the minimal spanning tree graph including edges with weights

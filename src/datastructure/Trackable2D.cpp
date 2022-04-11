@@ -39,6 +39,9 @@ Trackable2D::Trackable2D(const std::string & url,
     m_size.height = height;
 }
 
+// destructor
+Trackable2D::~Trackable2D() = default;
+
 // Class methods
 
 Sizef Trackable2D::getSize() const {
