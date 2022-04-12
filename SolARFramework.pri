@@ -23,6 +23,7 @@ interfaces/api/features/IMatchesFilter.h \
 interfaces/api/features/ISBPatternReIndexer.h \
 interfaces/api/features/ICornerRefinement.h \
 interfaces/api/features/IFeatureWithDepthFromStereo.h \
+interfaces/api/features/I2DTrackablesDetector.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I2DPointsRectification.h \
