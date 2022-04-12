@@ -49,28 +49,21 @@ public:
 
     /// @brief this methods returns from the world graph the worldElement with id {worldElementId}
     /// @param worldElementId : The Id of the WorldElement that is going to be fetched
-    /// @return the worldElement with id {worldElementId}
-    virtual SRef<datastructure::StorageWorldElement> getWorldElement(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
+    /// @param[out] worldElement :  the worldElement with id {worldElementId}
+    /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTIMPLEMENTED if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
+    virtual FrameworkReturnCode getWorldElement(org::bcom::xpcf::uuids::uuid worldElementId, SRef<datastructure::StorageWorldElement>& worldElement) = 0;
 
     /// @brief this methods returns all the world graph the worldElement currently in the world graph
-    /// @return all the worldElements in the worldgrpah
-    virtual std::vector<SRef<datastructure::StorageWorldElement>> getWorldElements() = 0;
-
-    /// @brief this methods returns all the parents of the given worldElement and the tranforms that points to it
-    /// @param worldElementId : The Id of the WorldElement which parents we want
-    /// @return the parents of the given worldElement and the tranforms that points to it
-    virtual std::vector<std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> getParents(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
-
-    /// @brief this methods returns all the children of the given world element
-    /// @param worldElementId : The Id of the WorldElement which children we want
-    /// @return the children of the given world element
-    virtual std::vector<SRef<datastructure::StorageWorldElement>> getChildren(org::bcom::xpcf::uuids::uuid worldElementId) = 0;
+    /// @param[out] vector : a vector containing all the worldElements in the worldgraph
+    /// @return FrameworkReturnCode::_SUCCESS
+    virtual FrameworkReturnCode getWorldElements(std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
 
     /////////////////////////
     /// TRACKABLE METHODS ///
     /////////////////////////
 
     /// @brief creates a Trackable and adds it to the worldGraph
+    /// @param[out] id :  The id of the newly created & added trackable
     /// @param creatorId : The id of the trackable creator
     /// @param localCrs : the local reference system
     /// @param unitSystem : the system of measurement unit used for the trackable
@@ -81,8 +74,8 @@ public:
     /// @param type : the trackable type
     /// @param encodingInfo : The information given to decode the trackable and extract its features
     /// @param payload : the buffer in wich the trackables informations are stored
-    /// @return the ID of the newly created & added trackable
-    virtual org::bcom::xpcf::uuids::uuid addTrackable(org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
+    /// @return A FrameworkReturnCode succesfull if the trackable is created & added tot he world storage
+    virtual FrameworkReturnCode addTrackable(org::bcom::xpcf::uuids::uuid& id,org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
                                                       datastructure::Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> parents,
                                                       std::map<org::bcom::xpcf::uuids::uuid, SRef<datastructure::StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
                                                       datastructure::StorageTrackableType type, datastructure::EncodingInfo encodingInfo, std::vector<std::byte> payload) = 0;
@@ -90,24 +83,27 @@ public:
 
     /// @brief this methods returns from the world graph the trackable with id {trackableId}
     /// @param trackableId : The Id of the Trackable that is going to be fetched
-    /// @return the trackable with id {trackableId}
-    virtual SRef<datastructure::StorageTrackable> getTrackable(org::bcom::xpcf::uuids::uuid trackableId) = 0;
+    /// @param[out] trackable : the trackable with id {trackableId}
+    /// @return FrameworkReturnCode::_SUCCESS if the trackable is found, FrameworkReturnCode::_NOTIMPLEMENTED if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
+    virtual FrameworkReturnCode getTrackable(org::bcom::xpcf::uuids::uuid trackableId, SRef<datastructure::StorageTrackable> &trackable) = 0;
 
 
     /// @brief this methods deletes the trackable with id {trackableId} from the world graph
     /// @param trackableId : The Id of the Trackable that is going to be deleted
-    /// @return true if the trackable has been deleted from the worldgraph
-    virtual bool removeTrackable(org::bcom::xpcf::uuids::uuid trackableId) = 0;
+    /// @return FrameworkReturnCode success if the trackable has been removed from the world storage
+    virtual FrameworkReturnCode removeTrackable(org::bcom::xpcf::uuids::uuid trackableId) = 0;
 
     /// @brief this methods returns all the trackables that are in the world graph
-    /// @return a vector of all the trackables that are in the world graph
-    virtual std::vector<SRef<datastructure::StorageTrackable>> getTrackables() = 0;
+    /// @param[out] vector : a vector of all the trackables that are in the world graph
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getTrackables(std::vector<SRef<datastructure::StorageTrackable>> &vector) = 0;
 
     ///////////////////////////
     /// WORLDANCHOR METHODS ///
     ///////////////////////////
 
     /// @brief this methods adds a world anchor to the world graph
+    /// @param[out] id : the uuid of the newly created & added world anchor
     /// @param creatorId : The UID of the creator of the world anchor that we are looking to add to the worldgraph
     /// @param localCrs : the local reference system
     /// @param unitSystem : The mesurement system used for the world anchor that we are looking to add to the worldgraph
@@ -115,59 +111,66 @@ public:
     /// @param parents : the world elements that are parents of the anchor taht we want to add
     /// @param children : the world elements that are children of the anchor taht we want to add
     /// @param tags : A map where the key is an enum and the value is a string corresponding to a tag associated with the world anchor that we are looking to add to the worldgraph
-    /// @return the uuid of the newly created & added world anchor
-    virtual org::bcom::xpcf::uuids::uuid addWorldAnchor(org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode addWorldAnchor(org::bcom::xpcf::uuids::uuid& id, org::bcom::xpcf::uuids::uuid creatorId, datastructure::Transform3Df localCRS, datastructure::UnitSystem unitSystem,
                                                         datastructure::Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<datastructure::StorageWorldElement>, datastructure::Transform3Df>> parents,
                                                         std::map<org::bcom::xpcf::uuids::uuid, SRef<datastructure::StorageWorldElement>> children, std::multimap<std::string, std::string> tags) = 0;
 
 
     /// @brief this methods returns from the world graph the world anchor with id {worldAnchorId}
     /// @param worldAnchorId : The Id of the world anchor that is going to be fetched
-    /// @return the world anchor with id {worldAnchorId}
-    virtual SRef<datastructure::StorageWorldAnchor> getWorldAnchor(org::bcom::xpcf::uuids::uuid worldAnchorId) = 0;
+    /// @param[out] worldAnchor : the world anchor with id {worldAnchorId}
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getWorldAnchor(org::bcom::xpcf::uuids::uuid worldAnchorId, SRef<datastructure::StorageWorldAnchor>& worldAnchor) = 0;
 
 
     /// @brief this methods deletes the world anchor with id {worldAnchorId} from the world graph
     /// @param worldAnchorId : The Id of the world anchor that is going to be deleted
-    /// @return true if the world anchor has been deleted from the worldgraph
-    virtual bool removeWorldAnchor(org::bcom::xpcf::uuids::uuid worldAnchorId) = 0;
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode removeWorldAnchor(org::bcom::xpcf::uuids::uuid worldAnchorId) = 0;
 
     /// @brief this methods returns all the world anchors that are in the world graph
-    /// @return a vector of all the world anchors that are in the world graph
-    virtual std::vector<SRef<datastructure::StorageWorldAnchor>> getWorldAnchors() = 0;
+    /// @param[out] vector : a vector of all the world anchors that are in the world graph
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getWorldAnchors(std::vector<SRef<datastructure::StorageWorldAnchor>>& vector) = 0;
 
     /////////////////////////
     /// WORLDLINK METHODS ///
     /////////////////////////
 
     /// @brief this methods adds a transfrom between two world elements
+    /// @param[out] id : the uuid of the newly created & added world link
     /// @param parentId : The UID of the parent world element
     /// @param childId : The UID of the child world element
-    /// @param transform : The transform between the two elemetns
-    virtual org::bcom::xpcf::uuids::uuid addWorldLink(org::bcom::xpcf::uuids::uuid authorId, org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId, datastructure::Transform3Df transform) = 0;
+    /// @param transform : The transform between the two elements
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode addWorldLink(org::bcom::xpcf::uuids::uuid& id, org::bcom::xpcf::uuids::uuid authorId, org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId, datastructure::Transform3Df transform) = 0;
 
 
     /// @brief this methods returns from the world graph the worldLink connecting the two elements given as parameters
     /// @param parentId : The UID of the parent world element
     /// @param childId : The UID of the child world element
-    /// @return The worldLink connecting the two elements given as parameters
-    virtual SRef<datastructure::StorageWorldLink> getWorldLink(org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId) = 0;
+    /// @param[out] worldLink : The worldLink connecting the two elements given as parameters
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getWorldLink(org::bcom::xpcf::uuids::uuid parentId, org::bcom::xpcf::uuids::uuid childId, SRef<datastructure::StorageWorldLink>& worldLink) = 0;
 
 
     /// @brief this methods returns from the world graph the worldLink with the given ID
     /// @param linkId : The UID of the link that is to be deleted
-    /// @return The worldLink with the given ID
-    virtual SRef<datastructure::StorageWorldLink> getWorldLink(org::bcom::xpcf::uuids::uuid linkId) = 0;
+    /// @param[out] worldLink : The worldLink with the given ID
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getWorldLink(org::bcom::xpcf::uuids::uuid linkId, SRef<datastructure::StorageWorldLink> &worldLink) = 0;
 
 
     /// @brief this methods deletes from the world graph the transform between two given world elements
     /// @param parentId : The UID of the link that is to be deleted
-    /// @return true if the world link has been deleted from the worldgraph
-    virtual bool removeWorldLink(org::bcom::xpcf::uuids::uuid linkId) = 0;
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode removeWorldLink(org::bcom::xpcf::uuids::uuid linkId) = 0;
 
     /// @brief this methods returns all the world links that are in the world graph
-    /// @return a vector of all the world links that are in the world graph
-    virtual std::vector<SRef<datastructure::StorageWorldLink>> getWorldLinks() = 0;
+    /// @param[out] vector : a vector of all the world links that are in the world graph
+    /// @return FrameworkReturnCode success if no exception has been raised
+    virtual FrameworkReturnCode getWorldLinks(std::vector<SRef<datastructure::StorageWorldLink>> &vector) = 0;
 
 
 

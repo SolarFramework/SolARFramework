@@ -81,6 +81,11 @@ namespace datastructure {
         return {m_fromElement, m_toElement};
     }
 
+    std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds()
+    {
+        return {m_fromElement->getID(), m_toElement->getID()};
+    }
+
     template<typename Archive>
     void StorageWorldLink::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
         ar & m_id;

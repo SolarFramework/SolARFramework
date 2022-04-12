@@ -25,6 +25,7 @@ enum class FrameworkReturnCode:long{
   _SUCCESS=0, /** Successfull operation */
 
   // error codes
+    _NOT_FOUND = 404,
     _ERROR_=-1,               /** unknown error, better stop!! */
 
   // Not implemented interface

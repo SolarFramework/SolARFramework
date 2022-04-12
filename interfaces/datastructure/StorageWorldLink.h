@@ -88,6 +88,9 @@ class SOLARFRAMEWORK_API StorageWorldLink
         /// @brief returns the two elements that are attached by the link
         std::pair<SRef<StorageWorldElement>, SRef<StorageWorldElement>> getAttachedElements();
 
+        /// @brief returns the two ids of the elements that are attached by the link
+        std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds();
+
     private:
 
         org::bcom::xpcf::uuids::uuid m_id;
