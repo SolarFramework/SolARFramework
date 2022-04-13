@@ -92,6 +92,7 @@ interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
+interfaces/core/Timer.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
@@ -127,7 +128,10 @@ interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
 interfaces/base/features/ADescriptorMatcherStereo.h \
 interfaces/base/geom/A2DPointsRectification.h \
-interfaces/base/geom/AReprojectionStereo.h
+interfaces/base/geom/AReprojectionStereo.h \
+interfaces/api/segm/IInstanceSegmentation.h \
+interfaces/api/segm/ISemanticSegmentation.h \
+interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \

@@ -131,7 +131,7 @@ FrameworkReturnCode CovisibilityGraph::suppressNode(const uint32_t node_id)
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode CovisibilityGraph::getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t>& neighbors) const
+FrameworkReturnCode CovisibilityGraph::getNeighbors(const uint32_t node_id, const float minWeight, std::vector<uint32_t>& neighbors, const uint32_t maxNbNeighbors) const
 {
 	std::vector < std::pair<uint32_t, float> > neighbors_weights;
 	auto it = m_edges.find(node_id);
@@ -143,11 +143,17 @@ FrameworkReturnCode CovisibilityGraph::getNeighbors(const uint32_t node_id, cons
 		if (m_weights.at(edge) > minWeight)
 			neighbors_weights.push_back(std::make_pair(n, m_weights.at(edge)));
 	}
+	if (neighbors_weights.size() == 0)
+		return FrameworkReturnCode::_ERROR_;
 	// sort
 	std::sort(neighbors_weights.begin(), neighbors_weights.end(), [](const std::pair<uint32_t, float> &a, const std::pair<uint32_t, float> &b) {return a.second > b.second; });
 	// get sorted neighbors
-	for (auto const &it : neighbors_weights)
+	uint32_t nbNeighbors = (maxNbNeighbors > 0) & (maxNbNeighbors < neighbors_weights.size()) ? maxNbNeighbors : neighbors_weights.size();
+	for (auto const &it : neighbors_weights) {
 		neighbors.push_back(it.first);
+		if (neighbors.size() == nbNeighbors)
+			break;
+	}
 	return FrameworkReturnCode::_SUCCESS;
 }
 
