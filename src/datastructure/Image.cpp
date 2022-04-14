@@ -22,9 +22,11 @@
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include <OpenImageIO/imageio.h>
 #include <OpenImageIO/filesystem.h>
+#include <OpenImageIO/imagebufalgo.h>
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
@@ -70,7 +72,6 @@ void ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigne
 IMPLEMENTSERIALIZE(ImageInternal);
 
 static std::map<Image::ImageLayout,uint32_t> layoutChannelMapInfos = {{Image::ImageLayout::LAYOUT_RGB,3},
-                                                                           {Image::ImageLayout::LAYOUT_GRB,3},
                                                                            {Image::ImageLayout::LAYOUT_BGR,3},
                                                                            {Image::ImageLayout::LAYOUT_GREY,1},
                                                                            {Image::ImageLayout::LAYOUT_RGBA,4},
@@ -174,26 +175,85 @@ static std::map<Image::DataType,OIIO::TypeDesc> SolAR2OIIOType = {{Image::DataTy
                                                                   {Image::DataType::TYPE_32U, OIIO::TypeDesc::FLOAT},
                                                                   {Image::DataType::TYPE_64U, OIIO::TypeDesc::DOUBLE}};
 
-static std::map<OIIO::TypeDesc,Image::DataType> OIIO2SolAR2Type = {{OIIO::TypeDesc::UINT8, Image::DataType::TYPE_8U},
-                                                                   {OIIO::TypeDesc::INT8, Image::DataType::TYPE_8U},
-                                                                   {OIIO::TypeDesc::UINT16, Image::DataType::TYPE_16U},
-                                                                   {OIIO::TypeDesc::INT16, Image::DataType::TYPE_16U},
-                                                                   {OIIO::TypeDesc::UINT32, Image::DataType::TYPE_32U},
-                                                                   {OIIO::TypeDesc::INT32, Image::DataType::TYPE_32U},
-                                                                   {OIIO::TypeDesc::UINT64, Image::DataType::TYPE_64U},
-                                                                   {OIIO::TypeDesc::INT64, Image::DataType::TYPE_64U},
-                                                                   {OIIO::TypeDesc::FLOAT, Image::DataType::TYPE_32U},
-                                                                   {OIIO::TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
+static std::map<OIIO::TypeDesc,Image::DataType> OIIO2SolARType = {{OIIO::TypeDesc::UINT8, Image::DataType::TYPE_8U},
+                                                                  {OIIO::TypeDesc::INT8, Image::DataType::TYPE_8U},
+                                                                  {OIIO::TypeDesc::UINT16, Image::DataType::TYPE_16U},
+                                                                  {OIIO::TypeDesc::INT16, Image::DataType::TYPE_16U},
+                                                                  {OIIO::TypeDesc::UINT32, Image::DataType::TYPE_32U},
+                                                                  {OIIO::TypeDesc::INT32, Image::DataType::TYPE_32U},
+                                                                  {OIIO::TypeDesc::UINT64, Image::DataType::TYPE_64U},
+                                                                  {OIIO::TypeDesc::INT64, Image::DataType::TYPE_64U},
+                                                                  {OIIO::TypeDesc::FLOAT, Image::DataType::TYPE_32U},
+                                                                  {OIIO::TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
 
 static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
-                                                                                 {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
+                                                                                 {{"G"}, Image::ImageLayout::LAYOUT_GREY},
                                                                                  {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
 static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
                                                                                  {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
-                                                                                 {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
+                                                                                 {Image::ImageLayout::LAYOUT_GREY, {"G"}},
                                                                                  {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
                                                                                  {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
+
+
+FrameworkReturnCode Image::save(std::string imagePath) const
+{
+    Image::ImageEncoding encoding;
+    if (boost::algorithm::ends_with(imagePath, ".jpg") || boost::algorithm::ends_with(imagePath, ".jpeg"))
+        encoding = ENCODING_JPEG;
+    else if (boost::algorithm::ends_with(imagePath, ".png"))
+        encoding = ENCODING_PNG;
+    else
+    {
+       std::cout << "Try to encode an image with an unkown suffix. Only .jpeg, .jpg and .png are accepted." << std::endl;
+       return FrameworkReturnCode::_ERROR_;
+    }
+
+    OIIO::TypeDesc type;
+    if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+        type = SolAR2OIIOType.at(m_type);
+    else
+        type = OIIO::TypeDesc::UNKNOWN;
+
+    OIIO::ImageSpec spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, type);
+
+    spec.nchannels = m_nbChannels;
+    if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
+        spec.channelnames = SolAR2OIIOLayout.at(m_layout);
+
+    spec.attribute ("oiio:ColorSpace", "sRGB");
+
+    switch (encoding)
+    {
+        case ENCODING_JPEG:
+            spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
+            break;
+        case ENCODING_PNG:
+            if (m_imageEncodingQuality==0)
+                spec.attribute ("png:compressionLevel", 0);
+            else if (m_imageEncodingQuality>=100)
+                spec.attribute ("png:compressionLevel", 9);
+            else
+            {
+                // PNG encoding quality should be defined between 0 and 9.
+                spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
+            }
+            break;
+        default:
+            break;
+    }
+
+    OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, m_internalImpl->data());
+
+    // Convert to BGR or GRB to RGB channel format
+    if (m_layout == Image::ImageLayout::LAYOUT_BGR)
+        sourceBuf = OIIO::ImageBufAlgo::channels(sourceBuf, 3, { 2, 1, 0 });
+
+    sourceBuf.write(imagePath);
+
+    return FrameworkReturnCode::_SUCCESS;
+}
 
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int version) const
@@ -218,7 +278,7 @@ void Image::save(Archive & ar, const unsigned int version) const
             spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
 
         if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
-            spec.channelnames = SolAR2OIIOLayout.at(m_layout);
+            spec.channelnames=SolAR2OIIOLayout.at(m_layout);
 
         std::vector<unsigned char> file_buffer;  // bytes will go here
         OIIO::Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object;
@@ -257,6 +317,7 @@ void Image::save(Archive & ar, const unsigned int version) const
             return;
         }
         out->open (filename, spec);
+
         if (!out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data()))
         {
             std::cout << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
@@ -269,6 +330,65 @@ void Image::save(Archive & ar, const unsigned int version) const
     else {
         ar & m_internalImpl;
     }
+}
+
+FrameworkReturnCode Image::load(std::string imagePath)
+{
+    auto in = OIIO::ImageInput::open(imagePath);
+    if (!in)
+    {
+        std::cout << "Cannot load the image " << imagePath << " due to the following error: " << OIIO::geterror() << std::endl;
+        return FrameworkReturnCode::_ERROR_;
+    }
+
+    const OIIO::ImageSpec spec = in->spec();
+    m_size.width = spec.width;
+    m_size.height = spec.height;
+    m_nbChannels = spec.nchannels;
+
+    OIIO::imagesize_t buffersize = spec.image_bytes(true);
+    unsigned char* pixels = new unsigned char [buffersize];
+    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+
+    if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
+    {
+       m_type = OIIO2SolARType.at(spec.format);
+       m_nbBitsPerComponent = typeSizeMapInfos.at(m_type);
+    }
+    else
+    {
+        std::cout << "Format " << spec.format << "is not supported when loading an image from a file" << std::endl;
+        return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+    }
+    m_nbPlanes = 1;
+
+    switch (spec.nchannels)
+    {
+        case 1:
+            m_layout = Image::LAYOUT_GREY;
+            m_nbChannels = 1;
+            break;
+        case 3:
+        case 4:
+            if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
+                m_layout = OIIO2SolARLayout.at(spec.channelnames);
+            else
+            {
+                std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
+                FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+            }
+            m_nbChannels = (unsigned int)spec.nchannels;
+            break;
+        default:
+           std::cout << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
+           FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+    }
+
+    m_internalImpl = utils::make_shared<ImageInternal>();
+    m_internalImpl->setData(pixels, spec.image_bytes(true));
+    in->close();
+
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 template<class Archive>
@@ -307,31 +427,10 @@ void Image::load(Archive & ar, const unsigned int version)
 
          auto in = OIIO::ImageInput::open (filename, nullptr, &memreader);
          const OIIO::ImageSpec & spec = in->spec();
-         m_size.width = spec.width;
-         m_size.height = spec.height;
-         m_nbChannels = spec.nchannels;
 
          OIIO::imagesize_t buffersize = spec.image_bytes(true);
          unsigned char* pixels = new unsigned char [buffersize];
          in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
-
-         switch (spec.nchannels)
-         {
-             case 1:
-                 m_layout = Image::LAYOUT_GREY;
-                 m_nbChannels = 1;
-                 break;
-             case 3:
-             case 4:
-                 if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
-                     m_layout = OIIO2SolARLayout.at(spec.channelnames);
-                 else
-                    std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
-                 m_nbChannels = (unsigned int)spec.nchannels;
-                 break;
-             default:
-                std::cout << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
-         }
 
          m_internalImpl = utils::make_shared<ImageInternal>();
          m_internalImpl->setData(pixels, spec.image_bytes(true));
