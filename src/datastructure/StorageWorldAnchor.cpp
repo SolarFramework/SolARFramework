@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+#include "datastructure/StorageWorldAnchor.h"
+
 #include <xpcf/core/helpers.h>
 
 #include "core/Log.h"
-#include "datastructure/StorageWorldAnchor.h"
 
 namespace SolAR {
 namespace datastructure {

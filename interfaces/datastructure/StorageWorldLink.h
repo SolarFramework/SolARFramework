@@ -69,12 +69,12 @@ class SOLARFRAMEWORK_API StorageWorldLink
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
         /// @brief Getter for the origin element ID of the WorldLink
-        const SRef<StorageWorldElement> &getFromElement() const;
+        const StorageWorldElement& getFromElement() const;
         /// @brief Setter for the origin element ID of the WorldLink
         void setFromElement(const SRef<StorageWorldElement> &newFromElement);
 
         /// @brief Getter for the destination element ID of the WorldLink
-        const SRef<StorageWorldElement> &getToElement() const;
+        const StorageWorldElement& getToElement() const;
         /// @brief Setter for the destination element ID of the WorldLink
         void setToElement(const SRef<StorageWorldElement> &newToElement);
 
@@ -84,10 +84,10 @@ class SOLARFRAMEWORK_API StorageWorldLink
         void setTransform(const Transform3Df &newTransform);
 
         /// @brief returns the two elements that are attached by the link
-        std::pair<SRef<StorageWorldElement>, SRef<StorageWorldElement>> getAttachedElements();
+        std::pair<const StorageWorldElement&, const StorageWorldElement&> getAttachedElements() const;
 
         /// @brief returns the two ids of the elements that are attached by the link
-        std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds();
+        std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds() const;
 
     private:
 

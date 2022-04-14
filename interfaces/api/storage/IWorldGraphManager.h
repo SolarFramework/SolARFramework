@@ -51,7 +51,7 @@ public:
     /// @brief this method returns from the world graph the worldElement with id {worldElementId}
     /// @param[in] worldElementId: The Id of the WorldElement that is going to be fetched
     /// @param[out] worldElement:  the worldElement with id {worldElementId}
-    /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTIMPLEMENTED if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
+    /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTFOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
     virtual FrameworkReturnCode getWorldElement(const org::bcom::xpcf::uuids::uuid& worldElementId, SRef<datastructure::StorageWorldElement>& worldElement) = 0;
 
     /// @brief this method returns all the worldElements currently in the world graph

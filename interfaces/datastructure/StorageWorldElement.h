@@ -56,7 +56,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         StorageWorldElement() = default;
 
         /// @brief WorldElement constructor
-        StorageWorldElement(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+        StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
                             Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
                             std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags);
 
@@ -70,7 +70,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Getter for the id of the WorldElement object
         org::bcom::xpcf::uuids::uuid getID() const;
         /// @brief Setter for the id of the WorldElement object
-        void setID(const org::bcom::xpcf::uuids::uuid & id);
+        void setID(const org::bcom::xpcf::uuids::uuid &id);
 
         /// @brief Getter for the author ID of the WorldElement
         org::bcom::xpcf::uuids::uuid getCreatorID() const;
@@ -112,7 +112,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         ///////////////
 
         /// @brief Add a new tag to associate to the element
-        void addTag(std::string, std::string);
+        void addTag(const std::string &key, const std::string &value);
 
         /// @brief Add a new child to the element
         void addChild(SRef<StorageWorldElement> child);
@@ -124,19 +124,19 @@ class SOLARFRAMEWORK_API StorageWorldElement
         bool removeTag(std::string, std::string);
 
         /// @brief removes a child from the element
-        bool removeChild(org::bcom::xpcf::uuids::uuid childId);
+        bool removeChild(const org::bcom::xpcf::uuids::uuid &childId);
 
         /// @brief removes a parent from the element
-        bool removeParent(org::bcom::xpcf::uuids::uuid parentId);
+        bool removeParent(const org::bcom::xpcf::uuids::uuid &parentId);
 
         /// @brief Checks if the caller has the element with given id as a child
-        bool hasChild(org::bcom::xpcf::uuids::uuid childId);
+        bool hasChild(const org::bcom::xpcf::uuids::uuid &childId);
 
         /// @brief Checks if the caller has the element with given id as a parent
-        bool hasParent(org::bcom::xpcf::uuids::uuid parentId);
+        bool hasParent(const org::bcom::xpcf::uuids::uuid &parentId);
 
         /// @brief Gets the parent with given id and the tansformation between the parent and the caller
-        std::pair<SRef<StorageWorldElement>, Transform3Df> getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId);
+        std::pair<SRef<StorageWorldElement>, Transform3Df> getParentWithTransform(const org::bcom::xpcf::uuids::uuid &parentId);
 
         /// @brief Gets the type of worldElement ( trackable or anchor )
         virtual ElementKind getKind() = 0;

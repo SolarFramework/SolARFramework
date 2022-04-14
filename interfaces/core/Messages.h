@@ -21,21 +21,27 @@ namespace SolAR {
 
 enum class FrameworkReturnCode:long{
 
-  _STOP=1, /** means stop the process */
-  _SUCCESS=0, /** Successfull operation */
+    /** means stop the process */
+    _STOP = 1,
+    /** Successfull operation */
+    _SUCCESS = 0,
 
-  // error codes
+    // error codes
+    /** unknown error, better stop!! */
+    _ERROR_ = -1,
+    /** Requested resource has not been found */
     _NOT_FOUND = 404,
-    _ERROR_=-1,               /** unknown error, better stop!! */
 
-  // Not implemented interface
+    // Not implemented interface
     _NOT_IMPLEMENTED = -2,
 
-  // for IImage
-    _ERROR_LOAD_IMAGE=-10,    /** Cannot load Image */
-    _ERROR_ACCESS_IMAGE=-11,  /** Cannot acces Image */
+    // for IImage
+    /** Cannot load Image */
+    _ERROR_LOAD_IMAGE = -10,
+    /** Cannot acces Image */
+    _ERROR_ACCESS_IMAGE = -11,
 };
 
-}  // end of namespace Argo
+}  // end of namespace SolAR
 
 #endif // SOLAR_MESSAGES_H

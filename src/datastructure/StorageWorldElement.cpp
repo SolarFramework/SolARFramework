@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
+#include "datastructure/StorageWorldElement.h"
+
 #include <xpcf/core/helpers.h>
 
 #include "core/Log.h"
-#include "datastructure/StorageWorldElement.h"
 
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldElement::StorageWorldElement(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+    StorageWorldElement::StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
                                              Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
                                              std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags){
         m_id = org::bcom::xpcf::uuids::random_generator()();
@@ -100,8 +101,8 @@ namespace datastructure {
         m_tags = tags;
     }
 
-    void StorageWorldElement::addTag(std::string dataType, std::string value){
-        m_tags.insert({dataType, value});
+    void StorageWorldElement::addTag(const std::string &key, const std::string &value){
+        m_tags.insert({key, value});
     }
 
     void StorageWorldElement::addChild(SRef<StorageWorldElement> child){
@@ -112,23 +113,23 @@ namespace datastructure {
         m_parents.insert({parent->getID(), {parent, transform}});
     }
 
-    bool StorageWorldElement::removeChild(org::bcom::xpcf::uuids::uuid childId){
+    bool StorageWorldElement::removeChild(const org::bcom::xpcf::uuids::uuid &childId){
         return m_children.erase(childId) == 1;
     }
 
-    bool StorageWorldElement::removeParent(org::bcom::xpcf::uuids::uuid parentId){
+    bool StorageWorldElement::removeParent(const org::bcom::xpcf::uuids::uuid &parentId){
         return m_parents.erase(parentId) == 1;
     }
 
-    bool StorageWorldElement::hasChild(org::bcom::xpcf::uuids::uuid childId){
+    bool StorageWorldElement::hasChild(const org::bcom::xpcf::uuids::uuid &childId){
         return m_children.find(childId) != m_children.end();
     }
 
-    bool StorageWorldElement::hasParent(org::bcom::xpcf::uuids::uuid parentId){
+    bool StorageWorldElement::hasParent(const org::bcom::xpcf::uuids::uuid &parentId){
         return m_parents.find(parentId) != m_parents.end();
     }
 
-    std::pair<SRef<StorageWorldElement>, Transform3Df> StorageWorldElement::getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId){
+    std::pair<SRef<StorageWorldElement>, Transform3Df> StorageWorldElement::getParentWithTransform(const org::bcom::xpcf::uuids::uuid &parentId){
         if (hasParent(parentId)){
             auto it = m_parents.find(parentId);
             return it->second;

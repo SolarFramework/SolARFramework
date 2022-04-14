@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+#include "datastructure/StorageTrackable.h"
+
 #include <xpcf/core/helpers.h>
 
 #include "core/Log.h"
-#include "datastructure/StorageTrackable.h"
 #include "datastructure/Trackable.h"
 
 namespace SolAR {

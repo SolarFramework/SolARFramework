@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+#include "datastructure/StorageWorldLink.h"
+
 #include <xpcf/core/helpers.h>
 
 #include "core/Log.h"
-#include "datastructure/StorageWorldLink.h"
 
 namespace SolAR {
 namespace datastructure {
@@ -47,9 +48,9 @@ namespace datastructure {
         m_author = newAuthor;
     }
 
-    const SRef<StorageWorldElement> &StorageWorldLink::getFromElement() const
+    const StorageWorldElement& StorageWorldLink::getFromElement() const
     {
-        return m_fromElement;
+        return *m_fromElement;
     }
 
     void StorageWorldLink::setFromElement(const SRef<StorageWorldElement> &newFromElement)
@@ -57,9 +58,9 @@ namespace datastructure {
         m_fromElement = newFromElement;
     }
 
-    const SRef<StorageWorldElement> &StorageWorldLink::getToElement() const
+    const StorageWorldElement &StorageWorldLink::getToElement() const
     {
-        return m_toElement;
+        return *m_toElement;
     }
 
     void StorageWorldLink::setToElement(const SRef<StorageWorldElement> &newToElement)
@@ -77,12 +78,12 @@ namespace datastructure {
         m_transform = newTransform;
     }
 
-    std::pair<SRef<StorageWorldElement>, SRef<StorageWorldElement>> StorageWorldLink::getAttachedElements()
+    std::pair<const StorageWorldElement&, const StorageWorldElement&> StorageWorldLink::getAttachedElements() const
     {
-        return {m_fromElement, m_toElement};
+        return {*m_fromElement, *m_toElement};
     }
 
-    std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds()
+    std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds() const
     {
         return {m_fromElement->getID(), m_toElement->getID()};
     }
