@@ -34,7 +34,7 @@ namespace datastructure {
         m_parents = parents;
         m_children = children;
         m_tags = tags;
-        LOG_DEBUG("WorldElement constructor with id = ", org::bcom::xpcf::uuids::to_string(m_id));
+        LOG_DEBUG("WorldElement constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
     org::bcom::xpcf::uuids::uuid StorageWorldElement::getID() const {

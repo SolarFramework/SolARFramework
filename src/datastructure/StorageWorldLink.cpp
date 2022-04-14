@@ -30,6 +30,7 @@ namespace datastructure {
         m_fromElement = fromElement;
         m_toElement = toElement;
         m_transform = transform;
+        LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
     const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getId() const
