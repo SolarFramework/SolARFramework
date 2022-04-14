@@ -186,12 +186,10 @@ static std::map<OIIO::TypeDesc,Image::DataType> OIIO2SolAR2Type = {{OIIO::TypeDe
                                                                    {OIIO::TypeDesc::DOUBLE, Image::DataType::TYPE_64U}};
 
 static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
-                                                                                 {{"G","R","B"}, Image::ImageLayout::LAYOUT_GRB},
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
                                                                                  {{"G","R","B"}, Image::ImageLayout::LAYOUT_GREY},
                                                                                  {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
 static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
-                                                                                 {Image::ImageLayout::LAYOUT_GRB, {"G","R","B"}},
                                                                                  {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
                                                                                  {Image::ImageLayout::LAYOUT_GREY, {"G","R","B"}},
                                                                                  {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},

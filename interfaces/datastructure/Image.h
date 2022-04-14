@@ -76,7 +76,6 @@ public:
 
     enum ImageLayout {
         LAYOUT_RGB=0,          /**< means 3 channels per pixel : Red, Green, Blue */
-        LAYOUT_GRB,            /**< means 3 channels per pixel : Green,Red, Blue (this is opencv model)*/
         LAYOUT_BGR,            /**< means 3 channels per pixel : Green,Red, Blue (this is opencv model)*/
         LAYOUT_GREY,           /**< means 1 channel per pixel  : grey color*/
         LAYOUT_RGBA,           /**< means 4 channels per pixel : Red, Green, Blue and Alpha channel*/
