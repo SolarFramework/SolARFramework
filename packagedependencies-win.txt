@@ -1,1 +1,2 @@
-opencv|4.5.5|opencv|conan-solar@conan|conan-solar|default|contrib=True#with_cuda=True#with_cublas=True#with_cudnn=True#dnn=True#with_ffmpeg=False
+
+
