@@ -1,18 +1,31 @@
+/**
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef STORAGETRACKABLE_H
 #define STORAGETRACKABLE_H
 
-#include <core/SolARFrameworkDefinitions.h>
-#include <core/SerializationDefinitions.h>
-#include <datastructure/StorageWorldElement.h>
-#include "datastructure/MathDefinitions.h"
-#include <datastructure/Trackable.h>
 #include <nlohmann/json.hpp>
-#include <datastructure/UnitSystem.h>
 
 #include "core/Log.h"
-
-// Definition of StorageTrackable Class //
-// part of SolAR namespace //
+#include "core/SerializationDefinitions.h"
+#include "core/SolARFrameworkDefinitions.h"
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/StorageWorldElement.h"
+#include "datastructure/Trackable.h"
+#include "datastructure/UnitSystem.h"
 
 namespace SolAR {
 namespace datastructure {
@@ -46,39 +59,44 @@ static  std::string resolveTrackableType(StorageTrackableType input){
 ///
 /// @brief The EncodingInfo struct
 ///
-struct EncodingInfo {
-    std::string m_dataFormat;
-    std::string m_version;
+class EncodingInfo {
 
-    EncodingInfo() = default;
+    public:
 
-    EncodingInfo(std::string dataFormat, std::string version){
-        m_dataFormat = dataFormat;
-        m_version = version;
-    }
+        EncodingInfo() = default;
 
-    std::string& getVersion(){
-        return m_version;
-    }
+        EncodingInfo(const std::string &dataFormat, const std::string &version){
+            m_dataFormat = dataFormat;
+            m_version = version;
+        }
 
-    std::string& getDataFormat(){
-        return m_dataFormat;
-    }
+        std::string getVersion(){
+            return m_version;
+        }
 
-    void setDataFormat(std::string dataFormat){
-        m_dataFormat = dataFormat;
-    }
+        std::string getDataFormat(){
+            return m_dataFormat;
+        }
 
-    void setVersion(std::string version){
-        m_version = version;
-    }
+        void setDataFormat(const std::string &dataFormat){
+            m_dataFormat = dataFormat;
+        }
 
-    friend class boost::serialization::access;
-    template<typename Archive>
-    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-        ar & m_version;
-        ar & m_dataFormat;
-    }
+        void setVersion(const std::string &version){
+            m_version = version;
+        }
+
+        friend class boost::serialization::access;
+        template<typename Archive>
+        void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+            ar & m_version;
+            ar & m_dataFormat;
+        }
+
+    private:
+
+        std::string m_dataFormat;
+        std::string m_version;
 };
 
 /**
@@ -104,22 +122,22 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         virtual ~StorageTrackable() = default;
 
         ///
-        /// @brief StorageTrackable constructor from abstract supertype WorldElement
+        /// @brief StorageTrackable constructor default copy constructor
         ///
-        StorageTrackable(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
+        StorageTrackable(const StorageTrackable &elem) = default;
 
         ///
         /// @brief StorageTrackable constructor with url
         ///
-        StorageTrackable(const std::string & url);
+        StorageTrackable(const std::string &url);
 
         ///
         /// @brief StorageTrackable constructor with all its attributes
         ///
-        StorageTrackable(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                         Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
-                         std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
-                         StorageTrackableType type, EncodingInfo encodingInfo, std::vector<std::byte> payload);
+        StorageTrackable(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                         Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
+                         const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags,
+                         StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
@@ -145,9 +163,7 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         /// @brief Setter for the buffer for the payload contained by the trackable
         void setPayload(const std::vector<std::byte> &newPayload);
 
-        bool isWorldAnchor() override;
-
-        bool isTrackable() override;
+        virtual ElementKind getKind() override;
 
     private:
 
@@ -165,20 +181,8 @@ protected:
 };
 
 DECLARESERIALIZE(StorageTrackable);
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(StorageTrackable);
 
 }
 } // end of namespace SolAR
-
-namespace boost { namespace serialization {
-
-template<class Archive>
-inline void serialize(Archive & ar,
-                      SolAR::datastructure::EncodingInfo & parameters,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
-{
-    ar & parameters.m_dataFormat;
-    ar & parameters.m_version;
-}}}
 
 #endif // STORAGETRACKABLE_H

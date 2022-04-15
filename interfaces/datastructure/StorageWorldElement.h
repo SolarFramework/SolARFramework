@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@
 #ifndef STORAGEWORLDELEMENT_H
 #define STORAGEWORLDELEMENT_H
 
-#include <core/SolARFrameworkDefinitions.h>
-#include <datastructure/MathDefinitions.h>
-#include <datastructure/UnitSystem.h>
-#include <core/SerializationDefinitions.h>
+#include <xpcf/core/uuid.h>
 
-#include "xpcf/core/uuid.h"
 #include "core/Log.h"
+#include "core/SerializationDefinitions.h"
+#include "core/SolARFrameworkDefinitions.h"
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/UnitSystem.h"
 
 
 
@@ -31,6 +31,14 @@
 // part of SolAR namespace //
 namespace SolAR {
 namespace datastructure {
+
+///
+/// @brief Enumeration of all element object types
+///
+enum class ElementKind : char {
+    TRACKABLE,
+    ANCHOR
+};
 
 /**
     * @class WorldElement
@@ -77,7 +85,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Getter for the unit system
         UnitSystem getUnitSystem() const;
         /// @brief Setter for the unit system
-        void setUnitSystem(const UnitSystem newUnitSystem);
+        void setUnitSystem(const UnitSystem &newUnitSystem);
 
         /// @brief Getter for the dimension of the WorldElement
         Vector3d getSize() const;
@@ -87,17 +95,17 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Getter for the parent of the element
         std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> getParents() const;
         /// @brief Setter for the parent of the element
-        void setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents);
+        void setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents);
 
         /// @brief Getter for the children of the element
         std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> getChildren() const;
         /// @brief Setter for the children of the element
-        void setChildren(std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children);
+        void setChildren(const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &newChildren);
 
         /// @brief Getter for the list of tags associated with the element
         std::multimap<std::string, std::string> getTags() const;
         /// @brief Setter for the list of tags associated with the element
-        void setTags(const std::multimap<std::string, std::string> tags);
+        void setTags(const std::multimap<std::string, std::string> &tags);
 
         ///////////////
         /// METHODS ///
@@ -111,6 +119,9 @@ class SOLARFRAMEWORK_API StorageWorldElement
 
         /// @brief Add a new parent to the element
         void addParent(SRef<StorageWorldElement> parent, Transform3Df transform);
+
+        /// @brief removes a tag form the element
+        bool removeTag(std::string, std::string);
 
         /// @brief removes a child from the element
         bool removeChild(org::bcom::xpcf::uuids::uuid childId);
@@ -127,9 +138,8 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Gets the parent with given id and the tansformation between the parent and the caller
         std::pair<SRef<StorageWorldElement>, Transform3Df> getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId);
 
-        virtual bool isWorldAnchor()=0;
-
-        virtual bool isTrackable()=0;
+        /// @brief Gets the type of worldElement ( trackable or anchor )
+        virtual ElementKind getKind() = 0;
 
     private:
 

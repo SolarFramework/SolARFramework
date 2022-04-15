@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-#include "datastructure/StorageWorldElement.h"
+#include <xpcf/core/helpers.h>
 
 #include "core/Log.h"
-
-#include "xpcf/core/helpers.h"
+#include "datastructure/StorageWorldElement.h"
 
 namespace SolAR {
 namespace datastructure {
@@ -65,7 +64,7 @@ namespace datastructure {
         return m_unitSystem;
     }
 
-    void StorageWorldElement::setUnitSystem(const UnitSystem newUnitSystem){
+    void StorageWorldElement::setUnitSystem(const UnitSystem &newUnitSystem){
         m_unitSystem = newUnitSystem;
     }
 
@@ -81,7 +80,7 @@ namespace datastructure {
         return m_parents;
     }
 
-    void StorageWorldElement::setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents){
+    void StorageWorldElement::setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents){
         m_parents = parents;
     }
 
@@ -89,7 +88,7 @@ namespace datastructure {
         return m_children;
     }
 
-    void StorageWorldElement::setChildren(const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> newChildren){
+    void StorageWorldElement::setChildren(const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &newChildren){
         m_children = newChildren;
     }
 
@@ -97,7 +96,7 @@ namespace datastructure {
         return m_tags;
     }
 
-    void StorageWorldElement::setTags(const std::multimap<std::string, std::string> tags) {
+    void StorageWorldElement::setTags(const std::multimap<std::string, std::string> &tags) {
         m_tags = tags;
     }
 
@@ -114,33 +113,19 @@ namespace datastructure {
     }
 
     bool StorageWorldElement::removeChild(org::bcom::xpcf::uuids::uuid childId){
-        if (m_children.erase(childId) == 1){
-            return true;
-        }
-        return false;
+        return m_children.erase(childId) == 1;
     }
 
     bool StorageWorldElement::removeParent(org::bcom::xpcf::uuids::uuid parentId){
-        if (m_parents.erase(parentId) == 1){
-            return true;
-        }
-        return false;
+        return m_parents.erase(parentId) == 1;
     }
 
     bool StorageWorldElement::hasChild(org::bcom::xpcf::uuids::uuid childId){
-        auto it = m_children.find(childId);
-        if(it != m_children.end()){
-            return true;
-        }
-        return false;
+        return m_children.find(childId) != m_children.end();
     }
 
     bool StorageWorldElement::hasParent(org::bcom::xpcf::uuids::uuid parentId){
-        auto it = m_parents.find(parentId);
-        if(it != m_parents.end()){
-            return true;
-        }
-        return false;
+        return m_parents.find(parentId) != m_parents.end();
     }
 
     std::pair<SRef<StorageWorldElement>, Transform3Df> StorageWorldElement::getParentWithTransform(org::bcom::xpcf::uuids::uuid parentId){

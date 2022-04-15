@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#include "datastructure/StorageWorldLink.h"
-#include "core/Log.h"
+#include <xpcf/core/helpers.h>
 
-#include "xpcf/core/helpers.h"
+#include "core/Log.h"
+#include "datastructure/StorageWorldLink.h"
 
 namespace SolAR {
 namespace datastructure {

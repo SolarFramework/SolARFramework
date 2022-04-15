@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,11 @@
 #ifndef STORAGEWORLDLINK_H
 #define STORAGEWORLDLINK_H
 
-#include <core/SolARFrameworkDefinitions.h>
-#include <core/SerializationDefinitions.h>
-#include <datastructure/StorageWorldElement.h>
-#include <datastructure/UnitSystem.h>
+#include "core/SerializationDefinitions.h"
+#include "core/SolARFrameworkDefinitions.h"
+#include "datastructure/StorageWorldElement.h"
+#include "datastructure/UnitSystem.h"
 #include "datastructure/MathDefinitions.h"
-
-#include "core/Log.h"
 
 // Definition of StorageWorldLink Class //
 // part of SolAR namespace //

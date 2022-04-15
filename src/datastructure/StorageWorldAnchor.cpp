@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-#include "datastructure/StorageWorldAnchor.h"
-#include "core/Log.h"
+#include <xpcf/core/helpers.h>
 
-#include "xpcf/core/helpers.h"
+#include "core/Log.h"
+#include "datastructure/StorageWorldAnchor.h"
 
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldAnchor::StorageWorldAnchor(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                           Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
-                                           std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags) : StorageWorldElement(creatorId, localCRS, unitSystem,
+    StorageWorldAnchor::StorageWorldAnchor(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                                           Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
+                                           const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags) : StorageWorldElement(creatorId, localCRS, unitSystem,
                                                                                                                                                                                            size, parents,
                                                                                                                                                                                            children, tags)
     {
@@ -37,11 +37,9 @@ namespace datastructure {
         ar & boost::serialization::base_object<StorageWorldElement>(*this);
     }
 
-    bool StorageWorldAnchor::isWorldAnchor() {
-        return true;
-    }
-    bool StorageWorldAnchor::isTrackable() {
-        return false;
+    ElementKind StorageWorldAnchor::getKind()
+    {
+        return ElementKind::ANCHOR;
     }
 
     IMPLEMENTSERIALIZE(StorageWorldAnchor);

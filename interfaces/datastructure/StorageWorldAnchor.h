@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,14 @@
 #ifndef STORAGEWORLDANCHOR_H
 #define STORAGEWORLDANCHOR_H
 
-#include <core/SolARFrameworkDefinitions.h>
-#include <core/SerializationDefinitions.h>
-#include <datastructure/StorageWorldElement.h>
-#include <datastructure/UnitSystem.h>
-#include "datastructure/MathDefinitions.h"
-
 #include "core/Log.h"
 
-// Definition of StorageWorldAnchor Class //
-// part of SolAR namespace //
+#include "core/SerializationDefinitions.h"
+#include "core/SolARFrameworkDefinitions.h"
+
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/StorageWorldElement.h"
+#include "datastructure/UnitSystem.h"
 
 namespace SolAR {
 namespace datastructure {
@@ -53,20 +51,18 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         virtual ~StorageWorldAnchor() = default;
 
         ///
-        /// @brief WorldAnchor constructor from abstract supertype WorldElement
+        /// @brief WorldAnchor default copy constructor
         ///
-        StorageWorldAnchor(const StorageWorldElement& elem) : StorageWorldElement(elem) {};
+        StorageWorldAnchor(const StorageWorldAnchor& elem) = default;
 
         ///
         /// @brief WorldAnchor constructor with all its attributes
         ///
-        StorageWorldAnchor(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                           Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
-                           std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags);
+        StorageWorldAnchor(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                           Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
+                           const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags);
 
-        bool isWorldAnchor() override;
-
-        bool isTrackable() override;
+        virtual ElementKind getKind() override;
 
 
     private:

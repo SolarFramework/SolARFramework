@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
+#include <xpcf/core/helpers.h>
+
+#include "core/Log.h"
 #include "datastructure/StorageTrackable.h"
 #include "datastructure/Trackable.h"
-#include "core/Log.h"
-
-#include "xpcf/core/helpers.h"
 
 namespace SolAR {
 namespace datastructure {
 
     StorageTrackable::StorageTrackable(const std::string & url) : m_url(url) {
-        LOG_DEBUG("StorageTrackable constructor with url = {}", url);
     }
 
-    StorageTrackable::StorageTrackable(org::bcom::xpcf::uuids::uuid creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                       Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
-                                       std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags,
-                                       StorageTrackableType type, EncodingInfo encodingInfo, std::vector<std::byte> payload) : StorageWorldElement(creatorId, localCRS, unitSystem,
+    StorageTrackable::StorageTrackable(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                                       Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
+                                       const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags,
+                                       StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload) : StorageWorldElement(creatorId, localCRS, unitSystem,
                                                                                                                                                    size, parents,
                                                                                                                                                    children, tags)
     {
@@ -88,12 +87,9 @@ namespace datastructure {
         ar & m_payload;
     }
 
-    bool StorageTrackable::isWorldAnchor() {
-        return false;
-    }
-
-    bool StorageTrackable::isTrackable() {
-        return true;
+    ElementKind StorageTrackable::getKind()
+    {
+        return ElementKind::TRACKABLE;
     }
 
     IMPLEMENTSERIALIZE(StorageTrackable);
