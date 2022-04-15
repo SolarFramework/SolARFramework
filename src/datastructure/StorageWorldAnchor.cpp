@@ -32,8 +32,6 @@ namespace datastructure {
 
     template<typename Archive>
     void StorageWorldAnchor::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-
-
         ar & boost::serialization::base_object<StorageWorldElement>(*this);
     }
 
