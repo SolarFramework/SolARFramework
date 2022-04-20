@@ -122,11 +122,6 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         virtual ~StorageTrackable() = default;
 
         ///
-        /// @brief StorageTrackable constructor default copy constructor
-        ///
-        StorageTrackable(const StorageTrackable &elem) = default;
-
-        ///
         /// @brief StorageTrackable constructor with url
         ///
         StorageTrackable(const std::string &url);

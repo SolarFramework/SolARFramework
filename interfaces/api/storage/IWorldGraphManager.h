@@ -67,7 +67,7 @@ public:
     /// @param[out] id:  The id of the newly created and added trackable
     /// @param[in] trackable: The trackable to add in the worldgraph
     /// @return a FrameworkReturnCode succesfull if the trackable is created & added to the world storage
-    virtual FrameworkReturnCode addTrackable(org::bcom::xpcf::uuids::uuid& id, datastructure::Trackable trackable) = 0;
+    virtual FrameworkReturnCode addTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageTrackable> trackable) = 0;
 
 
     /// @brief this method returns from the world graph the trackable with id {trackableId}
@@ -95,7 +95,7 @@ public:
     /// @param[out] id: the uuid of the newly created and added world anchor
     /// @param[in] worldAnchor: the anchor that is to be added
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode addWorldAnchor(org::bcom::xpcf::uuids::uuid& id, datastructure::StorageWorldAnchor worldAnchor) = 0;
+    virtual FrameworkReturnCode addWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldAnchor> worldAnchor) = 0;
 
 
     /// @brief this method returns from the world graph the world anchor with id {worldAnchorId}
@@ -123,7 +123,7 @@ public:
     /// @param[out] id: the uuid of the newly created and added world link
     /// @param[in] worldLink: the worldLink that we want to add to the worldStorage
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode addWorldLink(org::bcom::xpcf::uuids::uuid& id, datastructure::StorageWorldLink worldLink) = 0;
+    virtual FrameworkReturnCode addWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldLink> worldLink) = 0;
 
 
     /// @brief this method returns from the world graph the worldLink connecting the two elements given as parameters
@@ -142,7 +142,14 @@ public:
 
 
     /// @brief this method deletes from the world graph the transform between two given world elements
-    /// @param[in] parentId: the UID of the link that is to be deleted
+    /// @param[in] parentId: the UID of the parent world element
+    /// @param[in] childId: the UID of the child world element
+    /// @return FrameworkReturnCode::_SUCCESS if there was no error
+    virtual FrameworkReturnCode removeWorldLink(const org::bcom::xpcf::uuids::uuid &parentId, const org::bcom::xpcf::uuids::uuid &childId) = 0;
+
+
+    /// @brief this method deletes from the world graph the transform between two given world elements
+    /// @param[in] linkId: the UID of the link that is to be deleted
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode removeWorldLink(const org::bcom::xpcf::uuids::uuid &linkId) = 0;
 

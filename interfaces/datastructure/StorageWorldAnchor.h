@@ -51,11 +51,6 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         virtual ~StorageWorldAnchor() = default;
 
         ///
-        /// @brief WorldAnchor default copy constructor
-        ///
-        StorageWorldAnchor(const StorageWorldAnchor& elem) = default;
-
-        ///
         /// @brief WorldAnchor constructor with all its attributes
         ///
         StorageWorldAnchor(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
