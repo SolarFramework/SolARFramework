@@ -48,9 +48,9 @@ namespace datastructure {
         m_author = newAuthor;
     }
 
-    const StorageWorldElement& StorageWorldLink::getFromElement() const
+    SRef<StorageWorldElement> StorageWorldLink::getFromElement() const
     {
-        return *m_fromElement;
+        return m_fromElement;
     }
 
     void StorageWorldLink::setFromElement(const SRef<StorageWorldElement> &newFromElement)
@@ -58,9 +58,9 @@ namespace datastructure {
         m_fromElement = newFromElement;
     }
 
-    const StorageWorldElement &StorageWorldLink::getToElement() const
+    SRef<StorageWorldElement> StorageWorldLink::getToElement() const
     {
-        return *m_toElement;
+        return m_toElement;
     }
 
     void StorageWorldLink::setToElement(const SRef<StorageWorldElement> &newToElement)

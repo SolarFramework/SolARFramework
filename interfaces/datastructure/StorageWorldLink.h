@@ -69,12 +69,12 @@ class SOLARFRAMEWORK_API StorageWorldLink
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
         /// @brief Getter for the origin element ID of the WorldLink
-        const StorageWorldElement& getFromElement() const;
+        SRef<StorageWorldElement> getFromElement() const;
         /// @brief Setter for the origin element ID of the WorldLink
         void setFromElement(const SRef<StorageWorldElement> &newFromElement);
 
         /// @brief Getter for the destination element ID of the WorldLink
-        const StorageWorldElement& getToElement() const;
+        SRef<StorageWorldElement> getToElement() const;
         /// @brief Setter for the destination element ID of the WorldLink
         void setToElement(const SRef<StorageWorldElement> &newToElement);
 

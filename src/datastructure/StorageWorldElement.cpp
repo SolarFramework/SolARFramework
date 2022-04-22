@@ -121,6 +121,20 @@ namespace datastructure {
         return m_parents.erase(parentId) == 1;
     }
 
+    bool StorageWorldElement::removeTag(const std::string &key, const std::string &value){
+        typedef std::multimap<std::string, std::string>::iterator iterator;
+        std::pair<iterator, iterator> iterpair = m_tags.equal_range(key);
+
+        iterator it = iterpair.first;
+        for (; it != iterpair.second; ++it) {
+            if (it->second == value) {
+                m_tags.erase(it);
+                return true;
+            }
+        }
+        return false;
+    }
+
     bool StorageWorldElement::hasChild(const org::bcom::xpcf::uuids::uuid &childId){
         return m_children.find(childId) != m_children.end();
     }

@@ -121,7 +121,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
         void addParent(SRef<StorageWorldElement> parent, Transform3Df transform);
 
         /// @brief removes a tag form the element
-        bool removeTag(std::string, std::string);
+        bool removeTag(const std::string &key, const std::string &value);
 
         /// @brief removes a child from the element
         bool removeChild(const org::bcom::xpcf::uuids::uuid &childId);
