@@ -1,7 +1,7 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
 interfaces/datastructure/StorageWorldAnchor.h \
-interfaces/datastructure/StorageWorldLink.h \
 interfaces/datastructure/StorageWorldElement.h \
+interfaces/datastructure/StorageWorldLink.h \
 interfaces/datastructure/UnitSystem.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
