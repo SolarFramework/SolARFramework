@@ -39,6 +39,14 @@ namespace datastructure {
         return m_id;
     }
 
+    org::bcom::xpcf::uuids::uuid StorageWorldLink::getID() const {
+        return m_id;
+    }
+
+    void StorageWorldLink::setID(const org::bcom::xpcf::uuids::uuid & id) {
+        m_id = id;
+    }
+
     const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getAuthor() const
     {
         return m_author;
@@ -86,6 +94,10 @@ namespace datastructure {
     std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds() const
     {
         return {m_fromElement->getID(), m_toElement->getID()};
+    }
+
+    void StorageWorldLink::addTag(std::string dataType, std::string value){
+        m_tags.insert({dataType, value});
     }
 
     template<typename Archive>

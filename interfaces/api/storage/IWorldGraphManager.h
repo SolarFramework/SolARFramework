@@ -160,6 +160,11 @@ public:
 
 
 
+    /// @brief this methods returns the elements that are connected to a given world link
+    /// @return a vector of the 2 elements that are connected to the worldLink (in position 0 the element where it comes from, in position 1 the element to which its pointing), if there is only one element,
+    ///     it means that the two worldElements (or one of them) were not found in the worldGraph, if the vector is empty it means that the worldLink was not found in the worldGraph
+    virtual std::vector<SRef<datastructure::StorageWorldElement>> getConnectedElements(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
+
 };
 }
 }

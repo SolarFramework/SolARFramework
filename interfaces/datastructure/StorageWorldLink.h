@@ -89,17 +89,13 @@ class SOLARFRAMEWORK_API StorageWorldLink
         /// @brief returns the two ids of the elements that are attached by the link
         std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds() const;
 
-    private:
+    protected:
 
         org::bcom::xpcf::uuids::uuid m_id;
         org::bcom::xpcf::uuids::uuid m_author;
         SRef<StorageWorldElement> m_fromElement;
         SRef<StorageWorldElement> m_toElement;
         Transform3Df m_transform;
-
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
 
 
 
