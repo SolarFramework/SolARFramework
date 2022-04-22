@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,11 @@
 #ifndef STORAGEWORLDLINK_H
 #define STORAGEWORLDLINK_H
 
-#include <core/SolARFrameworkDefinitions.h>
-#include <core/SerializationDefinitions.h>
-#include <datastructure/StorageWorldElement.h>
-#include <datastructure/UnitSystem.h>
+#include "core/SerializationDefinitions.h"
+#include "core/SolARFrameworkDefinitions.h"
+#include "datastructure/StorageWorldElement.h"
+#include "datastructure/UnitSystem.h"
 #include "datastructure/MathDefinitions.h"
-
-#include "core/Log.h"
 
 // Definition of StorageWorldLink Class //
 // part of SolAR namespace //
@@ -53,33 +51,17 @@ class SOLARFRAMEWORK_API StorageWorldLink
         virtual ~StorageWorldLink() = default;
 
         ///
-        /// @brief WorldAnchor constructor from abstract supertype WorldElement
-        ///
-        StorageWorldLink(const StorageWorldElement& elem);
-
-        ///
         /// @brief StorageWorldLink constructor with all its attributes
         ///
-        StorageWorldLink(org::bcom::xpcf::uuids::uuid author, org::bcom::xpcf::uuids::uuid fromElement,
-                         org::bcom::xpcf::uuids::uuid toElement, Transform3Df transform,
-                         UnitSystem unitSystem, Vector3d scale,
-                         std::multimap<std::string, std::string> tags);
+        StorageWorldLink(org::bcom::xpcf::uuids::uuid author, SRef<StorageWorldElement> fromElement,
+                         SRef<StorageWorldElement> toElement, Transform3Df transform);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
         ////////////////////////////
 
-        /// @brief Returns the id of the WorldElement object
-        /// @return the id of the WorldElement object
-        org::bcom::xpcf::uuids::uuid getID() const;
-        /// @brief Sets the id of the WorldElement object
-        void setID(const org::bcom::xpcf::uuids::uuid & id);
-
-        /// @brief Returns the list of tags associated with the element
-        /// @return the list of tags associated with the element
-        std::multimap<std::string, std::string> getTags() const;
-        /// @brief Sets the list of tags associated with the element
-        void setTags(const std::multimap<std::string, std::string> tags);
+        /// @brief Getter for the ID of the WorldLink
+        const org::bcom::xpcf::uuids::uuid &getId() const;
 
         /// @brief Getter for the author ID of the WorldLink
         const org::bcom::xpcf::uuids::uuid &getAuthor() const;
@@ -87,49 +69,33 @@ class SOLARFRAMEWORK_API StorageWorldLink
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
         /// @brief Getter for the origin element ID of the WorldLink
-        const org::bcom::xpcf::uuids::uuid &getFromElement() const;
+        SRef<StorageWorldElement> getFromElement() const;
         /// @brief Setter for the origin element ID of the WorldLink
-        void setFromElement(const org::bcom::xpcf::uuids::uuid &newFromElement);
+        void setFromElement(const SRef<StorageWorldElement> &newFromElement);
 
         /// @brief Getter for the destination element ID of the WorldLink
-        const org::bcom::xpcf::uuids::uuid &getToElement() const;
+        SRef<StorageWorldElement> getToElement() const;
         /// @brief Setter for the destination element ID of the WorldLink
-        void setToElement(const org::bcom::xpcf::uuids::uuid &newToElement);
+        void setToElement(const SRef<StorageWorldElement> &newToElement);
 
         /// @brief Getter for the transform of the WorldLink
         const Transform3Df &getTransform() const;
         /// @brief Setter for the transform of the WorldLink
         void setTransform(const Transform3Df &newTransform);
 
-        /// @brief Getter for the unit system
-        UnitSystem getUnitSystem() const;
-        /// @brief Setter for the unit system
-        void setUnitSystem(UnitSystem newUnitSystem);
+        /// @brief returns the two elements that are attached by the link
+        std::pair<const StorageWorldElement&, const StorageWorldElement&> getAttachedElements() const;
 
-        /// @brief Getter for the dimension of the trackable
-        const Vector3d &getScale() const;
-        /// @brief Setter for the dimension of the trackable
-        void setScale(const Vector3d &newScale);
-
-        /// @brief Add a new tag to associate to the element
-        void addTag(std::string, std::string);
-
-    private:
-
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+        /// @brief returns the two ids of the elements that are attached by the link
+        std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds() const;
 
     protected:
 
         org::bcom::xpcf::uuids::uuid m_id;
-        std::multimap<std::string, std::string> m_tags;
         org::bcom::xpcf::uuids::uuid m_author;
-        org::bcom::xpcf::uuids::uuid m_fromElement;
-        org::bcom::xpcf::uuids::uuid m_toElement;
+        SRef<StorageWorldElement> m_fromElement;
+        SRef<StorageWorldElement> m_toElement;
         Transform3Df m_transform;
-        UnitSystem m_unitSystem;
-        Vector3d m_scale;
 
 
 

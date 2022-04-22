@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,28 @@
  */
 
 #include "datastructure/StorageWorldLink.h"
-#include "core/Log.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
+
+#include "core/Log.h"
 
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldLink::StorageWorldLink(org::bcom::xpcf::uuids::uuid author, org::bcom::xpcf::uuids::uuid fromElement,
-                                       org::bcom::xpcf::uuids::uuid toElement, Transform3Df transform,
-                                       UnitSystem unitSystem, Vector3d scale,
-                                       std::multimap<std::string, std::string> tags)
+    StorageWorldLink::StorageWorldLink(org::bcom::xpcf::uuids::uuid author, SRef<StorageWorldElement> fromElement,
+                                       SRef<StorageWorldElement> toElement, Transform3Df transform)
     {
         m_id = org::bcom::xpcf::uuids::random_generator()();
-        m_tags = tags;
         m_author = author;
         m_fromElement = fromElement;
         m_toElement = toElement;
         m_transform = transform;
-        m_unitSystem = unitSystem;
-        m_scale = scale;
-        m_tags = tags;
+        LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
+    }
+
+    const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getId() const
+    {
+        return m_id;
     }
 
     org::bcom::xpcf::uuids::uuid StorageWorldLink::getID() const {
@@ -55,22 +56,22 @@ namespace datastructure {
         m_author = newAuthor;
     }
 
-    const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getFromElement() const
+    SRef<StorageWorldElement> StorageWorldLink::getFromElement() const
     {
         return m_fromElement;
     }
 
-    void StorageWorldLink::setFromElement(const org::bcom::xpcf::uuids::uuid &newFromElement)
+    void StorageWorldLink::setFromElement(const SRef<StorageWorldElement> &newFromElement)
     {
         m_fromElement = newFromElement;
     }
 
-    const org::bcom::xpcf::uuids::uuid &StorageWorldLink::getToElement() const
+    SRef<StorageWorldElement> StorageWorldLink::getToElement() const
     {
         return m_toElement;
     }
 
-    void StorageWorldLink::setToElement(const org::bcom::xpcf::uuids::uuid &newToElement)
+    void StorageWorldLink::setToElement(const SRef<StorageWorldElement> &newToElement)
     {
         m_toElement = newToElement;
     }
@@ -85,32 +86,14 @@ namespace datastructure {
         m_transform = newTransform;
     }
 
-    UnitSystem StorageWorldLink::getUnitSystem() const
+    std::pair<const StorageWorldElement&, const StorageWorldElement&> StorageWorldLink::getAttachedElements() const
     {
-        return m_unitSystem;
+        return {*m_fromElement, *m_toElement};
     }
 
-    void StorageWorldLink::setUnitSystem(UnitSystem newUnitSystem)
+    std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds() const
     {
-        m_unitSystem = newUnitSystem;
-    }
-
-    const Vector3d &StorageWorldLink::getScale() const
-    {
-        return m_scale;
-    }
-
-    std::multimap<std::string, std::string> StorageWorldLink::getTags() const {
-        return m_tags;
-    }
-
-    void StorageWorldLink::setTags(std::multimap<std::string, std::string> tags) {
-        this->m_tags = tags;
-    }
-
-    void StorageWorldLink::setScale(const Vector3d &newScale)
-    {
-        m_scale = newScale;
+        return {m_fromElement->getID(), m_toElement->getID()};
     }
 
     void StorageWorldLink::addTag(std::string dataType, std::string value){
@@ -120,13 +103,10 @@ namespace datastructure {
     template<typename Archive>
     void StorageWorldLink::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
         ar & m_id;
-        ar & m_tags;
         ar & m_author;
         ar & m_fromElement;
         ar & m_toElement;
         ar & m_transform;
-        ar & m_unitSystem;
-        ar & m_scale;
     }
 
     IMPLEMENTSERIALIZE(StorageWorldLink);
