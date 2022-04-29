@@ -97,6 +97,12 @@ class SOLARFRAMEWORK_API StorageWorldLink
         SRef<StorageWorldElement> m_toElement;
         Transform3Df m_transform;
 
+    private:
+
+        friend class boost::serialization::access;
+        template<typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+
 
 
 };

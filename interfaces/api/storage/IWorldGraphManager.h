@@ -59,6 +59,19 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode getWorldElements(std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
 
+    /// @brief this method returns from the world graph all the elements with a given tag
+    /// @param[in] key: the key of the tag
+    /// @param[in] value: the value of the tag
+    /// @param[out] vector: the elements in the world storage with the tag {key:value}
+    /// @return FrameworkReturnCode::_SUCCESS if there was no error
+    virtual FrameworkReturnCode getWorldElementByKeyValue(const std::string &key, const std::string &value, std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
+
+    /// @brief this method returns from the world graph all the elements that have a tag with a given key
+    /// @param[in] key: the key of the tag
+    /// @param[out] vector: the elements in the world storage with the tag {key:X}
+    /// @return FrameworkReturnCode::_SUCCESS if there was no error
+    virtual FrameworkReturnCode getWorldElementByKey(const std::string &key, std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
+
     /////////////////////////
     /// TRACKABLE METHODS ///
     /////////////////////////
@@ -158,12 +171,6 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode getWorldLinks(std::vector<SRef<datastructure::StorageWorldLink>> &vector) = 0;
 
-
-
-    /// @brief this methods returns the elements that are connected to a given world link
-    /// @return a vector of the 2 elements that are connected to the worldLink (in position 0 the element where it comes from, in position 1 the element to which its pointing), if there is only one element,
-    ///     it means that the two worldElements (or one of them) were not found in the worldGraph, if the vector is empty it means that the worldLink was not found in the worldGraph
-    virtual std::vector<SRef<datastructure::StorageWorldElement>> getConnectedElements(org::bcom::xpcf::uuids::uuid worldLinkId) = 0;
 
 };
 }
