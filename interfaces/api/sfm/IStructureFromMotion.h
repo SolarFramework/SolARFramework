@@ -19,10 +19,12 @@
 
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
-#include "core/Messages.h"
+#include "datastructure/DescriptorBuffer.h"
+#include "datastructure/Keypoint.h"
 #include "datastructure/Map.h"
 
 namespace SolAR {
@@ -46,10 +48,13 @@ public:
     ///@brief IStructureFromMotion default destructor.
     virtual ~IStructureFromMotion() override = default;
 
+    virtual std::string getImagePath() const = 0;
+
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(SRef<SolAR::datastructure::Map>& map) = 0;
+    virtual FrameworkReturnCode createMap(std::vector<SRef<datastructure::Image>>& images,
+                                          SRef<datastructure::Map>& map) = 0; //last argument for test
 };
 
 
