@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,57 +14,34 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_MAPPINGPIPELINE_H
-#define SOLAR_MAPPINGPIPELINE_H
+#ifndef SOLAR_AMAPPINGPIPELINE_H
+#define SOLAR_AMAPPINGPIPELINE_H
 
+#ifndef _BCOM_SHARED
+#define _BCOM_SHARED
+#endif // _BCOM_SHARED
 
-#include "api/pipeline/IPipeline.h"
-#include "datastructure/CameraDefinitions.h"
-#include "datastructure/Image.h"
-#include "datastructure/CloudPoint.h"
-#include "datastructure/Keypoint.h"
-#include "xpcf/core/helpers.h"
-
+#include "core/SolARFrameworkDefinitions.h"
+#include "xpcf/component/ConfigurableBase.h"
+#include "api/pipeline/IMappingPipeline.h"
 
 namespace SolAR {
-namespace api {
+namespace base {
 namespace pipeline {
 
-///
-/// @typedef MappingStatus
-/// @brief <B>Indicate the status of the mapping pipeline</B>
-///
-typedef enum {
-    BOOTSTRAP = 0,      // bootstrapping to initialize the map
-    MAPPING = 1,        // mapping
-    TRACKING_LOST = 2,  // tracking lost need to relocalization
-    LOOP_CLOSURE = 3    // loop closure optimization
-} MappingStatus;
-
-/**
- * @class IMappingPipeline
- * @brief <B>Defines a mapping pipeline.</B>
- * <TT>UUID: 2dc3cd33-5a11-4748-94a3-e7ab40462097</TT>
- *
- * This class provides the interface to define a mapping processing pipeline.
- */
-
-class [[xpcf::clientUUID("110a089c-0bb1-488e-b24b-c1b96bc9df3b")]] [[xpcf::serverUUID("aced265d-832c-44e3-9356-dab531fa153a")]]
-#ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
-    XPCF_GRPC_CLIENT_RECV_SIZE("-1")
-#endif
-    IMappingPipeline : virtual public IPipeline {
+class XPCF_IGNORE SOLARFRAMEWORK_API AMappingPipeline : public org::bcom::xpcf::ConfigurableBase,
+                                            virtual public SolAR::api::pipeline::IMappingPipeline {
 public:
-    /// @brief IMappingPipeline default constructor
-    IMappingPipeline() = default;
+    /// @brief AMappingPipeline constructor
+    AMappingPipeline(std::map<std::string,std::string> componentInfosMap);
 
-    /// @brief IMappingPipeline default destructor
-    virtual ~IMappingPipeline() = default;
+    virtual ~AMappingPipeline() override = default;
 
     /// @brief Set the camera parameters
     /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
+    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// @param[in] image the input image to process
@@ -77,7 +54,8 @@ public:
                                                       const SolAR::datastructure::Transform3Df & pose,
                                                       const SolAR::datastructure::Transform3Df & transform,
                                                       SolAR::datastructure::Transform3Df & updatedTransform,
-                                                      MappingStatus & status) = 0;
+                                                      SolAR::api::pipeline::MappingStatus & status) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// @param[in] image the input image to process
@@ -86,7 +64,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode mappingProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                       const SolAR::datastructure::Transform3Df & pose,
-                                                      MappingStatus & status) = 0;
+                                                      SolAR::api::pipeline::MappingStatus & status) override;
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// @param[in] image the input image to process
@@ -97,7 +75,7 @@ public:
     virtual FrameworkReturnCode mappingProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                       const SolAR::datastructure::Transform3Df & pose,
                                                       SolAR::datastructure::Transform3Df & updatedTransform,
-                                                      MappingStatus & status) = 0;
+                                                      SolAR::api::pipeline::MappingStatus & status) override;
 
     /// @brief Provide the current data from the mapping pipeline context for visualization
     /// (resulting from all mapping processing since the start of the pipeline)
@@ -105,16 +83,12 @@ public:
     /// @param[out] keyframePoses: pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
-                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
-
+                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 };
 }
 }
-}
+}  // end of namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IMappingPipeline,
-                             "2dc3cd33-5a11-4748-94a3-e7ab40462097",
-                             "IMappingPipeline",
-                             "The interface to define a mapping processing pipeline")
 
-#endif // SOLAR_MAPPINGPIPELINE_H
+#endif // SOLAR_AMAPPINGPIPELINE_H
