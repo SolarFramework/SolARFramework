@@ -120,7 +120,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the 3D transform is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode get3DTransformRequest(TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
-                                                      float_t & confidence) const = 0;
+                                                      float_t & confidence) = 0;
 
     /// @brief Return the last pose processed by the pipeline
     /// @param[out] pose: the last pose if available
@@ -130,6 +130,10 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getLastPose(SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = SOLAR_POSE) const = 0;
+
+    /// @brief Reset the map stored by the map update pipeline
+    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode resetMap() const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)

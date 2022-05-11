@@ -68,6 +68,10 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS if submap is found, else FrameworkReturnCode::_ERROR_
 	[[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getSubmapRequest(const SRef<SolAR::datastructure::Frame> frame, 
 																					SRef<SolAR::datastructure::Map> & map) const = 0;
+
+    /// @brief Reset the map stored by the map update pipeline
+    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode resetMap() = 0;
 };
 }
 }
