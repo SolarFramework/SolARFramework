@@ -45,7 +45,7 @@ public:
 } // namespace SolAR
 
 
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::mvs::IMultiViewStereo>
+template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::sfm::IMultiViewStereo>
 {
     static constexpr const char * UUID = "{d73ae23f-e1ce-4abe-91cd-9aa2f34c8dff}";
     static constexpr const char * NAME = "IMultiViewStereo";
