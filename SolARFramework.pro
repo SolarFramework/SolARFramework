@@ -129,7 +129,6 @@ header_base_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/base/pipeline/
 header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
-
 header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
 header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
 
@@ -155,12 +154,13 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
 INSTALLS += header_interfaces_sfm
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
-INSTALLS += header_interfaces_segm
+
 
 OTHER_FILES += \
     packagedependencies.txt \

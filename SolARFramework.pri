@@ -1,5 +1,4 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-interfaces/api/sfm/IStructureFromMotion.h \
 interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
@@ -135,6 +134,8 @@ interfaces/base/geom/AReprojectionStereo.h \
 interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
+interfaces/api/sfm/IStructureFromMotion.h \
+interfaces/api/sfm/IMultiViewStereo.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
