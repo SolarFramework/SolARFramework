@@ -48,8 +48,6 @@ public:
     ///@brief IStructureFromMotion default destructor.
     virtual ~IStructureFromMotion() override = default;
 
-    virtual std::string getImagePath() const = 0;
-
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
