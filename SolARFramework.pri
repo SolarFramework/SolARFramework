@@ -62,6 +62,9 @@ interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/reloc/IRegression.h \
+interfaces/api/sfm/IMeshing.h \
+interfaces/api/sfm/IMultiViewStereo.h \
+interfaces/api/sfm/IStructureFromMotion.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -115,6 +118,7 @@ interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/MathDefinitions.h \
+interfaces/datastructure/Mesh.h \
 interfaces/datastructure/PointCloud.h \
 interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
@@ -134,8 +138,6 @@ interfaces/base/geom/AReprojectionStereo.h \
 interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
-interfaces/api/sfm/IStructureFromMotion.h \
-interfaces/api/sfm/IMultiViewStereo.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
@@ -161,6 +163,7 @@ src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
+src/datastructure/Mesh.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
