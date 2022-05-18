@@ -19,6 +19,7 @@
 
 #include "xpcf/core/refs.h"
 #include "core/SolARFrameworkDefinitions.h"
+#include "core/Messages.h"
 #include "GeometryDefinitions.h"
 #include <memory>
 #include <core/SerializationDefinitions.h>
@@ -76,7 +77,6 @@ public:
 
     enum ImageLayout {
         LAYOUT_RGB=0,          /**< means 3 channels per pixel : Red, Green, Blue */
-        LAYOUT_GRB,            /**< means 3 channels per pixel : Green,Red, Blue (this is opencv model)*/
         LAYOUT_BGR,            /**< means 3 channels per pixel : Green,Red, Blue (this is opencv model)*/
         LAYOUT_GREY,           /**< means 1 channel per pixel  : grey color*/
         LAYOUT_RGBA,           /**< means 4 channels per pixel : Red, Green, Blue and Alpha channel*/
@@ -242,6 +242,16 @@ public:
 	/// @param[in] col column index.
 	/// @return the pixel value
 	template<typename T> const T& getPixel(int row, int col) const;
+
+    /// @brief Save the image in a file.
+    /// @param[in] imagePath path to the file with suffix .jpg, .jpeg or .png.
+    /// @return _SUCCESS if the image is saved, _ERROR_ otherwise.
+    FrameworkReturnCode save(std::string imagePath) const;
+
+    /// @brief Load an image from a file.
+    /// @param[in] imagePath path to the file with suffix .jpg, .jpeg or .png.
+    /// @return _SUCCESS if the image is saved, _ERROR_ otherwise.
+    FrameworkReturnCode load(std::string imagePath);
 
 private:
     friend class boost::serialization::access;

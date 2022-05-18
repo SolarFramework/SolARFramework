@@ -1,6 +1,7 @@
 ## remove Qt dependencies
 QT       -= core gui
 CONFIG -= qt
+QMAKE_PROJECT_DEPTH = 0
 
 #Add support for clang compiler
 #QMAKE_CXX=clang

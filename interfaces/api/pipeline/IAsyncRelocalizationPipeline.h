@@ -138,6 +138,10 @@ public:
     virtual FrameworkReturnCode getLastPose(SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
+    /// @brief Reset the map stored by the map update pipeline
+    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode resetMap() const = 0;
+
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
     PipelineMode m_PipelineMode = RELOCALIZATION_AND_MAPPING;
