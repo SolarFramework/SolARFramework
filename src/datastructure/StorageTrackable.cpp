@@ -28,11 +28,9 @@ namespace datastructure {
     }
 
     StorageTrackable::StorageTrackable(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                       Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
-                                       const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags,
-                                       StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload) : StorageWorldElement(creatorId, localCRS, unitSystem,
-                                                                                                                                                   size, parents,
-                                                                                                                                                   children, tags)
+                                       Vector3d size, const std::multimap<std::string, std::string> &tags,
+                                       StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload, std::string name) : StorageWorldElement(creatorId, localCRS, unitSystem,
+                                                                                                                                                   size, tags, name)
     {
         m_type = type;
         m_encodingInfo = encodingInfo;

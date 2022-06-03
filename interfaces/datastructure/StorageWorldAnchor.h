@@ -54,8 +54,7 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
         /// @brief WorldAnchor constructor with all its attributes
         ///
         StorageWorldAnchor(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                           Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
-                           const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags);
+                           Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
 
         virtual ElementKind getKind() override;
 

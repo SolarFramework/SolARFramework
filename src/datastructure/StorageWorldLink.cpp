@@ -23,13 +23,15 @@
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldLink::StorageWorldLink(org::bcom::xpcf::uuids::uuid author, SRef<StorageWorldElement> fromElement,
-                                       SRef<StorageWorldElement> toElement, Transform3Df transform)
+    StorageWorldLink::StorageWorldLink(org::bcom::xpcf::uuids::uuid author, boost::uuids::uuid uuidFrom,
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform)
     {
         m_id = org::bcom::xpcf::uuids::random_generator()();
         m_author = author;
-        m_fromElement = fromElement;
-        m_toElement = toElement;
+        m_uuidFrom = uuidFrom;
+        m_uuidTo = uuidTo;
+        m_typeFrom = typeFrom;
+        m_typeTo = typeTo;
         m_transform = transform;
         LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
@@ -48,26 +50,6 @@ namespace datastructure {
         m_author = newAuthor;
     }
 
-    SRef<StorageWorldElement> StorageWorldLink::getFromElement() const
-    {
-        return m_fromElement;
-    }
-
-    void StorageWorldLink::setFromElement(const SRef<StorageWorldElement> &newFromElement)
-    {
-        m_fromElement = newFromElement;
-    }
-
-    SRef<StorageWorldElement> StorageWorldLink::getToElement() const
-    {
-        return m_toElement;
-    }
-
-    void StorageWorldLink::setToElement(const SRef<StorageWorldElement> &newToElement)
-    {
-        m_toElement = newToElement;
-    }
-
     const Transform3Df &StorageWorldLink::getTransform() const
     {
         return m_transform;
@@ -78,22 +60,79 @@ namespace datastructure {
         m_transform = newTransform;
     }
 
-    std::pair<const StorageWorldElement&, const StorageWorldElement&> StorageWorldLink::getAttachedElements() const
-    {
-        return {*m_fromElement, *m_toElement};
-    }
-
     std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> StorageWorldLink::getAttachedIds() const
     {
-        return {m_fromElement->getID(), m_toElement->getID()};
+        return {m_uuidFrom, m_uuidTo};
+    }
+
+    const boost::uuids::uuid &StorageWorldLink::getUuidFrom() const
+    {
+        return m_uuidFrom;
+    }
+
+    void StorageWorldLink::setUuidFrom(const boost::uuids::uuid &newUuidFrom)
+    {
+        m_uuidFrom = newUuidFrom;
+    }
+
+    const boost::uuids::uuid &StorageWorldLink::getUuidTo() const
+    {
+        return m_uuidTo;
+    }
+
+    void StorageWorldLink::setUuidTo(const boost::uuids::uuid &newUuidTo)
+    {
+        m_uuidTo = newUuidTo;
+    }
+
+    ElementKind StorageWorldLink::getTypeFrom() const
+    {
+        return m_typeFrom;
+    }
+
+    void StorageWorldLink::setTypeFrom(ElementKind newTypeFrom)
+    {
+        m_typeFrom = newTypeFrom;
+    }
+
+    ElementKind StorageWorldLink::getTypeTo() const
+    {
+        return m_typeTo;
+    }
+
+    void StorageWorldLink::setTypeTo(ElementKind newTypeTo)
+    {
+        m_typeTo = newTypeTo;
+    }
+
+    UnitSystem StorageWorldLink::unitSystem() const
+    {
+        return m_unitSystem;
+    }
+
+    void StorageWorldLink::setUnitSystem(UnitSystem newUnitSystem)
+    {
+        m_unitSystem = newUnitSystem;
+    }
+
+    const std::multimap<std::string, std::string> &StorageWorldLink::tags() const
+    {
+        return m_tags;
+    }
+
+    void StorageWorldLink::setTags(const std::multimap<std::string, std::string> &newTags)
+    {
+        m_tags = newTags;
     }
 
     template<typename Archive>
     void StorageWorldLink::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
         ar & m_id;
         ar & m_author;
-        ar & m_fromElement;
-        ar & m_toElement;
+        ar & m_uuidFrom;
+        ar & m_uuidTo;
+        ar & m_typeFrom;
+        ar & m_typeTo;
         ar & m_transform;
     }
 

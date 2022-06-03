@@ -53,8 +53,8 @@ class SOLARFRAMEWORK_API StorageWorldLink
         ///
         /// @brief StorageWorldLink constructor with all its attributes
         ///
-        StorageWorldLink(org::bcom::xpcf::uuids::uuid author, SRef<StorageWorldElement> fromElement,
-                         SRef<StorageWorldElement> toElement, Transform3Df transform);
+        StorageWorldLink(org::bcom::xpcf::uuids::uuid author, boost::uuids::uuid uuidFrom,
+                         boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
@@ -68,34 +68,48 @@ class SOLARFRAMEWORK_API StorageWorldLink
         /// @brief Setter for the author ID of the WorldLink
         void setAuthor(const org::bcom::xpcf::uuids::uuid &newAuthor);
 
-        /// @brief Getter for the origin element ID of the WorldLink
-        SRef<StorageWorldElement> getFromElement() const;
-        /// @brief Setter for the origin element ID of the WorldLink
-        void setFromElement(const SRef<StorageWorldElement> &newFromElement);
-
-        /// @brief Getter for the destination element ID of the WorldLink
-        SRef<StorageWorldElement> getToElement() const;
-        /// @brief Setter for the destination element ID of the WorldLink
-        void setToElement(const SRef<StorageWorldElement> &newToElement);
-
         /// @brief Getter for the transform of the WorldLink
         const Transform3Df &getTransform() const;
         /// @brief Setter for the transform of the WorldLink
         void setTransform(const Transform3Df &newTransform);
 
-        /// @brief returns the two elements that are attached by the link
-        std::pair<const StorageWorldElement&, const StorageWorldElement&> getAttachedElements() const;
+        /// @brief Getter for the unitSystem of the WorldLink
+        UnitSystem unitSystem() const;
+        /// @brief Getter for the unitSystem of the WorldLink
+        void setUnitSystem(UnitSystem newUnitSystem);
+
+        /// @brief Getter for the tags of the WorldLink
+        const std::multimap<std::string, std::string> &tags() const;
+        /// @brief Getter for the tags of the WorldLink
+        void setTags(const std::multimap<std::string, std::string> &newTags);
 
         /// @brief returns the two ids of the elements that are attached by the link
         std::pair<org::bcom::xpcf::uuids::uuid, org::bcom::xpcf::uuids::uuid> getAttachedIds() const;
 
-    protected:
+        const boost::uuids::uuid &getUuidFrom() const;
+        void setUuidFrom(const boost::uuids::uuid &newUuidFrom);
+
+        const boost::uuids::uuid &getUuidTo() const;
+        void setUuidTo(const boost::uuids::uuid &newUuidTo);
+
+        ElementKind getTypeFrom() const;
+        void setTypeFrom(ElementKind newTypeFrom);
+
+        ElementKind getTypeTo() const;
+        void setTypeTo(ElementKind newTypeTo);
+
+protected:
 
         org::bcom::xpcf::uuids::uuid m_id;
         org::bcom::xpcf::uuids::uuid m_author;
-        SRef<StorageWorldElement> m_fromElement;
-        SRef<StorageWorldElement> m_toElement;
+        boost::uuids::uuid m_uuidFrom;
+        boost::uuids::uuid m_uuidTo;
+        ElementKind m_typeFrom;
+        ElementKind m_typeTo;
         Transform3Df m_transform;
+        UnitSystem m_unitSystem;
+        std::multimap<std::string, std::string> m_tags;
+
 
     private:
 

@@ -37,7 +37,8 @@ namespace datastructure {
 ///
 enum class ElementKind : char {
     TRACKABLE,
-    ANCHOR
+    ANCHOR,
+    INVALID
 };
 
 /**
@@ -57,8 +58,7 @@ class SOLARFRAMEWORK_API StorageWorldElement
 
         /// @brief WorldElement constructor
         StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> parents,
-                            std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> children, std::multimap<std::string, std::string> tags);
+                            Vector3d size, std::multimap<std::string, std::string> tags, std::string name);
 
         /// @brief WorldElement default destructor
         virtual ~StorageWorldElement() = default;
@@ -92,16 +92,6 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Setter for the dimension of the WorldElement
         void setSize(const Vector3d &newSize);
 
-        /// @brief Getter for the parent of the element
-        std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> getParents() const;
-        /// @brief Setter for the parent of the element
-        void setParents(const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents);
-
-        /// @brief Getter for the children of the element
-        std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> getChildren() const;
-        /// @brief Setter for the children of the element
-        void setChildren(const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &newChildren);
-
         /// @brief Getter for the list of tags associated with the element
         std::multimap<std::string, std::string> getTags() const;
         /// @brief Setter for the list of tags associated with the element
@@ -114,34 +104,16 @@ class SOLARFRAMEWORK_API StorageWorldElement
         /// @brief Add a new tag to associate to the element
         void addTag(const std::string &key, const std::string &value);
 
-        /// @brief Add a new child to the element
-        void addChild(SRef<StorageWorldElement> child);
-
-        /// @brief Add a new parent to the element
-        void addParent(SRef<StorageWorldElement> parent, Transform3Df transform);
-
         /// @brief removes a tag form the element
         bool removeTag(const std::string &key, const std::string &value);
-
-        /// @brief removes a child from the element
-        bool removeChild(const org::bcom::xpcf::uuids::uuid &childId);
-
-        /// @brief removes a parent from the element
-        bool removeParent(const org::bcom::xpcf::uuids::uuid &parentId);
-
-        /// @brief Checks if the caller has the element with given id as a child
-        bool hasChild(const org::bcom::xpcf::uuids::uuid &childId);
-
-        /// @brief Checks if the caller has the element with given id as a parent
-        bool hasParent(const org::bcom::xpcf::uuids::uuid &parentId);
-
-        /// @brief Gets the parent with given id and the tansformation between the parent and the caller
-        std::pair<SRef<StorageWorldElement>, Transform3Df> getParentWithTransform(const org::bcom::xpcf::uuids::uuid &parentId);
 
         /// @brief Gets the type of worldElement ( trackable or anchor )
         virtual ElementKind getKind() = 0;
 
-    private:
+        const std::string &getName() const;
+        void setName(const std::string &newName);
+
+private:
 
         friend class boost::serialization::access;
         template<typename Archive>
@@ -150,12 +122,11 @@ class SOLARFRAMEWORK_API StorageWorldElement
     protected:
 
         org::bcom::xpcf::uuids::uuid m_id;
+        std::string m_name;
         org::bcom::xpcf::uuids::uuid m_creatorId;
         Transform3Df m_localCRS;
         UnitSystem m_unitSystem;
         Vector3d m_size;
-        std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> m_parents;
-        std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> m_children;
         std::multimap<std::string, std::string> m_tags;
 
 

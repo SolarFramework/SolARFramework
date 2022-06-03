@@ -130,9 +130,8 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
         /// @brief StorageTrackable constructor with all its attributes
         ///
         StorageTrackable(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                         Vector3d size, const std::map<org::bcom::xpcf::uuids::uuid, std::pair<SRef<StorageWorldElement>, Transform3Df>> &parents,
-                         const std::map<org::bcom::xpcf::uuids::uuid, SRef<StorageWorldElement>> &children, const std::multimap<std::string, std::string> &tags,
-                         StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload);
+                         Vector3d size, const std::multimap<std::string, std::string> &tags,
+                         StorageTrackableType type, EncodingInfo encodingInfo, const std::vector<std::byte> &payload, std::string name);
 
         ////////////////////////////
         /// GETTERS AND SETTERS ////
