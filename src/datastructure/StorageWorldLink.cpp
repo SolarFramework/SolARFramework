@@ -23,10 +23,23 @@
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldLink::StorageWorldLink(org::bcom::xpcf::uuids::uuid author, boost::uuids::uuid uuidFrom,
+    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
                                        boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform)
     {
         m_id = org::bcom::xpcf::uuids::random_generator()();
+        m_author = author;
+        m_uuidFrom = uuidFrom;
+        m_uuidTo = uuidTo;
+        m_typeFrom = typeFrom;
+        m_typeTo = typeTo;
+        m_transform = transform;
+        LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
+    }
+
+    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform)
+    {
+        m_id = id;
         m_author = author;
         m_uuidFrom = uuidFrom;
         m_uuidTo = uuidTo;

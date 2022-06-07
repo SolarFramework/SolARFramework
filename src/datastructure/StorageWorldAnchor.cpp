@@ -28,6 +28,11 @@ namespace datastructure {
     {
     }
 
+    StorageWorldAnchor::StorageWorldAnchor(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                                           Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name) : StorageWorldElement(id, creatorId, localCRS, unitSystem, size, tags, name)
+    {
+    }
+
     template<typename Archive>
     void StorageWorldAnchor::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
         ar & boost::serialization::base_object<StorageWorldElement>(*this);

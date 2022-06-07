@@ -100,6 +100,12 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode getTrackables(std::vector<SRef<datastructure::StorageTrackable>> &vector) = 0;
 
+    /// @brief modifies a Trackable that is present in the world graph
+    /// @param[out] id:  The id of the trackable to modify
+    /// @param[in] trackable: The trackable to modify in the worldgraph
+    /// @return a FrameworkReturnCode succesfull if the trackable is correctly modified
+    virtual FrameworkReturnCode modifyTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageTrackable> trackable) = 0;
+
     ///////////////////////////
     /// WORLDANCHOR METHODS ///
     ///////////////////////////
@@ -127,6 +133,12 @@ public:
     /// @param[out] vector: a vector of all the world anchors that are in the world graph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode getWorldAnchors(std::vector<SRef<datastructure::StorageWorldAnchor>>& vector) = 0;
+
+    /// @brief modifies a world anchor that is present in the world graph
+    /// @param[out] id:  The id of the world anchor to modify
+    /// @param[in] worldAnchor: The world anchor to modify in the worldgraph
+    /// @return a FrameworkReturnCode succesfull if the world anchor is correctly modified
+    virtual FrameworkReturnCode modifyWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldAnchor> worldAnchor) = 0;
 
     /////////////////////////
     /// WORLDLINK METHODS ///
@@ -170,6 +182,12 @@ public:
     /// @param[out] vector: a vector of all the world links that are in the world graph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
     virtual FrameworkReturnCode getWorldLinks(std::vector<SRef<datastructure::StorageWorldLink>> &vector) = 0;
+
+    /// @brief modifies a world link that is present in the world graph
+    /// @param[out] id:  The id of the world link to modify
+    /// @param[in] worldLink: The world link to modify in the worldgraph
+    /// @return a FrameworkReturnCode succesfull if the world link is correctly modified
+    virtual FrameworkReturnCode modifyWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldLink> worldLink) = 0;
 
 
 };

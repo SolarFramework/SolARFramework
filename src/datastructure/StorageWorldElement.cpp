@@ -35,6 +35,18 @@ namespace datastructure {
         LOG_DEBUG("WorldElement constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
+    StorageWorldElement::StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id,const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                                Vector3d size, std::multimap<std::string, std::string> tags, std::string name){
+        m_id = id;
+        m_name = name;
+        m_creatorId = creatorId;
+        m_localCRS = localCRS;
+        m_unitSystem = unitSystem;
+        m_size = size;
+        m_tags = tags;
+        LOG_DEBUG("WorldElement constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
+    }
+
     org::bcom::xpcf::uuids::uuid StorageWorldElement::getID() const {
         return m_id;
     }
