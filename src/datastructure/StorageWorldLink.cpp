@@ -24,7 +24,7 @@ namespace SolAR {
 namespace datastructure {
 
     StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform)
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, std::multimap<std::string, std::string> tags)
     {
         m_id = org::bcom::xpcf::uuids::random_generator()();
         m_author = author;
@@ -33,11 +33,13 @@ namespace datastructure {
         m_typeFrom = typeFrom;
         m_typeTo = typeTo;
         m_transform = transform;
+        m_unitSystem = unitSystem;
+        m_tags = tags;
         LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
     StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform)
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, std::multimap<std::string, std::string> tags)
     {
         m_id = id;
         m_author = author;
@@ -46,6 +48,8 @@ namespace datastructure {
         m_typeFrom = typeFrom;
         m_typeTo = typeTo;
         m_transform = transform;
+        m_unitSystem = unitSystem;
+        m_tags = tags;
         LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
@@ -118,7 +122,7 @@ namespace datastructure {
         m_typeTo = newTypeTo;
     }
 
-    UnitSystem StorageWorldLink::unitSystem() const
+    UnitSystem StorageWorldLink::getUnitSystem() const
     {
         return m_unitSystem;
     }
@@ -128,7 +132,7 @@ namespace datastructure {
         m_unitSystem = newUnitSystem;
     }
 
-    const std::multimap<std::string, std::string> &StorageWorldLink::tags() const
+    const std::multimap<std::string, std::string> &StorageWorldLink::getTags() const
     {
         return m_tags;
     }
@@ -147,6 +151,8 @@ namespace datastructure {
         ar & m_typeFrom;
         ar & m_typeTo;
         ar & m_transform;
+        ar & m_unitSystem;
+        ar & m_tags;
     }
 
     IMPLEMENTSERIALIZE(StorageWorldLink);
