@@ -24,7 +24,7 @@ namespace SolAR {
 namespace datastructure {
 
     StorageWorldElement::StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                             Vector3d size, std::multimap<std::string, std::string> tags, std::string name){
+                                             Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name){
         m_id = org::bcom::xpcf::uuids::random_generator()();
         m_name = name;
         m_creatorId = creatorId;
@@ -36,7 +36,7 @@ namespace datastructure {
     }
 
     StorageWorldElement::StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id,const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                                Vector3d size, std::multimap<std::string, std::string> tags, std::string name){
+                                Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name){
         m_id = id;
         m_name = name;
         m_creatorId = creatorId;

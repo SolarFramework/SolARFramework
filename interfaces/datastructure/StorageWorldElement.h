@@ -58,12 +58,12 @@ class SOLARFRAMEWORK_API StorageWorldElement
 
         /// @brief WorldElement constructor
         StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, std::multimap<std::string, std::string> tags, std::string name);
+                            Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
 
 
         /// @brief WorldElement constructor with id
-        StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id,const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, std::multimap<std::string, std::string> tags, std::string name);
+        StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                            Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
 
         /// @brief WorldElement default destructor
         virtual ~StorageWorldElement() = default;

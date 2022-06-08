@@ -24,7 +24,7 @@ namespace SolAR {
 namespace datastructure {
 
     StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, std::multimap<std::string, std::string> tags)
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, const std::multimap<std::string, std::string> &tags)
     {
         m_id = org::bcom::xpcf::uuids::random_generator()();
         m_author = author;
@@ -39,7 +39,7 @@ namespace datastructure {
     }
 
     StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, std::multimap<std::string, std::string> tags)
+                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, const std::multimap<std::string, std::string> &tags)
     {
         m_id = id;
         m_author = author;
