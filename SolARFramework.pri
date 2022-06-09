@@ -134,6 +134,7 @@ interfaces/base/geom/AReprojectionStereo.h \
 interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
+interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
