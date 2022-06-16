@@ -91,3 +91,4 @@ tests/bin
 SolARWrapper
 
 bundle_system_install.sh
+.build-rules/*
