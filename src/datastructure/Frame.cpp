@@ -155,6 +155,26 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
     return m_referenceKeyFrame;
 }
 
+void Frame::setcameraModelID(const uint32_t &cameraModelID)
+{
+    m_cameraModelID = cameraModelID;
+}
+
+const uint32_t& Frame::getcameraModelID() const
+{
+    return m_cameraModelID;
+}
+
+void Frame::setimageName(const std::string &imageName)
+{
+    m_imageName = imageName;
+}
+
+const std::string& Frame::getimageName() const
+{
+    return m_imageName;
+}
+
 template<typename Archive>
 void Frame::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);

@@ -133,6 +133,15 @@ void Map::setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval)
 	m_keyframeRetrieval = keyframeRetrieval;
 }
 
+const std::map<uint32_t,datastructure::CameraParameters> & Map::getCameraModels() const
+{
+    return m_cameraModel;
+}
+
+void Map::setCameraModels(const std::map<uint32_t,datastructure::CameraParameters> cameraModel)
+{
+    m_cameraModel = cameraModel;
+}
 template<typename Archive>
 void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_mapSupportedTypes;

@@ -132,6 +132,22 @@ public:
 	/// @return true if remove successfully
 	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
 
+    /// @brief set cameraModelID
+    /// @param[in] cameraModelID: cameraModelID
+    void setcameraModelID(const uint32_t &cameraModelID);
+
+    /// @brief get cameraModelID
+    /// @return cameraModelID
+    const uint32_t& getcameraModelID() const;
+
+    /// @brief set image name
+    /// @param[in] imageName: image name
+    void setimageName(const std::string &imageName);
+
+    /// @brief get image name
+    /// @return image name
+    const std::string& getimageName() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -144,6 +160,8 @@ protected:
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
+    uint32_t                        m_cameraModelID;
+    std::string                     m_imageName;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
