@@ -130,8 +130,10 @@ public:
      *  @param pixLayout: defined by ImageLayout
      *  @param pixOrder: defined if the data are stored interleaved RGB,RGB or as a planar representation RRR,GGG,BBB
      *  @param type: defined by DataType
+     *  @param encoding: image encoding (PNG, JPG or NONE by default)
      */
-    Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder, DataType type);
+    Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout pixLayout, enum PixelOrder pixOrder,
+          DataType type, ImageEncoding encoding = ENCODING_NONE);
 
      /**  @brief  ~Image
       */
