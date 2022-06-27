@@ -107,9 +107,41 @@ Image::Image(uint32_t width, uint32_t height, enum ImageLayout imgLayout, enum P
 // initialize image from external pointer data.
 // note : data is copied to take full ownership and ensure deallocation will occur in the same scope allocation was made
 
-Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout imgLayout, enum PixelOrder pixOrder, DataType type):Image(width, height, imgLayout, pixOrder,type)
+Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout imgLayout, enum PixelOrder pixOrder,
+             DataType type, ImageEncoding encoding):Image(width, height, imgLayout, pixOrder,type)
 {
-    m_internalImpl->setData(imageData,computeImageBufferSize());
+    if (encoding == ENCODING_NONE) {
+        m_internalImpl->setData(imageData, computeImageBufferSize());
+    }
+    else {
+        // JPEG or PNG decoding
+        OIIO::Filesystem::IOMemReader memreader(imageData, computeImageBufferSize());
+
+        std::string filename;
+        switch (encoding)
+        {
+            case ENCODING_JPEG:
+                filename="in.jpg";
+                break;
+            case ENCODING_PNG:
+                filename = "in.png";
+                break;
+            default:
+                filename="in.jpg";
+                break;
+        }
+
+        auto in = OIIO::ImageInput::open (filename, nullptr, &memreader);
+        const OIIO::ImageSpec & spec = in->spec();
+
+        OIIO::imagesize_t buffersize = spec.image_bytes(true);
+        unsigned char* pixels = new unsigned char [buffersize];
+        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+
+        m_internalImpl = utils::make_shared<ImageInternal>();
+        m_internalImpl->setData(pixels, spec.image_bytes(true));
+        in->close();
+    }
 }
 
 SRef<Image> Image::copy() const
