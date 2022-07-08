@@ -122,6 +122,16 @@ public:
     /// @brief This method allows to set the depth value of an Keypoint in the camera coordinate system
     /// @param[in] depth  Depth value
     inline void setDepth(float depth) {m_depth = depth;}
+	
+	/// @brief This method allows to set the class Id of a Keypoint
+    /// @param[in] classId  class id of the key point 
+    inline void setClassId(int classId) {m_class_id = classId;}
+	
+	/// @brief This method allows to set the RGB values of a Keypoint
+	/// @param[in] r  Red channel intensity level between 0 and 255
+	/// @param[in] g  Green channel intensity level between 0 and 255
+	/// @param[in] b  Blue channel intensity level between 0 and 255
+	inline void setRGB(float r, float g, float b) {m_rgb(0)=r; m_rgb(1)=g; m_rgb(2)=b;}
 
 private:
 	friend class boost::serialization::access;
