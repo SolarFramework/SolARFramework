@@ -19,6 +19,7 @@
 
 
 #include "api/pipeline/IPipeline.h"
+#include "api/pipeline/IMappingPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "xpcf/core/helpers.h"
@@ -111,13 +112,15 @@ public:
     /// @param[out] transform3DStatus the status of the current 3D transformation matrix
     /// @param[out] transform3D the current 3D transformation matrix (if available)
     /// @param[out] confidence the confidence score of the 3D transformation matrix
+    /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          const std::chrono::system_clock::time_point & timestamp,
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
-                                                         float_t & confidence) = 0;
+                                                         float_t & confidence,
+                                                         MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the asynchronous relocalization pipeline to get the 3D transform offset
     /// between the device coordinate system and the SolAR coordinate system
