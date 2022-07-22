@@ -473,6 +473,58 @@ void Image::load(Archive & ar, const unsigned int version)
      }
 }
 
+FrameworkReturnCode Image::rotate180()
+{
+    OIIO::TypeDesc type;
+    if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+        type = SolAR2OIIOType.at(m_type);
+    else
+        type = OIIO::TypeDesc::UNKNOWN;
+
+    OIIO::ImageSpec spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, type);
+
+    spec.nchannels = m_nbChannels;
+    if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
+        spec.channelnames = SolAR2OIIOLayout.at(m_layout);
+
+    spec.attribute ("oiio:ColorSpace", "sRGB");
+
+    OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, m_internalImpl->data());
+
+    // Convert to BGR or GRB to RGB channel format
+    if (m_layout == Image::ImageLayout::LAYOUT_BGR)
+        sourceBuf = OIIO::ImageBufAlgo::channels(sourceBuf, 3, { 2, 1, 0 });
+
+    OIIO::ImageBuf rotatedBuf;
+
+    if (OIIO::ImageBufAlgo::rotate180(rotatedBuf, sourceBuf))
+    {
+        if (rotatedBuf.has_error())
+        {
+            std::cout << "error: " << rotatedBuf.geterror() << "\n";
+            return FrameworkReturnCode::_ERROR_;
+        }
+
+        std::vector<unsigned char> result;
+        result.resize (m_size.width * m_size.height * m_nbBitsPerComponent * m_nbChannels);
+
+        if (rotatedBuf.get_pixels(OIIO::ROI::All(), type, &result[0]))
+        {
+            m_internalImpl->setData(&result[0], m_internalImpl->getBufferSize());
+
+            return FrameworkReturnCode::_SUCCESS;
+        }
+        else
+        {
+            return FrameworkReturnCode::_ERROR_;
+        }
+    }
+    else
+    {
+        return FrameworkReturnCode::_ERROR_;
+    }
+}
+
 IMPLEMENTSERIALIZE(Image);
 }
 }

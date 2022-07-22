@@ -255,6 +255,10 @@ public:
     /// @return _SUCCESS if the image is saved, _ERROR_ otherwise.
     FrameworkReturnCode load(std::string imagePath);
 
+    /// @brief Rotate image 180 degrees
+    /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
+    FrameworkReturnCode rotate180();
+
 private:
     friend class boost::serialization::access;
 protected:
