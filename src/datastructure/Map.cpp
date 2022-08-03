@@ -151,6 +151,7 @@ void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int vers
 	ar & m_keyframeCollection;
 	ar & m_covisibilityGraph;
 	ar & m_keyframeRetrieval;
+	ar & m_cameraModel;
 }
 
 IMPLEMENTSERIALIZE(Map);
