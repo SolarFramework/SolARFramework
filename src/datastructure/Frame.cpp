@@ -66,6 +66,13 @@ void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
     m_keypoints  = kpts;
 }
 
+bool Frame::updateKeypointClassId(int i, int classId) 
+{
+	if (i < 0 || i >= static_cast<int>(m_keypoints.size()))
+		return false;
+	m_keypoints[i].setClassId(classId);
+}
+
 const std::vector<Keypoint>& Frame::getUndistortedKeypoints() const
 {
 	std::unique_lock<std::mutex> lock(m_mutexKeypoint);

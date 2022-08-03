@@ -144,7 +144,7 @@ private:
     float           m_angle;
     float           m_response;
     int             m_octave;
-    int             m_class_id;
+    int             m_class_id = -1;
 	Vector3f		m_rgb = { 0.0, 0.0, 0.0 };
     float           m_depth = -1.f;
 };

@@ -78,6 +78,12 @@ public:
 	/// @brief set keypoints
 	/// @param[in] kpts: keypoints
     void setKeypoints(const std::vector<Keypoint>& kpts);
+	
+	/// @brief update keypoint class id 
+	/// @param[in] i: index of keypoint
+	/// @param[in] classId: semantic class Id of this keypoint 
+	/// @return true if update class id successfully
+	bool updateKeypointClassId(int i, int classId);
 
 	/// @brief get undistorted keypoints
 	/// @return undistorted keypoints
