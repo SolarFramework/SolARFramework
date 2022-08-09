@@ -185,18 +185,6 @@ public:
 	///
 	void setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval);
 
-    ///
-    /// @brief This method returns the camera models
-    /// @return the camera models
-    ///
-    const std::map<uint32_t,datastructure::CameraParameters> & getCameraModels() const;
-
-    ///
-    /// @brief This method is to set the camera model
-    /// @param[in] m_cameraModel the map of camera models used in creating the map
-    ///
-    void setCameraModels(const std::map<uint32_t,datastructure::CameraParameters> cameraModel);
-
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -209,7 +197,6 @@ private:
     SRef<KeyframeCollection>            m_keyframeCollection;
     SRef<CovisibilityGraph>             m_covisibilityGraph;
     SRef<KeyframeRetrieval>             m_keyframeRetrieval;
-    std::map<uint32_t,datastructure::CameraParameters> m_cameraModel;
 };
 
 

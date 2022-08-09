@@ -28,10 +28,9 @@ std::mutex						m_mutexVisibility;
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()){}
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()), m_imageName(frame->getImageName()), m_camParams(frame->getCameraParameters()), m_isOptPose(frame->isOptPose()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()) {
-}
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()), m_imageName(keyframe->getImageName()), m_camParams(keyframe->getCameraParameters()), m_isOptPose(keyframe->isOptPose()) {}
 
 Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const Transform3Df pose) : m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose) {}
 
@@ -59,6 +58,16 @@ void Frame::setPose(const Transform3Df & pose)
 {
 	std::unique_lock<std::mutex> lock(m_mutexPose);
     m_pose = pose;
+}
+
+bool Frame::isOptPose() const
+{
+	return m_isOptPose;
+}
+
+void Frame::setOptPose(bool value)
+{
+	m_isOptPose = value;
 }
 
 void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
@@ -155,22 +164,22 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
     return m_referenceKeyFrame;
 }
 
-void Frame::setcameraModelID(const uint32_t &cameraModelID)
+void Frame::setCameraParameters(const CameraParameters & camParams)
 {
-    m_cameraModelID = cameraModelID;
+	m_camParams = camParams;
 }
 
-const uint32_t& Frame::getcameraModelID() const
+const CameraParameters & Frame::getCameraParameters() const
 {
-    return m_cameraModelID;
+	return m_camParams;
 }
 
-void Frame::setimageName(const std::string &imageName)
+void Frame::setImageName(const std::string &imageName)
 {
     m_imageName = imageName;
 }
 
-const std::string& Frame::getimageName() const
+const std::string& Frame::getImageName() const
 {
     return m_imageName;
 }
@@ -181,8 +190,11 @@ void Frame::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int ve
 	ar & m_view;
 	ar & m_descriptors;
 	ar & m_keypoints;
-	ar & m_keypointsUndistort;
-	ar & m_mapVisibility;
+	ar & m_keypointsUndistort;	
+	ar & m_imageName;
+	ar & m_camParams;
+	ar & m_isOptPose;
+	ar & m_mapVisibility;	
 }
 
 IMPLEMENTSERIALIZE(Frame);

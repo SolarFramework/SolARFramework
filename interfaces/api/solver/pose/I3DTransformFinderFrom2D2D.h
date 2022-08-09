@@ -44,20 +44,17 @@ public:
     ///@brief I3DTransformFinderFrom2D2D default destructor.
     virtual ~I3DTransformFinderFrom2D2D() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams camera calibration matrix parameters.
-    /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief Estimates camera pose from a set of 2D points of the first image which match with a set of 2D points of the second image.
     /// @param[in] pointsView1 Set of 2D points seen in view 1.
     /// @param[in] pointsView2 Set of 2D points seen in view 2 and matching with the 2D points of the view 1.
+    /// @param[in] camParams the camera parameters.
     /// @param[in] poseView1 Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
     /// @param[out] poseView2 Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
     /// @param[in,out] inlierMatches a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const std::vector<SolAR::datastructure::Point2Df> & pointsView1,
                                          const std::vector<SolAR::datastructure::Point2Df> & pointsView2,
+                                         const SolAR::datastructure::CameraParameters & camParams,
                                          const SolAR::datastructure::Transform3Df & poseView1,
                                          SolAR::datastructure::Transform3Df & poseView2,
                                          std::vector<SolAR::datastructure::DescriptorMatch> & inlierMatches) =0;
@@ -65,12 +62,14 @@ public:
     /// @brief Estimates camera pose from a set of keypoints of the first image which match with a set of keypoints of the second image.
     /// @param[in] pointsView1 Set of keypoints seen in view 1.
     /// @param[in] pointsView2 Set of keypoints seen in view 2 and matching with the 2D points of the view 1.
+    /// @param[in] camParams the camera parameters.
     /// @param[in] poseView1 Camera pose (3D transform of the camera of the view1 defined in world corrdinate system).
     /// @param[out] poseView2 Camera pose (3D transform of the camera of the view2 defined in world corrdinate system).
     /// @param[in,out] inlierMatches a vector of matches that will be used for the pose estimation. This vector wll be updates as some input matches will be considered as outliers. If this vector is empty, we consider that the ith point of pointsView1 matches with the ith point of pointsView2.
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const std::vector<SolAR::datastructure::Keypoint> & pointsView1,
                                          const std::vector<SolAR::datastructure::Keypoint> & pointsView2,
+                                         const SolAR::datastructure::CameraParameters & camParams,
                                          const SolAR::datastructure::Transform3Df& poseView1,
                                          SolAR::datastructure::Transform3Df & poseView2,
                                          std::vector<SolAR::datastructure::DescriptorMatch>& inlierMatches) =0;

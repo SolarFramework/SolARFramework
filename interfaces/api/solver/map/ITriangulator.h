@@ -47,18 +47,15 @@ public:
     /// @brief ITriangulator default destructor
     virtual ~ITriangulator() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams camera calibration matrix parameters.
-    /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] pointsView1 set of 2D points seen in view_1.
     /// @param[in] pointsView2 set of 2D points seen in view_2.
     /// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
     /// @param[in] working_views a pair representing the id of the two views
     /// @param[in] poseView1 camera pose in the world coordinates system of the view_1 expressed as a Transform3D.
-    /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
+    /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D.
+    /// @param[in] camParams1 the parameters of the camera 1.
+    /// @param[in] camParams1 the parameters of the camera 2.
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
     virtual double triangulate(const std::vector<SolAR::datastructure::Point2Df> & pointsView1,
@@ -67,6 +64,8 @@ public:
                                const std::pair<uint32_t, uint32_t> & working_views,
                                const SolAR::datastructure::Transform3Df & poseView1,
                                const SolAR::datastructure::Transform3Df & poseView2,
+                               const SolAR::datastructure::CameraParameters & camParams1,
+                               const SolAR::datastructure::CameraParameters & camParams2,
                                std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud)=0;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
@@ -75,7 +74,9 @@ public:
     /// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
     /// @param[in] working_views a pair representing the id of the two views
     /// @param[in] poseView1 camera pose in the world coordinates system of the view_1 expressed as a Transform3D.
-    /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
+    /// @param[in] poseView2 camera pose in the world coordinates system of the view_2 expressed as a Transform3D.
+    /// @param[in] camParams1 the parameters of the camera 1.
+    /// @param[in] camParams1 the parameters of the camera 2.
     /// @param[out] pcloud set of triangulated 3d_points.
     /// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
     virtual double triangulate(const std::vector<SolAR::datastructure::Keypoint> & keypointsView1,
@@ -84,6 +85,8 @@ public:
                                const std::pair<uint32_t, uint32_t> & working_views,
                                const SolAR::datastructure::Transform3Df & poseView1,
                                const SolAR::datastructure::Transform3Df & poseView2,
+                               const SolAR::datastructure::CameraParameters & camParams1,
+                               const SolAR::datastructure::CameraParameters & camParams2,
                                std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud)=0;
 
 	/// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
@@ -94,7 +97,9 @@ public:
 	/// @param[in] matches the matches between the keypoints of the view1 and the keypoints of the view 2.
 	/// @param[in] working_views a pair representing the id of the two views
 	/// @param[in] poseView1 Camera pose in the world coordinates system of the view_1 expressed as a Transform3D.
-	/// @param[in] poseView2 Camera pose in the world coordinates system of the view_2 expressed as a Transform3D..
+    /// @param[in] poseView2 Camera pose in the world coordinates system of the view_2 expressed as a Transform3D.
+    /// @param[in] camParams1 the parameters of the camera 1.
+    /// @param[in] camParams1 the parameters of the camera 2.
 	/// @param[out] pcloud Set of triangulated 3d_points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
 	virtual double triangulate(	const std::vector<SolAR::datastructure::Keypoint> & keypointsView1,
@@ -105,6 +110,8 @@ public:
 								const std::pair<uint32_t, uint32_t> & working_views,
 								const SolAR::datastructure::Transform3Df & poseView1,
 								const SolAR::datastructure::Transform3Df & poseView2,
+                               const SolAR::datastructure::CameraParameters & camParams1,
+                               const SolAR::datastructure::CameraParameters & camParams2,
 								std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud) =0;
 
 	/// @brief calculating 3D cloud points by triangulating pairs of matched features or using depth information of keypoints.

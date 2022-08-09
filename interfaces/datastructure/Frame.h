@@ -10,6 +10,7 @@
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
 #include <core/SerializationDefinitions.h>
+#include "datastructure/CameraDefinitions.h"
 
 #include <memory>
 namespace SolAR {
@@ -65,6 +66,14 @@ public:
 	/// @brief set pose
 	/// @param[in] pose: camera pose
     void setPose(const Transform3Df & pose);
+
+	/// @brief check if need to optimize camera pose of this frame
+	/// @return true if need to optimize camera pose, otherwise return false
+	bool isOptPose() const;
+
+	/// @brief This method is to set this frame need to optimize camera pose or not.
+	/// @param[in] value the value (true/false)
+	void setOptPose(bool value);
 
 	/// @brief get keypoints
 	/// @return keypoints
@@ -132,21 +141,21 @@ public:
 	/// @return true if remove successfully
 	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
 
-    /// @brief set cameraModelID
-    /// @param[in] cameraModelID: cameraModelID
-    void setcameraModelID(const uint32_t &cameraModelID);
+    /// @brief set camera parameters
+    /// @param[in] camParams the camera parameters
+    void setCameraParameters(const CameraParameters &camParams);
 
-    /// @brief get cameraModelID
-    /// @return cameraModelID
-    const uint32_t& getcameraModelID() const;
+    /// @brief get camera parameters
+    /// @return the camera parameters
+    const CameraParameters& getCameraParameters() const;
 
     /// @brief set image name
     /// @param[in] imageName: image name
-    void setimageName(const std::string &imageName);
+    void setImageName(const std::string &imageName);
 
     /// @brief get image name
     /// @return image name
-    const std::string& getimageName() const;
+    const std::string& getImageName() const;
 
 private:
 	friend class boost::serialization::access;
@@ -160,8 +169,9 @@ protected:
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
-    uint32_t                        m_cameraModelID;
     std::string                     m_imageName;
+	CameraParameters				m_camParams;
+	bool							m_isOptPose = true;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
