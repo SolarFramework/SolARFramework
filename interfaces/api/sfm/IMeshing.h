@@ -32,7 +32,7 @@ namespace sfm {
  * <TT>UUID: 7d810e96-fd9d-4029-a102-61fe3883a633</TT>
  */
 
-class IMeshing : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IMeshing : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
     ///@brief IStructureFromMotion default constructor.
@@ -45,8 +45,8 @@ public:
     /// @param[in] map: the dense map to be triangulated
     /// @param[out] mesh: the resulting meshes
     /// @return FrameworkReturnCode::_SUCCESS if the meshing succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMesh(const SRef<datastructure::Map>& map,
-                                           SRef<datastructure::Mesh>& mesh) = 0;
+    virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::Map>& map,
+                                           SRef<SolAR::datastructure::Mesh>& mesh) = 0;
 };
 
 
