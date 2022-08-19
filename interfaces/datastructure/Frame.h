@@ -67,13 +67,13 @@ public:
 	/// @param[in] pose: camera pose
     void setPose(const Transform3Df & pose);
 
-	/// @brief check if need to optimize camera pose of this frame
-	/// @return true if need to optimize camera pose, otherwise return false
-	bool isOptPose() const;
+    /// @brief check if the pose of this frame is fixed and no need to optimize
+    /// @return true if fixed pose, otherwise return false
+    bool isFixedPose() const;
 
-	/// @brief This method is to set this frame need to optimize camera pose or not.
+    /// @brief This method is to set this frame having a fixed pose.
 	/// @param[in] value the value (true/false)
-	void setOptPose(bool value);
+    void setFixedPose(bool value);
 
 	/// @brief get keypoints
 	/// @return keypoints
@@ -171,7 +171,7 @@ protected:
     std::vector<Keypoint>			m_keypointsUndistort;
     std::string                     m_imageName;
 	CameraParameters				m_camParams;
-	bool							m_isOptPose = true;
+    bool							m_isFixedPose = false;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
