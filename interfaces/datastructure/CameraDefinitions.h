@@ -200,7 +200,7 @@ inline void from_json(const BasicJsonType& j, Eigen::Matrix<bool, Dynamic, Dynam
 {
     std::vector<int> data = j.template get<std::vector<int>>();
     int size = (int)std::sqrt(data.size());
-    assert((size * size == data.size()) && "Must be a squared matrix");
+    assert((size * size == (int) data.size()) && "Must be a squared matrix");
     eigenData.resize(size, size);
     for (int x = 0; x < size; ++x)
         for (int y = 0; y < size; ++y)
@@ -337,7 +337,7 @@ inline bool saveToFile(const SolAR::datastructure::CameraRigParameters& camParam
 {
 	nlohmann::ordered_json j;
 	// write camera parameters to json
-	int nbCameras = camParams.cameraParams.size();
+    int nbCameras = (int) camParams.cameraParams.size();
 	j["NbCameras"] = nbCameras;
 	int countCamera(0);
 	for (const auto& it : camParams.cameraParams) {
@@ -345,7 +345,7 @@ inline bool saveToFile(const SolAR::datastructure::CameraRigParameters& camParam
 		countCamera++;
 	}
 	// write rectifications to json
-	int nbRects = camParams.rectificationParams.size();
+    int nbRects = (int) camParams.rectificationParams.size();
 	j["NbRectifications"] = nbRects;
 	int countRect(0);
 	for (const auto& it : camParams.rectificationParams) {
@@ -357,7 +357,7 @@ inline bool saveToFile(const SolAR::datastructure::CameraRigParameters& camParam
 		countRect++;
 	}
 	// write transformations to json
-	int nbTransformations = camParams.transformations.size();
+    int nbTransformations = (int) camParams.transformations.size();
 	j["NbTransformations"] = nbTransformations;
 	int countTrans(0);
 	for (const auto& it : camParams.transformations) {

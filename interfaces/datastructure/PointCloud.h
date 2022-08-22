@@ -65,10 +65,11 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode addPoint(const SolAR::datastructure::CloudPoint &point);
 
-	/// @brief This method allow to add a vector of 3D points to the point cloud
-	/// @param[in] a vector of the 3D points to add to the persistent point cloud
-	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addPoints(const std::vector<SolAR::datastructure::CloudPoint> &points);
+    /// @brief This method allow to add a vector of 3D points to the point cloud
+    /// @param[in] a vector of the 3D points to add to the persistent point cloud
+    /// @param[in] definePointId if true an id will be set for the added point, else the id of the point will be used
+    /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode addPoints(const std::vector<SolAR::datastructure::CloudPoint> &points, bool definePointId = true);
 
 	/// @brief This method allows to get a 3D point stored in the point cloud by its id
 	/// @param[in] id of the point to get

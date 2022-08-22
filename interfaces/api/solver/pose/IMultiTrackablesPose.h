@@ -43,20 +43,17 @@ public:
     ///@brief IMultiTrackablesPose default destructor.
     virtual ~IMultiTrackablesPose() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams camera calibration matrix parameters.
-    /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief this method is used to set the set of trackables used to estimate the pose.
     /// @param[in] trackables the set of trackables used to estimate the pose.
     virtual FrameworkReturnCode setTrackables(const std::vector<SRef<SolAR::datastructure::Trackable>> trackables) =0;
 
     /// @brief Estimates camera pose based on a set of trackables.
     /// @param[in] image input image.
+    /// @param[in] camParams the camera parameters.
     /// @param[out] pose camera pose.
     /// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> image,
+                                         const SolAR::datastructure::CameraParameters & camParams,
                                          SolAR::datastructure::Transform3Df & pose) =0;
 
 };

@@ -42,12 +42,6 @@ public:
     ///@brief ILoopCorrector default destructor
     virtual ~ILoopCorrector() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams: Camera calibration matrix parameters.
-    /// @param[in] distortionParams: Camera distortion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
-                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
-
     /// @brief corrects a loop of keyframes and their associated point clouds from a loop detection result.
     /// @param[in] queryKeyframe: the query keyframe.
     /// @param[in] detectedLoopKeyframe: the detected loop keyframe.

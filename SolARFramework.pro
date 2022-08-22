@@ -10,7 +10,7 @@ QMAKE_PROJECT_DEPTH = 0
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.11.0
+VERSION=1.0.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -129,6 +129,8 @@ header_base_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/base/pipeline/
 header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
+header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
+header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -152,11 +154,13 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
+INSTALLS += header_interfaces_sfm
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
-INSTALLS += header_interfaces_segm
+
 
 OTHER_FILES += \
     packagedependencies.txt \
@@ -169,10 +173,3 @@ OTHER_FILES += \
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
-
-DISTFILES +=
-
-HEADERS += \
-    interfaces/api/pipeline/IAsyncRelocalizationPipeline.h
-
-

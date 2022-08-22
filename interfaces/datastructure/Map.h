@@ -27,6 +27,7 @@
 #include "datastructure/CovisibilityGraph.h"
 #include "datastructure/KeyframeRetrieval.h"
 #include "xpcf/core/refs.h"
+#include "datastructure/CameraDefinitions.h"
 #include <map>
 
 // Definition of Map Class //
@@ -133,13 +134,13 @@ public:
 	///
 	const SRef<KeyframeCollection> & getConstKeyframeCollection() const;
 
-	///
+    ///
 	/// @brief This method returns the keyframe collection
 	/// @param[out] keyframeCollection the keyframe collection of map
 	/// @return the keyframe collection
 	///
 	std::unique_lock<std::mutex> getKeyframeCollection(SRef<KeyframeCollection>& keyframeCollection);
-
+    
 	///
 	/// @brief This method is to set the keyframe collection
 	/// @param[in] keyframeCollection the keyframe collection of map
@@ -189,14 +190,15 @@ private:
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-	uint32_t						m_mapSupportedTypes;
-	SRef<Identification>			m_identification;
-	SRef<CoordinateSystem>			m_coordinateSystem;
-	SRef<PointCloud>				m_pointCloud;
-	SRef<KeyframeCollection>		m_keyframeCollection;
-	SRef<CovisibilityGraph>			m_covisibilityGraph;
-	SRef<KeyframeRetrieval>			m_keyframeRetrieval;
+    uint32_t                            m_mapSupportedTypes;
+    SRef<Identification>                m_identification;
+    SRef<CoordinateSystem>              m_coordinateSystem;
+    SRef<PointCloud>                    m_pointCloud;
+    SRef<KeyframeCollection>            m_keyframeCollection;
+    SRef<CovisibilityGraph>             m_covisibilityGraph;
+    SRef<KeyframeRetrieval>             m_keyframeRetrieval;
 };
+
 
 DECLARESERIALIZE(Map);
 }
