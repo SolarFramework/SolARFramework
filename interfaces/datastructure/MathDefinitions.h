@@ -179,6 +179,12 @@ typedef Quaternion<float> Quaternionf;
 typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> Rotation;
 
 /**
+ * @typedef Rotation
+ * @brief <B>A 3x3 matrix defining a 3D rotation.</B>
+ */
+typedef Maths::Matrix<double, 3, 3, Eigen::RowMajor> Rotationd;
+
+/**
  * @typedef Projection
  * @brief <B>A 3x4 matrix defining a projection matrix.</B>
  */
