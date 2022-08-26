@@ -43,20 +43,17 @@ public:
     ///@brief ITrackablePose default destructor.
     virtual ~ITrackablePose() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams camera calibration matrix parameters.
-    /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief this method is used to set the trackable used to estimate the pose.
     /// @param[in] the trackable used to estimate the pose.
     virtual FrameworkReturnCode setTrackable(const SRef<SolAR::datastructure::Trackable> trackable) =0;
 
     /// @brief Estimates camera pose based on a fiducial marker.
-    /// @param[in] image: input image.
-    /// @param[out] pose: camera pose.
+    /// @param[in] image input image.
+    /// @param[in] camParams the camera parameters.
+    /// @param[out] pose camera pose.
     /// @return FrameworkReturnCode::_SUCCESS if the estimation succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Image> image,
+                                         const SolAR::datastructure::CameraParameters & camParams,
                                          SolAR::datastructure::Transform3Df & pose) =0;
 
 };

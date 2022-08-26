@@ -45,12 +45,6 @@ public:
 	/// @brief IBootstrapper default destructor
 	virtual ~IBootstrapper() = default;
 
-	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] intrinsicParams camera calibration matrix parameters.
-	/// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
-                                     const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief This method uses images to boostrap mapping
     /// @param[in] frame input image to process
     /// @param[out] view output image to visualize

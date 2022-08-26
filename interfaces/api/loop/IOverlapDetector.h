@@ -42,12 +42,6 @@ public:
     ///@brief IOverlapDetector default destructor
     virtual ~IOverlapDetector() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams: Camera calibration matrix parameters.
-    /// @param[in] distortionParams: Camera distortion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
-                                     const SolAR::datastructure::CamDistortion & distortionParams) = 0;
-
     /// @brief Detect overlap between two floating maps with different refences.
     /// @param[in] globalMap global map as reference.
     /// @param[in] floatingMap floating map as the map to merge.

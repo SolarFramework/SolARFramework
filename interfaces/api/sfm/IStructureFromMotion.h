@@ -39,7 +39,7 @@ namespace sfm {
  * ???
  */
 
-class IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
     ///@brief IStructureFromMotion default constructor.
@@ -51,8 +51,8 @@ public:
     /// @brief Create map
     /// @param[in] keyframe: the keyframe to add to the bag of words
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(std::vector<SRef<datastructure::Image>>& images,
-                                          SRef<datastructure::Map>& map) = 0; //last argument for test
+    virtual FrameworkReturnCode createMap(std::vector<SRef<SolAR::datastructure::Image>>& images,
+                                          SRef<SolAR::datastructure::Map>& map) = 0; //last argument for test
 };
 
 

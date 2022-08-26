@@ -42,28 +42,27 @@ public:
     /// @brief IUnproject default destructor
     virtual ~IUnproject() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] Camera calibration matrix parameters.
-    /// @param[in] Camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief This method unproject a set of 2D image points in the 3D world coordinate system
     /// @param[in] imagePoints the set of 2D points to unproject
-    /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
+    /// @param[in] camParams the camera parameters
+    /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points    
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode unproject(const std::vector<SolAR::datastructure::Point2Df> & imagePoints,
-                                          std::vector<SolAR::datastructure::Point3Df> & worldPoints,
-                                          const SolAR::datastructure::Transform3Df & pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
+                                          const SolAR::datastructure::Transform3Df & pose,
+                                          const SolAR::datastructure::CameraParameters & camParams,
+                                          std::vector<SolAR::datastructure::Point3Df> & worldPoints) = 0;
 
     /// @brief This method unproject a set of 2D image points in the 3D world coordinate system
     /// @param[in] imageKeypoints the set of 2D keypoints to unproject
-    /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
+    /// @param[in] camParams the camera parameters
+    /// @param[out] worldPoints a set of world 3D points resulting from the unprojection of the 2D image points    
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode unproject(const std::vector<SolAR::datastructure::Keypoint> & imageKeypoints,
-                                          std::vector<SolAR::datastructure::Point3Df> & worldPoints,
-                                          const SolAR::datastructure::Transform3Df & pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
+                                          const SolAR::datastructure::Transform3Df & pose,
+                                          const SolAR::datastructure::CameraParameters & camParams,
+                                          std::vector<SolAR::datastructure::Point3Df> & worldPoints) = 0;
 
 };
 

@@ -47,10 +47,6 @@ public:
 	/// @brief IMapUpdate default destructor
 	virtual ~IMapUpdate() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] camParams  Camera parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
-
 	/// @brief Update the global map.
 	/// @param[in,out] globalMap the global map
 	/// @param[in] newKeyframeIds the ids of new keyframes.

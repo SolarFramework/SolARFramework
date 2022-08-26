@@ -44,11 +44,6 @@ public:
 	/// @brief IBootstrapper default destructor
 	virtual ~ITracking() = default;
 
-	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams: camera calibration matrix parameters.
-    /// @param[in] distorsionParams: camera distorsion parameters.
-	virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
 	/// @brief this method is used to set new keyframe for tracking process
 	/// @param[in] newKeyframme the new keyframe
     virtual void setNewKeyframe(const SRef<SolAR::datastructure::Keyframe> newKeyframe) = 0;
