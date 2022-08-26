@@ -52,6 +52,7 @@ interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
+interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
