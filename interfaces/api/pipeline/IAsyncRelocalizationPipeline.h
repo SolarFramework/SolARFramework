@@ -19,6 +19,7 @@
 
 
 #include "api/pipeline/IPipeline.h"
+#include "api/pipeline/IMappingPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "xpcf/core/helpers.h"
@@ -87,44 +88,53 @@ public:
     }
 
     /// @brief Set the camera parameters
-    /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
+    /// @brief Set the rectification parameters (use for stereo camera)
+    /// @param[in] rectCam1 the rectification parameters of the first camera
+    /// @param[in] rectCam2 the rectification parameters of the second camera
+    /// @return FrameworkReturnCode::_SUCCESS if the rectification parameters are correctly set, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setRectificationParameters(const SolAR::datastructure::RectificationParameters & rectCam1,
+                                                           const SolAR::datastructure::RectificationParameters & rectCam2) = 0;
+
     /// @brief Get the camera parameters
-    /// @param[out] cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[out] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
-    /// @param[in] image: the image to process
-    /// @param[in] pose: the original pose in the client coordinates system
-    /// @param[in] timestamp: the timestamp of the image
-    /// @param[out] transform3DStatus: the status of the current 3D transformation matrix
-    /// @param[out] transform3D: the current 3D transformation matrix (if available)
-    /// @param[out] confidence: the confidence score of the 3D transformation matrix
+    /// @param[in] images the images to process
+    /// @param[in] poses the poses associated to images in the client coordinates system
+    /// @param[in] timestamp the timestamp of the image
+    /// @param[out] transform3DStatus the status of the current 3D transformation matrix
+    /// @param[out] transform3D the current 3D transformation matrix (if available)
+    /// @param[out] confidence the confidence score of the 3D transformation matrix
+    /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                         const SolAR::datastructure::Transform3Df & pose,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                         const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          const std::chrono::system_clock::time_point & timestamp,
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
-                                                         float_t & confidence) = 0;
+                                                         float_t & confidence,
+                                                         MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the asynchronous relocalization pipeline to get the 3D transform offset
     /// between the device coordinate system and the SolAR coordinate system
-    /// @param[out] transform3DStatus: the status of the current 3D transformation matrix
-    /// @param[out] transform3D : the current 3D transformation matrix (if available)
-    /// @param[out] confidence: the confidence score of the 3D transformation matrix
+    /// @param[out] transform3DStatus the status of the current 3D transformation matrix
+    /// @param[out] transform3D the current 3D transformation matrix (if available)
+    /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @return FrameworkReturnCode::_SUCCESS if the 3D transform is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode get3DTransformRequest(TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) = 0;
 
     /// @brief Return the last pose processed by the pipeline
-    /// @param[out] pose: the last pose if available
-    /// @param[in] poseType: the type of the requested pose
+    /// @param[out] pose the last pose if available
+    /// @param[in] poseType the type of the requested pose
     ///            - in the SolAR coordinate system (by default)
     ///            - in the device coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
