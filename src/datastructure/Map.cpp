@@ -29,6 +29,7 @@ Map::Map()
 	m_coordinateSystem = xpcf::utils::make_shared<CoordinateSystem>();
 	m_pointCloud = xpcf::utils::make_shared<PointCloud>();
 	m_keyframeCollection = xpcf::utils::make_shared<KeyframeCollection>();
+    m_cameraParametersCollection = xpcf::utils::make_shared<CameraParametersCollection>();
 	m_covisibilityGraph = xpcf::utils::make_shared<CovisibilityGraph>();
 	m_keyframeRetrieval = xpcf::utils::make_shared<KeyframeRetrieval>();
 }
@@ -133,6 +134,23 @@ void Map::setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval)
 	m_keyframeRetrieval = keyframeRetrieval;
 }
 
+const SRef<CameraParametersCollection>& Map::getConstCameraParametersCollection() const
+{
+    return m_cameraParametersCollection;
+}
+
+std::unique_lock<std::mutex> Map::getCameraParametersCollection(SRef<CameraParametersCollection>& cameraParametersCollection)
+{
+    cameraParametersCollection = m_cameraParametersCollection;
+    return m_cameraParametersCollection->acquireLock();
+}
+
+void Map::setCameraParametersCollection(const SRef<CameraParametersCollection> cameraParametersCollection)
+{
+    m_mapSupportedTypes = m_mapSupportedTypes | MapType::_CameraParemeters;
+    m_cameraParametersCollection = cameraParametersCollection;
+}
+
 template<typename Archive>
 void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_mapSupportedTypes;
@@ -142,6 +160,7 @@ void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int vers
 	ar & m_keyframeCollection;
 	ar & m_covisibilityGraph;
 	ar & m_keyframeRetrieval;
+    ar & m_cameraParametersCollection;
 }
 
 IMPLEMENTSERIALIZE(Map);

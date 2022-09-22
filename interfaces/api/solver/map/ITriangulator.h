@@ -110,8 +110,8 @@ public:
 								const std::pair<uint32_t, uint32_t> & working_views,
 								const SolAR::datastructure::Transform3Df & poseView1,
 								const SolAR::datastructure::Transform3Df & poseView2,
-                               const SolAR::datastructure::CameraParameters & camParams1,
-                               const SolAR::datastructure::CameraParameters & camParams2,
+                                const SolAR::datastructure::CameraParameters & camParams1,
+                                const SolAR::datastructure::CameraParameters & camParams2,
 								std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud) =0;
 
 	/// @brief calculating 3D cloud points by triangulating pairs of matched features or using depth information of keypoints.
@@ -119,6 +119,8 @@ public:
 	/// @param[in] frame2 the second frame.
 	/// @param[in] matches the matches between these two frames.
 	/// @param[in] working_views a pair representing the id of the two views
+    /// @param[in] camParams1 the parameters of the camera 1.
+    /// @param[in] camParams1 the parameters of the camera 2
 	/// @param[out] pcloud Set of triangulated 3d_points.
 	/// @param[in] onlyDepth if it is true, using only depth information of keypoints for computing 3D cloud points.
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
@@ -126,6 +128,8 @@ public:
 							   SRef<SolAR::datastructure::Frame> frame2,
                                const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
 							   const std::pair<uint32_t, uint32_t> & working_views,
+                               const SolAR::datastructure::CameraParameters & camParams1,
+                               const SolAR::datastructure::CameraParameters & camParams2,
                                std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud,
 							   const bool& onlyDepth = false) = 0;
 };

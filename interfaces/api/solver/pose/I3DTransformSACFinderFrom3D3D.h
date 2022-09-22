@@ -57,6 +57,9 @@ public:
     /// @brief Estimates camera pose from a set of 3D-3D point correspondences.
     /// @param[in] firstKeyframe first keyframe.
     /// @param[in] secondKeyframe second keyframe.
+    /// @param[in] firstCameraParameters parameters of the camera capturing the first keyframe.
+    /// @param[in] secondCameraParameters parameters of the camera capturing the second keyframe.
+    /// @param[in] secondKeyframe second keyframe.
     /// @param[in] matches matches between two keyframes.
     /// @param[in] firstPoints3D first set of 3D points.
     /// @param[in] secondPoints3D second set of 3D points.
@@ -65,6 +68,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Keyframe> firstKeyframe,
                                          const SRef<SolAR::datastructure::Keyframe> secondKeyframe,
+                                         const SolAR::datastructure::CameraParameters & firstCameraParameters,
+                                         const SolAR::datastructure::CameraParameters & secondCameraParameters,
                                          const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
                                          const std::vector<SolAR::datastructure::Point3Df> & firstPoints3D,
                                          const std::vector<SolAR::datastructure::Point3Df> & secondPoints3D,

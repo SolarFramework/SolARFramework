@@ -28,15 +28,15 @@ std::mutex						m_mutexVisibility;
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()), m_imageName(frame->getImageName()), m_camParams(frame->getCameraParameters()), m_isFixedPose(frame->isFixedPose()){}
+Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()), m_imageName(keyframe->getImageName()), m_camParams(keyframe->getCameraParameters()), m_isFixedPose(keyframe->isFixedPose()) {}
+Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()) {}
 
-Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const Transform3Df pose) : m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_pose(pose) {}
+Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose) : m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_camID(camID), m_pose(pose) {}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const uint32_t camID, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_camID(camID), m_pose(pose){}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view,  const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_camID(camID), m_pose(pose){}
 
 const SRef<Image>& Frame::getView() const
 {
@@ -164,14 +164,14 @@ const SRef<Keyframe>& Frame::getReferenceKeyframe() const
     return m_referenceKeyFrame;
 }
 
-void Frame::setCameraParameters(const CameraParameters & camParams)
+void Frame::setCameraID(const uint32_t camID)
 {
-	m_camParams = camParams;
+    m_camID = camID;
 }
 
-const CameraParameters & Frame::getCameraParameters() const
+const uint32_t & Frame::getCameraID() const
 {
-	return m_camParams;
+    return m_camID;
 }
 
 void Frame::setImageName(const std::string &imageName)
@@ -192,7 +192,7 @@ void Frame::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int ve
 	ar & m_keypoints;
 	ar & m_keypointsUndistort;	
 	ar & m_imageName;
-	ar & m_camParams;
+    ar & m_camID;
     ar & m_isFixedPose;
 	ar & m_mapVisibility;	
 }

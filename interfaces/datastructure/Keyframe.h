@@ -36,25 +36,28 @@ class SOLARFRAMEWORK_API Keyframe : public Frame, public PrimitiveInformation {
 public:
     Keyframe() = default;
 
-    Keyframe(SRef<Frame> frame) : Frame(frame), m_id(0) {};
+    Keyframe(SRef<Frame> frame) : Frame(frame) {};
 
 	explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  SRef<DescriptorBuffer> descriptors,
 					  SRef<Image> view,
-					  Transform3Df pose = Transform3Df::Identity()) : Frame(keypoints, descriptors, view, pose), m_id(0) {};
+                      const uint32_t camID = 0,
+                      Transform3Df pose = Transform3Df::Identity()) : Frame(keypoints, descriptors, view, camID, pose) {};
 
     explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  const std::vector<Keypoint> & undistortedKeypoints,
                       SRef<DescriptorBuffer> descriptors,
                       SRef<Image> view,
                       SRef<Keyframe> refKeyframe,
-                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, refKeyframe, pose), m_id(0){};
+                      const uint32_t camID = 0,
+                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, refKeyframe, camID, pose) {};
 
 	explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  const std::vector<Keypoint> & undistortedKeypoints,
 					  SRef<DescriptorBuffer> descriptors,
 					  SRef<Image> view,
-					  Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, pose), m_id(0){};
+                      const uint32_t camID = 0,
+                      Transform3Df pose = Transform3Df::Identity()): Frame(keypoints, undistortedKeypoints, descriptors, view, camID, pose) {};
 
     ~Keyframe() = default;	
 

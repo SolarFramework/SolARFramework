@@ -69,6 +69,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::Frame> frame1,
                                       const SRef<SolAR::datastructure::Frame> frame2,
+                                      const SolAR::datastructure::CameraParameters & camParams1,
+                                      const SolAR::datastructure::CameraParameters & camParams2,
                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches,
                                       const std::vector<uint32_t>& mask = {}) override;
 };

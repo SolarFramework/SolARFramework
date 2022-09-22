@@ -28,24 +28,27 @@ public:
 	Frame() = default;
     Frame(const SRef<Frame> frame);
 	
-	Frame(const SRef<Keyframe> keyframe);
+    Frame(const SRef<Keyframe> keyframe);
 
 	explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const SRef<DescriptorBuffer> descriptors,
-				   const SRef<Image> view,
-				   const Transform3Df pose = Transform3Df::Identity());
-
-    explicit Frame(const std::vector<Keypoint> & keypoints,
-				   const std::vector<Keypoint> & undistortedKeypoints,
-                   const SRef<DescriptorBuffer> descriptors,
                    const SRef<Image> view,
-                   const SRef<Keyframe> refKeyframe,
+                   const uint32_t camID = 0,
                    const Transform3Df pose = Transform3Df::Identity());
 
     explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const std::vector<Keypoint> & undistortedKeypoints,
                    const SRef<DescriptorBuffer> descriptors,
                    const SRef<Image> view,
+                   const SRef<Keyframe> refKeyframe,
+                   const uint32_t camID = 0,
+                   const Transform3Df pose = Transform3Df::Identity());
+
+    explicit Frame(const std::vector<Keypoint> & keypoints,
+				   const std::vector<Keypoint> & undistortedKeypoints,
+                   const SRef<DescriptorBuffer> descriptors,
+                   const SRef<Image> view,
+                   const uint32_t camID = 0,
                    const Transform3Df pose = Transform3Df::Identity());
 
     /// @brief ~Frame
@@ -143,11 +146,11 @@ public:
 
     /// @brief set camera parameters
     /// @param[in] camParams the camera parameters
-    void setCameraParameters(const CameraParameters &camParams);
+    void setCameraID(const uint32_t camID);
 
     /// @brief get camera parameters
     /// @return the camera parameters
-    const CameraParameters& getCameraParameters() const;
+    const uint32_t& getCameraID() const;
 
     /// @brief set image name
     /// @param[in] imageName: image name
@@ -170,7 +173,7 @@ protected:
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
     std::string                     m_imageName;
-	CameraParameters				m_camParams;
+    uint32_t                        m_camID;
     bool							m_isFixedPose = false;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.

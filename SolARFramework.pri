@@ -93,6 +93,7 @@ interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
+interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
@@ -104,6 +105,7 @@ interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
+interfaces/datastructure/CameraParametersCollection.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
@@ -142,6 +144,7 @@ interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
+src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
