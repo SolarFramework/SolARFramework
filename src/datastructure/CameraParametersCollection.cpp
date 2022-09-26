@@ -47,8 +47,11 @@ FrameworkReturnCode CameraParametersCollection::addCameraParameters(CameraParame
         cameraParameters.id = id;
     }
     else
+    {
         id = cameraParameters.id;
-
+        if (m_id<id)
+            m_id = id+1;
+    }
     cameraParameters_ptr->id = id;
     m_cameraParameters[id] = cameraParameters_ptr;
 	return FrameworkReturnCode::_SUCCESS;
