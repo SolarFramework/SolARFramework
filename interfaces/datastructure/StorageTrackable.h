@@ -39,6 +39,7 @@ enum class StorageTrackableType : char {
     MAP,
     FIDUCIAL_MARKER,
     IMAGE_MARKER,
+    GEOPOSE,
     OTHER
 };
 
@@ -46,6 +47,7 @@ static StorageTrackableType resolveTrackableType(std::string input){
     if(input == "MAP"){return StorageTrackableType::MAP;}
     if(input == "FIDUCIAL_MARKER" || input == "FIDUCIAL"){return StorageTrackableType::FIDUCIAL_MARKER;}
     if(input == "IMAGE_MARKER" || input == "IMAGE"){return StorageTrackableType::IMAGE_MARKER;}
+    if(input == "GEOPOSE"){return StorageTrackableType::GEOPOSE;}
     return StorageTrackableType::OTHER;
 }
 
@@ -53,6 +55,7 @@ static  std::string resolveTrackableType(StorageTrackableType input){
     if(input == StorageTrackableType::MAP){return "MAP";}
     if(input == StorageTrackableType::FIDUCIAL_MARKER){return "FIDUCIAL_MARKER";}
     if(input == StorageTrackableType::IMAGE_MARKER){return "IMAGE_MARKER";}
+    if(input == StorageTrackableType::GEOPOSE){return "GEOPOSE";}
     return "OTHER";
 }
 

@@ -1,0 +1,11 @@
+[requires]
+eigen/3.3.9
+nlohmann_json/3.9.1
+boost/1.74.0
+[generators]
+qmake
+[options]
+boost:shared=True
+boost:zlib=False
+boost:bzip2=False
+boost:numa=False
