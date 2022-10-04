@@ -32,7 +32,12 @@ FrameworkReturnCode CameraParametersCollection::addCameraParameters(const SRef<C
         cameraParameters->id = id;
     }
     else
+    {
         id = cameraParameters->id;
+        if (m_id<=id)
+            m_id = id+1;
+
+    }
     m_cameraParameters[id] = cameraParameters;
 	return FrameworkReturnCode::_SUCCESS;
 }
@@ -45,12 +50,14 @@ FrameworkReturnCode CameraParametersCollection::addCameraParameters(CameraParame
     {
         id = m_id++;
         cameraParameters.id = id;
+
     }
     else
     {
         id = cameraParameters.id;
-        if (m_id<id)
+        if (m_id<=id)
             m_id = id+1;
+
     }
     cameraParameters_ptr->id = id;
     m_cameraParameters[id] = cameraParameters_ptr;
