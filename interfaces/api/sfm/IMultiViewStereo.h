@@ -33,11 +33,12 @@ public:
 
 
 
-    /// @brief Create map
-    /// @param[in] keyframe: the keyframe to add to the bag of words
+    /// @brief Create dense point cloud
+    /// @param[in] map: the sparse map to densify
+    /// @param[in] densePointCloud: the dense point cloud resulting from the densification of the sparse map
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createDenseMap(const SRef<SolAR::datastructure::Map>& map,
-                                               SRef<SolAR::datastructure::Map>& densemap) = 0; //last argument for test
+    virtual FrameworkReturnCode createDensePointCloud(const SRef<SolAR::datastructure::Map>& map,
+                                                      SRef<SolAR::datastructure::PointCloud>& densePointCloud) = 0; //last argument for test
 };
 
 

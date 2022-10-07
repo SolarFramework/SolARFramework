@@ -41,11 +41,11 @@ public:
     ///@brief IMeshing default destructor.
     virtual ~IMeshing() override = default;
 
-    /// @brief Create mesh from a dense 3D map
-    /// @param[in] map: the dense map to be triangulated
+    /// @brief Create mesh from a dense 3D point cloud
+    /// @param[in] densePointCloud: the dense poitn cloud to mesh with triangles
     /// @param[out] mesh: the resulting meshes
     /// @return FrameworkReturnCode::_SUCCESS if the meshing succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::Map>& map,
+    virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
                                            SRef<SolAR::datastructure::Mesh>& mesh) = 0;
 };
 
