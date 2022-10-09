@@ -46,12 +46,14 @@ interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
+interfaces/api/input/files/IMeshLoader.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
+interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
