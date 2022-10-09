@@ -20,6 +20,7 @@
 
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/Map.h"
+#include "datastructure/Mesh.h"
 #include "xpcf/core/helpers.h"
 
 
@@ -61,20 +62,20 @@ public:
     /// @param[in] sparseMap: the sparse map to use to create a dense map
     /// @param[in] createMesh: true to create a mesh, otherwise, just a dense point cloud is created
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode denseMappingProcessRequest(const SRef<SolAR::datastructure::map> & sparseMap,
+    virtual FrameworkReturnCode denseMappingProcessRequest(const SRef<SolAR::datastructure::Map> & sparseMap,
                                                            const bool createMesh) = 0;
 
     /// @brief Provide the dense pottn cloud resulting from the dense mapping of the sparse map
     /// @param[out] outputPointCloud: the resulting dense point cloud
     /// @param[out] status: the current status of the dense mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getPointCloud(const SRef<PointCloud> & outputPointCloud, MappingStatus & status) const = 0;
+    virtual FrameworkReturnCode getPointCloud(const SRef<SolAR::datastructure::PointCloud> & outputPointCloud, DenseMappingStatus & status) const = 0;
 
     /// @brief Provide the mesh resulting from the dense mapping of the sparse map
     /// @param[out] outputMesh: the resulting mesh
     /// @param[out] status: the current status of the dense mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMesh(const SRef<Mesh> & outputMesh, MappingStatus & status) const = 0;
+    virtual FrameworkReturnCode getMesh(const SRef<SolAR::datastructure::Mesh>& outputMesh, DenseMappingStatus & status) const = 0;
 
 };
 }
