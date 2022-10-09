@@ -40,7 +40,7 @@ public:
     /// @brief Export a PointCloud to a file
     /// @param[in] pointCloud: the point cloud to export
     /// @return FrameworkReturnCode::_SUCCESS if export succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode exportPointCloud(const SRef<const SolAR::datastructure::PointCloud> & pointCloud) = 0;
+    virtual FrameworkReturnCode exportPointCloud(const SRef<SolAR::datastructure::PointCloud> & pointCloud) = 0;
 };
 
 } // namespace SolAR::api::output::files 
