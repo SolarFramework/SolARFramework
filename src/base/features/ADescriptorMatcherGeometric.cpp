@@ -32,11 +32,11 @@ FrameworkReturnCode ADescriptorMatcherGeometric::match(const SRef<SolAR::datastr
                                                        const SolAR::datastructure::CameraParameters & camParams1,
                                                        const SolAR::datastructure::CameraParameters & camParams2,
                                                        std::vector<SolAR::datastructure::DescriptorMatch> & matches,
-                                                       const std::vector<uint32_t>& mask)
-{	
+                                                       const std::vector<uint32_t>& mask1, const std::vector<uint32_t>& mask2)
+{
     return match(frame1->getDescriptors(), frame2->getDescriptors(),
         frame1->getUndistortedKeypoints(), frame2->getUndistortedKeypoints(), frame1->getPose(),
-                 frame2->getPose(), camParams1, camParams2, matches, mask);
+                 frame2->getPose(), camParams1, camParams2, matches, mask1, mask2);
 }
 
 }

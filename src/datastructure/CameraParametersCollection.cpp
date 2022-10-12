@@ -39,6 +39,7 @@ FrameworkReturnCode CameraParametersCollection::addCameraParameters(const SRef<C
 
     }
     m_cameraParameters[id] = cameraParameters;
+    LOG_DEBUG("Add camera[{}] = {}", id, cameraParameters->id);
 	return FrameworkReturnCode::_SUCCESS;
 }
 
@@ -61,7 +62,8 @@ FrameworkReturnCode CameraParametersCollection::addCameraParameters(CameraParame
     }
     cameraParameters_ptr->id = id;
     m_cameraParameters[id] = cameraParameters_ptr;
-	return FrameworkReturnCode::_SUCCESS;
+    LOG_DEBUG("Add camera[{}] = {}", id, cameraParameters_ptr->id);
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode CameraParametersCollection::getCameraParameters(const uint32_t id, SRef<CameraParameters> & cameraParameters) const
