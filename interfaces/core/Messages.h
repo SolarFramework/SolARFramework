@@ -38,6 +38,9 @@ enum class FrameworkReturnCode:long{
     _ERROR_LOAD_IMAGE = -10,
     /** Cannot acces Image */
     _ERROR_ACCESS_IMAGE = -11,
+
+    // for services
+    _BUSY = -20
 };
 
 }  // end of namespace SolAR
