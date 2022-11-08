@@ -66,6 +66,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
+	/// @brief Set the camera parameters (use for stereo camera)
+    /// @param[in] cameraParams1 the camera parameters of the first camera
+    /// @param[in] cameraParams2 the camera parameters of the second camera
+    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams1,
+													const SolAR::datastructure::CameraParameters & cameraParams2) = 0;
+
     /// @brief Set the rectification parameters (use for stereo camera)
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
