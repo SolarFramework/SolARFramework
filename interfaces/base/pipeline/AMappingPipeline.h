@@ -43,6 +43,14 @@ public:
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
+	/// @brief Set the camera parameters (use for stereo camera)
+	/// @param[in] cameraParams1 the camera parameters of the first camera
+	/// @param[in] cameraParams2 the camera parameters of the second camera
+	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
+	virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams1,
+													const SolAR::datastructure::CameraParameters & cameraParams2) override
+	{ return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
     /// @brief Set the rectification parameters (use for stereo camera)
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
