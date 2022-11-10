@@ -76,6 +76,10 @@ public:
     /// @brief IAsyncRelocalizationPipeline default destructor
     virtual ~IAsyncRelocalizationPipeline() = default;
 
+    using IPipeline::init;
+    using IPipeline::start;
+    using IPipeline::stop;
+
     /// @brief Register a new client and return its UUID to use for future requests
     /// @param[out] the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
