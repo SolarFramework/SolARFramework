@@ -83,12 +83,17 @@ public:
     /// @brief Register a new client and return its UUID to use for future requests
     /// @param[out] the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(std::string uuid) = 0;
+    virtual FrameworkReturnCode registerClient(std::string & uuid) = 0;
 
     /// @brief Unregister a client using its UUID
     /// @param[in] the UUID of the client to unregister
     /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode unregisterClient(const std::string uuid) = 0;
+
+    /// @brief Initialization of the pipeline
+    /// @param[in] uuid: UUID of the client
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init(const std::string uuid) = 0;
 
     /// @brief Init the pipeline and specify the mode for the pipeline processing
     /// @param[in] uuid: UUID of the client
@@ -108,10 +113,9 @@ public:
 
     /// @brief Return the current mode used for the pipeline processing
     /// @param[in] uuid: UUID of the client
-    /// @return current mode
-    PipelineMode getProcessingMode(const std::string uuid) const {
-        return m_PipelineMode;
-    }
+    /// @param[out] pipelineMode: the current pipeline mode
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getProcessingMode(const std::string uuid, PipelineMode & pipelineMode) const = 0;
 
     /// @brief Set the camera parameters
     /// @param[in] uuid: UUID of the client
