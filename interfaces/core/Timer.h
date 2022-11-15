@@ -14,32 +14,28 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_MESSAGES_H
-#define SOLAR_MESSAGES_H
+#ifndef SOLAR_TIMER_H
+#define SOLAR_TIMER_H
+
+#include <chrono>
 
 namespace SolAR {
 
-enum class FrameworkReturnCode:long{
+class Timer {
+public:
+    Timer(){ m_clock = std::chrono::steady_clock::now(); }
 
-    /** means stop the process */
-    _STOP = 1,
-    /** Successfull operation */
-    _SUCCESS = 0,
+    void restart() { m_clock = std::chrono::steady_clock::now(); }
 
-    // error codes
-    /** unknown error, better stop!! */
-    _ERROR_ = -1,
-
-    // Not implemented interface
-    _NOT_IMPLEMENTED = -2,
-
-    // for IImage
-    /** Cannot load Image */
-    _ERROR_LOAD_IMAGE = -10,
-    /** Cannot acces Image */
-    _ERROR_ACCESS_IMAGE = -11,
+    template <class T = std::chrono::milliseconds>
+    auto elapsed()
+    {
+        return std::chrono::duration_cast<T>(std::chrono::steady_clock::now() - m_clock).count();
+    }
+private:
+    std::chrono::steady_clock::time_point m_clock;
 };
 
 }  // end of namespace SolAR
 
-#endif // SOLAR_MESSAGES_H
+#endif // SOLAR_TIMER_H

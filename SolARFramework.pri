@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \
@@ -22,6 +23,7 @@ interfaces/api/features/IMatchesFilter.h \
 interfaces/api/features/ISBPatternReIndexer.h \
 interfaces/api/features/ICornerRefinement.h \
 interfaces/api/features/IFeatureWithDepthFromStereo.h \
+interfaces/api/features/I2DTrackablesDetector.h \
 interfaces/api/fusion/IVisualInertialFusion.h \
 interfaces/api/geom/I2DTransform.h \
 interfaces/api/geom/I2DPointsRectification.h \
@@ -46,6 +48,7 @@ interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
+interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
@@ -82,6 +85,7 @@ interfaces/api/solver/pose/I3DTransformFinderFrom3D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom2D3D.h \
 interfaces/api/solver/pose/I3DTransformSACFinderFrom3D3D.h \
 interfaces/api/solver/pose/IHomographyValidation.h \
+interfaces/api/solver/pose/IMultiTrackablesPose.h \
 interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/storage/ICovisibilityGraphManager.h \
@@ -90,6 +94,7 @@ interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
+interfaces/core/Timer.h \
 interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
@@ -101,6 +106,7 @@ interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
 interfaces/datastructure/DescriptorMatch.h \
 interfaces/datastructure/FiducialMarker.h \
+interfaces/datastructure/QRCode.h \
 interfaces/datastructure/Frame.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/Identification.h \
@@ -124,7 +130,11 @@ interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
 interfaces/base/features/ADescriptorMatcherStereo.h \
 interfaces/base/geom/A2DPointsRectification.h \
-interfaces/base/geom/AReprojectionStereo.h
+interfaces/base/geom/AReprojectionStereo.h \
+interfaces/base/pipeline/AMappingPipeline.h \
+interfaces/api/segm/IInstanceSegmentation.h \
+interfaces/api/segm/ISemanticSegmentation.h \
+interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
@@ -133,6 +143,7 @@ src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
 src/datastructure/DescriptorMatch.cpp \
 src/datastructure/FiducialMarker.cpp \
+src/datastructure/QRCode.cpp \
 src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \
 src/datastructure/Image.cpp \
@@ -153,4 +164,5 @@ src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
 src/base/features/ADescriptorMatcherStereo.cpp \
 src/base/geom/A2DPointsRectification.cpp \
-src/base/geom/AReprojectionStereo.cpp
+src/base/geom/AReprojectionStereo.cpp \
+src/base/pipeline/AMappingPipeline.cpp

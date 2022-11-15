@@ -89,3 +89,6 @@ tests/bin
 *.tmp
 .git Merge
 SolARWrapper
+
+bundle_system_install.sh
+.build-rules/*

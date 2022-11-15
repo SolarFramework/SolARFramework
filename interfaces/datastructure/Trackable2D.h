@@ -94,6 +94,7 @@ class SOLARFRAMEWORK_API Trackable2D : virtual public Trackable {
 
     protected:
         Sizef m_size; // Size (width and height) of 2D trackable object
+
 };
 
 DECLARESERIALIZE(Trackable2D);
