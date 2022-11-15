@@ -40,7 +40,14 @@ enum class FrameworkReturnCode:long{
     _ERROR_ACCESS_IMAGE = -11,
 
     // for services
-    _BUSY = -20
+    /** Service is busy */
+    _BUSY = -20,
+    /** No service registered (Service Manager) */
+    _NO_SERVICE_REGISTERED = -21,
+    /** No service available (Service Manager) */
+    _NO_SERVICE_AVAILABLE = -22,
+    /** Service not locked by a client (Service Manager) */
+    _NO_SERVICE_LOCKED = -23
 };
 
 }  // end of namespace SolAR
