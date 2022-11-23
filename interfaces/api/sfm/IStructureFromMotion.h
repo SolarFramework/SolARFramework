@@ -33,10 +33,9 @@ namespace sfm {
 
 /**
  * @class IStructureFromMotion
- * @brief <B>???</B>
+ * @brief <B>Create a sparse point cloud and estimate camera poses from a set of images.</B>
  * <TT>UUID: 3681e09b-1704-4a08-b1cd-42d5a7c961b4</TT>
  *
- * ???
  */
 
 class XPCF_IGNORE IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
@@ -60,12 +59,9 @@ public:
 } // namespace api
 } // namespace SolAR
 
-
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::sfm::IStructureFromMotion>
-{
-    static constexpr const char * UUID = "{3681e09b-1704-4a08-b1cd-42d5a7c961b4}";
-    static constexpr const char * NAME = "IStructureFromMotion";
-    static constexpr const char * DESCRIPTION = "IStructureFromMotion interface description";
-};
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IStructureFromMotion,
+                             "3681e09b-1704-4a08-b1cd-42d5a7c961b4",
+                             "IStructureFromMotion",
+                             "IStructureFromMotion interface description");
 
 #endif // ISTRUCTUREFROMMOTION_H
