@@ -57,11 +57,9 @@ public:
 }
 }
 
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::input::devices::IDevice>
-{
-    static constexpr const char * UUID = "{d73c7b34-f6af-48f3-b65d-37a047929f4b}";
-    static constexpr const char * NAME = "IDevice";
-    static constexpr const char * DESCRIPTION = "IDevice interface description";
-};
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::devices::IDevice,
+                             "d73c7b34-f6af-48f3-b65d-37a047929f4b",
+                             "IDevice",
+                             "IDevice interface description");
 
 #endif // IDEVICE_H
