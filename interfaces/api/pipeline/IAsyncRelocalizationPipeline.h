@@ -126,8 +126,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
-                                                         const std::chrono::system_clock::time_point & timestamp,
                                                          bool fixedPose,
+                                                         const std::chrono::system_clock::time_point & timestamp,
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence,
