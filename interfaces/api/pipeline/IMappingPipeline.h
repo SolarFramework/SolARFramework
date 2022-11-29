@@ -61,6 +61,10 @@ public:
     /// @brief IMappingPipeline default destructor
     virtual ~IMappingPipeline() = default;
 
+    /// @brief Method used to test if the pipeline is ready
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
+
     /// @brief Set the camera parameters
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_

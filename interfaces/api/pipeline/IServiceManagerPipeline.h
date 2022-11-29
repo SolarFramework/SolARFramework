@@ -53,6 +53,10 @@ public:
     /// @brief IServiceManagerPipeline default destructor
     virtual ~IServiceManagerPipeline() = default;
 
+    /// @brief Method used to test if the pipeline is ready
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
+
     /// @brief Register a new service to the service manager
     /// @param[in] serviceType: type of the service
     /// @param[in] serviceURL: URL of the service

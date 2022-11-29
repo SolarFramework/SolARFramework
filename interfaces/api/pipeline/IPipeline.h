@@ -40,6 +40,10 @@ class XPCF_IGNORE IPipeline : virtual public org::bcom::xpcf::IComponentIntrospe
 public:
     virtual ~IPipeline() override = default;
 
+    /// @brief Method used to test if the pipeline is ready
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode isAlive() = 0;
+
     /// @brief Initialization of the pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode init() = 0;

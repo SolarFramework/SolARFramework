@@ -44,6 +44,10 @@ public:
     /// @brief IPoseEstimationPipeline default destructor
     virtual ~IPoseEstimationPipeline() = default;
 
+    /// @brief Method used to test if the pipeline is ready
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
+
     /// @brief Starts the pipeline and provides a texture buffer which will be updated when required.
     /// @param[in] imageDataBuffer: a pointer to the texture buffer which will be updated at each call of the update method.
     virtual FrameworkReturnCode start(void* imageDataBuffer) = 0;

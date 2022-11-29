@@ -47,7 +47,11 @@ public:
 	/// @brief IMapUpdatePipeline default destructor
 	virtual ~IMapUpdatePipeline() = default;
 
-	/// @brief Set the camera parameters
+    /// @brief Method used to test if the pipeline is ready
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
+
+    /// @brief Set the camera parameters
 	/// @param[in] cameraParams: the camera parameters (its resolution and its focal)
 	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
