@@ -21,53 +21,52 @@ pipeline {
             steps {
                 script {
                     BRANCH = BRANCH.replace('/','%252F')
-                }   
+                }
                 buildModule("SolARFramework",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
             }
         }
 
-        stage("Build Parallel modules"){
-            parallel {
-                stage("SolARModuleOpenCV"){
-                    steps {
-                        buildModule("SolARModuleOpenCV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
-                stage("SolARModuleOpenGL"){
-                    steps {
-                        buildModule("SolARModuleOpenGL",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
-                stage("SolARModuleOpenGV"){
-                    steps {
-                        buildModule("SolARModuleOpenGV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
-                stage("SolARModuleCeres"){
-                    steps {
-                        buildModule("SolARModuleCeres",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
-                stage("SolARModuleTools"){
-                    steps {
-                        buildModule("SolARModuleTools",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                } 
-                stage("SolARModuleFBOW"){
-                    steps {
-                        buildModule("SolARModuleFBOW",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }                                               
-            }
-        }
+        // stage("Build Parallel modules"){
+        //     parallel {
+        //         stage("SolARModuleOpenCV"){
+        //             steps {
+        //                 buildModule("SolARModuleOpenCV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //         stage("SolARModuleOpenGL"){
+        //             steps {
+        //                 buildModule("SolARModuleOpenGL",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //         stage("SolARModuleOpenGV"){
+        //             steps {
+        //                 buildModule("SolARModuleOpenGV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //         stage("SolARModuleCeres"){
+        //             steps {
+        //                 buildModule("SolARModuleCeres",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //         stage("SolARModuleTools"){
+        //             steps {
+        //                 buildModule("SolARModuleTools",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //         stage("SolARModuleFBOW"){
+        //             steps {
+        //                 buildModule("SolARModuleFBOW",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage("SolARPipelineManager"){
-            steps {
-                buildModule("SolARPipelineManager",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-            }
-        }        
-
-}
+        // stage("SolARPipelineManager"){
+        //     steps {
+        //         buildModule("SolARPipelineManager",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
+        //     }
+        // }
+    }
 }
 
 def buildModule(NAME,BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE) {
