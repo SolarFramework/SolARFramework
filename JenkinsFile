@@ -2,6 +2,6 @@ SolArModulePipeline {
     moduleName="SolARFramework"
     dirName="SolARBuild"
     android=false
-    windows=false
+    win=false
     sbomAnalysis=true
 }
