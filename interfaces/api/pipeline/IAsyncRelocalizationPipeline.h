@@ -197,23 +197,20 @@ public:
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
     /// @brief Request the global map stored by the map update pipeline
-    /// @param[in] uuid: UUID of the client
     /// @param[out] map: the output global map
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
-    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(const std::string uuid,
-                                                                                 SRef<SolAR::datastructure::Map> & map) const = 0;
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
+                                            SRef<SolAR::datastructure::Map> & map) const = 0;
 
     /// @brief Reset the map stored by the map update pipeline
-    /// @param[in] uuid: UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode resetMap(const std::string uuid) const = 0;
+    virtual FrameworkReturnCode resetMap() const = 0;
 
     /// @brief Request the point cloud of the global map stored by the map update pipeline
-    /// @param[in] uuid: UUID of the client
     /// @param[out] pointCloud: the output point cloud
     /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
-    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(const std::string uuid,
-                                                                                        SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
+                                            SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
