@@ -118,6 +118,7 @@ public:
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] fixedPose the input poses are considered as ground truth
+    /// @param[in] worldTransform SolAR (ex: marker) to World origin (ex: BIM origin). Pass zero-filled matrix if not set.
     /// @param[in] timestamp the timestamp of the image
     /// @param[out] transform3DStatus the status of the current 3D transformation matrix
     /// @param[out] transform3D the current 3D transformation matrix (if available)
@@ -127,6 +128,7 @@ public:
     virtual FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
+                                                         const SolAR::datastructure::Transform3Df & worldTransform,
                                                          const std::chrono::system_clock::time_point & timestamp,
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
