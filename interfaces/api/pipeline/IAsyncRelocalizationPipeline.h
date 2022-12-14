@@ -131,10 +131,11 @@ public:
                                                          float_t & confidence,
                                                          MappingStatus & mappingStatus)
     {
+        SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
         relocalizeProcessRequest(images,
                                  poses,
                                  /* fixedPose = */ false,
-                                 SolAR::datastructure::Maths::Matrix4f::Zero(),
+                                 worldTransform,
                                  timestamp,
                                  transform3DStatus,
                                  transform3D,
