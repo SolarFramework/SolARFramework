@@ -28,13 +28,13 @@ namespace pipeline {
 /// @typedef ServiceType
 /// @brief <B>Indicate the type of the service</B>
 ///
-typedef enum {
+enum class ServiceType {
     MAP_UPDATE_SERVICE = 0,
     RELOCALIZATION_SERVICE = 1,
     RELOCALIZATION_MARKERS_SERVICE = 2,
     MAPPING_SERVICE = 3,
     MAPPING_STEREO_SERVICE = 4
-} ServiceType;
+};
 
 /**
  * @class IServiceManagerPipeline
@@ -53,21 +53,17 @@ public:
     /// @brief IServiceManagerPipeline default destructor
     virtual ~IServiceManagerPipeline() = default;
 
-    /// @brief Method used to test if the pipeline is ready
-    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
-
     /// @brief Register a new service to the service manager
     /// @param[in] serviceType: type of the service
     /// @param[in] serviceURL: URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if the service is registered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerService(const ServiceType serviceType, const std::string serviceURL) = 0;
+    virtual FrameworkReturnCode registerService(const ServiceType serviceType, const std::string & serviceURL) = 0;
 
     /// @brief Unregister a service from the service manager
     /// @param[in] serviceType: type of the service
     /// @param[in] serviceURL: URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if the service is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterService(const ServiceType serviceType, const std::string serviceURL) = 0;
+    virtual FrameworkReturnCode unregisterService(const ServiceType serviceType, const std::string & serviceURL) = 0;
 
     /// @brief Get an available URL for a specific service type
     /// @param[in] serviceType: type of the service
@@ -87,7 +83,7 @@ public:
     ///         FrameworkReturnCode::_NO_SERVICE_REGISTERED if no service of the given type is registered
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no service of the given type is available
     ///         FrameworkReturnCode::_ERROR_ for other errors
-    virtual FrameworkReturnCode getAndLockService(const ServiceType serviceType, const std::string clientUUID,
+    virtual FrameworkReturnCode getAndLockService(const ServiceType serviceType, const std::string & clientUUID,
                                                   std::string & serviceURL) = 0;
 
     /// @brief Unlock the service of the given type, for the given client UUID
@@ -96,7 +92,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the service is unlocked, else
     ///         FrameworkReturnCode::_NO_SERVICE_LOCKED if no service is locked for the client UUID
     ///         FrameworkReturnCode::_ERROR_ for other errors
-    virtual FrameworkReturnCode unlockService(const ServiceType serviceType, const std::string clientUUID) = 0;
+    virtual FrameworkReturnCode unlockService(const ServiceType serviceType, const std::string & clientUUID) = 0;
 };
 
 } // pipeline

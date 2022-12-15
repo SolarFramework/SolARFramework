@@ -58,10 +58,6 @@ public:
     /// @brief IDenseMappingPipeline default destructor
     virtual ~IDenseMappingPipeline() = default;
 
-    /// @brief Method used to test if the pipeline is ready
-    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode isAlive() {return FrameworkReturnCode::_SUCCESS;}
-
     /// @brief Request to the dense mapping pipeline to process a sparse map
     /// @param[in] sparseMap: the sparse map to use to create a dense map
     /// @param[in] createMesh: true to create a mesh, otherwise, just a dense point cloud is created
