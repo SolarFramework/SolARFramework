@@ -27,6 +27,7 @@
 #include "datastructure/KeyframeCollection.h"
 #include "datastructure/CovisibilityGraph.h"
 #include "datastructure/KeyframeRetrieval.h"
+#include "datastructure/Trackable.h"
 #include "xpcf/core/refs.h"
 #include <map>
 
@@ -41,7 +42,7 @@ namespace datastructure {
 * @brief <B>A generic map composed of an identification and a coordinate system.</B>
 * This class provides a generic map.
 */
-class  SOLARFRAMEWORK_API Map {
+class  SOLARFRAMEWORK_API Map : public Trackable {
 public:
 	typedef enum {
 		_PointCloud = 0x01,
@@ -204,6 +205,12 @@ public:
 	/// @param[in] keyframeRetrieval the keyframe retrieval of map
 	///
 	void setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval);
+
+    ///
+    /// @brief This method is to get trackable type
+    /// @return the trackable's type
+    ///
+    TrackableType getType() const;
 
 private:
     friend class boost::serialization::access;
