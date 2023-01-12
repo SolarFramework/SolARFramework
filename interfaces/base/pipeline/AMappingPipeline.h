@@ -77,6 +77,24 @@ public:
 
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// @param[in] images the input images to process
+    /// @param[in] poses the input poses in the device coordinate system
+    /// @param[in] fixedPose the input poses are considered as ground truth
+    /// @param[in] transform the transformation matrix from the device coordinate system to the world coordinate system
+    /// @param[in] transformAR2SolAR the transformation matrix from the AR runtime coordinate system to SolAR coordinate system 
+    /// @param[out] updatedTransform the refined transformation by a loop closure detection
+    /// @param[out] status the current status of the mapping pipeline
+    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                      const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                      bool fixedPose,
+                                                      const SolAR::datastructure::Transform3Df & transform,
+                                                      const SolAR::datastructure::Transform3Df & transformAR2SolAR,
+                                                      SolAR::datastructure::Transform3Df & updatedTransform,
+                                                      SolAR::api::pipeline::MappingStatus & status) override
+    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
+    /// @brief Request to the mapping pipeline to process a new image/pose
+    /// @param[in] images the input images to process
     /// @param[in] poses the input poses in the world coordinate system
     /// @param[in] fixedPose the input poses are considered as ground truth
     /// @param[out] status the current status of the mapping pipeline
