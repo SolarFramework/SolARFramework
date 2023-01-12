@@ -153,7 +153,7 @@ void Map::setCameraParametersCollection(const SRef<CameraParametersCollection> c
 
 TrackableType Map::getType() const
 {
-    return TrackableType::FIDUCIAL_MARKER;
+    return TrackableType::MAP;
 }
 
 template<typename Archive>

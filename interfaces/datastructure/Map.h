@@ -210,7 +210,7 @@ public:
     /// @brief This method is to get trackable type
     /// @return the trackable's type
     ///
-    TrackableType getType() const;
+    TrackableType getType() const override;
 
 private:
     friend class boost::serialization::access;

@@ -59,12 +59,6 @@ public:
                                                            const SolAR::datastructure::RectificationParameters & rectCam2) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
-    /// @brief Set the 3D transformation from SolAR to World spaces
-    /// @param[in] transform the transformation matrix from SolAR to World
-    /// @return FrameworkReturnCode::_SUCCESS if the transform is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode set3DTransformSolARToWorld(const SolAR::datastructure::Transform3Df & transform) override
-    { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
-
     /// @brief Request to the mapping pipeline to process a new image/pose
     /// @param[in] images the input images to process
     /// @param[in] poses the input poses in the device coordinate system
