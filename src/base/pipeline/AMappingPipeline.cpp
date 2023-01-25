@@ -29,18 +29,20 @@ AMappingPipeline::AMappingPipeline(std::map<std::string,std::string> componentIn
 
 FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                             const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                            bool fixedPose,
                                                             SolAR::api::pipeline::MappingStatus & status)
 {
     datastructure::Transform3Df updatedTransform;
-    return mappingProcessRequest(images, poses, datastructure::Transform3Df::Identity(), updatedTransform, status);
+    return mappingProcessRequest(images, poses, fixedPose, datastructure::Transform3Df::Identity(), updatedTransform, status);
 }
 
 FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                             const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                            bool fixedPose,
                                                             SolAR::datastructure::Transform3Df & updatedTransform,
                                                             SolAR::api::pipeline::MappingStatus & status)
 {
-    return mappingProcessRequest(images, poses, datastructure::Transform3Df::Identity(), updatedTransform, status);
+    return mappingProcessRequest(images, poses, fixedPose, datastructure::Transform3Df::Identity(), updatedTransform, status);
 }
 
 

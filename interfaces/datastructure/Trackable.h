@@ -38,7 +38,8 @@ enum TrackableType {
     UNKNOWN,
     FIDUCIAL_MARKER,
     IMAGE_MARKER,
-    QRCODE_MARKER
+    QRCODE_MARKER,
+    MAP
 };
 
 

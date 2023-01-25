@@ -54,12 +54,9 @@ public:
 } // namespace api
 } // namespace SolAR
 
-
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::sfm::IMeshing>
-{
-    static constexpr const char * UUID = "{7d810e96-fd9d-4029-a102-61fe3883a633}";
-    static constexpr const char * NAME = "IMeshing";
-    static constexpr const char * DESCRIPTION = "IMeshing interface description";
-};
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IMeshing,
+                             "7d810e96-fd9d-4029-a102-61fe3883a633",
+                             "IMeshing",
+                             "IMeshing interface description");
 
 #endif // IMESHING_H

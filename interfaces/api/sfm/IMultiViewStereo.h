@@ -16,10 +16,9 @@ namespace sfm {
 
 /**
  * @class IMultiViewStereo
- * @brief <B>???</B>
+ * @brief <B>Create a dense point cloud from images with corresponding poses.</B>
  * <TT>UUID: d73ae23f-e1ce-4abe-91cd-9aa2f34c8dff</TT>
  *
- * ???
  */
 
 class XPCF_IGNORE IMultiViewStereo : virtual public org::bcom::xpcf::IComponentIntrospect
@@ -46,11 +45,9 @@ public:
 } // namespace api
 } // namespace SolAR
 
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IMultiViewStereo,
+                             "d73ae23f-e1ce-4abe-91cd-9aa2f34c8dff",
+                             "IMultiViewStereo",
+                             "IMultiViewStereo interface description");
 
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::sfm::IMultiViewStereo>
-{
-    static constexpr const char * UUID = "{d73ae23f-e1ce-4abe-91cd-9aa2f34c8dff}";
-    static constexpr const char * NAME = "IMultiViewStereo";
-    static constexpr const char * DESCRIPTION = "IMultiViewStereo interface description";
-};
 #endif // IMULTIVIEWSTEREO_H
