@@ -160,16 +160,18 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
-                                                         const std::vector<SolAR::datastructure::Transform3Df> & poses,
-                                                         const std::chrono::system_clock::time_point & timestamp,
-                                                         TransformStatus & transform3DStatus,
-                                                         SolAR::datastructure::Transform3Df & transform3D,
-                                                         float_t & confidence,
-                                                         MappingStatus & mappingStatus)
+    FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+                                                 const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                 const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                 const std::chrono::system_clock::time_point & timestamp,
+                                                 TransformStatus & transform3DStatus,
+                                                 SolAR::datastructure::Transform3Df & transform3D,
+                                                 float_t & confidence,
+                                                 MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
-        relocalizeProcessRequest(images,
+        relocalizeProcessRequest(uuid,
+                                 images,
                                  poses,
                                  /* fixedPose = */ false,
                                  worldTransform,
@@ -182,6 +184,7 @@ public:
 
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] uuid: UUID of the client
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] fixedPose the input poses are considered as ground truth
@@ -192,7 +195,8 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+                                                         const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
                                                          const SolAR::datastructure::Transform3Df & worldTransform,
