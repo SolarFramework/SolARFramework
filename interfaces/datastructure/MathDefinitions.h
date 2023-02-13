@@ -190,6 +190,76 @@ typedef Maths::Matrix<double, 3, 3, Eigen::RowMajor> Rotationd;
  */
 typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> Projection;
 
+/**
+ * @brief <B> Compute average quaternion from a list of input quaternions.</B>
+ *  The algorithm used is described here:
+ *  https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070017872.pdf
+ * @param[in] quaternions vector of Vector4f quaternions
+ * @return average quaternion Vector4f
+ */
+static Vector4f quaternionAverage(const std::vector<Vector4f>& quaternions) {
+    if (quaternions.size() == 0)
+        return Vector4f::Zero();
+    else if (quaternions.size() == 1)
+        return quaternions.front();
+
+    // first build a 4x4 matrix which is the elementwise sum of the product of each quaternion with itself
+    Maths::Matrix4f A = Maths::Matrix4f::Zero();
+    for (const auto& q : quaternions)
+        A += q * q.transpose();
+    // normalise with the number of quaternions
+    A /= static_cast<float>(quaternions.size());
+    // Compute the SVD of this 4x4 matrix
+    Maths::JacobiSVD<Maths::MatrixXf> svd(A, Maths::ComputeThinU | Maths::ComputeThinV);
+    Maths::VectorXf singularValues = svd.singularValues();
+    Maths::MatrixXf matU = svd.matrixU();
+    // find the eigen vector corresponding to the largest eigen value
+    int index = 0;
+    float value = singularValues(0);
+    for (int i=1; i < static_cast<int>(singularValues.rows()); ++i) {
+       if (singularValues(i) > value) {
+            value = singularValues(i);
+            index = i;
+        }
+    }
+    return Vector4f(matU(0, index), matU(1, index), matU(2, index), matU(3, index));
+}
+
+/**
+ * @brief <B> Compute average quaternion from a list of input quaternions.</B>
+ * @param[in] quaternions vector of Quaternionf
+ * @return average quaternion Quaternionf
+ */
+static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions) {
+    std::vector<Vector4f> quaternionsVecs;
+    for (const auto& q : quaternions)
+        quaternionsVecs.emplace_back(q.x(), q.y(), q.z(), q.w());
+    return Quaternionf(quaternionAverage(quaternionsVecs));
+}
+
+/**
+ * @brief <B> Compute average transform3D from a list of input transform3Ds.</B>
+ * @param[in] transforms list of transform3D
+ * @return average transform3D
+ */
+static Transform3Df transform3DAverage(const std::vector<Transform3Df>& transforms) {
+    if (transforms.size() == 0)
+        return Transform3Df(Maths::Matrix4f::Zero());
+    else if (transforms.size() == 1)
+        return transforms.front();
+    Vector3f translations(0.f, 0.f, 0.f);
+    std::vector<Quaternionf> quaternions;
+    for (const auto& t : transforms) {
+        translations += t.translation();
+        quaternions.emplace_back(t.rotation());
+    }
+    translations /= static_cast<float>(transforms.size());
+    Transform3Df transform3D;
+    transform3D.linear() = quaternionAverage(quaternions).toRotationMatrix();
+    transform3D.translation() = translations;
+    return transform3D;
+}
+
 }
 }
 
