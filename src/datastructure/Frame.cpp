@@ -68,10 +68,11 @@ void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
 
 bool Frame::updateKeypointClassId(int i, int classId) 
 {
-	if (i < 0 || i >= static_cast<int>(m_keypoints.size()) || i >= static_cast<int>(m_keypointsUndistort.size()))
-		return false;
-	m_keypoints[i].setClassId(classId);
-	m_keypointsUndistort[i].setClassId(classId);
+    if (i < 0 || i >= static_cast<int>(m_keypoints.size()) || i >= static_cast<int>(m_keypointsUndistort.size()))
+        return false;
+    m_keypoints[i].setClassId(classId);
+    m_keypointsUndistort[i].setClassId(classId);
+    return true;
 }
 
 const std::vector<Keypoint>& Frame::getUndistortedKeypoints() const
