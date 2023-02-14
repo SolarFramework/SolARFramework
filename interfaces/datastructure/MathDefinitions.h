@@ -93,10 +93,40 @@ typedef Maths::Vector3f Vector3f;
 typedef Vector<uint8_t, 3> Vector3b;
 
 /**
+ * @typedef Vector3ui
+ * @brief <B>A vector of 3 unsigned int</B>
+ */
+typedef Vector<unsigned int, 3> Vector3ui;
+
+/**
  * @typedef Vector3d
  * @brief <B>A vector of 3 doubles.</B>
  */
 typedef Maths::Vector3d Vector3d;
+
+/**
+ * @typedef Vector2f
+ * @brief <B>A vector of 2 floats.</B>
+ */
+typedef Maths::Vector2f Vector2f;
+
+/**
+ * @typedef Vector2b
+ * @brief <B>A vector of 2 unsigned char.</B>
+ */
+typedef Vector<uint8_t, 2> Vector2b;
+
+/**
+ * @typedef Vector2ui
+ * @brief <B>A vector of 2 unsigned int</B>
+ */
+typedef Vector<unsigned int, 2> Vector2ui;
+
+/**
+ * @typedef Vector2d
+ * @brief <B>A vector of 2 doubles.</B>
+ */
+typedef Maths::Vector2d Vector2d;
 
 
 template <class T, int Cols>
@@ -147,6 +177,12 @@ typedef Quaternion<float> Quaternionf;
  * @brief <B>A 3x3 matrix defining a 3D rotation.</B>
  */
 typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> Rotation;
+
+/**
+ * @typedef Rotation
+ * @brief <B>A 3x3 matrix defining a 3D rotation.</B>
+ */
+typedef Maths::Matrix<double, 3, 3, Eigen::RowMajor> Rotationd;
 
 /**
  * @typedef Projection

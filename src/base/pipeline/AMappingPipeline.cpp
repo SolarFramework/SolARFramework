@@ -27,20 +27,22 @@ AMappingPipeline::AMappingPipeline(std::map<std::string,std::string> componentIn
     declareInterface<SolAR::api::pipeline::IMappingPipeline>(this);
 }
 
-FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                  const SolAR::datastructure::Transform3Df & pose,
-                                                  SolAR::api::pipeline::MappingStatus & status)
+FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                            const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                            bool fixedPose,
+                                                            SolAR::api::pipeline::MappingStatus & status)
 {
     datastructure::Transform3Df updatedTransform;
-    return mappingProcessRequest(image, pose, datastructure::Transform3Df::Identity(), updatedTransform, status);
+    return mappingProcessRequest(images, poses, fixedPose, datastructure::Transform3Df::Identity(), updatedTransform, status);
 }
 
-FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                  const SolAR::datastructure::Transform3Df & pose,
-                                                  SolAR::datastructure::Transform3Df & updatedTransform,
-                                                  SolAR::api::pipeline::MappingStatus & status)
+FrameworkReturnCode AMappingPipeline::mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                            const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                            bool fixedPose,
+                                                            SolAR::datastructure::Transform3Df & updatedTransform,
+                                                            SolAR::api::pipeline::MappingStatus & status)
 {
-    return mappingProcessRequest(image, pose, datastructure::Transform3Df::Identity(), updatedTransform, status);
+    return mappingProcessRequest(images, poses, fixedPose, datastructure::Transform3Df::Identity(), updatedTransform, status);
 }
 
 

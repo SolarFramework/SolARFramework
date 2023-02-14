@@ -44,23 +44,21 @@ public:
 
     /// @brief This method corrects undistortsion to a set of 2D points
     /// @param[in] inputPoints the set of 2D points to correct
+    /// @param[in] camParams the camera parameters
     /// @param[out] outputPoints the  undistorted 2D Points
     /// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode undistort(const std::vector<SolAR::datastructure::Point2Df> & inputPoints,
+                                          const SolAR::datastructure::CameraParameters & camParams,
                                           std::vector<SolAR::datastructure::Point2Df> & outputPoints) = 0;
 
 	/// @brief This method corrects undistortsion to a set of 2D keypoints
 	/// @param[in] inputKeypoints the set of 2D keypoints to correct
+    /// @param[in] camParams the camera parameters
 	/// @param[out] outputKeypoints the  undistorted 2D keypoints
 	/// @return FrameworkReturnCode::_SUCCESS_ if 2D transformation succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode undistort(const std::vector<SolAR::datastructure::Keypoint> & inputKeypoints,
-        std::vector<SolAR::datastructure::Keypoint> & outputKeypoints) = 0;
-
-	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-	/// @param[in] Camera calibration matrix parameters.
-	/// @param[in] Camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams,
-                                     const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
+                                          const SolAR::datastructure::CameraParameters & camParams,
+                                          std::vector<SolAR::datastructure::Keypoint> & outputKeypoints) = 0;
 
 };
 

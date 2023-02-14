@@ -46,12 +46,16 @@ interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
+interfaces/api/input/files/IMeshLoader.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \
 interfaces/api/input/files/IWorldGraphLoader.h \
 interfaces/api/loop/ILoopClosureDetector.h \
 interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
+interfaces/api/output/files/IMeshExporter.h \
+interfaces/api/output/files/IPointCloudExporter.h \
+interfaces/api/pipeline/IDenseMappingPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
@@ -62,6 +66,9 @@ interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/reloc/IRegression.h \
+interfaces/api/sfm/IMeshing.h \
+interfaces/api/sfm/IMultiViewStereo.h \
+interfaces/api/sfm/IStructureFromMotion.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -90,6 +97,7 @@ interfaces/api/source/ISourceImage.h \
 interfaces/api/source/ISourceReturnCode.h \
 interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
+interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
@@ -101,6 +109,7 @@ interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
+interfaces/datastructure/CameraParametersCollection.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
 interfaces/datastructure/DescriptorBuffer.h \
@@ -115,6 +124,7 @@ interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
 interfaces/datastructure/MathDefinitions.h \
+interfaces/datastructure/Mesh.h \
 interfaces/datastructure/PointCloud.h \
 interfaces/datastructure/PrimitiveInformation.h \
 interfaces/datastructure/SquaredBinaryPattern.h \
@@ -138,6 +148,7 @@ interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/core/Log.cpp \
 src/core/SolARFramework.cpp \
+src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
@@ -159,6 +170,7 @@ src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
+src/datastructure/Mesh.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \

@@ -70,11 +70,9 @@ public:
 }
 }  // end of namespace SolAR
 
-template <> struct org::bcom::xpcf::InterfaceTraits<SolAR::api::features::IImageMatcher>
-{
-    static constexpr const char * UUID = "{157ec340-0682-4e6c-bf69-e4d95fa760d3}";
-    static constexpr const char * NAME = "IImageMatcher";
-    static constexpr const char * DESCRIPTION = "IImageMatcher interface description";
-};
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IImageMatcher,
+                            "157ec340-0682-4e6c-bf69-e4d95fa760d3",
+                            "IImageMatcher",
+                            "IImageMatcher interface description");
 
 #endif // IIMAGEMATCHER_H

@@ -37,13 +37,15 @@ public:
 
 	/// @brief This method allow to add a frame to the keyframe manager component
 	/// @param[in] frame the frame to add to the set of persistent keyframes
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe);
+    FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true);
 
 	/// @brief This method allow to add a frame to the key frame manager component
-	/// @param[in] frame the frame to add to the set of persistent keyframes
+    /// @param[in] frame the frame to add to the set of persistent keyframes
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe);
+    FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe, bool defineKeyframeId = true);
 
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id of the keyframe to get
@@ -92,7 +94,7 @@ private:
 
     std::map<uint32_t, SRef<SolAR::datastructure::Keyframe>>m_keyframes;
     SolAR::datastructure::DescriptorType                    m_descriptorType;
-    uint32_t                                                m_id;
+    uint32_t                                                m_id = 0;
 };
 
 DECLARESERIALIZE(KeyframeCollection);

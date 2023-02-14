@@ -39,6 +39,14 @@ namespace datastructure {
  */
 class  SOLARFRAMEWORK_API CloudPoint : public Point3Df, public PrimitiveInformation {
 public:
+    typedef enum {
+        Color = 0x01,
+        ViewDirection = 0x02,
+        ReprojectionError = 0x04,
+        Visibility = 0x08,
+        Descriptor = 0x10
+    } CloudPointType;
+
     CloudPoint() = default;
 
 	/// @brief CloudPoint constructor with a Point3Df.
@@ -272,13 +280,13 @@ private:
     void serialize(Archive &ar, const unsigned int version);
 
 private:	
-	uint32_t								m_id = 0;
+    uint32_t                                m_cloudPointSupportedTypes = 0;
+    uint32_t								m_id = 0;
     SRef<DescriptorBuffer>					m_descriptor = nullptr;
     std::map<unsigned int, unsigned int>	m_visibility = {};
     Vector3f								m_rgb = {0.0, 0.0, 0.0};
     Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
-	bool									m_isFeatureCP;
 };
 
 DECLARESERIALIZE(CloudPoint);

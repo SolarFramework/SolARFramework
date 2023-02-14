@@ -93,6 +93,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_output_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/output/files/
+header_interfaces_output_files.files = $$files($${PWD}/interfaces/api/output/files/*.h*)
 header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCloud/
 header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
@@ -129,6 +131,8 @@ header_base_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/base/pipeline/
 header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
+header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
+header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -140,6 +144,7 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_output_files
 INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
@@ -152,11 +157,13 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
+INSTALLS += header_interfaces_sfm
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
-INSTALLS += header_interfaces_segm
+
 
 OTHER_FILES += \
     packagedependencies.txt \
@@ -169,10 +176,3 @@ OTHER_FILES += \
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
-
-DISTFILES +=
-
-HEADERS += \
-    interfaces/api/pipeline/IAsyncRelocalizationPipeline.h
-
-

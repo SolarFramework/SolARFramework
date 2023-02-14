@@ -42,28 +42,27 @@ public:
     /// @brief I3DTransform default destructor
     virtual ~IProject() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams camera calibration matrix parameters.
-    /// @param[in] distorsionParams camera distorsion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distorsionParams) = 0;
-
     /// @brief This method project a set of 3D points in the image plane
     /// @param[in] inputPoints the set of 3D points to project
-    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
+    /// @param[in] camParams the camera parameters.
+    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn    
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode project(const std::vector<SolAR::datastructure::Point3Df> & inputPoints,
-                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints,
-                                        const SolAR::datastructure::Transform3Df& pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
+                                        const SolAR::datastructure::Transform3Df& pose,
+                                        const SolAR::datastructure::CameraParameters & camParams,
+                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints) = 0;
 
     /// @brief This method project a set of 3D cloud points in the image plane
     /// @param[in] inputPoints the set of 3D cloud points to project
-    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @param[in] pose the 3D pose of the camera (a 4x4 float matrix)
+    /// @param[in] camParams the camera parameters.
+    /// @param[out] imagePoints the resulting set of 2D points defined in the image coordinate systemn
     /// @return FrameworkReturnCode::_SUCCESS_ if 3D projection succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode project(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & inputPoints,
-                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints,
-                                        const SolAR::datastructure::Transform3Df& pose = SolAR::datastructure::Transform3Df::Identity()) = 0;
+                                        const SolAR::datastructure::Transform3Df& pose,
+                                        const SolAR::datastructure::CameraParameters & camParams,
+                                        std::vector<SolAR::datastructure::Point2Df> & imagePoints) = 0;
 
 
 };
