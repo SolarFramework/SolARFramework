@@ -151,6 +151,11 @@ void Map::setCameraParametersCollection(const SRef<CameraParametersCollection> c
     m_cameraParametersCollection = cameraParametersCollection;
 }
 
+TrackableType Map::getType() const
+{
+    return TrackableType::MAP;
+}
+
 template<typename Archive>
 void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
 	ar & m_mapSupportedTypes;
@@ -161,6 +166,7 @@ void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int vers
 	ar & m_covisibilityGraph;
 	ar & m_keyframeRetrieval;
     ar & m_cameraParametersCollection;
+	ar & m_transform3D;
 }
 
 IMPLEMENTSERIALIZE(Map);
