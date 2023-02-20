@@ -43,14 +43,14 @@ public:
 
     /// @brief Perform 2D Panoptic segmentation
     /// @param[in] image The input image.
-	/// @param[out] labelMap The label map corresponding to the input image.
+    /// @param[out] labelMap The label map corresponding to the input image.
     /// @param[out] boxes The bounding boxes of each detected object.
     /// @param[out] classObjectIds The class id and object id of each bounding box.
     /// @param[out] scores The corresponding confidence scores.
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode segment(const SRef<SolAR::datastructure::Image> image,
-										SRef<SolAR::datastructure::Image> &labelMap,
-										std::vector<SolAR::datastructure::Rectanglei> &boxes,
+                                        SRef<SolAR::datastructure::Image> &labelMap,
+                                        std::vector<SolAR::datastructure::Rectanglei> &boxes,
                                         std::vector<std::pair<uint32_t, uint32_t>> &classObjectIds,
                                         std::vector<float> &scores) = 0;
 };
