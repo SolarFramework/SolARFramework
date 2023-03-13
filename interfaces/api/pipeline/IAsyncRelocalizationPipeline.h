@@ -90,6 +90,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode unregisterClient(const std::string & uuid) = 0;
 
+    /// @brief Return all current clients UUID
+    /// @param[out] uuidList: the list of UUID of all clients currently registered
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & uuidList) const = 0;
+
     /// @brief Initialization of the pipeline
     /// @param[in] uuid: UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
