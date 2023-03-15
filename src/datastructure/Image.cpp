@@ -509,7 +509,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
         break;
     default:
         // not supported by OpenImageIO
-        std::cout << "OpenImageIO does not support image rotation which is not 90, 180 or 270 degrees" << std::endl;
+        std::cout << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
