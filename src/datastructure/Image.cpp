@@ -509,6 +509,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
         break;
     default:
         // not supported by OpenImageIO
+        std::cout << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
@@ -517,7 +518,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
     
     if (rotatedBuf.has_error())
     {
-        std::cout << "error: " << rotatedBuf.geterror() << "\n";
+        std::cout << "error: " << rotatedBuf.geterror() << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
@@ -527,16 +528,10 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
     std::vector<unsigned char> result;
     result.resize (m_size.width * m_size.height * m_nbBitsPerComponent * m_nbChannels);
 
-    if (rotatedBuf.get_pixels(OIIO::ROI::All(), type, &result[0]))
-    {
-        m_internalImpl->setData(&result[0], m_internalImpl->getBufferSize());
-
-        return FrameworkReturnCode::_SUCCESS;
-    }
-    else
-    {
+    if (!rotatedBuf.get_pixels(OIIO::ROI::All(), type, &result[0]))
         return FrameworkReturnCode::_ERROR_;
-    }
+    m_internalImpl->setData(&result[0], m_internalImpl->getBufferSize());
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode Image::rotate90() 
