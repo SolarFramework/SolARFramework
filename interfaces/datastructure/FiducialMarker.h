@@ -98,4 +98,6 @@ DECLARESERIALIZE(FiducialMarker);
 }
 } // end of namespace SolAR
 
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::FiducialMarker);
+
 #endif // FIDUCIALMARKER_H

@@ -22,9 +22,9 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
 #include <core/SerializationDefinitions.h>
-#include "GeometryDefinitions.h"
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/Lockable.h"
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/MathDefinitions.h>
+#include <datastructure/Lockable.h>
 #include <chrono>
 
 namespace SolAR {
@@ -118,5 +118,7 @@ DECLARESERIALIZE(CoordinateSystem);
 
 }
 }
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CoordinateSystem);
 
 #endif //SOLAR_DESCRIPTORMATCH_H

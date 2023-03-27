@@ -16,7 +16,8 @@
 
 #include "datastructure/CloudPoint.h"
 #include "xpcf/core/helpers.h"
-#include <boost/serialization/export.hpp>
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CloudPoint);
 
 namespace SolAR {
 namespace datastructure {
@@ -189,5 +190,3 @@ IMPLEMENTSERIALIZE(CloudPoint);
 } // namespace datastructure
 } // namespace SolAR
 
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CloudPoint)
-BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CloudPoint)

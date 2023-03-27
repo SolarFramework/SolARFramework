@@ -21,13 +21,14 @@
 #include <map>
 #include <cstdint>
 
-#include "xpcf/core/refs.h"
-#include "xpcf/core/helpers.h"
-#include "core/SolARFrameworkDefinitions.h"
-#include "BufferInternal.hpp"
+#include <xpcf/core/refs.h>
+#include <xpcf/core/helpers.h>
+#include <core/SolARFrameworkDefinitions.h>
+#include <core/SerializationDefinitions.h>
+#include <datastructure/BufferInternal.hpp>
 
 #include <type_traits>
-#include <core/SerializationDefinitions.h>
+
 
 namespace SolAR {
 namespace datastructure {
@@ -331,5 +332,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
 
 } // namespace datastructure
 } // namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::DescriptorBuffer);
 
 #endif //SOLAR_DESCRIPTORS_H

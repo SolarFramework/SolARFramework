@@ -20,10 +20,10 @@
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
-#include "core/Log.h"
-#include "MathDefinitions.h"
-#include "CameraDefinitions.h"
-#include "nlohmann/json.hpp"
+#include <core/Log.h>
+#include <datastructure/MathDefinitions.h>
+#include <datastructure/CameraDefinitions.h>
+#include <nlohmann/json.hpp>
 
 // Definition of Trackable Class //
 // part of SolAR namespace //

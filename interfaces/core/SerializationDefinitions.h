@@ -32,6 +32,7 @@
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/binary_object.hpp>
 #include <boost/uuid/uuid_serialize.hpp>
+#include <boost/serialization/export.hpp>
 
 // Important note: to change the serialization format used throughout the framework
 // one of the following definitions must be uncommented depending on the desired format

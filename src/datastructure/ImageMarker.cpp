@@ -15,10 +15,10 @@
  */
 
 #include "datastructure/ImageMarker.h"
-
 #include "core/Log.h"
-
 #include "xpcf/core/helpers.h"
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::ImageMarker);
 
 namespace SolAR {
 namespace datastructure {

@@ -20,7 +20,6 @@
 
 #include "xpcf/core/helpers.h"
 
-#include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/algorithm/string.hpp>
 
@@ -30,6 +29,8 @@
 
 namespace xpcf  = org::bcom::xpcf;
 using namespace org::bcom::xpcf;
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Image);
 
 namespace SolAR {
 namespace datastructure {
@@ -529,9 +530,4 @@ IMPLEMENTSERIALIZE(Image);
 }
 }
 
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image)
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::ImageInternal)
-BOOST_CLASS_TYPE_INFO(
-SolAR::datastructure::ImageInternal,
-boost::serialization::extended_type_info_typeid<SolAR::datastructure::ImageInternal>
-)
+

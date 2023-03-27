@@ -21,11 +21,11 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "xpcf/api/IComponentIntrospect.h"
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/MathDefinitions.h"
+#include <xpcf/api/IComponentIntrospect.h>
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/MathDefinitions.h>
 
 
 // Definition of Mesh Class //
@@ -116,5 +116,7 @@ DECLARESERIALIZE(Mesh);
 
 }  // end of namespace datastructure
 }  // end of namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Mesh);
 
 #endif // SOLAR_MESH_H

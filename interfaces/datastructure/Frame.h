@@ -2,15 +2,15 @@
 #define FRAME_H
 
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Image.h"
-#include "datastructure/Keypoint.h"
-#include "datastructure/DescriptorBuffer.h"
-#include "datastructure/DescriptorMatch.h"
-#include "datastructure/CloudPoint.h"
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
-#include "datastructure/CameraDefinitions.h"
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Image.h>
+#include <datastructure/Keypoint.h>
+#include <datastructure/DescriptorBuffer.h>
+#include <datastructure/DescriptorMatch.h>
+#include <datastructure/CloudPoint.h>
+#include <datastructure/CameraDefinitions.h>
 
 #include <memory>
 namespace SolAR {
@@ -184,4 +184,7 @@ DECLARESERIALIZE(Frame);
 
 }
 }
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Frame);
+
 #endif // FRAME_H

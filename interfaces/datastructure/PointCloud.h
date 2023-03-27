@@ -16,12 +16,13 @@
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/CloudPoint.h"
-#include "datastructure/Lockable.h"
-#include "core/Messages.h"
-#include "xpcf/core/refs.h"
+#include <core/SolARFrameworkDefinitions.h>
+#include <core/SerializationDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/CloudPoint.h>
+#include <datastructure/Lockable.h>
+#include <core/Messages.h>
+#include <xpcf/core/refs.h>
 #include <map>
 
 // Definition of PointCloud Class //

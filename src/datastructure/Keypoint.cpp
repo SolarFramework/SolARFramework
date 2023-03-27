@@ -15,10 +15,10 @@
  */
 
 #include "datastructure/Keypoint.h"
-
 #include "xpcf/core/helpers.h"
-
 #include <cstddef> //TO DO: remove with a complete implementation
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Keypoint);
 
 namespace SolAR {
 namespace datastructure {

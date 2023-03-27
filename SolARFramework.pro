@@ -14,6 +14,7 @@ VERSION=1.0.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
+
 CONFIG += c++1z
 
 include(findremakenrules.pri)

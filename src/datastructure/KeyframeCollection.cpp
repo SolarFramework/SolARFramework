@@ -18,6 +18,8 @@
 #include "xpcf/core/helpers.h"
 #include "core/Log.h"
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::KeyframeCollection);
+
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {

@@ -99,4 +99,6 @@ DECLARESERIALIZE(ImageMarker);
 }
 } // end of namespace SolAR
 
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::ImageMarker);
+
 #endif // IMAGEMARKER_H

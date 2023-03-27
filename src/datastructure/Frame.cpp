@@ -19,6 +19,8 @@
 
 #include "xpcf/core/helpers.h"
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Frame);
+
 std::mutex						m_mutexPose;
 std::mutex						m_mutexKeypoint;
 std::mutex						m_mutexReferenceKeyframe;

@@ -15,8 +15,9 @@
  */
 
 #include <datastructure/PrimitiveInformation.h>
-
 #include "xpcf/core/helpers.h"
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::PrimitiveInformation);
 
 namespace SolAR {
 namespace datastructure {

@@ -17,12 +17,13 @@
 #ifndef SOLAR_IMAGE_H
 #define SOLAR_IMAGE_H
 
-#include "xpcf/core/refs.h"
-#include "core/SolARFrameworkDefinitions.h"
-#include "core/Messages.h"
-#include "GeometryDefinitions.h"
+#include <xpcf/core/refs.h>
+#include <core/SolARFrameworkDefinitions.h>
+#include <core/Messages.h>
+#include <datastructure/GeometryDefinitions.h>
 #include <memory>
 #include <core/SerializationDefinitions.h>
+#include <boost/serialization/export.hpp>
 
 namespace SolAR {
 namespace datastructure {
@@ -310,5 +311,15 @@ inline const T & Image::getPixel(int row, int col) const
 // conversion from/to opencv for instance : how to handle the T* type while bound to void* ?
 }
 }
+BOOST_CLASS_TYPE_INFO(
+SolAR::datastructure::ImageInternal,
+boost::serialization::extended_type_info_typeid<SolAR::datastructure::ImageInternal>
+)
+BOOST_CLASS_TYPE_INFO(
+SolAR::datastructure::Image,
+boost::serialization::extended_type_info_typeid<SolAR::datastructure::Image>
+)
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Image);
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::ImageInternal);
 
 #endif

@@ -1,12 +1,12 @@
 #ifndef KEYFRAMECOLLECTION_H
 #define KEYFRAMECOLLECTION_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Keyframe.h"
-#include "datastructure/Lockable.h"
-#include "core/Messages.h"
-#include "xpcf/core/refs.h"
+#include <core/SolARFrameworkDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Keyframe.h>
+#include <datastructure/Lockable.h>
+#include <core/Messages.h>
+#include <xpcf/core/refs.h>
 #include <map>
 
 // Definition of SparsePointCloud Class //

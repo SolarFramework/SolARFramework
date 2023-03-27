@@ -1,12 +1,12 @@
 #ifndef KEYFRAMERETRIEVAL_H
 #define KEYFRAMERETRIEVAL_H
 
-#include "core/SolARFrameworkDefinitions.h"
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Lockable.h"
-#include "core/Messages.h"
-#include "xpcf/core/refs.h"
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Lockable.h>
+#include <core/Messages.h>
+#include <xpcf/core/refs.h>
 #include <map>
 
 // Definition of KeyframeRetrieval Class //
