@@ -88,6 +88,13 @@ FrameworkReturnCode KeyframeRetrieval::getInvertedIndex(uint32_t nodeId, std::se
 		return FrameworkReturnCode::_ERROR_;
 }
 
+void KeyframeRetrieval::reset()
+{
+    m_listBoWFeature.clear();
+    m_listBoWLevelFeature.clear();
+    m_invertedIndexKfs.clear();
+}
+
 template <typename Archive>
 void KeyframeRetrieval::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
 {

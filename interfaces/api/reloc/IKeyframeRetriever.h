@@ -116,6 +116,9 @@ public:
 	/// @brief This method is to set the keyframe retrieval
 	/// @param[in] keyframeRetrieval the keyframe retrieval of map
 	virtual void setKeyframeRetrieval(const SRef<SolAR::datastructure::KeyframeRetrieval> keyframeRetrieval) = 0;
+
+    /// @brief This method is to reset the keyframe retrieval 
+    virtual void resetKeyframeRetrieval() = 0;
 };
 
 }
