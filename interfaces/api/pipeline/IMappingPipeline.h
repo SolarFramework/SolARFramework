@@ -61,6 +61,13 @@ public:
     /// @brief IMappingPipeline default destructor
     virtual ~IMappingPipeline() = default;
 
+    using IPipeline::init;
+
+    /// @brief Initialization of the pipeline with the URL of an available Relocalization Service
+    /// @param[in] relocalizationServiceURL the URL of an available Relocalization Service
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init(const std::string relocalizationServiceURL) = 0;
+
     /// @brief Set the camera parameters
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_

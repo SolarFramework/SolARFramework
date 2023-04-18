@@ -79,6 +79,9 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
 	FrameworkReturnCode getInvertedIndex(uint32_t nodeId, std::set<uint32_t>& invertedIndex);
 
+    /// @brief This method allows to reset BoW features as well as inverted index map 
+    void reset();
+
 private:
 	friend class boost::serialization::access;
 	template <typename Archive>
