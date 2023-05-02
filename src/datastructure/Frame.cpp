@@ -77,8 +77,10 @@ void Frame::setKeypoints(const std::vector<Keypoint> & kpts){
 
 bool Frame::updateKeypointClassId(int i, int classId) 
 {
-    if (i < 0 || i >= static_cast<int>(m_keypoints.size()) || i >= static_cast<int>(m_keypointsUndistort.size()))
+    if (i < 0 || i >= static_cast<int>(m_keypoints.size()) || i >= static_cast<int>(m_keypointsUndistort.size())) {
+        std::cerr << "keypoint index " << i << " out of range" << std::endl;
         return false;
+    }
     m_keypoints[i].setClassId(classId);
     m_keypointsUndistort[i].setClassId(classId);
     return true;
