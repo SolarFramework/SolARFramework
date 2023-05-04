@@ -73,6 +73,19 @@ public:
 	///
 	void setId(const uint32_t& id_keyframe);
 
+	///
+	/// @brief Set keypoint matched
+	/// @param[in] id_keypoint: keypoint id
+	/// @return boolean 
+	///
+	bool setKeypointStatusToMatched(uint32_t id_keypoint);
+
+    ///
+    /// @brief Get keypoint matched map 
+    /// @return list of boolean 
+    ///
+    const std::vector<bool>& getIsKeypointMatched() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -80,6 +93,7 @@ private:
 
 private:
     uint32_t	m_id;
+    std::vector<bool> m_isKeypointMatched;  // boolean map true or false indicating if keypoint matched to other keyframes during mapping 
 };
 
 DECLARESERIALIZE(Keyframe);
