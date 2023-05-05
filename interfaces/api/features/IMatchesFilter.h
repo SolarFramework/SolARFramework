@@ -42,14 +42,16 @@ namespace features {
 		/// @param[in] Original keypoints associated to desc_2.
 		/// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
-		/// @param[in] camera's intrinsic parameters.
+		/// @param[in] first camera's intrinsic parameters.
+               /// @param[in] second camera's intrinsic parameters. 
         virtual void filter(ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
                             ATTRIBUTE(maybe_unused) std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
                             ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
                             ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints2,
                             ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose1,
                             ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose2,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams) {};
+                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams1, 
+                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams2 = SolAR::datastructure::CamCalibration::Zero()) {};
     };
 }
 }

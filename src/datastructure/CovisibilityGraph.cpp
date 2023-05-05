@@ -277,16 +277,18 @@ FrameworkReturnCode CovisibilityGraph::getShortestPath(const uint32_t node1_id, 
 		//take current node
 		const auto &tn = trees[curNode];
 		//see ifs neighbors
-		for (auto neigh : m_edges.at(tn.node)) {
-			if (!visited[neigh]) {
-				visited[neigh] = true;
-				trees.push_back(TreeNode(neigh, static_cast<uint32_t>(curNode)));
-				if (neigh == node2_id) {
-					found = true;
-					break;
-				}
-			}
-		}
+        if (m_edges.find(tn.node) != m_edges.end()) {
+            for (auto neigh : m_edges.at(tn.node)) {
+                if (!visited[neigh]) {
+                    visited[neigh] = true;
+                    trees.push_back(TreeNode(neigh, static_cast<uint32_t>(curNode)));
+                    if (neigh == node2_id) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
 		curNode++;
 	}
 	if (!found)//no path
