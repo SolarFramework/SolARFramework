@@ -175,16 +175,16 @@ public:
                                                  MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
-        relocalizeProcessRequest(uuid,
-                                 images,
-                                 poses,
-                                 /* fixedPose = */ false,
-                                 worldTransform,
-                                 timestamp,
-                                 transform3DStatus,
-                                 transform3D,
-                                 confidence,
-                                 mappingStatus);
+        return relocalizeProcessRequest(uuid,
+                                        images,
+                                        poses,
+                                        /* fixedPose = */ false,
+                                        worldTransform,
+                                        timestamp,
+                                        transform3DStatus,
+                                        transform3D,
+                                        confidence,
+                                        mappingStatus);
     }
 
     /// @brief Request the asynchronous relocalization pipeline to process a new image to calculate
