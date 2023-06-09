@@ -69,12 +69,6 @@ win32 {
     QMAKE_CXXFLAGS_RELEASE += /O2
 }
 
-android {
-    # Needed to access android sink for spdlog
-    DEFINES += __ANDROID__
-    ANDROID_ABIS="arm64-v8a"
-}
-
 
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
@@ -170,7 +164,6 @@ OTHER_FILES += \
     packagedependencies-win.txt \
     packagedependencies-linux.txt \
     packagedependencies-mac.txt \
-    packagedependencies-android.txt \
     extra-packages.txt \
     extra-packages-linux.txt
 
