@@ -51,15 +51,6 @@ linux {
     QMAKE_LFLAGS += -ldl
 }
 
-macx {
-    DEFINES += _MACOS_TARGET_
-    QMAKE_MAC_SDK= macosx
-    QMAKE_CFLAGS += -mmacosx-version-min=10.7 -std=c11 #-x objective-c++
-    QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -std=c11 -std=c++11 -fPIC#-x objective-c++
-    QMAKE_LFLAGS += -mmacosx-version-min=10.7 -v -lstdc++
-    LIBS += -lstdc++ -lc -lpthread
-}
-
 win32 {
 
     DEFINES += WIN64 UNICODE _UNICODE
@@ -169,7 +160,6 @@ OTHER_FILES += \
     packagedependencies.txt \
     packagedependencies-win.txt \
     packagedependencies-linux.txt \
-    packagedependencies-mac.txt \
     packagedependencies-android.txt \
     extra-packages.txt \
     extra-packages-linux.txt
