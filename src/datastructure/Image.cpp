@@ -44,6 +44,11 @@ ImageInternal::ImageInternal(void* data,uint32_t size)
    setData(data,size);
 }
 
+ImageInternal::~ImageInternal()
+{
+    m_storageData.clear();
+}
+
 void ImageInternal::setBufferSize(uint32_t size)
 {
     m_bufferSize = size;
@@ -141,6 +146,8 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
         m_internalImpl = utils::make_shared<ImageInternal>();
         m_internalImpl->setData(pixels, spec.image_bytes(true));
         in->close();
+
+        delete[] pixels;
     }
 }
 
@@ -232,6 +239,7 @@ static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = 
 FrameworkReturnCode Image::save(std::string imagePath) const
 {
     Image::ImageEncoding encoding;
+
     if (boost::algorithm::ends_with(imagePath, ".jpg") || boost::algorithm::ends_with(imagePath, ".jpeg"))
         encoding = ENCODING_JPEG;
     else if (boost::algorithm::ends_with(imagePath, ".png"))
@@ -358,6 +366,7 @@ void Image::save(Archive & ar, const unsigned int version) const
         out->close ();
 
         ar & file_buffer;
+        file_buffer.clear();
     }
     else {
         ar & m_internalImpl;
@@ -467,6 +476,9 @@ void Image::load(Archive & ar, const unsigned int version)
          m_internalImpl = utils::make_shared<ImageInternal>();
          m_internalImpl->setData(pixels, spec.image_bytes(true));
          in->close();
+         decodingBuffer.clear();
+         memreader.close();
+         delete[] pixels;
      }
      else {
          ar & m_internalImpl;
