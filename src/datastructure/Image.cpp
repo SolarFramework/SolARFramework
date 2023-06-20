@@ -428,6 +428,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
     m_internalImpl = utils::make_shared<ImageInternal>();
     m_internalImpl->setData(pixels, spec.image_bytes(true));
     in->close();
+    delete[] pixels;
 
     return FrameworkReturnCode::_SUCCESS;
 }
@@ -435,7 +436,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
 template<class Archive>
 void Image::load(Archive & ar, const unsigned int version)
 {
-    ar & m_size;
+     ar & m_size;
      ar & m_layout;
      ar & m_pixOrder;
      ar & m_type;
