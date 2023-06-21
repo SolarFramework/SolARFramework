@@ -48,7 +48,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version){
+    void serialize(Archive &ar, const unsigned int /* version */){
 		ar & boost::serialization::make_array(this->data(), 2);
 	}
 };
@@ -79,7 +79,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version){
+    void serialize(Archive &ar, const unsigned int /* version */){
 		ar & boost::serialization::make_array(this->data(), 3);
 	}
 };
@@ -135,7 +135,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-	void serialize(Archive &ar, const unsigned int version){
+    void serialize(Archive &ar, const unsigned int /* version */){
 		ar & boost::serialization::make_array(this->data(), 3);
 	}
 };
@@ -157,7 +157,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-	void serialize(Archive &ar, const unsigned int version){
+    void serialize(Archive &ar, const unsigned int /* version */){
 		ar & p1;
 		ar & p2;
 	}
@@ -205,7 +205,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
-    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version){
+    void serialize(Archive &ar, const unsigned int /* version */){
 		ar & corner;
 		ar & width;
 		ar & height;
@@ -280,7 +280,7 @@ namespace boost { namespace serialization {
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Sizef & size,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
     ar & size.width;
     ar & size.height;
@@ -289,7 +289,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Sizei & size,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
     ar & size.width;
     ar & size.height;
@@ -298,7 +298,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::Rectanglei & rect,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
     ar & rect.startX;
     ar & rect.startY;

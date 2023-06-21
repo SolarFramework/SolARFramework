@@ -148,7 +148,7 @@ namespace boost { namespace serialization {
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::CameraParameters & parameters,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
     ar & parameters.name;
     ar & parameters.id;
@@ -161,7 +161,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::RectificationParameters & parameters,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
 	ar & parameters.baseline;
 	ar & parameters.type;
@@ -172,7 +172,7 @@ inline void serialize(Archive & ar,
 template<class Archive>
 inline void serialize(Archive & ar,
                       SolAR::datastructure::CameraRigParameters & parameters,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
 	ar & parameters.cameraParams;
 	ar & parameters.rectificationParams;

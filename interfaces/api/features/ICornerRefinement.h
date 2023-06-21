@@ -42,7 +42,7 @@ namespace features {
  *
  * This class provides a method to refine the corner locations.
  */
-class [[xpcf::clientUUID("b33148d7-0366-4167-a641-1efb43869715")]] [[xpcf::serverUUID("c730d426-c7ee-41ec-acae-31bc0a98329c")]] ICornerRefinement :
+class XPCF_CLIENTUUID("b33148d7-0366-4167-a641-1efb43869715") XPCF_SERVERUUID("c730d426-c7ee-41ec-acae-31bc0a98329c") ICornerRefinement :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:    

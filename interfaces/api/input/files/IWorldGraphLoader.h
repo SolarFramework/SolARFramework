@@ -34,7 +34,7 @@ namespace files {
  * <TT>UUID: b68a0544-c9f2-48eb-9542-c2048ff25c08</TT>
  *
  */
-class [[xpcf::clientUUID("1dd71248-747b-4a90-b2c6-7811aed57ba0")]] [[xpcf::serverUUID("15716f60-7688-44cb-867c-a8a49d4b9a80")]] IWorldGraphLoader :
+class XPCF_CLIENTUUID("1dd71248-747b-4a90-b2c6-7811aed57ba0") XPCF_SERVERUUID("15716f60-7688-44cb-867c-a8a49d4b9a80") IWorldGraphLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IWorldGraphLoader() = default;

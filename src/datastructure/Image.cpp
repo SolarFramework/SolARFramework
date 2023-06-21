@@ -68,7 +68,7 @@ void ImageInternal::setData(void * data, uint32_t size)
 }
 
 template<typename Archive>
-void ImageInternal::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void ImageInternal::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar & m_storageData;
     ar & m_bufferSize;
@@ -94,7 +94,7 @@ uint32_t Image::computeImageBufferSize()
     return m_size.width * m_size.height * m_nbChannels * (m_nbBitsPerComponent/8);
 }
 
-Image::Image(enum ImageLayout imgLayout, enum PixelOrder pixOrder, DataType type):m_layout(imgLayout),m_pixOrder(pixOrder),m_type(type),m_internalImpl(new ImageInternal())
+Image::Image(enum ImageLayout imgLayout, enum PixelOrder pixOrder, DataType type):m_internalImpl(new ImageInternal()), m_layout(imgLayout),m_pixOrder(pixOrder),m_type(type)
 {
     m_nbChannels = layoutChannelMapInfos.at(m_layout);
     m_nbBitsPerComponent = typeSizeMapInfos.at(m_type);
@@ -294,7 +294,7 @@ FrameworkReturnCode Image::save(std::string imagePath) const
 }
 
 template<class Archive>
-void Image::save(Archive & ar, const unsigned int version) const
+void Image::save(Archive & ar, const unsigned int /* version */) const
 {
     ar & m_size;
     ar & m_layout;
@@ -414,13 +414,13 @@ FrameworkReturnCode Image::load(std::string imagePath)
             else
             {
                 std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
-                FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+                return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
             }
             m_nbChannels = (unsigned int)spec.nchannels;
             break;
         default:
            std::cout << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
-           FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+           return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
     }
 
     m_internalImpl = utils::make_shared<ImageInternal>();
@@ -431,7 +431,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
 }
 
 template<class Archive>
-void Image::load(Archive & ar, const unsigned int version)
+void Image::load(Archive & ar, const unsigned int /* version */)
 {
      ar & m_size;
      ar & m_layout;

@@ -38,7 +38,7 @@ namespace map {
 * <TT>UUID: 943dd9a0-4889-489a-80a7-84be1a6c1650</TT>
 */
 
-class [[xpcf::clientUUID("2c2b7702-6a34-4add-b645-547ef0185253")]] [[xpcf::serverUUID("4c496a20-693c-4729-93dc-7c2b06157604")]] IMapUpdate :
+class XPCF_CLIENTUUID("2c2b7702-6a34-4add-b645-547ef0185253") XPCF_SERVERUUID("4c496a20-693c-4729-93dc-7c2b06157604") IMapUpdate :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IMapUpdate default constructor

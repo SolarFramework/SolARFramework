@@ -33,7 +33,7 @@ namespace devices {
  *
  * This class describes the interface of a capture device.
  */
-class [[xpcf::clientUUID("abd028ed-44a2-4ac0-831b-e0e9b939031c")]] [[xpcf::serverUUID("f20a4533-57e9-4a76-893a-3c031e267409")]] IDevice:
+class XPCF_CLIENTUUID("abd028ed-44a2-4ac0-831b-e0e9b939031c") XPCF_SERVERUUID("f20a4533-57e9-4a76-893a-3c031e267409") IDevice:
     virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:

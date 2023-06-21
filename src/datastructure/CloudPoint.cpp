@@ -38,19 +38,19 @@ CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, flo
 }
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, const std::map<unsigned int, unsigned int>& visibility) :
-    Point3Df(x, y, z), m_rgb(r, g, b), m_reproj_error(reproj_error), m_visibility(visibility)
+    Point3Df(x, y, z), m_visibility(visibility), m_rgb(r, g, b), m_reproj_error(reproj_error)
 {
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::ViewDirection | CloudPointType::Visibility;
 }
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, const std::map<unsigned int, unsigned int>& visibility) :
-    Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility)
+    Point3Df(x, y, z), m_visibility(visibility), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error)
 {
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::ViewDirection | CloudPointType::ReprojectionError | CloudPointType::Visibility ;
 }
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, double reproj_error, const std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-    Point3Df(x, y, z), m_rgb(r, g, b), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor)
+    Point3Df(x, y, z), m_descriptor(descriptor), m_visibility(visibility), m_rgb(r, g, b), m_reproj_error(reproj_error)
 {
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::ReprojectionError | CloudPointType::Visibility;
     if (descriptor != nullptr)
@@ -58,7 +58,7 @@ CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, dou
 }
 
 CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, float nx, float ny, float nz, double reproj_error, const std::map<unsigned int, unsigned int>& visibility, SRef<DescriptorBuffer> descriptor) :
-    Point3Df(x, y, z), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error), m_visibility(visibility), m_descriptor(descriptor)
+    Point3Df(x, y, z), m_descriptor(descriptor), m_visibility(visibility), m_rgb(r, g, b), m_viewDirection(nx, ny, nz), m_reproj_error(reproj_error)
 {
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::ViewDirection | CloudPointType::ReprojectionError | CloudPointType::Visibility;
     if (descriptor != nullptr)
@@ -163,7 +163,7 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id)
 }
 
 template <typename Archive>
-void CloudPoint::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void CloudPoint::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar.template register_type<CloudPoint>();
     ar & m_cloudPointSupportedTypes;

@@ -34,7 +34,7 @@ namespace devices {
  *
  * This class describes the interface of a RGBD camera capture device.
  */
-class [[xpcf::clientUUID("1c8df185-f8d9-4899-8206-74d1f64a7ad9")]] [[xpcf::serverUUID("01bb552a-9e6c-47fe-8b57-bce2a4c0ce42")]] IRGBDCamera :
+class XPCF_CLIENTUUID("1c8df185-f8d9-4899-8206-74d1f64a7ad9") XPCF_SERVERUUID("01bb552a-9e6c-47fe-8b57-bce2a4c0ce42") IRGBDCamera :
     virtual public ICamera, virtual public IDepthCamera {
 public:
     /// @brief Specify the IRGBDCamera constructor class
