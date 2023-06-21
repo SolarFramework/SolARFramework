@@ -33,7 +33,7 @@ namespace image {
   * @brief <B>Converts image with a specific layout.</B>
   * <TT>UUID: 9c982719-6cb4-4831-aa88-9e01afacbd16</TT>
   */
-class [[xpcf::clientUUID("1977563c-c43f-4e5f-8df2-464d162889c3")]] [[xpcf::serverUUID("36458944-2986-49be-8ebf-55f2d12cc9dc")]] IImageConvertor :
+class XPCF_CLIENTUUID("1977563c-c43f-4e5f-8df2-464d162889c3") XPCF_SERVERUUID("36458944-2986-49be-8ebf-55f2d12cc9dc") IImageConvertor :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	IImageConvertor() = default;

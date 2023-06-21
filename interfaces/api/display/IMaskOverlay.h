@@ -32,7 +32,7 @@ namespace display {
  * <TT>UUID: 35a2454a-cb09-44ac-b2ce-0b0732175f94</TT>
  */
 
-class [[xpcf::clientUUID("10d2d826-714e-4eb9-91d4-9c577585ddfe")]] [[xpcf::serverUUID("86974141-74a8-40a2-8150-c20eda855ed4")]] IMaskOverlay :
+class XPCF_CLIENTUUID("10d2d826-714e-4eb9-91d4-9c577585ddfe") XPCF_SERVERUUID("86974141-74a8-40a2-8150-c20eda855ed4") IMaskOverlay :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMaskOverlay default constructor

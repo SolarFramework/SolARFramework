@@ -33,7 +33,7 @@ const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> d
 };
 
 DescriptorView::DescriptorView(void * startAddress, uint32_t length, DescriptorType type):
-    m_length(length),m_baseAddress(startAddress), m_type(type)
+    m_baseAddress(startAddress), m_length(length), m_type(type)
 {
     m_dataType = descriptorType2elementsAndDataType.at(type).second;
 }
@@ -65,7 +65,7 @@ bool DescriptorBuffer::deduceProperties(const DescriptorType & type)
 }
 
 DescriptorBuffer::DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_descriptors):
-    m_nb_descriptors(nb_descriptors),m_descriptor_type(descriptor_type),m_buffer(new BufferInternal())
+    m_buffer(new BufferInternal()), m_nb_descriptors(nb_descriptors), m_descriptor_type(descriptor_type)
 {
     if (!deduceProperties(descriptor_type)) {
         // ERROR no automatic translation : should throw an exception
@@ -76,7 +76,7 @@ DescriptorBuffer::DescriptorBuffer( DescriptorType descriptor_type, uint32_t nb_
 }
 
 DescriptorBuffer::DescriptorBuffer( unsigned char* descriptorData, DescriptorType descriptor_type, uint32_t nb_descriptors):
-    m_nb_descriptors(nb_descriptors),m_descriptor_type(descriptor_type),m_buffer(new BufferInternal())
+    m_buffer(new BufferInternal()), m_nb_descriptors(nb_descriptors), m_descriptor_type(descriptor_type)
 {
     if (!deduceProperties(descriptor_type)) {
         // ERROR no automatic translation : should throw an exception
@@ -183,7 +183,7 @@ DescriptorBuffer DescriptorBuffer::operator+(const DescriptorBuffer & desc) cons
 	float *desc1_data = reinterpret_cast<float*>(desc1.data());
 	float *desc2_data = reinterpret_cast<float*>(desc2.data());
 	std::vector<float> output(m_nb_descriptors * m_nb_elements);
-	for (int i = 0; i < output.size(); i++)
+    for (size_t i = 0; i < output.size(); i++)
 		output[i] = desc1_data[i] + desc2_data[i];
 	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
 }
@@ -193,7 +193,7 @@ DescriptorBuffer DescriptorBuffer::operator*(float fac) const
 	DescriptorBuffer desc = this->convertTo(TYPE_32F);
 	float *desc_data = reinterpret_cast<float*>(desc.data());
 	std::vector<float> output(m_nb_descriptors * m_nb_elements);
-	for (int i = 0; i < output.size(); i++)
+    for (size_t i = 0; i < output.size(); i++)
 		output[i] = desc_data[i] * fac;
 	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
 }
@@ -203,7 +203,7 @@ DescriptorBuffer DescriptorBuffer::operator/(float div) const
 	DescriptorBuffer desc = this->convertTo(TYPE_32F);
 	float *desc_data = reinterpret_cast<float*>(desc.data());
 	std::vector<float> output(m_nb_descriptors * m_nb_elements);
-	for (int i = 0; i < output.size(); i++)
+    for (size_t i = 0; i < output.size(); i++)
 		output[i] = desc_data[i] / div;
 	return DescriptorBuffer(reinterpret_cast<uint8_t*>(output.data()), m_descriptor_type, TYPE_32F, m_nb_elements, m_nb_descriptors);
 }
@@ -219,7 +219,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
 }
 
 template<typename Archive>
-void DescriptorBuffer::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void DescriptorBuffer::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_buffer;
 	ar & m_nb_descriptors;
 	ar & m_data_type;

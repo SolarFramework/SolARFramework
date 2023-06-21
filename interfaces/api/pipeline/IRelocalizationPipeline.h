@@ -37,7 +37,7 @@ namespace pipeline {
  * This class provides the interface to define a relocalization processing pipeline.
  */
 
-class [[xpcf::clientUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584")]] [[xpcf::serverUUID("234bb765-ac3b-4755-8825-5cd92145b7a8")]] 
+class XPCF_CLIENTUUID("597d510d-452a-4da2-9c3a-8d4b8d15c584") XPCF_SERVERUUID("234bb765-ac3b-4755-8825-5cd92145b7a8") 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
 	XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
 #endif

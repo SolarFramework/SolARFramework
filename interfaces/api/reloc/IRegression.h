@@ -36,7 +36,7 @@ namespace reloc {
  * This class provides a solution to learn and define a set of 3D world coordinates corresponding to a set of 2D descriptors.
  */
 
-class [[xpcf::clientUUID("8dc16e57-5f95-474b-8ff8-bb7570e02230")]] [[xpcf::serverUUID("d991baa9-3e57-4377-b244-7690091cea9e")]] IRegression :
+class XPCF_CLIENTUUID("8dc16e57-5f95-474b-8ff8-bb7570e02230") XPCF_SERVERUUID("d991baa9-3e57-4377-b244-7690091cea9e") IRegression :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRegression default constructor.

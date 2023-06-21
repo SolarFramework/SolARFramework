@@ -33,7 +33,7 @@ namespace geom {
  * <TT>UUID: 21113a74-de60-4a3c-8b65-f3112beb3dc6</TT>
  */
 
-class [[xpcf::clientUUID("7e71a7db-6a67-4c28-ad40-1922370fdc00")]] [[xpcf::serverUUID("10dc5091-bf42-4a0d-8573-0a099220da39")]] IUnproject :
+class XPCF_CLIENTUUID("7e71a7db-6a67-4c28-ad40-1922370fdc00") XPCF_SERVERUUID("10dc5091-bf42-4a0d-8573-0a099220da39") IUnproject :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IUnproject default constructor

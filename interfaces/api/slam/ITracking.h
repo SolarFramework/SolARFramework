@@ -35,7 +35,7 @@ namespace slam {
 * <TT>UUID: c2182b8e-03e9-43a3-a5b9-326e80554cf8</TT>
 */
 
-class [[xpcf::clientUUID("064ae968-4fc7-448b-a485-468a112e4fa3")]] [[xpcf::serverUUID("d5baf1c5-d0ff-40ba-aa45-2c308a402587")]] ITracking :
+class XPCF_CLIENTUUID("064ae968-4fc7-448b-a485-468a112e4fa3") XPCF_SERVERUUID("d5baf1c5-d0ff-40ba-aa45-2c308a402587") ITracking :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief ITracking default constructor

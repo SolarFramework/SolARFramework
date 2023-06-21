@@ -31,7 +31,7 @@ namespace SolAR::api::output::files
  * <TT>UUID: 8e2ec8f9-ed99-473d-84eb-7cb35eff6a1e</TT>
  *
  */
-class [[xpcf::clientUUID("7d924b06-238c-11ed-861d-0242ac120002")]] [[xpcf::serverUUID("858c7124-238c-11ed-861d-0242ac120002")]] IPointCloudExporter :
+class XPCF_CLIENTUUID("7d924b06-238c-11ed-861d-0242ac120002") XPCF_SERVERUUID("858c7124-238c-11ed-861d-0242ac120002") IPointCloudExporter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IPointCloudExporter() = default;

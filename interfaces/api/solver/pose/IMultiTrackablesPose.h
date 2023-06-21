@@ -34,7 +34,7 @@ namespace pose {
  * @brief <B>Estimate camera pose based on a set of given trackables.</B>
  * <TT>UUID: f22cede0-e638-403f-9dfc-d2c1bd15cf83</TT>
  */
-class [[xpcf::clientUUID("cf2959b3-cc73-46fa-8082-0809a3a2dcd3")]] [[xpcf::serverUUID("85daed2c-bd7d-4636-8321-b5f22e22ae11")]] IMultiTrackablesPose :
+class XPCF_CLIENTUUID("cf2959b3-cc73-46fa-8082-0809a3a2dcd3") XPCF_SERVERUUID("85daed2c-bd7d-4636-8321-b5f22e22ae11") IMultiTrackablesPose :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IMultiTrackablesPose default constructor.

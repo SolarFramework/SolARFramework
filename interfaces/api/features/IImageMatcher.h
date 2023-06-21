@@ -39,7 +39,7 @@ namespace features {
  */
 
 
-class [[xpcf::clientUUID("0fcb5bf1-7251-4c7d-a3cc-3da7b4c306f4")]] [[xpcf::serverUUID("6b8f3e75-1745-45aa-a3bc-ac9c76c4d7db")]] IImageMatcher:
+class XPCF_CLIENTUUID("0fcb5bf1-7251-4c7d-a3cc-3da7b4c306f4") XPCF_SERVERUUID("6b8f3e75-1745-45aa-a3bc-ac9c76c4d7db") IImageMatcher:
     virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:

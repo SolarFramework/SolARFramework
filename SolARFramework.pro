@@ -42,9 +42,11 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
+DEFINES += XPCF_DISABLE_ATTRIBUTES
+
 unix {
     # Avoids adding install steps manually. To be commented to have a better control over them.
-    QMAKE_POST_LINK += "make install"
+    QMAKE_POST_LINK += "$(MAKE) install"
 }
 
 linux {
