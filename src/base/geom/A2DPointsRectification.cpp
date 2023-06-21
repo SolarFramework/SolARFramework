@@ -38,7 +38,7 @@ FrameworkReturnCode A2DPointsRectification::rectify(const std::vector<SolAR::dat
 	FrameworkReturnCode retCode = rectify(pts, camParams, rectParams, rectifiedPts);
 	if (retCode == FrameworkReturnCode::_SUCCESS) {
 		rectifiedKeypoints = keypoints;
-		for (int i = 0; i < rectifiedKeypoints.size(); ++i) {
+        for (size_t i = 0; i < rectifiedKeypoints.size(); ++i) {
 			rectifiedKeypoints[i].setX(rectifiedPts[i].getX());
 			rectifiedKeypoints[i].setY(rectifiedPts[i].getY());
 		}

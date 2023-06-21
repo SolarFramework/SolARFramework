@@ -46,7 +46,7 @@ void Trackable::setTransform3D(const datastructure::Transform3Df & transform3D){
 }
 
 template<typename Archive>
-void Trackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Trackable::serialize(Archive &ar, const unsigned int /* version */) {
 
     ar & m_url;
 }

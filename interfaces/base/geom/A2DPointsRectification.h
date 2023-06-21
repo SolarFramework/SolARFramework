@@ -43,10 +43,10 @@ public:
     /// @param[in] rectParams The rectification parameters of camera
     /// @param[out] rectifiedPoints2D The rectified 2D points
     /// @return FrameworkReturnCode::_SUCCESS if rectifying succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode rectify(const std::vector<SolAR::datastructure::Point2Df>& points2D,
-                                        const SolAR::datastructure::CameraParameters& camParams,
-                                        const SolAR::datastructure::RectificationParameters& rectParams,
-                                        std::vector<SolAR::datastructure::Point2Df>& rectifiedPoints2D) override
+    virtual FrameworkReturnCode rectify(const std::vector<SolAR::datastructure::Point2Df>& /*points2D*/,
+                                        const SolAR::datastructure::CameraParameters& /*camParams*/,
+                                        const SolAR::datastructure::RectificationParameters& /*rectParams*/,
+                                        std::vector<SolAR::datastructure::Point2Df>& /*rectifiedPoints2D*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Rectify 2D keypoints

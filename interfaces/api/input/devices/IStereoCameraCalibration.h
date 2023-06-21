@@ -31,7 +31,7 @@ namespace devices {
 * @brief <B>Calibrate and rectify a stereo camera.</B>
 * <TT>UUID: b4fad0ff-c636-492e-ba12-710927a760c7</TT>
 */
-class [[xpcf::clientUUID("f2cec917-6793-4aef-90cb-fd3f843fb43e")]] [[xpcf::serverUUID("d8ac896d-772d-4ce1-b7be-a8f08020eeb6")]] IStereoCameraCalibration :
+class XPCF_CLIENTUUID("f2cec917-6793-4aef-90cb-fd3f843fb43e") XPCF_SERVERUUID("d8ac896d-772d-4ce1-b7be-a8f08020eeb6") IStereoCameraCalibration :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IStereoCameraCalibration constructor

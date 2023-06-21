@@ -34,7 +34,7 @@ namespace devices {
  *
  * This class describes the interface of a depth camera capture device.
  */
-class [[xpcf::clientUUID("d1c62c3a-6d98-4bf7-b2f8-5eba94979a9d")]] [[xpcf::serverUUID("83df6a42-88e9-4895-8b95-cfcfe1b6911c")]] IDepthCamera :
+class XPCF_CLIENTUUID("d1c62c3a-6d98-4bf7-b2f8-5eba94979a9d") XPCF_SERVERUUID("83df6a42-88e9-4895-8b95-cfcfe1b6911c") IDepthCamera :
     virtual public IDevice {
 public:
     /// @brief Specify the IDepthCamera constructor class

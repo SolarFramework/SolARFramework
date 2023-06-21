@@ -46,13 +46,13 @@ public:
     /// @param[in] radius the radius of search region around each keypoint of the first set.
     /// @param[in] matchingDistanceMax the maximum distance to valid a match.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
-                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
-                                      const std::vector<SolAR::datastructure::Point2Df> & points2D1,
-                                      const std::vector<SolAR::datastructure::Point2Df> & points2D2,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches,
-                                      const float radius = -1.f,
-                                      const float matchingDistanceMax = -1.f) override
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> /*descriptors1*/,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> /*descriptors2*/,
+                                      const std::vector<SolAR::datastructure::Point2Df> & /*points2D1*/,
+                                      const std::vector<SolAR::datastructure::Point2Df> & /*points2D2*/,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &/*matches*/,
+                                      const float /*radius  = -1.f */,
+                                      const float /*matchingDistanceMax = -1.f */) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED;}
 
     /// @brief Match each descriptor input to descriptors of a frame in a region. The searching space is a circle which is defined by a 2D center and a radius

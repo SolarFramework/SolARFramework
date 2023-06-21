@@ -67,7 +67,7 @@ typedef enum {
  * This class provides the interface to define an asynchronous relocalization processing pipeline.
  */
 
-class [[xpcf::clientUUID("91a569da-5695-11ec-bf63-0242ac130002")]] [[xpcf::serverUUID("95913e8e-5695-11ec-bf63-0242ac130002")]] IAsyncRelocalizationPipeline :
+class XPCF_CLIENTUUID("91a569da-5695-11ec-bf63-0242ac130002") XPCF_SERVERUUID("95913e8e-5695-11ec-bf63-0242ac130002") IAsyncRelocalizationPipeline :
     virtual public IPipeline {
 public:
     /// @brief IAsyncRelocalizationPipeline default constructor
