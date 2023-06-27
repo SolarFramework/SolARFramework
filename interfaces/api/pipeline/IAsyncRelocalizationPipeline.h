@@ -226,6 +226,16 @@ public:
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) = 0;
 
+    /// @brief Provide the current data from the mapping pipeline context
+    /// (resulting from all mapping processing since the start of the pipeline)
+    /// @param[in] uuid: UUID of the client
+    /// @param[out] outputPointClouds: pipeline current point clouds
+    /// @param[out] keyframePoses: pipeline current keyframe poses
+    /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMappingDataRequest(const std::string & uuid,
+                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
+                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+
     /// @brief Return the last pose processed by the pipeline
     /// @param[in] uuid: UUID of the client
     /// @param[out] pose the last pose if available
