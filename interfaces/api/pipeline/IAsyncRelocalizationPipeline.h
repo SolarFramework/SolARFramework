@@ -232,9 +232,10 @@ public:
     /// @param[out] outputPointClouds: pipeline current point clouds
     /// @param[out] keyframePoses: pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMappingDataRequest(const std::string & uuid,
-                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
-                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMappingDataRequest(
+                                            const std::string & uuid,
+                                            std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
+                                            std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
     /// @brief Return the last pose processed by the pipeline
     /// @param[in] uuid: UUID of the client
