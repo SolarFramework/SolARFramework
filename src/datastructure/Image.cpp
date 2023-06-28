@@ -140,14 +140,12 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
         const OIIO::ImageSpec & spec = in->spec();
 
         OIIO::imagesize_t buffersize = spec.image_bytes(true);
-        unsigned char* pixels = new unsigned char [buffersize];
-        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+        auto pixels = std::make_unique<unsigned char[]>(buffersize);
+        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
         m_internalImpl = utils::make_shared<ImageInternal>();
-        m_internalImpl->setData(pixels, spec.image_bytes(true));
+        m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
         in->close();
-
-        delete[] pixels;
     }
 }
 
@@ -388,8 +386,8 @@ FrameworkReturnCode Image::load(std::string imagePath)
     m_nbChannels = spec.nchannels;
 
     OIIO::imagesize_t buffersize = spec.image_bytes(true);
-    unsigned char* pixels = new unsigned char [buffersize];
-    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+    auto pixels = std::make_unique<unsigned char[]>(buffersize);
+    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
     if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
     {
@@ -426,9 +424,8 @@ FrameworkReturnCode Image::load(std::string imagePath)
     }
 
     m_internalImpl = utils::make_shared<ImageInternal>();
-    m_internalImpl->setData(pixels, spec.image_bytes(true));
+    m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
     in->close();
-    delete[] pixels;
 
     return FrameworkReturnCode::_SUCCESS;
 }
@@ -471,15 +468,14 @@ void Image::load(Archive & ar, const unsigned int version)
          const OIIO::ImageSpec & spec = in->spec();
 
          OIIO::imagesize_t buffersize = spec.image_bytes(true);
-         unsigned char* pixels = new unsigned char [buffersize];
-         in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+         auto pixels = std::make_unique<unsigned char[]>(buffersize);
+         in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
          m_internalImpl = utils::make_shared<ImageInternal>();
-         m_internalImpl->setData(pixels, spec.image_bytes(true));
+         m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
          in->close();
          decodingBuffer.clear();
          memreader.close();
-         delete[] pixels;
      }
      else {
          ar & m_internalImpl;
