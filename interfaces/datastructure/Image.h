@@ -37,7 +37,7 @@ public:
 	ImageInternal() = default;
 	explicit ImageInternal(uint32_t size);
 	explicit ImageInternal(void* data, uint32_t size);
-    ~ImageInternal();
+    virtual ~ImageInternal();
 	void setBufferSize(uint32_t size);
 	inline uint32_t getBufferSize() { return m_bufferSize; }
 	void setData(void * data, uint32_t size);
