@@ -254,6 +254,12 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
                                             SRef<SolAR::datastructure::Map> & map) const = 0;
 
+    /// @brief Request to the map update pipeline to update the global map from a local map
+    /// @param[in] map: the input local map to process
+    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
+                                            const SRef<SolAR::datastructure::Map> map) = 0;
+
     /// @brief Reset the map stored by the map update pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode resetMap() const = 0;
