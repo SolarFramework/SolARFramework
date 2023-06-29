@@ -46,8 +46,9 @@ typedef enum {
 /// @brief <B>Modes available for the pipeline processing</B>
 ///
 typedef enum {
-    RELOCALIZATION_AND_MAPPING = 0,  // Relocalization and mapping
-    RELOCALIZATION_ONLY = 1          // Only relocalization
+    RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
+    RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
+    RELOCALIZATION_ONLY = 2                 // Only relocalization
 } PipelineMode;
 
 ///
