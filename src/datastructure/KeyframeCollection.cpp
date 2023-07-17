@@ -23,20 +23,29 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe)
+FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
-	keyframe->setId(m_id);
-	m_keyframes[m_id] = keyframe;
-	m_id++;
+    uint32_t id;
+    if (defineKeyframeId==true)
+        id = m_id++;
+    else
+        id = keyframe->getId();
+    keyframe->setId(id);
+    m_keyframes[id] = keyframe;
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe)
+FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe, bool defineKeyframeId)
 {
 	SRef<Keyframe> keyframe_ptr = xpcf::utils::make_shared<Keyframe>(keyframe);
-	keyframe_ptr->setId(m_id);
-	m_keyframes[m_id] = keyframe_ptr;
-	m_id++;
+    uint32_t id;
+    if (defineKeyframeId==true)
+        id = m_id++;
+    else
+        id = keyframe.getId();
+
+    keyframe_ptr->setId(id);
+    m_keyframes[id] = keyframe_ptr;
 	return FrameworkReturnCode::_SUCCESS;
 }
 

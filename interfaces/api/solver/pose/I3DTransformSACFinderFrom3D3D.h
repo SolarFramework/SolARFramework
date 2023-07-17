@@ -44,32 +44,32 @@ public:
     ///@brief I3DTransformSACFinderFrom3D3D default destructor.
     virtual ~I3DTransformSACFinderFrom3D3D() = default;
 
-    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] intrinsicParams: Camera calibration matrix parameters.
-    /// @param[in] distortionParams: Camera distortion parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CamCalibration & intrinsicParams, const SolAR::datastructure::CamDistortion & distortionParams) = 0;
-
     /// @brief Estimates camera pose from a set of 3D-3D point correspondences.
-    /// @param[in] firstPoints3D: first set of 3D points.
-    /// @param[in] secondPoints3D: second set of 3D points.
-    /// @param[out] pose: 3D transformation maps the first set of 3D points to the second one.
-    /// @param[out] inliers: indices of inlier correspondences.
+    /// @param[in] firstPoints3D first set of 3D points.
+    /// @param[in] secondPoints3D second set of 3D points.
+    /// @param[out] pose 3D transformation maps the first set of 3D points to the second one.
+    /// @param[out] inliers indices of inlier correspondences.
     virtual FrameworkReturnCode estimate(const std::vector<SolAR::datastructure::Point3Df> & firstPoints3D,
                                          const std::vector<SolAR::datastructure::Point3Df> & secondPoints3D,
                                          SolAR::datastructure::Transform3Df & pose,
                                          std::vector<int> &inliers) = 0;
 
     /// @brief Estimates camera pose from a set of 3D-3D point correspondences.
-    /// @param[in] firstKeyframe: first keyframe.
-    /// @param[in] secondKeyframe: second keyframe.
-    /// @param[in] matches: matches between two keyframes.
-    /// @param[in] firstPoints3D: first set of 3D points.
-    /// @param[in] secondPoints3D: second set of 3D points.
-    /// @param[out] pose: 3D transformation maps the first set of 3D points to the second one.
-    /// @param[out] inliers: indices of inlier correspondences.
+    /// @param[in] firstKeyframe first keyframe.
+    /// @param[in] secondKeyframe second keyframe.
+    /// @param[in] firstCameraParameters parameters of the camera capturing the first keyframe.
+    /// @param[in] secondCameraParameters parameters of the camera capturing the second keyframe.
+    /// @param[in] secondKeyframe second keyframe.
+    /// @param[in] matches matches between two keyframes.
+    /// @param[in] firstPoints3D first set of 3D points.
+    /// @param[in] secondPoints3D second set of 3D points.
+    /// @param[out] pose 3D transformation maps the first set of 3D points to the second one.
+    /// @param[out] inliers indices of inlier correspondences.
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode estimate(const SRef<SolAR::datastructure::Keyframe> firstKeyframe,
                                          const SRef<SolAR::datastructure::Keyframe> secondKeyframe,
+                                         const SolAR::datastructure::CameraParameters & firstCameraParameters,
+                                         const SolAR::datastructure::CameraParameters & secondCameraParameters,
                                          const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
                                          const std::vector<SolAR::datastructure::Point3Df> & firstPoints3D,
                                          const std::vector<SolAR::datastructure::Point3Df> & secondPoints3D,

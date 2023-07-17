@@ -50,7 +50,7 @@
 #include <boost/archive/text_oarchive.hpp>
 using OutputArchive = ::boost::archive::text_oarchive;
 using InputArchive = ::boost::archive::text_iarchive;
-#elif SOLAR_USE_XML_SERIALIZATION
+#elif defined (SOLAR_USE_XML_SERIALIZATION)
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 using OutputArchive = ::boost::archive::xml_oarchive;

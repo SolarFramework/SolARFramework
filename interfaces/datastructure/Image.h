@@ -37,7 +37,7 @@ public:
 	ImageInternal() = default;
 	explicit ImageInternal(uint32_t size);
 	explicit ImageInternal(void* data, uint32_t size);
-	~ImageInternal() = default;
+    virtual ~ImageInternal();
 	void setBufferSize(uint32_t size);
 	inline uint32_t getBufferSize() { return m_bufferSize; }
 	void setData(void * data, uint32_t size);
@@ -255,6 +255,18 @@ public:
     /// @return _SUCCESS if the image is saved, _ERROR_ otherwise.
     FrameworkReturnCode load(std::string imagePath);
 
+    /// @brief Rotate image 90 degrees
+    /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
+    FrameworkReturnCode rotate90();
+
+    /// @brief Rotate image 180 degrees
+    /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
+    FrameworkReturnCode rotate180();
+
+    /// @brief Rotate image 270 degrees
+    /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
+    FrameworkReturnCode rotate270();
+
 private:
     friend class boost::serialization::access;
 protected:
@@ -275,6 +287,13 @@ private:
     SRef<ImageInternal> m_internalImpl;
 
     uint32_t computeImageBufferSize();
+    // Rotate degrees
+    enum class RotateQuantity {
+        DEGREE_90,
+        DEGREE_180,
+        DEGREE_270
+    };
+    FrameworkReturnCode rotate(RotateQuantity);
     Sizei m_size;
     enum ImageLayout m_layout;
     enum PixelOrder m_pixOrder;

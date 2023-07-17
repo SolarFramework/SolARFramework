@@ -10,6 +10,7 @@
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CloudPoint.h"
 #include <core/SerializationDefinitions.h>
+#include "datastructure/CameraDefinitions.h"
 
 #include <memory>
 namespace SolAR {
@@ -27,24 +28,27 @@ public:
 	Frame() = default;
     Frame(const SRef<Frame> frame);
 	
-	Frame(const SRef<Keyframe> keyframe);
+    Frame(const SRef<Keyframe> keyframe);
 
 	explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const SRef<DescriptorBuffer> descriptors,
-				   const SRef<Image> view,
-				   const Transform3Df pose = Transform3Df::Identity());
-
-    explicit Frame(const std::vector<Keypoint> & keypoints,
-				   const std::vector<Keypoint> & undistortedKeypoints,
-                   const SRef<DescriptorBuffer> descriptors,
                    const SRef<Image> view,
-                   const SRef<Keyframe> refKeyframe,
+                   const uint32_t camID = 0,
                    const Transform3Df pose = Transform3Df::Identity());
 
     explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const std::vector<Keypoint> & undistortedKeypoints,
                    const SRef<DescriptorBuffer> descriptors,
                    const SRef<Image> view,
+                   const SRef<Keyframe> refKeyframe,
+                   const uint32_t camID = 0,
+                   const Transform3Df pose = Transform3Df::Identity());
+
+    explicit Frame(const std::vector<Keypoint> & keypoints,
+				   const std::vector<Keypoint> & undistortedKeypoints,
+                   const SRef<DescriptorBuffer> descriptors,
+                   const SRef<Image> view,
+                   const uint32_t camID = 0,
                    const Transform3Df pose = Transform3Df::Identity());
 
     /// @brief ~Frame
@@ -66,6 +70,14 @@ public:
 	/// @param[in] pose: camera pose
     void setPose(const Transform3Df & pose);
 
+    /// @brief check if the pose of this frame is fixed and no need to optimize
+    /// @return true if fixed pose, otherwise return false
+    bool isFixedPose() const;
+
+    /// @brief This method is to set this frame having a fixed pose.
+	/// @param[in] value the value (true/false)
+    void setFixedPose(bool value);
+
 	/// @brief get keypoints
 	/// @return keypoints
 	const std::vector<Keypoint> & getKeypoints() const;
@@ -78,6 +90,12 @@ public:
 	/// @brief set keypoints
 	/// @param[in] kpts: keypoints
     void setKeypoints(const std::vector<Keypoint>& kpts);
+	
+    /// @brief update keypoint class id
+    /// @param[in] i index of keypoint
+    /// @param[in] classId semantic class Id of this keypoint
+    /// @return true if update class id successfully
+    bool updateKeypointClassId(int i, int classId);
 
 	/// @brief get undistorted keypoints
 	/// @return undistorted keypoints
@@ -132,6 +150,22 @@ public:
 	/// @return true if remove successfully
 	bool removeVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudPoint);
 
+    /// @brief set camera parameters
+    /// @param[in] camParams the camera parameters
+    void setCameraID(const uint32_t camID);
+
+    /// @brief get camera parameters
+    /// @return the camera parameters
+    const uint32_t& getCameraID() const;
+
+    /// @brief set image name
+    /// @param[in] imageName: image name
+    void setImageName(const std::string &imageName);
+
+    /// @brief get image name
+    /// @return image name
+    const std::string& getImageName() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -144,6 +178,9 @@ protected:
     SRef<DescriptorBuffer>          m_descriptors;
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
+    std::string                     m_imageName;
+    uint32_t                        m_camID;
+    bool							m_isFixedPose = false;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;

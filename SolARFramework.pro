@@ -10,7 +10,7 @@ QMAKE_PROJECT_DEPTH = 0
 INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
-VERSION=0.11.0
+VERSION=1.0.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
@@ -51,15 +51,6 @@ linux {
     QMAKE_LFLAGS += -ldl
 }
 
-macx {
-    DEFINES += _MACOS_TARGET_
-    QMAKE_MAC_SDK= macosx
-    QMAKE_CFLAGS += -mmacosx-version-min=10.7 -std=c11 #-x objective-c++
-    QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -std=c11 -std=c++11 -fPIC#-x objective-c++
-    QMAKE_LFLAGS += -mmacosx-version-min=10.7 -v -lstdc++
-    LIBS += -lstdc++ -lc -lpthread
-}
-
 win32 {
 
     DEFINES += WIN64 UNICODE _UNICODE
@@ -68,13 +59,6 @@ win32 {
     QMAKE_CXXFLAGS_DEBUG += /Od
     QMAKE_CXXFLAGS_RELEASE += /O2
 }
-
-android {
-    # Needed to access android sink for spdlog
-    DEFINES += __ANDROID__
-    ANDROID_ABIS="arm64-v8a"
-}
-
 
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
@@ -93,6 +77,8 @@ header_interfaces_input_devices.path = $${PROJECTDEPLOYDIR}/interfaces/api/input
 header_interfaces_input_devices.files = $$files($${PWD}/interfaces/api/input/devices/*.h*)
 header_interfaces_input_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/input/files/
 header_interfaces_input_files.files = $$files($${PWD}/interfaces/api/input/files/*.h*)
+header_interfaces_output_files.path = $${PROJECTDEPLOYDIR}/interfaces/api/output/files/
+header_interfaces_output_files.files = $$files($${PWD}/interfaces/api/output/files/*.h*)
 header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCloud/
 header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
@@ -129,6 +115,8 @@ header_base_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/base/pipeline/
 header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
+header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
+header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -140,6 +128,7 @@ INSTALLS += header_interfaces_fusion
 INSTALLS += header_interfaces_geom
 INSTALLS += header_interfaces_image
 INSTALLS += header_interfaces_input_devices header_interfaces_input_files
+INSTALLS += header_interfaces_output_files
 INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
 INSTALLS += header_interfaces_sink
@@ -152,27 +141,20 @@ INSTALLS += header_interfaces_core
 INSTALLS += header_interfaces_datastructure
 INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
+INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
+INSTALLS += header_interfaces_sfm
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
-INSTALLS += header_interfaces_segm
+
 
 OTHER_FILES += \
     packagedependencies.txt \
     packagedependencies-win.txt \
     packagedependencies-linux.txt \
-    packagedependencies-mac.txt \
-    packagedependencies-android.txt \
     extra-packages.txt \
     extra-packages-linux.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
-
-DISTFILES +=
-
-HEADERS += \
-    interfaces/api/pipeline/IAsyncRelocalizationPipeline.h
-
-

@@ -44,6 +44,11 @@ ImageInternal::ImageInternal(void* data,uint32_t size)
    setData(data,size);
 }
 
+ImageInternal::~ImageInternal()
+{
+    m_storageData.clear();
+}
+
 void ImageInternal::setBufferSize(uint32_t size)
 {
     m_bufferSize = size;
@@ -135,11 +140,11 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
         const OIIO::ImageSpec & spec = in->spec();
 
         OIIO::imagesize_t buffersize = spec.image_bytes(true);
-        unsigned char* pixels = new unsigned char [buffersize];
-        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+        auto pixels = std::make_unique<unsigned char[]>(buffersize);
+        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
         m_internalImpl = utils::make_shared<ImageInternal>();
-        m_internalImpl->setData(pixels, spec.image_bytes(true));
+        m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
         in->close();
     }
 }
@@ -232,6 +237,7 @@ static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = 
 FrameworkReturnCode Image::save(std::string imagePath) const
 {
     Image::ImageEncoding encoding;
+
     if (boost::algorithm::ends_with(imagePath, ".jpg") || boost::algorithm::ends_with(imagePath, ".jpeg"))
         encoding = ENCODING_JPEG;
     else if (boost::algorithm::ends_with(imagePath, ".png"))
@@ -358,6 +364,7 @@ void Image::save(Archive & ar, const unsigned int version) const
         out->close ();
 
         ar & file_buffer;
+        file_buffer.clear();
     }
     else {
         ar & m_internalImpl;
@@ -379,8 +386,8 @@ FrameworkReturnCode Image::load(std::string imagePath)
     m_nbChannels = spec.nchannels;
 
     OIIO::imagesize_t buffersize = spec.image_bytes(true);
-    unsigned char* pixels = new unsigned char [buffersize];
-    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+    auto pixels = std::make_unique<unsigned char[]>(buffersize);
+    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
     if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
     {
@@ -417,7 +424,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
     }
 
     m_internalImpl = utils::make_shared<ImageInternal>();
-    m_internalImpl->setData(pixels, spec.image_bytes(true));
+    m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
     in->close();
 
     return FrameworkReturnCode::_SUCCESS;
@@ -426,7 +433,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
 template<class Archive>
 void Image::load(Archive & ar, const unsigned int version)
 {
-    ar & m_size;
+     ar & m_size;
      ar & m_layout;
      ar & m_pixOrder;
      ar & m_type;
@@ -461,16 +468,94 @@ void Image::load(Archive & ar, const unsigned int version)
          const OIIO::ImageSpec & spec = in->spec();
 
          OIIO::imagesize_t buffersize = spec.image_bytes(true);
-         unsigned char* pixels = new unsigned char [buffersize];
-         in->read_image(OIIO::TypeDesc::UNKNOWN, pixels);
+         auto pixels = std::make_unique<unsigned char[]>(buffersize);
+         in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
 
          m_internalImpl = utils::make_shared<ImageInternal>();
-         m_internalImpl->setData(pixels, spec.image_bytes(true));
+         m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
          in->close();
+         decodingBuffer.clear();
+         memreader.close();
      }
      else {
          ar & m_internalImpl;
      }
+}
+
+FrameworkReturnCode Image::rotate(RotateQuantity degrees)
+{
+    OIIO::TypeDesc type;
+    if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+        type = SolAR2OIIOType.at(m_type);
+    else
+        type = OIIO::TypeDesc::UNKNOWN;
+
+    OIIO::ImageSpec spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, type);
+
+    spec.nchannels = m_nbChannels;
+    if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
+        spec.channelnames = SolAR2OIIOLayout.at(m_layout);
+
+    spec.attribute ("oiio:ColorSpace", "sRGB");
+
+    OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, m_internalImpl->data());
+
+    // Convert to BGR or GRB to RGB channel format
+    if (m_layout == Image::ImageLayout::LAYOUT_BGR)
+        sourceBuf = OIIO::ImageBufAlgo::channels(sourceBuf, 3, { 2, 1, 0 });
+
+    OIIO::ImageBuf rotatedBuf;
+    bool rotateSuccess = false;
+    switch (degrees) {
+    case RotateQuantity::DEGREE_90:
+        rotateSuccess = OIIO::ImageBufAlgo::rotate90(rotatedBuf, sourceBuf);
+        break;
+    case RotateQuantity::DEGREE_180:
+        rotateSuccess = OIIO::ImageBufAlgo::rotate180(rotatedBuf, sourceBuf);
+        break;
+    case RotateQuantity::DEGREE_270:
+        rotateSuccess = OIIO::ImageBufAlgo::rotate270(rotatedBuf, sourceBuf);
+        break;
+    default:
+        // not supported by OpenImageIO
+        std::cout << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;
+        return FrameworkReturnCode::_ERROR_;
+    }
+
+    if (!rotateSuccess)
+        return FrameworkReturnCode::_ERROR_;
+    
+    if (rotatedBuf.has_error())
+    {
+        std::cout << "error: " << rotatedBuf.geterror() << std::endl;
+        return FrameworkReturnCode::_ERROR_;
+    }
+
+    if (degrees == RotateQuantity::DEGREE_90 || degrees == RotateQuantity::DEGREE_270)
+        setSize(m_size.height, m_size.width);
+
+    std::vector<unsigned char> result;
+    result.resize (m_size.width * m_size.height * m_nbBitsPerComponent * m_nbChannels);
+
+    if (!rotatedBuf.get_pixels(OIIO::ROI::All(), type, &result[0]))
+        return FrameworkReturnCode::_ERROR_;
+    m_internalImpl->setData(&result[0], m_internalImpl->getBufferSize());
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+FrameworkReturnCode Image::rotate90() 
+{
+    return rotate(Image::RotateQuantity::DEGREE_90);
+}
+
+FrameworkReturnCode Image::rotate180()
+{
+    return rotate(Image::RotateQuantity::DEGREE_180);
+}
+
+FrameworkReturnCode Image::rotate270()
+{
+    return rotate(Image::RotateQuantity::DEGREE_270);
 }
 
 IMPLEMENTSERIALIZE(Image);

@@ -44,10 +44,6 @@ public:
 	/// @brief IMapping default destructor
 	virtual ~IMapping() = default;
 
-	/// @brief this method is used to set intrinsic parameters and distorsion of the camera
-    /// @param[in] camParams  Camera parameters.
-    virtual void setCameraParameters(const SolAR::datastructure::CameraParameters & camParams) = 0;
-
     /// @brief check the mapping process is idle
     /// @return true if the mapping process is idle, else false
     virtual bool idle() = 0;

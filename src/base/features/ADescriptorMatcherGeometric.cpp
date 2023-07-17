@@ -29,13 +29,14 @@ ADescriptorMatcherGeometric::ADescriptorMatcherGeometric(std::map<std::string,st
 
 FrameworkReturnCode ADescriptorMatcherGeometric::match(const SRef<SolAR::datastructure::Frame> frame1,
                                                        const SRef<SolAR::datastructure::Frame> frame2,
-                                                       const SolAR::datastructure::CameraParameters & camParams,
+                                                       const SolAR::datastructure::CameraParameters & camParams1,
+                                                       const SolAR::datastructure::CameraParameters & camParams2,
                                                        std::vector<SolAR::datastructure::DescriptorMatch> & matches,
-                                                       const std::vector<uint32_t>& mask)
-{	
+                                                       const std::vector<uint32_t>& mask1, const std::vector<uint32_t>& mask2)
+{
     return match(frame1->getDescriptors(), frame2->getDescriptors(),
-		frame1->getUndistortedKeypoints(), frame2->getUndistortedKeypoints(), frame1->getPose(), 
-        frame2->getPose(), camParams, matches, mask);
+        frame1->getUndistortedKeypoints(), frame2->getUndistortedKeypoints(), frame1->getPose(),
+                 frame2->getPose(), camParams1, camParams2, matches, mask1, mask2);
 }
 
 }

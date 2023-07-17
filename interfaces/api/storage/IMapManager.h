@@ -28,6 +28,7 @@
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Map.h"
+#include "api/storage/ICameraParametersManager.h"
 #include "api/storage/ICovisibilityGraphManager.h"
 #include "api/storage/IKeyframesManager.h"
 #include "api/storage/IPointCloudManager.h"
@@ -106,6 +107,28 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode removeKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
 
+    /// @brief Add camera parameters to map manager
+    /// @param[in] cameraParameters the camera paramaters to add to the map manager
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode addCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters) = 0;
+
+    /// @brief Remove camera parameters from map manager
+    /// @param[in] cameraParameters the camera parameters to remove from the map manager
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode removeCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters) = 0;
+
+    /// @brief Get camera parameters from map manager
+    /// @param[in] id the id of the camera parameters
+    /// @param[out] cameraParameters the camera parameters to get from the map manager
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCameraParameters(const uint32_t id, SRef<SolAR::datastructure::CameraParameters> & cameraParameters) = 0;
+
+    /// @brief Get camera parameters from map manager
+    /// @param[in] id the id of the camera parameters
+    /// @param[out] cameraParameters the camera parameters to get from the map manager
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCameraParameters(const uint32_t id, SolAR::datastructure::CameraParameters & cameraParameters) = 0;
+
 	/// @brief Prune cloud points of a map
 	/// @param[in] cloudPoints: the cloud points are checked to prune
     virtual int pointCloudPruning(const std::vector<SRef<SolAR::datastructure::CloudPoint>> &cloudPoints = {}) = 0;
@@ -113,6 +136,9 @@ public:
 	/// @brief Prune keyframes of a map
 	/// @param[in] keyframes: the keyframes are checked to prune
     virtual int keyframePruning(const std::vector<SRef<SolAR::datastructure::Keyframe>> &keyframes = {}) = 0;
+
+    /// @brief Prune visibilities of a map 
+    virtual FrameworkReturnCode visibilityPruning() = 0;   
 
 	/// @brief Save the map to the external file
     /// @return FrameworkReturnCode::_SUCCESS_ if the backup succeeds, else FrameworkReturnCode::_ERROR.

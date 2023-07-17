@@ -71,8 +71,8 @@ public:
 }  // end of namespace SolAR
 
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::features::IImageMatcher,
-                             "157ec340-0682-4e6c-bf69-e4d95fa760d3",
-                             "IImageMatcher",
-                             "IImageMatcher interface description");
+                            "157ec340-0682-4e6c-bf69-e4d95fa760d3",
+                            "IImageMatcher",
+                            "IImageMatcher interface description");
 
 #endif // IIMAGEMATCHER_H

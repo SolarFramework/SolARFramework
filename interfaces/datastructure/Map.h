@@ -21,11 +21,13 @@
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Identification.h"
+#include "datastructure/CameraParametersCollection.h"
 #include "datastructure/CoordinateSystem.h"
 #include "datastructure/PointCloud.h"
 #include "datastructure/KeyframeCollection.h"
 #include "datastructure/CovisibilityGraph.h"
 #include "datastructure/KeyframeRetrieval.h"
+#include "datastructure/Trackable.h"
 #include "xpcf/core/refs.h"
 #include <map>
 
@@ -40,13 +42,14 @@ namespace datastructure {
 * @brief <B>A generic map composed of an identification and a coordinate system.</B>
 * This class provides a generic map.
 */
-class  SOLARFRAMEWORK_API Map {
+class  SOLARFRAMEWORK_API Map : public Trackable {
 public:
 	typedef enum {
 		_PointCloud = 0x01,
 		_Keyframe = 0x02,
 		_CovisibilityGraph = 0x04,
-		_KFRetriever = 0x08
+        _KFRetriever = 0x08,
+        _CameraParemeters = 0x10
 	} MapType;
 
 	///
@@ -133,18 +136,37 @@ public:
 	///
 	const SRef<KeyframeCollection> & getConstKeyframeCollection() const;
 
-	///
+    ///
 	/// @brief This method returns the keyframe collection
 	/// @param[out] keyframeCollection the keyframe collection of map
 	/// @return the keyframe collection
 	///
 	std::unique_lock<std::mutex> getKeyframeCollection(SRef<KeyframeCollection>& keyframeCollection);
-
+    
 	///
 	/// @brief This method is to set the keyframe collection
 	/// @param[in] keyframeCollection the keyframe collection of map
 	///
 	void setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection);
+
+    ///
+    /// @brief This method returns the camera parameters collection
+    /// @return the camera parameters collection
+    ///
+    const SRef<CameraParametersCollection> & getConstCameraParametersCollection() const;
+
+    ///
+    /// @brief This method returns the camera parameters collection
+    /// @param[out] keyframeCollection the camera parameters collection of map
+    /// @return a mutex
+    ///
+    std::unique_lock<std::mutex> getCameraParametersCollection(SRef<CameraParametersCollection>& cameraParametersCollection);
+
+    ///
+    /// @brief This method is to set the camera parameters collection
+    /// @param[in] cameraParametersCollection the camera parameters collection of map
+    ///
+    void setCameraParametersCollection(const SRef<CameraParametersCollection> cameraParametersCollection);
 
 	///
 	/// @brief This method returns the covisibility graph
@@ -184,19 +206,27 @@ public:
 	///
 	void setKeyframeRetrieval(const SRef<KeyframeRetrieval> keyframeRetrieval);
 
+    ///
+    /// @brief This method is to get trackable type
+    /// @return the trackable's type
+    ///
+    TrackableType getType() const override;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-	uint32_t						m_mapSupportedTypes;
-	SRef<Identification>			m_identification;
-	SRef<CoordinateSystem>			m_coordinateSystem;
-	SRef<PointCloud>				m_pointCloud;
-	SRef<KeyframeCollection>		m_keyframeCollection;
-	SRef<CovisibilityGraph>			m_covisibilityGraph;
-	SRef<KeyframeRetrieval>			m_keyframeRetrieval;
+    uint32_t                                            m_mapSupportedTypes;
+    SRef<Identification>                                m_identification;
+    SRef<CoordinateSystem>                              m_coordinateSystem;
+    SRef<PointCloud>                                    m_pointCloud;
+    SRef<KeyframeCollection>                            m_keyframeCollection;
+    SRef<CovisibilityGraph>                             m_covisibilityGraph;
+    SRef<KeyframeRetrieval>                             m_keyframeRetrieval;
+    SRef<CameraParametersCollection>                    m_cameraParametersCollection;
 };
+
 
 DECLARESERIALIZE(Map);
 }

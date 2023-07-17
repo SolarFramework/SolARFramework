@@ -50,14 +50,26 @@ FrameworkReturnCode PointCloud::addPoint(const CloudPoint & point)
 	return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode PointCloud::addPoints(const std::vector<CloudPoint>& points)
+FrameworkReturnCode PointCloud::addPoints(const std::vector<CloudPoint>& points, bool definePointId)
 {
-	for (auto &it : points) {
+    if (definePointId)
+    {
+        for (auto &it : points)
+        {
 		SRef<CloudPoint> point_ptr = xpcf::utils::make_shared<CloudPoint>(it);
 		point_ptr->setId(m_id);
 		m_pointCloud[m_id] = point_ptr;
 		m_id++;
+        }
 	}
+    else
+    {
+        for (auto &it : points)
+        {
+        SRef<CloudPoint> point_ptr = xpcf::utils::make_shared<CloudPoint>(it);
+        m_pointCloud[point_ptr->getId()] = point_ptr;
+        }
+    }
 	return FrameworkReturnCode::_SUCCESS;
 }
 

@@ -47,7 +47,7 @@ public:
 	/// @brief IMapUpdatePipeline default destructor
 	virtual ~IMapUpdatePipeline() = default;
 
-	/// @brief Set the camera parameters
+    /// @brief Set the camera parameters
 	/// @param[in] cameraParams: the camera parameters (its resolution and its focal)
 	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
@@ -72,6 +72,12 @@ public:
     /// @brief Reset the map stored by the map update pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode resetMap() = 0;
+
+    /// @brief Request to the map update pipeline to get the point cloud of the global map
+    /// @param[out] pointCloud: the output point cloud
+    /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+
 };
 }
 }

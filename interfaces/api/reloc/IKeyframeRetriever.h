@@ -48,8 +48,9 @@ public:
 
     /// @brief Add a keyframe to the retrieval model
     /// @param[in] keyframe: the keyframe to add to the retrieval model
+    /// @param[in] useMatchedDescriptor: if true bow feature will be computed merely from descriptors which are matched to other frames, by default is set to false meaning that all descriptors will be used
     /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe, bool useMatchedDescriptor=false) = 0;
 
 	/// @brief Suppress a keyframe from the retrieval model
 	/// @param[in] keyframe_id: the keyframe to supress from the retrieval model
@@ -115,6 +116,9 @@ public:
 	/// @brief This method is to set the keyframe retrieval
 	/// @param[in] keyframeRetrieval the keyframe retrieval of map
 	virtual void setKeyframeRetrieval(const SRef<SolAR::datastructure::KeyframeRetrieval> keyframeRetrieval) = 0;
+
+    /// @brief This method is to reset the keyframe retrieval 
+    virtual void resetKeyframeRetrieval() = 0;
 };
 
 }
