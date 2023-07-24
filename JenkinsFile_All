@@ -38,16 +38,6 @@ pipeline {
                         buildModule("SolARModuleOpenGL",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
                     }
                 }
-                stage("SolARModuleOpenGV"){
-                    steps {
-                        buildModule("SolARModuleOpenGV",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
-                stage("SolARModuleCeres"){
-                    steps {
-                        buildModule("SolARModuleCeres",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)
-                    }
-                }
                 stage("SolARModuleTools"){
                     steps {
                         buildModule("SolARModuleTools",BRANCH,RELEASE,PRE_RELEASE,REMAKEN_VERSION,QMAKE_RULES_VERSION,SKIP_TESTS,UPLOAD_CONAN_PACKAGE)

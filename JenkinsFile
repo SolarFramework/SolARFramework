@@ -1,5 +1,4 @@
 SolArModulePipeline {
     moduleName="SolARFramework"
     dirName="SolARBuild"
-    android=true
 }
