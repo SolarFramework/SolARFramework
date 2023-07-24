@@ -42,7 +42,7 @@ DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 
 include (SolARFramework.pri)
 
-DEFINES += XPCF_DISABLE_ATTRIBUTES
+# DEFINES += XPCF_DISABLE_ATTRIBUTES
 
 unix {
     # Avoids adding install steps manually. To be commented to have a better control over them.
@@ -51,6 +51,7 @@ unix {
 
 linux {
     QMAKE_LFLAGS += -ldl
+    QMAKE_CXXFLAGS += -Wno-attributes
 }
 
 win32 {
