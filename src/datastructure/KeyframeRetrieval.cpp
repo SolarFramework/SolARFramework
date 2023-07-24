@@ -98,7 +98,7 @@ void KeyframeRetrieval::reset()
 }
 
 template <typename Archive>
-void KeyframeRetrieval::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void KeyframeRetrieval::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar & m_listBoWFeature;
     ar & m_listBoWLevelFeature;

@@ -42,7 +42,7 @@ std::string QRCode::getCode() const {
 }
 
 template<typename Archive>
-void QRCode::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void QRCode::serialize(Archive &ar, const unsigned int /* version */) {
 
     ar.template register_type<QRCode>();
     ar & boost::serialization::base_object<Trackable2D>(*this);

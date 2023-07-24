@@ -163,7 +163,7 @@ public:
     }
 
     inline DescriptorView operator *();
-    bool operator !=(ATTRIBUTE(maybe_unused) const DescriptorBufferIterator & desc) {
+    bool operator !=(const DescriptorBufferIterator & /* desc */) {
         return (m_index != m_nbDescriptors);
     }
 

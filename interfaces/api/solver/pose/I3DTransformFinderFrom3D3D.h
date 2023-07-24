@@ -30,7 +30,7 @@ namespace pose {
  * @class I3DTransformFinderFrom3D3D
  * @brief Finds the 3D transform of a depth sensor from a point cloud captured by this sensor and a point cloud representing a geometric knowledge of the real world.
  */
-class [[xpcf::clientUUID("894e87bc-c3a1-4728-844f-a8c565d06522")]] [[xpcf::serverUUID("51f343ee-9231-4a7a-af03-fe90e857d676")]] I3DTransformFinderFrom3D3D :
+class XPCF_CLIENTUUID("894e87bc-c3a1-4728-844f-a8c565d06522") XPCF_SERVERUUID("51f343ee-9231-4a7a-af03-fe90e857d676") I3DTransformFinderFrom3D3D :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformFinderFrom3D3D default constructor.

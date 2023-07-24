@@ -74,7 +74,7 @@ void PrimitiveInformation::setSemanticId(const int& semanticId) {
 }
 
 template<typename Archive>
-void PrimitiveInformation::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void PrimitiveInformation::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_confidence;
     ar & m_usedTimes;

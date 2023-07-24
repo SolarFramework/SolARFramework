@@ -39,7 +39,7 @@ Mesh::Mesh(const std::vector<Point3Df> points,
 
 
 template<typename Archive>
-void Mesh::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Mesh::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_points;
     ar & m_indexedFaceSets;
     ar & m_normals;

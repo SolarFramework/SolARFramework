@@ -42,9 +42,9 @@ public:
     /// @param[in] rectParams The rectification parameters.
     /// @param[out] unrectifiedKeypoints The unrectified keypoints for estimating depth information.
     /// @return FrameworkReturnCode::_SUCCESS if reprojecting succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode reprojectToUnrectification(const std::vector<SolAR::datastructure::Keypoint>& rectifiedKeypoints,
-                                                           const SolAR::datastructure::RectificationParameters& rectParams,
-                                                           std::vector<SolAR::datastructure::Keypoint>& unrectifiedKeypoints) override
+    virtual FrameworkReturnCode reprojectToUnrectification(const std::vector<SolAR::datastructure::Keypoint>& /*rectifiedKeypoints*/,
+                                                           const SolAR::datastructure::RectificationParameters& /*rectParams*/,
+                                                           std::vector<SolAR::datastructure::Keypoint>& /*unrectifiedKeypoints*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Reproject 2D keypoints with depths to 3D cloud points in the world coordinate system
@@ -54,11 +54,11 @@ public:
     /// @param[in] intrinsicParams The intrinsic parameters of the camera.
     /// @param[out] cloudPoints The output cloud points.
     /// @return FrameworkReturnCode::_SUCCESS if reprojecting succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode reprojectToCloudPoints(const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints,
-                                                       const SRef<SolAR::datastructure::DescriptorBuffer> descriptors,
-                                                       const SolAR::datastructure::Transform3Df& pose,
-                                                       const SolAR::datastructure::CamCalibration& intrinsicParams,
-                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) override
+    virtual FrameworkReturnCode reprojectToCloudPoints(const std::vector<SolAR::datastructure::Keypoint>& /*undistortedKeypoints*/,
+                                                       const SRef<SolAR::datastructure::DescriptorBuffer> /*descriptors*/,
+                                                       const SolAR::datastructure::Transform3Df& /*pose*/,
+                                                       const SolAR::datastructure::CamCalibration& /*intrinsicParams*/,
+                                                       std::vector<SRef<SolAR::datastructure::CloudPoint>>& /*cloudPoints*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Reproject 2D keypoints with depths of a frame to 3D cloud points in the world coordinate system

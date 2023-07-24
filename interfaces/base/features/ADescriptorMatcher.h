@@ -43,9 +43,9 @@ public:
     /// @param[in] descriptors2 The second set of descriptors organized in a dedicated buffer structure.
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
-                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> & matches) override
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> /*descriptors1*/,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> /*descriptors2*/,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> & /*matches*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
 	/// @brief Match two sets of descriptors together. The second set is organized in a vector of descriptors buffer and can be used if the descriptors have been extracted on subsets of an image.

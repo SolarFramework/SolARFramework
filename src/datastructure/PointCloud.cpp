@@ -159,7 +159,7 @@ int PointCloud::getNbPoints() const
 }
 
 template <typename Archive>
-void PointCloud::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void PointCloud::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_id;
 	ar & m_descriptorType;

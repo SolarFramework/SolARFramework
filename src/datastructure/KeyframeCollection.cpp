@@ -122,7 +122,7 @@ int KeyframeCollection::getNbKeyframes() const
 }
 
 template <typename Archive>
-void KeyframeCollection::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void KeyframeCollection::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_id;
 	ar & m_descriptorType;

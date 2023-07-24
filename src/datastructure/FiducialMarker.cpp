@@ -48,7 +48,7 @@ SquaredBinaryPattern FiducialMarker::getPattern() const {
 }
 
 template<typename Archive>
-void FiducialMarker::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void FiducialMarker::serialize(Archive &ar, const unsigned int /* version */) {
 
     ar.template register_type<FiducialMarker>();
     ar & boost::serialization::base_object<Trackable2D>(*this);

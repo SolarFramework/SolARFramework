@@ -44,7 +44,7 @@ namespace features {
  *
  * This class provides a method to extract descriptors directly from an image
  */
-class [[xpcf::clientUUID("6ed44a98-6743-414e-84de-970fab9b3507")]] [[xpcf::serverUUID("1df6caec-4032-48ae-9a46-72e40aadf0a5")]] IDescriptorsExtractorFromImage :
+class XPCF_CLIENTUUID("6ed44a98-6743-414e-84de-970fab9b3507") XPCF_SERVERUUID("1df6caec-4032-48ae-9a46-72e40aadf0a5") IDescriptorsExtractorFromImage :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDescriptorsExtractorFromImage default constructor

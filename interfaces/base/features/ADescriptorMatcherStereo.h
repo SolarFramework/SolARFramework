@@ -45,12 +45,12 @@ public:
     /// @param[in] type Stereo type (horizontal or vertical).
     /// @param[out] matches A vector of matches representing pairs of indices relatively to the first and second set of descriptors.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors1,
-                                      const SRef<SolAR::datastructure::DescriptorBuffer>& descriptors2,
-                                      const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints1,
-                                      const std::vector<SolAR::datastructure::Keypoint>& undistortedKeypoints2,
-                                      SolAR::datastructure::StereoType type,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> &matches) override
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer>& /*descriptors1*/,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer>& /*descriptors2*/,
+                                      const std::vector<SolAR::datastructure::Keypoint>& /*undistortedKeypoints1*/,
+                                      const std::vector<SolAR::datastructure::Keypoint>& /*undistortedKeypoints2*/,
+                                      SolAR::datastructure::StereoType /*type*/,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> &/*matches*/) override
 	{ return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Match two sets of descriptors from stereo images.
