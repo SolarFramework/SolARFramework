@@ -16,6 +16,8 @@ DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
 CONFIG += c++1z
 
+CONFIG += externaldeps
+
 include(findremakenrules.pri)
 
 CONFIG(debug,debug|release) {
