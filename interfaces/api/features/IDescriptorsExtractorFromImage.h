@@ -26,6 +26,7 @@
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorBuffer.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 
 
 // Definition of IDescriptorsExtractorFromImage Class //

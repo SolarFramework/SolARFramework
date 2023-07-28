@@ -21,6 +21,7 @@
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

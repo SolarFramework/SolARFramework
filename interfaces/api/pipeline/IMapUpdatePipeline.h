@@ -20,7 +20,8 @@
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Map.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
+#include <xpcf/core/helpers.h>
 
 
 namespace SolAR {

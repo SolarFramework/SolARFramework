@@ -18,7 +18,7 @@
 #define SOLAR_I2DTRANSFORMFINDER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"

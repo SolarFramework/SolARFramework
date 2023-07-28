@@ -18,6 +18,7 @@
 #define SOLAR_IDESCRIPTORSEXTRACTORSBPATTERN_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/DescriptorBuffer.h"

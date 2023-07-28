@@ -26,6 +26,7 @@
 //#include "IDescriptor.h"
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorBuffer.h"
+#include <xpcf/core/helpers.h>
 
 
 // Definition of IDescriptorsExtractor Class //

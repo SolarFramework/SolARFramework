@@ -17,6 +17,7 @@
 #ifndef ISEMANTICSEGMENTATION_H
 #define ISEMANTICSEGMENTATION_H
 
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "core/Messages.h"

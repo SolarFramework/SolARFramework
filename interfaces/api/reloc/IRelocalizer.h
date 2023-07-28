@@ -20,6 +20,7 @@
 #include "datastructure/Keyframe.h"
 #include "datastructure/Frame.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

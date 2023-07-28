@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/PointCloud.h"
 
 namespace SolAR {

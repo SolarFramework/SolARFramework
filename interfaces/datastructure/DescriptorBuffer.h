@@ -22,7 +22,7 @@
 #include <cstdint>
 
 #include "xpcf/core/refs.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/SolARFrameworkDefinitions.h"
 #include "BufferInternal.hpp"
 

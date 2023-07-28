@@ -17,7 +17,7 @@
 #include "datastructure/Frame.h"
 #include "datastructure/Keyframe.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 std::mutex						m_mutexPose;
 std::mutex						m_mutexKeypoint;

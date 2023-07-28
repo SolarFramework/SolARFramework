@@ -18,6 +18,7 @@
 #define SOLAR_IMULTITRACKABLESPOSE_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Trackable.h"
 #include "core/Messages.h"
 

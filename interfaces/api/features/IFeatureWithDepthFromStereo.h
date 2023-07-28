@@ -18,6 +18,7 @@
 #define SOLAR_IFEATUREWITHDEPTHFROMSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Frame.h"
 #include "datastructure/Image.h"

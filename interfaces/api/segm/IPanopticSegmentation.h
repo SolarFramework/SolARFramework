@@ -20,6 +20,7 @@
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

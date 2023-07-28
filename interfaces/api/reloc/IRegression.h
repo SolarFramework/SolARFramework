@@ -21,6 +21,7 @@
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/CameraDefinitions.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 #include <set>
 
 namespace SolAR {

@@ -16,7 +16,7 @@
 
 #include <datastructure/Map.h>
 #include "xpcf/component/ComponentFactory.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace xpcf = org::bcom::xpcf;
 

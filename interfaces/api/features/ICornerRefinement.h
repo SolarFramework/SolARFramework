@@ -25,6 +25,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include <xpcf/core/helpers.h>
 
 // Definition of ICornerRefinement Class //
 // part of SolAR namespace //

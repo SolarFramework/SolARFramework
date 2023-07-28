@@ -18,6 +18,7 @@
 #define SOLAR_I3DTRANSFORMFINDERFROM3D3D_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/PointCloud.h"
 #include "datastructure/MathDefinitions.h"

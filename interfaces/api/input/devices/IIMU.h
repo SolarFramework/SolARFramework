@@ -20,6 +20,7 @@
 #include "api/input/devices/IDevice.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

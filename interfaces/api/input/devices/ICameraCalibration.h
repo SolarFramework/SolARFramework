@@ -18,6 +18,7 @@
 #define SOLAR_ICAMERACALIBRATION_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
 #include "core/Messages.h"

@@ -19,7 +19,7 @@
 #ifndef SOLAR_MATHSDEFINITIONS_H
 #define SOLAR_MATHSDEFINITIONS_H
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 //#include <boost/serialization/array.hpp>
 //#define EIGEN_DENSEBASE_PLUGIN <datastructure/EigenDenseSerializationAddon.h>

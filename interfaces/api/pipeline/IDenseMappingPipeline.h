@@ -21,7 +21,8 @@
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/Map.h"
 #include "datastructure/Mesh.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
+#include <xpcf/core/helpers.h>
 
 
 namespace SolAR {

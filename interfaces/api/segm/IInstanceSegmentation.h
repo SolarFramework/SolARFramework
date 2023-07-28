@@ -19,6 +19,7 @@
 
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 
 namespace SolAR {

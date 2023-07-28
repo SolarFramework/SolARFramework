@@ -18,6 +18,7 @@
 #define SOLAR_IOPTICALFLOWESTIMATOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
 #include "core/Messages.h"

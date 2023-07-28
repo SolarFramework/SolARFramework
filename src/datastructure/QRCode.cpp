@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/QRCode.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include <boost/serialization/export.hpp>
 
 namespace SolAR {

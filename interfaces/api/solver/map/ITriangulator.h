@@ -22,6 +22,7 @@
 #endif // _BCOM_SHARED
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keyframe.h"

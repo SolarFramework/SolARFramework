@@ -18,6 +18,7 @@
 #define SOLAR_IIMAGEFILTER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 

@@ -16,7 +16,7 @@
 
 #include <datastructure/PrimitiveInformation.h>
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {

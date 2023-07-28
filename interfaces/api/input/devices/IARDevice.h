@@ -5,6 +5,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
+#include <xpcf/core/helpers.h>
 #include <chrono>
 
 namespace SolAR {

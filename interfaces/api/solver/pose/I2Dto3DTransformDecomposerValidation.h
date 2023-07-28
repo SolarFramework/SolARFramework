@@ -6,6 +6,7 @@
 // part of SolAR namespace //
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

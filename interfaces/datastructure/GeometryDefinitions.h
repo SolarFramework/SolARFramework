@@ -20,7 +20,7 @@
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
 #include "xpcf/xpcf.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/MathDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include <core/SerializationDefinitions.h>

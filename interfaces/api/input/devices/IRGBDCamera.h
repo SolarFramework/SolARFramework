@@ -22,6 +22,7 @@
 #include "api/input/devices/IDepthCamera.h"
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

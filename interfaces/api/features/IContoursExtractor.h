@@ -18,6 +18,7 @@
 #define SOLAR_ICONTOURSEXTRACTOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"

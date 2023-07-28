@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/KeyframeRetrieval.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/Log.h"
 
 namespace xpcf = org::bcom::xpcf;

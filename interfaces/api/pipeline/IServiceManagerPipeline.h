@@ -18,7 +18,7 @@
 #define SOLAR_SERVICEMANAGERPIPELINE_H
 
 #include "api/pipeline/IPipeline.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {

@@ -27,6 +27,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
+#include <xpcf/core/helpers.h>
 
 // Definition of IKeypointDetector Class //
 // part of SolAR namespace //
