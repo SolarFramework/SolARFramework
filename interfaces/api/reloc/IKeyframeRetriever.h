@@ -23,6 +23,7 @@
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
 #include <set>
+#include <utility>
 
 namespace SolAR {
 namespace api {
@@ -64,6 +65,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
                                          std::vector<uint32_t> & retKeyframes_id) = 0;
+
+    /// @brief Retrieve a set of keyframes close to the frame pass in input.
+    /// @param[in] frame: the frame for which we want to retrieve close keyframes.
+    /// @param[out] retKeyframes_id_score: a sorted list of keyframe id and score pairs (in decreasing order by score) which are close to the frame passed in input
+    /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
+                                         std::vector<std::pair<uint32_t, double>> & retKeyframes_id_score) = 0;
 
 	/// @brief Retrieve a set of keyframes close to the frame pass in input.
 	/// @param[in] frame: the frame for which we want to retrieve close keyframes.
