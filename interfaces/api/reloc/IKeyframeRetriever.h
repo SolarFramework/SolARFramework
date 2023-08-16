@@ -66,12 +66,12 @@ public:
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
                                          std::vector<uint32_t> & retKeyframes_id) = 0;
 
-    /// @brief Retrieve a set of keyframes close to the frame pass in input.
+    /// @brief Retrieve a set of keyframes close to the frame passed in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] retKeyframes_id_score: a sorted list of keyframe id and score pairs (in decreasing order by score) which are close to the frame passed in input
+    /// @param[out] retKeyframeIdScore: a set of pairs of keyframe id and the corresponding retrieval score (sorted by score in decreasing order)
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
-                                         std::vector<std::pair<uint32_t, double>> & retKeyframes_id_score) = 0;
+                                         std::vector<std::pair<uint32_t, double>> & retKeyframeIdScore) = 0;
 
 	/// @brief Retrieve a set of keyframes close to the frame pass in input.
 	/// @param[in] frame: the frame for which we want to retrieve close keyframes.
