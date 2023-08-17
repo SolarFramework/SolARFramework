@@ -16,7 +16,7 @@
 
 #include <datastructure/CoordinateSystem.h>
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -65,7 +65,7 @@ bool CoordinateSystem::isFloating() const
 }
 
 template<typename Archive>
-void CoordinateSystem::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void CoordinateSystem::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_isFloating;
     ar & boost::serialization::make_array(m_absolutePosition.data(), 3);
 	ar & boost::serialization::make_array(m_absoluteRotation.data(), 3);

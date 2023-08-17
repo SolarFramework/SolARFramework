@@ -18,7 +18,7 @@
 
 #include "core/Log.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -66,7 +66,7 @@ FrameworkReturnCode ImageMarker::getImageCorners(std::vector<Point2Df> & imageCo
 }
 
 template<typename Archive>
-void ImageMarker::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void ImageMarker::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_image;
 }
 

@@ -19,6 +19,7 @@
 
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -32,7 +33,7 @@ namespace segm {
  * <TT>UUID: 402aae34-bbec-43e3-8f36-3f201b6ca6d2</TT>
  */
 
-class [[xpcf::clientUUID("e75921b5-8b50-44a9-a488-edf1608c8f3e")]] [[xpcf::serverUUID("e85b2140-3cdd-422c-9ca9-b98c99237abd")]] IInstanceSegmentation :
+class XPCF_CLIENTUUID("e75921b5-8b50-44a9-a488-edf1608c8f3e") XPCF_SERVERUUID("e85b2140-3cdd-422c-9ca9-b98c99237abd") IInstanceSegmentation :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IInstanceSegmentation default constructor.

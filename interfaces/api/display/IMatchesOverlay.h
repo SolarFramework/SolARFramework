@@ -19,6 +19,7 @@
 
 #include "datastructure/MathDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorMatch.h"
 #include "datastructure/Keypoint.h"
@@ -35,7 +36,7 @@ namespace display {
  *
  * This class provides drawing method to overlay matches between two images.
  */
-class [[xpcf::clientUUID("a35aa6c7-ce39-4158-866d-5b0210267c12")]] [[xpcf::serverUUID("ef9096d0-c4ec-430d-8424-993b9010e3e3")]] IMatchesOverlay :
+class XPCF_CLIENTUUID("a35aa6c7-ce39-4158-866d-5b0210267c12") XPCF_SERVERUUID("ef9096d0-c4ec-430d-8424-993b9010e3e3") IMatchesOverlay :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMatchesOverlay default constructor

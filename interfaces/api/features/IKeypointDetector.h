@@ -27,6 +27,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
+#include <xpcf/core/helpers.h>
 
 // Definition of IKeypointDetector Class //
 // part of SolAR namespace //
@@ -46,7 +47,7 @@ namespace features {
  *
  * This class provides a method to detect the keypoint from an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class [[xpcf::clientUUID("e16c54b9-bec7-46f3-9118-e884f60792e8")]] [[xpcf::serverUUID("7094b3a7-e257-46bf-84c5-c5e5ce3b8d39")]] IKeypointDetector :
+class XPCF_CLIENTUUID("e16c54b9-bec7-46f3-9118-e884f60792e8") XPCF_SERVERUUID("7094b3a7-e257-46bf-84c5-c5e5ce3b8d39") IKeypointDetector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:

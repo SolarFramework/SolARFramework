@@ -18,6 +18,7 @@
 #define SOLAR_I2DTRACKABLESDETECTOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Trackable.h"
 #include "core/Messages.h"
 #include "datastructure/CameraDefinitions.h"
@@ -32,7 +33,7 @@ namespace features {
  * @brief <B>Detect a set of given 2D trackables in an image.</B>
  * <TT>UUID: 607d0b0d-766d-4ff2-9b72-45c555f9726f</TT>
  */
-class [[xpcf::clientUUID("b62759a5-069a-40b0-846e-71f6adc9cb5e")]] [[xpcf::serverUUID("b73bdd5a-aecb-4e63-b40f-cd05fa7b8490")]] I2DTrackablesDetector :
+class XPCF_CLIENTUUID("b62759a5-069a-40b0-846e-71f6adc9cb5e") XPCF_SERVERUUID("b73bdd5a-aecb-4e63-b40f-cd05fa7b8490") I2DTrackablesDetector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I2DTrackablesDetector default constructor.

@@ -18,7 +18,7 @@
 #define SOLAR_I2DTRANSFORMFINDER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -42,7 +42,7 @@ namespace pose {
   * <TT>UUID: 45dd370a-0eab-4a7f-93d0-43453b4c7517</TT>
   */
 
-class [[xpcf::clientUUID("bb9d839b-4304-44f3-ac09-b6d965e65b6e")]] [[xpcf::serverUUID("e59ed354-1ddc-4f89-b445-31001e0acc67")]] I2DTransformFinder :
+class XPCF_CLIENTUUID("bb9d839b-4304-44f3-ac09-b6d965e65b6e") XPCF_SERVERUUID("e59ed354-1ddc-4f89-b445-31001e0acc67") I2DTransformFinder :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I2DTransformFinder default constructor.

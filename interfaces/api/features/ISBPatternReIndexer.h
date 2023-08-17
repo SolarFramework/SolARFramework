@@ -18,6 +18,7 @@
 #define SOLAR_ISBPATTERNREINDEXER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "api/features/IDescriptorMatcher.h"
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
@@ -32,7 +33,7 @@ namespace features {
  * @brief <B>Gives both the 4 corners of a pattern in its reference coordinate system (pixels, cells, etc.) and the 4 corners in pixels of this pattern in the current image.</B>
  * <TT>UUID: 79c5b810-d557-11e7-9296-cec278b6b50a</TT>
  */
-class [[xpcf::clientUUID("f6633107-382c-44d1-bbee-e3223946f608")]] [[xpcf::serverUUID("2c59c1e6-c757-4147-9c97-12cd7878f88d")]] ISBPatternReIndexer :
+class XPCF_CLIENTUUID("f6633107-382c-44d1-bbee-e3223946f608") XPCF_SERVERUUID("2c59c1e6-c757-4147-9c97-12cd7878f88d") ISBPatternReIndexer :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ISBPatternReIndexer default constructor

@@ -18,6 +18,7 @@
 #define SOLAR_IMESHEXPORTER_H
 
 #include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/core/helpers.h>
 
 #include "core/Messages.h"
 #include "datastructure/Mesh.h"
@@ -31,7 +32,7 @@ namespace SolAR::api::output::files
  * <TT>UUID: faf50760-462c-11ed-b878-0242ac120002</TT>
  *
  */
-class [[xpcf::clientUUID("0e1263d8-462d-11ed-b878-0242ac120002")]] [[xpcf::serverUUID("14cbf040-462d-11ed-b878-0242ac120002")]] IMeshExporter :
+class XPCF_CLIENTUUID("0e1263d8-462d-11ed-b878-0242ac120002") XPCF_SERVERUUID("14cbf040-462d-11ed-b878-0242ac120002") IMeshExporter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMeshExporter() = default;

@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/KeyframeCollection.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/Log.h"
 
 namespace xpcf = org::bcom::xpcf;
@@ -120,7 +120,7 @@ int KeyframeCollection::getNbKeyframes() const
 }
 
 template <typename Archive>
-void KeyframeCollection::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void KeyframeCollection::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_id;
 	ar & m_descriptorType;

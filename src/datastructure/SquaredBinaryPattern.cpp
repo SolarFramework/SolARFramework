@@ -17,7 +17,7 @@
 #include "datastructure/SquaredBinaryPattern.h"
 #include "core/Log.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 #include <iostream>
 
@@ -49,7 +49,7 @@ FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryP
 };
 
 template <typename Archive>
-void SquaredBinaryPattern::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void SquaredBinaryPattern::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar & m_size;
     ar & m_patternMatrix;

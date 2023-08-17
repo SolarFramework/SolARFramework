@@ -18,6 +18,7 @@
 #define SOLAR_I2Dto3DTransformDecomposer_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/MathDefinitions.h"
@@ -33,7 +34,7 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe. *
  */
-class [[xpcf::clientUUID("861a828d-bdda-424b-a00b-3a6a7ef48f8e")]] [[xpcf::serverUUID("eded8db8-d32b-49bc-8b72-db936a63ec9f")]] I2Dto3DTransformDecomposer :
+class XPCF_CLIENTUUID("861a828d-bdda-424b-a00b-3a6a7ef48f8e") XPCF_SERVERUUID("eded8db8-d32b-49bc-8b72-db936a63ec9f") I2Dto3DTransformDecomposer :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2Dto3DTransformDecomposer default constructor.

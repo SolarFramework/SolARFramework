@@ -18,6 +18,7 @@
 #define SOLAR_IDESCRIPTORSEXTRACTORSBPATTERN_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/SquaredBinaryPattern.h"
 #include "datastructure/DescriptorBuffer.h"
@@ -34,7 +35,7 @@ namespace features {
  *
  * This class provides a method to extract descriptors of a squared binary pattern by simply concatenating pattern rows in a single vector.
  */
-class [[xpcf::clientUUID("c2a230ae-6fb0-4e30-b06c-05c29c6feb9b")]] [[xpcf::serverUUID("b79db157-da75-4e58-be04-f82a7c54dc7c")]] IDescriptorsExtractorSBPattern :
+class XPCF_CLIENTUUID("c2a230ae-6fb0-4e30-b06c-05c29c6feb9b") XPCF_SERVERUUID("b79db157-da75-4e58-be04-f82a7c54dc7c") IDescriptorsExtractorSBPattern :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:

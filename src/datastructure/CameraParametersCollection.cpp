@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/CameraParametersCollection.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/Log.h"
 
 namespace xpcf = org::bcom::xpcf;
@@ -109,7 +109,7 @@ FrameworkReturnCode CameraParametersCollection::getAllCameraParameters(std::vect
 {
     for (auto cameraParametersIt = m_cameraParameters.begin(); cameraParametersIt != m_cameraParameters.end(); cameraParametersIt++)
         cameraParameters.push_back(cameraParametersIt->second);
-	return FrameworkReturnCode::_SUCCESS;
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode CameraParametersCollection::suppressCameraParameters(const uint32_t id)
@@ -139,7 +139,7 @@ int CameraParametersCollection::getNbCameraParameters() const
 }
 
 template <typename Archive>
-void CameraParametersCollection::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void CameraParametersCollection::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_id;
     ar & m_cameraParameters;

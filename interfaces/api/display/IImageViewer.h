@@ -19,6 +19,7 @@
 
 #include "datastructure/Image.h"
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -32,7 +33,7 @@ namespace display {
  * This class provides a viewer to display an image in a window.
  */
 
-class [[xpcf::clientUUID("a580d26e-331d-42d4-8bfe-f19913ba97fb")]] [[xpcf::serverUUID("b99d8c4e-10ef-4d7a-ba7c-dfa114cf1620")]] IImageViewer :
+class XPCF_CLIENTUUID("a580d26e-331d-42d4-8bfe-f19913ba97fb") XPCF_SERVERUUID("b99d8c4e-10ef-4d7a-ba7c-dfa114cf1620") IImageViewer :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageViewer() = default;

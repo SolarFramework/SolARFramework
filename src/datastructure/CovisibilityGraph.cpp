@@ -15,7 +15,7 @@
  */
 
 #include "datastructure/CovisibilityGraph.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/Log.h"
 
 namespace xpcf = org::bcom::xpcf;
@@ -325,7 +325,7 @@ FrameworkReturnCode CovisibilityGraph::display() const
 }
 
 template <typename Archive>
-void CovisibilityGraph::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void CovisibilityGraph::serialize(Archive &ar, const unsigned int /* version */)
 {
 	ar & m_nodes;
 	ar & m_edges;

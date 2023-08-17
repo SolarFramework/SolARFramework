@@ -18,6 +18,7 @@
 #define ILOOPCORRECTOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keyframe.h"
@@ -33,7 +34,7 @@ namespace loop{
   * <TT>UUID: 8f05eea8-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-class [[xpcf::clientUUID("51f449f8-c9df-4c3a-ac57-7ca95debfdbc")]] [[xpcf::serverUUID("7dc30f5b-c61f-4eea-81d9-265a2a2b3b93")]] ILoopCorrector :
+class XPCF_CLIENTUUID("51f449f8-c9df-4c3a-ac57-7ca95debfdbc") XPCF_SERVERUUID("7dc30f5b-c61f-4eea-81d9-265a2a2b3b93") ILoopCorrector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ILoopCorrector default constructor

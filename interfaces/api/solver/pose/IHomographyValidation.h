@@ -18,6 +18,7 @@
 #define SOLAR_IHOMOGRAPHYVALIDATION_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/Image.h"
@@ -32,7 +33,7 @@ namespace pose {
   * @brief <B>Tests if a homography is valid.</B>
   * <TT>UUID: e95e8f70-dd32-11e7-9296-cec278b6b50a</TT>
   */
-class [[xpcf::clientUUID("55221e5e-67cc-487c-a277-1d56e3637e42")]] [[xpcf::serverUUID("ca9cda6e-6cf1-495d-a51d-da1286f4f3d3")]] IHomographyValidation :
+class XPCF_CLIENTUUID("55221e5e-67cc-487c-a277-1d56e3637e42") XPCF_SERVERUUID("ca9cda6e-6cf1-495d-a51d-da1286f4f3d3") IHomographyValidation :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IHomographyValidation default constructor

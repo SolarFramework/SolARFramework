@@ -16,7 +16,7 @@
 
 #include "datastructure/Keypoint.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 #include <cstddef> //TO DO: remove with a complete implementation
 
@@ -37,7 +37,7 @@ Keypoint::Keypoint( unsigned int id,
                     float angle,
                     float response,
                     int	octave,
-                    int class_id ):m_id(id), Point2Df(x,y), m_rgb(r, g, b), m_size(size),m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id){
+                    int class_id ): Point2Df(x,y), m_id(id), m_size(size), m_angle(angle), m_response(response), m_octave(octave), m_class_id(class_id), m_rgb(r, g, b) {
 
 
 }
@@ -65,7 +65,7 @@ void Keypoint::init(unsigned int id,
 }
 
 template<typename Archive>
-void Keypoint::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Keypoint::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::base_object<Point2Df>(*this);
 	ar & boost::serialization::make_array(m_rgb.data(), 3);
 	ar & m_id;

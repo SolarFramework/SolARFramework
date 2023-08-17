@@ -18,6 +18,7 @@
 #define SOLAR_IREPROJECTIONSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/Frame.h"
@@ -33,7 +34,7 @@ namespace geom {
 * <TT>UUID: 166a0aad-8c0a-4cdc-9edf-41ff9e514212</TT>
 * Just implement the first and second interface, the third interface is implemented in AReprojectionStereo.
 */
-class [[xpcf::clientUUID("6bb5443e-ffa3-47f1-9276-54577fcd5368")]] [[xpcf::serverUUID("f9ebdfd6-1066-475a-8b72-d51ef3ceadb8")]] IReprojectionStereo :
+class XPCF_CLIENTUUID("6bb5443e-ffa3-47f1-9276-54577fcd5368") XPCF_SERVERUUID("f9ebdfd6-1066-475a-8b72-d51ef3ceadb8") IReprojectionStereo :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IReprojectionStereo constructor

@@ -19,7 +19,7 @@
 #ifndef SOLAR_MATHSDEFINITIONS_H
 #define SOLAR_MATHSDEFINITIONS_H
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 //#include <boost/serialization/array.hpp>
 //#define EIGEN_DENSEBASE_PLUGIN <datastructure/EigenDenseSerializationAddon.h>
@@ -242,7 +242,7 @@ static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions
  * @param[in] transforms list of transform3D
  * @return average transform3D
  */
-static Transform3Df transform3DAverage(const std::vector<Transform3Df>& transforms) {
+ [[maybe_unused]] static Transform3Df transform3DAverage(const std::vector<Transform3Df>& transforms) {
     if (transforms.size() == 0)
         return Transform3Df(Maths::Matrix4f::Zero());
     else if (transforms.size() == 1)
@@ -276,7 +276,7 @@ template<   class Archive,
             int MaxCols_>
 inline void serialize(Archive & ar,
                       Eigen::Matrix<S, Rows_, Cols_, Ops_, MaxRows_, MaxCols_> & matrix,
-                      ATTRIBUTE(maybe_unused) const unsigned int version)
+                      const unsigned int /* version */)
 {
   int rows = matrix.rows();
   int cols = matrix.cols();

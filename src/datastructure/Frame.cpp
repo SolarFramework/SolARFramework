@@ -17,7 +17,7 @@
 #include "datastructure/Frame.h"
 #include "datastructure/Keyframe.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 std::mutex						m_mutexPose;
 std::mutex						m_mutexKeypoint;
@@ -28,15 +28,15 @@ std::mutex						m_mutexVisibility;
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_descriptors(frame->getDescriptors()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_pose(frame->getPose()), m_mapVisibility(frame->getVisibility()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()){}
+Frame::Frame(const SRef<Frame> frame) : m_pose(frame->getPose()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_descriptors(frame->getDescriptors()), m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()), m_mapVisibility(frame->getVisibility()){}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_descriptors(keyframe->getDescriptors()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_pose(keyframe->getPose()), m_mapVisibility(keyframe->getVisibility()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()) {}
+Frame::Frame(const SRef<Keyframe> keyframe) : m_pose(keyframe->getPose()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_descriptors(keyframe->getDescriptors()), m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()), m_mapVisibility(keyframe->getVisibility()) {}
 
-Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose) : m_keypoints(keypoints), m_descriptors(descriptors), m_view(view), m_camID(camID), m_pose(pose) {}
+Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose) : m_pose(pose), m_view(view), m_descriptors(descriptors), m_keypoints(keypoints), m_camID(camID) {}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const uint32_t camID, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_referenceKeyFrame(refKeyframe), m_camID(camID), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const uint32_t camID, const Transform3Df pose): m_pose(pose), m_view(view), m_referenceKeyFrame(refKeyframe), m_descriptors(descriptors), m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_camID(camID){}
 
-Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose): m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_descriptors(descriptors), m_view(view), m_camID(camID), m_pose(pose){}
+Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose): m_pose(pose), m_view(view), m_descriptors(descriptors), m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_camID(camID) {}
 
 const SRef<Image>& Frame::getView() const
 {
@@ -140,7 +140,7 @@ void Frame::addVisibility(const uint32_t& id_keypoint, const uint32_t& id_cloudP
 	m_mapVisibility[id_keypoint] = id_cloudPoint;
 }
 
-bool Frame::removeVisibility(const uint32_t& id_keypoint, ATTRIBUTE(maybe_unused) const uint32_t& id_cloudPoint)
+bool Frame::removeVisibility(const uint32_t& id_keypoint, const uint32_t& /* id_cloudPoint */)
 {
 	std::unique_lock<std::mutex> lock(m_mutexVisibility);
 	if (m_mapVisibility.find(id_keypoint) == m_mapVisibility.end())
@@ -196,7 +196,7 @@ const std::string& Frame::getImageName() const
 }
 
 template<typename Archive>
-void Frame::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
 	ar & m_view;
 	ar & m_descriptors;

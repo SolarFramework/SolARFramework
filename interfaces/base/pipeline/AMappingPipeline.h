@@ -40,29 +40,29 @@ public:
     /// @brief Set the camera parameters
     /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) override
+    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & /* cameraParams */) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
 	/// @brief Set the camera parameters (use for stereo camera)
 	/// @param[in] cameraParams1 the camera parameters of the first camera
 	/// @param[in] cameraParams2 the camera parameters of the second camera
 	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-	virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams1,
-													const SolAR::datastructure::CameraParameters & cameraParams2) override
+    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & /* cameraParams1 */,
+                                                    const SolAR::datastructure::CameraParameters & /* cameraParams2 */) override
 	{ return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Set the rectification parameters (use for stereo camera)
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the rectification parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setRectificationParameters(const SolAR::datastructure::RectificationParameters & rectCam1,
-                                                           const SolAR::datastructure::RectificationParameters & rectCam2) override
+    virtual FrameworkReturnCode setRectificationParameters(const SolAR::datastructure::RectificationParameters & /* rectCam1 */,
+                                                           const SolAR::datastructure::RectificationParameters & /* rectCam2 */) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Set the 3D transformation from SolAR to world spaces
     /// @param[in] transform the transformation matrix from SolAR to World
     /// @return FrameworkReturnCode::_SUCCESS if the transform is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode set3DTransformSolARToWorld(const SolAR::datastructure::Transform3Df & transform) override
+    virtual FrameworkReturnCode set3DTransformSolARToWorld(const SolAR::datastructure::Transform3Df & /* transform*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Request to the mapping pipeline to process a new image/pose
@@ -73,12 +73,12 @@ public:
     /// @param[out] updatedTransform the refined transformation by a loop closure detection
     /// @param[out] status the current status of the mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & images,
-                                                      const std::vector<SolAR::datastructure::Transform3Df> & poses,
-                                                      bool fixedPose,
-                                                      const SolAR::datastructure::Transform3Df & transform,
-                                                      SolAR::datastructure::Transform3Df & updatedTransform,
-                                                      SolAR::api::pipeline::MappingStatus & status) override
+    virtual FrameworkReturnCode mappingProcessRequest(const std::vector<SRef<SolAR::datastructure::Image>> & /* images */,
+                                                      const std::vector<SolAR::datastructure::Transform3Df> & /*poses*/,
+                                                      bool /*fixedPose*/,
+                                                      const SolAR::datastructure::Transform3Df & /*transform*/,
+                                                      SolAR::datastructure::Transform3Df & /*updatedTransform*/,
+                                                      SolAR::api::pipeline::MappingStatus & /*status*/) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Request to the mapping pipeline to process a new image/pose
@@ -110,8 +110,8 @@ public:
     /// @param[out] outputPointClouds: pipeline current point clouds
     /// @param[out] keyframePoses: pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
-                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const override
+    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>> & /*outputPointClouds*/,
+                                                        std::vector<SolAR::datastructure::Transform3Df> & /*keyframePoses*/) const override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 };
 }

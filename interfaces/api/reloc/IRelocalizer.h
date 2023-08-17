@@ -20,6 +20,7 @@
 #include "datastructure/Keyframe.h"
 #include "datastructure/Frame.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
@@ -34,7 +35,7 @@ namespace reloc {
  * This class provides a solution to get the pose given a frame.
  */
 
-class [[xpcf::clientUUID("fcbc25a8-d706-4a80-9d18-820bebbe45d6")]] [[xpcf::serverUUID("cc39b0cc-9236-46b2-8188-937992010c9f")]] IRelocalizer :
+class XPCF_CLIENTUUID("fcbc25a8-d706-4a80-9d18-820bebbe45d6") XPCF_SERVERUUID("cc39b0cc-9236-46b2-8188-937992010c9f") IRelocalizer :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IRelocalizer default constructor.

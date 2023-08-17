@@ -25,6 +25,7 @@
 #include "core/Messages.h"
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include <xpcf/core/helpers.h>
 
 // Definition of ICornerRefinement Class //
 // part of SolAR namespace //
@@ -42,7 +43,7 @@ namespace features {
  *
  * This class provides a method to refine the corner locations.
  */
-class [[xpcf::clientUUID("b33148d7-0366-4167-a641-1efb43869715")]] [[xpcf::serverUUID("c730d426-c7ee-41ec-acae-31bc0a98329c")]] ICornerRefinement :
+class XPCF_CLIENTUUID("b33148d7-0366-4167-a641-1efb43869715") XPCF_SERVERUUID("c730d426-c7ee-41ec-acae-31bc0a98329c") ICornerRefinement :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:    

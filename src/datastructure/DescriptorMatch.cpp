@@ -16,13 +16,13 @@
 
 #include "datastructure/DescriptorMatch.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {
 
 template <typename Archive>
-void DescriptorMatch::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version)
+void DescriptorMatch::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar & std::get<0>(m_match);
     ar & std::get<1>(m_match);

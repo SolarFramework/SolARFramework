@@ -18,6 +18,7 @@
 #define SOLAR_IFEATUREWITHDEPTHFROMSTEREO_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Frame.h"
 #include "datastructure/Image.h"
@@ -31,7 +32,7 @@ namespace features {
 * @brief <B>Perform feature extraction and keypoint depth estimation from each stereo images.</B>
 * <TT>UUID: 10853f36-c0c0-4afb-81b8-0b1a06ca4e71</TT>
 */
-class [[xpcf::clientUUID("23c6b83f-d6a2-415b-a7ba-21556d28cad9")]] [[xpcf::serverUUID("a5a81922-7bac-44b1-a561-9c7b83a07589")]] IFeatureWithDepthFromStereo :
+class XPCF_CLIENTUUID("23c6b83f-d6a2-415b-a7ba-21556d28cad9") XPCF_SERVERUUID("a5a81922-7bac-44b1-a561-9c7b83a07589") IFeatureWithDepthFromStereo :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IFeatureWithDepthFromStereo constructor

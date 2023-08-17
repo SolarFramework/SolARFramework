@@ -16,7 +16,7 @@
 
 #include <datastructure/Map.h>
 #include "xpcf/component/ComponentFactory.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace xpcf = org::bcom::xpcf;
 
@@ -157,7 +157,7 @@ TrackableType Map::getType() const
 }
 
 template<typename Archive>
-void Map::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Map::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;

@@ -18,6 +18,7 @@
 #define SOLAR_ICAMERACALIBRATION_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"
 #include "core/Messages.h"
@@ -31,7 +32,7 @@ namespace devices {
   * @brief <B>Calibrates a camera.</B>
   * <TT>UUID: 0e83b228-b9ca-413d-9dc2-db45c427428b</TT>
   */
-class [[xpcf::clientUUID("b3774427-f712-483b-bbed-060d2ce6134a")]] [[xpcf::serverUUID("ee5fc0d6-281e-4185-9898-c41606a7a0fc")]] ICameraCalibration :
+class XPCF_CLIENTUUID("b3774427-f712-483b-bbed-060d2ce6134a") XPCF_SERVERUUID("ee5fc0d6-281e-4185-9898-c41606a7a0fc") ICameraCalibration :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ~ICameraCalibration

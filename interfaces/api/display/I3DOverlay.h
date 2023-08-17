@@ -19,6 +19,7 @@
 
 #include "datastructure/CameraDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
 #include "datastructure/SquaredBinaryPattern.h"
@@ -34,7 +35,7 @@ namespace display {
  *
  * This class provides drawing method to overlay 3D debug informations on top of an image.
  */
-class [[xpcf::clientUUID("ce48f688-bb48-4d61-800c-e504c0d060a8")]] [[xpcf::serverUUID("cb391967-f407-4a67-b092-26d44de001ce")]] I3DOverlay :
+class XPCF_CLIENTUUID("ce48f688-bb48-4d61-800c-e504c0d060a8") XPCF_SERVERUUID("cb391967-f407-4a67-b092-26d44de001ce") I3DOverlay :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3DOverlay default constructor

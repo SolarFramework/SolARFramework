@@ -26,6 +26,7 @@
 //#include "IDescriptor.h"
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorBuffer.h"
+#include <xpcf/core/helpers.h>
 
 
 // Definition of IDescriptorsExtractor Class //
@@ -46,7 +47,7 @@ namespace features {
  *
  * This class provides a method to extract descriptors from a set of keypoints
  */
-    class [[xpcf::clientUUID("79b1a2c4-639c-42ef-832f-130cf6131271")]] [[xpcf::serverUUID("a5bcfadd-4a12-45b3-a90f-0f1a82d51d12")]] IDescriptorsExtractor :
+    class XPCF_CLIENTUUID("79b1a2c4-639c-42ef-832f-130cf6131271") XPCF_SERVERUUID("a5bcfadd-4a12-45b3-a90f-0f1a82d51d12") IDescriptorsExtractor :
         virtual public org::bcom::xpcf::IComponentIntrospect {
 	public:
         ///

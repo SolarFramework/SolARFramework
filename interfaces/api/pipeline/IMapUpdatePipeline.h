@@ -20,7 +20,8 @@
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Map.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
+#include <xpcf/core/helpers.h>
 
 
 namespace SolAR {
@@ -35,7 +36,7 @@ namespace pipeline {
  * This class provides the interface to define a map update pipeline.
  */
 
-class [[xpcf::clientUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008")]] [[xpcf::serverUUID("82f9fdff-06ee-471f-a260-b7f4ac414627")]]
+class XPCF_CLIENTUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008") XPCF_SERVERUUID("82f9fdff-06ee-471f-a260-b7f4ac414627")
 #ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
 #endif

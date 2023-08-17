@@ -19,6 +19,7 @@
 
 #include "xpcf/api/IComponentIntrospect.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/PointCloud.h"
 
 namespace SolAR {
@@ -31,7 +32,7 @@ namespace files {
  * <TT>UUID: 1abd8117-87d3-4c6c-8fb6-c2fdb7359ee2</TT>
  *
  */
-class [[xpcf::clientUUID("dd80a6fa-db2f-4ba7-ba69-5207a68cfb03")]] [[xpcf::serverUUID("19780d21-e6a8-4f28-bf63-483f50b2af9d")]] IPointCloudLoader :
+class XPCF_CLIENTUUID("dd80a6fa-db2f-4ba7-ba69-5207a68cfb03") XPCF_SERVERUUID("19780d21-e6a8-4f28-bf63-483f50b2af9d") IPointCloudLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IPointCloudLoader() = default;

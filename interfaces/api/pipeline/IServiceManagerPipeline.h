@@ -18,7 +18,7 @@
 #define SOLAR_SERVICEMANAGERPIPELINE_H
 
 #include "api/pipeline/IPipeline.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
@@ -44,7 +44,7 @@ enum class ServiceType {
  * This class provides the interface to define a manager for all SolAR remote services.
  */
 
-class [[xpcf::clientUUID("600ca5f4-6432-11ed-81ce-0242ac120002")]] [[xpcf::serverUUID("65c3a736-6432-11ed-81ce-0242ac120002")]] IServiceManagerPipeline :
+class XPCF_CLIENTUUID("600ca5f4-6432-11ed-81ce-0242ac120002") XPCF_SERVERUUID("65c3a736-6432-11ed-81ce-0242ac120002") IServiceManagerPipeline :
     virtual public IPipeline {
 public:
     /// @brief IServiceManagerPipeline default constructor

@@ -27,7 +27,7 @@
 #include "datastructure/Frame.h"
 #include "datastructure/CameraDefinitions.h"
 #include "xpcf/api/IComponentIntrospect.h"
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -40,7 +40,7 @@ namespace features {
  * <TT>UUID: dda38a40-c50a-4e7d-8433-0f04c7c98518</TT>
  * Just implement the first interface, the second interface is implemented in ADescriptorMatcher.
  */
-class [[xpcf::clientUUID("97adde0e-bb1f-45ee-b9de-3ce6b1275550")]] [[xpcf::serverUUID("b273541a-ec8c-4614-9b3e-7b11d27ac9f7")]] IDescriptorMatcher :
+class XPCF_CLIENTUUID("97adde0e-bb1f-45ee-b9de-3ce6b1275550") XPCF_SERVERUUID("b273541a-ec8c-4614-9b3e-7b11d27ac9f7") IDescriptorMatcher :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDescriptorMatcher default constructor

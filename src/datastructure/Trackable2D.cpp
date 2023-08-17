@@ -18,7 +18,7 @@
 
 #include "core/Log.h"
 
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -88,7 +88,7 @@ FrameworkReturnCode Trackable2D::getWorldCorners(std::vector<Point3Df> & worldCo
 }
 
 template<typename Archive>
-void Trackable2D::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+void Trackable2D::serialize(Archive &ar, const unsigned int /* version */) {
 
     ar & boost::serialization::base_object<Trackable>(*this);
 

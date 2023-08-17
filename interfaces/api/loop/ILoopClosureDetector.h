@@ -18,6 +18,7 @@
 #define ILOOPCLOSUREDETECTOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Keyframe.h"
@@ -33,7 +34,7 @@ namespace loop {
   * <TT>UUID: a267c93a-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-class [[xpcf::clientUUID("ee57ff66-30d0-11ec-8d3d-0242ac130003")]] [[xpcf::serverUUID("fd612992-30d0-11ec-8d3d-0242ac130003")]] ILoopClosureDetector :
+class XPCF_CLIENTUUID("ee57ff66-30d0-11ec-8d3d-0242ac130003") XPCF_SERVERUUID("fd612992-30d0-11ec-8d3d-0242ac130003") ILoopClosureDetector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ILoopClosureDetector default constructor

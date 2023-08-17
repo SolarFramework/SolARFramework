@@ -18,6 +18,7 @@
 #define SOLAR_IMESHLOADER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/Mesh.h"
 
@@ -31,7 +32,7 @@ namespace files {
  * <TT>UUID: 315c7cd4-462d-11ed-b878-0242ac120002</TT>
  *
  */
-class [[xpcf::clientUUID("5580de7a-462d-11ed-b878-0242ac120002")]] [[xpcf::serverUUID("5973d118-462d-11ed-b878-0242ac120002")]] IMeshLoader :
+class XPCF_CLIENTUUID("5580de7a-462d-11ed-b878-0242ac120002") XPCF_SERVERUUID("5973d118-462d-11ed-b878-0242ac120002") IMeshLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMeshLoader() = default;

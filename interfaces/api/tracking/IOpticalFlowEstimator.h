@@ -18,6 +18,7 @@
 #define SOLAR_IOPTICALFLOWESTIMATOR_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"
 #include "core/Messages.h"
@@ -35,7 +36,7 @@ namespace tracking {
  * This interface is defined to implement components to estimate the optical flow between two images.
  */
 
-class [[xpcf::clientUUID("acc7cbc7-ea8d-4034-a568-363d9b820eed")]] [[xpcf::serverUUID("af06b587-5be2-4d1a-87ed-ad900d47fe82")]] IOpticalFlowEstimator :
+class XPCF_CLIENTUUID("acc7cbc7-ea8d-4034-a568-363d9b820eed") XPCF_SERVERUUID("af06b587-5be2-4d1a-87ed-ad900d47fe82") IOpticalFlowEstimator :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IOpticalFlow default constructor

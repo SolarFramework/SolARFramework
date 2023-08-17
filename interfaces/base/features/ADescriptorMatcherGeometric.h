@@ -50,17 +50,17 @@ public:
     /// @param[in] mask1 The indices of descriptors in the first frame are used for matching to the second frame. If it is empty then all will be used.
     /// @param[in] mask2 The indices of descriptors in the second frame are used for matching to the first frame. If it is empty then all will be used.
     /// @return FrameworkReturnCode::_SUCCESS if matching succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
-                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
-                                      const std::vector<SolAR::datastructure::Keypoint> &undistortedKeypoints1,
-                                      const std::vector<SolAR::datastructure::Keypoint> &undistortedKeypoints2,
-                                      const SolAR::datastructure::Transform3Df& pose1,
-                                      const SolAR::datastructure::Transform3Df& pose2,
-                                      const SolAR::datastructure::CameraParameters & camParams1,
-                                      const SolAR::datastructure::CameraParameters & camParams2,
-                                      std::vector<SolAR::datastructure::DescriptorMatch> & matches,
-                                      const std::vector<uint32_t>& mask1 = {},
-                                      const std::vector<uint32_t>& mask2 = {}) override
+    virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> /* descriptors1 */,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> /* descriptors2 */,
+                                      const std::vector<SolAR::datastructure::Keypoint> & /* undistortedKeypoints1, */,
+                                      const std::vector<SolAR::datastructure::Keypoint> & /* undistortedKeypoints2 */,
+                                      const SolAR::datastructure::Transform3Df& /* pose1, */,
+                                      const SolAR::datastructure::Transform3Df& /* pose2 */,
+                                      const SolAR::datastructure::CameraParameters & /* camParams1, */,
+                                      const SolAR::datastructure::CameraParameters & /* camParams2 */,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> & /* matches */,
+                                      const std::vector<uint32_t>& /* mask1 */,
+                                      const std::vector<uint32_t>& /* mask2 */) override
     { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Match two sets of descriptors from two frames based on epipolar constraint.

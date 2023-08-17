@@ -18,6 +18,7 @@
 #define SOLAR_ITrackablePose_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 #include "datastructure/Trackable.h"
 #include "core/Messages.h"
 
@@ -34,7 +35,7 @@ namespace pose {
  * @brief <B>Estimate camera pose based on a given trackable.</B>
  * <TT>UUID: d5247968-b74e-4afb-9abd-546021441ad4</TT>
  */
-class [[xpcf::clientUUID("ad79b898-f2b0-446f-835e-7daf3458fe50")]] [[xpcf::serverUUID("cd7858b0-0bfa-4ece-b16a-3e02fa309495")]] ITrackablePose :
+class XPCF_CLIENTUUID("ad79b898-f2b0-446f-835e-7daf3458fe50") XPCF_SERVERUUID("cd7858b0-0bfa-4ece-b16a-3e02fa309495") ITrackablePose :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ITrackablePose default constructor.

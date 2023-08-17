@@ -18,6 +18,7 @@
 #define SOLAR_I2D3DCORRESPONDENCESFINDER_H
 
 #include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/core/helpers.h>
 
 #include "core/Messages.h"
 
@@ -37,7 +38,7 @@ namespace pose {
  *
  * Knowing a frame, its reference keyframe which already has 3D correpspondences, as well the 2D matches between them, the component find the 2d-3D correspondences between the current frame and the 3D Points visible from the reference keyframe.
  */
-class [[xpcf::clientUUID("5752dde3-a6b6-4828-83d9-914c9fe1954c")]] [[xpcf::serverUUID("c459012f-0923-400c-9340-b91b1525a7bb")]] I2D3DCorrespondencesFinder :
+class XPCF_CLIENTUUID("5752dde3-a6b6-4828-83d9-914c9fe1954c") XPCF_SERVERUUID("c459012f-0923-400c-9340-b91b1525a7bb") I2D3DCorrespondencesFinder :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I2D3DCorrespondencesFinder default constructor.

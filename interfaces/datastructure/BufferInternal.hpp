@@ -20,7 +20,7 @@
 #include <cstdint>
 
 #include <core/SerializationDefinitions.h>
-#include "xpcf/core/helpers.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace datastructure {
@@ -81,7 +81,7 @@ public:
 private:
 	friend class boost::serialization::access;
 	template<class Archive>
-    void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
+    void serialize(Archive &ar, const unsigned int /* version */) {
 		ar & m_storageData;
 		ar & m_bufferSize;
 	}

@@ -20,6 +20,7 @@
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "core/Messages.h"
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
@@ -32,7 +33,7 @@ namespace segm {
  * <TT>UUID: 60701300-75e2-4215-a5e1-3a2b0aa3193a</TT>
  */
 
-class [[xpcf::clientUUID("26e61305-b483-487a-8701-4a9612af5db6")]] [[xpcf::serverUUID("5c3e0d59-101c-40f8-8efe-0190c4816d81")]] IPanopticSegmentation :
+class XPCF_CLIENTUUID("26e61305-b483-487a-8701-4a9612af5db6") XPCF_SERVERUUID("5c3e0d59-101c-40f8-8efe-0190c4816d81") IPanopticSegmentation :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IPanopticSegmentation default constructor.
