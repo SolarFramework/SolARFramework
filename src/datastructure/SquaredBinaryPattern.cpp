@@ -16,13 +16,7 @@
 
 #include "datastructure/SquaredBinaryPattern.h"
 #include "core/Log.h"
-<<<<<<< HEAD
-
-#include <xpcf/core/helpers.h>
-
-=======
 #include "xpcf/core/helpers.h"
->>>>>>> UpgradeStaticDependencies
 #include <iostream>
 
 namespace SolAR {
