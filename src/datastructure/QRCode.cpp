@@ -15,8 +15,9 @@
  */
 
 #include "datastructure/QRCode.h"
-#include <xpcf/core/helpers.h>
-#include <boost/serialization/export.hpp>
+#include "xpcf/core/helpers.h"
+
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::QRCode);
 
 namespace SolAR {
 namespace datastructure {
@@ -52,6 +53,3 @@ IMPLEMENTSERIALIZE(QRCode);
 
 }
 }
-
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::QRCode)
-BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::QRCode)

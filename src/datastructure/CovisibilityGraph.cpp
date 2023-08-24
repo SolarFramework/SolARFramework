@@ -20,6 +20,8 @@
 
 namespace xpcf = org::bcom::xpcf;
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CovisibilityGraph);
+
 namespace SolAR {
 namespace datastructure {
 

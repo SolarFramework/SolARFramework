@@ -21,6 +21,8 @@
 
 #include <xpcf/core/helpers.h>
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::DescriptorBuffer);
+
 namespace  SolAR {
 namespace datastructure {
 const static std::map<DescriptorType, std::pair<uint32_t, DescriptorDataType>> descriptorType2elementsAndDataType =

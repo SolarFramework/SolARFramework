@@ -21,13 +21,12 @@
 #define _BCOM_SHARED
 #endif // _BCOM_SHARED
 
-#include "xpcf/api/IComponentIntrospect.h"
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/DescriptorBuffer.h"
-#include "datastructure/PrimitiveInformation.h"
+#include <xpcf/api/IComponentIntrospect.h>
+#include <core/SolARFrameworkDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/DescriptorBuffer.h>
+#include <datastructure/PrimitiveInformation.h>
 #include <core/SerializationDefinitions.h>
-
 
 // Definition of CloudPoint Class //
 // part of SolAR namespace //
@@ -293,5 +292,7 @@ DECLARESERIALIZE(CloudPoint);
 
 }  // end of namespace datastructure
 }  // end of namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CloudPoint);
 
 #endif // SolAR_KEYPOINT_H

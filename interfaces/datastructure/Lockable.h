@@ -18,7 +18,7 @@
 #define SOLAR_LOCKABLE_H
 
 #include <mutex>
-#include "core/SolARFrameworkDefinitions.h"
+#include <core/SolARFrameworkDefinitions.h>
 
 // Definition of Lockable Class //
 // part of SolAR namespace //

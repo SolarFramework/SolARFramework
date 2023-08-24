@@ -18,6 +18,8 @@
 
 #include <xpcf/core/helpers.h>
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CoordinateSystem);
+
 namespace SolAR {
 namespace datastructure {
 

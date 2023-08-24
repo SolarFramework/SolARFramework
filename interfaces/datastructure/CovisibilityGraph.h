@@ -1,12 +1,13 @@
 #ifndef COVISIBILITYGRAPH_H
 #define COVISIBILITYGRAPH_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Keyframe.h"
-#include "datastructure/Lockable.h"
-#include "core/Messages.h"
-#include "xpcf/core/refs.h"
+#include <core/SolARFrameworkDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Keyframe.h>
+#include <datastructure/Lockable.h>
+#include <core/Messages.h>
+#include <core/SerializationDefinitions.h>
+#include <xpcf/core/refs.h>
 #include <map>
 
 // Definition of CovisibilityGraph Class //
@@ -125,5 +126,7 @@ DECLARESERIALIZE(CovisibilityGraph);
 
 }
 }  // end of namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CovisibilityGraph);
 
 #endif // COVISIBILITYGRAPH_H

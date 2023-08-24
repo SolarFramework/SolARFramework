@@ -22,10 +22,10 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
 #include <core/SerializationDefinitions.h>
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Lockable.h"
-#include "core/Log.h"
+#include <datastructure/MathDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Lockable.h>
+#include <core/Log.h>
 #include <iostream>
 #include <string>
 #include <chrono>
@@ -152,5 +152,8 @@ DECLARESERIALIZE(Identification);
 
 }
 }
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Identification);
+
 
 #endif //SOLAR_DESCRIPTORMATCH_H

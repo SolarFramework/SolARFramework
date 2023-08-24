@@ -1,13 +1,15 @@
 #ifndef CAMERAPARAMETERSCOLLECTION_H
 #define CAMERAPARAMETERSCOLLECTION_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/CameraDefinitions.h"
-#include "datastructure/Lockable.h"
-#include "core/Messages.h"
-#include "xpcf/core/refs.h"
+#include <core/SolARFrameworkDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/CameraDefinitions.h>
+#include <datastructure/Lockable.h>
+#include <core/Messages.h>
+#include <core/SerializationDefinitions.h>
+#include <xpcf/core/refs.h>
 #include <map>
+
 
 // Definition of CameraParametersCollection Class //
 // part of SolAR namespace //
@@ -97,5 +99,7 @@ DECLARESERIALIZE(CameraParametersCollection);
 
 }
 }  // end of namespace SolAR
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::CameraParametersCollection);
 
 #endif // CAMERAPARAMETERSCOLLECTION_H

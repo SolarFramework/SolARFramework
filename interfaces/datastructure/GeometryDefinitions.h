@@ -19,10 +19,10 @@
 #ifndef SOLAR_GEOMETRYDEFINITIONS_H
 #define SOLAR_GEOMETRYDEFINITIONS_H
 
-#include "xpcf/xpcf.h"
+#include <xpcf/xpcf.h>
 #include <xpcf/core/helpers.h>
-#include "datastructure/MathDefinitions.h"
-#include "core/SolARFrameworkDefinitions.h"
+#include <datastructure/MathDefinitions.h>
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
 namespace SolAR {

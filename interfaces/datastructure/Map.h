@@ -17,18 +17,19 @@
 #ifndef SOLAR_MAP_H
 #define SOLAR_MAP_H
 
+#include <core/SolARFrameworkDefinitions.h>
+#include <core/SerializationDefinitions.h>
+#include <datastructure/Trackable.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Identification.h>
+#include <datastructure/CameraParametersCollection.h>
+#include <datastructure/CoordinateSystem.h>
+#include <datastructure/PointCloud.h>
+#include <datastructure/KeyframeCollection.h>
+#include <datastructure/CovisibilityGraph.h>
+#include <datastructure/KeyframeRetrieval.h>
+#include <xpcf/core/refs.h>
 #include <vector>
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Identification.h"
-#include "datastructure/CameraParametersCollection.h"
-#include "datastructure/CoordinateSystem.h"
-#include "datastructure/PointCloud.h"
-#include "datastructure/KeyframeCollection.h"
-#include "datastructure/CovisibilityGraph.h"
-#include "datastructure/KeyframeRetrieval.h"
-#include "datastructure/Trackable.h"
-#include "xpcf/core/refs.h"
 #include <map>
 
 // Definition of Map Class //

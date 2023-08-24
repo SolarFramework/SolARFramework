@@ -18,6 +18,8 @@
 #include "xpcf/component/ComponentFactory.h"
 #include <xpcf/core/helpers.h>
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Map);
+
 namespace xpcf = org::bcom::xpcf;
 
 namespace SolAR {

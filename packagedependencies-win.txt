@@ -1,2 +1,1 @@
-openimageio#1_0_0|2.3.13.0|openimageio|conan-solar@conan|conan-solar|default|boost:shared=True#boost:zlib=False#boost:bzip2=False#with_ffmpeg=False#with_freetype=False#with_giflib=False#with_hdf5=False#with_libheif=False#with_libwebp=False#with_opencolorio=False#with_opencv=False#with_ptex=False#with_tools=False
-
+openimageio#1_1_0|2.4.7.1|openimageio|conan-solar@conan|conan-solar|default|with_ffmpeg=False#with_freetype=False#with_giflib=False#with_hdf5=False#with_libheif=False#with_libwebp=False#with_opencolorio=False#with_opencv=False#with_ptex=False

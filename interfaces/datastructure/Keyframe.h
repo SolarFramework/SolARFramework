@@ -17,11 +17,12 @@
 #ifndef SOLAR_KEYFRAME_H
 #define SOLAR_KEYFRAME_H
 
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "Frame.h"
-#include <map>
+#include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
+#include <datastructure/GeometryDefinitions.h>
+#include <datastructure/Frame.h>
+#include <map>
+
 
 namespace SolAR {
 namespace datastructure {
@@ -99,5 +100,7 @@ DECLARESERIALIZE(Keyframe);
 
 }
 }
+
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Keyframe);
 
 #endif //SOLAR_POSE_H

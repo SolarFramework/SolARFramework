@@ -17,9 +17,10 @@
 #ifndef SOLAR_BINARYPATTERN_H
 #define SOLAR_BINARYPATTERN_H
 
-#include "core/Messages.h"
-#include "core/SolARFrameworkDefinitions.h"
-#include "datastructure/MathDefinitions.h"
+#include <core/Messages.h>
+#include <core/SolARFrameworkDefinitions.h>
+#include <core/SerializationDefinitions.h>
+#include <datastructure/MathDefinitions.h>
 
 namespace SolAR {
 namespace datastructure {

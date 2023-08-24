@@ -18,6 +18,8 @@
 
 #include <xpcf/core/helpers.h>
 
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Identification);
+
 namespace SolAR {
 namespace datastructure {
 

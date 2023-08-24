@@ -14,6 +14,7 @@ VERSION=1.1.0
 
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
+
 CONFIG += c++1z
 
 CONFIG += externaldeps
@@ -30,7 +31,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib
+DEPENDENCIESCONFIG = static
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
@@ -63,6 +64,7 @@ win32 {
     QMAKE_CXXFLAGS += -wd4250 -wd4251 -wd4244 -wd4275
     QMAKE_CXXFLAGS_DEBUG += /Od
     QMAKE_CXXFLAGS_RELEASE += /O2
+    LIBS += -lshell32
 }
 
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/

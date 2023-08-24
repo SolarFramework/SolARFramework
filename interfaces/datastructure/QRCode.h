@@ -93,4 +93,6 @@ DECLARESERIALIZE(QRCode);
 }
 } // end of namespace SolAR
 
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::QRCode);
+
 #endif // QRCODE_H

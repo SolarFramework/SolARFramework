@@ -78,4 +78,6 @@ DECLARESERIALIZE(DescriptorMatch);
 }
 }
 
+BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::DescriptorMatch);
+
 #endif //SOLAR_DESCRIPTORMATCH_H

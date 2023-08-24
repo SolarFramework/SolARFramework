@@ -15,10 +15,9 @@
  */
 
 #include "datastructure/FiducialMarker.h"
+#include "xpcf/core/helpers.h"
 
-#include <xpcf/core/helpers.h>
-
-#include <boost/serialization/export.hpp>
+BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::FiducialMarker);
 
 namespace SolAR {
 namespace datastructure {
@@ -61,6 +60,3 @@ IMPLEMENTSERIALIZE(FiducialMarker);
 
 }
 }
-
-BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::FiducialMarker)
-BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::FiducialMarker)
