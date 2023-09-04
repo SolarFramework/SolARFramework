@@ -22,6 +22,7 @@
 #include "datastructure/KeyframeRetrieval.h"
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
+#include <algorithm>
 #include <set>
 #include <utility>
 
@@ -59,24 +60,31 @@ public:
     virtual FrameworkReturnCode suppressKeyframe(uint32_t keyframeId) = 0;
 
 
-    /// @brief Retrieve a set of keyframes close to the frame pass in input.
+    /// @brief Retrieve a list of keyframes close to the frame pass in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] retKeyframeId: a list of keyframe ids which are close to the frame passed in input, the ids are sorted by the degree of closeness in decreasing order 
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
-                                         std::vector<uint32_t> & retKeyframeId) = 0;
+    FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
+                                         std::vector<uint32_t> & retKeyframeId) {
+        std::vector<std::pair<uint32_t, double>> retKeyframeIdScore;
+        if (retrieve(frame, retKeyframeIdScore) != FrameworkReturnCode::_SUCCESS)
+            return FrameworkReturnCode::_ERROR_;
+        retKeyframeId.clear();
+        std::for_each(retKeyframeIdScore.cbegin(), retKeyframeIdScore.cend(), [&retKeyframeId](const auto& e) {retKeyframeId.push_back(e.first);});
+        return FrameworkReturnCode::_SUCCESS;
+    }
 
-    /// @brief Retrieve a set of keyframes close to the frame passed in input.
+    /// @brief Retrieve a list of keyframes close to the frame passed in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] retKeyframeIdScore: a set of pairs of keyframe id and the corresponding retrieval score (sorted by score in decreasing order)
+    /// @param[out] retKeyframeIdScore: a list of pairs of keyframe id and the corresponding retrieval score (sorted by score in decreasing order)
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
                                          std::vector<std::pair<uint32_t, double>> & retKeyframeIdScore) = 0;
 
-	/// @brief Retrieve a set of keyframes close to the frame pass in input.
+	/// @brief Retrieve a list of keyframes close to the frame pass in input.
 	/// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[in] candidateIds: a set including ids of keyframe candidates
-	/// @param[out] retrievedIds: a set of keyframe ids which are close to the frame passed in input
+	/// @param[out] retrievedIds: a list of keyframe ids which are close to the frame passed in input
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
                                          const std::set<uint32_t> & candidateIds,
@@ -95,17 +103,17 @@ public:
 	/// @brief Match a frame with a keyframe
 	/// @param[in] frame: the frame to match
 	/// @param[in] keyframe: id of keyframe to match
-	/// @param[out] matches: a set of matches between frame and keyframe
+	/// @param[out] matches: a list of matches between frame and keyframe
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::Frame> frame,
                                       const SRef<SolAR::datastructure::Keyframe> keyframe,
                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches) = 0;
 
-	/// @brief Match a set of descriptors with a keyframe
+	/// @brief Match a list of descriptors with a keyframe
 	/// @param[in] indexDescriptors: index of descriptors to match.
 	/// @param[in] descriptors: a descriptor buffer contains all descriptors
 	/// @param[in] keyframe: id of keyframe to match
-	/// @param[out] matches: a set of matches between frame and keyframe
+	/// @param[out] matches: a list of matches between frame and keyframe
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode match(const std::vector<int> & indexDescriptors,
                                       const SRef<SolAR::datastructure::DescriptorBuffer> descriptors,
