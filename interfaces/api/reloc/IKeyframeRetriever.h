@@ -61,7 +61,7 @@ public:
 
     /// @brief Retrieve a set of keyframes close to the frame pass in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] retKeyframeId: a set of keyframe ids which are close to the frame pass in input
+    /// @param[out] retKeyframeId: a list of keyframe ids which are close to the frame passed in input, the ids are sorted by the degree of closeness in decreasing order 
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
                                          std::vector<uint32_t> & retKeyframeId) = 0;
@@ -75,12 +75,12 @@ public:
 
 	/// @brief Retrieve a set of keyframes close to the frame pass in input.
 	/// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[in] canKeyframeId: a set including id of keyframe candidates
-	/// @param[out] retKeyframeId: a set of keyframe ids which are close to the frame pass in input
+    /// @param[in] candidateIds: a set including ids of keyframe candidates
+	/// @param[out] retrievedIds: a set of keyframe ids which are close to the frame passed in input
 	/// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
-                                         const std::set<unsigned int> & canKeyframeId,
-                                         std::vector<uint32_t> & retKeyframeId) = 0;
+                                         const std::set<uint32_t> & candidateIds,
+                                         std::vector<uint32_t> & retrievedIds) = 0;
 
 	/// @brief This method allows to save the keyframe feature to the external file
     /// @param[in] file: the file name
