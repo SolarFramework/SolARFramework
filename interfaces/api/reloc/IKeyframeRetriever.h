@@ -64,15 +64,7 @@ public:
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.
     /// @param[out] retKeyframeId: a list of keyframe ids which are close to the frame passed in input, the ids are sorted by the degree of closeness in decreasing order 
     /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame,
-                                         std::vector<uint32_t> & retKeyframeId) {
-        std::vector<std::pair<uint32_t, double>> retKeyframeIdScore;
-        if (retrieve(frame, retKeyframeIdScore) != FrameworkReturnCode::_SUCCESS)
-            return FrameworkReturnCode::_ERROR_;
-        retKeyframeId.clear();
-        std::for_each(retKeyframeIdScore.cbegin(), retKeyframeIdScore.cend(), [&retKeyframeId](const auto& e) {retKeyframeId.push_back(e.first);});
-        return FrameworkReturnCode::_SUCCESS;
-    }
+    FrameworkReturnCode retrieve(const SRef<SolAR::datastructure::Frame> frame, std::vector<uint32_t> & retKeyframeId);
 
     /// @brief Retrieve a list of keyframes close to the frame passed in input.
     /// @param[in] frame: the frame for which we want to retrieve close keyframes.

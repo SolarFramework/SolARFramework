@@ -148,7 +148,8 @@ interfaces/api/segm/ISemanticSegmentation.h \
 interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
-SOURCES += src/core/Log.cpp \
+SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+src/core/Log.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
