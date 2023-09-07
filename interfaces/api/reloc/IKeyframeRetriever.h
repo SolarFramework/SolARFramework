@@ -22,7 +22,6 @@
 #include "datastructure/KeyframeRetrieval.h"
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
-#include <algorithm>
 #include <set>
 #include <utility>
 
