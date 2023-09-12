@@ -22,6 +22,7 @@
 #include "datastructure/KeyframeRetrieval.h"
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
+#include "core/SolARFrameworkDefinitions.h"
 #include <set>
 #include <utility>
 
@@ -38,7 +39,7 @@ namespace reloc {
  * This class provides a solution to retrieve a set of keyframes corresponding to a given frame.
  */
 
-class XPCF_IGNORE IKeyframeRetriever :
+class XPCF_IGNORE SOLARFRAMEWORK_API IKeyframeRetriever :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief IKeyframeRetriever default constructor.
