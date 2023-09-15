@@ -26,6 +26,7 @@
 
 //#define EIGEN_DEFAULT_TO_ROW_MAJOR
 #include <Eigen/Eigen>
+#include <math.h>
 
 #define SOLAR_PI           3.14159265358979323846
 #define SOLAR_RAD2DEG      57.29577951308233
@@ -258,6 +259,97 @@ static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions
     transform3D.linear() = quaternionAverage(quaternions).toRotationMatrix();
     transform3D.translation() = translations;
     return transform3D;
+}
+
+/**
+ * @brief <B> Convert a 3x3 rotation matrix to a 3x1 Rodrigues vector (axis-angle representation).</B>
+ * @param[in] rotMat 3x3 rotation matrix 
+ * @return Rodrigues rotation vector 
+ */
+static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
+    float th = acos(0.5*(fmax(rotMat(0, 0) + rotMat(1, 1) + rotMat(2, 2), -1.f) - 1.f));
+    float sth = sin(th);
+    float cth = cos(th);
+    if (fabs(sth) < 1e-6f && cth < 0.f) {
+        float w[9], x, y, z;
+        w[0] = 0.5f*(rotMat(0, 0) + rotMat(0, 0)) - 1.f;
+        w[1] = 0.5f*(rotMat(1, 0) + rotMat(0, 1));
+        w[2] = 0.5f*(rotMat(2, 0) + rotMat(0, 2));
+
+        w[3] = 0.5f*(rotMat(0, 1) + rotMat(1, 0));
+        w[4] = 0.5f*(rotMat(1, 1) + rotMat(1, 1)) - 1.f;
+        w[5] = 0.5f*(rotMat(2, 1) + rotMat(1, 2));
+
+        w[6] = 0.5f*(rotMat(0, 2) + rotMat(2, 0));
+        w[7] = 0.5f*(rotMat(1, 2) + rotMat(2, 1));
+        w[8] = 0.5f*(rotMat(2, 2) + rotMat(2, 2)) - 1.f;
+
+        x = sqrt(0.5f * (w[0] - w[4] - w[8]));
+        y = sqrt(0.5f * (w[4] - w[8] - w[0]));
+        z = sqrt(0.5f * (w[8] - w[0] - w[4]));
+
+        if (x >= y && x >= z) {
+            y = (w[1] >= 0.f) ? y : -y;
+            z = (w[2] >= 0.f) ? z : -z;
+        }
+        else if (y >= x && y >= z) {
+            z = (w[5] >= 0.f) ? z : -z;
+            x = (w[1] >= 0.f) ? x : -x;
+        }
+        else {
+            x = (w[2] >= 0.f) ? x : -x;
+            y = (w[5] >= 0.f) ? y : -y;
+        }
+
+        float scale = th / sqrt(1.f - cth);
+        return Vector3f(scale * x, scale * y, scale * z);
+    }
+    else {
+        float a = (fabs(sth) < 1e-6f) ? 1.f : th / sin(th);
+        return Vector3f(0.5f*a*(rotMat(2, 1) - rotMat(1, 2)), 0.5f*a*(rotMat(0, 2) - rotMat(2, 0)), 0.5f*a*(rotMat(1, 0) - rotMat(0, 1)));
+    }
+}
+
+/**
+ * @brief <B> Convert a 3x1 Rodrigues vector (axis-angle representation) to a 3x3 rotation matrix.</B>
+ * @param[in] rotVec 3x1 Rodrigues rotation vector  
+ * @return 3x3 rotation matrix 
+ */
+static Rotation rotationVectorToMatrix(const Vector3f& rotVec) {
+    float th = sqrt(rotVec(0)*rotVec(0) + rotVec(1)*rotVec(1) + rotVec(2)*rotVec(2));
+    if (th < 1e-6f)
+        return Rotation::Identity();
+
+    float x = rotVec(0) / th;
+    float y = rotVec(1) / th;
+    float z = rotVec(2) / th;
+
+    float xx = x * x;
+    float xy = x * y;
+    float xz = x * z;
+    float yy = y * y;
+    float yz = y * z;
+    float zz = z * z;
+
+    const float yx = xy;
+
+    float sth = sin(th);
+    float cth = cos(th);
+    float mcth = 1.f - cth;
+
+    Rotation matR;
+    matR(0, 0) = 1.f - mcth * (yy + zz);
+    matR(1, 0) = sth * z + mcth * xy;
+    matR(2, 0) = -sth * y + mcth * xz;
+
+    matR(0, 1) = -sth * z + mcth * yx;
+    matR(1, 1) = 1.f - mcth * (zz + xx);
+    matR(2, 1) = sth * x + mcth * yz;
+
+    matR(0, 2) = sth * y + mcth * xz;
+    matR(1, 2) = -sth * x + mcth * yz;
+    matR(2, 2) = 1.f - mcth * (xx + yy);
+    return matR;
 }
 
 }
