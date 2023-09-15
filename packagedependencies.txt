@@ -1,4 +1,4 @@
 eigen|3.4.0|eigen|conan|conan-center|na|
-spdlog|0.14.0|spdlog|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download|shared|
+spdlog|0.14.0|spdlog|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download|static|
 nlohmann_json|3.9.1|nlohmann_json|conan|conan-center|na|
-xpcf|2.6.3|xpcf|http|https://github.com/b-com-software-basis/xpcf/releases/download|shared|
+xpcf|2.7.0|xpcf|http|https://github.com/b-com-software-basis/xpcf/releases/download|shared
