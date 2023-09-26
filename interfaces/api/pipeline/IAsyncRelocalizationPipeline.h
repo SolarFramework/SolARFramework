@@ -196,7 +196,7 @@ public:
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] fixedPose the input poses are considered as ground truth
-    /// @param[in] worldTransform SolAR (ex: marker) to World origin (ex: BIM origin). Pass zero-filled matrix if not set.
+    /// @param[in] worldTransform AR device coordinate system (in which poses are defined) to World origin (ex: BIM origin). Pass zero-filled matrix if not set.
     /// @param[in] timestamp the timestamp of the image
     /// @param[out] transform3DStatus the status of the current 3D transformation matrix
     /// @param[out] transform3D the current 3D transformation matrix (if available)
