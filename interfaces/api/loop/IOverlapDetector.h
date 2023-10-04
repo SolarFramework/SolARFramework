@@ -17,7 +17,7 @@
 #ifndef IOVERLAPDETECTOR_H
 #define IOVERLAPDETECTOR_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/CameraDefinitions.h"

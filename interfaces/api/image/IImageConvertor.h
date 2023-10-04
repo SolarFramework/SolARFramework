@@ -20,7 +20,7 @@
 // Definition of IImageConvertor Class //
 // part of Solar namespace //
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/Image.h"

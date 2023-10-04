@@ -18,7 +18,7 @@
 #define SOLAR_IPOINTCLOUDMANAGER_H
 
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "datastructure/CloudPoint.h"
 #include "datastructure/PointCloud.h"
 #include "core/Messages.h"

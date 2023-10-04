@@ -17,7 +17,7 @@
 #ifndef SOLAR_IPCFILTERCENTROID_H
 #define SOLAR_IPCFILTERCENTROID_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/PointCloud.h"
 #include "datastructure/GeometryDefinitions.h"

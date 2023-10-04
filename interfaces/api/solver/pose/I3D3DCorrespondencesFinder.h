@@ -17,7 +17,7 @@
 #ifndef SOLAR_I3D3DCORRESPONDENCESFINDER_H
 #define SOLAR_I3D3DCORRESPONDENCESFINDER_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 
 #include "core/Messages.h"

@@ -1,7 +1,7 @@
 #ifndef IMULTIVIEWSTEREO_H
 #define IMULTIVIEWSTEREO_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/GeometryDefinitions.h"

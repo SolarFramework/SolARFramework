@@ -22,7 +22,7 @@
 #endif // _BCOM_SHARED
 
 #include "core/SolARFrameworkDefinitions.h"
-#include "xpcf/component/ConfigurableBase.h"
+#include <xpcf/component/ConfigurableBase.h>
 #include "api/pipeline/IMappingPipeline.h"
 
 namespace SolAR {

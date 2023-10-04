@@ -24,8 +24,11 @@
 #include "datastructure/Map.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/PointCloud.h"
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/api/IComponentManager.h>
 #include <xpcf/core/helpers.h>
 
+namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace api {
 namespace service {
@@ -170,7 +173,7 @@ public:
                                                  TransformStatus & transform3DStatus,
                                                  SolAR::datastructure::Transform3Df & transform3D,
                                                  float_t & confidence,
-                                                 MappingStatus & mappingStatus)
+                                                 SolAR::api::pipeline::MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
         return relocalizeProcessRequest(uuid,
@@ -207,7 +210,7 @@ public:
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence,
-                                                         MappingStatus & mappingStatus) = 0;
+                                                         SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the front end to get the 3D transform offset
     /// between the device coordinate system and the SolAR coordinate system

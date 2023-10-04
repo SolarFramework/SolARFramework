@@ -17,8 +17,12 @@
 #ifndef SOLAR_SERVICEMANAGERSERVICE_H
 #define SOLAR_SERVICEMANAGERSERVICE_H
 
+#include "core/Messages.h"
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/api/IComponentManager.h>
 #include <xpcf/core/helpers.h>
 
+namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace api {
 namespace service {

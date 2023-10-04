@@ -18,7 +18,7 @@
 #define IMESHING_H
 
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "datastructure/Map.h"
 #include "datastructure/Mesh.h"
 

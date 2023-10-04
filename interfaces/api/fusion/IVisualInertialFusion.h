@@ -18,7 +18,7 @@
 #define SOLAR_IVISUALINERTIALFUSION_H
 
 #include "core/Log.h"
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/MathDefinitions.h"

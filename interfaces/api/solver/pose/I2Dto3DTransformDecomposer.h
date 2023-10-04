@@ -17,7 +17,7 @@
 #ifndef SOLAR_I2Dto3DTransformDecomposer_H
 #define SOLAR_I2Dto3DTransformDecomposer_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 
 #include "datastructure/CameraDefinitions.h"
