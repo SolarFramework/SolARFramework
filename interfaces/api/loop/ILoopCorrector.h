@@ -51,11 +51,13 @@ public:
     /// @param[in] duplicatedPointsIndices: indices of duplicated cloud points.
     /// The first index is the id of point cloud seen from the detected loop keyframe.
     /// The second one is id of point cloud seen from the query keyframe
+    /// @param[out] correctedKeyframeIds: list of corrected keyframes' IDs (of which pose has been modified in the method) 
     /// @return FrameworkReturnCode::_SUCCESS if loop closure is correctly corrected, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode correct(const SRef<SolAR::datastructure::Keyframe> queryKeyframe,
                                         const SRef<SolAR::datastructure::Keyframe> detectedLoopKeyframe,
                                         const SolAR::datastructure::Transform3Df & S_wl_wc,
-                                        const std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) = 0;
+                                        const std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices,
+                                        std::vector<uint32_t>& correctedKeyframeIds) = 0;
 
 };
 }
