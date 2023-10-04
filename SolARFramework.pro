@@ -124,6 +124,8 @@ header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
 header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
 header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
+header_interfaces_service.path = $${PROJECTDEPLOYDIR}/interfaces/api/service/
+header_interfaces_service.files += $$files($${PWD}/interfaces/api/service/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -154,6 +156,7 @@ INSTALLS += header_interfaces_sfm
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
+INSTALLS += header_interfaces_service
 
 
 OTHER_FILES += \
