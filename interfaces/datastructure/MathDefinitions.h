@@ -270,6 +270,7 @@ static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
     float th = acos(0.5*(fmax(rotMat(0, 0) + rotMat(1, 1) + rotMat(2, 2), -1.f) - 1.f));
     float sth = sin(th);
     float cth = cos(th);
+    Vector3f rotVec;
     if (fabs(sth) < 1e-6f && cth < 0.f) {
         float w[9], x, y, z;
         w[0] = 0.5f*(rotMat(0, 0) + rotMat(0, 0)) - 1.f;
@@ -302,12 +303,17 @@ static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
         }
 
         float scale = th / sqrt(1.f - cth);
-        return Vector3f(scale * x, scale * y, scale * z);
+        rotVec[0] = scale * x;
+        rotVec[1] = scale * y;
+        rotVec[2] = scale * z;
     }
     else {
         float a = (fabs(sth) < 1e-6f) ? 1.f : th / sin(th);
-        return Vector3f(0.5f*a*(rotMat(2, 1) - rotMat(1, 2)), 0.5f*a*(rotMat(0, 2) - rotMat(2, 0)), 0.5f*a*(rotMat(1, 0) - rotMat(0, 1)));
+        rotVec[0] = 0.5f*a*(rotMat(2, 1) - rotMat(1, 2));
+        rotVec[1] = 0.5f*a*(rotMat(0, 2) - rotMat(2, 0));
+        rotVec[2] = 0.5f*a*(rotMat(1, 0) - rotMat(0, 1));
     }
+    return rotVec;
 }
 
 /**
