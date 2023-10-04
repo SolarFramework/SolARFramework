@@ -1,6 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-interfaces/api/service/IFrontEndService.h \
-interfaces/api/service/IServiceManagerService.h \
+interfaces/api/service/IFrontEnd.h \
+interfaces/api/service/IServiceManager.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
 interfaces/api/display/I3DOverlay.h \

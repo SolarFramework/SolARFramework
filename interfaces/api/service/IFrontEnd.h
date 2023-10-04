@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_FRONTENDSERVICE_H
-#define SOLAR_FRONTENDSERVICE_H
+#ifndef SOLAR_FRONTEND_H
+#define SOLAR_FRONTEND_H
 
 
 #include "api/pipeline/IMappingPipeline.h"
@@ -63,7 +63,7 @@ typedef enum {
 } PoseType;
 
 /**
- * @class IFrontEndService
+ * @class IFrontEnd
  * @brief <B>Defines the front end interface for services.</B>
  * <TT>UUID: 58389ff0-5695-11ec-bf63-0242ac130002</TT>
  *
@@ -73,13 +73,13 @@ class XPCF_CLIENTUUID("91a569da-5695-11ec-bf63-0242ac130002") XPCF_SERVERUUID("9
 #ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
 #endif
-    IFrontEndService {
+    IFrontEnd {
 public:
-    /// @brief IFrontEndService default constructor
-    IFrontEndService() = default;
+    /// @brief IFrontEnd default constructor
+    IFrontEnd() = default;
 
-    /// @brief IFrontEndService default destructor
-    virtual ~IFrontEndService() = default;
+    /// @brief IFrontEnd default destructor
+    virtual ~IFrontEnd() = default;
 
     /// @brief Register a new client and return its UUID to use for future requests
     /// @param[out] the UUID for this new client
@@ -276,9 +276,9 @@ protected:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IFrontEndService,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IFrontEnd,
                              "58389ff0-5695-11ec-bf63-0242ac130002",
-                             "IFrontEndService",
+                             "IFrontEnd",
                              "The interface to define a Front End for services")
 
-#endif // SOLAR_FRONTENDSERVICE_H
+#endif // SOLAR_FRONTEND_H

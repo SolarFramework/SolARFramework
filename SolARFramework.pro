@@ -129,7 +129,6 @@ header_interfaces_service.files += $$files($${PWD}/interfaces/api/service/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
-
 INSTALLS += header_interfaces
 INSTALLS += header_interfaces_display
 INSTALLS += header_interfaces_features

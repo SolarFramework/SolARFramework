@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_SERVICEMANAGERSERVICE_H
-#define SOLAR_SERVICEMANAGERSERVICE_H
+#ifndef SOLAR_SERVICEMANAGER_H
+#define SOLAR_SERVICEMANAGER_H
 
 #include "core/Messages.h"
 #include <xpcf/api/IComponentIntrospect.h>
@@ -40,7 +40,7 @@ enum class ServiceType {
 };
 
 /**
- * @class IServiceManagerService
+ * @class IServiceManager
  * @brief <B>Defines the service manager interface.</B>
  * <TT>UUID: 48c83eda-6432-11ed-81ce-0242ac120002</TT>
  *
@@ -48,13 +48,13 @@ enum class ServiceType {
  */
 
 class XPCF_CLIENTUUID("600ca5f4-6432-11ed-81ce-0242ac120002") XPCF_SERVERUUID("65c3a736-6432-11ed-81ce-0242ac120002")
-    IServiceManagerService {
+    IServiceManager {
 public:
-    /// @brief IServiceManagerService default constructor
-    IServiceManagerService() = default;
+    /// @brief IServiceManager default constructor
+    IServiceManager() = default;
 
-    /// @brief IServiceManagerService default destructor
-    virtual ~IServiceManagerService() = default;
+    /// @brief IServiceManager default destructor
+    virtual ~IServiceManager() = default;
 
     /// @brief Initialization of the service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
@@ -106,9 +106,9 @@ public:
 } // api
 } // SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IServiceManagerService,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IServiceManager,
                              "48c83eda-6432-11ed-81ce-0242ac120002",
-                             "IServiceManagerService",
+                             "IServiceManager",
                              "The interface to define the service manager")
 
-#endif // SOLAR_SERVICEMANAGERSERVICE_H
+#endif // SOLAR_SERVICEMANAGER_H
