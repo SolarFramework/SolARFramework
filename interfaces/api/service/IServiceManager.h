@@ -48,7 +48,7 @@ enum class ServiceType {
  */
 
 class XPCF_CLIENTUUID("600ca5f4-6432-11ed-81ce-0242ac120002") XPCF_SERVERUUID("65c3a736-6432-11ed-81ce-0242ac120002")
-    IServiceManager {
+    IServiceManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IServiceManager default constructor
     IServiceManager() = default;

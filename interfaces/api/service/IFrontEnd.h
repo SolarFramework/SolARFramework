@@ -73,7 +73,7 @@ class XPCF_CLIENTUUID("91a569da-5695-11ec-bf63-0242ac130002") XPCF_SERVERUUID("9
 #ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
 #endif
-    IFrontEnd {
+    IFrontEnd : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IFrontEnd default constructor
     IFrontEnd() = default;
