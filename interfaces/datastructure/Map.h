@@ -173,7 +173,7 @@ public:
 	/// @brief This method returns the covisibility graph
 	/// @return the covisibility graph
 	///
-	const SRef<CovisibilityGraph> & getConstCovisibilityGraph() const;
+	const SRef<CovisibilityGraph> getConstCovisibilityGraph() const;
 
 	///
 	/// @brief This method returns the covisibility graph
