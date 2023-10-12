@@ -102,7 +102,7 @@ void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollectio
 	m_keyframeCollection = keyframeCollection;
 }
 
-const SRef<CovisibilityGraph>& Map::getConstCovisibilityGraph() const
+const SRef<CovisibilityGraph> Map::getConstCovisibilityGraph() const
 {
 	return m_covisibilityGraph;
 }
