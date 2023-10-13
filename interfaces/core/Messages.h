@@ -29,6 +29,8 @@ enum class FrameworkReturnCode:long{
     // error codes
     /** unknown error, better stop!! */
     _ERROR_ = -1,
+    /** Requested resource has not been found */
+    _NOT_FOUND = 404,
 
     // Not implemented interface
     _NOT_IMPLEMENTED = -2,

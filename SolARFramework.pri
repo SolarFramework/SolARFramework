@@ -1,5 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-    $$PWD/interfaces/api/pipeline/IServiceManagerPipeline.h \
+interfaces/api/pipeline/IServiceManagerPipeline.h \
 interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
@@ -100,6 +100,7 @@ interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/IWorldGraphManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
@@ -136,6 +137,11 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
+interfaces/datastructure/StorageTrackable.h \
+interfaces/datastructure/StorageWorldAnchor.h \
+interfaces/datastructure/StorageWorldElement.h \
+interfaces/datastructure/StorageWorldLink.h \
+interfaces/datastructure/UnitSystem.h \
 interfaces/base/features/ADescriptorMatcher.h \
 interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
@@ -174,6 +180,10 @@ src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
 src/datastructure/Mesh.cpp \
+src/datastructure/StorageTrackable.cpp \
+src/datastructure/StorageWorldAnchor.cpp \
+src/datastructure/StorageWorldElement.cpp \
+src/datastructure/StorageWorldLink.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \
