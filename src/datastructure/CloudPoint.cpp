@@ -163,6 +163,16 @@ bool CloudPoint::removeVisibility(const uint32_t& keyframe_id)
 	}
 }
 
+void CloudPoint::setFixedPosition(bool isFixedPosition)
+{
+    m_isFixedPosition = isFixedPosition;
+}
+
+bool CloudPoint::isFixedPosition() const 
+{
+    return m_isFixedPosition;
+}
+
 template <typename Archive>
 void CloudPoint::serialize(Archive &ar, const unsigned int /* version */)
 {
