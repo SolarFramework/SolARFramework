@@ -37,9 +37,7 @@ namespace pipeline {
  */
 
 class XPCF_CLIENTUUID("d9da863c-c9ff-4562-a3a2-329ac1f44008") XPCF_SERVERUUID("82f9fdff-06ee-471f-a260-b7f4ac414627")
-#ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
-#endif
     IMapUpdatePipeline : virtual public IPipeline {
 public:
 	/// @brief IMapUpdatePipeline default constructor
