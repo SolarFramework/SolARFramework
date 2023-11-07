@@ -275,13 +275,13 @@ public:
 
     ///
     /// @brief set whether the cloud point has fixed spatial position or not  
-    /// @param[in] isFixedPosition: boolean, if true the cloudpoint has fixed spatial coordinates X/Y/Z
-    void setFixedPosition(bool isFixedPosition);
+    /// @param[in] isPositionFixed: boolean, if true the cloudpoint has fixed spatial coordinates X/Y/Z
+    void setPositionFixed(bool isPositionFixed);
 
     ///
     /// @brief is cloud point has fixed position 
     /// @return boolean, true if has fixed spatial position, false if not 
-    bool isFixedPosition() const;
+    bool isPositionFixed() const;
 
 private:
 	friend class boost::serialization::access;
@@ -296,7 +296,7 @@ private:
     Vector3f								m_rgb = {0.0, 0.0, 0.0};
     Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
-    bool                                    m_isFixedPosition = false; // fixed spatial position (fixed spatial coordinates x y z)
+    bool                                    m_isPositionFixed = false; // fixed spatial position (fixed spatial coordinates x y z)
 };
 
 DECLARESERIALIZE(CloudPoint);
