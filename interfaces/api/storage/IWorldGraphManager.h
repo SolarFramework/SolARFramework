@@ -21,6 +21,7 @@
 #include <xpcf/core/uuid.h>
 
 #include "core/Messages.h"
+#include "datastructure/StorageCapabilities.h"
 #include "datastructure/StorageWorldElement.h"
 #include "datastructure/StorageTrackable.h"
 #include "datastructure/StorageWorldAnchor.h"
@@ -43,6 +44,18 @@ public:
 
     /// @brief IWorldGraphManager default destructor
     virtual ~IWorldGraphManager() = default;
+
+    /////////////////////////////////
+    /// GRAPH INFORMATION METHODS ///
+    /////////////////////////////////
+
+    /// @brief this method returns from the world graph the relocation information
+    /// @param[in] uuids: The list of all the UUID of WorldAnchors or Trackables asked and the configuration of the user.
+    /// @param[in] token: The token which attest the permission of the user
+    /// @param[in] capabilities: Capabilities of the user
+    /// @param[out] result:  the result attest
+    /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTFOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
+    virtual FrameworkReturnCode getRelocationInformation(const std::vector<org::bcom::xpcf::uuids::uuid> &uuids, const std::string &token,const std::vector<datastructure::StorageCapabilities> &Capability,std::string &result) = 0;
 
     ////////////////////////////
     /// WORLDELEMENT METHODS ///
