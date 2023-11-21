@@ -201,30 +201,16 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
-                                                 const std::vector<SRef<SolAR::datastructure::Image>> & images,
-                                                 const std::vector<SolAR::datastructure::Transform3Df> & poses,
-                                                 bool fixedPose,
-                                                 const SolAR::datastructure::Transform3Df & worldTransform,
-                                                 const std::chrono::system_clock::time_point & timestamp,
-                                                 TransformStatus & transform3DStatus,
-                                                 SolAR::datastructure::Transform3Df & transform3D,
-                                                 float_t & confidence,
-                                                 SolAR::api::pipeline::MappingStatus & mappingStatus)
-    {
-        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
-        return relocalizeProcessRequest(uuid,
-                                        images,
-                                        poses,
-                                        fixedPose,
-                                        worldTransform,
-                                        timestamp,
-                                        transform3DStatus,
-                                        transform3D,
-                                        confidence,
-                                        mappingStatus,
-                                        detectedObjects);
-    }
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+                                                         const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                         const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                         bool fixedPose,
+                                                         const SolAR::datastructure::Transform3Df & worldTransform,
+                                                         const std::chrono::system_clock::time_point & timestamp,
+                                                         TransformStatus & transform3DStatus,
+                                                         SolAR::datastructure::Transform3Df & transform3D,
+                                                         float_t & confidence,
+                                                         SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the front end to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
