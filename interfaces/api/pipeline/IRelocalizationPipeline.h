@@ -23,7 +23,7 @@
 #include "datastructure/Image.h"
 #include "datastructure/Map.h"
 #include <xpcf/core/helpers.h>
-
+#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace api {
@@ -49,7 +49,18 @@ struct DetectedObject
     DetectedObjectType objectType;                               // Type of the object
     std::vector<SolAR::datastructure::Point3Df> pattern3DPoints; // Pattern 3D points of the object
     SolAR::datastructure::Transform3Df transform3D;              // 3D transformation to SolAR coordinate system
+
+    template <typename Archive>
+    void serialize(Archive& ar, const unsigned int version)
+    {
+        ar & objectType;
+        ar & pattern3DPoints;
+        ar & transform3D;
+    }
 };
+
+DECLARESERIALIZE(DetectedObject);
+IMPLEMENTSERIALIZE(DetectedObject);
 
 /**
  * @class IRelocalizationPipeline
