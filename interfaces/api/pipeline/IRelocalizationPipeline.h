@@ -30,6 +30,28 @@ namespace api {
 namespace pipeline {
 
 /**
+ * @typedef DetectedObjectType
+ * @brief <B>Define the types of objects that can be detected in an image.</B>
+ */
+typedef enum {
+    UNKNOWN_OBJECT = 0,
+    FIDUCIAL_MARKER = 1,
+    QR_CODE = 2,
+    NATURAL_IMAGE = 3
+} DetectedObjectType;
+
+/**
+ * @struct DetectedObject
+ * @brief <B>Define any object that can be detected in an image.</B>
+ */
+struct DetectedObject
+{
+    DetectedObjectType objectType;                               // Type of the object
+    std::vector<SolAR::datastructure::Point3Df> pattern3DPoints; // Pattern 3D points of the object
+    SolAR::datastructure::Transform3Df transform3D;              // 3D transformation to SolAR coordinate system
+};
+
+/**
  * @class IRelocalizationPipeline
  * @brief <B>Defines a relocalization pipeline.</B>
  * <TT>UUID: ef2a631d-93c9-4979-ad1e-5fa16d5d00ef</TT>
@@ -63,8 +85,31 @@ public:
     /// @param[out] confidence: the confidence score
     /// @param[in] poseCoarse: (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
+                                                 SolAR::datastructure::Transform3Df& pose,
+                                                 float_t & confidence,
+                                                 const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity())
+    {
+        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
+        return relocalizeProcessRequest(image,
+                                        pose,
+                                        confidence,
+                                        detectedObjects,
+                                        poseCoarse);
+    }
+
+    /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
+    /// @param[in] image: the image to process
+    /// @param[out] pose: the new calculated pose
+    /// @param[out] confidence: the confidence score
+    /// @param[out] detectedObjects: list of objects detected in the last processed image
+    /// @param[in] poseCoarse: (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
+    /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                         SolAR::datastructure::Transform3Df& pose, float_t & confidence, const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
+                                                         SolAR::datastructure::Transform3Df& pose,
+                                                         float_t & confidence,
+                                                         std::vector<DetectedObject> & detectedObjects,
+                                                         const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
 	/// @brief Request to the relocalization pipeline to get the map
 	/// @param[out] map the output map

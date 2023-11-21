@@ -19,6 +19,7 @@
 
 
 #include "api/pipeline/IMappingPipeline.h"
+#include "api/pipeline/IRelocalizationPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Map.h"
@@ -173,6 +174,7 @@ public:
                                                  SolAR::api::pipeline::MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
+        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
         return relocalizeProcessRequest(uuid,
                                         images,
                                         poses,
@@ -182,7 +184,8 @@ public:
                                         transform3DStatus,
                                         transform3D,
                                         confidence,
-                                        mappingStatus);
+                                        mappingStatus,
+                                        detectedObjects);
     }
 
     /// @brief Request the front end to process a new image to calculate
@@ -198,6 +201,45 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+                                                 const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                 const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                 bool fixedPose,
+                                                 const SolAR::datastructure::Transform3Df & worldTransform,
+                                                 const std::chrono::system_clock::time_point & timestamp,
+                                                 TransformStatus & transform3DStatus,
+                                                 SolAR::datastructure::Transform3Df & transform3D,
+                                                 float_t & confidence,
+                                                 SolAR::api::pipeline::MappingStatus & mappingStatus)
+    {
+        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
+        return relocalizeProcessRequest(uuid,
+                                        images,
+                                        poses,
+                                        fixedPose,
+                                        worldTransform,
+                                        timestamp,
+                                        transform3DStatus,
+                                        transform3D,
+                                        confidence,
+                                        mappingStatus,
+                                        detectedObjects);
+    }
+
+    /// @brief Request the front end to process a new image to calculate
+    /// the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] uuid: UUID of the client
+    /// @param[in] images the images to process
+    /// @param[in] poses the poses associated to images in the client coordinates system
+    /// @param[in] fixedPose the input poses are considered as ground truth
+    /// @param[in] worldTransform AR device coordinate system (in which poses are defined) to World origin (ex: BIM origin). Pass zero-filled matrix if not set.
+    /// @param[in] timestamp the timestamp of the image
+    /// @param[out] transform3DStatus the status of the current 3D transformation matrix
+    /// @param[out] transform3D the current 3D transformation matrix (if available)
+    /// @param[out] confidence the confidence score of the 3D transformation matrix
+    /// @param[out] mappingStatus the status of the current mapping processing
+    /// @param[out] detectedObjects: list of objects detected in the last processed image
+    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
                                                          const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
@@ -207,7 +249,9 @@ public:
                                                          TransformStatus & transform3DStatus,
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence,
-                                                         SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
+                                                         SolAR::api::pipeline::MappingStatus & mappingStatus,
+                                                         std::vector<SolAR::api::pipeline::DetectedObject> & detectedObjects) = 0;
+
 
     /// @brief Request the front end to get the 3D transform offset
     /// between the device coordinate system and the SolAR coordinate system
