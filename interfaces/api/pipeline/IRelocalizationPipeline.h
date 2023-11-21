@@ -35,9 +35,9 @@ namespace pipeline {
  */
 typedef enum {
     UNKNOWN_OBJECT = 0,
-    FIDUCIAL_MARKER = 1,
-    QR_CODE = 2,
-    NATURAL_IMAGE = 3
+    FIDUCIAL_MARKER_OBJECT = 1,
+    QR_CODE_OBJECT = 2,
+    NATURAL_IMAGE_OBJECT = 3
 } DetectedObjectType;
 
 /**
