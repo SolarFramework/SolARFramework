@@ -35,6 +35,8 @@ void Keyframe::setId(const uint32_t& id_keyframe)
 
 bool Keyframe::setKeypointStatusToMatched(uint32_t id_keypoint)
 {
+	if (m_isKeypointMatchedStatusFrozen)
+		return false;
 	if (m_isKeypointMatched.empty()) {
 		if (m_keypoints.empty())
 			return false;
@@ -51,12 +53,21 @@ const std::vector<bool>& Keyframe::getIsKeypointMatched() const
     return m_isKeypointMatched;
 }
 
+void Keyframe::freezeKeypointMatchedStatus() {
+	m_isKeypointMatchedStatusFrozen = true;
+}
+
+void Keyframe::unfreezeKeypointMatchedStatus() {
+	m_isKeypointMatchedStatusFrozen = false;
+}
+
 template<typename Archive>
 void Keyframe::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::base_object<Frame>(*this);
 	ar & boost::serialization::base_object<PrimitiveInformation>(*this);
 	ar & m_id;
     ar & m_isKeypointMatched;
+	ar & m_isKeypointMatchedStatusFrozen;
 }
 
 IMPLEMENTSERIALIZE(Keyframe);
