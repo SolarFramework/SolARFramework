@@ -47,6 +47,7 @@ typedef enum {
 struct DetectedObject
 {
     DetectedObjectType objectType;                               // Type of the object
+    std::string objectUrl;                                       // URL defined for the object (unique)
     std::vector<SolAR::datastructure::Point3Df> pattern3DPoints; // Pattern 3D points of the object
     SolAR::datastructure::Transform3Df transform3D;              // 3D transformation to SolAR coordinate system
 
@@ -54,6 +55,7 @@ struct DetectedObject
     void serialize(Archive& ar, const unsigned int version)
     {
         ar & objectType;
+        ar & objectUrl;
         ar & pattern3DPoints;
         ar & transform3D;
     }
