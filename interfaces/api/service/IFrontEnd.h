@@ -33,6 +33,39 @@ namespace SolAR {
 namespace api {
 namespace service {
 
+/**
+ * @typedef DeviceType
+ * @brief <B>Define the types of all devices.</B>
+ */
+typedef enum {
+    OTHER_DEVICE = 0,
+    HOLOLENS2_HEADSET = 1,
+    LYNX_HEADSET = 2,
+    ANDROID_DEVICE = 3,
+    IOS_DEVICE = 4
+} DeviceType;
+
+/**
+ * @struct DeviceInfo
+ * @brief <B>Define any device that can request the Front End.</B>
+ */
+struct DeviceInfo
+{
+    std::string deviceUUID;         // Unique ID given by the device
+    DeviceType deviceType;          // Type of the device
+    std::string deviceModel;        // Model reference given by the device
+    std::string deviceDescription;  // Additional device description
+
+    template <typename Archive>
+    void serialize(Archive& ar, const unsigned int version)
+    {
+        ar & deviceUUID;
+        ar & deviceType;
+        ar & deviceModel;
+        ar & deviceDescription;
+    }
+};
+
 ///
 /// @typedef TransformStatus
 /// @brief <B>Indicate the status of the 3D transformation matrix</B>
@@ -80,9 +113,10 @@ public:
     virtual ~IFrontEnd() = default;
 
     /// @brief Register a new client and return its UUID to use for future requests
-    /// @param[out] the UUID for this new client
+    /// @param[in] deviceInfo: information on the client's device
+    /// @param[out] uuid: the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(std::string & uuid) = 0;
+    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo, std::string & uuid) = 0;
 
     /// @brief Unregister a client using its UUID
     /// @param[in] the UUID of the client to unregister
@@ -93,6 +127,12 @@ public:
     /// @param[out] uuidList: the list of UUID of all clients currently registered
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & uuidList) const = 0;
+
+    /// @brief Return the device information for the given client UUID
+    /// @param[in] uuid: UUID of the client
+    /// @param[out] deviceInfo: information on the client's device
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getDeviceInfo(const std::string & uuid, DeviceInfo & deviceInfo) const = 0;
 
     /// @brief Initialization of the service
     /// @param[in] uuid: UUID of the client
