@@ -1,2 +1,2 @@
 openimageio#1_1_0|2.4.7.1|openimageio|conan-solar@conan|conan-solar|static|with_ffmpeg=False#with_freetype=False#with_giflib=False#with_hdf5=False#with_libheif=False#with_libwebp=False#with_opencolorio=False#with_opencv=False#with_ptex=False#with_openjpeg=False
-xpcf|2.7.0|xpcf|http|https://github.com/b-com-software-basis/xpcf/releases/download|default
+xpcf_static_deps|2.7.0|xpcf_static_deps|github|https://github.com/b-com-software-basis/xpcf/releases/download
