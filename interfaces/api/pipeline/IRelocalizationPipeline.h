@@ -22,47 +22,12 @@
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Map.h"
+#include "datastructure/DetectedObject.h"
 #include <xpcf/core/helpers.h>
-#include <core/SerializationDefinitions.h>
 
 namespace SolAR {
 namespace api {
 namespace pipeline {
-
-/**
- * @typedef DetectedObjectType
- * @brief <B>Define the types of objects that can be detected in an image.</B>
- */
-typedef enum {
-    UNKNOWN_OBJECT = 0,
-    FIDUCIAL_MARKER_OBJECT = 1,
-    QR_CODE_OBJECT = 2,
-    NATURAL_IMAGE_OBJECT = 3
-} DetectedObjectType;
-
-/**
- * @struct DetectedObject
- * @brief <B>Define any object that can be detected in an image.</B>
- */
-struct DetectedObject
-{
-    DetectedObjectType objectType;                               // Type of the object
-    std::string objectUrl;                                       // URL defined for the object (unique)
-    std::vector<SolAR::datastructure::Point3Df> pattern3DPoints; // Pattern 3D points of the object
-    SolAR::datastructure::Transform3Df transform3D;              // 3D transformation to SolAR coordinate system
-
-    template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-        ar & objectType;
-        ar & objectUrl;
-        ar & pattern3DPoints;
-        ar & transform3D;
-    }
-};
-
-DECLARESERIALIZE(DetectedObject);
-IMPLEMENTSERIALIZE(DetectedObject);
 
 /**
  * @class IRelocalizationPipeline
@@ -113,7 +78,7 @@ public:
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose,
                                                          float_t & confidence,
-                                                         std::vector<DetectedObject> & detectedObjects,
+                                                         std::vector<SolAR::datastructure::DetectedObject> & detectedObjects,
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
 	/// @brief Request to the relocalization pipeline to get the map
