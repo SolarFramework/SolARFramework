@@ -28,12 +28,12 @@ namespace datastructure {
  * @typedef DetectedObjectType
  * @brief <B>Define the types of objects that can be detected in an image.</B>
  */
-enum class {
+enum class DetectedObjectType {
     UNKNOWN_OBJECT = 0,
     FIDUCIAL_MARKER_OBJECT = 1,
     QR_CODE_OBJECT = 2,
     NATURAL_IMAGE_OBJECT = 3
-} DetectedObjectType;
+};
 
 /**
  * @struct DetectedObject
