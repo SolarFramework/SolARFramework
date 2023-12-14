@@ -37,13 +37,13 @@ namespace service {
  * @typedef DeviceType
  * @brief <B>Define the types of all devices.</B>
  */
-enum class DeviceType {
+typedef enum {
     OTHER_DEVICE = 0,
     HOLOLENS2_HEADSET = 1,
     LYNX_HEADSET = 2,
     ANDROID_DEVICE = 3,
     IOS_DEVICE = 4
-};
+} DeviceType;
 
 /**
  * @struct DeviceInfo
