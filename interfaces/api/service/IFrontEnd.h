@@ -37,7 +37,7 @@ namespace service {
  * @typedef DeviceType
  * @brief <B>Define the types of all devices.</B>
  */
-typedef enum {
+enum class {
     OTHER_DEVICE = 0,
     HOLOLENS2_HEADSET = 1,
     LYNX_HEADSET = 2,
