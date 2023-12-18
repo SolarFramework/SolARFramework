@@ -276,7 +276,7 @@ public:
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence,
                                                          SolAR::api::pipeline::MappingStatus & mappingStatus,
-                                                         std::vector<SolAR::api::pipeline::DetectedObject> & detectedObjects) = 0;
+                                                         std::vector<SolAR::datastructure::DetectedObject> & detectedObjects) = 0;
 
 
     /// @brief Request the front end to get the 3D transform offset
