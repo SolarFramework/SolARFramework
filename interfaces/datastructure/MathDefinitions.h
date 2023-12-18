@@ -198,7 +198,7 @@ typedef Maths::Matrix<float, 3, 4, Eigen::RowMajor> Projection;
  * @param[in] quaternions vector of Vector4f quaternions
  * @return average quaternion Vector4f
  */
-static Vector4f quaternionAverage(const std::vector<Vector4f>& quaternions) {
+ATTRIBUTE(maybe_unused) static Vector4f quaternionAverage(const std::vector<Vector4f>& quaternions) {
     if (quaternions.size() == 0)
         return Vector4f::Zero();
     else if (quaternions.size() == 1)
@@ -231,7 +231,7 @@ static Vector4f quaternionAverage(const std::vector<Vector4f>& quaternions) {
  * @param[in] quaternions vector of Quaternionf
  * @return average quaternion Quaternionf
  */
-static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions) {
+ATTRIBUTE(maybe_unused) static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions) {
     std::vector<Vector4f> quaternionsVecs;
     for (const auto& q : quaternions)
         quaternionsVecs.emplace_back(q.x(), q.y(), q.z(), q.w());
@@ -243,7 +243,7 @@ static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions
  * @param[in] transforms list of transform3D
  * @return average transform3D
  */
- [[maybe_unused]] static Transform3Df transform3DAverage(const std::vector<Transform3Df>& transforms) {
+ATTRIBUTE(maybe_unused) static Transform3Df transform3DAverage(const std::vector<Transform3Df>& transforms) {
     if (transforms.size() == 0)
         return Transform3Df(Maths::Matrix4f::Zero());
     else if (transforms.size() == 1)
@@ -266,7 +266,7 @@ static Quaternionf quaternionAverage(const std::vector<Quaternionf>& quaternions
  * @param[in] rotMat 3x3 rotation matrix 
  * @return Rodrigues rotation vector 
  */
-static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
+ATTRIBUTE(maybe_unused) static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
     float th = acos(0.5*(fmax(rotMat(0, 0) + rotMat(1, 1) + rotMat(2, 2), -1.f) - 1.f));
     float sth = sin(th);
     float cth = cos(th);
@@ -321,7 +321,7 @@ static Vector3f rotationMatrixToVector(const Rotation& rotMat) {
  * @param[in] rotVec 3x1 Rodrigues rotation vector  
  * @return 3x3 rotation matrix 
  */
-static Rotation rotationVectorToMatrix(const Vector3f& rotVec) {
+ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& rotVec) {
     float th = sqrt(rotVec(0)*rotVec(0) + rotVec(1)*rotVec(1) + rotVec(2)*rotVec(2));
     if (th < 1e-6f)
         return Rotation::Identity();
