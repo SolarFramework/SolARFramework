@@ -214,7 +214,7 @@ public:
                                                  SolAR::api::pipeline::MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
-        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
+        std::vector<SolAR::datastructure::DetectedObject> detectedObjects;
         return relocalizeProcessRequest(uuid,
                                         images,
                                         poses,
