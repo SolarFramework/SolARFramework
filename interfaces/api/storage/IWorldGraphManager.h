@@ -26,6 +26,7 @@
 #include "datastructure/StorageTrackable.h"
 #include "datastructure/StorageWorldAnchor.h"
 #include "datastructure/StorageWorldLink.h"
+#include "datastructure/RelocalizationInformation.h"
 #include "datastructure/MathDefinitions.h"
 
 namespace SolAR {
@@ -55,7 +56,7 @@ public:
     /// @param[in] capabilities: Capabilities of the user
     /// @param[out] result:  the result attest
     /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTFOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getRelocationInformation(const std::vector<org::bcom::xpcf::uuids::uuid> &uuids, const std::string &token,const std::vector<datastructure::StorageCapabilities> &Capability,std::string &result) = 0;
+    virtual FrameworkReturnCode getRelocalizationInformation(const std::vector<std::tuple<org::bcom::xpcf::uuids::uuid,bool>> &uuids, const std::string &token,const std::vector<datastructure::StorageCapabilities> &capability, std::vector<datastructure::RelocalizationInformation> &relocalizationInformation ) = 0;
 
     ////////////////////////////
     /// WORLDELEMENT METHODS ///

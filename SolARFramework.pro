@@ -169,4 +169,5 @@ include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install
 SOURCES +=
 
 HEADERS += \
+    interfaces/datastructure/RelocalizationInformation.h \
     interfaces/datastructure/StorageCapabilities.h

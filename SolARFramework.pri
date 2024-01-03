@@ -1,4 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+    $$PWD/interfaces/datastructure/RelocalizationInformation.h \
+    $$PWD/interfaces/datastructure/StorageCapabilities.h \
 interfaces/api/pipeline/IServiceManagerPipeline.h \
 interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
 interfaces/api/solver/pose/ITrackablePose.h \
@@ -155,6 +157,8 @@ interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+    $$PWD/src/datastructure/RelocalizationInformation.cpp \
+    $$PWD/src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \
