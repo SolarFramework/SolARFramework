@@ -65,6 +65,9 @@ namespace datastructure {
                 /// @brief Setter for the encodingInformation
                 void setEncodingInformation(EncodingInfo newEncodingInfo);
 
+                /// @brief return a boolean representing the equality with the parameter
+                bool equals(StorageCapabilities capability);
+
             protected:
                 StorageTrackableType m_trackableType;
                 EncodingInfo m_encodingInformation;

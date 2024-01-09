@@ -43,6 +43,18 @@ namespace datastructure {
          m_encodingInformation = newEncodingInformation;
     }
 
+    bool StorageCapabilities::equals(StorageCapabilities capability){
+         if (m_trackableType != capability.m_trackableType) {
+             return false;
+         }
+         bool dataformat = m_encodingInformation.getDataFormat() == capability.m_encodingInformation.getDataFormat();
+         bool version = m_encodingInformation.getVersion() == capability.m_encodingInformation.getVersion();
+         if (!(version && dataformat) ) {
+             return false;
+         }
+         return true;
+    }
+
 }
 
 }
