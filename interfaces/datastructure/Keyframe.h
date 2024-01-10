@@ -80,6 +80,16 @@ public:
 	///
 	bool setKeypointStatusToMatched(uint32_t id_keypoint);
 
+	///
+	/// @brief Freeze current keypoint matched status (modifications are no longer allowed) 
+	///
+	void freezeKeypointMatchedStatus();
+
+	///
+	/// @brief Unfreeze current keypoint matched status (modifications are allowed)
+	///
+	void unfreezeKeypointMatchedStatus();
+
     ///
     /// @brief Get keypoint matched map 
     /// @return list of boolean 
@@ -93,7 +103,8 @@ private:
 
 private:
     uint32_t	m_id;
-    std::vector<bool> m_isKeypointMatched;  // boolean map true or false indicating if keypoint matched to other keyframes during mapping 
+    std::vector<bool> m_isKeypointMatched;  // boolean map true or false indicating if keypoint matched to other keyframes during mapping
+	bool m_isKeypointMatchedStatusFrozen = false; // boolean true or false indicating if modifications on m_isKeypointMatched are forbidden or not
 };
 
 DECLARESERIALIZE(Keyframe);

@@ -17,7 +17,7 @@
 #ifndef SOLAR_ITrackablePose_H
 #define SOLAR_ITrackablePose_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/Trackable.h"
 #include "core/Messages.h"

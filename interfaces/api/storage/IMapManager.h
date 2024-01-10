@@ -24,7 +24,7 @@
 // Definition of IMapManager Class //
 // part of SolAR namespace //
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2022-2023 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_SERVICEMANAGERPIPELINE_H
-#define SOLAR_SERVICEMANAGERPIPELINE_H
+#ifndef SOLAR_SERVICEMANAGER_H
+#define SOLAR_SERVICEMANAGER_H
 
-#include "api/pipeline/IPipeline.h"
+#include "core/Messages.h"
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/api/IComponentManager.h>
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
-namespace pipeline {
+namespace service {
 
 ///
 /// @typedef ServiceType
@@ -37,21 +39,25 @@ enum class ServiceType {
 };
 
 /**
- * @class IServiceManagerPipeline
+ * @class IServiceManager
  * @brief <B>Defines the service manager interface.</B>
  * <TT>UUID: 48c83eda-6432-11ed-81ce-0242ac120002</TT>
  *
  * This class provides the interface to define a manager for all SolAR remote services.
  */
 
-class XPCF_CLIENTUUID("600ca5f4-6432-11ed-81ce-0242ac120002") XPCF_SERVERUUID("65c3a736-6432-11ed-81ce-0242ac120002") IServiceManagerPipeline :
-    virtual public IPipeline {
+class XPCF_CLIENTUUID("600ca5f4-6432-11ed-81ce-0242ac120002") XPCF_SERVERUUID("65c3a736-6432-11ed-81ce-0242ac120002")
+    IServiceManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IServiceManagerPipeline default constructor
-    IServiceManagerPipeline() = default;
+    /// @brief IServiceManager default constructor
+    IServiceManager() = default;
 
-    /// @brief IServiceManagerPipeline default destructor
-    virtual ~IServiceManagerPipeline() = default;
+    /// @brief IServiceManager default destructor
+    virtual ~IServiceManager() = default;
+
+    /// @brief Initialization of the service
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init() = 0;
 
     /// @brief Register a new service to the service manager
     /// @param[in] serviceType: type of the service
@@ -95,13 +101,13 @@ public:
     virtual FrameworkReturnCode unlockService(const ServiceType serviceType, const std::string & clientUUID) = 0;
 };
 
-} // pipeline
+} // service
 } // api
 } // SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IServiceManagerPipeline,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IServiceManager,
                              "48c83eda-6432-11ed-81ce-0242ac120002",
-                             "IServiceManagerPipeline",
+                             "IServiceManager",
                              "The interface to define the service manager")
 
-#endif // SOLAR_SERVICEMANAGERPIPELINE_H
+#endif // SOLAR_SERVICEMANAGER_H

@@ -50,9 +50,7 @@ typedef enum {
  */
 
 class XPCF_CLIENTUUID("110a089c-0bb1-488e-b24b-c1b96bc9df3b") XPCF_SERVERUUID("aced265d-832c-44e3-9356-dab531fa153a")
-#ifndef DOXYGEN_SHOULD_SKIP_THIS // Doxygen does not support custom DSL
     XPCF_GRPC_CLIENT_RECV_SIZE("-1")
-#endif
     IMappingPipeline : virtual public IPipeline {
 public:
     /// @brief IMappingPipeline default constructor

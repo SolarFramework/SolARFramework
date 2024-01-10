@@ -17,7 +17,7 @@
 #ifndef SOLAR_I2DTRANSFORMFINDER_H
 #define SOLAR_I2DTRANSFORMFINDER_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 
 #include "datastructure/GeometryDefinitions.h"

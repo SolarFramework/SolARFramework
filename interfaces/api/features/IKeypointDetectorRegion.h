@@ -33,7 +33,7 @@
 // Definition of IKeypointDetector Class //
 // part of SolAR namespace //
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 
 namespace SolAR {
 namespace api {

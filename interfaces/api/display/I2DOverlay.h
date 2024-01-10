@@ -18,7 +18,7 @@
 #define SOLAR_I2DOVERLAY_H
 
 #include "datastructure/MathDefinitions.h"
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/Keypoint.h"

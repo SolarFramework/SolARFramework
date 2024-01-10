@@ -18,7 +18,7 @@
 #define SOLAR_IIMAGEVIEWER_H
 
 #include "datastructure/Image.h"
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "core/Messages.h"
 

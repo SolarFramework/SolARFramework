@@ -19,7 +19,7 @@
 
 
 #include <xpcf/api/IComponentIntrospect.h>
-#include "xpcf/api/IComponentManager.h"
+#include <xpcf/api/IComponentManager.h>
 #include "core/Messages.h"
 #include <xpcf/core/helpers.h>
 

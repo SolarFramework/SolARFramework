@@ -17,7 +17,7 @@
 #ifndef SOLAR_IIMAGERECTIFICATION_H
 #define SOLAR_IIMAGERECTIFICATION_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/CameraDefinitions.h"

@@ -17,7 +17,7 @@
 #ifndef SOLAR_IPOINTCLOUDLOADER_H
 #define SOLAR_IPOINTCLOUDLOADER_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
 #include <xpcf/core/helpers.h>
 #include "datastructure/PointCloud.h"

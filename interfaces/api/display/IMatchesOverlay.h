@@ -18,7 +18,7 @@
 #define SOLAR_IMATCHESOVERLAY_H
 
 #include "datastructure/MathDefinitions.h"
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/DescriptorMatch.h"

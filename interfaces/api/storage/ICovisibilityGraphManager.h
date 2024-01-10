@@ -18,7 +18,7 @@
 #define SOLAR_ICOVISIBILITYGRAPHMANAGER_H
 
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"
 #include "datastructure/CovisibilityGraph.h"

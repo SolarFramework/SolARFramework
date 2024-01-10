@@ -18,7 +18,7 @@
 #define SOLAR_ICAMERASPARAMETERSSMANAGER_H
 
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
 #include "datastructure/CameraParametersCollection.h"
 #include <vector>

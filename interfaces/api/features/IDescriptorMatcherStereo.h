@@ -17,7 +17,7 @@
 #ifndef SOLAR_IDESCRIPTORMATCHERSTEREO_H
 #define SOLAR_IDESCRIPTORMATCHERSTEREO_H
 
-#include "xpcf/api/IComponentIntrospect.h"
+#include <xpcf/api/IComponentIntrospect.h>
 #include "datastructure/Image.h"
 #include "datastructure/Frame.h"
 #include "datastructure/CameraDefinitions.h"
