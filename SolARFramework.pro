@@ -1,14 +1,3 @@
-###############################################################################
-#  SolAR ARCloud
-#  (C) Copyright 2024 b<>com. All rights reserved.
-#
-#  IDDN: FR.001.020021.000.S.C.2024.000.00000
-#  This software is the confidential intellectual property of b<>com.
-#  You shall not disclose it and shall use it only in accordance with
-#  the terms of the license agreement you entered into with b<>com.
-#
-################################################################################
-
 ## remove Qt dependencies
 QT       -= core gui
 CONFIG -= qt
