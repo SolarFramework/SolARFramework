@@ -49,12 +49,12 @@ public:
     /// @brief Set the map to use for this Map Update pipeline instance
     /// @param[in] uuid: the map UUID
     /// @return FrameworkReturnCode::_SUCCESS if the map UUID is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setMap(const std::string & uuid) = 0;
+    virtual FrameworkReturnCode setMapUUID(const std::string & uuid) = 0;
 
     /// @brief Get the map UUID associated to this Map Update pipeline instance
     /// @param[out] uuid: the map UUID
     /// @return FrameworkReturnCode::_SUCCESS if the map UUID exists, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMap(std::string & uuid) const = 0;
+    virtual FrameworkReturnCode getMapUUID(std::string & uuid) const = 0;
 
     /// @brief Reset the map stored by the map update pipeline
     /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
