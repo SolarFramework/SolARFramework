@@ -77,7 +77,7 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode suppressCameraParameters(const uint32_t id);
 
-    /// @brief This method allows to supress all camera parameters 
+    /// @brief This method allows to suppress all camera parameters 
     void suppressAllCameraParameters();
 
     /// @brief This method allows to know if a cameraParameters is already stored in the component

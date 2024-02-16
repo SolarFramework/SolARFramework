@@ -135,10 +135,7 @@ void CameraParametersCollection::suppressAllCameraParameters()
 
 bool CameraParametersCollection::isExistCameraParameters(const uint32_t id) const
 {
-    if (m_cameraParameters.find(id) != m_cameraParameters.end())
-		return true;
-	else
-		return false;
+    return m_cameraParameters.find(id) != m_cameraParameters.end();
 }
 
 int CameraParametersCollection::getNbCameraParameters() const
