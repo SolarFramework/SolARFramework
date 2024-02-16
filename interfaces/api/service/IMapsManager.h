@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_MAPMANAGER_H
-#define SOLAR_MAPMANAGER_H
+#ifndef SOLAR_MAPSMANAGER_H
+#define SOLAR_MAPSMANAGER_H
 
 #include "core/Messages.h"
 #include <xpcf/api/IComponentIntrospect.h>
@@ -27,37 +27,37 @@ namespace api {
 namespace service {
 
 /**
- * @class IMapManager
- * @brief <B>Defines the map manager interface.</B>
+ * @class IMapsManager
+ * @brief <B>Defines the maps manager interface.</B>
  * <TT>UUID: 3ae30e7d-9685-4860-8510-89fe98035a0f</TT>
  *
  * This class provides the interface to define a manager for all SolAR maps.
  */
 
 class XPCF_CLIENTUUID("4863f2d1-023c-4095-8842-e6083e6ec54a") XPCF_SERVERUUID("2bc10e03-8a2d-44a1-b53e-d72d09f99b9b")
-    IMapManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+    IMapsManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IMapManager default constructor
-    IMapManager() = default;
+    /// @brief IMapsManager default constructor
+    IMapsManager() = default;
 
-    /// @brief IMapManager default destructor
-    virtual ~IMapManager() = default;
+    /// @brief IMapsManager default destructor
+    virtual ~IMapsManager() = default;
 
     /// @brief Initialization of the service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode init() = 0;
 
-    /// @brief Create a new map which will be managed by the MapManager instance
+    /// @brief Create a new map which will be managed by the maps manager instance
     /// @param[in] mapUUID: UUID of the map to create
     /// @return FrameworkReturnCode::_SUCCESS if the map is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::string & mapUUID) = 0;
 
-    /// @brief Delete a map managed by the MapManager instance
+    /// @brief Delete a map managed by the maps manager instance
     /// @param[in] mapUUID: UUID of the map to delete
     /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode deleteMap(const std::string & mapUUID) = 0;
 
-    /// @brief Get the list of all maps (UUID) managed by the MapManager instance
+    /// @brief Get the list of all maps (UUID) managed by the maps manager instance
     /// @param[out] mapUUIDList: list of UUID of all maps
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllMaps(std::vector<std::string> & mapUUIDList) const = 0;
@@ -94,9 +94,9 @@ public:
 } // api
 } // SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IMapManager,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IMapsManager,
                              "3ae30e7d-9685-4860-8510-89fe98035a0f",
-                             "IMapManager",
-                             "The interface to define the map manager")
+                             "IMapsManager",
+                             "The interface to define the maps manager")
 
-#endif // SOLAR_MAPMANAGER_H
+#endif // SOLAR_MAPSMANAGER_H
