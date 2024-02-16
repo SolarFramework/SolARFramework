@@ -34,7 +34,7 @@ namespace image {
  * <TT>UUID: 4a7d5c34-cd6e-11e7-abc4-cec278b6b50a</TT>
  *
  */
-class XPCF_CLIENTUUID("de8ab6b1-73c1-4954-8839-f37c63a5ac18") XPCF_SERVERUUID("35c1c15f-1151-45a5-b75c-012f985cb045") IPerspectiveController :
+class XPCF_IGNORE IPerspectiveController :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IPerspectiveController default constructor

@@ -34,7 +34,7 @@ namespace features {
  * @brief <B>Reorganizes the keypoints detected from two images that match together in two vector of points where the nth point of the first vector matches with the nth point of the second vector.</B>
  * <TT>UUID: 920e64a2-df17-11e7-80c1-9a214cf093ae</TT>
  */
-class XPCF_CLIENTUUID("681727ef-5122-4b21-8cd0-e56314c215bc") XPCF_SERVERUUID("0305c89a-f5f2-46ce-a3a3-c795179f8e8c") IKeypointsReIndexer :
+class XPCF_IGNORE IKeypointsReIndexer :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IKeypointsReIndexer default constructor

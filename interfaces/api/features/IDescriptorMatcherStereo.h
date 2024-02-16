@@ -35,7 +35,7 @@ namespace features {
 * <TT>UUID: 272f1ef0-c269-4631-b75c-fc7316d10915</TT>
 * Just implement the first interface, the second interface is implemented in ADescriptorMatcherStereo.
 */
-class XPCF_CLIENTUUID("06bc0b35-6240-4bb9-ae8a-1de2c5f77a13") XPCF_SERVERUUID("9f72e88e-ca7a-4ac9-af81-cf08382dda03") IDescriptorMatcherStereo :
+class XPCF_IGNORE IDescriptorMatcherStereo :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDescriptorMatcherStereo constructor

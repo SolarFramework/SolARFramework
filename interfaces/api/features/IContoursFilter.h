@@ -35,7 +35,7 @@ namespace features {
  * This class provides a filtering method to prune a set of contours.
  */
 
-class XPCF_CLIENTUUID("a8cad1a4-be07-43df-90f3-4bf7d7481528") XPCF_SERVERUUID("571317b1-4fe5-44cc-bf86-4c4c079150c3") IContoursFilter :
+class XPCF_IGNORE IContoursFilter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IContoursFilter default constructor

@@ -36,7 +36,7 @@ namespace pose {
  * @brief <B>Finds the 3D transform between two cameras knowing the keypoints that match between them.</B>
  * <TT>UUID: 6063a606-9d30-11e8-98d0-529269fb1459</TT>
  */
-class XPCF_CLIENTUUID("62f0a994-3ad4-4322-8059-7513153d074a") XPCF_SERVERUUID("84c693c0-3301-453f-9fca-f0e6208b89bc") I3DTransformFinderFrom2D2D :
+class XPCF_IGNORE I3DTransformFinderFrom2D2D :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformFinderFrom2D2D default constructor.
