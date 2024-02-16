@@ -35,7 +35,7 @@ namespace pointCloud {
   * This class provides a filtering method to prune a point cloud according to a given 3D point.
   */
 
-class XPCF_CLIENTUUID("1c9544b4-5b79-44fa-a9fe-82d1d94a00c8") XPCF_SERVERUUID("97aad71f-ce23-4015-bded-2c31f1aeb312") IPCFilterCentroid :
+class XPCF_IGNORE IPCFilterCentroid :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IPCFilterCentroid default constructor

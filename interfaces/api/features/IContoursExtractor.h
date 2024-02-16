@@ -35,7 +35,7 @@ namespace features {
  */
 
 
-class XPCF_CLIENTUUID("892788ad-8366-4d79-aec8-92aa4ed34665") XPCF_SERVERUUID("a2e6ed26-7795-407b-b7e6-e04140c8ab80") IContoursExtractor :
+class XPCF_IGNORE IContoursExtractor :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IContoursExtractor default constructor

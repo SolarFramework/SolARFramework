@@ -33,7 +33,7 @@ namespace segm {
  * <TT>UUID: 2fd30b7c-c6e4-4af7-a711-0b69964e68c2</TT>
  */
 
-class XPCF_CLIENTUUID("fb4b42d6-95a9-48a4-a86f-2c588b964f73") XPCF_SERVERUUID("97417d56-f5ae-4a4a-b72f-aab1185f49a0") ISemanticSegmentation :
+class XPCF_IGNORE ISemanticSegmentation :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ISemanticSegmentation default constructor.
