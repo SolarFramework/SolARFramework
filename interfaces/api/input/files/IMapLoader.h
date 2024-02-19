@@ -32,7 +32,7 @@ namespace files {
  * <TT>UUID: 84dbbc4f-cc65-40ff-946d-7ed4999fb3a5</TT>
  *
  */
-class XPCF_CLIENTUUID("5fd66d36-96fa-43bc-9429-6082bc1083db") XPCF_SERVERUUID("75edc7cb-59f9-48ef-a46f-6cbf9896df5f") IMapLoader :
+class XPCF_IGNORE IMapLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMapLoader() = default;
