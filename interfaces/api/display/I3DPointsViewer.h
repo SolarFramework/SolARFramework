@@ -74,7 +74,7 @@ public:
                                         const SRef<SolAR::datastructure::PointCloud> pointCloud2 = nullptr,
                                         const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses2 = {}) = 0;
 
-    /// @brief Add in the GPU buffer one, or optionnally two 3D point clouds. Required when these point clouds are huge an static.
+    /// @brief Add in the GPU buffer one, or optionnally two 3D point clouds. Required when these point clouds are huge and static.
     /// @param[in] points set of static 3D points to display in the 3D viewer.
     /// @param[in] points2 (optional), a second set of static 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
@@ -82,7 +82,7 @@ public:
                                         const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points2 = {}) = 0;
 
 
-    /// @brief Add in the GPU buffer one, or optionnally two, 3D point clouds. Required when these point clouds are huge an static.
+    /// @brief Add in the GPU buffer one, or optionnally two, 3D point clouds. Required when these point clouds are huge and static.
     /// @param[in] pointCloud a static point cloud to display in the 3D viewer.
     /// @param[in] pointCloud2 (optional), a second static point cloud to display in the 3D viewer (useful to visualize result of a bundle adjustment).
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
