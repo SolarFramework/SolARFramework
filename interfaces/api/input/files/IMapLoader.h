@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 #define SOLAR_IPOINTCLOUDLOADER_H
 
 #include <xpcf/api/IComponentIntrospect.h>
-#include "core/Messages.h"
 #include <xpcf/core/helpers.h>
+#include "core/Messages.h"
 #include "datastructure/Map.h"
 
 namespace SolAR {
@@ -39,7 +39,7 @@ public:
     virtual ~IMapLoader() = default;
 
     /// @brief Load a Map from a filepath
-    /// @param[out] map: the loaded map
+    /// @param[out] map the loaded map
 	/// @return FrameworkReturnCode::_SUCCESS if load succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode load(SRef<SolAR::datastructure::Map> & map) = 0;
 };
