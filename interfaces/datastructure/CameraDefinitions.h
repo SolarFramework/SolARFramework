@@ -59,6 +59,14 @@ typedef Maths::Matrix<float, 3, 3, Eigen::RowMajor> CamCalibration;
  */
 typedef Maths::Matrix<float, 5, 1> CamDistortion;
 
+/**
+ * @typedef CamExtrinsics
+ * @brief <B>A 3D transform defining the extrinsics of a camera in a rig.</B>
+ *
+ * Camera extrinsics is defined with a 4x4 matrix that describe a transformation in 3D space (3D rotation + translation).
+*/
+typedef Transform3Df CamExtrinsics;
+
 //Pose matrix definition               Vector defintion
 //
 //  R1x1    R1x2    R1x3    Tx         | X |
@@ -106,7 +114,8 @@ struct CameraParameters
     CameraType type;
     Sizei resolution;
     CamCalibration intrinsic;
-    CamDistortion distortion;    
+    CamDistortion distortion;
+    CamExtrinsics extrinsics;
 };
 
 /**

@@ -50,13 +50,24 @@ public:
 	/// @param[out] rectParams1 Rectification parameters of the first camera
 	/// @param[out] rectParams2 Rectification parameters of the second camera
 	/// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images1,
-                                          const std::vector<SRef<SolAR::datastructure::Image>>& images2,
-                                          const SolAR::datastructure::CameraParameters & camParams1,
-                                          const SolAR::datastructure::CameraParameters & camParams2,
-                                          SolAR::datastructure::Transform3Df & transformation,
-                                          SolAR::datastructure::RectificationParameters & rectParams1,
-                                          SolAR::datastructure::RectificationParameters & rectParams2) = 0;
+    virtual FrameworkReturnCode calibrate(const std::vector<SRef<datastructure::Image>> &images1,
+                                          const std::vector<SRef<datastructure::Image>> &images2,
+                                          const datastructure::CameraParameters &camParams1,
+                                          const datastructure::CameraParameters &camParams2,
+                                          datastructure::Transform3Df &transformation,
+                                          datastructure::RectificationParameters &rectParams1,
+                                          datastructure::RectificationParameters &rectParams2) = 0;
+
+    /// @brief Compute rectification parameters from stereo camera parameters
+    /// @param[in] camParams1 Intrinsics of the first camera
+    /// @param[in] camParams2 Intrinsics of the second camera
+    /// @param[out] rectParams1 Rectification parameters of the first camera
+    /// @param[out] rectParams2 Rectification parameters of the second camera
+    /// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode rectify(const datastructure::CameraParameters& camParams1,
+                                        const datastructure::CameraParameters& camParams2,
+                                        datastructure::RectificationParameters& rectParams1,
+                                        datastructure::RectificationParameters& rectParams2) = 0;
 };
 
 }
