@@ -112,90 +112,97 @@ public:
     /// @brief IFrontEnd default destructor
     virtual ~IFrontEnd() = default;
 
-    /// @brief Register a new client and return its UUID to use for future requests
+    /// @brief Register a new client, set the map to use (for mapping/relocalization)
+    /// @brief and return its UUID to use for future requests
     /// @param[in] deviceInfo: information on the client's device
-    /// @param[out] uuid: the UUID for this new client
+    /// @param[in] mapUUID: the UUID of the map to use for the client
+    /// @param[out] clientUUID: the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo, std::string & uuid) = 0;
+    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo,
+                                               const std::string & mapUUID,
+                                               std::string & clientUUID) = 0;
 
     /// @brief Unregister a client using its UUID
-    /// @param[in] the UUID of the client to unregister
+    /// @param[in] clientUUID: the UUID of the client to unregister
     /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterClient(const std::string & uuid) = 0;
+    virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
-    /// @param[out] uuidList: the list of UUID of all clients currently registered
+    /// @param[out] clientUUIDList: the list of UUID of all clients currently registered
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & uuidList) const = 0;
+    virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & clientUUIDList) const = 0;
 
     /// @brief Return the device information for the given client UUID
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] deviceInfo: information on the client's device
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDeviceInfo(const std::string & uuid, DeviceInfo & deviceInfo) const = 0;
+    virtual FrameworkReturnCode getDeviceInfo(const std::string & clientUUID,
+                                              DeviceInfo & deviceInfo) const = 0;
 
     /// @brief Initialization of the service
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & uuid) = 0;
+    virtual FrameworkReturnCode init(const std::string & clientUUID) = 0;
 
     /// @brief Init the service and specify the mode for the pipeline processing
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] pipelineMode: mode to use for pipeline processing
     /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & uuid, PipelineMode pipelineMode) = 0;
+    virtual FrameworkReturnCode init(const std::string & clientUUID,
+                                     PipelineMode pipelineMode) = 0;
 
     /// @brief Start the service
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode start(const std::string & uuid) = 0;
+    virtual FrameworkReturnCode start(const std::string & clientUUID) = 0;
 
     /// @brief Stop the service.
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode stop(const std::string & uuid) = 0;
+    virtual FrameworkReturnCode stop(const std::string & clientUUID) = 0;
 
     /// @brief Return the current mode used for the pipeline processing
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] pipelineMode: the current pipeline mode
     /// @return FrameworkReturnCode::_SUCCESS if the method succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getProcessingMode(const std::string & uuid, PipelineMode & pipelineMode) const = 0;
+    virtual FrameworkReturnCode getProcessingMode(const std::string & clientUUID,
+                                                  PipelineMode & pipelineMode) const = 0;
 
     /// @brief Set the camera parameters
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const std::string & uuid,
+    virtual FrameworkReturnCode setCameraParameters(const std::string & clientUUID,
                                                     const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
     /// @brief Set the camera parameters (use for stereo camera)
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] cameraParams1 the camera parameters of the first camera
     /// @param[in] cameraParams2 the camera parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const std::string & uuid,
+    virtual FrameworkReturnCode setCameraParameters(const std::string & clientUUID,
                                                     const SolAR::datastructure::CameraParameters & cameraParams1,
                                                     const SolAR::datastructure::CameraParameters & cameraParams2) = 0;
 
     /// @brief Set the rectification parameters (use for stereo camera)
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the rectification parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setRectificationParameters(const std::string & uuid,
+    virtual FrameworkReturnCode setRectificationParameters(const std::string & clientUUID,
                                                            const SolAR::datastructure::RectificationParameters & rectCam1,
                                                            const SolAR::datastructure::RectificationParameters & rectCam2) = 0;
 
     /// @brief Get the camera parameters
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCameraParameters(const std::string & uuid,
+    virtual FrameworkReturnCode getCameraParameters(const std::string & clientUUID,
                                                     SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the front end to process a new image to calculate
-    /// the corresponding 3D transformation to the SolAR coordinates system
-    /// @param[in] uuid: UUID of the client
+    /// @brief the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] timestamp the timestamp of the image
@@ -204,7 +211,7 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+    FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
                                                  const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                  const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                  const std::chrono::system_clock::time_point & timestamp,
@@ -215,7 +222,7 @@ public:
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
         std::vector<SolAR::datastructure::DetectedObject> detectedObjects;
-        return relocalizeProcessRequest(uuid,
+        return relocalizeProcessRequest(clientUUID,
                                         images,
                                         poses,
                                         /* fixedPose = */ false,
@@ -229,8 +236,8 @@ public:
     }
 
     /// @brief Request the front end to process a new image to calculate
-    /// the corresponding 3D transformation to the SolAR coordinates system
-    /// @param[in] uuid: UUID of the client
+    /// @brief the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] fixedPose the input poses are considered as ground truth
@@ -241,7 +248,7 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
                                                          const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
@@ -253,8 +260,8 @@ public:
                                                          SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the front end to process a new image to calculate
-    /// the corresponding 3D transformation to the SolAR coordinates system
-    /// @param[in] uuid: UUID of the client
+    /// @brief the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] clientUUID: UUID of the client
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
     /// @param[in] fixedPose the input poses are considered as ground truth
@@ -266,7 +273,7 @@ public:
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @param[out] detectedObjects: list of objects detected in the last processed image
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
                                                          const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
@@ -280,60 +287,77 @@ public:
 
 
     /// @brief Request the front end to get the 3D transform offset
-    /// between the device coordinate system and the SolAR coordinate system
-    /// @param[in] uuid: UUID of the client
+    /// @brief between the device coordinate system and the SolAR coordinate system
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] transform3DStatus the status of the current 3D transformation matrix
     /// @param[out] transform3D the current 3D transformation matrix (if available)
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @return FrameworkReturnCode::_SUCCESS if the 3D transform is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode get3DTransformRequest(const std::string & uuid,
+    virtual FrameworkReturnCode get3DTransformRequest(const std::string & clientUUID,
                                                       TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) = 0;
 
     /// @brief Provide the current data from the mapping service context
-    /// (resulting from all mapping processing since the start of the service)
-    /// @param[in] uuid: UUID of the client
+    /// @brief (resulting from all mapping processing since the start of the service)
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] outputPointClouds: service current point clouds
     /// @param[out] keyframePoses: service current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMappingDataRequest(
-        const std::string & uuid,
-        std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
-        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+                                            const std::string & clientUUID,
+                                            std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
+                                            std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
     /// @brief Return the last pose processed by the service
-    /// @param[in] uuid: UUID of the client
+    /// @param[in] clientUUID: UUID of the client
     /// @param[out] pose the last pose if available
     /// @param[in] poseType the type of the requested pose
     ///            - in the SolAR coordinate system (by default)
     ///            - in the device coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getLastPose(const std::string & uuid,
+    virtual FrameworkReturnCode getLastPose(const std::string & clientUUID,
                                             SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
-    /// @brief Request the global map stored by the map update service
-    /// @param[out] map: the output global map
+    /// @brief Create a new map specified by its UUID
+    /// @param[in] mapUUID: the UUID of the map to create
+    /// @return FrameworkReturnCode::_SUCCESS if the map is created with its UUID, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const std::string & mapUUID) = 0;
+
+    /// @brief Delete a map specified by its UUID (if not used by some clients)
+    /// @param[in] mapUUID: the UUID of the map to delete
+    /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode deleteMap(const std::string & mapUUID) = 0;
+
+    /// @brief Return all available maps UUID
+    /// @param[out] mapUUIDList: the list of UUID of all maps currently available
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAllMapsUUID(std::vector<std::string> & mapUUIDList) const = 0;
+
+    /// @brief Request for the datastructure of a specific map
+    /// @param[in] mapUUID: UUID of the map to use
+    /// @param[out] mapDatastructure: the output map datastructure
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
-        SRef<SolAR::datastructure::Map> & map) const = 0;
+                                            const std::string & mapUUID,
+                                            SRef<SolAR::datastructure::Map> & mapDatastructure) const = 0;
 
-    /// @brief Request to the map update service to update the global map from a local map
-    /// @param[in] map: the input local map to process
+    /// @brief Request to update the datastructure of a specific map
+    /// @param[in] mapUUID: UUID of the map to use
+    /// @param[in] mapDatastructure: the input map datastructure
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
-        const SRef<SolAR::datastructure::Map> map) = 0;
+                                            const std::string & mapUUID,
+                                            const SRef<SolAR::datastructure::Map> mapDatastructure) = 0;
 
-    /// @brief Reset the map stored by the map update service
-    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode resetMap() const = 0;
-
-    /// @brief Request the point cloud of the global map stored by the map update service
+    /// @brief Request the point cloud of a specific map
+    /// @param[in] mapUUID: UUID of the map to use
     /// @param[out] pointCloud: the output point cloud
     /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
-        SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+                                            const std::string & mapUUID,
+                                            SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)

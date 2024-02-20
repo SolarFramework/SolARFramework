@@ -43,10 +43,6 @@ public:
     /// @brief IMapsManager default destructor
     virtual ~IMapsManager() = default;
 
-    /// @brief Initialization of the service
-    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init() = 0;
-
     /// @brief Create a new map which will be managed by the maps manager instance
     /// @param[in] mapUUID: UUID of the map to create
     /// @return FrameworkReturnCode::_SUCCESS if the map is created, else FrameworkReturnCode::_ERROR_

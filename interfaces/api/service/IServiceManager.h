@@ -55,10 +55,6 @@ public:
     /// @brief IServiceManager default destructor
     virtual ~IServiceManager() = default;
 
-    /// @brief Initialization of the service
-    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init() = 0;
-
     /// @brief Register a new service to the service manager
     /// @param[in] serviceType: type of the service
     /// @param[in] serviceURL: URL of the service
