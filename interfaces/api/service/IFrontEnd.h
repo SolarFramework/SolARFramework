@@ -33,6 +33,39 @@ namespace SolAR {
 namespace api {
 namespace service {
 
+/**
+ * @typedef DeviceType
+ * @brief <B>Define the types of all devices.</B>
+ */
+typedef enum {
+    OTHER_DEVICE = 0,
+    HOLOLENS2_HEADSET = 1,
+    LYNX_HEADSET = 2,
+    ANDROID_DEVICE = 3,
+    IOS_DEVICE = 4
+} DeviceType;
+
+/**
+ * @struct DeviceInfo
+ * @brief <B>Define any device that can request the Front End.</B>
+ */
+struct DeviceInfo
+{
+    std::string deviceUUID;         // Unique ID given by the device
+    DeviceType deviceType;          // Type of the device
+    std::string deviceModel;        // Model reference given by the device
+    std::string deviceDescription;  // Additional device description
+
+    template <typename Archive>
+    void serialize(Archive& ar, const unsigned int version)
+    {
+        ar & deviceUUID;
+        ar & deviceType;
+        ar & deviceModel;
+        ar & deviceDescription;
+    }
+};
+
 ///
 /// @typedef TransformStatus
 /// @brief <B>Indicate the status of the 3D transformation matrix</B>
@@ -80,9 +113,10 @@ public:
     virtual ~IFrontEnd() = default;
 
     /// @brief Register a new client and return its UUID to use for future requests
-    /// @param[out] the UUID for this new client
+    /// @param[in] deviceInfo: information on the client's device
+    /// @param[out] uuid: the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(std::string & uuid) = 0;
+    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo, std::string & uuid) = 0;
 
     /// @brief Unregister a client using its UUID
     /// @param[in] the UUID of the client to unregister
@@ -93,6 +127,12 @@ public:
     /// @param[out] uuidList: the list of UUID of all clients currently registered
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & uuidList) const = 0;
+
+    /// @brief Return the device information for the given client UUID
+    /// @param[in] uuid: UUID of the client
+    /// @param[out] deviceInfo: information on the client's device
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getDeviceInfo(const std::string & uuid, DeviceInfo & deviceInfo) const = 0;
 
     /// @brief Initialization of the service
     /// @param[in] uuid: UUID of the client
@@ -174,7 +214,7 @@ public:
                                                  SolAR::api::pipeline::MappingStatus & mappingStatus)
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
-        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
+        std::vector<SolAR::datastructure::DetectedObject> detectedObjects;
         return relocalizeProcessRequest(uuid,
                                         images,
                                         poses,
@@ -201,30 +241,16 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
-                                                 const std::vector<SRef<SolAR::datastructure::Image>> & images,
-                                                 const std::vector<SolAR::datastructure::Transform3Df> & poses,
-                                                 bool fixedPose,
-                                                 const SolAR::datastructure::Transform3Df & worldTransform,
-                                                 const std::chrono::system_clock::time_point & timestamp,
-                                                 TransformStatus & transform3DStatus,
-                                                 SolAR::datastructure::Transform3Df & transform3D,
-                                                 float_t & confidence,
-                                                 SolAR::api::pipeline::MappingStatus & mappingStatus)
-    {
-        std::vector<SolAR::api::pipeline::DetectedObject> detectedObjects;
-        return relocalizeProcessRequest(uuid,
-                                        images,
-                                        poses,
-                                        fixedPose,
-                                        worldTransform,
-                                        timestamp,
-                                        transform3DStatus,
-                                        transform3D,
-                                        confidence,
-                                        mappingStatus,
-                                        detectedObjects);
-    }
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & uuid,
+                                                         const std::vector<SRef<SolAR::datastructure::Image>> & images,
+                                                         const std::vector<SolAR::datastructure::Transform3Df> & poses,
+                                                         bool fixedPose,
+                                                         const SolAR::datastructure::Transform3Df & worldTransform,
+                                                         const std::chrono::system_clock::time_point & timestamp,
+                                                         TransformStatus & transform3DStatus,
+                                                         SolAR::datastructure::Transform3Df & transform3D,
+                                                         float_t & confidence,
+                                                         SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the front end to process a new image to calculate
     /// the corresponding 3D transformation to the SolAR coordinates system
@@ -250,7 +276,7 @@ public:
                                                          SolAR::datastructure::Transform3Df & transform3D,
                                                          float_t & confidence,
                                                          SolAR::api::pipeline::MappingStatus & mappingStatus,
-                                                         std::vector<SolAR::api::pipeline::DetectedObject> & detectedObjects) = 0;
+                                                         std::vector<SolAR::datastructure::DetectedObject> & detectedObjects) = 0;
 
 
     /// @brief Request the front end to get the 3D transform offset
