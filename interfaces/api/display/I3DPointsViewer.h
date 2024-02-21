@@ -43,22 +43,6 @@ public:
     /// @brief I3DPointsViewer default destructor
     virtual ~I3DPointsViewer() = default;
 
-	/// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
-	/// @param[in] points set of 3D points to display in the 3D viewer.
-	/// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
-	/// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
-	/// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
-	/// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
-	/// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
-	/// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode display(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points,
-										const SolAR::datastructure::Transform3Df & pose,
-                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses = {},
-                                        const std::vector<SolAR::datastructure::Transform3Df> & framePoses = {},
-                                        const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points2 = {},
-                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses2 = {}) = 0;
-
-
     /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
     /// @param[in] pointCloud a point cloud to display in the 3D viewer.
     /// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
@@ -72,6 +56,32 @@ public:
                                         const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses = {},
                                         const std::vector<SolAR::datastructure::Transform3Df> & framePoses = {},
                                         const SRef<SolAR::datastructure::PointCloud> pointCloud2 = nullptr,
+                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses2 = {}) = 0;
+
+    /// @brief Display in a windows the 3D point cloud as well as the current camera, and optionnally, the previous frames and keyframes.
+    /// @param[in] points set of 3D points to display in the 3D viewer.
+    /// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
+    /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
+    /// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
+    /// @param[in] points2 (optional), a second set of 3D points to display in the 3D viewer (useful to visualize result of a bundle adjustment).
+    /// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
+    /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode display(const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points,
+                                        const SolAR::datastructure::Transform3Df & pose,
+                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses = {},
+                                        const std::vector<SolAR::datastructure::Transform3Df> & framePoses = {},
+                                        const std::vector<SRef<SolAR::datastructure::CloudPoint>> & points2 = {},
+                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses2 = {}) = 0;
+
+    /// @brief Display in a windows the 3D point cloud pre-loaded in a buffer as well as the current camera, and optionnally, the previous frames and keyframes.
+    /// @param[in] pose poses of the current camera (transform of the camera defined in world coordinate system).
+    /// @param[in] keyframesPoses (optional), poses of a set of keyframes (transform of the camera defined in world corrdinate system).
+    /// @param[in] framePoses (optional), poses of a set of frames (transform of the camera defined in world corrdinate system).
+    /// @param[in] keyframesPoses2 (optional), a second set of keyframes poses (transform of the camera defined in world corrdinate system, useful to visualize result of a bundle adjustment).
+    /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode display(const SolAR::datastructure::Transform3Df & pose,
+                                        const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses = {},
+                                        const std::vector<SolAR::datastructure::Transform3Df> & framePoses = {},
                                         const std::vector<SolAR::datastructure::Transform3Df> & keyframePoses2 = {}) = 0;
 
     /// @brief Add in the GPU buffer one, or optionnally two 3D point clouds. Required when these point clouds are huge and static.
