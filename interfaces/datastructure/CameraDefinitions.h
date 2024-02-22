@@ -165,6 +165,7 @@ inline void serialize(Archive & ar,
     ar & parameters.resolution;
     ar & parameters.intrinsic;
     ar & parameters.distortion;
+    ar & parameters.extrinsics;
 }
 
 template<class Archive>
@@ -258,6 +259,7 @@ inline void to_json(BasicJsonType& j, const CameraParameters& camParams)
     j["resolution"]["height"] = camParams.resolution.height;
     j["intrinsic"] = camParams.intrinsic;
     j["distortion"] = camParams.distortion;
+    j["extrinsics"] = camParams.extrinsics;
 }
 
 template <typename BasicJsonType>
@@ -270,6 +272,7 @@ inline void from_json(BasicJsonType& j, CameraParameters& camParams)
     camParams.resolution.height = j["resolution"]["height"].template get<uint32_t>();
     camParams.intrinsic = j["intrinsic"].template get<CamCalibration>();
     camParams.distortion = j["distortion"].template get<CamDistortion>();
+    camParams.extrinsics = j["extrinsics"].template get<CamExtrinsics>();
 }
 
 template <typename BasicJsonType>
