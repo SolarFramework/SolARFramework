@@ -34,7 +34,7 @@ namespace loop {
   * <TT>UUID: a267c93a-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-class XPCF_CLIENTUUID("ee57ff66-30d0-11ec-8d3d-0242ac130003") XPCF_SERVERUUID("fd612992-30d0-11ec-8d3d-0242ac130003") ILoopClosureDetector :
+class XPCF_IGNORE ILoopClosureDetector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ILoopClosureDetector default constructor

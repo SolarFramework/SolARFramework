@@ -32,7 +32,7 @@ namespace pointCloud {
   * <TT>UUID: 3e068943-5230-4e6c-abd7-959f293f9829</TT>
   */
 
-class XPCF_CLIENTUUID("34192941-748e-4521-8d30-e12c06f5e226") XPCF_SERVERUUID("44842913-0e76-44bc-84ae-c8a0850ac97e") IPCFilter :
+class XPCF_IGNORE IPCFilter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
    /// @brief IPCFilter default constructor

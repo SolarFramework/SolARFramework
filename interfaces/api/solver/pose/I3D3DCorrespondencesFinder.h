@@ -36,7 +36,7 @@ namespace pose {
  * @brief <B>Finds the 3D-3D correspondences from feature matches of two keyframes.</B>
  * <TT>UUID: 90068876-655a-4d86-adfc-96a519041ab3</TT>
  */
-class XPCF_CLIENTUUID("0fe355bf-17f5-426f-af10-f630331d7476") XPCF_SERVERUUID("c758fd66-bd9e-4aae-9580-008afe3a37c0") I3D3DCorrespondencesFinder :
+class XPCF_IGNORE I3D3DCorrespondencesFinder :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief I3D3DCorrespondencesFinder default constructor.
