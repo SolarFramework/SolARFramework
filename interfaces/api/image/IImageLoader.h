@@ -33,7 +33,7 @@ namespace image {
   * <TT>UUID: 6fcdaa8d-6ea9-4c3f-97b0-46cd11b67a9b</TT>
   *
   */
-class XPCF_CLIENTUUID("abafe791-48df-4120-a164-b0bbfbc7bd81") XPCF_SERVERUUID("a37a908e-5c62-4083-b45c-2a81b7fb9a8d") IImageLoader :
+class XPCF_IGNORE IImageLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     virtual ~IImageLoader() = default;

@@ -35,7 +35,7 @@ namespace pose {
  * @brief <B>Finds the 3D transform of 2D-3D points correspondences.</B>
  * <TT>UUID: 77281cda-47c2-4bb7-bde6-5b0d02e75dae</TT>
  */
-class XPCF_CLIENTUUID("201fb9e7-9452-42e2-a587-9e9b3e49c889") XPCF_SERVERUUID("cf5a7828-f6e1-482a-bb0c-b8e44ac9a22d") I3DTransformFinderFrom2D3D :
+class XPCF_IGNORE I3DTransformFinderFrom2D3D :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief I3DTransformFinderFrom2D3D default constructor.

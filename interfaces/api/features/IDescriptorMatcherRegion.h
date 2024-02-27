@@ -40,7 +40,7 @@ namespace features {
  * <TT>UUID: bdef063d-96de-4425-83c5-fec7b7e448c8</TT>
  * Just implement the first interface, the second and third interface are implemented in ADescriptorMatcherRegion.
  */
-class XPCF_CLIENTUUID("92474130-2e1c-471c-aafe-c84c5144552f") XPCF_SERVERUUID("b4ca2b4f-cbcc-4688-be15-301b3d4b081c") IDescriptorMatcherRegion :
+class XPCF_IGNORE IDescriptorMatcherRegion :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDescriptorMatcherRegion default constructor
