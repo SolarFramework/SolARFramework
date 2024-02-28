@@ -46,7 +46,7 @@ namespace features {
  *
  * This class provides a method to detect the keypoint from an given region of an image using different kind of method (SURF, ORB, SIFT, etc.).
  */
-class XPCF_CLIENTUUID("984ae965-bc03-42d4-8acd-7dcb4e9ac4aa") XPCF_SERVERUUID("ecce7865-2ae3-4b51-b267-28067beb742c") IKeypointDetectorRegion :
+class XPCF_IGNORE IKeypointDetectorRegion :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 
 public:

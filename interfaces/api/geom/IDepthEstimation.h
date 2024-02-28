@@ -32,7 +32,7 @@ namespace geom {
 * @brief <B>Depth estimation based on disparity of matched features.</B>
 * <TT>UUID: 0d3c4b5d-bbb2-4adc-80b0-b7e8720a704d</TT>
 */
-class XPCF_CLIENTUUID("a0d958fd-53ed-490b-aec4-2a5a93a60d98") XPCF_SERVERUUID("d47a2503-e1c6-4db2-9bff-52a3259bcbe1") IDepthEstimation :
+class XPCF_IGNORE IDepthEstimation :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IDepthEstimation constructor
