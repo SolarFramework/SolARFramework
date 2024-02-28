@@ -17,10 +17,6 @@
 #ifndef SOLAR_ICORNERREFINEMENT_H
 #define SOLAR_ICORNERREFINEMENT_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <vector>
 #include "core/Messages.h"
 #include "datastructure/Image.h"

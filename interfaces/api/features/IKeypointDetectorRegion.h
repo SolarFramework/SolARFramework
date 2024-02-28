@@ -17,10 +17,6 @@
 #ifndef SOLAR_IKEYPOINTDETECTORREGION_H
 #define SOLAR_IKEYPOINTDETECTORREGION_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <memory>
 #include <vector>
 

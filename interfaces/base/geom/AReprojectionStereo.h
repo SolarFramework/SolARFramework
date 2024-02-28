@@ -17,10 +17,6 @@
 #ifndef SOLAR_AREPROJECTIONSTEREO_H
 #define SOLAR_AREPROJECTIONSTEREO_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include "core/SolARFrameworkDefinitions.h"
 #include <xpcf/component/ConfigurableBase.h>
 #include "api/geom/IReprojectionStereo.h"
