@@ -19,6 +19,8 @@
 
 #include <string>
 
+#include "core/SolARFrameworkDefinitions.h"
+
 #define _STR(x) #x
 #define STR(X)  _STR(x)
 
