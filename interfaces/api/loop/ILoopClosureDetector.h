@@ -56,6 +56,24 @@ public:
                                        SRef<SolAR::datastructure::Keyframe> & detectedLoopKeyframe,
                                        SolAR::datastructure::Transform3Df & sim3Transform,
                                        std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices) const = 0;
+
+    /// @brief Detect loops formed after map fusion
+    /// new loops may form when merging a local map into the global one (e.g. half circle in global map and the other half in local map)
+    /// the local map is extended from an initial small submap extracted from the global map
+    /// the local map is already merged into the global one, and keyframes of both maps can be accessed via the same map manager
+    /// @param[in] localMapKeyframeIds: list of keyframe ids of the local map
+    /// @param[in] initSubmapKeyframeIds: list of keyframe ids of the initial submap from which are generated the local map
+    /// @param[out] detectedLoops: list of detected loops, each loop is represented by 4 keyframe ids describing the path of the loop
+    /// the 1st and 2nd id belong to the keyframes of the original global map
+    /// the 3rd and 4th id belong to the keyframes of the newly-acquired local map
+    /// the 1st and 2nd keyframes correspond to the first half path of the loop, and the 3rd and 4th correspond to the second half path
+    /// from 2nd to 3rd keyframes there is smooth transition because local map is generated from a submap of the original global map
+    /// the path of the loop is described by the order 1st, 2nd, 3rd, 4th, and back to the 1st
+    /// @param[out] loopTransforms: list of loop closure transforms, each transform is estimated from the 4th to the 1st keyframes as is described above
+    virtual FrameworkReturnCode detect(const std::vector<uint32_t>& localMapKeyframeIds,
+                                       const std::vector<uint32_t>& initSubmapKeyframeIds,
+                                       std::vector<std::array<uint32_t, 4>>& detectedLoops,
+                                       std::vector<SolAR::datastructure::Transform3Df>& loopTransforms) const = 0;
 };
 }
 }
