@@ -63,7 +63,8 @@ public:
     /// the local map is already merged into the global one, and keyframes of both maps can be accessed via the same map manager
     /// @param[in] localMapKeyframeIds: list of keyframe ids of the local map
     /// @param[in] initSubmapKeyframeIds: list of keyframe ids of the initial submap from which are generated the local map
-    /// @param[out] detectedLoops: list of detected loops, each loop is represented by 4 keyframe ids describing the path of the loop
+    /// @param[out] detectedLoops: list of detected loops, each loop is represented by a number of keyframe ids describing the path of the loop
+    /// for instance, a loop can be defined by 4 keyframe ids
     /// the 1st and 2nd id belong to the keyframes of the original global map
     /// the 3rd and 4th id belong to the keyframes of the newly-acquired local map
     /// the 1st and 2nd keyframes correspond to the first half path of the loop, and the 3rd and 4th correspond to the second half path
@@ -72,7 +73,7 @@ public:
     /// @param[out] loopTransforms: list of loop closure transforms, each transform is estimated from the 4th to the 1st keyframes as is described above
     virtual FrameworkReturnCode detect(const std::vector<uint32_t>& localMapKeyframeIds,
                                        const std::vector<uint32_t>& initSubmapKeyframeIds,
-                                       std::vector<std::array<uint32_t, 4>>& detectedLoops,
+                                       std::vector<std::vector<uint32_t>>& detectedLoops,
                                        std::vector<SolAR::datastructure::Transform3Df>& loopTransforms) const = 0;
 };
 }
