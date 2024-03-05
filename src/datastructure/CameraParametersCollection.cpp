@@ -127,12 +127,15 @@ FrameworkReturnCode CameraParametersCollection::suppressCameraParameters(const u
 	}
 }
 
+void CameraParametersCollection::suppressAllCameraParameters() 
+{
+    m_cameraParameters.clear();
+    m_id = 0;
+}
+
 bool CameraParametersCollection::isExistCameraParameters(const uint32_t id) const
 {
-    if (m_cameraParameters.find(id) != m_cameraParameters.end())
-		return true;
-	else
-		return false;
+    return m_cameraParameters.find(id) != m_cameraParameters.end();
 }
 
 int CameraParametersCollection::getNbCameraParameters() const
