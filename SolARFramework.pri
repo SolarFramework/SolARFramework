@@ -37,6 +37,7 @@ interfaces/api/geom/IReprojectionStereo.h \
 interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
+interfaces/api/image/IImageMerger.h \
 interfaces/api/image/IPerspectiveController.h \
 interfaces/api/image/IImageRectification.h \
 interfaces/api/input/devices/IARDevice.h \
