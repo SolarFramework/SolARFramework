@@ -1,10 +1,6 @@
 #ifndef IBUNDLER_H
 #define IBUNDLER_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 
 // Definition of IMapFilter Class //
 // part of SolAR namespace //
