@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,11 +43,11 @@ public:
 	///
     virtual ~IImageMerger() {};
      
-	/// @brief This method converts an image source to image destination according to a given channel and color representation  layout
-    /// @param[in] imgSrc: input image to convert
-    /// @param[out] imgDst: output image converted
-    /// @return FrameworkReturnCode::_SUCCESS_ id conversion succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode merge(const std::vector<SRef<SolAR::datastructure::Image>> imgSrc, SRef<SolAR::datastructure::Image> & imgDst) = 0;
+    /// @brief This method merge a set og images into a single one
+    /// @param[in] imgSrc: the set of images
+    /// @param[out] imgDst: the image resulting of the merge of the input images.
+    /// @return FrameworkReturnCode::_SUCCESS_ id merge succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode merge(const std::vector<SRef<SolAR::datastructure::Image>>& imgSrc, SRef<SolAR::datastructure::Image>& imgDst) = 0;
 };
 
 }
