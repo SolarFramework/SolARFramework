@@ -335,6 +335,12 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllMapsUUID(std::vector<std::string> & mapUUIDList) const = 0;
 
+    /// @brief Return the map UUID used by a client specified by its UUID
+    /// @param[in] clientUUID: UUID of the client
+    /// @param[out] mapUUID: UUID of the map used by the client
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID, std::string & mapUUID) const = 0;
+
     /// @brief Request for the datastructure of a specific map
     /// @param[in] mapUUID: UUID of the map to use
     /// @param[out] mapDatastructure: the output map datastructure
