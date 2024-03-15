@@ -20,7 +20,7 @@ namespace devices {
   *
   * This class describes the interface for retrieving data from a AR device that provides.
   */
-class XPCF_CLIENTUUID("33dd6e3b-3fb5-449f-b90b-9fd97c59227c") XPCF_SERVERUUID("98ce0f5b-a279-4eae-95a9-798bf8c54a33") IARDevice :
+class XPCF_IGNORE IARDevice :
     virtual public IDevice {
 public:
     /// @brief Specify the IARDevice constructor class

@@ -32,7 +32,7 @@ namespace files {
  * <TT>UUID: 315c7cd4-462d-11ed-b878-0242ac120002</TT>
  *
  */
-class XPCF_CLIENTUUID("5580de7a-462d-11ed-b878-0242ac120002") XPCF_SERVERUUID("5973d118-462d-11ed-b878-0242ac120002") IMeshLoader :
+class XPCF_IGNORE IMeshLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMeshLoader() = default;

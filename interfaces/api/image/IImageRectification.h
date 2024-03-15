@@ -32,7 +32,7 @@ namespace image {
 * @brief <B>Rectify image.</B>
 * <TT>UUID: f3e2cdb3-1818-4316-b536-a35650c59811</TT>
 */
-class XPCF_CLIENTUUID("9f68e2e0-33a6-4ce5-9b6e-bbe8088f9bc5") XPCF_SERVERUUID("f74f803c-4ea2-4420-962f-4803bc200da5") IImageRectification :
+class XPCF_IGNORE IImageRectification :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IImageRectification constructor

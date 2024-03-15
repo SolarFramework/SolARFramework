@@ -39,7 +39,7 @@ namespace map {
  * @brief <B>Triangulates a set of 2D-2D undistorted points correspondances with known respective camera poses.</B>
  * <TT>UUID: 3a01b0e9-9a76-43f5-97b3-85bb6979b953</TT>
  */
-class XPCF_CLIENTUUID("1b6be40f-030c-4436-a920-913d6e4421f4") XPCF_SERVERUUID("9cb53cc2-2887-4606-8d07-d9d4ae3108b2") ITriangulator :
+class XPCF_IGNORE ITriangulator :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief ITriangulator default constructor
