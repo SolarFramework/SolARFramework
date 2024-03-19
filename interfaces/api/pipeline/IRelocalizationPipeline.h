@@ -68,6 +68,11 @@ public:
                                                          float_t & confidence,
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
+    virtual FrameworkReturnCode relocalizeProcessRequestViz(const SRef<SolAR::datastructure::Image> image,
+                                                    std::vector<SRef< SolAR::datastructure::CloudPoint>>&currPointCloud,
+                                                    SolAR::datastructure::Transform3Df& pose,
+                                                    float_t & confidence,
+                                                    const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
     /// @param[in] image: the image to process
     /// @param[out] pose: the new calculated pose
