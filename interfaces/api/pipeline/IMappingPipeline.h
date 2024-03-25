@@ -66,8 +66,8 @@ public:
     /// @param[in] relocalizationServiceURL the URL of an available Relocalization Service
     /// @param[in] mapupdateServiceURL the URL of an available MapUpdate Service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string relocalizationServiceURL,
-                                     const std::string mapupdateServiceURL) = 0;
+    virtual FrameworkReturnCode init(const std::string & relocalizationServiceURL,
+                                     const std::string & mapupdateServiceURL) = 0;
 
     /// @brief Set the camera parameters
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
