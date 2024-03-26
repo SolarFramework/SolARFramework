@@ -44,34 +44,34 @@ public:
     virtual ~IMapsManager() = default;
 
     /// @brief Create a new map which will be managed by the maps manager instance
-    /// @param[in] mapUUID: UUID of the map to create
+    /// @param[in] mapUUID UUID of the map to create
     /// @return FrameworkReturnCode::_SUCCESS if the map is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::string & mapUUID) = 0;
 
     /// @brief Delete a map managed by the maps manager instance
-    /// @param[in] mapUUID: UUID of the map to delete
+    /// @param[in] mapUUID UUID of the map to delete
     /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode deleteMap(const std::string & mapUUID) = 0;
 
     /// @brief Get the list of all maps (UUID) managed by the maps manager instance
-    /// @param[out] mapUUIDList: list of UUID of all maps
+    /// @param[out] mapUUIDList list of UUID of all maps
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllMaps(std::vector<std::string> & mapUUIDList) const = 0;
 
     /// @brief Register a new MapUpdate service to the map manager
-    /// @param[in] serviceURL: URL of the MapUpdate service
+    /// @param[in] serviceURL URL of the MapUpdate service
     /// @return FrameworkReturnCode::_SUCCESS if the MapUpdate service is registered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode registerMapUpdateService(const std::string & serviceURL) = 0;
 
     /// @brief Unregister a MapUpdate service from the map manager
-    /// @param[in] serviceURL: URL of the MapUpdate service
+    /// @param[in] serviceURL URL of the MapUpdate service
     /// @return FrameworkReturnCode::_SUCCESS if the MapUpdate service is unregistered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode unregisterMapUpdateService(const std::string & serviceURL) = 0;
 
     /// @brief Increase the number of clients using the map defined by its UUID
     /// @brief and return the URL of the MapUpdate service instance handling this map
-    /// @param[in] mapUUID: UUID of the map used by client
-    /// @param[out] serviceURL: URL of the MapUpdate service instance managing the map
+    /// @param[in] mapUUID UUID of the map used by client
+    /// @param[out] serviceURL URL of the MapUpdate service instance managing the map
     /// @return FrameworkReturnCode::_SUCCESS if a MapUpdate service URL is available, else
     ///         FrameworkReturnCode::_NO_SERVICE_REGISTERED if no MapUpdate service is registered
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no MapUpdate service is available
@@ -79,7 +79,7 @@ public:
     virtual FrameworkReturnCode increaseMapClients(const std::string & mapUUID, std::string & serviceURL) = 0;
 
     /// @brief Decrease the number of clients using the map defined by its UUID
-    /// @param[in] mapUUID: UUID of the map no more used by client
+    /// @param[in] mapUUID UUID of the map no more used by client
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no MapUpdate service is handling the map
     ///         FrameworkReturnCode::_ERROR_ for other errors

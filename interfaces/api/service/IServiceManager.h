@@ -56,20 +56,20 @@ public:
     virtual ~IServiceManager() = default;
 
     /// @brief Register a new service to the service manager
-    /// @param[in] serviceType: type of the service
-    /// @param[in] serviceURL: URL of the service
+    /// @param[in] serviceType type of the service
+    /// @param[in] serviceURL URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if the service is registered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode registerService(const ServiceType serviceType, const std::string & serviceURL) = 0;
 
     /// @brief Unregister a service from the service manager
-    /// @param[in] serviceType: type of the service
-    /// @param[in] serviceURL: URL of the service
+    /// @param[in] serviceType type of the service
+    /// @param[in] serviceURL URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if the service is unregistered, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode unregisterService(const ServiceType serviceType, const std::string & serviceURL) = 0;
 
     /// @brief Get an available URL for a specific service type
-    /// @param[in] serviceType: type of the service
-    /// @param[out] serviceURL: URL of the service
+    /// @param[in] serviceType type of the service
+    /// @param[out] serviceURL URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if a service URL is available, else
     ///         FrameworkReturnCode::_NO_SERVICE_REGISTERED if no service of the given type is registered
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no service of the given type is available
@@ -78,9 +78,9 @@ public:
 
     /// @brief Get an available URL for a specific service type, and lock it for the given client UUID
     ///        If a service of the specific type is already locked for the given client UUID, return its URL
-    /// @param[in] serviceType: type of the service
-    /// @param[in] clientUUID: UUID of the client
-    /// @param[out] serviceURL: URL of the service
+    /// @param[in] serviceType type of the service
+    /// @param[in] clientUUID UUID of the client
+    /// @param[out] serviceURL URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if a service URL is available and the service locked, else
     ///         FrameworkReturnCode::_NO_SERVICE_REGISTERED if no service of the given type is registered
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no service of the given type is available
@@ -89,8 +89,8 @@ public:
                                                   std::string & serviceURL) = 0;
 
     /// @brief Unlock the service of the given type, for the given client UUID
-    /// @param[in] serviceType: type of the service
-    /// @param[in] clientUUID: UUID of the client
+    /// @param[in] serviceType type of the service
+    /// @param[in] clientUUID UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the service is unlocked, else
     ///         FrameworkReturnCode::_NO_SERVICE_LOCKED if no service is locked for the client UUID
     ///         FrameworkReturnCode::_ERROR_ for other errors
