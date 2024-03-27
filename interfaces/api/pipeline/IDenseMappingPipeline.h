@@ -58,21 +58,21 @@ public:
     virtual ~IDenseMappingPipeline() = default;
 
     /// @brief Request to the dense mapping pipeline to process a sparse map
-    /// @param[in] sparseMap: the sparse map to use to create a dense map
-    /// @param[in] createMesh: true to create a mesh, otherwise, just a dense point cloud is created
+    /// @param[in] sparseMap the sparse map to use to create a dense map
+    /// @param[in] createMesh true to create a mesh, otherwise, just a dense point cloud is created
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode denseMappingProcessRequest(const SRef<SolAR::datastructure::Map> & sparseMap,
                                                            const bool createMesh) = 0;
 
     /// @brief Provide the dense pottn cloud resulting from the dense mapping of the sparse map
-    /// @param[out] outputPointCloud: the resulting dense point cloud
-    /// @param[out] status: the current status of the dense mapping pipeline
+    /// @param[out] outputPointCloud the resulting dense point cloud
+    /// @param[out] status the current status of the dense mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloud(SRef<SolAR::datastructure::PointCloud> & outputPointCloud, DenseMappingStatus & status) const = 0;
 
     /// @brief Provide the mesh resulting from the dense mapping of the sparse map
-    /// @param[out] outputMesh: the resulting mesh
-    /// @param[out] status: the current status of the dense mapping pipeline
+    /// @param[out] outputMesh the resulting mesh
+    /// @param[out] status the current status of the dense mapping pipeline
     /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMesh(SRef<SolAR::datastructure::Mesh>& outputMesh, DenseMappingStatus & status) const = 0;
 
