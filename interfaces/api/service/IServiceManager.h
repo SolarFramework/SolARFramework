@@ -38,6 +38,37 @@ enum class ServiceType {
     MAPPING_STEREO_SERVICE = 4
 };
 
+/// @brief Return the name (string) of a service according to its type
+/// @param[in] serviceType type of the service
+/// @return the name of the service (string)
+static std::string getServiceName(const ServiceType serviceType)
+{
+    std::string serviceName = "";
+
+    switch(serviceType) {
+    case ServiceType::MAP_UPDATE_SERVICE:
+        serviceName = "Map Update Service";
+        break;
+    case ServiceType::RELOCALIZATION_SERVICE:
+        serviceName = "Relocalization Service";
+        break;
+    case ServiceType::RELOCALIZATION_MARKERS_SERVICE:
+        serviceName = "Relocalization Markers Service";
+        break;
+    case ServiceType::MAPPING_SERVICE:
+        serviceName = "Mapping Service";
+        break;
+    case ServiceType::MAPPING_STEREO_SERVICE:
+        serviceName = "Stereo Mapping Service";
+        break;
+    default:
+        serviceName = "Unknown service";
+        break;
+    }
+
+    return serviceName;
+}
+
 /**
  * @class IServiceManager
  * @brief <B>Defines the service manager interface.</B>
