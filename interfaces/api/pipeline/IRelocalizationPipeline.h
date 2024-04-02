@@ -47,21 +47,28 @@ public:
     /// @brief IRelocalizationPipeline default destructor
     virtual ~IRelocalizationPipeline() = default;
 
+    using IPipeline::init;
+
+    /// @brief Initialization of the pipeline with the URL of an available MapUpdate Service
+    /// @param[in] mapupdateServiceURL the URL of an available MapUpdate Service
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init(const std::string & mapupdateServiceURL) = 0;
+
     /// @brief Set the camera parameters
-    /// @param[in] cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
     /// @brief Get the camera parameters
-    /// @param[out] cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[out] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
-    /// @param[in] image: the image to process
-    /// @param[out] pose: the new calculated pose
-    /// @param[out] confidence: the confidence score
-    /// @param[in] poseCoarse: (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
+    /// @param[in] image the image to process
+    /// @param[out] pose the new calculated pose
+    /// @param[out] confidence the confidence score
+    /// @param[in] poseCoarse (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose,
@@ -69,11 +76,11 @@ public:
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
-    /// @param[in] image: the image to process
-    /// @param[out] pose: the new calculated pose
-    /// @param[out] confidence: the confidence score
-    /// @param[out] detectedObjects: list of objects detected in the last processed image
-    /// @param[in] poseCoarse: (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
+    /// @param[in] image the image to process
+    /// @param[out] pose the new calculated pose
+    /// @param[out] confidence the confidence score
+    /// @param[out] detectedObjects list of objects detected in the last processed image
+    /// @param[in] poseCoarse (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose,

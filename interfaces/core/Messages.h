@@ -47,7 +47,17 @@ enum class FrameworkReturnCode:long{
     /** No service available (Service Manager) */
     _NO_SERVICE_AVAILABLE = -22,
     /** Service not locked by a client (Service Manager) */
-    _NO_SERVICE_LOCKED = -23
+    _NO_SERVICE_LOCKED = -23,
+
+    // for client sessions
+    _UNKNOWN_MAP_UUID = -30,
+    _UNKNOWN_CLIENT_UUID = -31,
+    _REQUEST_SERVICE_FAILURE = -32,
+    _INIT_SERVICE_FAILURE = -33,
+    _SERVICE_NOT_INITIALIZED = -34,
+    _CAMERA_PARAMETERS_NOT_SET = -35,
+    _SERVICE_NOT_STARTED = -36
+
 };
 
 }  // end of namespace SolAR
