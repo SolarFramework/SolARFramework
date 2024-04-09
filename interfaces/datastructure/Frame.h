@@ -16,6 +16,58 @@
 namespace SolAR {
 namespace datastructure {
 
+/**
+ * @enum global image descriptor type of the frame
+*/
+enum class GlobalDescriptorType {
+    NETVLAD, /**< NetVLAD image descriptor */
+};
+
+/**
+ * @enum data type of the global image descriptor associated with the frame 
+*/
+enum class GlobalDescriptorDataType : size_t {
+    TYPE_8U = 1,  /**< each global descriptor is stored in one byte. */
+    TYPE_32F = 4, /**< each global descriptor is stored in four bytes. */
+};
+
+/**
+ * @struct global image descriptor
+*/
+struct GlobalDescriptor {
+    /**
+     * @brief length of the descriptor, i.e. number of elements contained in the global descriptor 
+    */
+    size_t length() const {
+        if (!buffer) {
+            return 0;
+        }
+        return buffer->getSize() / static_cast<size_t>(dataType);
+    }
+    /**
+     * @brief pointer to the descriptor buffer 
+    */
+    unsigned char* data() const {
+        if (!buffer) {
+            return nullptr;
+        }
+        return static_cast<unsigned char*>(buffer->data());
+    }
+    GlobalDescriptorType type;
+    GlobalDescriptorDataType dataType;
+    SRef<BufferInternal> buffer;
+    /**
+     * @brief serialize
+    */
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int /* version */) {
+        ar & type;
+        ar & dataType;
+        ar & buffer;
+    }
+};
+
 class Keyframe;
 /**
  * @class Frame
@@ -166,6 +218,21 @@ public:
     /// @return image name
     const std::string& getImageName() const;
 
+    ///
+    /// @brief Set global descriptor
+    /// @param[in] buffer: pointer to the descriptor buffer
+    /// @param[in] type: global descriptor type
+    /// @param[in] dtype: global descriptor data type
+    /// @param[in] length: number of elements in the descriptor 
+    ///
+    FrameworkReturnCode setGlobalDescriptor(unsigned char* buffer, GlobalDescriptorType type, GlobalDescriptorDataType dtype, uint32_t length);
+
+    ///
+    /// @brief Get global descriptor
+    /// @return pointer to the global descriptor
+    ///
+    const SRef<GlobalDescriptor>& getGlobalDescriptor() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -176,6 +243,7 @@ protected:
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
+    SRef<GlobalDescriptor>          m_globalDescriptor;
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
     std::string                     m_imageName;

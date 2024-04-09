@@ -27,8 +27,15 @@ std::mutex						m_mutexReferenceKeyframe;
 std::mutex						m_mutexDescriptors;
 std::mutex						m_mutexVisibility;
 
+namespace xpcf  = org::bcom::xpcf;
+
 namespace SolAR {
 namespace datastructure {
+
+const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDataType>> descriptorType2LengthAndDataType =
+{
+    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
+};
 
 Frame::Frame(const SRef<Frame> frame) : m_pose(frame->getPose()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_descriptors(frame->getDescriptors()), m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()), m_mapVisibility(frame->getVisibility()){}
 
@@ -197,6 +204,38 @@ const std::string& Frame::getImageName() const
     return m_imageName;
 }
 
+FrameworkReturnCode Frame::setGlobalDescriptor(unsigned char* buffer, GlobalDescriptorType type, GlobalDescriptorDataType dtype, uint32_t length)
+{
+    if (descriptorType2LengthAndDataType.find(type) == descriptorType2LengthAndDataType.end()) {
+        LOG_ERROR("Unsupported global image descriptor type");
+        return FrameworkReturnCode::_ERROR_;
+    }
+    if (descriptorType2LengthAndDataType.at(type).first != length) {
+        LOG_ERROR("Global descriptor length {} does not match expected {}", length, descriptorType2LengthAndDataType.at(type).first);
+        return FrameworkReturnCode::_ERROR_;
+    }
+    if (descriptorType2LengthAndDataType.at(type).second != dtype) {
+        LOG_ERROR("Unsupported descriptor data type ({} bytes)", static_cast<size_t>(dtype));
+        return FrameworkReturnCode::_ERROR_;
+    }
+    if (!m_globalDescriptor) {
+        m_globalDescriptor = xpcf::utils::make_shared<GlobalDescriptor>();
+    }
+    m_globalDescriptor->type = type;
+    m_globalDescriptor->dataType = dtype;
+    if (!m_globalDescriptor->buffer) {
+        m_globalDescriptor->buffer = xpcf::utils::make_shared<BufferInternal>();
+    }
+    m_globalDescriptor->buffer->setData(buffer, length*static_cast<size_t>(dtype));
+    LOG_DEBUG("global descriptor buffer size: {}", m_globalDescriptor->buffer->getSize());
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+const SRef<GlobalDescriptor>& Frame::getGlobalDescriptor() const
+{
+    return m_globalDescriptor;
+}
+
 template<typename Archive>
 void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
@@ -207,7 +246,8 @@ void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_imageName;
     ar & m_camID;
     ar & m_isFixedPose;
-	ar & m_mapVisibility;	
+	ar & m_mapVisibility;
+	ar & m_globalDescriptor;
 }
 
 IMPLEMENTSERIALIZE(Frame);
