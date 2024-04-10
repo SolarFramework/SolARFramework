@@ -17,6 +17,8 @@
 #ifndef SOLAR_MESSAGES_H
 #define SOLAR_MESSAGES_H
 
+#include <string>
+
 namespace SolAR {
 
 enum class FrameworkReturnCode:long{
@@ -70,6 +72,94 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48
 
 };
+
+/// @brief Return the text definition (string) of a return code
+/// @param[in] returnCode return code
+/// @return the text definition (string)
+static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
+{
+    std::string txt_definition = "";
+
+    switch (returnCode) {
+        case FrameworkReturnCode::_ERROR_:
+            txt_definition = "Generic error code";
+            break;
+        case FrameworkReturnCode::_NOT_IMPLEMENTED:
+            txt_definition = "Method not implemented";
+            break;
+        case FrameworkReturnCode::_ERROR_LOAD_IMAGE:
+            txt_definition = "Error while loading an image";
+            break;
+        case FrameworkReturnCode::_ERROR_ACCESS_IMAGE:
+            txt_definition = "Error while accessing an image";
+            break;
+        case FrameworkReturnCode::_BUSY:
+            txt_definition = "Service busy";
+            break;
+        case FrameworkReturnCode::_NO_SERVICE_REGISTERED:
+            txt_definition = "No service registered for this kind of processing";
+            break;
+        case FrameworkReturnCode::_NO_SERVICE_AVAILABLE:
+            txt_definition = "No service available for this kind of processing";
+            break;
+        case FrameworkReturnCode::_NO_SERVICE_LOCKED:
+            txt_definition = "No service locked for client for this kind of processing";
+            break;
+        case FrameworkReturnCode::_UNKNOWN_MAP_UUID:
+            txt_definition = "Unknown map UUID";
+            break;
+        case FrameworkReturnCode::_UNKNOWN_CLIENT_UUID:
+            txt_definition = "Unknown client UUID";
+            break;
+        case FrameworkReturnCode::_REQUEST_SERVICE_FAILURE:
+            txt_definition = "Request to service failed";
+            break;
+        case FrameworkReturnCode::_INIT_SERVICE_FAILURE:
+            txt_definition = "Service initialization failed";
+            break;
+        case FrameworkReturnCode::_SERVICE_NOT_INITIALIZED:
+            txt_definition = "Service not initialized";
+            break;
+        case FrameworkReturnCode::_CAMERA_PARAMETERS_NOT_SET:
+            txt_definition = "Camera parameters not set";
+            break;
+        case FrameworkReturnCode::_SERVICE_NOT_STARTED:
+            txt_definition = "Service not started";
+            break;
+        case FrameworkReturnCode::_LICENSE_SERVER_UNKNOWN_ERROR:
+            txt_definition = "License server unknown error";
+            break;
+        case FrameworkReturnCode::_LICENSE_SERVER_NOT_REACHABLE:
+            txt_definition = "License server not reachable";
+            break;
+        case FrameworkReturnCode::_LICENSE_NOT_VALID:
+            txt_definition = "Invalid license";
+            break;
+        case FrameworkReturnCode::_LICENSE_UNAVAILABLE_PARAMETER:
+            txt_definition = "Unavailable parameter in license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_INCORRECT_SERVICE_VERSION:
+            txt_definition = "Incorrect version of services according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_MAPPING_EXCEEDED:
+            txt_definition = "Maximum of clients for mapping reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_RELOC_EXCEEDED:
+            txt_definition = "Maximum of clients for relocalization reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED:
+            txt_definition = "Maximum of clients for stereo mapping reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED:
+            txt_definition = "Maximum of clients for dense mapping reached according to license file";
+            break;
+        default:
+            txt_definition = "Unknown error code";
+            break;
+    }
+
+    return txt_definition;
+}
 
 }  // end of namespace SolAR
 
