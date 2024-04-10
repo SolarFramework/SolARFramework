@@ -68,11 +68,19 @@ public:
                                                          float_t & confidence,
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
+    /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose and visualize the intermediate results
+    /// @param[in] image: the image to process
+    /// @param[out] currPointCloud: the current 3D point cloud used to compute the pose
+    /// @param[out] pose: the new calculated pose
+    /// @param[out] confidence: the confidence score
+    /// @param[in] poseCoarse: (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
+    /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode relocalizeProcessRequestViz(const SRef<SolAR::datastructure::Image> image,
-                                                    std::vector<SRef< SolAR::datastructure::CloudPoint>>&currPointCloud,
+                                                    std::vector<SRef<SolAR::datastructure::CloudPoint>>& currPointCloud,
                                                     SolAR::datastructure::Transform3Df& pose,
                                                     float_t & confidence,
                                                     const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
+
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
     /// @param[in] image: the image to process
     /// @param[out] pose: the new calculated pose
