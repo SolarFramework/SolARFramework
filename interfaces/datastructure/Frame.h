@@ -7,66 +7,14 @@
 #include <datastructure/GeometryDefinitions.h>
 #include <datastructure/Image.h>
 #include <datastructure/Keypoint.h>
-#include <datastructure/DescriptorBuffer.h>
 #include <datastructure/DescriptorMatch.h>
 #include <datastructure/CloudPoint.h>
 #include <datastructure/CameraDefinitions.h>
+#include <datastructure/GlobalDescriptor.h>
 
 #include <memory>
 namespace SolAR {
 namespace datastructure {
-
-/**
- * @enum global image descriptor type of the frame
-*/
-enum class GlobalDescriptorType {
-    NETVLAD, /**< NetVLAD image descriptor */
-};
-
-/**
- * @enum data type of the global image descriptor associated with the frame 
-*/
-enum class GlobalDescriptorDataType : size_t {
-    TYPE_8U = 1,  /**< each global descriptor is stored in one byte. */
-    TYPE_32F = 4, /**< each global descriptor is stored in four bytes. */
-};
-
-/**
- * @struct global image descriptor
-*/
-struct GlobalDescriptor {
-    /**
-     * @brief length of the descriptor, i.e. number of elements contained in the global descriptor 
-    */
-    size_t length() const {
-        if (!buffer) {
-            return 0;
-        }
-        return buffer->getSize() / static_cast<size_t>(dataType);
-    }
-    /**
-     * @brief pointer to the descriptor buffer 
-    */
-    unsigned char* data() const {
-        if (!buffer) {
-            return nullptr;
-        }
-        return static_cast<unsigned char*>(buffer->data());
-    }
-    GlobalDescriptorType type;
-    GlobalDescriptorDataType dataType;
-    SRef<BufferInternal> buffer;
-    /**
-     * @brief serialize
-    */
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive &ar, const unsigned int /* version */) {
-        ar & type;
-        ar & dataType;
-        ar & buffer;
-    }
-};
 
 class Keyframe;
 /**

@@ -32,11 +32,6 @@ namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDataType>> descriptorType2LengthAndDataType =
-{
-    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
-};
-
 Frame::Frame(const SRef<Frame> frame) : m_pose(frame->getPose()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_descriptors(frame->getDescriptors()), m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()), m_mapVisibility(frame->getVisibility()){}
 
 Frame::Frame(const SRef<Keyframe> keyframe) : m_pose(keyframe->getPose()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_descriptors(keyframe->getDescriptors()), m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()), m_mapVisibility(keyframe->getVisibility()) {}
@@ -206,29 +201,11 @@ const std::string& Frame::getImageName() const
 
 FrameworkReturnCode Frame::setGlobalDescriptor(unsigned char* buffer, GlobalDescriptorType type, GlobalDescriptorDataType dtype, uint32_t length)
 {
-    if (descriptorType2LengthAndDataType.find(type) == descriptorType2LengthAndDataType.end()) {
-        LOG_ERROR("Unsupported global image descriptor type");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    if (descriptorType2LengthAndDataType.at(type).first != length) {
-        LOG_ERROR("Global descriptor length {} does not match expected {}", length, descriptorType2LengthAndDataType.at(type).first);
-        return FrameworkReturnCode::_ERROR_;
-    }
-    if (descriptorType2LengthAndDataType.at(type).second != dtype) {
-        LOG_ERROR("Unsupported descriptor data type ({} bytes)", static_cast<size_t>(dtype));
-        return FrameworkReturnCode::_ERROR_;
-    }
+    
     if (!m_globalDescriptor) {
         m_globalDescriptor = xpcf::utils::make_shared<GlobalDescriptor>();
     }
-    m_globalDescriptor->type = type;
-    m_globalDescriptor->dataType = dtype;
-    if (!m_globalDescriptor->buffer) {
-        m_globalDescriptor->buffer = xpcf::utils::make_shared<BufferInternal>();
-    }
-    m_globalDescriptor->buffer->setData(buffer, length*static_cast<size_t>(dtype));
-    LOG_DEBUG("global descriptor buffer size: {}", m_globalDescriptor->buffer->getSize());
-    return FrameworkReturnCode::_SUCCESS;
+    return m_globalDescriptor->setData(type, dtype, buffer, length);
 }
 
 const SRef<GlobalDescriptor>& Frame::getGlobalDescriptor() const
