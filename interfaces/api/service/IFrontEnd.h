@@ -114,11 +114,13 @@ public:
 
     /// @brief Register a new client, set the map to use (for mapping/relocalization)
     /// @brief and return its UUID to use for future requests
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] deviceInfo information on the client's device
     /// @param[in] mapUUID the UUID of the map to use for the client
     /// @param[out] clientUUID the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo,
+    virtual FrameworkReturnCode registerClient(const std::string & keycloakToken,
+                                               const DeviceInfo & deviceInfo,
                                                const std::string & mapUUID,
                                                std::string & clientUUID) = 0;
 
