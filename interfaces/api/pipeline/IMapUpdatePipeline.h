@@ -46,18 +46,32 @@ public:
 	/// @brief IMapUpdatePipeline default destructor
 	virtual ~IMapUpdatePipeline() = default;
 
+    /// @brief Set the map to use for this Map Update pipeline instance
+    /// @param[in] uuid the map UUID
+    /// @return FrameworkReturnCode::_SUCCESS if the map UUID is correctly set, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setMapUUID(const std::string & uuid) = 0;
+
+    /// @brief Get the map UUID associated to this Map Update pipeline instance
+    /// @param[out] uuid the map UUID
+    /// @return FrameworkReturnCode::_SUCCESS if the map UUID exists, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMapUUID(std::string & uuid) const = 0;
+
+    /// @brief Reset the map stored by the map update pipeline
+    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode resetMap() = 0;
+
     /// @brief Set the camera parameters
-	/// @param[in] cameraParams: the camera parameters (its resolution and its focal)
+    /// @param[in] cameraParams the camera parameters (its resolution and its focal)
 	/// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
 	/// @brief Request to the map update pipeline to update the global map from a local map
-    /// @param[in] map: the input local map to process
+    /// @param[in] map the input local map to process
 	/// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode mapUpdateRequest(const SRef<SolAR::datastructure::Map> map) = 0;
 
     /// @brief Request to the map update pipeline to get the global map
-    /// @param[out] map: the output global map
+    /// @param[out] map the output global map
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
 
@@ -68,12 +82,8 @@ public:
 	[[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getSubmapRequest(const SRef<SolAR::datastructure::Frame> frame, 
 																					SRef<SolAR::datastructure::Map> & map) const = 0;
 
-    /// @brief Reset the map stored by the map update pipeline
-    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode resetMap() = 0;
-
     /// @brief Request to the map update pipeline to get the point cloud of the global map
-    /// @param[out] pointCloud: the output point cloud
+    /// @param[out] pointCloud the output point cloud
     /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 

@@ -69,6 +69,7 @@ interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/reloc/IRegression.h \
 interfaces/api/service/IFrontEnd.h \
+interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/sfm/IMeshing.h \
 interfaces/api/sfm/IMultiViewStereo.h \
