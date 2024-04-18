@@ -25,6 +25,11 @@ namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
+const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDataType>> globalDescriptorToLengthType =
+{
+    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
+};
+
 FrameworkReturnCode GlobalDescriptor::setData(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len)
 {
     if (globalDescriptorToLengthType.find(type) == globalDescriptorToLengthType.end()) {

@@ -28,26 +28,18 @@ namespace SolAR {
 namespace datastructure {
 
 /**
- * @enum global image descriptor type of the frame
+ * @enum global image descriptor type
 */
 enum class GlobalDescriptorType {
     NETVLAD, /**< NetVLAD image descriptor */
 };
 
 /**
- * @enum data type of the global image descriptor associated with the frame 
+ * @enum data type of the global image descriptor 
 */
 enum class GlobalDescriptorDataType : size_t {
     TYPE_8U = 1,  /**< each global descriptor is stored in one byte. */
     TYPE_32F = 4, /**< each global descriptor is stored in four bytes. */
-};
-
-/**
- * @brief map from global descriptor type to expected size and data type 
-*/
-const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDataType>> globalDescriptorToLengthType =
-{
-    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
 };
 
 /**
@@ -71,10 +63,11 @@ public:
     FrameworkReturnCode setData(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len);
 
     /**
-     * @brief length of the descriptor, i.e. number of elements contained in the global descriptor
-     * @return length 
+     * @brief length of the descriptor, i.e. number of elements stored in the global descriptor
+     * @return number of elements in the global descriptor 
     */
     size_t length() const;
+
     /**
      * @brief pointer to the descriptor buffer
      * @return data pointer to the descriptor buffer 

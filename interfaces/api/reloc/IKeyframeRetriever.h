@@ -95,7 +95,7 @@ public:
 
     /// @brief This method allows to load the retriever-related feature from global descriptors stored inside a keyframe collection
     /// @param[in] keyframes: a collection of keyframes 
-    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromKeyframeCollection(const SRef<const SolAR::datastructure::KeyframeCollection> keyframes) = 0;
 
 	/// @brief Match a frame with a keyframe
