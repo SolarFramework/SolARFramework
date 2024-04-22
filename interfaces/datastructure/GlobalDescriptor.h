@@ -23,6 +23,7 @@
 #include <core/SerializationDefinitions.h>
 #include <core/SolARFrameworkDefinitions.h>
 #include <datastructure/DescriptorBuffer.h>
+#include <optional>
 
 namespace SolAR {
 namespace datastructure {
@@ -53,27 +54,32 @@ public:
     GlobalDescriptor() = default;
 
     /**
-     * @brief set data
+     * @brief constructor with input arguments
      * @param[in] type: global descriptor type 
      * @param[in] dtype: data type of global descriptor 
      * @param[in] buffer: input buffer 
      * @param[in] len: length of the descriptor (number of elements)
-     * @return FrameworkReturnCode::_SUCCESS if succeeded, otherwise FrameworkReturnCode::_ERROR_
     */
-    FrameworkReturnCode setData(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len);
+    GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len);
 
     /**
      * @brief length of the descriptor, i.e. number of elements stored in the global descriptor
      * @return number of elements in the global descriptor 
     */
-    size_t length() const;
+    size_t getLength() const;
 
     /**
-     * @brief pointer to the descriptor buffer
-     * @return data pointer to the descriptor buffer 
+     * @brief const pointer to the descriptor buffer
+     * @return const pointer to the descriptor buffer 
     */
-    unsigned char* data() const;
-    
+    const unsigned char* data() const;
+
+    /**
+     * @brief non-const pointer to the descriptor buffer
+     * @return non-const pointer to data buffer 
+    */
+    unsigned char* data();
+
     /**
      * @brief get descriptor type 
      * @return the type of global descriptor  
@@ -85,6 +91,12 @@ public:
      * @return the data type of the global descriptor 
     */
     GlobalDescriptorDataType getDataType() const;
+
+    /**
+     * @brief check if content is valid
+     * @return boolean
+    */
+    bool isValid(); 
 
 private:
     friend class boost::serialization::access;
@@ -99,6 +111,14 @@ private:
 };
 
 DECLARESERIALIZE(GlobalDescriptor);
+
+/**
+ * @brief builder of global descriptor 
+ * @param[in] type global descriptor type 
+ * @param[in] buffer data pointer 
+ * @return shared pointer to GlobalDescriptor if success, otherwise std::nullopt 
+*/
+std::optional<SRef<GlobalDescriptor>> buildGlobalDescriptor(GlobalDescriptorType type, unsigned char* buffer);
 
 }
 }

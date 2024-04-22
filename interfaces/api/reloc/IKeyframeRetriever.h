@@ -94,7 +94,7 @@ public:
     virtual FrameworkReturnCode loadFromFile(const std::string & file) = 0;
 
     /// @brief This method allows to load the retriever-related feature from global descriptors stored inside a keyframe collection
-    /// @param[in] keyframes: a collection of keyframes 
+    /// @param[in] keyframes a collection of keyframes 
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromKeyframeCollection(const SRef<const SolAR::datastructure::KeyframeCollection> keyframes) = 0;
 

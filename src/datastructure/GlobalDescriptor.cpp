@@ -30,20 +30,21 @@ const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDa
     {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
 };
 
-FrameworkReturnCode GlobalDescriptor::setData(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len)
+std::optional<SRef<GlobalDescriptor>> buildGlobalDescriptor(GlobalDescriptorType type, unsigned char* buffer)
 {
+    if (!buffer) {
+        LOG_ERROR("Empty input data buffer, cannot build global descriptor");
+        return std::nullopt;
+    }
     if (globalDescriptorToLengthType.find(type) == globalDescriptorToLengthType.end()) {
-        LOG_ERROR("Unsupported global image descriptor type");
-        return FrameworkReturnCode::_ERROR_;
+        LOG_ERROR("Unsupported type, cannot build global descriptor");
+        return std::nullopt;
     }
-    if (globalDescriptorToLengthType.at(type).first != len) {
-        LOG_ERROR("Global descriptor length {} does not match expected {}", len, globalDescriptorToLengthType.at(type).first);
-        return FrameworkReturnCode::_ERROR_;
-    }
-    if (globalDescriptorToLengthType.at(type).second != dtype) {
-        LOG_ERROR("Unsupported descriptor data type ({} bytes)", static_cast<size_t>(dtype));
-        return FrameworkReturnCode::_ERROR_;
-    }
+    return xpcf::utils::make_shared<GlobalDescriptor>(type, globalDescriptorToLengthType.at(type).second, buffer, globalDescriptorToLengthType.at(type).first);
+}
+
+GlobalDescriptor::GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len)
+{
     m_type = type;
     m_dataType = dtype;
     m_length = len;
@@ -52,15 +53,22 @@ FrameworkReturnCode GlobalDescriptor::setData(GlobalDescriptorType type, GlobalD
     }
     m_buffer->setData(buffer, len*static_cast<size_t>(dtype));
     LOG_DEBUG("Global descriptor buffer size: {} bytes", m_buffer->getSize());
-    return FrameworkReturnCode::_SUCCESS;
 }
 
-size_t GlobalDescriptor::length() const
+size_t GlobalDescriptor::getLength() const
 {
     return m_length;
 }
 
-unsigned char* GlobalDescriptor::data() const 
+const unsigned char* GlobalDescriptor::data() const 
+{
+    if (!m_buffer) {
+        return nullptr;
+    }
+    return static_cast<const unsigned char*>(m_buffer->data());
+}
+
+unsigned char* GlobalDescriptor::data() 
 {
     if (!m_buffer) {
         return nullptr;
@@ -76,6 +84,23 @@ GlobalDescriptorType GlobalDescriptor::getType() const
 GlobalDescriptorDataType GlobalDescriptor::getDataType() const
 {
     return m_dataType;
+}
+
+bool GlobalDescriptor::isValid() 
+{
+    if (!m_buffer) {
+        return false;
+    }
+    if (globalDescriptorToLengthType.find(m_type) == globalDescriptorToLengthType.end()) {
+        return false;
+    }
+    if (globalDescriptorToLengthType.at(m_type).first != m_length) {
+        return false;
+    }
+    if (globalDescriptorToLengthType.at(m_type).second != m_dataType) {
+        return false;
+    }
+    return true;
 }
 
 template<typename Archive>

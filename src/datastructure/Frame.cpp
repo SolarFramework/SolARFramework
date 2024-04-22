@@ -199,18 +199,19 @@ const std::string& Frame::getImageName() const
     return m_imageName;
 }
 
-FrameworkReturnCode Frame::setGlobalDescriptor(unsigned char* buffer, GlobalDescriptorType type, GlobalDescriptorDataType dtype, uint32_t length)
+void Frame::setGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor)
 {
-    
-    if (!m_globalDescriptor) {
-        m_globalDescriptor = xpcf::utils::make_shared<GlobalDescriptor>();
-    }
-    return m_globalDescriptor->setData(type, dtype, buffer, length);
+    m_globalDescriptor = gdescriptor;
 }
 
-const SRef<GlobalDescriptor>& Frame::getGlobalDescriptor() const
+const GlobalDescriptor& Frame::getGlobalDescriptor() const
 {
-    return m_globalDescriptor;
+    return *m_globalDescriptor;
+}
+
+void Frame::getGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor) 
+{
+	gdescriptor = m_globalDescriptor;
 }
 
 template<typename Archive>

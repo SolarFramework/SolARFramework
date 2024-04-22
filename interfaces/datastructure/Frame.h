@@ -168,18 +168,20 @@ public:
 
     ///
     /// @brief Set global descriptor
-    /// @param[in] buffer: pointer to the descriptor buffer
-    /// @param[in] type: global descriptor type
-    /// @param[in] dtype: global descriptor data type
-    /// @param[in] length: number of elements in the descriptor 
-    ///
-    FrameworkReturnCode setGlobalDescriptor(unsigned char* buffer, GlobalDescriptorType type, GlobalDescriptorDataType dtype, uint32_t length);
+    /// @param[in] gdescriptor global descriptor
+    void setGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor);
 
     ///
     /// @brief Get global descriptor
-    /// @return pointer to the global descriptor
+    /// @return reference to the global descriptor
     ///
-    const SRef<GlobalDescriptor>& getGlobalDescriptor() const;
+    const GlobalDescriptor& getGlobalDescriptor() const;
+
+    ///
+    /// @brief Get shared pointer to global descriptor 
+    /// @param[out] gdescriptor shared pointer to the global descriptor 
+    ///
+    void getGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor);
 
 private:
 	friend class boost::serialization::access;
