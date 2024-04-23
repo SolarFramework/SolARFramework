@@ -175,13 +175,7 @@ public:
     /// @brief Get global descriptor
     /// @return reference to the global descriptor
     ///
-    const GlobalDescriptor& getGlobalDescriptor() const;
-
-    ///
-    /// @brief Get shared pointer to global descriptor 
-    /// @param[out] gdescriptor shared pointer to the global descriptor 
-    ///
-    void getGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor);
+    const SRef<GlobalDescriptor> getGlobalDescriptor() const;
 
 private:
 	friend class boost::serialization::access;

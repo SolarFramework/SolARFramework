@@ -204,14 +204,9 @@ void Frame::setGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor)
     m_globalDescriptor = gdescriptor;
 }
 
-const GlobalDescriptor& Frame::getGlobalDescriptor() const
+const SRef<GlobalDescriptor> Frame::getGlobalDescriptor() const
 {
-    return *m_globalDescriptor;
-}
-
-void Frame::getGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor) 
-{
-	gdescriptor = m_globalDescriptor;
+    return m_globalDescriptor;
 }
 
 template<typename Archive>

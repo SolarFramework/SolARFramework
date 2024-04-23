@@ -49,18 +49,12 @@ enum class GlobalDescriptorDataType : size_t {
 class SOLARFRAMEWORK_API GlobalDescriptor {
 public:
     /**
-     * @brief default constructor 
+     * @brief builder of global descriptor 
+     * @param[in] type global descriptor type 
+     * @param[in] buffer data pointer 
+     * @return shared pointer to GlobalDescriptor if success, otherwise std::nullopt 
     */
-    GlobalDescriptor() = default;
-
-    /**
-     * @brief constructor with input arguments
-     * @param[in] type: global descriptor type 
-     * @param[in] dtype: data type of global descriptor 
-     * @param[in] buffer: input buffer 
-     * @param[in] len: length of the descriptor (number of elements)
-    */
-    GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len);
+    static std::optional<GlobalDescriptor> build(GlobalDescriptorType type, unsigned char* buffer);
 
     /**
      * @brief length of the descriptor, i.e. number of elements stored in the global descriptor
@@ -99,6 +93,20 @@ public:
     bool isValid(); 
 
 private:
+    /**
+     * @brief default constructor 
+    */
+    GlobalDescriptor() = default;
+
+    /**
+     * @brief constructor with input arguments
+     * @param[in] type: global descriptor type 
+     * @param[in] dtype: data type of global descriptor 
+     * @param[in] buffer: input buffer 
+     * @param[in] len: length of the descriptor (number of elements)
+    */
+    GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len);
+
     friend class boost::serialization::access;
     template<typename Archive>
     void serialize(Archive &ar, const unsigned int version);
@@ -111,14 +119,6 @@ private:
 };
 
 DECLARESERIALIZE(GlobalDescriptor);
-
-/**
- * @brief builder of global descriptor 
- * @param[in] type global descriptor type 
- * @param[in] buffer data pointer 
- * @return shared pointer to GlobalDescriptor if success, otherwise std::nullopt 
-*/
-std::optional<SRef<GlobalDescriptor>> buildGlobalDescriptor(GlobalDescriptorType type, unsigned char* buffer);
 
 }
 }

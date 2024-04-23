@@ -30,7 +30,7 @@ const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDa
     {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
 };
 
-std::optional<SRef<GlobalDescriptor>> buildGlobalDescriptor(GlobalDescriptorType type, unsigned char* buffer)
+std::optional<GlobalDescriptor> GlobalDescriptor::build(GlobalDescriptorType type, unsigned char* buffer)
 {
     if (!buffer) {
         LOG_ERROR("Empty input data buffer, cannot build global descriptor");
@@ -40,7 +40,7 @@ std::optional<SRef<GlobalDescriptor>> buildGlobalDescriptor(GlobalDescriptorType
         LOG_ERROR("Unsupported type, cannot build global descriptor");
         return std::nullopt;
     }
-    return xpcf::utils::make_shared<GlobalDescriptor>(type, globalDescriptorToLengthType.at(type).second, buffer, globalDescriptorToLengthType.at(type).first);
+    return GlobalDescriptor(type, globalDescriptorToLengthType.at(type).second, buffer, globalDescriptorToLengthType.at(type).first);
 }
 
 GlobalDescriptor::GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len)
