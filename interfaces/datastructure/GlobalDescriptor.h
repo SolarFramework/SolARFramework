@@ -52,9 +52,17 @@ public:
      * @brief builder of global descriptor 
      * @param[in] type global descriptor type 
      * @param[in] buffer data pointer 
-     * @return shared pointer to GlobalDescriptor if success, otherwise std::nullopt 
+     * @return GlobalDescriptor object if success, otherwise std::nullopt 
     */
     static std::optional<GlobalDescriptor> build(GlobalDescriptorType type, unsigned char* buffer);
+
+    /**
+     * @brief build shared ref of global descriptor
+     * @param[in] type global descriptor type 
+     * @param[in] buffer data pointer 
+     * @return shared ref of GlobalDescriptor if success, otherwise nullptr
+    */
+    static SRef<GlobalDescriptor> buildSharedRef(GlobalDescriptorType type, unsigned char* buffer);
 
     /**
      * @brief length of the descriptor, i.e. number of elements stored in the global descriptor

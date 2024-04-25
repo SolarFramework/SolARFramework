@@ -43,6 +43,20 @@ std::optional<GlobalDescriptor> GlobalDescriptor::build(GlobalDescriptorType typ
     return GlobalDescriptor(type, globalDescriptorToLengthType.at(type).second, buffer, globalDescriptorToLengthType.at(type).first);
 }
 
+SRef<GlobalDescriptor> GlobalDescriptor::buildSharedRef(GlobalDescriptorType type, unsigned char* buffer)
+{
+    if (!buffer) {
+        LOG_ERROR("Empty input data buffer, cannot build global descriptor");
+        return nullptr;
+    }
+    if (globalDescriptorToLengthType.find(type) == globalDescriptorToLengthType.end()) {
+        LOG_ERROR("Unsupported type, cannot build global descriptor");
+        return nullptr;
+    }
+    auto gd = GlobalDescriptor(type, globalDescriptorToLengthType.at(type).second, buffer, globalDescriptorToLengthType.at(type).first);
+    return xpcf::utils::make_shared<GlobalDescriptor>(gd);
+}
+
 GlobalDescriptor::GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDataType dtype, unsigned char* buffer, size_t len)
 {
     m_type = type;
