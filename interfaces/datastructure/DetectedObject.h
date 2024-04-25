@@ -20,6 +20,8 @@
 #define DETECTEDOBJECT_H
 
 #include "core/SerializationDefinitions.h"
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/GeometryDefinitions.h"
 
 namespace SolAR {
 namespace datastructure {
