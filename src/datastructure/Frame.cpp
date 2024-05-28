@@ -27,6 +27,8 @@ std::mutex						m_mutexReferenceKeyframe;
 std::mutex						m_mutexDescriptors;
 std::mutex						m_mutexVisibility;
 
+namespace xpcf  = org::bcom::xpcf;
+
 namespace SolAR {
 namespace datastructure {
 
@@ -197,6 +199,16 @@ const std::string& Frame::getImageName() const
     return m_imageName;
 }
 
+void Frame::setGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor)
+{
+    m_globalDescriptor = gdescriptor;
+}
+
+const SRef<GlobalDescriptor> Frame::getGlobalDescriptor() const
+{
+    return m_globalDescriptor;
+}
+
 template<typename Archive>
 void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
@@ -207,7 +219,8 @@ void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_imageName;
     ar & m_camID;
     ar & m_isFixedPose;
-	ar & m_mapVisibility;	
+	ar & m_mapVisibility;
+	ar & m_globalDescriptor;
 }
 
 IMPLEMENTSERIALIZE(Frame);

@@ -19,6 +19,7 @@
 
 #include "datastructure/Keyframe.h"
 #include "datastructure/Frame.h"
+#include "datastructure/KeyframeCollection.h"
 #include "datastructure/KeyframeRetrieval.h"
 #include "datastructure/DescriptorMatch.h"
 #include "core/Messages.h"
@@ -91,6 +92,11 @@ public:
     /// @param[in] file: the file name
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromFile(const std::string & file) = 0;
+
+    /// @brief This method allows to load the retriever-related feature from global descriptors stored inside a keyframe collection
+    /// @param[in] keyframes a collection of keyframes 
+    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadFromKeyframeCollection(const SRef<const SolAR::datastructure::KeyframeCollection> keyframes) = 0;
 
 	/// @brief Match a frame with a keyframe
 	/// @param[in] frame: the frame to match
