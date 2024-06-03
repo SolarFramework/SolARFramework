@@ -21,7 +21,6 @@
 #include <core/SerializationDefinitions.h>
 #include <datastructure/GeometryDefinitions.h>
 #include <datastructure/Frame.h>
-#include <map>
 
 
 namespace SolAR {
@@ -104,7 +103,7 @@ private:
 private:
     uint32_t	m_id;
     std::vector<bool> m_isKeypointMatched;  // boolean map true or false indicating if keypoint matched to other keyframes during mapping
-	bool m_isKeypointMatchedStatusFrozen = false; // boolean true or false indicating if modifications on m_isKeypointMatched are forbidden or not
+    bool m_isKeypointMatchedStatusFrozen = false; // boolean true or false indicating if modifications on m_isKeypointMatched are forbidden or not
 };
 
 DECLARESERIALIZE(Keyframe);

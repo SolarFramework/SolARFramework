@@ -7,10 +7,10 @@
 #include <datastructure/GeometryDefinitions.h>
 #include <datastructure/Image.h>
 #include <datastructure/Keypoint.h>
-#include <datastructure/DescriptorBuffer.h>
 #include <datastructure/DescriptorMatch.h>
 #include <datastructure/CloudPoint.h>
 #include <datastructure/CameraDefinitions.h>
+#include <datastructure/GlobalDescriptor.h>
 
 #include <memory>
 namespace SolAR {
@@ -166,6 +166,17 @@ public:
     /// @return image name
     const std::string& getImageName() const;
 
+    ///
+    /// @brief Set global descriptor
+    /// @param[in] gdescriptor global descriptor
+    void setGlobalDescriptor(SRef<GlobalDescriptor> gdescriptor);
+
+    ///
+    /// @brief Get global descriptor
+    /// @return reference to the global descriptor
+    ///
+    const SRef<GlobalDescriptor> getGlobalDescriptor() const;
+
 private:
 	friend class boost::serialization::access;
 	template<typename Archive>
@@ -176,6 +187,7 @@ protected:
     SRef<Image>                     m_view;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
+    SRef<GlobalDescriptor>          m_globalDescriptor;
     std::vector<Keypoint>			m_keypoints;
     std::vector<Keypoint>			m_keypointsUndistort;
     std::string                     m_imageName;
