@@ -36,9 +36,10 @@ namespace datastructure {
 /// @brief Enumeration of all trackable object types according to the API specified in partnership with the Etsi
 ///
 enum class StorageTrackableType : char {
-    MAP,
     FIDUCIAL_MARKER,
     IMAGE_MARKER,
+    MESH,
+    MAP,
     GEOPOSE,
     MESH,
     OTHER
@@ -76,11 +77,11 @@ class EncodingInfo {
             m_version = version;
         }
 
-        std::string getVersion(){
+        std::string getVersion() const {
             return m_version;
         }
 
-        std::string getDataFormat(){
+        std::string getDataFormat() const {
             return m_dataFormat;
         }
 

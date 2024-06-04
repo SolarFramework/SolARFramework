@@ -56,6 +56,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the service is stopped, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode stop() = 0;
 
+};
+
 } // service
 } // api
 } // SolAR
