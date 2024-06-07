@@ -58,6 +58,9 @@ public:
 	/// @param[out] displayImage: the image to display.
 	/// @return FrameworkReturnCode::_SUCCESS if tracking succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Image> &displayImage) = 0;
+
+    /// @brief this method is used to release the temporary data used during tracking
+    virtual void releaseData() = 0;
 };
 
 }
