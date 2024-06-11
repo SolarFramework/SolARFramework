@@ -53,6 +53,9 @@ public:
 	/// @param[in] frame: the input frame.
     /// @param[out] keyframe: new keyframe or new reference keyframe found.
     virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Keyframe> & keyframe) = 0;
+
+    /// @brief this method is used to release the temporary data used during mapping
+    virtual void releaseData() = 0;
 };
 
 }
