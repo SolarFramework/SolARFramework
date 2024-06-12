@@ -65,7 +65,7 @@ public:
         if (m_bufferSize < size) {
             setSize(size);
         }
-        m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
+        m_storageData = {static_cast<uint8_t*>(data), static_cast<uint8_t*>(data) + m_bufferSize};
     }
 
     void appendData (const void * data, uint32_t size){

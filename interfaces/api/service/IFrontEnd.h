@@ -114,11 +114,13 @@ public:
 
     /// @brief Register a new client, set the map to use (for mapping/relocalization)
     /// @brief and return its UUID to use for future requests
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] deviceInfo information on the client's device
     /// @param[in] mapUUID the UUID of the map to use for the client
     /// @param[out] clientUUID the UUID for this new client
     /// @return FrameworkReturnCode::_SUCCESS if the client is registered with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo,
+    virtual FrameworkReturnCode registerClient(const std::string & keycloakToken,
+                                               const DeviceInfo & deviceInfo,
                                                const std::string & mapUUID,
                                                std::string & clientUUID) = 0;
 
@@ -128,9 +130,11 @@ public:
     virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[out] clientUUIDList the list of UUID of all clients currently registered
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & clientUUIDList) const = 0;
+    virtual FrameworkReturnCode getAllClientsUUID(const std::string & keycloakToken,
+                                                  std::vector<std::string> & clientUUIDList) const = 0;
 
     /// @brief Return the device information for the given client UUID
     /// @param[in] clientUUID UUID of the client
@@ -321,47 +325,60 @@ public:
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
     /// @brief Create a new map specified by its UUID
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to create
     /// @return FrameworkReturnCode::_SUCCESS if the map is created with its UUID, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::string & mapUUID) = 0;
+    virtual FrameworkReturnCode createMap(const std::string & keycloakToken,
+                                          const std::string & mapUUID) = 0;
 
     /// @brief Delete a map specified by its UUID (if not used by some clients)
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to delete
     /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode deleteMap(const std::string & mapUUID) = 0;
+    virtual FrameworkReturnCode deleteMap(const std::string & keycloakToken,
+                                          const std::string & mapUUID) = 0;
 
     /// @brief Return all available maps UUID
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[out] mapUUIDList the list of UUID of all maps currently available
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllMapsUUID(std::vector<std::string> & mapUUIDList) const = 0;
+    virtual FrameworkReturnCode getAllMapsUUID(const std::string & keycloakToken,
+                                               std::vector<std::string> & mapUUIDList) const = 0;
 
     /// @brief Return the map UUID used by a client specified by its UUID
     /// @param[in] clientUUID UUID of the client
     /// @param[out] mapUUID: UUID of the map used by the client
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID, std::string & mapUUID) const = 0;
+    virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID,
+                                                 std::string & mapUUID) const = 0;
 
     /// @brief Request for the datastructure of a specific map
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] mapDatastructure: the output map datastructure
     /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
+                                            const std::string & keycloakToken,
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::Map> & mapDatastructure) const = 0;
 
     /// @brief Request to update the datastructure of a specific map
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[in] mapDatastructure: the input map datastructure
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
+                                            const std::string & keycloakToken,
                                             const std::string & mapUUID,
                                             const SRef<SolAR::datastructure::Map> mapDatastructure) = 0;
 
     /// @brief Request the point cloud of a specific map
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] pointCloud: the output point cloud
     /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
+                                            const std::string & keycloakToken,
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
