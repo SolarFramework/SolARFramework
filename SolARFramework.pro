@@ -39,10 +39,6 @@ PROJECTCONFIG = QTVS
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templatelibconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
-msvc {
-DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
-}
-
 include (SolARFramework.pri)
 
 # DEFINES += XPCF_DISABLE_ATTRIBUTES

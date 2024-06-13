@@ -17,10 +17,6 @@
 #ifndef SOLAR_IDESCRIPTORSEXTRACTOR_H
 #define SOLAR_IDESCRIPTORSEXTRACTOR_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <vector>
 #include "datastructure/Keypoint.h"
 //#include "IDescriptor.h"

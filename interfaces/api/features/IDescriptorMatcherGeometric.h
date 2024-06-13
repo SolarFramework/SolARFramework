@@ -17,10 +17,6 @@
 #ifndef SOLAR_IDESCRIPTORMATCHERGEOMETRIC_H
 #define SOLAR_IDESCRIPTORMATCHERGEOMETRIC_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <vector>
 #include "datastructure/DescriptorBuffer.h"
 #include "datastructure/DescriptorMatch.h"
