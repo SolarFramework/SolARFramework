@@ -69,8 +69,13 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_MAPPING_EXCEEDED = -45,
     _LICENSE_MAX_CLIENTS_RELOC_EXCEEDED = -46,
     _LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED = -47,
-    _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48
+    _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48,
 
+    // for Keycloak requests
+    _KEYCLOAK_SERVICE_UNAVAILABLE = -50,
+    _KEYCLOAK_REQUEST_FAILURE = -51,
+    _KEYCLOAK_INVALID_TOKEN = -52,
+    _KEYCLOAK_RESOURCE_NOT_FOUND = -53
 };
 
 /// @brief Return the text definition (string) of a return code
@@ -152,6 +157,18 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED:
             txt_definition = "Maximum of clients for dense mapping reached according to license file";
+            break;
+        case FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE:
+            txt_definition = "Keycloak service unavailable";
+            break;
+        case FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE:
+            txt_definition = "Keycloak request failure";
+            break;
+        case FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN:
+            txt_definition = "Keycloak invalid token";
+            break;
+        case FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND:
+            txt_definition = "Keycloak resource not found";
             break;
         default:
             txt_definition = "Unknown error code";
