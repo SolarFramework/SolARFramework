@@ -73,6 +73,7 @@ public:
     /// detected global map loop keyframe -> globalMapClosestKeyframeId -> localMapFirstKeyframeId -> local map query keyframe -> detected global map loop keyframe
     /// @param[out] loopTransforms: list of loop closure transforms
     /// @param[out] matchedPointIds: list of matched cloud point IDs between the local map query keyframe and the detected global map loop keyframe
+    /// @return FrameworkReturnCode::_SUCCESS if detect loop closures, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode detect(const std::vector<uint32_t>& localMapKeyframeIds,
                                        const std::vector<uint32_t>& initSubmapKeyframeIds,
                                        uint32_t& localMapFirstKeyframeId,

@@ -81,6 +81,7 @@ public:
     /// @param[in] loopTransforms: list of estimated loop transform from local map keyframe to global map keyframe
     /// @param[in] matchedPointIds: list of matched cloud point IDs between local map and global map keyframes 
     /// @param[in] localMapFirstKeyframeId: ID of the first keyframe from local map (all other local map keyframes' IDs are greater than this value)
+    /// @return FrameworkReturnCode::_SUCCESS if loop closure is correctly corrected, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode correct(const std::vector<std::pair<uint32_t, uint32_t>>& loopKeyframeIds,
                                         const std::vector<SolAR::datastructure::Transform3Df>& loopTransforms,
                                         const std::vector<std::vector<std::pair<uint32_t, uint32_t>>>& matchedPointIds,
