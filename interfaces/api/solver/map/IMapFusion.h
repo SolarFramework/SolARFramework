@@ -63,7 +63,7 @@ public:
 	/// @param[in,out] map local map or floating map to merge
 	/// @param[in,out] globalMap the global map	
 	/// @param[in,out] transform the transformation to the global map (null for floating map). It can be refined by fusion process.
-	/// @param[out] commonKeyframeIds list of IDs of the shared common keyframes between map and globalMap. Usually the map is extended from an initial submap of globalMap (the same submap exist in both map and globalMap), so the list is not empty. Otherwise will get an empty list.
+	/// @param[out] commonKeyframeIds list of IDs of the shared common keyframes between map and globalMap. Usually the map is extended from an initial submap of globalMap (the same submap exists in both map and globalMap), so the list is not empty. Otherwise will get an empty list.
 	/// @param[in] cpOverlapIndices pairs of detected overlap cloud points indices of floating map and global map.
 	/// @param[in] isRefineTransform refine the 3D transformation if it's true.
 	/// @return FrameworkReturnCode::_SUCCESS_ if the fusion succeed, else FrameworkReturnCode::_ERROR.
