@@ -31,6 +31,10 @@ namespace datastructure {
         return m_rootUUID;
     };
 
+    void RelocalizationInformation::setRootUUID(org::bcom::xpcf::uuids::uuid uuid) {
+        m_rootUUID = uuid;
+    };
+
     const std::vector<RelocObject> RelocalizationInformation::getRelocObjects() const {
         return m_relocObjects;
     };
