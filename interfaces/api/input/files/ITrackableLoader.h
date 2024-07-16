@@ -33,7 +33,7 @@ namespace files {
  * <TT>UUID: 8e54d5d0-f7a3-4d62-b012-728e5704b46a</TT>
  *
  */
-class XPCF_CLIENTUUID("7f62f9da-c21c-44fe-aebe-fedca94f6be6") XPCF_SERVERUUID("9361175d-d517-4a54-ac49-e41610b6d64f") ITrackableLoader :
+class XPCF_IGNORE ITrackableLoader :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ITrackableLoader() = default;

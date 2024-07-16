@@ -34,7 +34,7 @@ namespace devices {
  *
  * This class describes the interface of an Inertial Measurement Unit capture device.
  */
-class XPCF_CLIENTUUID("fb1332ea-5f0a-4d7e-8080-db9b6171769e") XPCF_SERVERUUID("0b360851-0cdd-43d1-91db-d925218d0917") IIMU :
+class XPCF_IGNORE IIMU :
     virtual public IDevice {
 public:
     /// @brief IIMU default constructor

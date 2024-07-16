@@ -32,7 +32,7 @@ namespace SolAR::api::output::files
  * <TT>UUID: faf50760-462c-11ed-b878-0242ac120002</TT>
  *
  */
-class XPCF_CLIENTUUID("0e1263d8-462d-11ed-b878-0242ac120002") XPCF_SERVERUUID("14cbf040-462d-11ed-b878-0242ac120002") IMeshExporter :
+class XPCF_IGNORE IMeshExporter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IMeshExporter() = default;

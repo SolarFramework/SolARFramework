@@ -36,7 +36,7 @@ namespace slam {
 * <TT>UUID: c2182b8e-03e9-43a3-a5b9-326e80554cf8</TT>
 */
 
-class XPCF_CLIENTUUID("064ae968-4fc7-448b-a485-468a112e4fa3") XPCF_SERVERUUID("d5baf1c5-d0ff-40ba-aa45-2c308a402587") ITracking :
+class XPCF_IGNORE ITracking :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief ITracking default constructor
@@ -58,6 +58,9 @@ public:
 	/// @param[out] displayImage: the image to display.
 	/// @return FrameworkReturnCode::_SUCCESS if tracking succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode process(const SRef<SolAR::datastructure::Frame> frame, SRef<SolAR::datastructure::Image> &displayImage) = 0;
+
+    /// @brief this method is used to release the temporary data used during tracking
+    virtual void releaseData() = 0;
 };
 
 }

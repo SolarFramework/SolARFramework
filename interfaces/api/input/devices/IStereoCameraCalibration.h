@@ -32,7 +32,7 @@ namespace devices {
 * @brief <B>Calibrate and rectify a stereo camera.</B>
 * <TT>UUID: b4fad0ff-c636-492e-ba12-710927a760c7</TT>
 */
-class XPCF_CLIENTUUID("f2cec917-6793-4aef-90cb-fd3f843fb43e") XPCF_SERVERUUID("d8ac896d-772d-4ce1-b7be-a8f08020eeb6") IStereoCameraCalibration :
+class XPCF_IGNORE IStereoCameraCalibration :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
 	/// @brief IStereoCameraCalibration constructor
@@ -50,13 +50,24 @@ public:
 	/// @param[out] rectParams1 Rectification parameters of the first camera
 	/// @param[out] rectParams2 Rectification parameters of the second camera
 	/// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>>& images1,
-                                          const std::vector<SRef<SolAR::datastructure::Image>>& images2,
-                                          const SolAR::datastructure::CameraParameters & camParams1,
-                                          const SolAR::datastructure::CameraParameters & camParams2,
-                                          SolAR::datastructure::Transform3Df & transformation,
-                                          SolAR::datastructure::RectificationParameters & rectParams1,
-                                          SolAR::datastructure::RectificationParameters & rectParams2) = 0;
+    virtual FrameworkReturnCode calibrate(const std::vector<SRef<SolAR::datastructure::Image>> &images1,
+                                          const std::vector<SRef<SolAR::datastructure::Image>> &images2,
+                                          const SolAR::datastructure::CameraParameters &camParams1,
+                                          const SolAR::datastructure::CameraParameters &camParams2,
+                                          SolAR::datastructure::Transform3Df &transformation,
+                                          SolAR::datastructure::RectificationParameters &rectParams1,
+                                          SolAR::datastructure::RectificationParameters &rectParams2) = 0;
+
+    /// @brief Compute rectification parameters from stereo camera parameters
+    /// @param[in] camParams1 Intrinsics of the first camera
+    /// @param[in] camParams2 Intrinsics of the second camera
+    /// @param[out] rectParams1 Rectification parameters of the first camera
+    /// @param[out] rectParams2 Rectification parameters of the second camera
+    /// @return FrameworkReturnCode::_SUCCESS if calibration succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode rectify(const SolAR::datastructure::CameraParameters& camParams1,
+                                        const SolAR::datastructure::CameraParameters& camParams2,
+                                        SolAR::datastructure::RectificationParameters& rectParams1,
+                                        SolAR::datastructure::RectificationParameters& rectParams2) = 0;
 };
 
 }

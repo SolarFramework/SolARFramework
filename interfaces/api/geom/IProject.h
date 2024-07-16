@@ -34,7 +34,7 @@ namespace geom {
  * <TT>UUID: b485f37d-a8ea-49f6-b361-f2b30777d9ba</TT>
  */
 
-class XPCF_CLIENTUUID("64351b8a-7801-4ca9-841f-a4254506abc3") XPCF_SERVERUUID("8edec0aa-8547-49b0-a1a5-0eb148e44386") IProject :
+class XPCF_IGNORE IProject :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IProjection default constructor

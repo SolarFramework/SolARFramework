@@ -34,7 +34,7 @@ namespace loop{
   * <TT>UUID: 8f05eea8-c1c6-11ea-b3de-0242ac130004</TT>
   */
 
-class XPCF_CLIENTUUID("51f449f8-c9df-4c3a-ac57-7ca95debfdbc") XPCF_SERVERUUID("7dc30f5b-c61f-4eea-81d9-265a2a2b3b93") ILoopCorrector :
+class XPCF_IGNORE ILoopCorrector :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     ///@brief ILoopCorrector default constructor
@@ -75,6 +75,17 @@ public:
                                         const std::vector<std::pair<uint32_t, uint32_t>> & duplicatedPointsIndices,
                                         std::vector<uint32_t>& correctedKeyframeIds, 
                                         std::vector<uint32_t>& correctedCloudpointIds) = 0;
+
+    /// @brief corrects keyframes and their associated cloud points from loops detected after map fusion.
+    /// @param[in] loopKeyframeIds list of pairs of keyframe IDs (local map and global map keyframes between which loop is detected)
+    /// @param[in] loopTransforms list of estimated loop transform from local map keyframe to global map keyframe
+    /// @param[in] matchedPointIds list of matched cloud point IDs between local map and global map keyframes 
+    /// @param[in] localMapFirstKeyframeId ID of the first keyframe from local map (all other local map keyframes' IDs are greater than this value)
+    /// @return FrameworkReturnCode::_SUCCESS if loop closure is correctly corrected, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode correct(const std::vector<std::pair<uint32_t, uint32_t>>& loopKeyframeIds,
+                                        const std::vector<SolAR::datastructure::Transform3Df>& loopTransforms,
+                                        const std::vector<std::vector<std::pair<uint32_t, uint32_t>>>& matchedPointIds,
+                                        const uint32_t& localMapFirstKeyframeId) = 0;
 
 };
 }

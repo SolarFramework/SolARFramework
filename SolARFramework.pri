@@ -41,6 +41,7 @@ interfaces/api/geom/IReprojectionStereo.h \
 interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
 interfaces/api/image/IImageLoader.h \
+interfaces/api/image/IImageMerger.h \
 interfaces/api/image/IPerspectiveController.h \
 interfaces/api/image/IImageRectification.h \
 interfaces/api/input/devices/IARDevice.h \
@@ -72,6 +73,7 @@ interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/reloc/IRegression.h \
 interfaces/api/service/IFrontEnd.h \
+interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/service/IServiceWorldGraph.h \
 interfaces/api/sfm/IMeshing.h \
@@ -127,6 +129,7 @@ interfaces/datastructure/FiducialMarker.h \
 interfaces/datastructure/QRCode.h \
 interfaces/datastructure/Frame.h \
 interfaces/datastructure/GeometryDefinitions.h \
+interfaces/datastructure/GlobalDescriptor.h \
 interfaces/datastructure/Identification.h \
 interfaces/datastructure/Image.h \
 interfaces/datastructure/ImageMarker.h \
@@ -172,6 +175,7 @@ src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
 src/datastructure/DescriptorMatch.cpp \
 src/datastructure/FiducialMarker.cpp \
+src/datastructure/GlobalDescriptor.cpp \
 src/datastructure/QRCode.cpp \
 src/datastructure/Frame.cpp \
 src/datastructure/Identification.cpp \

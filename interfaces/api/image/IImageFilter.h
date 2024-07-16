@@ -32,7 +32,7 @@ namespace image {
   * <TT>UUID: f7948ae2-e994-416f-be40-dd404ca03a83</TT>
   *
   */
-class XPCF_CLIENTUUID("4b446acb-eb14-4f06-952d-722dd21ee4da") XPCF_SERVERUUID("639e76f5-322c-4599-a72c-bc8cfa2ceae3") IImageFilter :
+class XPCF_IGNORE IImageFilter :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     IImageFilter() = default;
