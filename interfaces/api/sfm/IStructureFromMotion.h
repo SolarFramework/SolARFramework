@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,9 @@
 #ifndef ISTRUCTUREFROMMOTION_H
 #define ISTRUCTUREFROMMOTION_H
 
-
-#include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/Image.h"
-#include "datastructure/DescriptorBuffer.h"
-#include "datastructure/Keypoint.h"
 #include "datastructure/Map.h"
+#include <xpcf/api/IComponentIntrospect.h>
 
 namespace SolAR {
 namespace api {
@@ -33,7 +27,7 @@ namespace sfm {
 
 /**
  * @class IStructureFromMotion
- * @brief <B>Create a sparse point cloud and estimate camera poses from a set of images.</B>
+ * @brief <B>Create a sparse point cloud and estimate camera poses from a set of images or a set of descriptors stored inside the keyframes.</B>
  * <TT>UUID: 3681e09b-1704-4a08-b1cd-42d5a7c961b4</TT>
  *
  */
@@ -47,13 +41,40 @@ public:
     ///@brief IStructureFromMotion default destructor.
     virtual ~IStructureFromMotion() override = default;
 
-    /// @brief Create map
-    /// @param[in] keyframe: the keyframe to add to the bag of words
-    /// @return FrameworkReturnCode::_SUCCESS if the keyfram adding succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(std::vector<SRef<SolAR::datastructure::Image>>& images,
-                                          SRef<SolAR::datastructure::Map>& map) = 0; //last argument for test
-};
+    /// @brief Create map from a set of images while camera parameters are not provided
+    /// @param[in] images list of images
+    /// @param[out] map output map created by structure from motion
+    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const std::vector<SRef<SolAR::datastructure::Image>>& images,
+                                          SRef<SolAR::datastructure::Map> map) = 0;
 
+    /// @brief Create map from a set of images with provided camera parameters
+    /// @param[in] imageCamIds list of pairs of image and camera ID
+    /// @param[in] cameraParameters collection of camera parameters
+    /// @param[out] map output map created by structure from motion
+    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const std::vector<std::pair<SRef<SolAR::datastructure::Image>, uint32_t>>& imageCamIds,
+                                          const SRef<SolAR::datastructure::CameraParametersCollection> cameraParameters,
+                                          SRef<SolAR::datastructure::Map> map) = 0;
+
+    /// @brief Create map from a set of keyframes and camera parameters
+    /// @param[in] keyframes collection of keyframes
+    /// @param[in] cameraParameters collection of camera parameters
+    /// @param[out] map output map created by structure from motion
+    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const SRef<SolAR::datastructure::KeyframeCollection> keyframes,
+                                          const SRef<SolAR::datastructure::CameraParametersCollection> cameraParameters,
+                                          SRef<SolAR::datastructure::Map> map) = 0;
+
+    /// @brief Create map from a set of keyframes and camera parameters
+    /// @param[in] keyframes list of keyframes
+    /// @param[in] cameraParameters collection of camera parameters
+    /// @param[out] map output map created by structure from motion
+    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes,
+                                          const SRef<SolAR::datastructure::CameraParametersCollection> cameraParameters,
+                                          SRef<SolAR::datastructure::Map> map) = 0;
+};
 
 } // namespace sfm
 } // namespace api
