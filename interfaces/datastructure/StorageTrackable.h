@@ -41,7 +41,6 @@ enum class StorageTrackableType : char {
     MESH,
     MAP,
     GEOPOSE,
-    MESH,
     OTHER
 };
 

@@ -1,8 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-$$PWD/interfaces/datastructure/RelocalizationInformation.h \
-$$PWD/interfaces/datastructure/StorageCapabilities.h \
-interfaces/api/pipeline/IServiceManagerPipeline.h \
-interfaces/api/pipeline/IAsyncRelocalizationPipeline.h \
+interfaces/datastructure/RelocalizationInformation.h \
+interfaces/datastructure/StorageCapabilities.h \
 interfaces/datastructure/DetectedObject.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
@@ -63,10 +61,11 @@ interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/pipeline/IDenseMappingPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
+interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
-interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IRelocalizationPipeline.h \
+interfaces/api/pipeline/IRelocalizationTrackablePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
