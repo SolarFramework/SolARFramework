@@ -88,6 +88,11 @@ namespace SolAR {
                 org::bcom::xpcf::uuids::uuid getRootUUID() const;
 
                 ///
+                /// @brief Setter for the rootUUID
+                ///
+                void setRootUUID(org::bcom::xpcf::uuids::uuid uuid);
+
+                ///
                 /// @brief Getter for the RelocObjects
                 ///
                 const std::vector<RelocObject> getRelocObjects() const;
