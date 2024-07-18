@@ -44,6 +44,16 @@ public:
     /// @brief IRelocalizationTrackablePipeline default destructor
     virtual ~IRelocalizationTrackablePipeline() = default;
 
+    using IPipeline::init;
+
+    using IRelocalizationPipeline::init;
+
+    using IRelocalizationPipeline::setCameraParameters;
+
+    using IRelocalizationPipeline::getCameraParameters;
+
+    using IRelocalizationPipeline::relocalizeProcessRequest;
+
     /// @brief Initialization of the pipeline with the list of trackable objects to use for localization
     /// @param[in] trackableObjects the list of the trackable objects to detect in images
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
