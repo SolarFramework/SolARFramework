@@ -129,6 +129,11 @@ typedef Vector<unsigned int, 2> Vector2ui;
  */
 typedef Maths::Vector2d Vector2d;
 
+/**
+ * @typedef Matrix3f
+ * @brief <B>Matrix 3x3 of type float.</B>
+ */
+typedef Maths::Matrix3f Matrix3f;
 
 template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
