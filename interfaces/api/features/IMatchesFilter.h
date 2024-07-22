@@ -42,14 +42,14 @@ namespace features {
         /// @param[in] intrinsicParams1 intrinsic parameters of first keyframe
         /// @param[in] intrinsicParams2 intrinsic parameters of second keyframe
         /// @param[out] outputMatches list of filtered descriptor matches
-        /// @param[out] relativePose the relative pose from first to second keyframes (translation vector is normalized, length is 1)
+        /// @param[out] relativePose list of 4 possible relative poses from first to second keyframes (translation vector is normalized, length is 1)
         virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
                                            const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
                                            const std::vector<SolAR::datastructure::DescriptorMatch>& inputMatches,
                                            const SolAR::datastructure::CamCalibration& intrinsicParams1,
                                            const SolAR::datastructure::CamCalibration& intrinsicParams2,
                                            std::vector<SolAR::datastructure::DescriptorMatch>& outputMatches,
-                                           SolAR::datastructure::Transform3Df& relativePose) = 0;
+                                           std::vector<SolAR::datastructure::Transform3Df>& relativePose) = 0;
 
 		/// @brief filter matches based fundamental matrix calculated from camera matrices
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".

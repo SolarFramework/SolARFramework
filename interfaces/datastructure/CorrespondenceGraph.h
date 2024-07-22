@@ -36,10 +36,24 @@ namespace datastructure {
 */
 class  SOLARFRAMEWORK_API CorrespondenceGraph : public Lockable {
 public:
-    /// @struct Correspondence
-    struct Correspondence {
-        std::vector<DescriptorMatch> matches; // descriptor matches
-        Transform3Df relativePose; // relative pose between the two keyframes 
+    /// @class Correspondence
+    class Correspondence {
+    public:
+        /// @brief default constructor
+        Correspondence() = default;
+        /// @brief constructor of Correspondence
+        Correspondence(const std::vector<DescriptorMatch>& dm, const Transform3Df& p): m_matches(dm), m_relativePose(p) {}
+        /// @brief get matches
+        const std::vector<DescriptorMatch>& getMatches() const { return m_matches; }
+        /// @brief get relative pose
+        const Transform3Df& getRelativePose() const { return m_relativePose; }
+    private:
+        /// @brief  Serialization
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+        std::vector<DescriptorMatch> m_matches; // descriptor matches
+        Transform3Df m_relativePose; // relative pose between the two keyframes 
     };
 
     /// @enum EdgeStatus
@@ -141,6 +155,7 @@ private:
     std::map<uint32_t, size_t> m_nodes; //  keyframe Id -> number of edges linked to this keyframe
 };
 
+DECLARESERIALIZE(CorrespondenceGraph::Correspondence);
 DECLARESERIALIZE(CorrespondenceGraph);
 
 } // datastructure

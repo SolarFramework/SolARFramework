@@ -155,6 +155,7 @@ interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+src/api/sfm/IStructureFromMotion.cpp \
 src/core/Log.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \

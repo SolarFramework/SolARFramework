@@ -91,7 +91,7 @@ const std::vector<std::pair<uint32_t, size_t>>& CorrespondenceGraph::getLinkedKe
     // matched keyframes whose Id > keyframeId
     if (m_edges.find(keyframeId) != m_edges.end()) {
         for (const auto& kfMatch : m_edges.at(keyframeId)) {
-            keyframes.push_back( {kfMatch.first, kfMatch.second.matches.size()} );
+            keyframes.push_back( {kfMatch.first, kfMatch.second.getMatches().size()} );
         }
     }
     // matched keyframes whose Id < keyframeId
@@ -101,7 +101,7 @@ const std::vector<std::pair<uint32_t, size_t>>& CorrespondenceGraph::getLinkedKe
         auto kfMatchResult = it->second;
         auto result = kfMatchResult.find(keyframeId);
         if (result != kfMatchResult.end()) {
-            keyframes.push_back( {currentKfId, result->second.matches.size()} );
+            keyframes.push_back( {currentKfId, result->second.getMatches().size()} );
         }
     }
     std::sort(keyframes.begin(), keyframes.end(), [](auto& x1, auto& x2) {return x1.second > x2.second;});
@@ -117,10 +117,10 @@ const std::vector<DescriptorMatch>& CorrespondenceGraph::getDescriptorMatches(ui
         return std::vector<DescriptorMatch>();
     }
     if (inverseOrder) {
-        return inverseMatches(corres.matches);
+        return inverseMatches(corres.getMatches());
     }
     else {
-        return corres.matches;
+        return corres.getMatches();
     }
 }
 
@@ -135,10 +135,10 @@ const Transform3Df& CorrespondenceGraph::getRelativePose(uint32_t keyframeId1, u
         return transform;
     }
     if (inverseOrder) {
-        return corres.relativePose.inverse();
+        return corres.getRelativePose().inverse();
     }
     else {
-        return corres.relativePose;
+        return corres.getRelativePose();
     }
 }
 
@@ -209,9 +209,7 @@ bool CorrespondenceGraph::deleteEdge(uint32_t keyframeId1, uint32_t keyframeId2,
 
 void CorrespondenceGraph::setEdge(uint32_t keyframeId1, uint32_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose)
 {
-    Correspondence corres;
-    corres.matches = desMatches;
-    corres.relativePose = relativePose;
+    Correspondence corres(desMatches, relativePose);
     m_edges[keyframeId1][keyframeId2] = corres;
     m_nodes[keyframeId1]++;
     m_nodes[keyframeId2]++;
@@ -249,6 +247,22 @@ bool CorrespondenceGraph::getCorrespondence(uint32_t keyframeId1, uint32_t keyfr
     LOG_WARNING("No correspondence from keyframe {} to {} found in the graph", keyframeId2, keyframeId1);
     return false; // not found 
 }
+
+template <typename Archive>
+void CorrespondenceGraph::Correspondence::serialize(Archive &ar, const unsigned int /* version */)
+{
+    ar& m_matches;
+    ar& m_relativePose;
+}
+IMPLEMENTSERIALIZE(CorrespondenceGraph::Correspondence);
+
+template <typename Archive>
+void CorrespondenceGraph::serialize(Archive &ar, const unsigned int /* version */)
+{
+    ar & m_nodes;
+    ar & m_edges;
+}
+IMPLEMENTSERIALIZE(CorrespondenceGraph);
 
 } // datastructure
 } // SolAR
