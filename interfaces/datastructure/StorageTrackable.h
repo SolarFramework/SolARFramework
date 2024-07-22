@@ -174,6 +174,8 @@ class SOLARFRAMEWORK_API StorageTrackable : virtual public StorageWorldElement
 
         virtual ElementKind getKind() override;
 
+        static SRef<SolAR::datastructure::Trackable> ToSolAR(const SolAR::datastructure::StorageTrackable &trackable);
+
     private:
 
         friend class boost::serialization::access;

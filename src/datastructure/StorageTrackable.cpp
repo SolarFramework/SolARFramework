@@ -17,10 +17,11 @@
 #include "datastructure/StorageTrackable.h"
 
 #include <xpcf/core/helpers.h>
+#include <bitset>
 
 #include "core/Log.h"
+#include "datastructure/FiducialMarker.h"
 #include "datastructure/Trackable.h"
-
 namespace SolAR {
 namespace datastructure {
 
@@ -85,6 +86,25 @@ namespace datastructure {
     {
         m_type = newType;
     }
+
+    SRef<SolAR::datastructure::Trackable> ToSolAR(const SolAR::datastructure::StorageTrackable &trackable){
+        SRef<SolAR::datastructure::FiducialMarker> result;
+
+        std::string str;
+        for (const auto& byte : trackable.getPayload()) {
+            std::bitset<1> bits(static_cast<unsigned char>(byte));
+            str += bits.to_string();
+        }
+        SolAR::datastructure::SquaredBinaryPattern payload = SquaredBinaryPattern::fromString(str,6);
+
+        result->setPattern(payload);
+
+        result->setTransform3D(trackable.getLocalCrs());
+        result->setURL(trackable.getName());
+
+        return result;
+    }
+
 
     template<typename Archive>
     void StorageTrackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
