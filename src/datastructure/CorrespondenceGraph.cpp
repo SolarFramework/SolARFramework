@@ -72,21 +72,26 @@ bool CorrespondenceGraph::removeEdge(uint32_t keyframeId1, uint32_t keyframeId2)
     return deleteEdge(keyframeId1, keyframeId2, status);
 }
 
-const std::vector<std::pair<uint32_t, size_t>>& CorrespondenceGraph::getAllSortedKeyframes() const 
+std::vector<std::pair<uint32_t, size_t>> CorrespondenceGraph::getAllSortedKeyframes() const 
 {
+    LOG_DEBUG("CorrespondenceGraph::getAllSortedKeyframes - begin.");
     std::vector<std::pair<uint32_t, size_t>> keyframes;
     for (const auto& node : m_nodes) {
+        LOG_DEBUG("CorrespondenceGraph::getAllSortedKeyframes - keyframe {}, nb linked edges {}", node.first, node.second);
         auto linkedKeyframes = getLinkedKeyframes(node.first);
+        LOG_DEBUG("CorrespondenceGraph::getAllSortedKeyframes - nb linked keyframes {}", linkedKeyframes.size());
         size_t nbCorres = 0;
         std::for_each(linkedKeyframes.begin(), linkedKeyframes.end(), [&nbCorres](auto& item) {nbCorres += item.second;} );
+        LOG_DEBUG("CorrespondenceGraph::getAllSortedKeyframes - nb of corres. {}", nbCorres);
         keyframes.push_back( {node.first, nbCorres} );
     }
     std::sort(keyframes.begin(), keyframes.end(), [](auto& x1, auto& x2) {return x1.second > x2.second;});
     return keyframes;
 }
 
-const std::vector<std::pair<uint32_t, size_t>>& CorrespondenceGraph::getLinkedKeyframes(uint32_t keyframeId) const
+std::vector<std::pair<uint32_t, size_t>> CorrespondenceGraph::getLinkedKeyframes(uint32_t keyframeId) const
 {
+    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - begin.");
     std::vector<std::pair<uint32_t, size_t>> keyframes;
     // matched keyframes whose Id > keyframeId
     if (m_edges.find(keyframeId) != m_edges.end()) {
@@ -94,17 +99,21 @@ const std::vector<std::pair<uint32_t, size_t>>& CorrespondenceGraph::getLinkedKe
             keyframes.push_back( {kfMatch.first, kfMatch.second.getMatches().size()} );
         }
     }
+    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - nb of found keyframes {}", keyframes.size());
     // matched keyframes whose Id < keyframeId
     auto itLast = m_edges.lower_bound(keyframeId); // 1st element >= keyframeId
-    for (auto it = m_edges.begin(); it != itLast; ++it) { // it->first < keyframeId
-        auto currentKfId = it->first;
-        auto kfMatchResult = it->second;
-        auto result = kfMatchResult.find(keyframeId);
-        if (result != kfMatchResult.end()) {
-            keyframes.push_back( {currentKfId, result->second.getMatches().size()} );
+    if (itLast != m_edges.begin()) {
+        for (auto it = m_edges.begin(); it != itLast; ++it) { // it->first < keyframeId
+            auto currentKfId = it->first;
+            auto kfMatchResult = it->second;
+            auto result = kfMatchResult.find(keyframeId);
+            if (result != kfMatchResult.end()) {
+                keyframes.push_back( {currentKfId, result->second.getMatches().size()} );
+            }
         }
     }
     std::sort(keyframes.begin(), keyframes.end(), [](auto& x1, auto& x2) {return x1.second > x2.second;});
+    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - end.");
     return keyframes;
 }
 
@@ -246,6 +255,26 @@ bool CorrespondenceGraph::getCorrespondence(uint32_t keyframeId1, uint32_t keyfr
     }
     LOG_WARNING("No correspondence from keyframe {} to {} found in the graph", keyframeId2, keyframeId1);
     return false; // not found 
+}
+
+void CorrespondenceGraph::printInfo() const
+{
+    size_t nbEdges = 0;
+    std::for_each(m_edges.cbegin(), m_edges.cend(), [&nbEdges](const auto& item) {nbEdges += item.second.size();});
+    LOG_INFO("CorrespondenceGraph::printInfo - \n nb of nodes {} \n nb of edges {}", m_nodes.size(), nbEdges);
+    for (const auto& node : m_nodes) {
+        LOG_INFO("[Node] keyframe {} - linked to other {} times", node.first, node.second);
+    }
+    for (const auto& edge : m_edges) {
+        for (const auto& item : edge.second) {
+            LOG_INFO("[Edge] keyframe {} <-> {} - nb of matched descriptors {}", edge.first, item.first, item.second.getMatches().size());
+        }
+    }
+    auto allKeyframes = getAllSortedKeyframes();
+    LOG_INFO("Sorted all the {} keyframes by number of correspondences", allKeyframes.size());
+    for (const auto& item : allKeyframes) {
+        LOG_INFO("keyframe {} - total number of descriptor correspondences: {}", item.first, item.second);
+    }
 }
 
 template <typename Archive>

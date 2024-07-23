@@ -93,12 +93,12 @@ public:
 
     /// @brief Get keyframes sorted by number of correspondences in decreasing order
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
-    const std::vector<std::pair<uint32_t, size_t>>& getAllSortedKeyframes() const;
+    std::vector<std::pair<uint32_t, size_t>> getAllSortedKeyframes() const;
 
     /// @brief Get keyframes linked to an input keyframe
     /// @param[in] keyframeId keyframe Id
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
-    const std::vector<std::pair<uint32_t, size_t>>& getLinkedKeyframes(uint32_t keyframeId) const;
+    std::vector<std::pair<uint32_t, size_t>> getLinkedKeyframes(uint32_t keyframeId) const;
 
     /// @brief Get descriptor matches between keyframes
     /// @param[in] keyframeId1 first keyframe's Id
@@ -111,6 +111,9 @@ public:
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return relative pose. If no pose is available will return transform whose elements are all zero.
     const Transform3Df& getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const;
+
+    /// @brief Print graph info
+    void printInfo() const;
 
 private:
     /// @brief  Serialization
