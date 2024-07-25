@@ -21,7 +21,7 @@ using namespace datastructure;
 namespace api {
 namespace sfm {
 
-FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map> map)
+FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
@@ -35,7 +35,7 @@ FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollectio
     return createMap(keyframes, listCameraParameters, map);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map> map)
+FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map>& map)
 {
     if (!keyframes) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid keyframes collection.");
@@ -49,7 +49,7 @@ FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollectio
     return createMap(listKeyframes, cameraParameters, map);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map> map)
+FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
@@ -63,7 +63,7 @@ FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyfr
     return createMap(keyframes, listCameraParameters, map);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters, SRef<Map> map)
+FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
