@@ -22,6 +22,10 @@
 #include "core/Log.h"
 #include "datastructure/FiducialMarker.h"
 #include "datastructure/Trackable.h"
+#include <xpcf/core/refs.h>
+
+namespace xpcf = org::bcom::xpcf;
+
 namespace SolAR {
 namespace datastructure {
 
@@ -87,20 +91,17 @@ namespace datastructure {
         m_type = newType;
     }
 
-    SRef<SolAR::datastructure::Trackable> ToSolAR(const SolAR::datastructure::StorageTrackable &trackable){
-        SRef<SolAR::datastructure::FiducialMarker> result;
-
+    SRef<Trackable> StorageTrackable::ToSolAR(const StorageTrackable &trackable){
         std::string str;
         for (const auto& byte : trackable.getPayload()) {
             std::bitset<1> bits(static_cast<unsigned char>(byte));
             str += bits.to_string();
         }
-        SolAR::datastructure::SquaredBinaryPattern payload = SquaredBinaryPattern::fromString(str,6);
-
-        result->setPattern(payload);
-
-        result->setTransform3D(trackable.getLocalCrs());
-        result->setURL(trackable.getName());
+        SquaredBinaryPattern payload = SquaredBinaryPattern::fromString(str,6);
+        Sizef pattern_size;
+        pattern_size.width = 6;
+        pattern_size.height = 6;
+        SRef<FiducialMarker> result = xpcf::utils::make_shared<FiducialMarker>(trackable.getName(), pattern_size, payload);
 
         return result;
     }
