@@ -99,7 +99,6 @@ std::vector<std::pair<uint32_t, size_t>> CorrespondenceGraph::getLinkedKeyframes
             keyframes.push_back( {kfMatch.first, kfMatch.second.getMatches().size()} );
         }
     }
-    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - nb of found keyframes {}", keyframes.size());
     // matched keyframes whose Id < keyframeId
     auto itLast = m_edges.lower_bound(keyframeId); // 1st element >= keyframeId
     if (itLast != m_edges.begin()) {
@@ -117,7 +116,7 @@ std::vector<std::pair<uint32_t, size_t>> CorrespondenceGraph::getLinkedKeyframes
     return keyframes;
 }
 
-const std::vector<DescriptorMatch>& CorrespondenceGraph::getDescriptorMatches(uint32_t keyframeId1, uint32_t keyframeId2) const
+std::vector<DescriptorMatch> CorrespondenceGraph::getDescriptorMatches(uint32_t keyframeId1, uint32_t keyframeId2) const
 {
     Correspondence corres;
     bool inverseOrder = false;
@@ -126,14 +125,16 @@ const std::vector<DescriptorMatch>& CorrespondenceGraph::getDescriptorMatches(ui
         return std::vector<DescriptorMatch>();
     }
     if (inverseOrder) {
+        LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - inverse match idx order.");
         return inverseMatches(corres.getMatches());
     }
     else {
+        LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - return matches.");
         return corres.getMatches();
     }
 }
 
-const Transform3Df& CorrespondenceGraph::getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const
+Transform3Df CorrespondenceGraph::getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const
 {
     Transform3Df transform;
     transform.matrix().setZero();
@@ -144,9 +145,11 @@ const Transform3Df& CorrespondenceGraph::getRelativePose(uint32_t keyframeId1, u
         return transform;
     }
     if (inverseOrder) {
+        LOG_DEBUG("CorrespondenceGraph::getRelativePose - inverse relative pose.");
         return corres.getRelativePose().inverse();
     }
     else {
+        LOG_DEBUG("CorrespondenceGraph::getRelativePose - return relative pose.");
         return corres.getRelativePose();
     }
 }
@@ -241,6 +244,7 @@ bool CorrespondenceGraph::getCorrespondence(uint32_t keyframeId1, uint32_t keyfr
     if (keyframeId1 < keyframeId2) {
         if (m_edges.find(keyframeId1) != m_edges.end() && m_edges.at(keyframeId1).find(keyframeId2) != m_edges.at(keyframeId1).end()) {
             corres = m_edges.at(keyframeId1).at(keyframeId2);
+            LOG_DEBUG("CorrespondenceGraph::getCorrespondence - corres. found");
             inverseOrder = false;
             return true; // found 
         }

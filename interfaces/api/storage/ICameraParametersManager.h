@@ -46,13 +46,15 @@ public:
 
     /// @brief This method allow to add cameraParameters to the CameraParameters manager component
     /// @param[in] cameraParameters the cameraParameters to add to the set of persistent CameraParameters
+    /// @param[in] defineCameraParametersId if true an id will be set for the added CameraParameters, if false the id of the CameraParameters will be used
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters) = 0;
+    virtual FrameworkReturnCode addCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters, bool defineCameraParametersId = true) = 0;
 
     /// @brief This method allow to add cameraParameters to the CameraParameters manager component
     /// @param[in] frame the frame to add to the set of persistent CameraParameters
+    /// @param[in] defineCameraParametersId if true an id will be set for the added CameraParameters, if false the id of the CameraParameters will be used
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addCameraParameters(SolAR::datastructure::CameraParameters & cameraParameters) = 0;
+    virtual FrameworkReturnCode addCameraParameters(SolAR::datastructure::CameraParameters & cameraParameters, bool defineCameraParametersId = true) = 0;
 
     /// @brief This method allows to get cameraParameters by their id
     /// @param[in] id id of the cameraParameters to get

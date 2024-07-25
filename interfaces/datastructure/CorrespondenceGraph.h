@@ -104,13 +104,13 @@ public:
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return list of descriptor matches
-    const std::vector<DescriptorMatch>& getDescriptorMatches(uint32_t keyframeId1, uint32_t keyframeId2) const;
+    std::vector<DescriptorMatch> getDescriptorMatches(uint32_t keyframeId1, uint32_t keyframeId2) const;
 
     /// @brief Get relative pose
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return relative pose. If no pose is available will return transform whose elements are all zero.
-    const Transform3Df& getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const;
+    Transform3Df getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const;
 
     /// @brief Print graph info
     void printInfo() const;
