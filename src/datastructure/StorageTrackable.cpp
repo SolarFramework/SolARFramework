@@ -102,6 +102,7 @@ namespace datastructure {
         pattern_size.width = 6;
         pattern_size.height = 6;
         SRef<FiducialMarker> result = xpcf::utils::make_shared<FiducialMarker>(trackable.getName(), pattern_size, payload);
+        result->setTransform3D(trackable.m_localCRS);
 
         return result;
     }
