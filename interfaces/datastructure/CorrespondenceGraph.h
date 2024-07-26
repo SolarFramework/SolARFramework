@@ -26,6 +26,8 @@
 #include <utility>
 #include <vector>
 
+using id_t = uint32_t;
+
 namespace SolAR {
 namespace datastructure {
 
@@ -56,6 +58,18 @@ public:
         Transform3Df m_relativePose; // relative pose between the two keyframes 
     };
 
+    /// @struct Node
+    struct Node {
+        bool enabled = true;
+        size_t nbRegistrationTrials = 0;
+        size_t nbLinkedEdges = 0;
+        std::map<id_t, id_t> visibility; // keypoint ID -> cloud point ID
+        /// @brief  Serialization
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+    };
+
     /// @enum EdgeStatus
     enum class EdgeStatus {
         INVALID,
@@ -79,13 +93,13 @@ public:
     /// @param[in] desMatches list of descriptor matches
     /// @param[in] relativePose pose from first to second keyframes
     /// @return FrameworkReturnCode::_SUCCESS if added successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode addEdge(uint32_t keyframeId1, uint32_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose);
+    FrameworkReturnCode addEdge(id_t keyframeId1, id_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose);
 
     /// @brief Remove edge
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return true if removed successfully, otherwise false
-    bool removeEdge(uint32_t keyframeId1, uint32_t keyframeId2);
+    bool removeEdge(id_t keyframeId1, id_t keyframeId2);
 
     /// @brief Remove all edges
     /// @return true if removed successfully, otherwise false
@@ -93,27 +107,54 @@ public:
 
     /// @brief Get keyframes sorted by number of correspondences in decreasing order
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
-    std::vector<std::pair<uint32_t, size_t>> getAllSortedKeyframes() const;
+    std::vector<std::pair<id_t, size_t>> getAllSortedKeyframes() const;
 
     /// @brief Get keyframes linked to an input keyframe
     /// @param[in] keyframeId keyframe Id
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
-    std::vector<std::pair<uint32_t, size_t>> getLinkedKeyframes(uint32_t keyframeId) const;
+    std::vector<std::pair<id_t, size_t>> getLinkedKeyframes(id_t keyframeId) const;
 
     /// @brief Get descriptor matches between keyframes
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return list of descriptor matches
-    std::vector<DescriptorMatch> getDescriptorMatches(uint32_t keyframeId1, uint32_t keyframeId2) const;
+    std::vector<DescriptorMatch> getDescriptorMatches(id_t keyframeId1, id_t keyframeId2) const;
 
     /// @brief Get relative pose
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return relative pose. If no pose is available will return transform whose elements are all zero.
-    Transform3Df getRelativePose(uint32_t keyframeId1, uint32_t keyframeId2) const;
+    Transform3Df getRelativePose(id_t keyframeId1, id_t keyframeId2) const;
 
     /// @brief Print graph info
     void printInfo() const;
+
+    /// @brief enable or disable a node (keyframe)
+    /// @param[in] nodeId ID of the node (keyframe)
+    /// @param[in] enabled boolean indicating enabled or not
+    /// @return boolean true if successfully set otherwise false.
+    bool setEnabled(id_t nodeId, bool enabled);
+
+    /// @brief add keyframe visibility
+    /// @param[in] nodeId ID of the node (keyframe)
+    /// @param[in] vis visibility map
+    /// @return boolean true if successfully added otherwise false.
+    bool addVisibility(id_t nodeId, const std::map<id_t, id_t>& vis);
+
+    /// @brief get keyframe visibility
+    /// @param[in] nodeId ID of the node (keyframe)
+    /// @return visibility map (keypoint ID to cloud point ID)
+    const std::map<id_t, id_t>& getVisibility(id_t nodeId) const;
+
+    /// @brief get visible keyframes sorted by number of visible 3D points
+    /// @return list of visible keyframes (map from nbRegistrationTrials to list of (keyframeId, number of visible points)) 
+    std::map<size_t, std::vector<std::pair<id_t, size_t>>> getVisibleKeyframes() const;
+
+    /// @brief update number registration trials for the node
+    /// @param[in] nodeId ID of the node (keyframe)
+    /// @param[in] x update quantity of nb. reg. trials (nb_reg_trials = nb_reg_trials + x)
+    /// @return boolean true if successfully updated otherwise false.
+    bool updateRegistrationTrials(id_t nodeId, int x);
 
 private:
     /// @brief  Serialization
@@ -125,21 +166,21 @@ private:
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @return EdgeStatus 
-    EdgeStatus checkEdge(uint32_t keyframeId1, uint32_t keyframeId2) const;
+    EdgeStatus checkEdge(id_t keyframeId1, id_t keyframeId2) const;
 
     /// @brief Delete edge
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @param[in] status edge status
     /// @return boolean true if deleted otherwise false  
-    bool deleteEdge(uint32_t keyframeId1, uint32_t keyframeId2, const EdgeStatus& status);
+    bool deleteEdge(id_t keyframeId1, id_t keyframeId2, const EdgeStatus& status);
 
     /// @brief Set edge
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
     /// @param[in] desMatches list of descriptor matches
     /// @param[in] relativePose pose from first to second keyframes
-    void setEdge(uint32_t keyframeId1, uint32_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose);
+    void setEdge(id_t keyframeId1, id_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose);
 
     /// @brief Inverse descriptor matches (e.g., from A-B to B-A)
     /// @param[in] desMatches list of descriptor matches
@@ -152,13 +193,14 @@ private:
     /// @param[out] corres correspondence between keyframes 
     /// @param[out] inverseOrder boolean indicating if the correspondence is in inverse order
     /// @return boolean true if found correspondence otherwise false
-    bool getCorrespondence(uint32_t keyframeId1, uint32_t keyframeId2, Correspondence& corres, bool& inverseOrder) const;
+    bool getCorrespondence(id_t keyframeId1, id_t keyframeId2, Correspondence& corres, bool& inverseOrder) const;
 
-    std::map<uint32_t, std::map<uint32_t, Correspondence>> m_edges; // keyframe Id, keyframe Id -> Correspondence
-    std::map<uint32_t, size_t> m_nodes; //  keyframe Id -> number of edges linked to this keyframe
+    std::map<id_t, std::map<id_t, Correspondence>> m_edges; // keyframe Id, keyframe Id -> Correspondence
+    std::map<id_t, Node> m_nodes; //  keyframe Id -> node info
 };
 
 DECLARESERIALIZE(CorrespondenceGraph::Correspondence);
+DECLARESERIALIZE(CorrespondenceGraph::Node);
 DECLARESERIALIZE(CorrespondenceGraph);
 
 } // datastructure
