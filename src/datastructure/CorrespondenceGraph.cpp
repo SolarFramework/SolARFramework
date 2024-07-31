@@ -96,7 +96,7 @@ std::vector<std::pair<id_t, size_t>> CorrespondenceGraph::getLinkedKeyframes(id_
     // matched keyframes whose Id > keyframeId
     if (m_edges.find(keyframeId) != m_edges.end()) {
         for (const auto& kfMatch : m_edges.at(keyframeId)) {
-            keyframes.push_back( {kfMatch.first, kfMatch.second.getMatches().size()} );
+            keyframes.push_back( {kfMatch.first, kfMatch.second.matches.size()} );
         }
     }
     // matched keyframes whose Id < keyframeId
@@ -107,7 +107,7 @@ std::vector<std::pair<id_t, size_t>> CorrespondenceGraph::getLinkedKeyframes(id_
             auto kfMatchResult = it->second;
             auto result = kfMatchResult.find(keyframeId);
             if (result != kfMatchResult.end()) {
-                keyframes.push_back( {currentKfId, result->second.getMatches().size()} );
+                keyframes.push_back( {currentKfId, result->second.matches.size()} );
             }
         }
     }
@@ -126,11 +126,11 @@ std::vector<DescriptorMatch> CorrespondenceGraph::getDescriptorMatches(id_t keyf
     }
     if (inverseOrder) {
         LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - inverse match idx order.");
-        return inverseMatches(corres.getMatches());
+        return inverseMatches(corres.matches);
     }
     else {
         LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - return matches.");
-        return corres.getMatches();
+        return corres.matches;
     }
 }
 
@@ -146,11 +146,11 @@ Transform3Df CorrespondenceGraph::getRelativePose(id_t keyframeId1, id_t keyfram
     }
     if (inverseOrder) {
         LOG_DEBUG("CorrespondenceGraph::getRelativePose - inverse relative pose.");
-        return corres.getRelativePose().inverse();
+        return corres.relativePose.inverse();
     }
     else {
         LOG_DEBUG("CorrespondenceGraph::getRelativePose - return relative pose.");
-        return corres.getRelativePose();
+        return corres.relativePose;
     }
 }
 
@@ -259,7 +259,9 @@ bool CorrespondenceGraph::deleteEdge(id_t keyframeId1, id_t keyframeId2, const E
 
 void CorrespondenceGraph::setEdge(id_t keyframeId1, id_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose)
 {
-    Correspondence corres(desMatches, relativePose);
+    Correspondence corres;
+    corres.matches = desMatches;
+    corres.relativePose = relativePose;
     m_edges[keyframeId1][keyframeId2] = corres;
     m_nodes[keyframeId1].nbLinkedEdges++;
     m_nodes[keyframeId2].nbLinkedEdges++;
@@ -309,7 +311,7 @@ void CorrespondenceGraph::printInfo() const
     }
     for (const auto& edge : m_edges) {
         for (const auto& item : edge.second) {
-            LOG_INFO("[Edge] keyframe {} <-> {} - nb of matched descriptors {}", edge.first, item.first, item.second.getMatches().size());
+            LOG_INFO("[Edge] keyframe {} <-> {} - nb of matched descriptors {}", edge.first, item.first, item.second.matches.size());
         }
     }
     auto allKeyframes = getAllSortedKeyframes();
@@ -426,11 +428,100 @@ const std::map<id_t, id_t>& CorrespondenceGraph::getVisibility(id_t nodeId) cons
     return m_nodes.at(nodeId).visibility;
 }
 
+std::map<id_t, id_t> CorrespondenceGraph::getPointVisibility(id_t pointId) const
+{
+    std::map<id_t, id_t> visibility;
+    for (const auto& node : m_nodes) {
+        id_t keyframeId = node.first;
+        auto& keyframeVis = node.second.visibility;
+        for (const auto& vis : keyframeVis) {
+            if (vis.second == pointId) {
+                visibility[keyframeId] = vis.first;
+                break;
+            }
+        }
+    }
+    return visibility;
+}
+
+void CorrespondenceGraph::addPointVisibility(id_t pointId, const std::map<id_t, id_t>& vis)
+{
+    std::vector<id_t> processedKfs;
+    for (const auto& v : vis) {
+        auto kfId = v.first;
+        auto kpId = v.second;
+        if (m_nodes.find(kfId) != m_nodes.end() && m_nodes[kfId].visibility.find(kpId) == m_nodes[kfId].visibility.end()) {
+            m_nodes[kfId].visibility[kpId] = pointId;
+        }
+        processedKfs.push_back(kfId);
+        std::vector<std::pair<id_t, id_t>> linkedKeypoints;
+        if (!getLinkedKeypoints(kfId, kpId, linkedKeypoints)) {
+            continue;
+        }
+        for (const auto& item : linkedKeypoints) {
+            if (std::find(processedKfs.cbegin(), processedKfs.cend(), item.first) != processedKfs.cend()) {
+                continue;
+            }
+            if (m_nodes.find(item.first) != m_nodes.end() && m_nodes[item.first].visibility.find(item.second) == m_nodes[item.first].visibility.end()) {
+                m_nodes[item.first].visibility[item.second] = pointId;
+            }
+        }
+    }
+}
+
+bool CorrespondenceGraph::getLinkedKeypoints(id_t keyframeId, id_t keypointId, std::vector<std::pair<id_t, id_t>>& kfKp) const
+{
+    if (m_nodes.find(keyframeId) == m_nodes.end()) {
+        LOG_WARNING("CorrespondenceGraph::findMatchedKeypoints - keyframe {} does not exist", keyframeId);
+        return false;
+    }
+    if (m_nodes.at(keyframeId).visibility.find(keypointId) == m_nodes.at(keyframeId).visibility.end()) {
+        LOG_WARNING("CorrespondenceGraph::findMatchedKeypoints - keypoint {} does not exist", keypointId);
+        return false;
+    }
+    kfKp.clear();
+    auto linkedKfs = getLinkedKeyframes(keyframeId);
+    for (const auto& lkf : linkedKfs) {
+        if (m_nodes.find(lkf.first) == m_nodes.end()) {
+            continue;
+        }
+        if (!m_nodes.at(lkf.first).enabled) {
+            continue;
+        }
+        Correspondence corres;
+        bool isInverse = false;
+        if (!getCorrespondence(keyframeId, lkf.first, corres, isInverse)) {
+            continue;
+        }
+        id_t lkfKpId = std::numeric_limits<id_t>::max();
+        if (!isInverse) {
+            for (const auto& match : corres.matches) {
+                if (match.getIndexInDescriptorA() == keypointId) {
+                    lkfKpId = match.getIndexInDescriptorB();
+                    break;
+                }
+            }
+        }
+        else {
+            for (const auto& match : corres.matches) {
+                if (match.getIndexInDescriptorB() == keypointId) {
+                    lkfKpId = match.getIndexInDescriptorA();
+                    break;
+                }
+            }
+        }
+        if (lkfKpId != std::numeric_limits<id_t>::max()) {
+            kfKp.push_back({lkf.first, lkfKpId});
+        }
+    }
+    return kfKp.size() > 0;
+}
+
 template <typename Archive>
 void CorrespondenceGraph::Correspondence::serialize(Archive &ar, const unsigned int /* version */)
 {
-    ar& m_matches;
-    ar& m_relativePose;
+    ar& matches;
+    ar& relativePose;
 }
 IMPLEMENTSERIALIZE(CorrespondenceGraph::Correspondence);
 

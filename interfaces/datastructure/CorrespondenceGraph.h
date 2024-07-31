@@ -38,24 +38,14 @@ namespace datastructure {
 */
 class  SOLARFRAMEWORK_API CorrespondenceGraph : public Lockable {
 public:
-    /// @class Correspondence
-    class Correspondence {
-    public:
-        /// @brief default constructor
-        Correspondence() = default;
-        /// @brief constructor of Correspondence
-        Correspondence(const std::vector<DescriptorMatch>& dm, const Transform3Df& p): m_matches(dm), m_relativePose(p) {}
-        /// @brief get matches
-        const std::vector<DescriptorMatch>& getMatches() const { return m_matches; }
-        /// @brief get relative pose
-        const Transform3Df& getRelativePose() const { return m_relativePose; }
-    private:
+    /// @struct Correspondence
+    struct Correspondence {
+        std::vector<DescriptorMatch> matches; // descriptor matches
+        Transform3Df relativePose; // relative pose between the two keyframes 
         /// @brief  Serialization
         friend class boost::serialization::access;
         template <typename Archive>
         void serialize(Archive &ar, const unsigned int version);
-        std::vector<DescriptorMatch> m_matches; // descriptor matches
-        Transform3Df m_relativePose; // relative pose between the two keyframes 
     };
 
     /// @struct Node
@@ -141,10 +131,20 @@ public:
     /// @return boolean true if successfully added otherwise false.
     bool addVisibility(id_t nodeId, const std::map<id_t, id_t>& vis);
 
+    /// @brief add point visibility
+    /// @param[in] pointId ID of the cloud point
+    /// @param[in] vis visibility map
+    void addPointVisibility(id_t pointId, const std::map<id_t, id_t>& vis);
+
     /// @brief get keyframe visibility
     /// @param[in] nodeId ID of the node (keyframe)
     /// @return visibility map (keypoint ID to cloud point ID)
     const std::map<id_t, id_t>& getVisibility(id_t nodeId) const;
+
+    /// @brief get point's visibility
+    /// @param[in] pointId ID of the cloud point
+    /// @return visibility map 
+    std::map<id_t, id_t> getPointVisibility(id_t pointId) const;
 
     /// @brief get visible keyframes sorted by number of visible 3D points
     /// @return list of visible keyframes (map from nbRegistrationTrials to list of (keyframeId, number of visible points)) 
@@ -194,6 +194,12 @@ private:
     /// @param[out] inverseOrder boolean indicating if the correspondence is in inverse order
     /// @return boolean true if found correspondence otherwise false
     bool getCorrespondence(id_t keyframeId1, id_t keyframeId2, Correspondence& corres, bool& inverseOrder) const;
+
+    /// @brief get linked keypoints 
+    /// @param[in] keyframeId ID of the keyframe
+    /// @param[in] keypointId ID of the keypoint
+    /// @param[out] kfKp list of pairs of keyframeId and keypointId which matches the input keypoint's descriptor
+    bool getLinkedKeypoints(id_t keyframeId, id_t keypointId, std::vector<std::pair<id_t, id_t>>& kfKp) const;
 
     std::map<id_t, std::map<id_t, Correspondence>> m_edges; // keyframe Id, keyframe Id -> Correspondence
     std::map<id_t, Node> m_nodes; //  keyframe Id -> node info
