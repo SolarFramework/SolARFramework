@@ -1,4 +1,4 @@
 eigen|3.4.0|eigen3|conan|conan-center|na|MPL2_only=True
 spdlog|0.14.0|spdlog|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download|shared|
 nlohmann_json|3.9.1|nlohmann_json|conan|conan-center|na|
-boost#stable|1.84.0|boost|conan|conan-center|default|
+boost#stable|1.78.0|boost|conan|conan-center|static|
