@@ -16,7 +16,7 @@
 
 #include "core/SolARFramework.h"
 
-_BCOM_SHARED std::string getSolARFrameworkVersion(){
+SOLARFRAMEWORK_API std::string getSolARFrameworkVersion(){
 
     return STR(APP_VERSION);
 }

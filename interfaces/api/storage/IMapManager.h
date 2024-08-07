@@ -17,10 +17,6 @@
 #ifndef IMAPMANAGER_H
 #define IMAPMANAGER_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 // Definition of IMapManager Class //
 // part of SolAR namespace //
 
