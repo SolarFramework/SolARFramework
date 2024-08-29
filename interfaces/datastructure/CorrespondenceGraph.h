@@ -101,8 +101,9 @@ public:
 
     /// @brief Get keyframes linked to an input keyframe
     /// @param[in] keyframeId keyframe Id
+    /// @param[in] onlyDisabled if true will get only disabled keyframes
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
-    std::vector<std::pair<id_t, size_t>> getLinkedKeyframes(id_t keyframeId) const;
+    std::vector<std::pair<id_t, size_t>> getLinkedKeyframes(id_t keyframeId, bool onlyDisabled = false) const;
 
     /// @brief Get descriptor matches between keyframes
     /// @param[in] keyframeId1 first keyframe's Id
