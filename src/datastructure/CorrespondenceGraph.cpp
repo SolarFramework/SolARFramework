@@ -343,23 +343,19 @@ bool CorrespondenceGraph::addVisibility(id_t nodeId, const std::map<id_t, id_t>&
         LOG_WARNING("CorrespondenceGraph::addVisibility - node {} does not exist.", nodeId);
         return false;
     }
-    std::vector<std::pair<id_t, id_t>> newlyAdded;
     for (const auto& v : vis) {
-        if (m_nodes[nodeId].visibility.find(v.first) != m_nodes[nodeId].visibility.end()) {
+        /*if (m_nodes[nodeId].visibility.find(v.first) != m_nodes[nodeId].visibility.end()) {
             if (m_nodes[nodeId].visibility[v.first] != v.second) {
                 LOG_WARNING("CorrespondenceGraph::addVisibility - update keyframe {} existing visibility {} -> {}", nodeId, v.first, v.second);
                 m_nodes[nodeId].visibility[v.first] = v.second;
-                newlyAdded.push_back({v.first, v.second});
             }
         }
         else {
             m_nodes[nodeId].visibility[v.first] = v.second;
-            newlyAdded.push_back({v.first, v.second});
+        }*/
+        if (m_nodes[nodeId].visibility.find(v.first) == m_nodes[nodeId].visibility.end()) {
+            m_nodes[nodeId].visibility[v.first] = v.second;
         }
-    }
-    if (newlyAdded.empty()) {
-        LOG_WARNING("CorrespondenceGraph::addVisibility - does not exist any new visibility.");
-        return false;
     }
     auto linkedKfs = getLinkedKeyframes(nodeId);
     for (const auto& kf : linkedKfs) {
@@ -373,16 +369,18 @@ bool CorrespondenceGraph::addVisibility(id_t nodeId, const std::map<id_t, id_t>&
             continue;
         }
         auto& vis2 = m_nodes[kf.first].visibility;
-        for (const auto& nv : newlyAdded) {
+        for (const auto& nv : vis) {
             if (visMatch.find(nv.first) == visMatch.end()) {
                 continue;
             }
             auto idx2 = visMatch[nv.first];
-            LOG_DEBUG("CorrespondenceGraph::addVisibility - kf {} des. {} - kf {} des. {} - cp {}", nodeId, nv.first, kf.first, idx2, nv.second);
-            if (vis2.find(idx2) != vis2.end() && vis2[idx2] != nv.second) {
-                LOG_WARNING("CorrespondenceGraph::addVisibility - update keyframe {} existing visibility {} -> {}", kf.first, idx2, nv.second);
+            //LOG_DEBUG("CorrespondenceGraph::addVisibility - kf {} des. {} - kf {} des. {} - cp {}", nodeId, nv.first, kf.first, idx2, nv.second);
+            //if (vis2.find(idx2) != vis2.end() && vis2[idx2] != nv.second) {
+            //    LOG_WARNING("CorrespondenceGraph::addVisibility - update keyframe {} existing visibility {} -> {}", kf.first, idx2, nv.second);
+            //}
+            if (vis2.find(idx2) == vis2.end()) {
+                vis2[idx2] = nv.second;
             }
-            vis2[idx2] = nv.second;
         }
     }
     return true;
