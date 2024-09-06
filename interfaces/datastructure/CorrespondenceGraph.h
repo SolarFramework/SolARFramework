@@ -132,11 +132,6 @@ public:
     /// @return boolean true if successfully added otherwise false.
     bool addVisibility(id_t nodeId, const std::map<id_t, id_t>& vis);
 
-    /// @brief add point visibility
-    /// @param[in] pointId ID of the cloud point
-    /// @param[in] vis visibility map
-    void addPointVisibility(id_t pointId, const std::map<id_t, id_t>& vis);
-
     /// @brief get keyframe visibility
     /// @param[in] nodeId ID of the node (keyframe)
     /// @return visibility map (keypoint ID to cloud point ID)
@@ -156,6 +151,11 @@ public:
     /// @param[in] x update quantity of nb. reg. trials (nb_reg_trials = nb_reg_trials + x)
     /// @return boolean true if successfully updated otherwise false.
     bool updateRegistrationTrials(id_t nodeId, int x);
+
+    /// @brief get matched keypoint IDs of a given keyframe
+    /// @param keyframeId keyframe ID
+    /// @return list of keypoint IDs
+    std::vector<id_t> getActiveKeypoints(id_t keyframeId) const;
 
 private:
     /// @brief  Serialization
@@ -195,12 +195,6 @@ private:
     /// @param[out] inverseOrder boolean indicating if the correspondence is in inverse order
     /// @return boolean true if found correspondence otherwise false
     bool getCorrespondence(id_t keyframeId1, id_t keyframeId2, Correspondence& corres, bool& inverseOrder) const;
-
-    /// @brief get linked keypoints 
-    /// @param[in] keyframeId ID of the keyframe
-    /// @param[in] keypointId ID of the keypoint
-    /// @param[out] kfKp list of pairs of keyframeId and keypointId which matches the input keypoint's descriptor
-    bool getLinkedKeypoints(id_t keyframeId, id_t keypointId, std::vector<std::pair<id_t, id_t>>& kfKp) const;
 
     std::map<id_t, std::map<id_t, Correspondence>> m_edges; // keyframe Id, keyframe Id -> Correspondence
     std::map<id_t, Node> m_nodes; //  keyframe Id -> node info
