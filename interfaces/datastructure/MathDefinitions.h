@@ -363,6 +363,27 @@ ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& r
     return matR;
 }
 
+/**
+ * @brief <B> Compute triangulation angle between a spatial point and two camera positions.</B>
+ * @param[in] x point's spatial coordinates
+ * @param[in] pose1 first camera pose
+ * @param[in] pose2 second camera pose
+ * @return angle in unit of degrees
+ */
+ATTRIBUTE(maybe_unused) static float triangulationAngle(Vector3f x, const Transform3Df& pose1, const Transform3Df& pose2) {
+    if (pose1.matrix().isZero() || pose2.matrix().isZero()) {
+        return 0.f;
+    }
+    Vector3f vec1(x(0)-pose1(0, 3), x(1)-pose1(1, 3), x(2)-pose1(2, 3));
+    Vector3f vec2(x(0)-pose2(0, 3), x(1)-pose2(1, 3), x(2)-pose2(2, 3));
+    vec1.normalize();
+    vec2.normalize();
+    float angle = std::acos(vec1.dot(vec2))*SOLAR_RAD2DEG;
+    if (std::isnan(angle)) {
+        return 0.f;
+    }
+    return angle;
+}
 }
 }
 
