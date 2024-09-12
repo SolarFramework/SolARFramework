@@ -107,7 +107,7 @@ public:
     ///         FrameworkReturnCode::_ERROR_ for other errors
     virtual FrameworkReturnCode getService(const ServiceType serviceType, std::string & serviceURL) const = 0;
 
-    /// @brief Get an available URL for a specific service type, and lock it for the given client or map UUID
+    /// @brief Get an available URL for a specific service type, and lock it for the given UUID
     ///        If a service of the specific type is already locked for the given UUID, return its URL
     /// @param[in] serviceType type of the service
     /// @param[in] uuid UUID of the client or the map
@@ -120,13 +120,16 @@ public:
                                                   const std::string & uuid,
                                                   std::string & serviceURL) = 0;
 
-    /// @brief Unlock the service of the given type, for the given client or map UUID
+    /// @brief Unlock the service of the given type, for the given UUID and URL
     /// @param[in] serviceType type of the service
     /// @param[in] uuid UUID of the client or the map
+    /// @param[in] serviceURL URL of the service
     /// @return FrameworkReturnCode::_SUCCESS if the service is unlocked, else
     ///         FrameworkReturnCode::_NO_SERVICE_LOCKED if no service is locked for the UUID
     ///         FrameworkReturnCode::_ERROR_ for other errors
-    virtual FrameworkReturnCode unlockService(const ServiceType serviceType, const std::string & uuid) = 0;
+    virtual FrameworkReturnCode unlockService(const ServiceType serviceType,
+                                              const std::string & uuid,
+                                              const std::string & serviceURL) = 0;
 };
 
 } // service
