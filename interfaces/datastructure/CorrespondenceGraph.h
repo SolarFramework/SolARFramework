@@ -34,27 +34,28 @@ namespace datastructure {
 /**
 * @class CorrespondenceGraph
 * @brief <B> A correspondence graph of keyframes. </B>
-* This class provides a correspondence graph where each vertex is an id of a keyframe and each edge is the correspondence between two keyframes.
+* This class provides a correspondence graph where each vertex is an id of a keyframe.
+* Each edge connecting two vertices represents the correspondence between the two keyframes.
 */
 class  SOLARFRAMEWORK_API CorrespondenceGraph : public Lockable {
 public:
-    /// @struct Correspondence
-    struct Correspondence {
-        std::vector<DescriptorMatch> matches; // descriptor matches
-        Transform3Df relativePose; // relative pose between the two keyframes 
-        /// @brief  Serialization
+    /// @struct Vertex
+    struct Vertex {
+        bool enabled = true;
+        size_t nbRegistrationTrials = 0;
+        size_t nbLinkedEdges = 0;
+        std::map<id_t, id_t> visibility; // keypoint ID -> cloud point ID
+        /// @brief Serialization function
         friend class boost::serialization::access;
         template <typename Archive>
         void serialize(Archive &ar, const unsigned int version);
     };
 
-    /// @struct Node
-    struct Node {
-        bool enabled = true;
-        size_t nbRegistrationTrials = 0;
-        size_t nbLinkedEdges = 0;
-        std::map<id_t, id_t> visibility; // keypoint ID -> cloud point ID
-        /// @brief  Serialization
+    /// @struct Correspondence
+    struct Correspondence {
+        std::vector<DescriptorMatch> matches; // descriptor matches
+        Transform3Df relativePose; // relative pose between the two keyframes 
+        /// @brief Serialization function
         friend class boost::serialization::access;
         template <typename Archive>
         void serialize(Archive &ar, const unsigned int version);
@@ -62,8 +63,8 @@ public:
 
     /// @enum EdgeStatus
     enum class EdgeStatus {
-        INVALID,
         NOT_EXIST,
+        INVALID,
         EXIST_ONE_DIRECTION,
         EXIST_ONE_DIRECTION_INVERSE,
         EXIST_DOUBLE_DIRECTION
@@ -85,15 +86,33 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if added successfully, otherwise FrameworkReturnCode::_ERROR_
     FrameworkReturnCode addEdge(id_t keyframeId1, id_t keyframeId2, const std::vector<DescriptorMatch>& desMatches, const Transform3Df& relativePose);
 
+    /// @brief add keyframe visibility
+    /// @param[in] vertexId ID of the vertex (keyframe)
+    /// @param[in] vis visibility map
+    /// @return FrameworkReturnCode::_SUCCESS if successfully added otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode addVisibility(id_t vertexId, const std::map<id_t, id_t>& vis);
+
     /// @brief Remove edge
     /// @param[in] keyframeId1 first keyframe's Id
     /// @param[in] keyframeId2 second keyframe's Id
-    /// @return true if removed successfully, otherwise false
-    bool removeEdge(id_t keyframeId1, id_t keyframeId2);
+    /// @return FrameworkReturnCode::_SUCCESS if successfully removed otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode removeEdge(id_t keyframeId1, id_t keyframeId2);
 
     /// @brief Remove all edges
-    /// @return true if removed successfully, otherwise false
-    bool removeAllEdges();
+    /// @return FrameworkReturnCode::_SUCCESS if successfully removed otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode removeAllEdges();
+
+    /// @brief update number registration trials for the vertex
+    /// @param[in] vertexId ID of the vertex (keyframe)
+    /// @param[in] x update quantity of nb. reg. trials (nb_reg_trials = nb_reg_trials + x)
+    /// @return FrameworkReturnCode::_SUCCESS if successfully updated otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode updateRegistrationTrials(id_t vertexId, int x);
+
+    /// @brief enable or disable a vertex (keyframe)
+    /// @param[in] vertexId ID of the vertex (keyframe)
+    /// @param[in] enabled boolean indicating enabled or not
+    /// @return FrameworkReturnCode::_SUCCESS if successfully set otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode setEnabled(id_t vertexId, bool enabled);
 
     /// @brief Get keyframes sorted by number of correspondences in decreasing order
     /// @return list of pairs of (keyframe Id, number of correspondences) sorted in decreasing order by number of correspondences
@@ -117,25 +136,10 @@ public:
     /// @return relative pose. If no pose is available will return transform whose elements are all zero.
     Transform3Df getRelativePose(id_t keyframeId1, id_t keyframeId2) const;
 
-    /// @brief Print graph info
-    void printInfo() const;
-
-    /// @brief enable or disable a node (keyframe)
-    /// @param[in] nodeId ID of the node (keyframe)
-    /// @param[in] enabled boolean indicating enabled or not
-    /// @return boolean true if successfully set otherwise false.
-    bool setEnabled(id_t nodeId, bool enabled);
-
-    /// @brief add keyframe visibility
-    /// @param[in] nodeId ID of the node (keyframe)
-    /// @param[in] vis visibility map
-    /// @return boolean true if successfully added otherwise false.
-    bool addVisibility(id_t nodeId, const std::map<id_t, id_t>& vis);
-
     /// @brief get keyframe visibility
-    /// @param[in] nodeId ID of the node (keyframe)
+    /// @param[in] vertexId ID of the vertex (keyframe)
     /// @return visibility map (keypoint ID to cloud point ID)
-    const std::map<id_t, id_t>& getVisibility(id_t nodeId) const;
+    const std::map<id_t, id_t>& getVisibility(id_t vertexId) const;
 
     /// @brief get point's visibility
     /// @param[in] pointId ID of the cloud point
@@ -146,16 +150,13 @@ public:
     /// @return list of visible keyframes (map from nbRegistrationTrials to list of (keyframeId, number of visible points)) 
     std::map<size_t, std::vector<std::pair<id_t, size_t>>> getVisibleKeyframes() const;
 
-    /// @brief update number registration trials for the node
-    /// @param[in] nodeId ID of the node (keyframe)
-    /// @param[in] x update quantity of nb. reg. trials (nb_reg_trials = nb_reg_trials + x)
-    /// @return boolean true if successfully updated otherwise false.
-    bool updateRegistrationTrials(id_t nodeId, int x);
-
     /// @brief get matched keypoint IDs of a given keyframe
     /// @param keyframeId keyframe ID
     /// @return list of keypoint IDs
     std::vector<id_t> getActiveKeypoints(id_t keyframeId) const;
+
+    /// @brief Print graph info
+    void printInfo() const;
 
 private:
     /// @brief  Serialization
@@ -197,11 +198,11 @@ private:
     bool getCorrespondence(id_t keyframeId1, id_t keyframeId2, Correspondence& corres, bool& inverseOrder) const;
 
     std::map<id_t, std::map<id_t, Correspondence>> m_edges; // keyframe Id, keyframe Id -> Correspondence
-    std::map<id_t, Node> m_nodes; //  keyframe Id -> node info
+    std::map<id_t, Vertex> m_vertices; //  keyframe Id -> vertex info
 };
 
 DECLARESERIALIZE(CorrespondenceGraph::Correspondence);
-DECLARESERIALIZE(CorrespondenceGraph::Node);
+DECLARESERIALIZE(CorrespondenceGraph::Vertex);
 DECLARESERIALIZE(CorrespondenceGraph);
 
 } // datastructure
