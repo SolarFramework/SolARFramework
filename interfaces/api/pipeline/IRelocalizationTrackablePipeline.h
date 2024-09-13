@@ -44,6 +44,12 @@ public:
     /// @brief IRelocalizationTrackablePipeline default destructor
     virtual ~IRelocalizationTrackablePipeline() = default;
 
+    using IPipeline::init;
+
+    using IPipeline::start;
+
+    using IPipeline::stop;
+
     using IRelocalizationPipeline::init;
 
     using IRelocalizationPipeline::start;

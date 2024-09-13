@@ -59,6 +59,12 @@ public:
     /// @brief IMappingPipeline default destructor
     virtual ~IMappingPipeline() = default;
 
+    using IPipeline::init;
+
+    using IPipeline::start;
+
+    using IPipeline::stop;
+
     /// @brief Initialization of the pipeline
     /// @param[in] clientUUID the UUID of the current client
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
