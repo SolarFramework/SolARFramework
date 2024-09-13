@@ -44,9 +44,11 @@ public:
     /// @brief IRelocalizationTrackablePipeline default destructor
     virtual ~IRelocalizationTrackablePipeline() = default;
 
-    using IPipeline::init;
-
     using IRelocalizationPipeline::init;
+
+    using IRelocalizationPipeline::start;
+
+    using IRelocalizationPipeline::stop;
 
     using IRelocalizationPipeline::setCameraParameters;
 
@@ -55,9 +57,11 @@ public:
     using IRelocalizationPipeline::relocalizeProcessRequest;
 
     /// @brief Initialization of the pipeline with the list of trackable objects to use for localization
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] trackableObjects the list of the trackable objects to detect in images
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::vector<SRef<Trackable>> & trackableObjects) = 0;
+    virtual FrameworkReturnCode init(const std::string & clientUUID,
+                                     const std::vector<SRef<Trackable>> & trackableObjects) = 0;
 };
 }
 }
