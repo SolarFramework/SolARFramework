@@ -22,6 +22,7 @@
 #include "datastructure/StorageWorldElement.h"
 #include "datastructure/UnitSystem.h"
 #include "datastructure/MathDefinitions.h"
+#include "datastructure/StorageWorldElement.h"
 
 // Definition of StorageWorldLink Class //
 // part of SolAR namespace //
@@ -104,30 +105,26 @@ class SOLARFRAMEWORK_API StorageWorldLink
         ElementKind getTypeTo() const;
         void setTypeTo(ElementKind newTypeTo);
 
-protected:
+    protected:
 
         org::bcom::xpcf::uuids::uuid m_id;
         org::bcom::xpcf::uuids::uuid m_author;
-        boost::uuids::uuid m_uuidFrom;
-        boost::uuids::uuid m_uuidTo;
+        org::bcom::xpcf::uuids::uuid m_uuidFrom;
+        org::bcom::xpcf::uuids::uuid m_uuidTo;
         ElementKind m_typeFrom;
         ElementKind m_typeTo;
         Transform3Df m_transform;
         UnitSystem m_unitSystem;
         std::multimap<std::string, std::string> m_tags;
 
-
     private:
 
         friend class boost::serialization::access;
         template<typename Archive>
         void serialize(Archive &ar, const unsigned int version);
-
-
-
 };
 
-DECLARESERIALIZE(StorageWorldLink);
+DECLARESTORAGESERIALIZE(StorageWorldLink);
 
 }
 } // end of namespace SolAR

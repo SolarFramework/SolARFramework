@@ -34,8 +34,14 @@ namespace datastructure {
     }
 
     template<typename Archive>
-    void StorageWorldAnchor::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-        ar & boost::serialization::base_object<StorageWorldElement>(*this);
+    void StorageWorldAnchor::serialize(Archive &ar, const unsigned int /* version */) {
+        ar & boost::serialization::make_nvp("id", m_id);
+        ar & boost::serialization::make_nvp("name", m_name);
+        ar & boost::serialization::make_nvp("creatorId", m_creatorId);
+        ar & boost::serialization::make_nvp("localCRS", m_localCRS);
+        ar & boost::serialization::make_nvp("unitSystem", m_unitSystem);
+        ar & boost::serialization::make_nvp("size", m_size);
+        ar & boost::serialization::make_nvp("tags", m_tags);
     }
 
     ElementKind StorageWorldAnchor::getKind()
@@ -43,7 +49,7 @@ namespace datastructure {
         return ElementKind::ANCHOR;
     }
 
-    IMPLEMENTSERIALIZE(StorageWorldAnchor);
+    IMPLEMENTSTORAGESERIALIZE(StorageWorldAnchor);
 
 }
 }

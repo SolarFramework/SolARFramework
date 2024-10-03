@@ -65,7 +65,7 @@ static  std::string resolveTrackableType(StorageTrackableType input){
 ///
 /// @brief The EncodingInfo struct
 ///
-class EncodingInfo {
+class SOLARFRAMEWORK_API EncodingInfo {
 
     public:
 
@@ -94,10 +94,7 @@ class EncodingInfo {
 
         friend class boost::serialization::access;
         template<typename Archive>
-        void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-            ar & m_version;
-            ar & m_dataFormat;
-        }
+        void serialize(Archive &ar, const unsigned int version);
 
     private:
 
@@ -191,7 +188,8 @@ protected:
 
 };
 
-DECLARESERIALIZE(StorageTrackable);
+DECLARESTORAGESERIALIZE(StorageTrackable);
+DECLARESTORAGESERIALIZE(EncodingInfo);
 
 }
 } // end of namespace SolAR

@@ -143,19 +143,20 @@ namespace datastructure {
     }
 
     template<typename Archive>
-    void StorageWorldLink::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-        ar & m_id;
-        ar & m_author;
-        ar & m_uuidFrom;
-        ar & m_uuidTo;
-        ar & m_typeFrom;
-        ar & m_typeTo;
-        ar & m_transform;
-        ar & m_unitSystem;
-        ar & m_tags;
+    void StorageWorldLink::serialize(Archive &ar, const unsigned int /* version */) {
+
+        ar & boost::serialization::make_nvp("id", m_id);
+        ar & boost::serialization::make_nvp("author", m_author);
+        ar & boost::serialization::make_nvp("uuidFrom", m_uuidFrom);
+        ar & boost::serialization::make_nvp("uuidTo", m_uuidTo);
+        ar & boost::serialization::make_nvp("typeFrom", m_typeFrom);
+        ar & boost::serialization::make_nvp("typeTo", m_typeTo);
+        ar & boost::serialization::make_nvp("transform", m_transform);
+        ar & boost::serialization::make_nvp("unitSystem", m_unitSystem);
+        ar & boost::serialization::make_nvp("tags", m_tags);
     }
 
-    IMPLEMENTSERIALIZE(StorageWorldLink);
+    IMPLEMENTSTORAGESERIALIZE(StorageWorldLink);
 
 }
 }
