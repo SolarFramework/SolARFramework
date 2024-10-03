@@ -203,6 +203,18 @@ public:
     /// @return a FrameworkReturnCode succesfull if the world link is correctly modified
     virtual FrameworkReturnCode modifyWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldLink> worldLink) = 0;
 
+    /// @brief Save the map to the external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the backup succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode saveToFile() const = 0;
+
+    /// @brief Load the map from the external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadFromFile() = 0;
+
+    /// @brief Delete the map in external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode deleteFile() = 0;
+
 
 };
 }
