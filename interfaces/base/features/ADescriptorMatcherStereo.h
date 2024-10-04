@@ -17,10 +17,6 @@
 #ifndef SOLAR_ADESCRIPTORMATCHERSTEREO_H
 #define SOLAR_ADESCRIPTORMATCHERSTEREO_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include "core/SolARFrameworkDefinitions.h"
 #include "api/features/IDescriptorMatcherStereo.h"
 #include <xpcf/component/ConfigurableBase.h>

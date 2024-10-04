@@ -17,10 +17,6 @@
 #ifndef SOLAR_ISINKPOSETEXTUREBUFFER_H
 #define SOLAR_ISINKPOSETEXTUREBUFFER_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "ISinkReturnCode.h"
