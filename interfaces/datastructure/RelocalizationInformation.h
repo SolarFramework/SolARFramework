@@ -7,117 +7,127 @@
 #include "datastructure/StorageTrackable.h"
 
 namespace SolAR {
-    namespace datastructure {
+namespace datastructure {
 
-    ///
-    /// @brief The RelocObject struct
-    ///
-    class RelocObject {
+///
+/// @brief The RelocObject struct
+///
+class RelocObject {
 
-        public:
+    public:
 
-            RelocObject() = default;
+        RelocObject() = default;
 
-            RelocObject(const datastructure::StorageTrackable &trackable, const Transform3Df &transform3D){
-                m_trackable = trackable;
-                m_transform3D = transform3D;
-            }
+        RelocObject(const datastructure::StorageTrackable &trackable, const Transform3Df &transform3D){
+            m_trackable = trackable;
+            m_transform3D = transform3D;
+        }
 
-            Transform3Df getTransform3D() const{
-                return m_transform3D;
-            }
+        Transform3Df getTransform3D() const{
+            return m_transform3D;
+        }
 
-            datastructure::StorageTrackable getTrackable() const{
-                return m_trackable;
-            }
+        datastructure::StorageTrackable getTrackable() const{
+            return m_trackable;
+        }
 
-            void setTrackable(const datastructure::StorageTrackable &trackable){
-                m_trackable = trackable;
-            }
+        void setTrackable(const datastructure::StorageTrackable &trackable){
+            m_trackable = trackable;
+        }
 
-            void setTransform3D(const Transform3Df &transform3D){
-                m_transform3D = transform3D;
-            }
+        void setTransform3D(const Transform3Df &transform3D){
+            m_transform3D = transform3D;
+        }
 
-            friend class boost::serialization::access;
-            template<typename Archive>
-            void serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-                ar & m_transform3D;
-                ar & m_trackable;
-            }
+    private:
 
-        private:
+        friend class boost::serialization::access;
+        template<typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
 
-            datastructure::StorageTrackable m_trackable;
-            Transform3Df m_transform3D;
-    };
-        /**
-                    * @class StorageCapabilities
-                    * @brief <B>This class defines the generic RelocalizationInformation datastructure.</B>
-                    */
-        class SOLARFRAMEWORK_API RelocalizationInformation
-        {
-            public:
+    protected:
 
-                ////////////////////////////
-                ///     CONSTRUCTORS    ////
-                ////////////////////////////
+        datastructure::StorageTrackable m_trackable;
+        Transform3Df m_transform3D;
+};
 
-                ///
-                /// @brief RelocalizationInformation default constructor
-                ///
-                RelocalizationInformation() = default;
 
-                ///
-                /// @brief RelocalizationInformation default destructor
-                ///
-                virtual ~RelocalizationInformation() = default;
+/**
+            * @class StorageCapabilities
+            * @brief <B>This class defines the generic RelocalizationInformation datastructure.</B>
+            */
+class SOLARFRAMEWORK_API RelocalizationInformation
+{
+    public:
 
-                //
-                /// @brief RelocalizationInformation constructor with all its attributes
-                ///
-                RelocalizationInformation(const org::bcom::xpcf::uuids::uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor);
+        ////////////////////////////
+        ///     CONSTRUCTORS    ////
+        ////////////////////////////
 
-                ////////////////////////////
-                /// GETTERS AND SETTERS ////
-                ////////////////////////////
+        ///
+        /// @brief RelocalizationInformation default constructor
+        ///
+        RelocalizationInformation() = default;
 
-                ///
-                /// @brief Getter for the rootUUID
-                ///
-                org::bcom::xpcf::uuids::uuid getRootUUID() const;
+        ///
+        /// @brief RelocalizationInformation default destructor
+        ///
+        virtual ~RelocalizationInformation() = default;
 
-                ///
-                /// @brief Setter for the rootUUID
-                ///
-                void setRootUUID(org::bcom::xpcf::uuids::uuid uuid);
+        //
+        /// @brief RelocalizationInformation constructor with all its attributes
+        ///
+        RelocalizationInformation(const org::bcom::xpcf::uuids::uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor);
 
-                ///
-                /// @brief Getter for the RelocObjects
-                ///
-                const std::vector<RelocObject> getRelocObjects() const;
+        ////////////////////////////
+        /// GETTERS AND SETTERS ////
+        ////////////////////////////
 
-                ///
-                /// @brief Setter for the RelocObjects
-                ///
-                void setRelocObjects(std::vector<RelocObject> NewRelocObjects);
+        ///
+        /// @brief Getter for the rootUUID
+        ///
+        org::bcom::xpcf::uuids::uuid getRootUUID() const;
 
-                ///
-                /// @brief Getter for the RelocObjects
-                ///
-                bool isDeviceToWorldAnchor() const;
+        ///
+        /// @brief Setter for the rootUUID
+        ///
+        void setRootUUID(org::bcom::xpcf::uuids::uuid uuid);
 
-                ///
-                /// @brief Getter for the RelocObjects
-                ///
-                void setDeviceToWorldAnchor(bool newDeviceToWorldAnchor);
+        ///
+        /// @brief Getter for the RelocObjects
+        ///
+        const std::vector<RelocObject> getRelocObjects() const;
 
-            protected:
-                org::bcom::xpcf::uuids::uuid m_rootUUID;
-                std::vector<RelocObject> m_relocObjects;
-                bool m_deviceToWorldAnchor;
-        };
+        ///
+        /// @brief Setter for the RelocObjects
+        ///
+        void setRelocObjects(std::vector<RelocObject> NewRelocObjects);
 
-    }
+        ///
+        /// @brief Getter for the RelocObjects
+        ///
+        bool isDeviceToWorldAnchor() const;
+
+        ///
+        /// @brief Getter for the RelocObjects
+        ///
+        void setDeviceToWorldAnchor(bool newDeviceToWorldAnchor);
+
+    private:
+
+        friend class boost::serialization::access;
+        template<typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
+
+    protected:
+        org::bcom::xpcf::uuids::uuid m_rootUUID;
+        std::vector<RelocObject> m_relocObjects;
+        bool m_deviceToWorldAnchor;
+};
+
+DECLARESTORAGESERIALIZE(RelocObject);
+DECLARESTORAGESERIALIZE(RelocalizationInformation);
+
+}
 }
 #endif // RELOCALIZATIONINFORMATION_H

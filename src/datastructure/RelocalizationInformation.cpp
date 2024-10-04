@@ -52,8 +52,23 @@ namespace datastructure {
         m_deviceToWorldAnchor = newDeviceToWorldAnchor;
     };
 
+    template<typename Archive>
+    void RelocObject::serialize(Archive &ar, const unsigned int /* version */ )
+    {
+        ar & boost::serialization::make_nvp("trackable", m_trackable);
+        ar & boost::serialization::make_nvp("transform", m_transform3D);
+    }
 
+    template<typename Archive>
+    void RelocalizationInformation::serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & boost::serialization::make_nvp("rootUUID", m_rootUUID);
+        ar & boost::serialization::make_nvp("relocObjects", m_relocObjects);
+        ar & boost::serialization::make_nvp("deviceToWorldAnchor", m_deviceToWorldAnchor);
+    }
 
+    IMPLEMENTSTORAGESERIALIZE(RelocObject);
+    IMPLEMENTSTORAGESERIALIZE(RelocalizationInformation);
 
 }
 

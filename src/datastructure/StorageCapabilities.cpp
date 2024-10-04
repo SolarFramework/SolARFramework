@@ -55,6 +55,14 @@ namespace datastructure {
          return true;
     }
 
-}
+    template <typename Archive>
+    void StorageCapabilities::serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & boost::serialization::make_nvp("type", m_trackableType);
+        ar & boost::serialization::make_nvp("encodingInformation",m_encodingInformation);
+    }
 
+    IMPLEMENTSTORAGESERIALIZE(StorageCapabilities);
+
+}
 }
