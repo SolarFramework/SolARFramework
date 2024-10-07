@@ -23,57 +23,62 @@
 namespace SolAR {
 namespace datastructure {
 
+/**
+* @class StorageCapabilities
+* @brief <B>This class defines the generic StorageCapabilities datastructure.</B>
+*/
+class SOLARFRAMEWORK_API StorageCapabilities
+{
 
+    public:
 
-        /**
-            * @class StorageCapabilities
-            * @brief <B>This class defines the generic StorageCapabilities datastructure.</B>
-            */
-        class SOLARFRAMEWORK_API StorageCapabilities
-        {
+        ////////////////////////////
+        ///     CONSTRUCTORS    ////
+        ////////////////////////////
 
-            public:
+        ///
+        /// @brief StorageCapabilities default constructor
+        ///
+        StorageCapabilities() = default;
 
-                ////////////////////////////
-                ///     CONSTRUCTORS    ////
-                ////////////////////////////
+        ///
+        /// @brief StorageCapabilities default destructor
+        ///
+        virtual ~StorageCapabilities() = default;
 
-                ///
-                /// @brief StorageCapabilities default constructor
-                ///
-                StorageCapabilities() = default;
+        ///
+        /// @brief StorageCapabilities constructor with all its attributes
+        ///
+        StorageCapabilities(StorageTrackableType trackableType,EncodingInfo encodingInformation );
 
-                ///
-                /// @brief StorageCapabilities default destructor
-                ///
-                virtual ~StorageCapabilities() = default;
+        /// @brief Getter for the type of Trackable
+        StorageTrackableType getTrackableType() const;
 
-                ///
-                /// @brief StorageCapabilities constructor with all its attributes
-                ///
-                StorageCapabilities(StorageTrackableType trackableType,EncodingInfo encodingInformation );
+        /// @brief Setter for the type of Trackable
+        void setTrackableType(StorageTrackableType newType);
 
-                /// @brief Getter for the type of Trackable
-                StorageTrackableType getTrackableType() const;
+        /// @brief Getter for the EncodingInformation
+        EncodingInfo getEncodingInformation() const;
 
-                /// @brief Setter for the type of Trackable
-                void setTrackableType(StorageTrackableType newType);
+        /// @brief Setter for the encodingInformation
+        void setEncodingInformation(EncodingInfo newEncodingInfo);
 
-                /// @brief Getter for the EncodingInformation
-                EncodingInfo getEncodingInformation() const;
+        /// @brief return a boolean representing the equality with the parameter
+        bool equals(StorageCapabilities capability);
 
-                /// @brief Setter for the encodingInformation
-                void setEncodingInformation(EncodingInfo newEncodingInfo);
+    private:
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version);
 
-                /// @brief return a boolean representing the equality with the parameter
-                bool equals(StorageCapabilities capability);
+    protected:
+        StorageTrackableType m_trackableType;
+        EncodingInfo m_encodingInformation;
+};
 
-            protected:
-                StorageTrackableType m_trackableType;
-                EncodingInfo m_encodingInformation;
-        };
-    }
+DECLARESTORAGESERIALIZE(StorageCapabilities);
 
+}
 }
 
 

@@ -25,7 +25,37 @@
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/UnitSystem.h"
 
+// -> uncomment to use text serialization
+//#define SOLAR_STORAGE_USE_TEXT_SERIALIZATION
 
+// -> uncomment to use xml serialization
+#define SOLAR_STORAGE_USE_XML_SERIALIZATION
+
+#ifdef SOLAR_STORAGE_USE_TEXT_SERIALIZATION
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+using OutputStorageArchive = ::boost::archive::text_oarchive;
+using InputStorageArchive = ::boost::archive::text_iarchive;
+#elif defined (SOLAR_STORAGE_USE_XML_SERIALIZATION)
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
+using OutputStorageArchive = ::boost::archive::xml_oarchive;
+using InputStorageArchive = ::boost::archive::xml_iarchive;
+#else
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+using OutputStorageArchive = ::boost::archive::binary_oarchive;
+using InputStorageArchive = ::boost::archive::binary_iarchive;
+#endif
+
+
+#define DECLARESTORAGESERIALIZE(T) \
+    extern template SOLARFRAMEWORK_API void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
+    extern template SOLARFRAMEWORK_API void T::serialize<InputStorageArchive>(InputStorageArchive &ar, const unsigned int version);
+
+#define IMPLEMENTSTORAGESERIALIZE(T) \
+    template void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
+    template void T::serialize<InputStorageArchive>(InputStorageArchive &ar, const unsigned int version);
 
 // Definition of WorldElement Class //
 // part of SolAR namespace //
@@ -137,7 +167,7 @@ private:
 
 };
 
-DECLARESERIALIZE(StorageWorldElement);
+DECLARESTORAGESERIALIZE(StorageWorldElement);
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(StorageWorldElement);
 
 }

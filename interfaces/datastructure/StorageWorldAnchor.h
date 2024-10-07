@@ -74,7 +74,7 @@ class SOLARFRAMEWORK_API StorageWorldAnchor : virtual public StorageWorldElement
     protected:
 };
 
-DECLARESERIALIZE(StorageWorldAnchor);
+DECLARESTORAGESERIALIZE(StorageWorldAnchor);
 
 }
 } // end of namespace SolAR

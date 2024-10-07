@@ -124,17 +124,18 @@ namespace datastructure {
     }
 
     template<typename Archive>
-    void StorageWorldElement::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-        ar & m_id;
-        ar & m_name;
-        ar & m_creatorId;
-        ar & m_localCRS;
-        ar & m_unitSystem;
-        ar & m_size;
-        ar & m_tags;
+    void StorageWorldElement::serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & boost::serialization::make_nvp("id", m_id);
+        ar & boost::serialization::make_nvp("name", m_name);
+        ar & boost::serialization::make_nvp("creatorId", m_creatorId);
+        ar & boost::serialization::make_nvp("localCRS", m_localCRS);
+        ar & boost::serialization::make_nvp("unitSystem", m_unitSystem);
+        ar & boost::serialization::make_nvp("size", m_size);
+        ar & boost::serialization::make_nvp("tags", m_tags);
     }
 
-    IMPLEMENTSERIALIZE(StorageWorldElement);
+    IMPLEMENTSTORAGESERIALIZE(StorageWorldElement);
 
 }
 }

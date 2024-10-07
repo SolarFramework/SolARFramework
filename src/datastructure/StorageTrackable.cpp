@@ -107,24 +107,36 @@ namespace datastructure {
         return result;
     }
 
-
-    template<typename Archive>
-    void StorageTrackable::serialize(Archive &ar, ATTRIBUTE(maybe_unused) const unsigned int version) {
-
-
-        ar & boost::serialization::base_object<StorageWorldElement>(*this);
-        ar & m_url;
-        ar & m_type;
-        ar & m_encodingInfo;
-        ar & m_payload;
-    }
-
     ElementKind StorageTrackable::getKind()
     {
         return ElementKind::TRACKABLE;
     }
 
-    IMPLEMENTSERIALIZE(StorageTrackable);
+    template<typename Archive>
+    void StorageTrackable::serialize(Archive &ar, const unsigned int /* version */ )
+    {
+        ar & boost::serialization::make_nvp("id", m_id);
+        ar & boost::serialization::make_nvp("name", m_name);
+        ar & boost::serialization::make_nvp("creatorId", m_creatorId);
+        ar & boost::serialization::make_nvp("localCRS", m_localCRS);
+        ar & boost::serialization::make_nvp("unitSystem", m_unitSystem);
+        ar & boost::serialization::make_nvp("size", m_size);
+        ar & boost::serialization::make_nvp("url", m_url);
+        ar & boost::serialization::make_nvp("type", m_type);
+        ar & boost::serialization::make_nvp("encodingInfo", m_encodingInfo);
+        ar & boost::serialization::make_nvp("payLoad", m_payload);
+        ar & boost::serialization::make_nvp("tags", m_tags);
+    }
+
+    template<typename Archive>
+    void EncodingInfo::serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & boost::serialization::make_nvp("version", m_version);
+        ar & boost::serialization::make_nvp("dataFormat", m_dataFormat);
+    }
+
+    IMPLEMENTSTORAGESERIALIZE(StorageTrackable);
+    IMPLEMENTSTORAGESERIALIZE(EncodingInfo);
 
 }
 }

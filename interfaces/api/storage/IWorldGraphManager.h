@@ -56,7 +56,7 @@ public:
     /// @param[in] capabilities: Capabilities of the user
     /// @param[out] result:  the result attest
     /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTFOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getRelocalizationInformation(const std::vector<std::tuple<org::bcom::xpcf::uuids::uuid,bool>> &uuids, const std::string &token,const std::vector<datastructure::StorageCapabilities> &capability, std::vector<datastructure::RelocalizationInformation> &relocalizationInformation ) = 0;
+    virtual FrameworkReturnCode getRelocalizationInformation(const std::vector<std::tuple<org::bcom::xpcf::uuids::uuid,bool>> &uuids, const std::string &token,const std::vector<SolAR::datastructure::StorageCapabilities> &capability, std::vector<SolAR::datastructure::RelocalizationInformation> &relocalizationInformation ) = 0;
 
     ////////////////////////////
     /// WORLDELEMENT METHODS ///
@@ -66,25 +66,25 @@ public:
     /// @param[in] worldElementId: The Id of the WorldElement that is going to be fetched
     /// @param[out] worldElement:  the worldElement with id {worldElementId}
     /// @return FrameworkReturnCode::_SUCCESS if the element was found, FrameworkReturnCode::_NOTFOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getWorldElement(const org::bcom::xpcf::uuids::uuid& worldElementId, SRef<datastructure::StorageWorldElement>& worldElement) = 0;
+    virtual FrameworkReturnCode getWorldElement(const org::bcom::xpcf::uuids::uuid& worldElementId, SRef<SolAR::datastructure::StorageWorldElement>& worldElement) = 0;
 
     /// @brief this method returns all the worldElements currently in the world graph
     /// @param[out] vector: a vector containing all the worldElements in the worldgraph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldElements(std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
+    virtual FrameworkReturnCode getWorldElements(std::vector<SRef<SolAR::datastructure::StorageWorldElement>> &vector) = 0;
 
     /// @brief this method returns from the world graph all the elements with a given tag
     /// @param[in] key: the key of the tag
     /// @param[in] value: the value of the tag
     /// @param[out] vector: the elements in the world storage with the tag {key:value}
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldElementByKeyValue(const std::string &key, const std::string &value, std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
+    virtual FrameworkReturnCode getWorldElementByKeyValue(const std::string &key, const std::string &value, std::vector<SRef<SolAR::datastructure::StorageWorldElement>> &vector) = 0;
 
     /// @brief this method returns from the world graph all the elements that have a tag with a given key
     /// @param[in] key: the key of the tag
     /// @param[out] vector: the elements in the world storage with the tag {key:X}
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldElementByKey(const std::string &key, std::vector<SRef<datastructure::StorageWorldElement>> &vector) = 0;
+    virtual FrameworkReturnCode getWorldElementByKey(const std::string &key, std::vector<SRef<SolAR::datastructure::StorageWorldElement>> &vector) = 0;
 
     /////////////////////////
     /// TRACKABLE METHODS ///
@@ -94,14 +94,14 @@ public:
     /// @param[out] id:  The id of the newly created and added trackable
     /// @param[in] trackable: The trackable to add in the worldgraph
     /// @return a FrameworkReturnCode succesfull if the trackable is created & added to the world storage
-    virtual FrameworkReturnCode addTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageTrackable> trackable) = 0;
+    virtual FrameworkReturnCode addTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageTrackable> trackable) = 0;
 
 
     /// @brief this method returns from the world graph the trackable with id {trackableId}
     /// @param[in] trackableId: The Id of the Trackable that is going to be fetched
     /// @param[out] trackable: the trackable with id {trackableId}
     /// @return FrameworkReturnCode::_SUCCESS if the element is found, FrameworkReturnCode::_NOT_FOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getTrackable(const org::bcom::xpcf::uuids::uuid &trackableId, SRef<datastructure::StorageTrackable> &trackable) = 0;
+    virtual FrameworkReturnCode getTrackable(const org::bcom::xpcf::uuids::uuid &trackableId, SRef<SolAR::datastructure::StorageTrackable> &trackable) = 0;
 
 
     /// @brief this method deletes the trackable with id {trackableId} from the world graph
@@ -112,13 +112,13 @@ public:
     /// @brief this method returns all the trackables that are in the world graph
     /// @param[out] vector: a vector of all the trackables that are in the world graph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getTrackables(std::vector<SRef<datastructure::StorageTrackable>> &vector) = 0;
+    virtual FrameworkReturnCode getTrackables(std::vector<SRef<SolAR::datastructure::StorageTrackable>> &vector) = 0;
 
     /// @brief modifies a Trackable that is present in the world graph
     /// @param[out] id:  The id of the trackable to modify
     /// @param[in] trackable: The trackable to modify in the worldgraph
     /// @return a FrameworkReturnCode succesfull if the trackable is correctly modified
-    virtual FrameworkReturnCode modifyTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageTrackable> trackable) = 0;
+    virtual FrameworkReturnCode modifyTrackable(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageTrackable> trackable) = 0;
 
     ///////////////////////////
     /// WORLDANCHOR METHODS ///
@@ -128,14 +128,14 @@ public:
     /// @param[out] id: the uuid of the newly created and added world anchor
     /// @param[in] worldAnchor: the anchor that is to be added
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode addWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldAnchor> worldAnchor) = 0;
+    virtual FrameworkReturnCode addWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageWorldAnchor> worldAnchor) = 0;
 
 
     /// @brief this method returns from the world graph the world anchor with id {worldAnchorId}
     /// @param[in] worldAnchorId: The Id of the world anchor that is going to be fetched
     /// @param[out] worldAnchor: the world anchor with id {worldAnchorId}
     /// @return FrameworkReturnCode::_SUCCESS if the element is found, FrameworkReturnCode::_NOT_FOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getWorldAnchor(const org::bcom::xpcf::uuids::uuid &worldAnchorId, SRef<datastructure::StorageWorldAnchor>& worldAnchor) = 0;
+    virtual FrameworkReturnCode getWorldAnchor(const org::bcom::xpcf::uuids::uuid &worldAnchorId, SRef<SolAR::datastructure::StorageWorldAnchor>& worldAnchor) = 0;
 
 
     /// @brief this method deletes the world anchor with id {worldAnchorId} from the world graph
@@ -146,13 +146,13 @@ public:
     /// @brief this method returns all the world anchors that are in the world graph
     /// @param[out] vector: a vector of all the world anchors that are in the world graph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldAnchors(std::vector<SRef<datastructure::StorageWorldAnchor>>& vector) = 0;
+    virtual FrameworkReturnCode getWorldAnchors(std::vector<SRef<SolAR::datastructure::StorageWorldAnchor>>& vector) = 0;
 
     /// @brief modifies a world anchor that is present in the world graph
     /// @param[out] id:  The id of the world anchor to modify
     /// @param[in] worldAnchor: The world anchor to modify in the worldgraph
     /// @return a FrameworkReturnCode succesfull if the world anchor is correctly modified
-    virtual FrameworkReturnCode modifyWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldAnchor> worldAnchor) = 0;
+    virtual FrameworkReturnCode modifyWorldAnchor(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageWorldAnchor> worldAnchor) = 0;
 
     /////////////////////////
     /// WORLDLINK METHODS ///
@@ -162,7 +162,7 @@ public:
     /// @param[out] id: the uuid of the newly created and added world link
     /// @param[in] worldLink: the worldLink that we want to add to the worldStorage
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode addWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldLink> worldLink) = 0;
+    virtual FrameworkReturnCode addWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageWorldLink> worldLink) = 0;
 
 
     /// @brief this method returns from the world graph the worldLink connecting the two elements given as parameters
@@ -170,14 +170,14 @@ public:
     /// @param[in] childId: the UID of the child world element
     /// @param[out] worldLink: the worldLink connecting the two elements given as parameters
     /// @return FrameworkReturnCode::_SUCCESS if the element is found, FrameworkReturnCode::_NOT_FOUND if the element was not found, FrameworkReturnCode::_ERROR_ if something went wrong
-    virtual FrameworkReturnCode getWorldLink(const org::bcom::xpcf::uuids::uuid &parentId, const org::bcom::xpcf::uuids::uuid &childId, SRef<datastructure::StorageWorldLink> &worldLink) = 0;
+    virtual FrameworkReturnCode getWorldLink(const org::bcom::xpcf::uuids::uuid &parentId, const org::bcom::xpcf::uuids::uuid &childId, SRef<SolAR::datastructure::StorageWorldLink> &worldLink) = 0;
 
 
     /// @brief this method returns from the world graph the worldLink with the given ID
     /// @param[in] linkId: the UID of the link that is to be deleted
     /// @param[out] worldLink: the worldLink with the given ID
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldLink(const org::bcom::xpcf::uuids::uuid &linkId, SRef<datastructure::StorageWorldLink> &worldLink) = 0;
+    virtual FrameworkReturnCode getWorldLink(const org::bcom::xpcf::uuids::uuid &linkId, SRef<SolAR::datastructure::StorageWorldLink> &worldLink) = 0;
 
 
     /// @brief this method deletes from the world graph the transform between two given world elements
@@ -195,13 +195,25 @@ public:
     /// @brief this method returns all the world links that are in the world graph
     /// @param[out] vector: a vector of all the world links that are in the world graph
     /// @return FrameworkReturnCode::_SUCCESS if there was no error
-    virtual FrameworkReturnCode getWorldLinks(std::vector<SRef<datastructure::StorageWorldLink>> &vector) = 0;
+    virtual FrameworkReturnCode getWorldLinks(std::vector<SRef<SolAR::datastructure::StorageWorldLink>> &vector) = 0;
 
     /// @brief modifies a world link that is present in the world graph
     /// @param[out] id:  The id of the world link to modify
     /// @param[in] worldLink: The world link to modify in the worldgraph
     /// @return a FrameworkReturnCode succesfull if the world link is correctly modified
-    virtual FrameworkReturnCode modifyWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<datastructure::StorageWorldLink> worldLink) = 0;
+    virtual FrameworkReturnCode modifyWorldLink(org::bcom::xpcf::uuids::uuid& id, SRef<SolAR::datastructure::StorageWorldLink> worldLink) = 0;
+
+    /// @brief Save the map to the external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the backup succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode saveToFile() const = 0;
+
+    /// @brief Load the map from the external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadFromFile() = 0;
+
+    /// @brief Delete the map in external file
+    /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode deleteFile() = 0;
 
 
 };
