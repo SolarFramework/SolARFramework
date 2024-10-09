@@ -35,6 +35,14 @@ FrameworkReturnCode ADescriptorMatcher::match(const SRef<SolAR::datastructure::D
     return match(descriptors1, buff2, matches);
 }
 
+FrameworkReturnCode  ADescriptorMatcher::match(const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
+                                  const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
+                                  const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                  const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
+                                                                  std::vector<SolAR::datastructure::DescriptorMatch> & matches){
+
+    return match(keypoints1, keypoints2, descriptors1, descriptors2, matches);
+}
 
 
 }

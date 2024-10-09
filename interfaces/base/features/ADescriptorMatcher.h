@@ -56,6 +56,14 @@ public:
     virtual FrameworkReturnCode match(const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
                                       const std::vector<SRef<SolAR::datastructure::DescriptorBuffer>> & descriptors2,
                                       std::vector<SolAR::datastructure::DescriptorMatch> & matches) override;
+
+    virtual FrameworkReturnCode match(const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
+                                      const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors1,
+                                      const SRef<SolAR::datastructure::DescriptorBuffer> descriptors2,
+                                      std::vector<SolAR::datastructure::DescriptorMatch> & matches) override;
+
+
 };
 }
 }
