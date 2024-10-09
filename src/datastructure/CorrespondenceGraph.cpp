@@ -93,7 +93,7 @@ std::vector<std::pair<id_t, size_t>> CorrespondenceGraph::getAllSortedKeyframes(
 
 std::vector<std::pair<id_t, size_t>> CorrespondenceGraph::getLinkedKeyframes(id_t keyframeId, bool onlyDisabled) const
 {
-    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - begin.");
+    //LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - begin.");
     std::vector<std::pair<id_t, size_t>> keyframes;
     // matched keyframes whose Id > keyframeId -> edge keyframeId -> Id
     if (m_edges.find(keyframeId) != m_edges.end()) {
@@ -122,7 +122,7 @@ std::vector<std::pair<id_t, size_t>> CorrespondenceGraph::getLinkedKeyframes(id_
         }
     }
     std::sort(keyframes.begin(), keyframes.end(), [](auto& x1, auto& x2) {return x1.second > x2.second;});
-    LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - end.");
+    //LOG_DEBUG("CorrespondenceGraph::getLinkedKeyframes - end.");
     return keyframes;
 }
 
@@ -135,11 +135,11 @@ std::vector<DescriptorMatch> CorrespondenceGraph::getDescriptorMatches(id_t keyf
         return {};
     }
     if (inverseOrder) {
-        LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - inverse descriptor matches.");
+        //LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - inverse descriptor matches.");
         return inverseMatches(corres.matches);
     }
     else {
-        LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - return matches.");
+        //LOG_DEBUG("CorrespondenceGraph::getDescriptorMatches - return matches.");
         return corres.matches;
     }
 }
@@ -211,7 +211,7 @@ bool CorrespondenceGraph::getCorrespondence(id_t keyframeId1, id_t keyframeId2, 
     if (keyframeId1 < keyframeId2) {
         if (m_edges.find(keyframeId1) != m_edges.end() && m_edges.at(keyframeId1).find(keyframeId2) != m_edges.at(keyframeId1).end()) {
             corres = m_edges.at(keyframeId1).at(keyframeId2);
-            LOG_DEBUG("CorrespondenceGraph::getCorrespondence - corres. found");
+            //LOG_DEBUG("CorrespondenceGraph::getCorrespondence - corres. found");
             inverseOrder = false;
             return true; // found 
         }
@@ -352,7 +352,7 @@ std::map<size_t, std::vector<std::pair<id_t, size_t>>> CorrespondenceGraph::getV
             continue;
         }
         size_t nbv = vertex.second.visibility.size();
-        LOG_DEBUG("CorrespondenceGraph::getVisibleKeyframes - keyframe {} - nb vis. {}", vertex.first, nbv);
+        //LOG_DEBUG("CorrespondenceGraph::getVisibleKeyframes - keyframe {} - nb vis. {}", vertex.first, nbv);
         if (nbv > 0) {
             kfs[vertex.second.nbRegistrationTrials].push_back({vertex.first, nbv});
         }
