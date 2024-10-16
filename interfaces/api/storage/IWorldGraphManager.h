@@ -38,7 +38,8 @@ namespace storage {
  * @brief Allows to store the world graph with its components. This storage component can be accessed by processing components to share persistent data.
  * <TT>UUID: f8847b66-4bd0-48c6-ad54-e371a16fba1a</TT>
  */
-class IWorldGraphManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE
+    IWorldGraphManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IWorldGraphManager default constructor
     IWorldGraphManager() = default;
