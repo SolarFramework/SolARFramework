@@ -49,6 +49,7 @@ template<typename Archive>
 void Trackable::serialize(Archive &ar, const unsigned int /* version */) {
 
     ar & m_url;
+    ar & m_transform3D;
 }
 
 IMPLEMENTSERIALIZE(Trackable);

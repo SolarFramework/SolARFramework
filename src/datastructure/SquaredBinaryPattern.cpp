@@ -46,6 +46,19 @@ FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryP
     return FrameworkReturnCode::_SUCCESS;
 };
 
+ SquaredBinaryPattern SquaredBinaryPattern::fromString(const std::string& str, int size) {
+    assert(str.length() == size * size);
+
+    SquaredBinaryPatternMatrix matrix(size, size);
+
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            matrix(i, j) = str[i * size + j] == '1';
+        }
+    }
+
+    return SquaredBinaryPattern(matrix);
+}
 template <typename Archive>
 void SquaredBinaryPattern::serialize(Archive &ar, const unsigned int /* version */)
 {
