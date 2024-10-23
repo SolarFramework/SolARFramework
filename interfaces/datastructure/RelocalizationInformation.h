@@ -27,7 +27,7 @@ namespace datastructure {
 ///
 /// @brief The RelocObject struct
 ///
-class RelocObject {
+class SOLARFRAMEWORK_API RelocObject {
 
     public:
 
