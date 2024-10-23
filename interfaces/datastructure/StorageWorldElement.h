@@ -19,18 +19,18 @@
 
 #include <xpcf/core/uuid.h>
 
-#include "core/Log.h"
-#include "core/SerializationDefinitions.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/MathDefinitions.h"
 #include "datastructure/UnitSystem.h"
 
-// -> uncomment to use text serialization
+// -> uncomment to use text serialization for World Graph structure
 //#define SOLAR_STORAGE_USE_TEXT_SERIALIZATION
 
-// -> uncomment to use xml serialization
+// -> uncomment to use xml serialization for World Graph structure
 #define SOLAR_STORAGE_USE_XML_SERIALIZATION
 
+
+// Specific to World Storage Serialization
 #ifdef SOLAR_STORAGE_USE_TEXT_SERIALIZATION
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>

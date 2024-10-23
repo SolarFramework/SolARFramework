@@ -17,12 +17,11 @@
 #include "datastructure/StorageCapabilities.h"
 
 #include <xpcf/core/helpers.h>
-#include "datastructure/StorageTrackable.h"
 
 namespace SolAR {
 namespace datastructure {
 
-    StorageCapabilities::StorageCapabilities(StorageTrackableType trackableType,EncodingInfo encodingInformation){
+    StorageCapabilities::StorageCapabilities(StorageTrackableType trackableType, const EncodingInfo& encodingInformation){
         m_trackableType = trackableType;
         m_encodingInformation = encodingInformation;
     }

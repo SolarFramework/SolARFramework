@@ -20,7 +20,6 @@
 #include "core/Messages.h"
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/api/IComponentManager.h>
-#include <api/storage/IWorldGraphManager.h>
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
@@ -66,4 +65,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IServiceWorldGraph,
                              "IServiceWorldGraph",
                              "The interface to define the service managing a World Graph.")
 
-#endif // SOLAR_SERVICEMANAGER_H
+#endif // SOLAR_SERVICEWORLDGRAPH_H
