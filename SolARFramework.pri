@@ -164,8 +164,8 @@ interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
-    $$PWD/src/datastructure/RelocalizationInformation.cpp \
-    $$PWD/src/datastructure/StorageCapabilities.cpp \
+src/datastructure/RelocalizationInformation.cpp \
+src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \
