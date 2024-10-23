@@ -1,4 +1,6 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/datastructure/RelocalizationInformation.h \
+interfaces/datastructure/StorageCapabilities.h \
 interfaces/datastructure/DetectedObject.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
@@ -59,10 +61,11 @@ interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/pipeline/IDenseMappingPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
+interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
-interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IRelocalizationPipeline.h \
+interfaces/api/pipeline/IRelocalizationTrackablePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
@@ -71,6 +74,7 @@ interfaces/api/reloc/IRegression.h \
 interfaces/api/service/IFrontEnd.h \
 interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
+interfaces/api/service/IServiceWorldGraph.h \
 interfaces/api/sfm/IMeshing.h \
 interfaces/api/sfm/IMultiViewStereo.h \
 interfaces/api/sfm/IStructureFromMotion.h \
@@ -104,6 +108,7 @@ interfaces/api/storage/ICovisibilityGraphManager.h \
 interfaces/api/storage/IKeyframesManager.h \
 interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
+interfaces/api/storage/IWorldGraphManager.h \
 interfaces/api/storage/IMapManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
@@ -141,6 +146,11 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
+interfaces/datastructure/StorageTrackable.h \
+interfaces/datastructure/StorageWorldAnchor.h \
+interfaces/datastructure/StorageWorldElement.h \
+interfaces/datastructure/StorageWorldLink.h \
+interfaces/datastructure/UnitSystem.h \
 interfaces/base/features/ADescriptorMatcher.h \
 interfaces/base/features/ADescriptorMatcherGeometric.h \
 interfaces/base/features/ADescriptorMatcherRegion.h \
@@ -154,6 +164,8 @@ interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+src/datastructure/RelocalizationInformation.cpp \
+src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
 src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \
@@ -180,6 +192,10 @@ src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
 src/datastructure/Mesh.cpp \
+src/datastructure/StorageTrackable.cpp \
+src/datastructure/StorageWorldAnchor.cpp \
+src/datastructure/StorageWorldElement.cpp \
+src/datastructure/StorageWorldLink.cpp \
 src/base/features/ADescriptorMatcher.cpp \
 src/base/features/ADescriptorMatcherGeometric.cpp \
 src/base/features/ADescriptorMatcherRegion.cpp \

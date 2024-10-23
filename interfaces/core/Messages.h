@@ -35,6 +35,12 @@ enum class FrameworkReturnCode:long{
     // Not implemented interface
     _NOT_IMPLEMENTED = -2,
 
+    // Requested resource has not been found
+    _NOT_FOUND = -3,
+
+    // Resource already exists
+    _ALREADY_EXIST = -4,
+
     // for IImage
     /** Cannot load Image */
     _ERROR_LOAD_IMAGE = -10,

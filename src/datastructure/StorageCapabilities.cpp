@@ -1,0 +1,67 @@
+/**
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "datastructure/StorageCapabilities.h"
+
+#include <xpcf/core/helpers.h>
+
+namespace SolAR {
+namespace datastructure {
+
+    StorageCapabilities::StorageCapabilities(StorageTrackableType trackableType, const EncodingInfo& encodingInformation){
+        m_trackableType = trackableType;
+        m_encodingInformation = encodingInformation;
+    }
+
+    StorageTrackableType StorageCapabilities::getTrackableType() const {
+        return m_trackableType;
+    }
+
+    void StorageCapabilities::setTrackableType(StorageTrackableType newTrackableType) {
+         m_trackableType = newTrackableType;
+    }
+
+    const EncodingInfo& StorageCapabilities::getEncodingInformation() const {
+         return m_encodingInformation;
+    }
+
+    void StorageCapabilities::setEncodingInformation(const EncodingInfo& newEncodingInformation) {
+         m_encodingInformation = newEncodingInformation;
+    }
+
+    bool StorageCapabilities::equals(const StorageCapabilities& capability){
+         if (m_trackableType != capability.m_trackableType) {
+             return false;
+         }
+         bool dataformat = m_encodingInformation.getDataFormat() == capability.m_encodingInformation.getDataFormat();
+         bool version = m_encodingInformation.getVersion() == capability.m_encodingInformation.getVersion();
+         if (!(version && dataformat) ) {
+             return false;
+         }
+         return true;
+    }
+
+    template <typename Archive>
+    void StorageCapabilities::serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & boost::serialization::make_nvp("type", m_trackableType);
+        ar & boost::serialization::make_nvp("encodingInformation",m_encodingInformation);
+    }
+
+    IMPLEMENTSTORAGESERIALIZE(StorageCapabilities);
+
+}
+}
