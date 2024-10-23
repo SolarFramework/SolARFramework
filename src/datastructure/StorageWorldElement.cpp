@@ -113,7 +113,7 @@ namespace datastructure {
         return false;
     }
 
-    const std::string &StorageWorldElement::getName() const
+    std::string StorageWorldElement::getName() const
     {
         return m_name;
     }

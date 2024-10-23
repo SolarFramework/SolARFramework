@@ -29,115 +29,115 @@ namespace datastructure {
 ///
 class SOLARFRAMEWORK_API RelocObject {
 
-    public:
+public:
 
-        RelocObject() = default;
+    RelocObject() = default;
 
-        RelocObject(const datastructure::StorageTrackable &trackable, const Transform3Df &transform3D){
-            m_trackable = trackable;
-            m_transform3D = transform3D;
-        }
+    RelocObject(const datastructure::StorageTrackable &trackable, const Transform3Df &transform3D){
+        m_trackable = trackable;
+        m_transform3D = transform3D;
+    }
 
-        Transform3Df getTransform3D() const{
-            return m_transform3D;
-        }
+    Transform3Df getTransform3D() const{
+        return m_transform3D;
+    }
 
-        datastructure::StorageTrackable getTrackable() const{
-            return m_trackable;
-        }
+    datastructure::StorageTrackable getTrackable() const{
+        return m_trackable;
+    }
 
-        void setTrackable(const datastructure::StorageTrackable &trackable){
-            m_trackable = trackable;
-        }
+    void setTrackable(const datastructure::StorageTrackable &trackable){
+        m_trackable = trackable;
+    }
 
-        void setTransform3D(const Transform3Df &transform3D){
-            m_transform3D = transform3D;
-        }
+    void setTransform3D(const Transform3Df &transform3D){
+        m_transform3D = transform3D;
+    }
 
-    private:
+private:
 
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+    friend class boost::serialization::access;
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
 
-    protected:
+protected:
 
-        datastructure::StorageTrackable m_trackable;
-        Transform3Df m_transform3D;
+    datastructure::StorageTrackable m_trackable;
+    Transform3Df m_transform3D;
 };
 
 
 /**
-            * @class StorageCapabilities
-            * @brief <B>This class defines the generic RelocalizationInformation datastructure.</B>
-            */
+        * @class StorageCapabilities
+        * @brief <B>This class defines the generic RelocalizationInformation datastructure.</B>
+        */
 class SOLARFRAMEWORK_API RelocalizationInformation
 {
-    public:
+public:
 
-        ////////////////////////////
-        ///     CONSTRUCTORS    ////
-        ////////////////////////////
+    ////////////////////////////
+    ///     CONSTRUCTORS    ////
+    ////////////////////////////
 
-        ///
-        /// @brief RelocalizationInformation default constructor
-        ///
-        RelocalizationInformation() = default;
+    ///
+    /// @brief RelocalizationInformation default constructor
+    ///
+    RelocalizationInformation() = default;
 
-        ///
-        /// @brief RelocalizationInformation default destructor
-        ///
-        virtual ~RelocalizationInformation() = default;
+    ///
+    /// @brief RelocalizationInformation default destructor
+    ///
+    virtual ~RelocalizationInformation() = default;
 
-        //
-        /// @brief RelocalizationInformation constructor with all its attributes
-        ///
-        RelocalizationInformation(const org::bcom::xpcf::uuids::uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor);
+    //
+    /// @brief RelocalizationInformation constructor with all its attributes
+    ///
+    RelocalizationInformation(const org::bcom::xpcf::uuids::uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor);
 
-        ////////////////////////////
-        /// GETTERS AND SETTERS ////
-        ////////////////////////////
+    ////////////////////////////
+    /// GETTERS AND SETTERS ////
+    ////////////////////////////
 
-        ///
-        /// @brief Getter for the rootUUID
-        ///
-        org::bcom::xpcf::uuids::uuid getRootUUID() const;
+    ///
+    /// @brief Getter for the rootUUID
+    ///
+    org::bcom::xpcf::uuids::uuid getRootUUID() const;
 
-        ///
-        /// @brief Setter for the rootUUID
-        ///
-        void setRootUUID(org::bcom::xpcf::uuids::uuid uuid);
+    ///
+    /// @brief Setter for the rootUUID
+    ///
+    void setRootUUID(org::bcom::xpcf::uuids::uuid uuid);
 
-        ///
-        /// @brief Getter for the RelocObjects
-        ///
-        const std::vector<RelocObject> getRelocObjects() const;
+    ///
+    /// @brief Getter for the RelocObjects
+    ///
+    const std::vector<RelocObject> getRelocObjects() const;
 
-        ///
-        /// @brief Setter for the RelocObjects
-        ///
-        void setRelocObjects(std::vector<RelocObject> NewRelocObjects);
+    ///
+    /// @brief Setter for the RelocObjects
+    ///
+    void setRelocObjects(std::vector<RelocObject> NewRelocObjects);
 
-        ///
-        /// @brief Getter for the RelocObjects
-        ///
-        bool isDeviceToWorldAnchor() const;
+    ///
+    /// @brief Inform if the relocalization informations are given from the Device to the World Anchor or inversely
+    ///
+    bool isDeviceToWorldAnchor() const;
 
-        ///
-        /// @brief Getter for the RelocObjects
-        ///
-        void setDeviceToWorldAnchor(bool newDeviceToWorldAnchor);
+    ///
+    /// @brief Set if the relocalization informations are given from the Device to the World Anchor or inversely
+    ///
+    void setDeviceToWorldAnchor(bool newDeviceToWorldAnchor);
 
-    private:
+private:
 
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+    friend class boost::serialization::access;
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
 
-    protected:
-        org::bcom::xpcf::uuids::uuid m_rootUUID;
-        std::vector<RelocObject> m_relocObjects;
-        bool m_deviceToWorldAnchor;
+protected:
+    org::bcom::xpcf::uuids::uuid m_rootUUID;
+    std::vector<RelocObject> m_relocObjects;
+    bool m_deviceToWorldAnchor;
 };
 
 DECLARESTORAGESERIALIZE(RelocObject);

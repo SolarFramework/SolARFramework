@@ -23,23 +23,27 @@
 namespace SolAR {
 namespace datastructure {
 
-    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, const std::multimap<std::string, std::string> &tags)
+    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &author,
+                                       boost::uuids::uuid uuidFrom,
+                                       boost::uuids::uuid uuidTo,
+                                       ElementKind typeFrom,
+                                       ElementKind typeTo,
+                                       Transform3Df transform,
+                                       UnitSystem unitSystem,
+                                       const std::multimap<std::string, std::string> &tags)
+        : StorageWorldLink(org::bcom::xpcf::uuids::random_generator()(), author, uuidFrom, uuidTo, typeFrom, typeTo, transform, unitSystem, tags)
     {
-        m_id = org::bcom::xpcf::uuids::random_generator()();
-        m_author = author;
-        m_uuidFrom = uuidFrom;
-        m_uuidTo = uuidTo;
-        m_typeFrom = typeFrom;
-        m_typeTo = typeTo;
-        m_transform = transform;
-        m_unitSystem = unitSystem;
-        m_tags = tags;
-        //LOG_DEBUG("Link constructor with id = {}", org::bcom::xpcf::uuids::to_string(m_id));
     }
 
-    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &author, boost::uuids::uuid uuidFrom,
-                                       boost::uuids::uuid uuidTo, ElementKind typeFrom, ElementKind typeTo, Transform3Df transform, UnitSystem unitSystem, const std::multimap<std::string, std::string> &tags)
+    StorageWorldLink::StorageWorldLink(const org::bcom::xpcf::uuids::uuid &id,
+                                       const org::bcom::xpcf::uuids::uuid &author,
+                                       boost::uuids::uuid uuidFrom,
+                                       boost::uuids::uuid uuidTo,
+                                       ElementKind typeFrom,
+                                       ElementKind typeTo,
+                                       Transform3Df transform,
+                                       UnitSystem unitSystem,
+                                       const std::multimap<std::string, std::string> &tags)
     {
         m_id = id;
         m_author = author;
@@ -67,7 +71,7 @@ namespace datastructure {
         m_author = newAuthor;
     }
 
-    const Transform3Df &StorageWorldLink::getTransform() const
+    Transform3Df StorageWorldLink::getTransform() const
     {
         return m_transform;
     }
@@ -82,7 +86,7 @@ namespace datastructure {
         return {m_uuidFrom, m_uuidTo};
     }
 
-    const boost::uuids::uuid &StorageWorldLink::getUuidFrom() const
+    boost::uuids::uuid StorageWorldLink::getUuidFrom() const
     {
         return m_uuidFrom;
     }
@@ -92,7 +96,7 @@ namespace datastructure {
         m_uuidFrom = newUuidFrom;
     }
 
-    const boost::uuids::uuid &StorageWorldLink::getUuidTo() const
+    boost::uuids::uuid StorageWorldLink::getUuidTo() const
     {
         return m_uuidTo;
     }

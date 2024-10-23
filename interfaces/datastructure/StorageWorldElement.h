@@ -49,12 +49,13 @@ using InputStorageArchive = ::boost::archive::binary_iarchive;
 #endif
 
 
+// Specific to World Storage Serialization
 #define DECLARESTORAGESERIALIZE(T) \
-    extern template SOLARFRAMEWORK_API void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
+extern template SOLARFRAMEWORK_API void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
     extern template SOLARFRAMEWORK_API void T::serialize<InputStorageArchive>(InputStorageArchive &ar, const unsigned int version);
 
 #define IMPLEMENTSTORAGESERIALIZE(T) \
-    template void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
+template void T::serialize<OutputStorageArchive>(OutputStorageArchive &ar, const unsigned int version);\
     template void T::serialize<InputStorageArchive>(InputStorageArchive &ar, const unsigned int version);
 
 // Definition of WorldElement Class //
@@ -77,94 +78,92 @@ enum class ElementKind : char {
     */
 class SOLARFRAMEWORK_API StorageWorldElement
 {
-    public :
+public :
 
-        ////////////////////
-        /// CONSTRUCTORS ///
-        ////////////////////
+    ////////////////////
+    /// CONSTRUCTORS ///
+    ////////////////////
 
-        /// @brief WorldElement default constructor
-        StorageWorldElement() = default;
+    /// @brief WorldElement default constructor
+    StorageWorldElement() = default;
 
-        /// @brief WorldElement constructor
-        StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
+    /// @brief WorldElement constructor
+    StorageWorldElement(const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                        Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
 
 
-        /// @brief WorldElement constructor with id
-        StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
-                            Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
+    /// @brief WorldElement constructor with id
+    StorageWorldElement(const org::bcom::xpcf::uuids::uuid &id, const org::bcom::xpcf::uuids::uuid &creatorId, Transform3Df localCRS, UnitSystem unitSystem,
+                        Vector3d size, const std::multimap<std::string, std::string> &tags, std::string name);
 
-        /// @brief WorldElement default destructor
-        virtual ~StorageWorldElement() = default;
+    /// @brief WorldElement default destructor
+    virtual ~StorageWorldElement() = default;
 
-        ///////////////////////////
-        /// GETTERS AND SETTERS ///
-        ///////////////////////////
+    ///////////////////////////
+    /// GETTERS AND SETTERS ///
+    ///////////////////////////
 
-        /// @brief Getter for the id of the WorldElement object
-        org::bcom::xpcf::uuids::uuid getID() const;
-        /// @brief Setter for the id of the WorldElement object
-        void setID(const org::bcom::xpcf::uuids::uuid &id);
+    /// @brief Getter for the id of the WorldElement object
+    org::bcom::xpcf::uuids::uuid getID() const;
+    /// @brief Setter for the id of the WorldElement object
+    void setID(const org::bcom::xpcf::uuids::uuid &id);
 
-        /// @brief Getter for the author ID of the WorldElement
-        org::bcom::xpcf::uuids::uuid getCreatorID() const;
-        /// @brief Setter for the author ID of the WorldElement
-        void setCreatorID(const org::bcom::xpcf::uuids::uuid &newCreator);
+    /// @brief Getter for the author ID of the WorldElement
+    org::bcom::xpcf::uuids::uuid getCreatorID() const;
+    /// @brief Setter for the author ID of the WorldElement
+    void setCreatorID(const org::bcom::xpcf::uuids::uuid &newCreator);
 
-        /// @brief Getter for the local reference system of the WorldElement
-        Transform3Df getLocalCrs() const;
-        /// @brief Setter for the local reference system of the WorldElement
-        void setLocalCrs(const Transform3Df &newLocalCrs);
+    /// @brief Getter for the local reference system of the WorldElement
+    Transform3Df getLocalCrs() const;
+    /// @brief Setter for the local reference system of the WorldElement
+    void setLocalCrs(const Transform3Df &newLocalCrs);
 
-        /// @brief Getter for the unit system
-        UnitSystem getUnitSystem() const;
-        /// @brief Setter for the unit system
-        void setUnitSystem(const UnitSystem &newUnitSystem);
+    /// @brief Getter for the unit system
+    UnitSystem getUnitSystem() const;
+    /// @brief Setter for the unit system
+    void setUnitSystem(const UnitSystem &newUnitSystem);
 
-        /// @brief Getter for the dimension of the WorldElement
-        Vector3d getSize() const;
-        /// @brief Setter for the dimension of the WorldElement
-        void setSize(const Vector3d &newSize);
+    /// @brief Getter for the dimension of the WorldElement
+    Vector3d getSize() const;
+    /// @brief Setter for the dimension of the WorldElement
+    void setSize(const Vector3d &newSize);
 
-        /// @brief Getter for the list of tags associated with the element
-        std::multimap<std::string, std::string> getTags() const;
-        /// @brief Setter for the list of tags associated with the element
-        void setTags(const std::multimap<std::string, std::string> &tags);
+    /// @brief Getter for the list of tags associated with the element
+    std::multimap<std::string, std::string> getTags() const;
+    /// @brief Setter for the list of tags associated with the element
+    void setTags(const std::multimap<std::string, std::string> &tags);
 
-        ///////////////
-        /// METHODS ///
-        ///////////////
+    ///////////////
+    /// METHODS ///
+    ///////////////
 
-        /// @brief Add a new tag to associate to the element
-        void addTag(const std::string &key, const std::string &value);
+    /// @brief Add a new tag to associate to the element
+    void addTag(const std::string &key, const std::string &value);
 
-        /// @brief removes a tag form the element
-        bool removeTag(const std::string &key, const std::string &value);
+    /// @brief removes a tag form the element
+    bool removeTag(const std::string &key, const std::string &value);
 
-        /// @brief Gets the type of worldElement ( trackable or anchor )
-        virtual ElementKind getKind() = 0;
+    /// @brief Gets the type of worldElement ( trackable or anchor )
+    virtual ElementKind getKind() const = 0;
 
-        const std::string &getName() const;
-        void setName(const std::string &newName);
+    std::string getName() const;
+    void setName(const std::string &newName);
 
 private:
 
-        friend class boost::serialization::access;
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+    friend class boost::serialization::access;
+    template<typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
 
-    protected:
+protected:
 
-        org::bcom::xpcf::uuids::uuid m_id;
-        std::string m_name;
-        org::bcom::xpcf::uuids::uuid m_creatorId;
-        Transform3Df m_localCRS;
-        UnitSystem m_unitSystem;
-        Vector3d m_size;
-        std::multimap<std::string, std::string> m_tags;
-
-
+    org::bcom::xpcf::uuids::uuid m_id;
+    std::string m_name;
+    org::bcom::xpcf::uuids::uuid m_creatorId;
+    Transform3Df m_localCRS;
+    UnitSystem m_unitSystem;
+    Vector3d m_size;
+    std::multimap<std::string, std::string> m_tags;
 };
 
 DECLARESTORAGESERIALIZE(StorageWorldElement);

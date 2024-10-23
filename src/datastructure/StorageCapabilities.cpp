@@ -34,15 +34,15 @@ namespace datastructure {
          m_trackableType = newTrackableType;
     }
 
-    EncodingInfo StorageCapabilities::getEncodingInformation() const {
+    const EncodingInfo& StorageCapabilities::getEncodingInformation() const {
          return m_encodingInformation;
     }
 
-    void StorageCapabilities::setEncodingInformation(EncodingInfo newEncodingInformation) {
+    void StorageCapabilities::setEncodingInformation(const EncodingInfo& newEncodingInformation) {
          m_encodingInformation = newEncodingInformation;
     }
 
-    bool StorageCapabilities::equals(StorageCapabilities capability){
+    bool StorageCapabilities::equals(const StorageCapabilities& capability){
          if (m_trackableType != capability.m_trackableType) {
              return false;
          }

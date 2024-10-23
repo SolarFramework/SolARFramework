@@ -44,7 +44,7 @@ namespace datastructure {
         ar & boost::serialization::make_nvp("tags", m_tags);
     }
 
-    ElementKind StorageWorldAnchor::getKind()
+    ElementKind StorageWorldAnchor::getKind() const
     {
         return ElementKind::ANCHOR;
     }

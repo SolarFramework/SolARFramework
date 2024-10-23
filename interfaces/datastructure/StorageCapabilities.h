@@ -30,50 +30,50 @@ namespace datastructure {
 class SOLARFRAMEWORK_API StorageCapabilities
 {
 
-    public:
+public:
 
-        ////////////////////////////
-        ///     CONSTRUCTORS    ////
-        ////////////////////////////
+    ////////////////////////////
+    ///     CONSTRUCTORS    ////
+    ////////////////////////////
 
-        ///
-        /// @brief StorageCapabilities default constructor
-        ///
-        StorageCapabilities() = default;
+    ///
+    /// @brief StorageCapabilities default constructor
+    ///
+    StorageCapabilities() = default;
 
-        ///
-        /// @brief StorageCapabilities default destructor
-        ///
-        virtual ~StorageCapabilities() = default;
+    ///
+    /// @brief StorageCapabilities default destructor
+    ///
+    virtual ~StorageCapabilities() = default;
 
-        ///
-        /// @brief StorageCapabilities constructor with all its attributes
-        ///
-        StorageCapabilities(StorageTrackableType trackableType,EncodingInfo encodingInformation );
+    ///
+    /// @brief StorageCapabilities constructor with all its attributes
+    ///
+    StorageCapabilities(StorageTrackableType trackableType, const EncodingInfo& encodingInformation );
 
-        /// @brief Getter for the type of Trackable
-        StorageTrackableType getTrackableType() const;
+    /// @brief Getter for the type of Trackable
+    StorageTrackableType getTrackableType() const;
 
-        /// @brief Setter for the type of Trackable
-        void setTrackableType(StorageTrackableType newType);
+    /// @brief Setter for the type of Trackable
+    void setTrackableType(StorageTrackableType newType);
 
-        /// @brief Getter for the EncodingInformation
-        EncodingInfo getEncodingInformation() const;
+    /// @brief Getter for the EncodingInformation
+    const EncodingInfo& getEncodingInformation() const;
 
-        /// @brief Setter for the encodingInformation
-        void setEncodingInformation(EncodingInfo newEncodingInfo);
+    /// @brief Setter for the encodingInformation
+    void setEncodingInformation(const EncodingInfo& newEncodingInfo);
 
-        /// @brief return a boolean representing the equality with the parameter
-        bool equals(StorageCapabilities capability);
+    /// @brief return a boolean representing the equality with the parameter
+    bool equals(const StorageCapabilities& capability);
 
-    private:
-        friend class boost::serialization::access;
-        template <typename Archive>
-        void serialize(Archive &ar, const unsigned int version);
+private:
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version);
 
-    protected:
-        StorageTrackableType m_trackableType;
-        EncodingInfo m_encodingInformation;
+protected:
+    StorageTrackableType m_trackableType;
+    EncodingInfo m_encodingInformation;
 };
 
 DECLARESTORAGESERIALIZE(StorageCapabilities);
