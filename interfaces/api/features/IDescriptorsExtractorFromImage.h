@@ -17,10 +17,6 @@
 #ifndef IDescriptorsExtractorFromImageFROMIMAGE_H
 #define IDescriptorsExtractorFromImageFROMIMAGE_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <vector>
 #include "datastructure/Keypoint.h"
 #include "datastructure/Image.h"
