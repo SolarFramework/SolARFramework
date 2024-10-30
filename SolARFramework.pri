@@ -161,7 +161,8 @@ interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
 interfaces/api/segm/IPanopticSegmentation.h \
-interfaces/api/display/IMaskOverlay.h
+interfaces/api/display/IMaskOverlay.h\
+interfaces/Version.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
 src/datastructure/RelocalizationInformation.cpp \
