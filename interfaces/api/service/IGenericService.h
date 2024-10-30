@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_SERVICEWORLDGRAPH_H
-#define SOLAR_SERVICEWORLDGRAPH_H
+#ifndef SOLAR_GENERICSERVICE_H
+#define SOLAR_GENERICSERVICE_H
 
 #include "core/Messages.h"
 #include <xpcf/api/IComponentIntrospect.h>
@@ -27,20 +27,20 @@ namespace api {
 namespace service {
 
 /**
- * @class IServiceWorldGraph
- * @brief <B>Defines the service managing a World Graph.</B>
+ * @class IGenericService
+ * @brief <B>Defines the service managing a generic  service.</B>
  * <TT>UUID: d193e3e4-54e8-44ff-b7f8-2ffdba2b04e9</TT>
  *
- * This class provides the interface to define a service managing a World Graph.
+ * This class provides the interface to define a generic service with just an init, start and stop function.
  */
 
-class XPCF_IGNORE IServiceWorldGraph : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IGenericService : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IServiceWorldGraph default constructor
-    IServiceWorldGraph() = default;
+    /// @brief IGenericService default constructor
+    IGenericService() = default;
 
-    /// @brief IServiceWorldGraph default destructor
-    virtual ~IServiceWorldGraph() = default;
+    /// @brief IGenericService default destructor
+    virtual ~IGenericService() = default;
 
     /// @brief Initialization of the service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
@@ -60,9 +60,9 @@ public:
 } // api
 } // SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IServiceWorldGraph,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IGenericService,
                              "d193e3e4-54e8-44ff-b7f8-2ffdba2b04e9",
-                             "IServiceWorldGraph",
-                             "The interface to define the service managing a World Graph.")
+                             "IGenericService",
+                             "The interface to define the generic service with an init, start and stop function.")
 
-#endif // SOLAR_SERVICEWORLDGRAPH_H
+#endif // SOLAR_GENERICSERVICE_H

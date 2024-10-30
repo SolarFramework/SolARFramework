@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+interfaces/api/service/IGenericService.h \
 interfaces/datastructure/RelocalizationInformation.h \
 interfaces/datastructure/StorageCapabilities.h \
 interfaces/datastructure/DetectedObject.h \
@@ -74,7 +75,6 @@ interfaces/api/reloc/IRegression.h \
 interfaces/api/service/IFrontEnd.h \
 interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
-interfaces/api/service/IServiceWorldGraph.h \
 interfaces/api/sfm/IMeshing.h \
 interfaces/api/sfm/IMultiViewStereo.h \
 interfaces/api/sfm/IStructureFromMotion.h \
