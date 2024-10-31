@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 #include "datastructure/StorageCapabilities.h"
 
 #include <xpcf/core/helpers.h>
-#include "datastructure/StorageTrackable.h"
 
 namespace SolAR {
 namespace datastructure {
 
-    StorageCapabilities::StorageCapabilities(StorageTrackableType trackableType,EncodingInfo encodingInformation){
+    StorageCapabilities::StorageCapabilities(StorageTrackableType trackableType, const EncodingInfo& encodingInformation){
         m_trackableType = trackableType;
         m_encodingInformation = encodingInformation;
     }
@@ -35,15 +34,15 @@ namespace datastructure {
          m_trackableType = newTrackableType;
     }
 
-    EncodingInfo StorageCapabilities::getEncodingInformation() const {
+    const EncodingInfo& StorageCapabilities::getEncodingInformation() const {
          return m_encodingInformation;
     }
 
-    void StorageCapabilities::setEncodingInformation(EncodingInfo newEncodingInformation) {
+    void StorageCapabilities::setEncodingInformation(const EncodingInfo& newEncodingInformation) {
          m_encodingInformation = newEncodingInformation;
     }
 
-    bool StorageCapabilities::equals(StorageCapabilities capability){
+    bool StorageCapabilities::equals(const StorageCapabilities& capability){
          if (m_trackableType != capability.m_trackableType) {
              return false;
          }

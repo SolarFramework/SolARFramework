@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2020 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,24 @@
  */
 
 #include "datastructure/RelocalizationInformation.h"
-
 #include <xpcf/core/helpers.h>
+
+using org::bcom::xpcf::uuids::uuid;
 
 namespace SolAR {
 namespace datastructure {
 
-    RelocalizationInformation::RelocalizationInformation(const org::bcom::xpcf::uuids::uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor) {
+    RelocalizationInformation::RelocalizationInformation(const uuid &rootUUID,const std::vector<RelocObject> relocObjects, const bool deviceToWorldAnchor) {
         m_rootUUID= rootUUID;
         m_relocObjects= relocObjects;
         m_deviceToWorldAnchor = deviceToWorldAnchor;
     }
 
-    org::bcom::xpcf::uuids::uuid RelocalizationInformation::getRootUUID() const {
+    uuid RelocalizationInformation::getRootUUID() const {
         return m_rootUUID;
     };
 
-    void RelocalizationInformation::setRootUUID(org::bcom::xpcf::uuids::uuid uuid) {
+    void RelocalizationInformation::setRootUUID(uuid uuid) {
         m_rootUUID = uuid;
     };
 

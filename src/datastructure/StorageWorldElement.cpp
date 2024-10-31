@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2021-2022 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ namespace datastructure {
         return false;
     }
 
-    const std::string &StorageWorldElement::getName() const
+    std::string StorageWorldElement::getName() const
     {
         return m_name;
     }

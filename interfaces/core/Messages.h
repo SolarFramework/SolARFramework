@@ -31,11 +31,15 @@ enum class FrameworkReturnCode:long{
     // error codes
     /** unknown error, better stop!! */
     _ERROR_ = -1,
-    /** Requested resource has not been found */
-    _NOT_FOUND = 404,
 
     // Not implemented interface
     _NOT_IMPLEMENTED = -2,
+
+    // Requested resource has not been found
+    _NOT_FOUND = -3,
+
+    // Resource already exists
+    _ALREADY_EXIST = -4,
 
     // for IImage
     /** Cannot load Image */
