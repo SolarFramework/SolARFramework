@@ -34,8 +34,7 @@ namespace service {
  * This class provides the interface to define a generic service with just an init, start and stop function.
  */
 
-class XPCF_IGNORE XPCF_CLIENTUUID("0c98c9b8-cabb-4e6e-93fb-23cbbfc528e7") XPCF_SERVERUUID("af057b41-75fa-4db3-a502-55b6ffba0962")
-    IServiceWorldGraph : virtual public org::bcom::xpcf::IComponentIntrospect {
+class XPCF_IGNORE IGenericService : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IGenericService default constructor
     IGenericService() = default;
