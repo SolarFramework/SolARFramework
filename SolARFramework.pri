@@ -63,6 +63,7 @@ interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IRelocalizationPipeline.h \
+interfaces/api/pipeline/IMapProcessingPipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
