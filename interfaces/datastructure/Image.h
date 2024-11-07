@@ -81,6 +81,7 @@ public:
         LAYOUT_BGR,            /**< means 3 channels per pixel : Green,Red, Blue (this is opencv model)*/
         LAYOUT_GREY,           /**< means 1 channel per pixel  : grey color*/
         LAYOUT_RGBA,           /**< means 4 channels per pixel : Red, Green, Blue and Alpha channel*/
+        LAYOUT_BGRA,           /**< means 4 channels per pixel : Blue, Green, Red and Alpha channel (this is opencv model)*/
         LAYOUT_RGBX,           /**< means 4 channels per pixel : Red, Green, Blue and transparency */
         LAYOUT_UNDEFINED
     };
