@@ -49,62 +49,95 @@ public:
 
     using IPipeline::init;
 
+    using IPipeline::start;
+
+    using IPipeline::stop;
+
+    /// @brief Initialization of the pipeline
+    /// @param[in] clientUUID the UUID of the current client
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init(const std::string & clientUUID) = 0;
+
     /// @brief Initialization of the pipeline with the URL of an available MapUpdate Service
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] mapupdateServiceURL the URL of an available MapUpdate Service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & mapupdateServiceURL) = 0;
+    virtual FrameworkReturnCode init(const std::string & clientUUID,
+                                     const std::string & mapupdateServiceURL) = 0;
+
+    /// @brief Start the pipeline
+    /// @param[in] clientUUID the UUID of the current client
+    /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode start(const std::string & clientUUID) = 0;
+
+    /// @brief Stop the pipeline.
+    /// @param[in] clientUUID the UUID of the current client
+    /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode stop(const std::string & clientUUID) = 0;
 
     /// @brief Set the camera parameters
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const SolAR::datastructure::CameraParameters & cameraParams) = 0;
+    virtual FrameworkReturnCode setCameraParameters(const std::string & clientUUID,
+                                                    const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
     /// @brief Get the camera parameters
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[out] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCameraParameters(SolAR::datastructure::CameraParameters & cameraParams) const = 0;
+    virtual FrameworkReturnCode getCameraParameters(const std::string & clientUUID,
+                                                    SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] image the image to process
     /// @param[out] pose the new calculated pose
     /// @param[out] confidence the confidence score
     /// @param[in] poseCoarse (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+                                                         const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose,
                                                          float_t & confidence,
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose and visualize the intermediate results
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] image the image to process
     /// @param[out] currPointCloud the current 3D point cloud used to compute the pose
     /// @param[out] pose the new calculated pose
     /// @param[out] confidence the confidence score
     /// @param[in] poseCoarse (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
-                                                    std::vector<SRef<SolAR::datastructure::CloudPoint>>& currPointCloud,
-                                                    SolAR::datastructure::Transform3Df& pose,
-                                                    float_t & confidence,
-                                                    const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+                                                         const SRef<SolAR::datastructure::Image> image,
+                                                         std::vector<SRef<SolAR::datastructure::CloudPoint>>& currPointCloud,
+                                                         SolAR::datastructure::Transform3Df& pose,
+                                                         float_t & confidence,
+                                                         const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
     /// @brief Request the relocalization pipeline to process a new image to calculate the corresponding pose
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] image the image to process
     /// @param[out] pose the new calculated pose
     /// @param[out] confidence the confidence score
     /// @param[out] detectedObjects list of objects detected in the last processed image
     /// @param[in] poseCoarse (optional) coarse pose which needs to be refined by reloc, by default, poseCoarse equals identity matrix meaning that no coarse pose is provided
     /// @return FrameworkReturnCode::_SUCCESS if the processing is successful, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const SRef<SolAR::datastructure::Image> image,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+                                                         const SRef<SolAR::datastructure::Image> image,
                                                          SolAR::datastructure::Transform3Df& pose,
                                                          float_t & confidence,
                                                          std::vector<SolAR::datastructure::DetectedObject> & detectedObjects,
                                                          const SolAR::datastructure::Transform3Df& poseCoarse = SolAR::datastructure::Transform3Df::Identity()) = 0;
 
 	/// @brief Request to the relocalization pipeline to get the map
-	/// @param[out] map the output map
+    /// @param[in] clientUUID the UUID of the current client
+    /// @param[out] map the output map
 	/// @return FrameworkReturnCode::_SUCCESS if the map is available, else FrameworkReturnCode::_ERROR_
-	[[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(const std::string & clientUUID,
+                                                                                 SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }
 }
