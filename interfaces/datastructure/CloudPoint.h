@@ -17,10 +17,6 @@
 #ifndef SOLAR_CLOUDPOINT_H
 #define SOLAR_CLOUDPOINT_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include <xpcf/api/IComponentIntrospect.h>
 #include <core/SolARFrameworkDefinitions.h>
 #include <datastructure/GeometryDefinitions.h>

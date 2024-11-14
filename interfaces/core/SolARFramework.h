@@ -17,17 +17,9 @@
 #ifndef SOLARFRAMEWORK_H
 #define SOLARFRAMEWORK_H
 
-#if _WIN32
-#ifdef SolARFramework_API_DLLEXPORT
-#define _BCOM_SHARED __declspec(dllexport)
-#else //_BCOM_SHARED
-#define _BCOM_SHARED __declspec(dllimport)
-#endif //_BCOM_SHARED
-#else //_WIN32
-#define _BCOM_SHARED
-#endif //_WIN32
-
 #include <string>
+
+#include "core/SolARFrameworkDefinitions.h"
 
 #define _STR(x) #x
 #define STR(X)  _STR(x)
@@ -35,7 +27,7 @@
 namespace SolAR {
 
 /// \brief This method returns the version of the SolAR Framework
-_BCOM_SHARED std::string getSolARFrameworkVersion();
+SOLARFRAMEWORK_API std::string getSolARFrameworkVersion();
 
 }
 

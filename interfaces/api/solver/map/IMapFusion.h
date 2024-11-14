@@ -17,10 +17,6 @@
 #ifndef IMAPFUSION_H
 #define IMAPFUSION_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif
-
 #include <xpcf/api/IComponentIntrospect.h>
 #include "core/Messages.h"
 #include "datastructure/GeometryDefinitions.h"

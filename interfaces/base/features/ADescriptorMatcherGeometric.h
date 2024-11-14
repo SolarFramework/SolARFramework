@@ -17,10 +17,6 @@
 #ifndef SOLAR_ADESCRIPTORMATCHERGEOMETRIC_H
 #define SOLAR_ADESCRIPTORMATCHERGEOMETRIC_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif // _BCOM_SHARED
-
 #include "core/SolARFrameworkDefinitions.h"
 #include "api/features/IDescriptorMatcherGeometric.h"
 #include <xpcf/component/ConfigurableBase.h>

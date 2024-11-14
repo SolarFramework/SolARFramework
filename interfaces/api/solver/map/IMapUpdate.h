@@ -17,10 +17,6 @@
 #ifndef IMAPUPDATE_H
 #define IMAPUPDATE_H
 
-#ifndef _BCOM_SHARED
-#define _BCOM_SHARED
-#endif
-
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
 #include "core/Messages.h"
