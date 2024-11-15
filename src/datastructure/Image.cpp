@@ -81,6 +81,7 @@ static std::map<Image::ImageLayout,uint32_t> layoutChannelMapInfos = {{Image::Im
                                                                            {Image::ImageLayout::LAYOUT_BGR,3},
                                                                            {Image::ImageLayout::LAYOUT_GREY,1},
                                                                            {Image::ImageLayout::LAYOUT_RGBA,4},
+                                                                           {Image::ImageLayout::LAYOUT_BGRA,4},
                                                                            {Image::ImageLayout::LAYOUT_RGBX,4}};
 
 static std::map<Image::DataType,uint32_t> typeSizeMapInfos = {{Image::DataType::TYPE_8U,8},
@@ -142,7 +143,7 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
 
         OIIO::imagesize_t buffersize = spec.image_bytes(true);
         auto pixels = std::make_unique<unsigned char[]>(buffersize);
-        in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
+        in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, pixels.get());
 
         m_internalImpl = utils::make_shared<ImageInternal>();
         m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
@@ -227,11 +228,13 @@ static std::map<OIIO::TypeDesc,Image::DataType> OIIO2SolARType = {{OIIO::TypeDes
 static std::map<std::vector<std::string>,Image::ImageLayout> OIIO2SolARLayout = {{{"R","G","B"}, Image::ImageLayout::LAYOUT_RGB},
                                                                                  {{"B","G","R"}, Image::ImageLayout::LAYOUT_BGR},
                                                                                  {{"G"}, Image::ImageLayout::LAYOUT_GREY},
-                                                                                 {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA}};
+                                                                                 {{"R","G","B","A"}, Image::ImageLayout::LAYOUT_RGBA},
+                                                                                 {{"B","G","R","A"}, Image::ImageLayout::LAYOUT_BGRA}};
 static std::map<Image::ImageLayout,std::vector<std::string>> SolAR2OIIOLayout = {{Image::ImageLayout::LAYOUT_RGB, {"R","G","B"}},
                                                                                  {Image::ImageLayout::LAYOUT_BGR, {"B","G","R"}},
                                                                                  {Image::ImageLayout::LAYOUT_GREY, {"G"}},
                                                                                  {Image::ImageLayout::LAYOUT_RGBA, {"R","G","B","A"}},
+                                                                                 {Image::ImageLayout::LAYOUT_BGRA, {"B","G","R","A"}},
                                                                                  {Image::ImageLayout::LAYOUT_RGBX, {"R","G","B","A"}}};
 
 
@@ -388,7 +391,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
 
     OIIO::imagesize_t buffersize = spec.image_bytes(true);
     auto pixels = std::make_unique<unsigned char[]>(buffersize);
-    in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
+    in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, pixels.get());
 
     if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
     {
@@ -470,7 +473,7 @@ void Image::load(Archive & ar, const unsigned int /* version */)
 
          OIIO::imagesize_t buffersize = spec.image_bytes(true);
          auto pixels = std::make_unique<unsigned char[]>(buffersize);
-         in->read_image(OIIO::TypeDesc::UNKNOWN, pixels.get());
+         in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, pixels.get());
 
          m_internalImpl = utils::make_shared<ImageInternal>();
          m_internalImpl->setData(pixels.get(), spec.image_bytes(true));

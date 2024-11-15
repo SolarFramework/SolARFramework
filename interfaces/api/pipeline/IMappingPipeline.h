@@ -61,12 +61,23 @@ public:
 
     using IPipeline::init;
 
+    using IPipeline::start;
+
+    using IPipeline::stop;
+
+    /// @brief Initialization of the pipeline
+    /// @param[in] clientUUID the UUID of the current client
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode init(const std::string & clientUUID) = 0;
+
     /// @brief Initialization of the pipeline with the URL of an available Relocalization Service
     /// @brief and the URL of an available MapUpdate Service
+    /// @param[in] clientUUID the UUID of the current client
     /// @param[in] relocalizationServiceURL the URL of an available Relocalization Service
     /// @param[in] mapupdateServiceURL the URL of an available MapUpdate Service
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & relocalizationServiceURL,
+    virtual FrameworkReturnCode init(const std::string & clientUUID,
+                                     const std::string & relocalizationServiceURL,
                                      const std::string & mapupdateServiceURL) = 0;
 
     /// @brief Set the camera parameters
