@@ -18,6 +18,7 @@
 #define SOLAR_MAPSMANAGER_H
 
 #include "core/Messages.h"
+#include "datastructure/Map.h"
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/api/IComponentManager.h>
 #include <xpcf/core/helpers.h>
@@ -84,6 +85,31 @@ public:
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if no MapUpdate service is handling the map
     ///         FrameworkReturnCode::_ERROR_ for other errors
     virtual FrameworkReturnCode decreaseMapClients(const std::string & mapUUID) = 0;
+
+    /// @brief Request the map manager to get the datastructure of a specific map
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] map the output map datastructure
+    /// @return FrameworkReturnCode::_SUCCESS if the map is available, else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
+        const std::string & mapUUID,
+        SRef<SolAR::datastructure::Map> & map) const = 0;
+
+    /// @brief Request the map manager to update the datastructure of a specific map
+    /// @param[in] mapUUID UUID of the map to use
+    /// @param[in] mapDatastructure the input map datastructure
+    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
+        const std::string & mapUUID,
+        const SRef<SolAR::datastructure::Map> mapDatastructure) = 0;
+
+    /// @brief Request the map manager to get the point cloud of a map
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] pointCloud the output point cloud
+    /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
+        const std::string & mapUUID,
+        SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+
 };
 
 } // service
