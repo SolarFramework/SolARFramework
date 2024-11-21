@@ -36,6 +36,7 @@ namespace service {
  */
 
 class XPCF_CLIENTUUID("4863f2d1-023c-4095-8842-e6083e6ec54a") XPCF_SERVERUUID("2bc10e03-8a2d-44a1-b53e-d72d09f99b9b")
+    XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
     IMapsManager : virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
     /// @brief IMapsManager default constructor
