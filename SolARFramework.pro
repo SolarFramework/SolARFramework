@@ -11,7 +11,6 @@ INSTALLSUBDIR = SolARBuild
 TARGET = SolARFramework
 FRAMEWORK = $$TARGET
 VERSION=1.3.0
-
 DEFINES += MYVERSION=$${VERSION}
 DEFINES += TEMPLATE_LIBRARY
 
@@ -42,6 +41,10 @@ include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templatelibconf
 msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 }
+
+genVersionHeader.input = $${PWD}/interfaces/Version.h.in
+genVersionHeader.output = $${PWD}/interfaces/Version.h
+QMAKE_SUBSTITUTES += genVersionHeader
 
 include (SolARFramework.pri)
 
