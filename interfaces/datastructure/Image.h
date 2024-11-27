@@ -107,6 +107,14 @@ public:
         ENCODING_PNG
     };
 
+    // Rotate degrees
+    enum class RotateQuantity {
+        DEGREE_0,
+        DEGREE_90,
+        DEGREE_180,
+        DEGREE_270
+    };
+
     Image() = default;
 
     /** @brief Image
@@ -289,12 +297,7 @@ private:
     SRef<ImageInternal> m_internalImpl;
 
     uint32_t computeImageBufferSize();
-    // Rotate degrees
-    enum class RotateQuantity {
-        DEGREE_90,
-        DEGREE_180,
-        DEGREE_270
-    };
+
     FrameworkReturnCode rotate(RotateQuantity);
     Sizei m_size;
     enum ImageLayout m_layout;
