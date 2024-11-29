@@ -30,28 +30,28 @@ namespace features {
         /// @param[out] Filtred matches based on redanduncy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
         /// @param[in] Original keypoints associated to desc_2.
-         virtual void filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
-                             std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
-                             const std::vector<SolAR::datastructure::Keypoint> & keyPoints_1,
-                             const std::vector<SolAR::datastructure::Keypoint> & keyPoints_2) = 0;
+         virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
+                                            std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
+                                            const std::vector<SolAR::datastructure::Keypoint> & keyPoints_1,
+                                            const std::vector<SolAR::datastructure::Keypoint> & keyPoints_2) = 0;
 
 		/// @brief filter matches based fundamental matrix calculated from camera matrices
 		/// @param[in] Original matches found between two descriptors "desc_1" and "desc_2".
 		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
 		/// @param[in] Original keypoints associated to desc_1.
 		/// @param[in] Original keypoints associated to desc_2.
-		/// @param[in] camera pose 1.
+        /// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
 		/// @param[in] first camera's intrinsic parameters.
                /// @param[in] second camera's intrinsic parameters. 
-        virtual void filter(ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
-                            ATTRIBUTE(maybe_unused) std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
-                            ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
-                            ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints2,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose1,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose2,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams1, 
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams2 = SolAR::datastructure::CamCalibration::Zero()) {};
+        virtual FrameworkReturnCode filter(ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
+                                           ATTRIBUTE(maybe_unused) std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
+                                           ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
+                                           ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints2,
+                                           ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose1,
+                                           ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose2,
+                                           ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams1,
+                                           ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams2 = SolAR::datastructure::CamCalibration::Zero()) {};
     };
 }
 }
