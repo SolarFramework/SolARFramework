@@ -98,4 +98,6 @@ bundle_system_install.sh
 *conanbuild*
 **/configure_conditions.pri
 
+# Generated headers
+interfaces/Version.h
 

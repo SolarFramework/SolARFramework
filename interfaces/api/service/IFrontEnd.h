@@ -145,7 +145,7 @@ public:
 
     /// @brief Initialization of the service
     /// @param[in] clientUUID UUID of the client
-    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the init succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode init(const std::string & clientUUID) = 0;
 
     /// @brief Init the service and specify the mode for the pipeline processing
@@ -157,12 +157,12 @@ public:
 
     /// @brief Start the service
     /// @param[in] clientUUID UUID of the client
-    /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode start(const std::string & clientUUID) = 0;
 
     /// @brief Stop the service.
     /// @param[in] clientUUID UUID of the client
-    /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode stop(const std::string & clientUUID) = 0;
 
     /// @brief Return the current mode used for the pipeline processing
@@ -200,7 +200,7 @@ public:
     /// @brief Get the camera parameters
     /// @param[in] clientUUID UUID of the client
     /// @param[out] cameraParams the camera parameters (its resolution and its focal)
-    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCameraParameters(const std::string & clientUUID,
                                                     SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
@@ -307,7 +307,7 @@ public:
     /// @param[in] clientUUID UUID of the client
     /// @param[out] outputPointClouds service current point clouds
     /// @param[out] keyframePoses service current keyframe poses
-    /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if data are available, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMappingDataRequest(
                                             const std::string & clientUUID,
                                             std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
@@ -327,21 +327,21 @@ public:
     /// @brief Create a new map specified by its UUID
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to create
-    /// @return FrameworkReturnCode::_SUCCESS if the map is created with its UUID, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the map is created with its UUID, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::string & keycloakToken,
                                           const std::string & mapUUID) = 0;
 
     /// @brief Delete a map specified by its UUID (if not used by some clients)
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to delete
-    /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the map is deleted, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode deleteMap(const std::string & keycloakToken,
                                           const std::string & mapUUID) = 0;
 
     /// @brief Return all available maps UUID
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[out] mapUUIDList the list of UUID of all maps currently available
-    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllMapsUUID(const std::string & keycloakToken,
                                                std::vector<std::string> & mapUUIDList) const = 0;
 
@@ -356,7 +356,7 @@ public:
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] mapDatastructure: the output map datastructure
-    /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the global map is available, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
                                             const std::string & keycloakToken,
                                             const std::string & mapUUID,
@@ -366,7 +366,7 @@ public:
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[in] mapDatastructure: the input map datastructure
-    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
                                             const std::string & keycloakToken,
                                             const std::string & mapUUID,
@@ -376,7 +376,7 @@ public:
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] pointCloud: the output point cloud
-    /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the point cloud is available, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
                                             const std::string & keycloakToken,
                                             const std::string & mapUUID,
