@@ -90,9 +90,10 @@ public:
     /// @brief Request the map manager to get the datastructure of a specific map
     /// @param[in] mapUUID UUID of the map
     /// @param[out] map the output map datastructure
-    /// @return FrameworkReturnCode::_SUCCESS if the map is available,
-    /// FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
-    /// else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map is available
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
         const std::string & mapUUID,
         SRef<SolAR::datastructure::Map> & map) const = 0;
