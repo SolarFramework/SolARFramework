@@ -57,7 +57,10 @@ public:
     virtual FrameworkReturnCode getMapUUID(std::string & uuid) const = 0;
 
     /// @brief Reset the map stored by the map update pipeline
-    /// @return FrameworkReturnCode::_SUCCESS if the map is correctly reset, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map is correctly reset
+    /// * FrameworkReturnCode::_BUSY if this pipeline still has pending processing
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode resetMap() = 0;
 
     /// @brief Set the camera parameters
