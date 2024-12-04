@@ -72,7 +72,10 @@ public:
 
     /// @brief Request to the map update pipeline to get the global map
     /// @param[out] map the output global map
-    /// @return FrameworkReturnCode::_SUCCESS if the global map is available, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the global map is available
+    /// * FrameworkReturnCode::_NOT_FOUND if no map has already been set
+    /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(SRef<SolAR::datastructure::Map> & map) const = 0;
 
 	/// @brief Request to the map update pipeline to get a submap based on a query frame.

@@ -356,7 +356,15 @@ public:
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] mapDatastructure: the output map datastructure
-    /// @return FrameworkReturnCode::_SUCCESS if the global map is available, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
+    /// @return 
+    /// * FrameworkReturnCode::_SUCCESS if the global map is available
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if no map is known to be identified by mapUUID
+    /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
                                             const std::string & keycloakToken,
                                             const std::string & mapUUID,
