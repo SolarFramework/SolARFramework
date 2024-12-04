@@ -135,7 +135,10 @@ public:
 	/// @brief Request to the relocalization pipeline to get the map
     /// @param[in] clientUUID the UUID of the current client
     /// @param[out] map the output map
-	/// @return FrameworkReturnCode::_SUCCESS if the map is available, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map is available
+    /// * FrameworkReturnCode::_UNKNOWN_CLIENT_UUID if clientUUID is unknown
+    /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(const std::string & clientUUID,
                                                                                  SRef<SolAR::datastructure::Map> & map) const = 0;
 };
