@@ -21,7 +21,7 @@ using namespace datastructure;
 namespace api {
 namespace sfm {
 
-FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
+FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
@@ -32,10 +32,10 @@ FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollectio
         LOG_ERROR("IStructureFromMotion::createMap - failed to get all camera parameters.");
         return FrameworkReturnCode::_ERROR_;
     }
-    return createMap(keyframes, listCameraParameters, map);
+    return createMap(keyframes, listCameraParameters);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map>& map)
+FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters)
 {
     if (!keyframes) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid keyframes collection.");
@@ -46,10 +46,10 @@ FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollectio
         LOG_ERROR("IStructureFromMotion::createMap - failed to get all keyframes.");
         return FrameworkReturnCode::_ERROR_;
     }
-    return createMap(listKeyframes, cameraParameters, map);
+    return createMap(listKeyframes, cameraParameters);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
+FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
@@ -60,10 +60,10 @@ FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<SRef<Keyfr
         LOG_ERROR("IStructureFromMotion::createMap - failed to get all camera parameters.");
         return FrameworkReturnCode::_ERROR_;
     }
-    return createMap(keyframes, listCameraParameters, map);
+    return createMap(keyframes, listCameraParameters);
 }
 
-FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map)
+FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters)
 {
     if (!cameraParameters) {
         LOG_ERROR("IStructureFromMotion::createMap - invalid camera parameter collection.");
@@ -74,7 +74,7 @@ FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<
         LOG_ERROR("IStructureFromMotion::createMap - failed to get all camera parameters.");
         return FrameworkReturnCode::_ERROR_;
     }
-    return createMap(imageCamIds, listCameraParameters, map);
+    return createMap(imageCamIds, listCameraParameters);
 }
 
 } // end of namespace reloc 

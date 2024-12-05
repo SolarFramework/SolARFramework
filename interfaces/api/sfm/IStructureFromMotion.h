@@ -36,6 +36,16 @@ namespace sfm {
 class XPCF_IGNORE IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
+    ///@enum class SfmStatus
+    enum class SfmStatus {
+        UNINITIALIZED,
+        INITIALIZED,
+        MATCH_KEYFRAMES,
+        GEN_INITIAL_MAP,
+        GROW_MAP,
+        FINISHED
+    };
+
     ///@brief IStructureFromMotion default constructor.
     IStructureFromMotion() = default;
 
@@ -44,51 +54,61 @@ public:
 
     /// @brief Create map from a set of images while camera parameters are not provided
     /// @param[in] images list of images
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<SRef<Image>>& images, SRef<Map>& map) = 0;
+    virtual FrameworkReturnCode createMap(const std::vector<SRef<Image>>& images) = 0;
     
     /// @brief Create map from a set of images with provided camera parameters
     /// @param[in] imageCamIds list of pairs of image and camera ID
     /// @param[in] cameraParameters list of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map>& map) = 0;
+    virtual FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
     
     /// @brief Create map from a set of keyframes and camera parameters
     /// @param[in] keyframes list of keyframes
     /// @param[in] cameraParameters list of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map>& map) = 0;
+    virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
+
+    /// @brief Get map
+    /// @param[out] map the output SfM map
+    /// @return FrameworkReturnCode::_SUCCESS if map got successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMap(SRef<Map>& map) = 0;
+
+    /// @brief Get SfM status
+    /// @return status the current SfM status
+    virtual SfmStatus getStatus() = 0;
+
+    /// @brief Get SfM progress percentage
+    /// @return progress percentage between 0 and 1
+    virtual float getProgress() = 0;
+
+    /// @brief release memory usage
+    virtual void releaseMemoryUsage() = 0;
 
     /// @brief Create map from a set of images with provided camera parameters
     /// @param[in] imageCamIds list of pairs of image and camera ID
     /// @param[in] cameraParameters collection of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map);
+    FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters);
 
     /// @brief Create map from a set of keyframes and camera parameters
     /// @param[in] keyframes collection of keyframes
     /// @param[in] cameraParameters collection of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map);
+    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters);
 
     /// @brief Create map from a set of keyframes and camera parameters
     /// @param[in] keyframes list of keyframes
     /// @param[in] cameraParameters collection of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters, SRef<Map>& map);
+    FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters);
 
     /// @brief Create map from a set of keyframes and camera parameters
     /// @param[in] keyframes collection of keyframes
     /// @param[in] cameraParameters list of camera parameters
-    /// @param[out] map output map created by structure from motion
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<Map>& map);
+    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters);
+
 };
 
 } // namespace sfm

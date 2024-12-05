@@ -38,22 +38,39 @@ class XPCF_CLIENTUUID("3e0afc52-5d71-411a-9e5b-bb73ced1cad0") XPCF_SERVERUUID("2
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
     IMapProcessingPipeline : virtual public IPipeline {
 public:
+    /// @enum class MapProcessingStatus
+    enum class MapProcessingStatus {
+        UNINITIALIZED,
+        INITIALIZED,
+        STARTED,
+        FINISHED
+    };
+
     /// @brief IMapProcessingPipeline default constructor
     IMapProcessingPipeline() = default;
 
     /// @brief IMapProcessingPipeline default destructor
     virtual ~IMapProcessingPipeline() = default;
 
-    /// @brief Map processing request
-    /// @param[in] map input map
-    /// @return FrameworkReturnCode::_SUCCESS if map processed successfully, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode mapProcessingRequest(SRef<const datastructure::Map> map) = 0;
+    /// @brief Set map to process
+    /// @param[in] map input map to be processed
+    virtual FrameworkReturnCode setMapToProcess(SRef<const datastructure::Map> map) = 0;
+
+    /// @brief Get status and progress percentage
+    /// @param[out] status the current map processing status
+    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
+    virtual void getStatus(MapProcessingStatus& status, float& progress) = 0;
+
+    /// @brief Get processed map
+    /// @param[out] map the output map
+    /// @return FrameworkReturnCode::_SUCCESS if output map is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getProcessedMap(SRef<datastructure::Map>& map) = 0;
 
     /// @brief Provide the current data from the map processing pipeline context for visualization
     /// (resulting from all map processing since the start of the pipeline)
     /// @param[out] pointCloud: pipeline current point cloud
     /// @param[out] keyframePoses: pipeline current keyframe poses
-    /// @return FrameworkReturnCode::_SUCCESS if data are available, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>>& pointCloud, std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) const = 0;
 
 };
