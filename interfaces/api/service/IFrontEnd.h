@@ -395,9 +395,10 @@ public:
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to process
     /// @param[in] processingType the type of process to apply on the map
-    /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
-    ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    ///         else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if processing is able to proceed
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestForMapProcessing(const std::string & keycloakToken,
                                                         const std::string & mapUUID,
                                                         const MapProcessingType & processingType) = 0;
