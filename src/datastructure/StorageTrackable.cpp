@@ -110,10 +110,14 @@ namespace datastructure {
             std::bitset<1> bits(static_cast<unsigned char>(byte));
             str += bits.to_string();
         }
-        SquaredBinaryPattern payload = SquaredBinaryPattern::fromString(str,6);
+        SquaredBinaryPattern payload = SquaredBinaryPattern::fromString(str);
+        auto sbpSize = payload.getSize();
+        if (sbpSize == 0) { LOG_ERROR("Failed to build Trackable payload from string '{}'. Pattern must define a square shape.", str); }
+        else if (sbpSize != 6) { LOG_ERROR("Trackable of unsupported size '{}', must be 6", sbpSize); }
+        // TODO: manage error + see how to support other sizes of marker
         Sizef pattern_size;
-        pattern_size.width = 6;
-        pattern_size.height = 6;
+        pattern_size.width = sbpSize;
+        pattern_size.height = sbpSize;
         SRef<FiducialMarker> result = xpcf::utils::make_shared<FiducialMarker>(trackable.getName(), pattern_size, payload);
         result->setTransform3D(trackable.m_localCRS);
 
