@@ -56,18 +56,18 @@ namespace features {
 		/// @param[out] Filtred matches based on geometric relations such as epipolar constraint.
 		/// @param[in] Original keypoints associated to desc_1.
 		/// @param[in] Original keypoints associated to desc_2.
-		/// @param[in] camera pose 1.
+        /// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
 		/// @param[in] first camera's intrinsic parameters.
-               /// @param[in] second camera's intrinsic parameters. 
-        virtual void filter(ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
-                            ATTRIBUTE(maybe_unused) std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
-                            ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
-                            ATTRIBUTE(maybe_unused) const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints2,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose1,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::Transform3Df &pose2,
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams1, 
-                            ATTRIBUTE(maybe_unused) const SolAR::datastructure::CamCalibration &intrinsicParams2 = SolAR::datastructure::CamCalibration::Zero()) {};
+               /// @param[in] second camera's intrinsic parameters.
+        virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
+                                           std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
+                                           const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
+                                           const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints2,
+                                           const SolAR::datastructure::Transform3Df &pose1,
+                                           const SolAR::datastructure::Transform3Df &pose2,
+                                           const SolAR::datastructure::CamCalibration &intrinsicParams1,
+                                           const SolAR::datastructure::CamCalibration &intrinsicParams2 = SolAR::datastructure::CamCalibration::Zero()) = 0;
     };
 }
 }
