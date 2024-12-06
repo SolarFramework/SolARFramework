@@ -21,10 +21,21 @@
 #include "datastructure/Map.h"
 #include <xpcf/core/helpers.h>
 
-
 namespace SolAR {
 namespace api {
 namespace pipeline {
+
+///
+/// @typedef MapProcessingStatus
+/// @brief <B>Indicate the status of the current map processing</B>
+///
+typedef enum {
+    NOT_INITIALIZED = 0,  // Map processing not initialized
+    INITIALIZED = 1,      // Map processing correctly initialized, but not started
+    IN_PROGRESS = 2,      // Map processing in progress
+    COMPLETED = 3,        // Map processing completed
+    ABORTED = 4           // Map Processing aborted before completion
+} MapProcessingStatus;
 
 /**
  * @class IMapProcessingPipeline
@@ -38,14 +49,6 @@ class XPCF_CLIENTUUID("3e0afc52-5d71-411a-9e5b-bb73ced1cad0") XPCF_SERVERUUID("2
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
     IMapProcessingPipeline : virtual public IPipeline {
 public:
-    /// @enum class MapProcessingStatus
-    enum class MapProcessingStatus {
-        UNINITIALIZED,
-        INITIALIZED,
-        STARTED,
-        FINISHED
-    };
-
     /// @brief IMapProcessingPipeline default constructor
     IMapProcessingPipeline() = default;
 
@@ -53,26 +56,28 @@ public:
     virtual ~IMapProcessingPipeline() = default;
 
     /// @brief Set map to process
-    /// @param[in] map input map to be processed
+    /// @param[in] map input map to be processed (datastructure)
+    /// @return FrameworkReturnCode::_SUCCESS if the map datastructure is correctly set, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setMapToProcess(SRef<const datastructure::Map> map) = 0;
 
     /// @brief Get status and progress percentage
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    virtual void getStatus(MapProcessingStatus& status, float& progress) = 0;
-
-    /// @brief Get processed map
-    /// @param[out] map the output map
-    /// @return FrameworkReturnCode::_SUCCESS if output map is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getProcessedMap(SRef<datastructure::Map>& map) = 0;
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getStatus(MapProcessingStatus & status, float & progress) const = 0;
 
     /// @brief Provide the current data from the map processing pipeline context for visualization
     /// (resulting from all map processing since the start of the pipeline)
-    /// @param[out] pointCloud: pipeline current point cloud
-    /// @param[out] keyframePoses: pipeline current keyframe poses
+    /// @param[out] pointCloud pipeline current point cloud
+    /// @param[out] keyframePoses pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>>& pointCloud, std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) const = 0;
+    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
+                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
+    /// @brief Get processed map (if processing is completed)
+    /// @param[out] map the output map (datastructure)
+    /// @return FrameworkReturnCode::_SUCCESS if output map is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getProcessedMap(SRef<datastructure::Map> & map) const = 0;
 };
 }
 }

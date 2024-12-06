@@ -19,7 +19,7 @@
 
 
 #include "api/pipeline/IMappingPipeline.h"
-#include "api/pipeline/IRelocalizationPipeline.h"
+#include "api/service/IMapsManager.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/Map.h"
@@ -381,6 +381,17 @@ public:
                                             const std::string & keycloakToken,
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+
+    /// @brief Request for a map processing (asynchronous)
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] processingType the type of process to apply on the map
+    /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
+    ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    ///         else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode requestForMapProcessing(const std::string & keycloakToken,
+                                                        const std::string & mapUUID,
+                                                        const MapProcessingType & processingType) = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)

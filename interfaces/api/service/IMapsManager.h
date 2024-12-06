@@ -27,6 +27,15 @@ namespace SolAR {
 namespace api {
 namespace service {
 
+///
+/// @typedef MapProcessingType
+/// @brief <B>Define the different types of map processing available</B>
+///
+typedef enum {
+    STRUCTURE_FROM_MOTION = 0
+} MapProcessingType;
+
+
 /**
  * @class IMapsManager
  * @brief <B>Defines the maps manager interface.</B>
@@ -110,6 +119,15 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
         const std::string & mapUUID,
         SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
+
+    /// @brief Request for a map processing (asynchronous)
+    /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] processingType the type of process to apply on the map
+    /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
+    ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    ///         else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode requestForMapProcessing(const std::string & mapUUID,
+                                                        const MapProcessingType & processingType) = 0;
 
 };
 
