@@ -32,7 +32,8 @@ namespace service {
 /// @brief <B>Define the different types of map processing available</B>
 ///
 typedef enum {
-    STRUCTURE_FROM_MOTION = 0
+    UNDEFINED = 0,
+    STRUCTURE_FROM_MOTION = 1
 } MapProcessingType;
 
 
