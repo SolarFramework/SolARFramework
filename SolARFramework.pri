@@ -123,7 +123,6 @@ interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CameraParametersCollection.h \
 interfaces/datastructure/CloudPoint.h \
 interfaces/datastructure/CoordinateSystem.h \
-interfaces/datastructure/CorrespondenceGraph.h \
 interfaces/datastructure/DescriptorBuffer.h \
 interfaces/datastructure/DescriptorMatch.h \
 interfaces/datastructure/FiducialMarker.h \
@@ -175,7 +174,6 @@ src/core/SolARFramework.cpp \
 src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \
-src/datastructure/CorrespondenceGraph.cpp \
 src/datastructure/DescriptorBuffer.cpp \
 src/datastructure/DescriptorMatch.cpp \
 src/datastructure/FiducialMarker.cpp \
