@@ -30,10 +30,11 @@ namespace features {
         /// @param[out] Filtred matches based on redanduncy or geometric relations such as epipolar constraint.
         /// @param[in] Original keypoints associated to desc_1.
         /// @param[in] Original keypoints associated to desc_2.
-         virtual void filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
-                             std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
-                             const std::vector<SolAR::datastructure::Keypoint> & keyPoints_1,
-                             const std::vector<SolAR::datastructure::Keypoint> & keyPoints_2) = 0;
+        /// @return FrameworkReturnCode::_SUCCESS or FrameworkReturnCode::_ERROR_
+        virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
+                                            std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
+                                            const std::vector<SolAR::datastructure::Keypoint> & keyPoints_1,
+                                            const std::vector<SolAR::datastructure::Keypoint> & keyPoints_2) = 0;
         
         /// @brief filter matches and get the fundamental matrix
         /// @param[in] keypoints1 list of undistorted keypoints of the first keyframe 
@@ -43,6 +44,7 @@ namespace features {
         /// @param[in] intrinsicParams2 intrinsic parameters of second keyframe
         /// @param[out] outputMatches list of filtered descriptor matches
         /// @param[out] relativePose list of 4 possible relative poses from first to second keyframes (translation vector is normalized, length is 1)
+        /// @return FrameworkReturnCode::_SUCCESS or FrameworkReturnCode::_ERROR_
         virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::Keypoint>& keypoints1,
                                            const std::vector<SolAR::datastructure::Keypoint>& keypoints2,
                                            const std::vector<SolAR::datastructure::DescriptorMatch>& inputMatches,
@@ -59,7 +61,8 @@ namespace features {
         /// @param[in] camera pose 1.
 		/// @param[in] camera pose 2.
 		/// @param[in] first camera's intrinsic parameters.
-               /// @param[in] second camera's intrinsic parameters.
+        /// @param[in] second camera's intrinsic parameters.
+        /// @return FrameworkReturnCode::_SUCCESS or FrameworkReturnCode::_ERROR_
         virtual FrameworkReturnCode filter(const std::vector<SolAR::datastructure::DescriptorMatch> & inputMatches,
                                            std::vector<SolAR::datastructure::DescriptorMatch> & outputMatches,
                                            const std::vector<SolAR::datastructure::Keypoint> & inputKeyPoints1,
