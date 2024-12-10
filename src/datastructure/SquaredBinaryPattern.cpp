@@ -17,6 +17,7 @@
 #include "datastructure/SquaredBinaryPattern.h"
 #include "core/Log.h"
 #include "xpcf/core/helpers.h"
+#include <cmath>
 #include <iostream>
 
 namespace SolAR {
@@ -46,13 +47,16 @@ FrameworkReturnCode SquaredBinaryPattern::setPatternMatrix (const SquaredBinaryP
     return FrameworkReturnCode::_SUCCESS;
 };
 
- SquaredBinaryPattern SquaredBinaryPattern::fromString(const std::string& str, int size) {
-    assert(str.length() == size * size);
+ SquaredBinaryPattern SquaredBinaryPattern::fromString(const std::string& str) {
+    auto size = static_cast<size_t>(std::round(std::sqrt(str.length())));
+    if ( str.length() != size * size ) {
+         return SquaredBinaryPattern();
+    }
 
     SquaredBinaryPatternMatrix matrix(size, size);
 
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
+    for (size_t i = 0; i < size; ++i) {
+        for (size_t j = 0; j < size; ++j) {
             matrix(i, j) = str[i * size + j] == '1';
         }
     }

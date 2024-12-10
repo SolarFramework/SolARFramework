@@ -56,7 +56,7 @@ public:
     /// \returns the size of the squared fiducial pattern to detect. If the marker is a square of size 7x7, we return 7.
     inline int getSize () const { return m_size; }
 
-    static SquaredBinaryPattern fromString(const std::string& str, int size);
+    static SquaredBinaryPattern fromString(const std::string& str);
 
 private :
     friend class boost::serialization::access;
