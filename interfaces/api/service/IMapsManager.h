@@ -36,6 +36,16 @@ typedef enum {
     STRUCTURE_FROM_MOTION = 1
 } MapProcessingType;
 
+///
+/// @typedef MapProcessingStatus
+/// @brief <B>Indicate the status of a map processing</B>
+///
+typedef enum {
+    NO_PROCESSING = 0,    // No current processing for the map
+    IN_PROGRESS = 1,      // Processing for the map still in progress
+    FAILED = 2,           // Processing failed (and stopped) for the map
+    COMPLETED = 3         // Processing completed and successful for the map
+} MapProcessingStatus;
 
 /**
  * @class IMapsManager
@@ -124,7 +134,7 @@ public:
         const std::string & mapUUID,
         SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
-    /// @brief Request for a map processing (asynchronous)
+    /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
     /// @param[in] processingType the type of process to apply on the map
     /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
@@ -132,6 +142,28 @@ public:
     ///         else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestForMapProcessing(const std::string & mapUUID,
                                                         const MapProcessingType & processingType) = 0;
+
+    /// @brief Get status and progress percentage concerning a map processing in progress
+    ///        If status = COMPLETED then give the map UUID of the new resulting map
+    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[out] status the current map processing status
+    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
+    /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getStatusForMapProcessing(const std::string & mapUUID,
+                                                          MapProcessingStatus & status,
+                                                          float & progress,
+                                                          std::string & resultingMapUUID) const = 0;
+
+    /// @brief Provide the current data from a map processing for visualization
+    /// (resulting from all map processing since the start of the pipeline)
+    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[out] pointCloud pipeline current point cloud
+    /// @param[out] keyframePoses pipeline current keyframe poses
+    /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getDataForMapProcessing(const std::string & mapUUID,
+                                                        std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
+                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
 };
 

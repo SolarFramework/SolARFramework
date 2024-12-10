@@ -391,7 +391,7 @@ public:
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
-    /// @brief Request for a map processing (asynchronous)
+    /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map to process
     /// @param[in] processingType the type of process to apply on the map
@@ -402,6 +402,32 @@ public:
     virtual FrameworkReturnCode requestForMapProcessing(const std::string & keycloakToken,
                                                         const std::string & mapUUID,
                                                         const MapProcessingType & processingType) = 0;
+
+    /// @brief Get status and progress percentage concerning a map processing in progress
+    ///        If status = COMPLETED then give the map UUID of the new resulting map
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[out] status the current map processing status
+    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
+    /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getStatusForMapProcessing(const std::string & keycloakToken,
+                                                          const std::string & mapUUID,
+                                                          MapProcessingStatus & status,
+                                                          float & progress,
+                                                          std::string & resultingMapUUID) const = 0;
+
+    /// @brief Provide the current data from a map processing for visualization
+    /// (resulting from all map processing since the start of the pipeline)
+    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[out] pointCloud pipeline current point cloud
+    /// @param[out] keyframePoses pipeline current keyframe poses
+    /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getDataForMapProcessing(const std::string & keycloakToken,
+                                                        const std::string & mapUUID,
+                                                        std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
+                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
