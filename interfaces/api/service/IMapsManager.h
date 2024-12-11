@@ -167,7 +167,7 @@ public:
     virtual FrameworkReturnCode getStatusForMapProcessing(const std::string & mapUUID,
                                                           MapProcessingStatus & status,
                                                           float & progress,
-                                                          std::string & resultingMapUUID) const = 0;
+                                                          std::string & resultingMapUUID) = 0;
 
     /// @brief Provide the current data from a map processing for visualization
     /// (resulting from all map processing since the start of the pipeline)
@@ -177,7 +177,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getDataForMapProcessing(const std::string & mapUUID,
                                                         std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
-                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
 
 };
 
