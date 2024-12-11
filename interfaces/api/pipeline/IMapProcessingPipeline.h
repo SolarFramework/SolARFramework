@@ -58,7 +58,7 @@ public:
     /// @brief Set map to process
     /// @param[in] map input map to be processed (datastructure)
     /// @return FrameworkReturnCode::_SUCCESS if the map datastructure is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setMapToProcess(SRef<const SolAR::datastructure::Map> map) = 0;
+    virtual FrameworkReturnCode setMapToProcess(const SRef<SolAR::datastructure::Map> map) = 0;
 
     /// @brief Get status and progress percentage
     /// @param[out] status the current map processing status

@@ -134,6 +134,20 @@ public:
         const std::string & mapUUID,
         SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
+    /// @brief Register a new Map Processing service to the map manager
+    /// @param[in] processingType the type of process managed by the service
+    /// @param[in] serviceURL URL of the Map Processing service
+    /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is registered, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode registerMapProcessingService(const MapProcessingType & processingType,
+                                                             const std::string & serviceURL) = 0;
+
+    /// @brief Unregister a Map Processing service from the map manager
+    /// @param[in] processingType the type of process managed by the service
+    /// @param[in] serviceURL URL of the Map Processing service
+    /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is unregistered, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode unregisterMapProcessingService(const MapProcessingType & processingType,
+                                                               const std::string & serviceURL) = 0;
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
     /// @param[in] processingType the type of process to apply on the map
