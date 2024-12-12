@@ -69,10 +69,10 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
 
-    /// @brief Get map
+    /// @brief Get output map
     /// @param[out] map the output SfM map
     /// @return FrameworkReturnCode::_SUCCESS if map got successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMap(SRef<Map>& map) = 0;
+    virtual FrameworkReturnCode getOutputMap(SRef<Map>& map) = 0;
 
     /// @brief Get SfM status
     /// @return status the current SfM status
@@ -81,6 +81,16 @@ public:
     /// @brief Get SfM progress percentage
     /// @return progress percentage between 0 and 1
     virtual float getProgress() = 0;
+
+    /// @brief Get current cloud points
+    /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
+    /// @return FrameworkReturnCode::_SUCCESS if points got successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<CloudPoint>>& cloudPoints) = 0;
+
+    /// @brief Get current keyframe poses
+    /// @param[out] keyframePoses current keyframes' poses
+    /// @return FrameworkReturnCode::_SUCCESS if keyframe poses got successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<Transform3Df>& keyframePoses) = 0;
 
     /// @brief release memory usage
     virtual void releaseMemoryUsage() = 0;
