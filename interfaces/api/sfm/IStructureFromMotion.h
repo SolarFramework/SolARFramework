@@ -26,6 +26,36 @@ using namespace datastructure;
 namespace api {
 namespace sfm {
 
+///@enum class SfmStatus
+enum class SfmStatus {
+    NOT_INITIALIZED,
+    IDLE_INITIALIZED,
+    RUNNING_DESCRIPTOR_MATCHING,
+    IDLE_DESCRIPTOR_MATCHING_FINISHED,
+    RUNNING_INITIAL_MAPPING,
+    IDLE_INITIAL_MAPPING_FINISHED,
+    RUNNING_INCREMENTAL_MAPPING,
+    IDLE_INCREMENTAL_MAPPING_FINISHED,
+    RUNNING_POST_PROCESSING,
+    IDLE_COMPLETED,
+    IDLE_ABORTED,
+};
+
+/// @brief map from SfmStatus to string
+const static std::map<SfmStatus, std::string> mapSfmStatusToStr = {
+    {SfmStatus::NOT_INITIALIZED, "NOT_INITIALIZED"},
+    {SfmStatus::IDLE_INITIALIZED, "IDLE_INITIALIZED"},
+    {SfmStatus::RUNNING_DESCRIPTOR_MATCHING, "RUNNING_DESCRIPTOR_MATCHING"},
+    {SfmStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED, "IDLE_DESCRIPTOR_MATCHING_FINISHED"},
+    {SfmStatus::RUNNING_INITIAL_MAPPING, "RUNNING_INITIAL_MAPPING"},
+    {SfmStatus::IDLE_INITIAL_MAPPING_FINISHED, "IDLE_INITIAL_MAPPING_FINISHED"},
+    {SfmStatus::RUNNING_INCREMENTAL_MAPPING, "RUNNING_INCREMENTAL_MAPPING"},
+    {SfmStatus::IDLE_INCREMENTAL_MAPPING_FINISHED, "IDLE_INCREMENTAL_MAPPING_FINISHED"},
+    {SfmStatus::RUNNING_POST_PROCESSING, "RUNNING_POST_PROCESSING"},
+    {SfmStatus::IDLE_COMPLETED, "IDLE_COMPLETED"},
+    {SfmStatus::IDLE_ABORTED, "IDLE_ABORTED"}
+};
+
 /**
  * @class IStructureFromMotion
  * @brief <B>Create a sparse point cloud and estimate camera poses from a set of images or a set of descriptors stored inside the keyframes.</B>
@@ -36,16 +66,6 @@ namespace sfm {
 class XPCF_IGNORE IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
-    ///@enum class SfmStatus
-    enum class SfmStatus {
-        UNINITIALIZED,
-        INITIALIZED,
-        MATCH_KEYFRAMES,
-        GEN_INITIAL_MAP,
-        GROW_MAP,
-        FINISHED
-    };
-
     ///@brief IStructureFromMotion default constructor.
     IStructureFromMotion() = default;
 
@@ -91,6 +111,9 @@ public:
     /// @param[out] keyframePoses current keyframes' poses
     /// @return FrameworkReturnCode::_SUCCESS if keyframe poses got successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<Transform3Df>& keyframePoses) = 0;
+
+    /// @brief force stop
+    virtual void forceStop() = 0;
 
     /// @brief release memory usage
     virtual void releaseMemoryUsage() = 0;
