@@ -98,6 +98,12 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
         case FrameworkReturnCode::_NOT_IMPLEMENTED:
             txt_definition = "Method not implemented";
             break;
+        case FrameworkReturnCode::_NOT_FOUND:
+            txt_definition = "Requested resource has not been found";
+            break;
+        case FrameworkReturnCode::_ALREADY_EXIST:
+            txt_definition = "Resource already exists";
+            break;
         case FrameworkReturnCode::_ERROR_LOAD_IMAGE:
             txt_definition = "Error while loading an image";
             break;
