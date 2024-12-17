@@ -11,9 +11,9 @@ namespace SolAR::api::output::files
 {
 
 /**
- * @class IMeshExporter
- * @brief <B>Exports a mesh to a file.</B>
- * <TT>UUID: faf50760-462c-11ed-b878-0242ac120002</TT>
+ * @class IMapExporter
+ * @brief <B>Exports a map to a file.</B>
+ * <TT>UUID: cfd06ac3-3c5f-418d-abdd-fc4c2858f584</TT>
  *
  */
 class XPCF_IGNORE IMapExporter :
@@ -22,8 +22,8 @@ public:
     IMapExporter() = default;
     virtual ~IMapExporter() = default;
 
-    /// @brief Export a Mesh to a file
-    /// @param[in] mesh: the mesh to export
+    /// @brief Export a Map to a file
+    /// @param[in] map: the map to export
     /// @return FrameworkReturnCode::_SUCCESS if export succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode exportMap(const SRef<SolAR::datastructure::Map> & map) = 0;
 };
