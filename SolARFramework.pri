@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+    $$PWD/interfaces/api/output/files/IMapExporter.h \
 interfaces/api/service/IGenericService.h \
 interfaces/datastructure/RelocalizationInformation.h \
 interfaces/datastructure/StorageCapabilities.h \
