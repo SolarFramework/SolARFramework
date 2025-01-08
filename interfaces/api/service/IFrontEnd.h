@@ -115,18 +115,18 @@ public:
 
     /// @brief Register a new client, set the map to use (for mapping/relocalization)
     /// @brief and return its UUID to use for future requests
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] deviceInfo information on the client's device
     /// @param[in] worldElementUUID the UUID of the world element to use for the World Graph request
     /// @param[out] clientUUID the UUID for this new client
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the client is registered with its UUID
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(const std::string & keycloakToken,
+    virtual FrameworkReturnCode registerClient(const std::string & accessToken,
                                                const DeviceInfo & deviceInfo,
                                                const std::string & worldElementUUID,
                                                std::string & clientUUID) = 0;
@@ -137,16 +137,16 @@ public:
     virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[out] clientUUIDList the list of UUID of all clients currently registered
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the method succeeds
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllClientsUUID(const std::string & keycloakToken,
+    virtual FrameworkReturnCode getAllClientsUUID(const std::string & accessToken,
                                                   std::vector<std::string> & clientUUIDList) const = 0;
 
     /// @brief Return the device information for the given client UUID
@@ -338,45 +338,45 @@ public:
                                             const PoseType poseType = SOLAR_POSE) const = 0;
 
     /// @brief Create a new map specified by its UUID
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to create
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map is created with its UUID
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::string & keycloakToken,
+    virtual FrameworkReturnCode createMap(const std::string & accessToken,
                                           const std::string & mapUUID) = 0;
 
     /// @brief Delete a map specified by its UUID (if not used by some clients)
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to delete
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map is deleted
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode deleteMap(const std::string & keycloakToken,
+    virtual FrameworkReturnCode deleteMap(const std::string & accessToken,
                                           const std::string & mapUUID) = 0;
 
     /// @brief Return all available maps UUID
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[out] mapUUIDList the list of UUID of all maps currently available
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the method succeeds
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllMapsUUID(const std::string & keycloakToken,
+    virtual FrameworkReturnCode getAllMapsUUID(const std::string & accessToken,
                                                std::vector<std::string> & mapUUIDList) const = 0;
 
     /// @brief Return the map UUID used by a client specified by its UUID
@@ -387,76 +387,76 @@ public:
                                                  std::string & mapUUID) const = 0;
 
     /// @brief Request for the datastructure of a specific map
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] mapDatastructure: the output map datastructure
     /// @return 
     /// * FrameworkReturnCode::_SUCCESS if the global map is available
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if no map is known to be identified by mapUUID
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
-                                            const std::string & keycloakToken,
+                                            const std::string & accessToken,
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::Map> & mapDatastructure) const = 0;
 
     /// @brief Request to update the datastructure of a specific map
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[in] mapDatastructure: the input map datastructure
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the data are ready to be processed
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
-                                            const std::string & keycloakToken,
+                                            const std::string & accessToken,
                                             const std::string & mapUUID,
                                             const SRef<SolAR::datastructure::Map> mapDatastructure) = 0;
 
     /// @brief Request the point cloud of a specific map
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] pointCloud: the output point cloud
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the point cloud is available
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
-                                            const std::string & keycloakToken,
+                                            const std::string & accessToken,
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to process
     /// @param[in] processingType the type of process to apply on the map
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if processing is able to proceed
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode requestMapProcessing(const std::string & keycloakToken,
+    virtual FrameworkReturnCode requestMapProcessing(const std::string & accessToken,
                                                      const std::string & mapUUID,
                                                      const MapProcessingType processingType) = 0;
 
     /// @brief Get status and progress percentage concerning a map processing in progress
     ///        If status = COMPLETED then give the map UUID of the new resulting map
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map being processed
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
@@ -464,12 +464,12 @@ public:
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & keycloakToken,
+    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & accessToken,
                                                        const std::string & mapUUID,
                                                        MapProcessingStatus & status,
                                                        float & progress,
@@ -477,19 +477,19 @@ public:
 
     /// @brief Provide the current data from a map processing
     /// (resulting from all map processing since the start of the pipeline)
-    /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map being processed
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if data is available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
-    /// * FrameworkReturnCode::_KEYCLOAK_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_KEYCLOAK_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_KEYCLOAK_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_KEYCLOAK_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingData(const std::string & keycloakToken,
+    virtual FrameworkReturnCode getMapProcessingData(const std::string & accessToken,
                                                      const std::string & mapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
