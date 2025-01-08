@@ -163,9 +163,12 @@ public:
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
     /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
-    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapProcessingStatus(const std::string & mapUUID,
-                                                       MapProcessingStatus status,
+                                                       MapProcessingStatus & status,
                                                        float & progress,
                                                        std::string & resultingMapUUID) = 0;
 
@@ -174,7 +177,9 @@ public:
     /// @param[in] mapUUID the UUID of the map being processed
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
-    /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
+    /// * FrameworkReturnCode::_SUCCESS if data is available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapProcessingData(const std::string & mapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
