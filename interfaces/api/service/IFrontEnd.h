@@ -413,11 +413,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getStatusForMapProcessing(const std::string & keycloakToken,
                                                           const std::string & mapUUID,
-                                                          MapProcessingStatus & status,
+                                                          MapProcessingStatus status,
                                                           float & progress,
                                                           std::string & resultingMapUUID) const = 0;
 
-    /// @brief Provide the current data from a map processing for visualization
+    /// @brief Provide the current data from a map processing
     /// (resulting from all map processing since the start of the pipeline)
     /// @param[in] keycloakToken a valid Keycloak Token collected by client after login to the Keycloak server
     /// @param[in] mapUUID the UUID of the map being processed

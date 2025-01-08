@@ -29,7 +29,7 @@ namespace pipeline {
 /// @typedef MapProcessingStatus
 /// @brief <B>Indicate the status of the current map processing</B>
 ///
-typedef enum {
+enum class {
     NOT_INITIALIZED = 0,  // Map processing not initialized
     INITIALIZED = 1,      // Map processing correctly initialized, but not started
     IN_PROGRESS = 2,      // Map processing in progress
@@ -63,20 +63,29 @@ public:
     /// @brief Get status and progress percentage
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getStatus(MapProcessingStatus & status, float & progress) const = 0;
 
-    /// @brief Provide the current data from the map processing pipeline context for visualization
+    /// @brief Provide the current data from the map processing pipeline context
     /// (resulting from all map processing since the start of the pipeline)
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
-    /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDataForVisualization(std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
-                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if data is available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getProcessingData(std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
+                                                  std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
     /// @brief Get processed map (if processing is completed)
     /// @param[out] map the output map (datastructure)
-    /// @return FrameworkReturnCode::_SUCCESS if output map is available, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if output map is available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getProcessedMap(SRef<SolAR::datastructure::Map> & map) const = 0;
 };
 }

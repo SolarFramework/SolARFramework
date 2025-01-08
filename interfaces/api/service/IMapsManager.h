@@ -31,7 +31,7 @@ namespace service {
 /// @typedef MapProcessingType
 /// @brief <B>Define the different types of map processing available</B>
 ///
-typedef enum {
+enum class {
     UNDEFINED = 0,
     STRUCTURE_FROM_MOTION = 1
 } MapProcessingType;
@@ -40,7 +40,7 @@ typedef enum {
 /// @typedef MapProcessingStatus
 /// @brief <B>Indicate the status of a map processing</B>
 ///
-typedef enum {
+enum class {
     NO_PROCESSING = 0,    // No current processing for the map
     IN_PROGRESS = 1,      // Processing for the map still in progress
     FAILED = 2,           // Processing failed (and stopped) for the map
@@ -138,14 +138,14 @@ public:
     /// @param[in] processingType the type of process managed by the service
     /// @param[in] serviceURL URL of the Map Processing service
     /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is registered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerMapProcessingService(const MapProcessingType & processingType,
+    virtual FrameworkReturnCode registerMapProcessingService(const MapProcessingType processingType,
                                                              const std::string & serviceURL) = 0;
 
     /// @brief Unregister a Map Processing service from the map manager
     /// @param[in] processingType the type of process managed by the service
     /// @param[in] serviceURL URL of the Map Processing service
     /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterMapProcessingService(const MapProcessingType & processingType,
+    virtual FrameworkReturnCode unregisterMapProcessingService(const MapProcessingType processingType,
                                                                const std::string & serviceURL) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
@@ -154,8 +154,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
     ///         else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode requestForMapProcessing(const std::string & mapUUID,
-                                                        const MapProcessingType & processingType) = 0;
+    virtual FrameworkReturnCode requestMapProcessing(const std::string & mapUUID,
+                                                     const MapProcessingType processingType) = 0;
 
     /// @brief Get status and progress percentage concerning a map processing in progress
     ///        If status = COMPLETED then give the map UUID of the new resulting map
@@ -164,10 +164,10 @@ public:
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
     /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
     /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getStatusForMapProcessing(const std::string & mapUUID,
-                                                          MapProcessingStatus & status,
-                                                          float & progress,
-                                                          std::string & resultingMapUUID) = 0;
+    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & mapUUID,
+                                                       MapProcessingStatus status,
+                                                       float & progress,
+                                                       std::string & resultingMapUUID) = 0;
 
     /// @brief Provide the current data from a map processing for visualization
     /// (resulting from all map processing since the start of the pipeline)
@@ -175,9 +175,9 @@ public:
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDataForMapProcessing(const std::string & mapUUID,
-                                                        std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
-                                                        std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
+    virtual FrameworkReturnCode getMapProcessingData(const std::string & mapUUID,
+                                                     std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
+                                                     std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
 
 };
 

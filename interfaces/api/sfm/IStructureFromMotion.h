@@ -91,7 +91,7 @@ public:
 
     /// @brief Get output map
     /// @param[out] map the output SfM map
-    /// @return FrameworkReturnCode::_SUCCESS if map got successfully, otherwise FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getOutputMap(SRef<Map>& map) = 0;
 
     /// @brief Get SfM status
@@ -104,12 +104,12 @@ public:
 
     /// @brief Get current cloud points
     /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
-    /// @return FrameworkReturnCode::_SUCCESS if points got successfully, otherwise FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<CloudPoint>>& cloudPoints) = 0;
 
     /// @brief Get current keyframe poses
     /// @param[out] keyframePoses current keyframes' poses
-    /// @return FrameworkReturnCode::_SUCCESS if keyframe poses got successfully, otherwise FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<Transform3Df>& keyframePoses) = 0;
 
     /// @brief force stop
