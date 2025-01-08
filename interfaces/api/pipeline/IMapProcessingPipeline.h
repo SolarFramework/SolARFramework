@@ -29,13 +29,13 @@ namespace pipeline {
 /// @typedef MapProcessingStatus
 /// @brief <B>Indicate the status of the current map processing</B>
 ///
-enum class {
+enum class MapProcessingStatus {
     NOT_INITIALIZED = 0,  // Map processing not initialized
     INITIALIZED = 1,      // Map processing correctly initialized, but not started
     IN_PROGRESS = 2,      // Map processing in progress
     COMPLETED = 3,        // Map processing completed
     ABORTED = 4           // Map Processing aborted before completion
-} MapProcessingStatus;
+};
 
 /**
  * @class IMapProcessingPipeline

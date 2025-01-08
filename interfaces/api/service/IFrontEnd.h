@@ -38,13 +38,13 @@ namespace service {
  * @typedef DeviceType
  * @brief <B>Define the types of all devices.</B>
  */
-typedef enum {
+enum class DeviceType {
     OTHER_DEVICE = 0,
     HOLOLENS2_HEADSET = 1,
     LYNX_HEADSET = 2,
     ANDROID_DEVICE = 3,
     IOS_DEVICE = 4
-} DeviceType;
+};
 
 /**
  * @struct DeviceInfo
@@ -71,30 +71,30 @@ struct DeviceInfo
 /// @typedef TransformStatus
 /// @brief <B>Indicate the status of the 3D transformation matrix</B>
 ///
-typedef enum {
+enum class TransformStatus {
     NO_3DTRANSFORM = 0,       // No 3D transform available
     PREVIOUS_3DTRANSFORM = 1, // 3D transform previously given by the relocalization service
     NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
-} TransformStatus;
+};
 
 ///
 /// @typedef PipelineMode
 /// @brief <B>Modes available for the pipeline processing</B>
 ///
-typedef enum {
+enum class PipelineMode {
     RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
     RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
     RELOCALIZATION_ONLY = 2                 // Only relocalization
-} PipelineMode;
+};
 
 ///
 /// @typedef PoseType
 /// @brief <B>Type of pose according to a specific coordinate system</B>
 ///
-typedef enum {
+enum class PoseType {
     SOLAR_POSE = 0,  // Pose in the SolAR coordinate system
     DEVICE_POSE = 1  // Pose in the device coordinate system
-} PoseType;
+};
 
 /**
  * @class IFrontEnd

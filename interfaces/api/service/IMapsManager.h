@@ -31,21 +31,21 @@ namespace service {
 /// @typedef MapProcessingType
 /// @brief <B>Define the different types of map processing available</B>
 ///
-enum class {
+enum class MapProcessingType {
     UNDEFINED = 0,
     STRUCTURE_FROM_MOTION = 1
-} MapProcessingType;
+};
 
 ///
 /// @typedef MapProcessingStatus
 /// @brief <B>Indicate the status of a map processing</B>
 ///
-enum class {
+enum class MapProcessingStatus {
     NO_PROCESSING = 0,    // No current processing for the map
     IN_PROGRESS = 1,      // Processing for the map still in progress
     FAILED = 2,           // Processing failed (and stopped) for the map
     COMPLETED = 3         // Processing completed and successful for the map
-} MapProcessingStatus;
+};
 
 /**
  * @class IMapsManager

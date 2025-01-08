@@ -34,12 +34,12 @@ namespace pipeline {
 /// @typedef MappingStatus
 /// @brief <B>Indicate the status of the mapping pipeline</B>
 ///
-typedef enum {
+enum class MappingStatus {
     BOOTSTRAP = 0,      // bootstrapping to initialize the map
     MAPPING = 1,        // mapping
     TRACKING_LOST = 2,  // tracking lost need to relocalization
     LOOP_CLOSURE = 3    // loop closure optimization
-} MappingStatus;
+} ;
 
 /**
  * @class IMappingPipeline
