@@ -335,7 +335,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getLastPose(const std::string & clientUUID,
                                             SolAR::datastructure::Transform3Df & pose,
-                                            const PoseType poseType = SOLAR_POSE) const = 0;
+                                            const PoseType poseType = PoseType::SOLAR_POSE) const = 0;
 
     /// @brief Create a new map specified by its UUID
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
@@ -496,7 +496,7 @@ public:
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
-    PipelineMode m_PipelineMode = RELOCALIZATION_AND_MAPPING;
+    PipelineMode m_PipelineMode = PipelineMode::RELOCALIZATION_AND_MAPPING;
 };
 }
 }
