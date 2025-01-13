@@ -364,6 +364,27 @@ ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& r
 }
 
 /**
+ * @brief <B> Compute triangulation angle between two vectors.</B>
+ * @param[in] v1 first vector
+ * @param[in] v2 second vector
+ * @return angle in unit of degrees
+ */
+ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& v1, const Vector3f& v2) {
+    float norm1 = v1.norm();
+    float norm2 = v2.norm();
+    if (norm1 == 0 || norm2 == 0) {
+        return 0.f;
+    }
+    auto v1n = v1/norm1;
+    auto v2n = v2/norm2;
+    float angle = std::acos(v1n.dot(v2n))*SOLAR_RAD2DEG;
+    if (std::isnan(angle)) {
+        return 0.f;
+    }
+    return angle;
+}
+
+/**
  * @brief <B> Compute triangulation angle between a spatial point and two spatial positions.</B>
  * @param[in] x point's spatial coordinates
  * @param[in] p1 first spatial position
@@ -373,13 +394,7 @@ ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& r
 ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& x, const Vector3f& p1, const Vector3f& p2) {
     Vector3f vec1 = x - p1;
     Vector3f vec2 = x - p2;
-    vec1.normalize();
-    vec2.normalize();
-    float angle = std::acos(vec1.dot(vec2))*SOLAR_RAD2DEG;
-    if (std::isnan(angle)) {
-        return 0.f;
-    }
-    return angle;
+    return triangulationAngle(vec1, vec2);
 }
 
 /**
@@ -393,7 +408,7 @@ ATTRIBUTE(maybe_unused) static float triangulationAngle(Vector3f x, const Transf
     if (pose1.matrix().isZero() || pose2.matrix().isZero()) {
         return 0.f;
     }
-    return triangulationAngle(x, pose1.matrix().block<3,1>(0,3), pose2.matrix().block<3,1>(0,3));
+    return triangulationAngle(x, pose1.translation(), pose2.translation());
 }
 }
 }
