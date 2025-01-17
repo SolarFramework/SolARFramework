@@ -129,6 +129,11 @@ typedef Vector<unsigned int, 2> Vector2ui;
  */
 typedef Maths::Vector2d Vector2d;
 
+/**
+ * @typedef Matrix3f
+ * @brief <B>Matrix 3x3 of type float.</B>
+ */
+typedef Maths::Matrix3f Matrix3f;
 
 template <class T, int Cols>
 using RowVector = Maths::Matrix<T,1,Cols>;
@@ -358,6 +363,53 @@ ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& r
     return matR;
 }
 
+/**
+ * @brief <B> Compute triangulation angle between two vectors.</B>
+ * @param[in] v1 first vector
+ * @param[in] v2 second vector
+ * @return angle in unit of degrees
+ */
+ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& v1, const Vector3f& v2) {
+    float norm1 = v1.norm();
+    float norm2 = v2.norm();
+    if (norm1 == 0 || norm2 == 0) {
+        return 0.f;
+    }
+    auto v1n = v1/norm1;
+    auto v2n = v2/norm2;
+    float angle = std::acos(v1n.dot(v2n))*SOLAR_RAD2DEG;
+    if (std::isnan(angle)) {
+        return 0.f;
+    }
+    return angle;
+}
+
+/**
+ * @brief <B> Compute triangulation angle between a spatial point and two spatial positions.</B>
+ * @param[in] x point's spatial coordinates
+ * @param[in] p1 first spatial position
+ * @param[in] p2 second spatial position
+ * @return angle in unit of degrees
+ */
+ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& x, const Vector3f& p1, const Vector3f& p2) {
+    Vector3f vec1 = x - p1;
+    Vector3f vec2 = x - p2;
+    return triangulationAngle(vec1, vec2);
+}
+
+/**
+ * @brief <B> Compute triangulation angle between a spatial point and two camera positions.</B>
+ * @param[in] x point's spatial coordinates
+ * @param[in] pose1 first camera pose
+ * @param[in] pose2 second camera pose
+ * @return angle in unit of degrees
+ */
+ATTRIBUTE(maybe_unused) static float triangulationAngle(Vector3f x, const Transform3Df& pose1, const Transform3Df& pose2) {
+    if (pose1.matrix().isZero() || pose2.matrix().isZero()) {
+        return 0.f;
+    }
+    return triangulationAngle(x, pose1.translation(), pose2.translation());
+}
 }
 }
 

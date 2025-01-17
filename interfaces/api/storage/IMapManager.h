@@ -100,8 +100,9 @@ public:
 
 	/// @brief Add a keyframe to map manager
 	/// @param[in] keyframe the keyframe to add to the map manager
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true) = 0;
 
 	/// @brief Remove a keyframe from map manager and update visibility of point cloud and covisibility graph
 	/// @param[in] keyframe the keyframe to remove from the map manager
@@ -110,8 +111,9 @@ public:
 
     /// @brief Add camera parameters to map manager
     /// @param[in] cameraParameters the camera paramaters to add to the map manager
+    /// @param[in] defineCameraParametersId if true an id will be set for the added CameraParameters, if false the id of the CameraParameters will be used
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters) = 0;
+    virtual FrameworkReturnCode addCameraParameters(const SRef<SolAR::datastructure::CameraParameters> cameraParameters, bool defineCameraParametersId = true) = 0;
 
     /// @brief Remove camera parameters from map manager
     /// @param[in] cameraParameters the camera parameters to remove from the map manager

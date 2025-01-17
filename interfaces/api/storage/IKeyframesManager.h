@@ -47,13 +47,15 @@ public:
 
     /// @brief This method allow to add a frame to the keyframe manager component
     /// @param[in] frame the frame to add to the set of persistent keyframes
+	/// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true) = 0;
 
 	/// @brief This method allow to add a frame to the key frame manager component
 	/// @param[in] frame the frame to add to the set of persistent keyframes
+	/// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe) = 0;
+    virtual FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe, bool defineKeyframeId = true) = 0;
 
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id id of the keyframe to get

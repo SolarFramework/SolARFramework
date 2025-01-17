@@ -33,11 +33,11 @@ namespace pipeline {
 /// @typedef DenseMappingStatus
 /// @brief <B>Indicate the status of the dense mapping pipeline</B>
 ///
-typedef enum {
+enum class DenseMappingStatus {
     MVS = 0,      // Multiview Stereo step to densify points
     MESHING = 1,  // meshing step to create a mesh from the dense point cloud
     DONE = 2      // dense reconstruction is done
-} DenseMappingStatus;
+};
 
 /**
  * @class IDenseMappingPipeline

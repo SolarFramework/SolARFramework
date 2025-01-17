@@ -67,6 +67,7 @@ interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
 interfaces/api/pipeline/IPoseEstimationPipeline.h \
 interfaces/api/pipeline/IRelocalizationPipeline.h \
+interfaces/api/pipeline/IMapProcessingPipeline.h \
 interfaces/api/pipeline/IRelocalizationTrackablePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
@@ -166,6 +167,7 @@ interfaces/api/display/IMaskOverlay.h\
 interfaces/Version.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+src/api/sfm/IStructureFromMotion.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
