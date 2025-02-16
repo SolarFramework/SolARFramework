@@ -42,6 +42,14 @@ public:
     /// @brief IFrontEnd default destructor
     virtual ~IAuthorizationChecker() = default;
 
+    /// @brief Verifiy if the token is valid.
+    /// @param[in] accessToken the token to verify
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the the token is valid
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode verify(const std::string & accessToken) = 0;
+
     /// @brief Checks if a client providing a token is authorized to use a service.
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] apiName the name of the api for which the authorization is checked
@@ -53,7 +61,7 @@ public:
     /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode check(const std::string & accessToken,
-                                    const std::string & apiName,
+                                      const std::string & apiName,
                                       const std::string & resource) = 0;
 
     /// @brief return the list of resources that can be used by a given service from a given token.
@@ -65,7 +73,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAuthorizedResources(const std::string & accessToken,
                                                        const std::string & apiName,
-                                                       std::vector<std::string> authorizedResources) = 0;
+                                                       std::vector<std::string>& authorizedResources) = 0;
 };
 
 }
