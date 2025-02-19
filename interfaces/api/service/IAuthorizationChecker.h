@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2021-2023 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2025 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,33 +36,33 @@ namespace service {
 class XPCF_IGNORE SOLARFRAMEWORK_API IAuthorizationChecker :
     virtual public org::bcom::xpcf::IComponentIntrospect {
 public:
-    /// @brief IFrontEnd default constructor
+    /// @brief IAuthorizationChecker default constructor
     IAuthorizationChecker() = default;
 
-    /// @brief IFrontEnd default destructor
+    /// @brief IAuthorizationChecker default destructor
     virtual ~IAuthorizationChecker() = default;
 
-    /// @brief Verifiy if the token is valid.
+    /// @brief Check if the token is valid.
     /// @param[in] accessToken the token to verify
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the the token is valid
     /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode verify(const std::string & accessToken) = 0;
+    virtual FrameworkReturnCode isTokenValid(const std::string & accessToken) = 0;
 
     /// @brief Checks if a client providing a token is authorized to use a service.
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] apiName the name of the api for which the authorization is checked
+    /// @param[in] resource the name of to be used by the api
     /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the client is registered with its UUID
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_SUCCESS if the client is authorized to use the service with the given resource.
     /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode check(const std::string & accessToken,
-                                      const std::string & apiName,
-                                      const std::string & resource) = 0;
+    virtual FrameworkReturnCode isAuthorized(const std::string & accessToken,
+                                             const std::string & apiName,
+                                             const std::string & resource) = 0;
 
     /// @brief return the list of resources that can be used by a given service from a given token.
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
@@ -70,6 +70,7 @@ public:
     /// @param[in] authorizedResources the list of resources that can be used by the given service.
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the client is registered with its UUID
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAuthorizedResources(const std::string & accessToken,
                                                        const std::string & apiName,
