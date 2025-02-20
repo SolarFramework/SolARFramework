@@ -42,6 +42,7 @@ class  SOLARFRAMEWORK_API Lockable {
 		/// @brief This method returns the point cloud
         /// @return the lock preventing concurrent access to the PointCloud set
 		///
+        [[nodiscard]]
         std::unique_lock<std::mutex> acquireLock() {
             return std::unique_lock<std::mutex>(m_mutex);
         }
