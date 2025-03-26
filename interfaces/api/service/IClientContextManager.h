@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2021-2023 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2025 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_FRONTEND_H
-#define SOLAR_FRONTEND_H
+#ifndef SOLAR_CLIENTCONTEXTMANAGER_H
+#define SOLAR_CLIENTCONTEXTMANAGER_H
 
 
 #include "api/pipeline/IMappingPipeline.h"
-#include "api/service/IClientContextManager.h"
-#include "api/service/IMapsManager.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
-#include "datastructure/Map.h"
 #include "datastructure/MathDefinitions.h"
-#include "datastructure/PointCloud.h"
+#include "datastructure/DetectedObject.h"
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/api/IComponentManager.h>
 #include <xpcf/core/helpers.h>
@@ -35,21 +32,83 @@ namespace api {
 namespace service {
 
 /**
- * @class IFrontEnd
- * @brief <B>Defines the front end interface for services.</B>
- * <TT>UUID: 58389ff0-5695-11ec-bf63-0242ac130002</TT>
- *
- * This class provides the interface to define a front end for services.
+ * @typedef DeviceType
+ * @brief <B>Define the types of all devices.</B>
  */
-class XPCF_CLIENTUUID("91a569da-5695-11ec-bf63-0242ac130002") XPCF_SERVERUUID("95913e8e-5695-11ec-bf63-0242ac130002")
-    XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
-    IFrontEnd : virtual public org::bcom::xpcf::IComponentIntrospect {
-public:
-    /// @brief IFrontEnd default constructor
-    IFrontEnd() = default;
+enum class DeviceType {
+    OTHER_DEVICE = 0,
+    HOLOLENS2_HEADSET = 1,
+    LYNX_HEADSET = 2,
+    ANDROID_DEVICE = 3,
+    IOS_DEVICE = 4
+};
 
-    /// @brief IFrontEnd default destructor
-    virtual ~IFrontEnd() = default;
+/**
+ * @struct DeviceInfo
+ * @brief <B>Define any device that can request the Front End.</B>
+ */
+struct DeviceInfo
+{
+    std::string deviceUUID;         // Unique ID given by the device
+    DeviceType deviceType;          // Type of the device
+    std::string deviceModel;        // Model reference given by the device
+    std::string deviceDescription;  // Additional device description
+
+    template <typename Archive>
+    void serialize(Archive& ar, const unsigned int version)
+    {
+        ar & deviceUUID;
+        ar & deviceType;
+        ar & deviceModel;
+        ar & deviceDescription;
+    }
+};
+
+///
+/// @typedef TransformStatus
+/// @brief <B>Indicate the status of the 3D transformation matrix</B>
+///
+enum class TransformStatus {
+    NO_3DTRANSFORM = 0,       // No 3D transform available
+    PREVIOUS_3DTRANSFORM = 1, // 3D transform previously given by the relocalization service
+    NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
+};
+
+///
+/// @typedef PipelineMode
+/// @brief <B>Modes available for the pipeline processing</B>
+///
+enum class PipelineMode {
+    RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
+    RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
+    RELOCALIZATION_ONLY = 2                 // Only relocalization
+};
+
+///
+/// @typedef PoseType
+/// @brief <B>Type of pose according to a specific coordinate system</B>
+///
+enum class PoseType {
+    SOLAR_POSE = 0,  // Pose in the SolAR coordinate system
+    DEVICE_POSE = 1  // Pose in the device coordinate system
+};
+
+/**
+ * @class IClientContextManager
+ * @brief <B>Defines the client context manager interface for services.</B>
+ * <TT>UUID: d43f5a3b-f66b-4f27-a3b6-cb009a166994</TT>
+ *
+ * This class provides the interface to define a Client Context Manager for services.
+ */
+class XPCF_CLIENTUUID("b675a1c5-078e-4c7a-82f7-d75a7d3d6dbe") XPCF_SERVERUUID("4303e7b0-66d6-4b35-9988-1edda751ecc6")
+    XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
+    IClientContextManager : virtual public org::bcom::xpcf::IComponentIntrospect {
+public:
+    /// @brief IClientContextManager default constructor
+    IClientContextManager() = default;
+
+    /// @brief IClientContextManager default destructor
+    virtual ~IClientContextManager() = default;
 
     /// @brief Register a new client, set the map to use (for mapping/relocalization)
     /// @brief and return its UUID to use for future requests
@@ -275,47 +334,6 @@ public:
                                             SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = PoseType::SOLAR_POSE) const = 0;
 
-    /// @brief Create a new map specified by its UUID
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map to create
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the map is created with its UUID
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::string & accessToken,
-                                          const std::string & mapUUID) = 0;
-
-    /// @brief Delete a map specified by its UUID (if not used by some clients)
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map to delete
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the map is deleted
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode deleteMap(const std::string & accessToken,
-                                          const std::string & mapUUID) = 0;
-
-    /// @brief Return all available maps UUID
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[out] mapUUIDList the list of UUID of all maps currently available
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the method succeeds
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllMapsUUID(const std::string & accessToken,
-                                               std::vector<std::string> & mapUUIDList) const = 0;
 
     /// @brief Return the map UUID used by a client specified by its UUID
     /// @param[in] clientUUID UUID of the client
@@ -323,114 +341,6 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID,
                                                  std::string & mapUUID) const = 0;
-
-    /// @brief Request for the datastructure of a specific map
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID UUID of the map to use
-    /// @param[out] mapDatastructure: the output map datastructure
-    /// @return 
-    /// * FrameworkReturnCode::_SUCCESS if the global map is available
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if no map is known to be identified by mapUUID
-    /// * else FrameworkReturnCode::_ERROR_
-    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
-                                            const std::string & accessToken,
-                                            const std::string & mapUUID,
-                                            SRef<SolAR::datastructure::Map> & mapDatastructure) const = 0;
-
-    /// @brief Request to update the datastructure of a specific map
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID UUID of the map to use
-    /// @param[in] mapDatastructure: the input map datastructure
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the data are ready to be processed
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode setMapRequest(
-                                            const std::string & accessToken,
-                                            const std::string & mapUUID,
-                                            const SRef<SolAR::datastructure::Map> mapDatastructure) = 0;
-
-    /// @brief Request the point cloud of a specific map
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID UUID of the map to use
-    /// @param[out] pointCloud: the output point cloud
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the point cloud is available
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getPointCloudRequest(
-                                            const std::string & accessToken,
-                                            const std::string & mapUUID,
-                                            SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
-
-    /// @brief Request for a map processing giving the type of process to apply (asynchronous)
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map to process
-    /// @param[in] processingType the type of process to apply on the map
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if processing is able to proceed
-    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode requestMapProcessing(const std::string & accessToken,
-                                                     const std::string & mapUUID,
-                                                     const MapProcessingType processingType) = 0;
-
-    /// @brief Get status and progress percentage concerning a map processing in progress
-    ///        If status = COMPLETED then give the map UUID of the new resulting map
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map being processed
-    /// @param[out] status the current map processing status
-    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
-    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & accessToken,
-                                                       const std::string & mapUUID,
-                                                       MapProcessingStatus & status,
-                                                       float & progress,
-                                                       std::string & resultingMapUUID) const = 0;
-
-    /// @brief Provide the current data from a map processing
-    /// (resulting from all map processing since the start of the pipeline)
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map being processed
-    /// @param[out] pointCloud pipeline current point cloud
-    /// @param[out] keyframePoses pipeline current keyframe poses
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if data is available
-    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingData(const std::string & accessToken,
-                                                     const std::string & mapUUID,
-                                                     std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
-                                                     std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
@@ -440,9 +350,9 @@ protected:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IFrontEnd,
-                             "58389ff0-5695-11ec-bf63-0242ac130002",
-                             "IFrontEnd",
-                             "The interface to define a Front End for services")
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::service::IClientContextManager,
+                             "d43f5a3b-f66b-4f27-a3b6-cb009a166994",
+                             "IClientContextManager",
+                             "The interface to define a Client Context Manager for services")
 
-#endif // SOLAR_FRONTEND_H
+#endif // SOLAR_CLIENTCONTEXTMANAGER_H
