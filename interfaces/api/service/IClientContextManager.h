@@ -112,19 +112,13 @@ public:
 
     /// @brief Register a new client, set the map to use (for mapping/relocalization)
     /// @brief and return its UUID to use for future requests
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] deviceInfo information on the client's device
     /// @param[in] worldElementUUID the UUID of the world element to use for the World Graph request
     /// @param[out] clientUUID the UUID for this new client
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the client is registered with its UUID
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerClient(const std::string & accessToken,
-                                               const DeviceInfo & deviceInfo,
+    virtual FrameworkReturnCode registerClient(const DeviceInfo & deviceInfo,
                                                const std::string & worldElementUUID,
                                                std::string & clientUUID) = 0;
 
@@ -134,17 +128,11 @@ public:
     virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
-    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[out] clientUUIDList the list of UUID of all clients currently registered
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the method succeeds
-    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
-    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
-    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
-    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getAllClientsUUID(const std::string & accessToken,
-                                                  std::vector<std::string> & clientUUIDList) const = 0;
+    virtual FrameworkReturnCode getAllClientsUUID(std::vector<std::string> & clientUUIDList) const = 0;
 
     /// @brief Return the device information for the given client UUID
     /// @param[in] clientUUID UUID of the client
