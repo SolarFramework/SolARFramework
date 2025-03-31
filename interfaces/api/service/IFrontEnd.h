@@ -391,9 +391,9 @@ public:
     virtual FrameworkReturnCode getMapInfo(const std::string & accessToken,
                                            const std::string & mapUUID,
                                            SolAR::datastructure::DescriptorType & descriptorType,
-                                           uint32_t mapSupportedTypes,
-                                           uint32_t dataSize,
-                                           bool areImageSaved) const = 0;
+                                           uint32_t & mapSupportedTypes,
+                                           uint32_t & dataSize,
+                                           bool & areImageSaved) const = 0;
 
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
