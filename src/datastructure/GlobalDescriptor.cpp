@@ -33,8 +33,6 @@ const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDa
 
 std::optional<GlobalDescriptor> GlobalDescriptor::build(GlobalDescriptorType type, unsigned char* buffer)
 {
-    LOG_INFO("      ->build debug")
-
     if (!buffer) {
         LOG_ERROR("Empty input data buffer, cannot build global descriptor");
         return std::nullopt;
