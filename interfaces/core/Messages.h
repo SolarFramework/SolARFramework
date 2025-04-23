@@ -93,6 +93,9 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
     std::string txt_definition = "";
 
     switch (returnCode) {
+        case FrameworkReturnCode::_SUCCESS:
+            txt_definition = "Success";
+            break;
         case FrameworkReturnCode::_ERROR_:
             txt_definition = "Generic error code";
             break;
