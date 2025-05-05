@@ -51,6 +51,46 @@ enum DescriptorType{
     DISK, /**<DISK descriptor, assumes 128 elements per descriptor stores as one byte per element */
 };
 
+/// @brief Return the text definition (string) of a DescriptorType object
+/// @param[in] descriptorType the descriptor type
+/// @return the text definition (string)
+static std::string toString(const DescriptorType descriptorType)
+{
+    std::string textDefinition = "";
+
+    switch (descriptorType) {
+        case AKAZE:
+            textDefinition = "AKAZE";
+            break;
+        case SIFT:
+            textDefinition = "SIFT";
+            break;
+        case SIFT_UINT8:
+            textDefinition = "SIFT_UINT8";
+            break;
+        case SURF_64:
+            textDefinition = "SURF_64";
+            break;
+        case SURF_128:
+            textDefinition = "SURF_128";
+            break;
+        case ORB:
+            textDefinition = "ORB";
+            break;
+        case SBPATTERN:
+            textDefinition = "SBPATTERN";
+            break;
+        case DISK:
+            textDefinition = "DISK";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 template <class T> inline static constexpr DescriptorDataType inferDescriptorDataType();
 
 template <> inline constexpr DescriptorDataType inferDescriptorDataType<uint8_t>()
