@@ -33,6 +33,7 @@ namespace datastructure {
 */
 enum class GlobalDescriptorType {
     NETVLAD, /**< NetVLAD image descriptor */
+    BOQ, /**< Bag-Of-QUeries image descriptor */
 };
 
 /**
