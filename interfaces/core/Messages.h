@@ -76,6 +76,7 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_RELOC_EXCEEDED = -46,
     _LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED = -47,
     _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48,
+    _LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED = -49,
 
     // for authentication requests
     _AUTHENT_SERVICE_UNAVAILABLE = -50,
@@ -92,6 +93,9 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
     std::string txt_definition = "";
 
     switch (returnCode) {
+        case FrameworkReturnCode::_SUCCESS:
+            txt_definition = "Success";
+            break;
         case FrameworkReturnCode::_ERROR_:
             txt_definition = "Generic error code";
             break;
@@ -159,16 +163,19 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             txt_definition = "Incorrect version of services according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for mapping reached according to license file";
+            txt_definition = "Maximum of clients for Mapping reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_RELOC_EXCEEDED:
-            txt_definition = "Maximum of clients for relocalization reached according to license file";
+            txt_definition = "Maximum of clients for Relocalization reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for stereo mapping reached according to license file";
+            txt_definition = "Maximum of clients for Stereo Mapping reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for dense mapping reached according to license file";
+            txt_definition = "Maximum of clients for Dense Mapping reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED:
+            txt_definition = "Maximum of clients for Structure From Motion reached according to license file";
             break;
         case FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE:
             txt_definition = "Authentication service unavailable";
