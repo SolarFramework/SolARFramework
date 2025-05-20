@@ -128,7 +128,7 @@ public:
     /// @param[in] mapUUID UUID of the map
     /// @param[out] descriptorType the descriptor type used to extract descriptor for each keyframe
     /// @param[out] mapSupportedTypes the types of available data
-    /// *           (_PointCloud = 0x01, _Keyframe = 0x02, _CovisibilityGraph = 0x04, _KFRetriever = 0x08, _CameraParemeters = 0x10)
+    /// *           (_PointCloud = 0x01, _Keyframe = 0x02, _CovisibilityGraph = 0x04, _KFRetriever = 0x08, _CameraParameters = 0x10)
     /// @param[out] dataSize global size of the data structure of the map (in bytes)
     /// @param[out] areImageSaved true if images are saved with keyframes, false otherwise
     /// @return
