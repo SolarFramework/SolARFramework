@@ -96,6 +96,9 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
         case FrameworkReturnCode::_SUCCESS:
             txt_definition = "Success";
             break;
+        case FrameworkReturnCode::_STOP:
+            txt_definition = "Process is stopped";
+        break;
         case FrameworkReturnCode::_ERROR_:
             txt_definition = "Generic error code";
             break;
