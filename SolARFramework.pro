@@ -58,7 +58,7 @@ unix {
 linux {
     QMAKE_LFLAGS += -ldl
     QMAKE_CXXFLAGS += -Wno-attributes
-    QMAKE_CXXFLAGS += -Werror=switch-enum
+    QMAKE_CXXFLAGS += -Werror=switch-enum -Werror=unused-result
 }
 
 win32 {
