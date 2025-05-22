@@ -134,6 +134,7 @@ public:
 	/// @brief This method returns the covisibility graph
 	/// @param[out] covisibilityGraph the covisibility graph of map
 	/// @return the covisibility graph
+	[[nodiscard]]
     virtual std::unique_lock<std::mutex> getCovisibilityGraph(SRef<SolAR::datastructure::CovisibilityGraph>& covisibilityGraph) const = 0;
 
 	/// @brief This method is to set the covisibility graph

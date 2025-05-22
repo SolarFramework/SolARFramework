@@ -114,6 +114,7 @@ public:
 	/// @brief This method returns the keyframe collection
 	/// @param[out] keyframeCollection the keyframe collection of map
 	/// @return the keyframe collection
+	[[nodiscard]]
     virtual std::unique_lock<std::mutex> getKeyframeCollection(SRef<SolAR::datastructure::KeyframeCollection>& keyframeCollection) = 0;
 
 	/// @brief This method is to set the keyframe collection

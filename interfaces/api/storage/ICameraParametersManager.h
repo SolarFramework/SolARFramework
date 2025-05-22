@@ -110,6 +110,7 @@ public:
     /// @brief This method returns the CameraParameters collection
     /// @param[out] CameraParametersCollection the CameraParameters collection of map
     /// @return the CameraParameters collection
+    [[nodiscard]]
     virtual std::unique_lock<std::mutex> getCameraParametersCollection(SRef<SolAR::datastructure::CameraParametersCollection>& cameraParametersCollection) = 0;
 
     /// @brief This method is to set the CameraParameters collection

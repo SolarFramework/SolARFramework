@@ -125,6 +125,7 @@ public:
 	/// @brief This method returns the keyframe retrieval
 	/// @param[out] keyframeRetrieval the keyframe retrieval of map
 	/// @return the keyframe retrieval
+    [[nodiscard]]
 	virtual std::unique_lock<std::mutex> getKeyframeRetrieval(SRef<SolAR::datastructure::KeyframeRetrieval>& keyframeRetrieval) = 0;
 
 	/// @brief This method is to set the keyframe retrieval

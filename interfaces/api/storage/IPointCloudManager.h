@@ -128,6 +128,7 @@ public:
 	/// @brief This method returns the point cloud
 	/// @param[out] pointCloud the point cloud
 	/// @return the point cloud
+	[[nodiscard]]
     virtual std::unique_lock<std::mutex> getPointCloud(SRef<SolAR::datastructure::PointCloud>& pointCloud) = 0;
 
 	/// @brief This method is to set the point cloud

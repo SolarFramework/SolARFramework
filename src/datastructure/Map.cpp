@@ -41,6 +41,7 @@ const SRef<Identification>& Map::getConstIdentification() const
 	return m_identification;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getIdentification(SRef<Identification>& identification)
 {
 	identification = m_identification;
@@ -57,6 +58,7 @@ const SRef<CoordinateSystem>& Map::getConstCoordinateSystem() const
 	return m_coordinateSystem;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getCoordinateSystem(SRef<CoordinateSystem>& coordinateSystem)
 {
 	coordinateSystem = m_coordinateSystem;
@@ -73,6 +75,7 @@ const SRef<PointCloud>& Map::getConstPointCloud() const
 	return m_pointCloud;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getPointCloud(SRef<PointCloud>& pointCloud)
 {
 	pointCloud = m_pointCloud;
@@ -90,6 +93,7 @@ const SRef<KeyframeCollection>& Map::getConstKeyframeCollection() const
 	return m_keyframeCollection;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getKeyframeCollection(SRef<KeyframeCollection>& keyframeCollection)
 {
 	keyframeCollection = m_keyframeCollection;
@@ -107,6 +111,7 @@ const SRef<CovisibilityGraph> Map::getConstCovisibilityGraph() const
 	return m_covisibilityGraph;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getCovisibilityGraph(SRef<CovisibilityGraph>& covisibilityGraph)
 {
 	covisibilityGraph = m_covisibilityGraph;
@@ -124,6 +129,7 @@ const SRef<KeyframeRetrieval>& Map::getConstKeyframeRetrieval() const
 	return m_keyframeRetrieval;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getKeyframeRetrieval(SRef<KeyframeRetrieval>& keyframeRetrieval)
 {
 	keyframeRetrieval = m_keyframeRetrieval;
@@ -141,6 +147,7 @@ const SRef<CameraParametersCollection>& Map::getConstCameraParametersCollection(
     return m_cameraParametersCollection;
 }
 
+[[nodiscard]]
 std::unique_lock<std::mutex> Map::getCameraParametersCollection(SRef<CameraParametersCollection>& cameraParametersCollection)
 {
     cameraParametersCollection = m_cameraParametersCollection;
