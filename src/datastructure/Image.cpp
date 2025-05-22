@@ -309,14 +309,14 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
     ar & m_nbChannels;
     ar & m_nbPlanes;
     ar & m_nbBitsPerComponent;
-
+    ar & m_imageEncodingQuality;
     ar & m_imageEncoding;
 
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
 
         // ImageSpec describing the image we want to write.
         OIIO::ImageSpec spec;
-        if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+        if (SolAR2OIIOType.find(m_type) == SolAR2OIIOType.end())
             spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels);
         else
             spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
@@ -352,8 +352,10 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
         }
 
         auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
-        if (!out)
+        if (!out) {
             std::cout << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+            return;
+        }
 
         if (!out->supports("ioproxy"))
         {
@@ -371,7 +373,6 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
         out->close ();
 
         ar & file_buffer;
-        file_buffer.clear();
     }
     else {
         ar & m_internalImpl;
@@ -447,7 +448,7 @@ void Image::load(Archive & ar, const unsigned int /* version */)
      ar & m_nbChannels;
      ar & m_nbPlanes;
      ar & m_nbBitsPerComponent;
-
+     ar & m_imageEncodingQuality;
      ar & m_imageEncoding;
 
      if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
