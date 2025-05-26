@@ -332,8 +332,9 @@ public:
     /// @brief Request for the datastructure of a specific map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
-    /// @param[out] mapDatastructure: the output map datastructure
-    /// @return 
+    /// @param[out] mapDatastructure the output map datastructure
+    /// @param[in] withKeyframeImages indicate if the keyframe images are requested in output datastructure (true by default)
+    /// @return
     /// * FrameworkReturnCode::_SUCCESS if the global map is available
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
     /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
@@ -345,12 +346,13 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
                                             const std::string & accessToken,
                                             const std::string & mapUUID,
-                                            SRef<SolAR::datastructure::Map> & mapDatastructure) const = 0;
+                                            SRef<SolAR::datastructure::Map> & mapDatastructure,
+                                            const bool withKeyframeImages = true) const = 0;
 
     /// @brief Request to update the datastructure of a specific map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
-    /// @param[in] mapDatastructure: the input map datastructure
+    /// @param[in] mapDatastructure the input map datastructure
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the data are ready to be processed
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
@@ -367,7 +369,7 @@ public:
     /// @brief Request the point cloud of a specific map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
-    /// @param[out] pointCloud: the output point cloud
+    /// @param[out] pointCloud the output point cloud
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the point cloud is available
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
