@@ -216,7 +216,7 @@ public:
     /// @param[out] transform3D the current 3D transformation matrix (if available)
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
-    /// @param[out] detectedObjects: list of objects detected in the last processed image
+    /// @param[out] detectedObjects list of objects detected in the last processed image
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode imageProcessRequest(const std::string & accessToken,
                                                     const std::string & clientUUID,
@@ -309,7 +309,7 @@ public:
     /// @brief Return the map UUID used by a client specified by its UUID
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
-    /// @param[out] mapUUID: UUID of the map used by the client
+    /// @param[out] mapUUID UUID of the map used by the client
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getClientMapUUID(const std::string & accessToken,
                                                  const std::string & clientUUID,
