@@ -19,7 +19,7 @@
 
 
 #include "api/pipeline/IMappingPipeline.h"
-#include "api/pipeline/IRelocalizationPipeline.h"
+#include "api/service/IClientContextManager.h"
 #include "api/service/IMapsManager.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
@@ -33,68 +33,6 @@
 namespace SolAR {
 namespace api {
 namespace service {
-
-/**
- * @typedef DeviceType
- * @brief <B>Define the types of all devices.</B>
- */
-enum class DeviceType {
-    OTHER_DEVICE = 0,
-    HOLOLENS2_HEADSET = 1,
-    LYNX_HEADSET = 2,
-    ANDROID_DEVICE = 3,
-    IOS_DEVICE = 4
-};
-
-/**
- * @struct DeviceInfo
- * @brief <B>Define any device that can request the Front End.</B>
- */
-struct DeviceInfo
-{
-    std::string deviceUUID;         // Unique ID given by the device
-    DeviceType deviceType;          // Type of the device
-    std::string deviceModel;        // Model reference given by the device
-    std::string deviceDescription;  // Additional device description
-
-    template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-        ar & deviceUUID;
-        ar & deviceType;
-        ar & deviceModel;
-        ar & deviceDescription;
-    }
-};
-
-///
-/// @typedef TransformStatus
-/// @brief <B>Indicate the status of the 3D transformation matrix</B>
-///
-enum class TransformStatus {
-    NO_3DTRANSFORM = 0,       // No 3D transform available
-    PREVIOUS_3DTRANSFORM = 1, // 3D transform previously given by the relocalization service
-    NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
-};
-
-///
-/// @typedef PipelineMode
-/// @brief <B>Modes available for the pipeline processing</B>
-///
-enum class PipelineMode {
-    RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
-    RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
-    RELOCALIZATION_ONLY = 2                 // Only relocalization
-};
-
-///
-/// @typedef PoseType
-/// @brief <B>Type of pose according to a specific coordinate system</B>
-///
-enum class PoseType {
-    SOLAR_POSE = 0,  // Pose in the SolAR coordinate system
-    DEVICE_POSE = 1  // Pose in the device coordinate system
-};
 
 /**
  * @class IFrontEnd
@@ -132,9 +70,11 @@ public:
                                                std::string & clientUUID) = 0;
 
     /// @brief Unregister a client using its UUID
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID the UUID of the client to unregister
     /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
+    virtual FrameworkReturnCode unregisterClient(const std::string & accessToken,
+                                                 const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
@@ -150,75 +90,96 @@ public:
                                                   std::vector<std::string> & clientUUIDList) const = 0;
 
     /// @brief Return the device information for the given client UUID
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[out] deviceInfo information on the client's device
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getDeviceInfo(const std::string & clientUUID,
+    virtual FrameworkReturnCode getDeviceInfo(const std::string & accessToken,
+                                              const std::string & clientUUID,
                                               DeviceInfo & deviceInfo) const = 0;
 
     /// @brief Initialization of the service
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & clientUUID) = 0;
+    virtual FrameworkReturnCode init(const std::string & accessToken,
+                                     const std::string & clientUUID) = 0;
 
     /// @brief Init the service and specify the mode for the pipeline processing
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[in] pipelineMode mode to use for pipeline processing
     /// @return FrameworkReturnCode::_SUCCESS if the mode is correctly initialized, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode init(const std::string & clientUUID,
+    virtual FrameworkReturnCode init(const std::string & accessToken,
+                                     const std::string & clientUUID,
                                      PipelineMode pipelineMode) = 0;
 
     /// @brief Start the service
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the stard succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode start(const std::string & clientUUID) = 0;
+    virtual FrameworkReturnCode start(const std::string & accessToken,
+                                      const std::string & clientUUID) = 0;
 
     /// @brief Stop the service.
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the stop succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode stop(const std::string & clientUUID) = 0;
+    virtual FrameworkReturnCode stop(const std::string & accessToken,
+                                     const std::string & clientUUID) = 0;
 
     /// @brief Return the current mode used for the pipeline processing
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[out] pipelineMode the current pipeline mode
     /// @return FrameworkReturnCode::_SUCCESS if the method succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getProcessingMode(const std::string & clientUUID,
+    virtual FrameworkReturnCode getProcessingMode(const std::string & accessToken,
+                                                  const std::string & clientUUID,
                                                   PipelineMode & pipelineMode) const = 0;
 
     /// @brief Set the camera parameters
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[in] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const std::string & clientUUID,
+    virtual FrameworkReturnCode setCameraParameters(const std::string & accessToken,
+                                                    const std::string & clientUUID,
                                                     const SolAR::datastructure::CameraParameters & cameraParams) = 0;
 
     /// @brief Set the camera parameters (use for stereo camera)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[in] cameraParams1 the camera parameters of the first camera
     /// @param[in] cameraParams2 the camera parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setCameraParameters(const std::string & clientUUID,
+    virtual FrameworkReturnCode setCameraParameters(const std::string & accessToken,
+                                                    const std::string & clientUUID,
                                                     const SolAR::datastructure::CameraParameters & cameraParams1,
                                                     const SolAR::datastructure::CameraParameters & cameraParams2) = 0;
 
     /// @brief Set the rectification parameters (use for stereo camera)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the rectification parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setRectificationParameters(const std::string & clientUUID,
+    virtual FrameworkReturnCode setRectificationParameters(const std::string & accessToken,
+                                                           const std::string & clientUUID,
                                                            const SolAR::datastructure::RectificationParameters & rectCam1,
                                                            const SolAR::datastructure::RectificationParameters & rectCam2) = 0;
 
     /// @brief Get the camera parameters
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[out] cameraParams the camera parameters (its resolution and its focal)
     /// @return FrameworkReturnCode::_SUCCESS if the camera parameters are correctly returned, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCameraParameters(const std::string & clientUUID,
+    virtual FrameworkReturnCode getCameraParameters(const std::string & accessToken,
+                                                    const std::string & clientUUID,
                                                     SolAR::datastructure::CameraParameters & cameraParams) const = 0;
 
     /// @brief Request the front end to process a new image to calculate
     /// @brief the corresponding 3D transformation to the SolAR coordinates system
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[in] images the images to process
     /// @param[in] poses the poses associated to images in the client coordinates system
@@ -228,7 +189,8 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+    FrameworkReturnCode relocalizeProcessRequest(const std::string & accessToken,
+                                                 const std::string & clientUUID,
                                                  const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                  const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                  const std::chrono::system_clock::time_point & timestamp,
@@ -239,7 +201,8 @@ public:
     {
         SolAR::datastructure::Transform3Df worldTransform(SolAR::datastructure::Maths::Matrix4f::Zero());
         std::vector<SolAR::datastructure::DetectedObject> detectedObjects;
-        return relocalizeProcessRequest(clientUUID,
+        return relocalizeProcessRequest(accessToken,
+                                        clientUUID,
                                         images,
                                         poses,
                                         /* fixedPose = */ false,
@@ -253,6 +216,7 @@ public:
     }
 
     /// @brief Request the front end to process a new image to calculate
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @brief the corresponding 3D transformation to the SolAR coordinates system
     /// @param[in] clientUUID UUID of the client
     /// @param[in] images the images to process
@@ -265,7 +229,8 @@ public:
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & accessToken,
+                                                         const std::string & clientUUID,
                                                          const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
@@ -277,6 +242,7 @@ public:
                                                          SolAR::api::pipeline::MappingStatus & mappingStatus) = 0;
 
     /// @brief Request the front end to process a new image to calculate
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @brief the corresponding 3D transformation to the SolAR coordinates system
     /// @param[in] clientUUID UUID of the client
     /// @param[in] images the images to process
@@ -290,7 +256,8 @@ public:
     /// @param[out] mappingStatus the status of the current mapping processing
     /// @param[out] detectedObjects: list of objects detected in the last processed image
     /// @return FrameworkReturnCode::_SUCCESS if the data are ready to be processed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & clientUUID,
+    virtual FrameworkReturnCode relocalizeProcessRequest(const std::string & accessToken,
+                                                         const std::string & clientUUID,
                                                          const std::vector<SRef<SolAR::datastructure::Image>> & images,
                                                          const std::vector<SolAR::datastructure::Transform3Df> & poses,
                                                          bool fixedPose,
@@ -304,36 +271,42 @@ public:
 
 
     /// @brief Request the front end to get the 3D transform offset
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @brief between the device coordinate system and the SolAR coordinate system
     /// @param[in] clientUUID UUID of the client
     /// @param[out] transform3DStatus the status of the current 3D transformation matrix
     /// @param[out] transform3D the current 3D transformation matrix (if available)
     /// @param[out] confidence the confidence score of the 3D transformation matrix
     /// @return FrameworkReturnCode::_SUCCESS if the 3D transform is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode get3DTransformRequest(const std::string & clientUUID,
+    virtual FrameworkReturnCode get3DTransformRequest(const std::string & accessToken,
+                                                      const std::string & clientUUID,
                                                       TransformStatus & transform3DStatus,
                                                       SolAR::datastructure::Transform3Df & transform3D,
                                                       float_t & confidence) = 0;
 
     /// @brief Provide the current data from the mapping service context
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @brief (resulting from all mapping processing since the start of the service)
     /// @param[in] clientUUID UUID of the client
     /// @param[out] outputPointClouds service current point clouds
     /// @param[out] keyframePoses service current keyframe poses
     /// @return FrameworkReturnCode::_SUCCESS if data are available, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMappingDataRequest(
+                                            const std::string & accessToken,
                                             const std::string & clientUUID,
                                             std::vector<SRef<SolAR::datastructure::CloudPoint>> & outputPointClouds,
                                             std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
     /// @brief Return the last pose processed by the service
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[out] pose the last pose if available
     /// @param[in] poseType the type of the requested pose
     ///            - in the SolAR coordinate system (by default)
     ///            - in the device coordinate system
     /// @return FrameworkReturnCode::_SUCCESS if the last pose is available, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getLastPose(const std::string & clientUUID,
+    virtual FrameworkReturnCode getLastPose(const std::string & accessToken,
+                                            const std::string & clientUUID,
                                             SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = PoseType::SOLAR_POSE) const = 0;
 
@@ -380,10 +353,12 @@ public:
                                                std::vector<std::string> & mapUUIDList) const = 0;
 
     /// @brief Return the map UUID used by a client specified by its UUID
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @param[out] mapUUID: UUID of the map used by the client
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID,
+    virtual FrameworkReturnCode getClientMapUUID(const std::string & accessToken,
+                                                 const std::string & clientUUID,
                                                  std::string & mapUUID) const = 0;
 
     /// @brief Request for the datastructure of a specific map
@@ -438,9 +413,30 @@ public:
                                             const std::string & mapUUID,
                                             SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
+    /// @brief Request for information on a specific map
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] descriptorType the descriptor type used to extract descriptor for each keyframe
+    /// @param[out] mapSupportedTypes the types of available data
+    /// *           (_PointCloud = 0x01, _Keyframe = 0x02, _CovisibilityGraph = 0x04, _KFRetriever = 0x08, _CameraParameters = 0x10)
+    /// @param[out] dataSize global size of the data structure of the map (in bytes)
+    /// @param[out] areImageSaved true if images are saved with keyframes, false otherwise
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map information is available
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMapInfo(const std::string & accessToken,
+                                           const std::string & mapUUID,
+                                           SolAR::datastructure::DescriptorType & descriptorType,
+                                           uint32_t & mapSupportedTypes,
+                                           uint32_t & dataSize,
+                                           bool & areImageSaved) const = 0;
+
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] resultMapUUID the UUID of the new map resulting from the processing
     /// @param[in] processingType the type of process to apply on the map
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if processing is able to proceed
@@ -452,15 +448,15 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestMapProcessing(const std::string & accessToken,
                                                      const std::string & mapUUID,
+                                                     const std::string & resultMapUUID,
                                                      const MapProcessingType processingType) = 0;
 
     /// @brief Get status and progress percentage concerning a map processing in progress
     ///        If status = COMPLETED then give the map UUID of the new resulting map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
@@ -470,15 +466,14 @@ public:
     /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapProcessingStatus(const std::string & accessToken,
-                                                       const std::string & mapUUID,
+                                                       const std::string & resultMapUUID,
                                                        MapProcessingStatus & status,
-                                                       float & progress,
-                                                       std::string & resultingMapUUID) const = 0;
+                                                       float & progress) const = 0;
 
     /// @brief Provide the current data from a map processing
     /// (resulting from all map processing since the start of the pipeline)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
     /// @return
@@ -490,7 +485,7 @@ public:
     /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapProcessingData(const std::string & accessToken,
-                                                     const std::string & mapUUID,
+                                                     const std::string & resultMapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 

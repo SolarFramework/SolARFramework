@@ -149,7 +149,7 @@ std::unique_lock<std::mutex> Map::getCameraParametersCollection(SRef<CameraParam
 
 void Map::setCameraParametersCollection(const SRef<CameraParametersCollection> cameraParametersCollection)
 {
-    m_mapSupportedTypes = m_mapSupportedTypes | MapType::_CameraParemeters;
+    m_mapSupportedTypes = m_mapSupportedTypes | MapType::_CameraParameters;
     m_cameraParametersCollection = cameraParametersCollection;
 }
 

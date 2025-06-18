@@ -81,16 +81,6 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getAllMaps(std::vector<std::string> & mapUUIDList) const = 0;
 
-    /// @brief Register a new MapUpdate service to the map manager
-    /// @param[in] serviceURL URL of the MapUpdate service
-    /// @return FrameworkReturnCode::_SUCCESS if the MapUpdate service is registered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerMapUpdateService(const std::string & serviceURL) = 0;
-
-    /// @brief Unregister a MapUpdate service from the map manager
-    /// @param[in] serviceURL URL of the MapUpdate service
-    /// @return FrameworkReturnCode::_SUCCESS if the MapUpdate service is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterMapUpdateService(const std::string & serviceURL) = 0;
-
     /// @brief Increase the number of clients using the map defined by its UUID
     /// @brief and return the URL of the MapUpdate service instance handling this map
     /// @param[in] mapUUID UUID of the map used by client
@@ -135,53 +125,56 @@ public:
         const std::string & mapUUID,
         SRef<SolAR::datastructure::PointCloud> & pointCloud) const = 0;
 
-    /// @brief Register a new Map Processing service to the map manager
-    /// @param[in] processingType the type of process managed by the service
-    /// @param[in] serviceURL URL of the Map Processing service
-    /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is registered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode registerMapProcessingService(const MapProcessingType processingType,
-                                                             const std::string & serviceURL) = 0;
-
-    /// @brief Unregister a Map Processing service from the map manager
-    /// @param[in] processingType the type of process managed by the service
-    /// @param[in] serviceURL URL of the Map Processing service
-    /// @return FrameworkReturnCode::_SUCCESS if the Map Processing service is unregistered, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode unregisterMapProcessingService(const MapProcessingType processingType,
-                                                               const std::string & serviceURL) = 0;
+    /// @brief Request the map manager for information on a specific map
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] descriptorType the descriptor type used to extract descriptor for each keyframe
+    /// @param[out] mapSupportedTypes the types of available data
+    /// *           (_PointCloud = 0x01, _Keyframe = 0x02, _CovisibilityGraph = 0x04, _KFRetriever = 0x08, _CameraParameters = 0x10)
+    /// @param[out] dataSize global size of the data structure of the map (in bytes)
+    /// @param[out] areImageSaved true if images are saved with keyframes, false otherwise
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map information is available
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getMapInfo(const std::string & mapUUID,
+                                           SolAR::datastructure::DescriptorType & descriptorType,
+                                           uint32_t & mapSupportedTypes,
+                                           uint32_t & dataSize,
+                                           bool & areImageSaved) const = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] resultMapUUID the UUID of the new map resulting from the processing
     /// @param[in] processingType the type of process to apply on the map
     /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
     ///         else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestMapProcessing(const std::string & mapUUID,
+                                                     const std::string & resultMapUUID,
                                                      const MapProcessingType processingType) = 0;
 
     /// @brief Get status and progress percentage concerning a map processing in progress
     ///        If status = COMPLETED then give the map UUID of the new resulting map
-    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] status the current map processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    /// @param[out] resultingMapUUID the map UUID of the new created map (processing result)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & mapUUID,
+    virtual FrameworkReturnCode getMapProcessingStatus(const std::string & resultMapUUID,
                                                        MapProcessingStatus & status,
-                                                       float & progress,
-                                                       std::string & resultingMapUUID) = 0;
+                                                       float & progress) = 0;
 
     /// @brief Provide the current data from a map processing for visualization
     /// (resulting from all map processing since the start of the pipeline)
-    /// @param[in] mapUUID the UUID of the map being processed
+    /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] pointCloud pipeline current point cloud
     /// @param[out] keyframePoses pipeline current keyframe poses
     /// * FrameworkReturnCode::_SUCCESS if data is available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
     /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getMapProcessingData(const std::string & mapUUID,
+    virtual FrameworkReturnCode getMapProcessingData(const std::string & resultMapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
 

@@ -50,7 +50,7 @@ public:
 		_Keyframe = 0x02,
 		_CovisibilityGraph = 0x04,
         _KFRetriever = 0x08,
-        _CameraParemeters = 0x10
+        _CameraParameters = 0x10
 	} MapType;
 
 	///

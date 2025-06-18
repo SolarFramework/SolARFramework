@@ -1,5 +1,4 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
-    $$PWD/interfaces/api/output/files/IMapExporter.h \
 interfaces/api/service/IGenericService.h \
 interfaces/datastructure/RelocalizationInformation.h \
 interfaces/datastructure/StorageCapabilities.h \
@@ -61,6 +60,7 @@ interfaces/api/loop/ILoopCorrector.h \
 interfaces/api/loop/IOverlapDetector.h \
 interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
+interfaces/api/output/files/IMapExporter.h \
 interfaces/api/pipeline/IDenseMappingPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
@@ -78,6 +78,7 @@ interfaces/api/service/IFrontEnd.h \
 interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/service/IAuthorizationChecker.h \
+interfaces/api/service/IClientContextManager.h \
 interfaces/api/sfm/IMeshing.h \
 interfaces/api/sfm/IMultiViewStereo.h \
 interfaces/api/sfm/IStructureFromMotion.h \

@@ -133,6 +133,7 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
             case ENCODING_PNG:
                 filename = "in.png";
                 break;
+            case ENCODING_NONE:
             default:
                 filename="in.jpg";
                 break;
@@ -282,6 +283,7 @@ FrameworkReturnCode Image::save(std::string imagePath) const
                 spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
             }
             break;
+        case ENCODING_NONE:
         default:
             break;
     }
@@ -344,6 +346,7 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
                     spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
                 }
                 break;
+            case ENCODING_NONE:
             default:
                 filename = "out";
         }
@@ -463,6 +466,7 @@ void Image::load(Archive & ar, const unsigned int /* version */)
              case ENCODING_PNG:
                  filename = "in.png";
                  break;
+             case ENCODING_NONE:
              default:
                  filename="in.jpg";
                  break;
@@ -520,6 +524,8 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
     case RotateQuantity::DEGREE_270:
         rotateSuccess = OIIO::ImageBufAlgo::rotate270(rotatedBuf, sourceBuf);
         break;
+    case RotateQuantity::DEGREE_0:
+        return FrameworkReturnCode::_SUCCESS;
     default:
         // not supported by OpenImageIO
         std::cout << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;

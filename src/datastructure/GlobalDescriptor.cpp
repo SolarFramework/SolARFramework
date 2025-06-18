@@ -27,7 +27,8 @@ namespace datastructure {
 
 const static std::map<GlobalDescriptorType, std::pair<size_t, GlobalDescriptorDataType>> globalDescriptorToLengthType =
 {
-    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}}
+    {GlobalDescriptorType::NETVLAD, {4096, GlobalDescriptorDataType::TYPE_32F}},
+    {GlobalDescriptorType::BOQ, {16384, GlobalDescriptorDataType::TYPE_32F}}
 };
 
 std::optional<GlobalDescriptor> GlobalDescriptor::build(GlobalDescriptorType type, unsigned char* buffer)
@@ -67,6 +68,7 @@ GlobalDescriptor::GlobalDescriptor(GlobalDescriptorType type, GlobalDescriptorDa
     }
     m_buffer->setData(buffer, len*static_cast<size_t>(dtype));
     LOG_DEBUG("Global descriptor buffer size: {} bytes", m_buffer->getSize());
+
 }
 
 size_t GlobalDescriptor::getLength() const
