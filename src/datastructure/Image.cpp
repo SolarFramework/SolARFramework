@@ -249,7 +249,7 @@ FrameworkReturnCode Image::save(std::string imagePath) const
         encoding = ENCODING_PNG;
     else
     {
-       std::cout << "Try to encode an image with an unkown suffix. Only .jpeg, .jpg and .png are accepted." << std::endl;
+       std::cerr << "Try to encode an image with an unkown suffix. Only .jpeg, .jpg and .png are accepted." << std::endl;
        return FrameworkReturnCode::_ERROR_;
     }
 
@@ -309,14 +309,14 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
     ar & m_nbChannels;
     ar & m_nbPlanes;
     ar & m_nbBitsPerComponent;
-
+    ar & m_imageEncodingQuality;
     ar & m_imageEncoding;
 
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
 
         // ImageSpec describing the image we want to write.
         OIIO::ImageSpec spec;
-        if (SolAR2OIIOType.find(m_type) != SolAR2OIIOType.end())
+        if (SolAR2OIIOType.find(m_type) == SolAR2OIIOType.end())
             spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels);
         else
             spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
@@ -352,8 +352,10 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
         }
 
         auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
-        if (!out)
-            std::cout << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+        if (!out) {
+            std::cerr << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+            return;
+        }
 
         if (!out->supports("ioproxy"))
         {
@@ -365,13 +367,12 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
 
         if (!out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data()))
         {
-            std::cout << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
+            std::cerr << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
             return;
         }
         out->close ();
 
         ar & file_buffer;
-        file_buffer.clear();
     }
     else {
         ar & m_internalImpl;
@@ -383,7 +384,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
     auto in = OIIO::ImageInput::open(imagePath);
     if (!in)
     {
-        std::cout << "Cannot load the image " << imagePath << " due to the following error: " << OIIO::geterror() << std::endl;
+        std::cerr << "Cannot load the image " << imagePath << " due to the following error: " << OIIO::geterror() << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
@@ -403,7 +404,7 @@ FrameworkReturnCode Image::load(std::string imagePath)
     }
     else
     {
-        std::cout << "Format " << spec.format << "is not supported when loading an image from a file" << std::endl;
+        std::cerr << "Format " << spec.format << "is not supported when loading an image from a file" << std::endl;
         return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
     }
     m_nbPlanes = 1;
@@ -420,13 +421,13 @@ FrameworkReturnCode Image::load(std::string imagePath)
                 m_layout = OIIO2SolARLayout.at(spec.channelnames);
             else
             {
-                std::cout << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
+                std::cerr << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
                 return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
             }
             m_nbChannels = (unsigned int)spec.nchannels;
             break;
         default:
-           std::cout << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
+           std::cerr << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
            return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
     }
 
@@ -447,7 +448,7 @@ void Image::load(Archive & ar, const unsigned int /* version */)
      ar & m_nbChannels;
      ar & m_nbPlanes;
      ar & m_nbBitsPerComponent;
-
+     ar & m_imageEncodingQuality;
      ar & m_imageEncoding;
 
      if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
@@ -528,7 +529,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
         return FrameworkReturnCode::_SUCCESS;
     default:
         // not supported by OpenImageIO
-        std::cout << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;
+        std::cerr << "Image rotation which is not 90, 180 or 270 degrees is not supported" << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
@@ -537,7 +538,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
     
     if (rotatedBuf.has_error())
     {
-        std::cout << "error: " << rotatedBuf.geterror() << std::endl;
+        std::cerr << "error: " << rotatedBuf.geterror() << std::endl;
         return FrameworkReturnCode::_ERROR_;
     }
 
