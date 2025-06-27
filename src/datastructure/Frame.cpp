@@ -47,9 +47,19 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
+const SRef<Image>& Frame::getMask() const 
+{
+	return m_mask;
+}
+
 void Frame::setView(const SRef<Image>& view)
 {
 	m_view = view;
+}
+
+void Frame::setMask(const SRef<Image>& mask)
+{
+	m_mask = mask;
 }
 
 const Transform3Df& Frame::getPose() const
@@ -213,6 +223,7 @@ template<typename Archive>
 void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
 	ar & m_view;
+	ar & m_mask;
 	ar & m_descriptors;
 	ar & m_keypoints;
 	ar & m_keypointsUndistort;	

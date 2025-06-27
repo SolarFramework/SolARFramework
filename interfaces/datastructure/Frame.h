@@ -58,9 +58,17 @@ public:
 	/// @return view image
     const SRef<Image>& getView() const;
 
+    /// @brief get mask
+    /// @return mask
+    const SRef<Image>& getMask() const;
+
 	/// @brief set view image
 	/// @param[in] view: view image
 	void setView(const SRef<Image> &view);
+
+    /// @brief set mask
+    /// @param[in] mask semantic segmentation mask
+    void setMask(const SRef<Image>& mask);
 
 	/// @brief get camera pose
 	/// @return camera pose
@@ -185,6 +193,7 @@ private:
 protected:
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
+    SRef<Image>                     m_mask; // semantic segmentation is stored as a mask
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     SRef<GlobalDescriptor>          m_globalDescriptor;
