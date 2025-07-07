@@ -49,11 +49,6 @@ void PrimitiveInformation::updateConfidence(bool isGood) {
 	m_lastUpdateTime = std::chrono::system_clock::now();
 }
 
-void PrimitiveInformation::setConfidence(const float& confidence)
-{
-	m_confidence = confidence;
-}
-
 float PrimitiveInformation::getConfidence() const {
 	return m_confidence;
 }

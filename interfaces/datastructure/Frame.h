@@ -11,7 +11,6 @@
 #include <datastructure/CloudPoint.h>
 #include <datastructure/CameraDefinitions.h>
 #include <datastructure/GlobalDescriptor.h>
-#include <datastructure/Object2DCollection.h>
 
 #include <memory>
 namespace SolAR {
@@ -63,15 +62,6 @@ public:
     /// @return mask
     const SRef<Image>& getMask() const;
 
-    /// @brief get const 2D objects
-    /// @return collection of 2D objects
-    const SRef<Object2DCollection>& getConstObject2DCollection() const;
-
-    /// @brief get 2D objects
-    /// @param[out] objects 2D object collection
-    /// @return std::unique_lock for protecting the access
-    std::unique_lock<std::mutex> getObject2DCollection(SRef<Object2DCollection>& objects);
-
 	/// @brief set view image
 	/// @param[in] view: view image
 	void setView(const SRef<Image> &view);
@@ -79,10 +69,6 @@ public:
     /// @brief set mask
     /// @param[in] mask semantic segmentation mask
     void setMask(const SRef<Image>& mask);
-
-    /// @brief set 2D objects
-    /// @param[in] objects collection of 2D objects
-    void setObject2DCollection(const SRef<Object2DCollection>& objects);
 
 	/// @brief get camera pose
 	/// @return camera pose
@@ -208,7 +194,6 @@ protected:
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
     SRef<Image>                     m_mask; // semantic segmentation is stored as a mask
-    SRef<Object2DCollection>        m_objects; // instance segmentation result is stored as a list of 2D objects
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     SRef<GlobalDescriptor>          m_globalDescriptor;

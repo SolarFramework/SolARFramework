@@ -51,10 +51,6 @@ public:
 	/// @param[in] isGood: it is true if the primitive element is considered as an inlier for this use. It is false in the otherwise.
 	void updateConfidence(bool isGood);
 
-    /// @brief Set confidence
-    /// @param[in] confidence confidence score
-    void setConfidence(const float& confidence);
-
 	/// @brief This method returns the confident score of the primitive element
 	/// @return the confident score
 	float getConfidence() const;
@@ -85,11 +81,11 @@ private:
     void serialize(Archive &ar, const unsigned int version);
 
 private:
-	float										m_confidence = 0;
-	uint32_t									m_usedTimes = 0;
+	float										m_confidence;
+	uint32_t									m_usedTimes;
 	std::chrono::system_clock::time_point		m_lastUpdateTime;
-	int											m_semanticId = -1; // -1 meaning no semantic info
-	bool										m_isValid = true;
+	int											m_semanticId;
+	bool										m_isValid;
 };
 
 DECLARESERIALIZE(PrimitiveInformation);

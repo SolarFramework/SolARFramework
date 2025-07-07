@@ -24,12 +24,16 @@ namespace segm {
 
 FrameworkReturnCode ISemanticSegmentation::segment(const std::vector<SRef<Image>>& images, std::vector<SRef<Image>>& masks)
 {
-    masks.reserve(images.size());
+    masks.resize(images.size());
+    bool hasError = false;
     for (size_t i = 0; i < images.size(); ++i) {
         if (segment(images[i], masks[i]) != FrameworkReturnCode::_SUCCESS) {
-            LOG_ERROR("ISemanticSegmentation::segment - semantic segmentation failed.");
-            return FrameworkReturnCode::_ERROR_;
+            hasError = true;
         }
+    }
+    if (hasError) {
+        LOG_ERROR("Semantic segmentation encountered errors.");
+        return FrameworkReturnCode::_ERROR_;
     }
     return FrameworkReturnCode::_SUCCESS;
 }

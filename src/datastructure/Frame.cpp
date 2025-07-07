@@ -52,17 +52,6 @@ const SRef<Image>& Frame::getMask() const
 	return m_mask;
 }
 
-const SRef<Object2DCollection>& Frame::getConstObject2DCollection() const
-{
-    return m_objects;
-}
-
-std::unique_lock<std::mutex> Frame::getObject2DCollection(SRef<Object2DCollection>& objects)
-{
-	objects = m_objects;
-    return m_objects->acquireLock();
-}
-
 void Frame::setView(const SRef<Image>& view)
 {
 	m_view = view;
@@ -71,11 +60,6 @@ void Frame::setView(const SRef<Image>& view)
 void Frame::setMask(const SRef<Image>& mask)
 {
 	m_mask = mask;
-}
-
-void Frame::setObject2DCollection(const SRef<Object2DCollection>& objects)
-{
-    m_objects = objects;
 }
 
 const Transform3Df& Frame::getPose() const
@@ -246,9 +230,8 @@ void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_imageName;
     ar & m_camID;
     ar & m_isFixedPose;
-    ar & m_mapVisibility;
-    ar & m_globalDescriptor;
-    ar & m_objects;
+	ar & m_mapVisibility;
+	ar & m_globalDescriptor;
 }
 
 IMPLEMENTSERIALIZE(Frame);

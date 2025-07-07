@@ -150,8 +150,6 @@ interfaces/datastructure/KeyframeRetrieval.h \
 interfaces/datastructure/KeyframeCollection.h \
 interfaces/datastructure/Lockable.h \
 interfaces/datastructure/Map.h \
-interfaces/datastructure/Object2D.h \
-interfaces/datastructure/Object2DCollection.h \
 interfaces/datastructure/StorageTrackable.h \
 interfaces/datastructure/StorageWorldAnchor.h \
 interfaces/datastructure/StorageWorldElement.h \
@@ -201,8 +199,6 @@ src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
 src/datastructure/Mesh.cpp \
-src/datastructure/Object2D.cpp \
-src/datastructure/Object2DCollection.cpp \
 src/datastructure/StorageTrackable.cpp \
 src/datastructure/StorageWorldAnchor.cpp \
 src/datastructure/StorageWorldElement.cpp \

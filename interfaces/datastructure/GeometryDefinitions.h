@@ -187,40 +187,8 @@ private:
 };
 
 /**
- * @class BBox2Df
- * @brief <B>A 2D bounding box with coordinates defined with float values.</B>
- * 
- */
-class BBox2Df {
-public:
-    BBox2Df() = default;
-    BBox2Df(const Point2Df& corner, float width, float height): m_corner(corner), m_width(width), m_height(height) { };
-    BBox2Df(const float& x, const float& y, float width, float height): m_width(width), m_height(height) { m_corner = {x, y}; };
-    ~BBox2Df() = default;
-    void setCorner(const Point2Df& corner) { m_corner = corner; };
-    void setWidth(const float& w) { m_width = w; };
-    void setHeight(const float& h) { m_height = h; };
-    const Point2Df& getCorner() const { return m_corner; };
-    const float& getWidth() const { return m_width; };
-    const float& getHeight() const { return m_height; };
-
-private:
-    friend class boost::serialization::access;
-    template<typename Archive>
-    void serialize(Archive &ar, const unsigned int /* version */){
-        ar & m_corner;
-        ar & m_width;
-        ar & m_height;
-    }
-
-    Point2Df m_corner = {0, 0};
-    float m_width = 0;
-    float m_height = 0;
-};
-
-/**
  * @class BBox3Df
- * @brief <B>A bounding box 3D with coordinates defined with float values.</B>
+ * @brief <B>A bounding box 3D with coordinates defined with integers.</B>
  *
  */
 class BBox3Df {
