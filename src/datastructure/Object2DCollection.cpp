@@ -51,20 +51,6 @@ FrameworkReturnCode Object2DCollection::getObject2D(const uint32_t& id, SRef<Obj
     return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode Object2DCollection::getAllObject2Ds(std::vector<SRef<Object2D>>& objects) const
-{
-    objects.reserve(m_objects.size());
-    for (const auto& obj : m_objects) {
-        objects.push_back(obj.second);
-    }
-    return FrameworkReturnCode::_SUCCESS;
-}
-
-size_t Object2DCollection::getNbObject2Ds() const
-{
-    return m_objects.size();
-}
-
 template<typename Archive>
 void Object2DCollection::serialize(Archive &ar, const unsigned int /* version */) 
 {

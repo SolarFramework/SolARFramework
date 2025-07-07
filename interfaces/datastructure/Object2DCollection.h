@@ -55,15 +55,6 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode getObject2D(const uint32_t& id, SRef<Object2D>& obj);
 
-    /// @brief get all 2D objects
-    /// @param[out] objects list of all 2D objects
-    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode getAllObject2Ds(std::vector<SRef<Object2D>>& objects) const;
-
-    /// @brief get number of 2D objects
-    /// @return number of 2D objects
-    size_t getNbObject2Ds() const;
-
 private:
     /// @brief serialization
     friend class boost::serialization::access;
