@@ -46,6 +46,28 @@ enum class MapProcessingType {
     STRUCTURE_FROM_MOTION = 1
 };
 
+/// @brief Return the text definition (string) of a MapProcessingType object
+/// @param[in] mapProcessingType the map processing type
+/// @return the text definition (string)
+static std::string toString(const MapProcessingType mapProcessingType)
+{
+    std::string textDefinition = "";
+
+    switch (mapProcessingType) {
+        case MapProcessingType::UNDEFINED:
+            textDefinition = "UNDEFINED";
+            break;
+        case MapProcessingType::STRUCTURE_FROM_MOTION:
+            textDefinition = "STRUCTURE_FROM_MOTION";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 ///
 /// @typedef MapProcessingStatus
 /// @brief <B>Indicate the status of a map processing</B>
@@ -56,6 +78,34 @@ enum class MapProcessingStatus {
     FAILED = 2,           // Processing failed (and stopped) for the map
     COMPLETED = 3         // Processing completed and successful for the map
 };
+
+/// @brief Return the text definition (string) of a MapProcessingStatus object
+/// @param[in] mapProcessingStatus the map processing status
+/// @return the text definition (string)
+static std::string toString(const MapProcessingStatus mapProcessingStatus)
+{
+    std::string textDefinition = "";
+
+    switch (mapProcessingStatus) {
+        case MapProcessingStatus::NO_PROCESSING:
+            textDefinition = "NO_PROCESSING";
+            break;
+        case MapProcessingStatus::IN_PROGRESS:
+            textDefinition = "IN_PROGRESS";
+            break;
+        case MapProcessingStatus::FAILED:
+            textDefinition = "FAILED";
+            break;
+        case MapProcessingStatus::COMPLETED:
+            textDefinition = "COMPLETED";
+            break;
+    default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
 
 /**
  * @class IMapsManager
