@@ -109,7 +109,7 @@ public:
     /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
     /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
-    [[deprecated]]
+    [[deprecated("use getClientInfoForMap to get information on clients currently using a map")]]
     virtual FrameworkReturnCode getAllClientsUUID(const std::string & accessToken,
                                                   std::vector<std::string> & clientUUIDList) const = 0;
 
@@ -126,7 +126,7 @@ public:
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] clientUUID UUID of the client
     /// @return FrameworkReturnCode::_SUCCESS if the init succeed, FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available else FrameworkReturnCode::_ERROR_
-    [[deprecated]]
+    [[deprecated("must set the pipeline mode on init")]]
     virtual FrameworkReturnCode init(const std::string & accessToken,
                                      const std::string & clientUUID) = 0;
 
@@ -188,7 +188,7 @@ public:
     /// @param[in] rectCam1 the rectification parameters of the first camera
     /// @param[in] rectCam2 the rectification parameters of the second camera
     /// @return FrameworkReturnCode::_SUCCESS if the rectification parameters are correctly set, else FrameworkReturnCode::_ERROR_
-    [[deprecated]]
+    [[deprecated("no more use of this method")]]
     virtual FrameworkReturnCode setRectificationParameters(const std::string & accessToken,
                                                            const std::string & clientUUID,
                                                            const SolAR::datastructure::RectificationParameters & rectCam1,
@@ -318,12 +318,7 @@ public:
     /// @brief Return a list of information on each client currently using a given map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
-    /// @param[out] clientInfoList list of all the clients currently using the map, and for each client:
-    ///             - its UUID
-    ///             - the information on its device
-    ///             - the status of its current 3D transformation matrix
-    ///             - its current 3D transformation matrix (if available)
-    ///             - the processing mode (mapping or relocalization)
+    /// @param[out] clientInfoList list of all the clients currently using the map
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getClientInfoForMap(const std::string & accessToken,
                                                     const std::string & mapUUID,
