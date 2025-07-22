@@ -28,6 +28,16 @@ namespace api {
 namespace service {
 
 ///
+/// @typedef GetMapRequestOption
+/// @brief <B>Indicate if keyframe images must be kept or not in map datastructure</B>
+///
+
+enum class GetMapRequestOption {
+    WITH_KEYFRAME_IMAGES = 0,
+    WITHOUT_KEYFRAME_IMAGES = 1
+};
+
+///
 /// @typedef MapProcessingType
 /// @brief <B>Define the different types of map processing available</B>
 ///
@@ -100,7 +110,7 @@ public:
     /// @brief Request the map manager to get the datastructure of a specific map
     /// @param[in] mapUUID UUID of the map
     /// @param[out] map the output map datastructure
-    /// @param[in] withKeyframeImages indicate if the keyframe images are requested in output datastructure (true by default)
+    /// @param[in] keyframeImagesOption indicate if the keyframe images are requested in output datastructure (requested by default)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map is available
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
@@ -108,7 +118,7 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
         const std::string & mapUUID,
         SRef<SolAR::datastructure::Map> & map,
-        const bool withKeyframeImages = true) const = 0;
+        const SolAR::api::service::GetMapRequestOption & keyframeImagesOption = SolAR::api::service::GetMapRequestOption::WITH_KEYFRAME_IMAGES) const = 0;
 
     /// @brief Request the map manager to update the datastructure of a specific map
     /// @param[in] mapUUID UUID of the map to use

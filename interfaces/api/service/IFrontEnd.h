@@ -47,7 +47,7 @@ struct ClientInfo
     PipelineMode pipelineMode;                      // Current mode used for image processing
 
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version)
+    void serialize(Archive& ar, const unsigned int /* version */)
     {
         ar & clientUUID;
         ar & deviceInfo;
@@ -333,7 +333,7 @@ public:
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map to use
     /// @param[out] mapDatastructure the output map datastructure
-    /// @param[in] withKeyframeImages indicate if the keyframe images are requested in output datastructure (true by default)
+    /// @param[in] keyframeImagesOption indicate if the keyframe images are requested in output datastructure (requested by default)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the global map is available
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
@@ -344,10 +344,10 @@ public:
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if no map is known to be identified by mapUUID
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
-                                            const std::string & accessToken,
-                                            const std::string & mapUUID,
-                                            SRef<SolAR::datastructure::Map> & mapDatastructure,
-                                            const bool withKeyframeImages = true) const = 0;
+        const std::string & accessToken,
+        const std::string & mapUUID,
+        SRef<SolAR::datastructure::Map> & mapDatastructure,
+        const SolAR::api::service::GetMapRequestOption & keyframeImagesOption = SolAR::api::service::GetMapRequestOption::WITH_KEYFRAME_IMAGES) const = 0;
 
     /// @brief Request to update the datastructure of a specific map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
