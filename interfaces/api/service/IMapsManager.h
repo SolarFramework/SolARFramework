@@ -28,6 +28,16 @@ namespace api {
 namespace service {
 
 ///
+/// @typedef GetMapRequestOption
+/// @brief <B>Indicate if keyframe images must be kept or not in map datastructure</B>
+///
+
+enum class GetMapRequestOption {
+    WITH_KEYFRAME_IMAGES = 0,
+    WITHOUT_KEYFRAME_IMAGES = 1
+};
+
+///
 /// @typedef MapProcessingType
 /// @brief <B>Define the different types of map processing available</B>
 ///
@@ -35,6 +45,28 @@ enum class MapProcessingType {
     UNDEFINED = 0,
     STRUCTURE_FROM_MOTION = 1
 };
+
+/// @brief Return the text definition (string) of a MapProcessingType object
+/// @param[in] mapProcessingType the map processing type
+/// @return the text definition (string)
+static std::string toString(const MapProcessingType mapProcessingType)
+{
+    std::string textDefinition = "";
+
+    switch (mapProcessingType) {
+        case MapProcessingType::UNDEFINED:
+            textDefinition = "UNDEFINED";
+            break;
+        case MapProcessingType::STRUCTURE_FROM_MOTION:
+            textDefinition = "STRUCTURE_FROM_MOTION";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
 
 ///
 /// @typedef MapProcessingStatus
@@ -46,6 +78,34 @@ enum class MapProcessingStatus {
     FAILED = 2,           // Processing failed (and stopped) for the map
     COMPLETED = 3         // Processing completed and successful for the map
 };
+
+/// @brief Return the text definition (string) of a MapProcessingStatus object
+/// @param[in] mapProcessingStatus the map processing status
+/// @return the text definition (string)
+static std::string toString(const MapProcessingStatus mapProcessingStatus)
+{
+    std::string textDefinition = "";
+
+    switch (mapProcessingStatus) {
+        case MapProcessingStatus::NO_PROCESSING:
+            textDefinition = "NO_PROCESSING";
+            break;
+        case MapProcessingStatus::IN_PROGRESS:
+            textDefinition = "IN_PROGRESS";
+            break;
+        case MapProcessingStatus::FAILED:
+            textDefinition = "FAILED";
+            break;
+        case MapProcessingStatus::COMPLETED:
+            textDefinition = "COMPLETED";
+            break;
+    default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
 
 /**
  * @class IMapsManager
@@ -100,13 +160,15 @@ public:
     /// @brief Request the map manager to get the datastructure of a specific map
     /// @param[in] mapUUID UUID of the map
     /// @param[out] map the output map datastructure
+    /// @param[in] keyframeImagesOption indicate if the keyframe images are requested in output datastructure (requested by default)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map is available
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
         const std::string & mapUUID,
-        SRef<SolAR::datastructure::Map> & map) const = 0;
+        SRef<SolAR::datastructure::Map> & map,
+        const SolAR::api::service::GetMapRequestOption & keyframeImagesOption = SolAR::api::service::GetMapRequestOption::WITH_KEYFRAME_IMAGES) const = 0;
 
     /// @brief Request the map manager to update the datastructure of a specific map
     /// @param[in] mapUUID UUID of the map to use

@@ -43,6 +43,37 @@ enum class DeviceType {
     IOS_DEVICE = 4
 };
 
+/// @brief Return the text definition (string) of a DeviceType object
+/// @param[in] deviceType the device type
+/// @return the text definition (string)
+static std::string toString(const DeviceType deviceType)
+{
+    std::string textDefinition = "";
+
+    switch (deviceType) {
+        case DeviceType::OTHER_DEVICE:
+            textDefinition = "OTHER_DEVICE";
+            break;
+        case DeviceType::HOLOLENS2_HEADSET:
+            textDefinition = "HOLOLENS2_HEADSET";
+            break;
+        case DeviceType::LYNX_HEADSET:
+            textDefinition = "LYNX_HEADSET";
+            break;
+        case DeviceType::ANDROID_DEVICE:
+            textDefinition = "ANDROID_DEVICE";
+            break;
+        case DeviceType::IOS_DEVICE:
+            textDefinition = "IOS_DEVICE";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 /**
  * @struct DeviceInfo
  * @brief <B>Define any device that can request the Front End.</B>
@@ -74,6 +105,31 @@ enum class TransformStatus {
     NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
 };
 
+/// @brief Return the text definition (string) of a TransformStatus object
+/// @param[in] transformStatus the transformation status
+/// @return the text definition (string)
+static std::string toString(const TransformStatus transformStatus)
+{
+    std::string textDefinition = "";
+
+    switch (transformStatus) {
+        case TransformStatus::NO_3DTRANSFORM:
+            textDefinition = "NO_3DTRANSFORM";
+            break;
+        case TransformStatus::PREVIOUS_3DTRANSFORM:
+            textDefinition = "PREVIOUS_3DTRANSFORM";
+            break;
+        case TransformStatus::NEW_3DTRANSFORM:
+            textDefinition = "NEW_3DTRANSFORM";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 ///
 /// @typedef PipelineMode
 /// @brief <B>Modes available for the pipeline processing</B>
@@ -84,6 +140,31 @@ enum class PipelineMode {
     RELOCALIZATION_ONLY = 2                 // Only relocalization
 };
 
+/// @brief Return the text definition (string) of a PipelineMode object
+/// @param[in] pipelineMode the pipeline mode
+/// @return the text definition (string)
+static std::string toString(const PipelineMode pipelineMode)
+{
+    std::string textDefinition = "";
+
+    switch (pipelineMode) {
+        case PipelineMode::RELOCALIZATION_AND_MAPPING:
+            textDefinition = "RELOCALIZATION_AND_MAPPING";
+            break;
+        case PipelineMode::RELOCALIZATION_AND_STEREO_MAPPING:
+            textDefinition = "RELOCALIZATION_AND_STEREO_MAPPING";
+            break;
+        case PipelineMode::RELOCALIZATION_ONLY:
+            textDefinition = "RELOCALIZATION_ONLY";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 ///
 /// @typedef PoseType
 /// @brief <B>Type of pose according to a specific coordinate system</B>
@@ -92,6 +173,28 @@ enum class PoseType {
     SOLAR_POSE = 0,  // Pose in the SolAR coordinate system
     DEVICE_POSE = 1  // Pose in the device coordinate system
 };
+
+/// @brief Return the text definition (string) of a PoseType object
+/// @param[in] poseType the pose type
+/// @return the text definition (string)
+static std::string toString(const PoseType poseType)
+{
+    std::string textDefinition = "";
+
+    switch (poseType) {
+        case PoseType::SOLAR_POSE:
+            textDefinition = "SOLAR_POSE";
+            break;
+        case PoseType::DEVICE_POSE:
+            textDefinition = "DEVICE_POSE";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
 
 /**
  * @class IClientContextManager
