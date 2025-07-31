@@ -60,7 +60,7 @@ public:
 
     /// @brief get mask
     /// @return mask
-    const SRef<Image>& getMask() const;
+    const SRef<Image> getMask() const;
 
 	/// @brief set view image
 	/// @param[in] view: view image
@@ -68,7 +68,7 @@ public:
 
     /// @brief set mask
     /// @param[in] mask semantic segmentation mask
-    void setMask(const SRef<Image>& mask);
+    void setMask(const SRef<Image> mask);
 
 	/// @brief get camera pose
 	/// @return camera pose

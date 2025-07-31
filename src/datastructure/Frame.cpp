@@ -47,7 +47,7 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
-const SRef<Image>& Frame::getMask() const 
+const SRef<Image> Frame::getMask() const 
 {
 	return m_mask;
 }
@@ -57,7 +57,7 @@ void Frame::setView(const SRef<Image>& view)
 	m_view = view;
 }
 
-void Frame::setMask(const SRef<Image>& mask)
+void Frame::setMask(const SRef<Image> mask)
 {
 	m_mask = mask;
 }
