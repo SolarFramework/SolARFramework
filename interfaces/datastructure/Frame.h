@@ -193,7 +193,7 @@ private:
 protected:
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
-    SRef<Image>                     m_mask; // semantic segmentation is stored as a mask
+    SRef<Image>                     m_mask; // to store 2D image segmentation result
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     SRef<GlobalDescriptor>          m_globalDescriptor;

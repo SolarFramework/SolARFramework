@@ -29,10 +29,11 @@ FrameworkReturnCode ISemanticSegmentation::segment(const std::vector<SRef<Image>
     for (size_t i = 0; i < images.size(); ++i) {
         if (segment(images[i], masks[i]) != FrameworkReturnCode::_SUCCESS) {
             hasError = true;
+            break;
         }
     }
     if (hasError) {
-        LOG_ERROR("Semantic segmentation encountered errors.");
+        LOG_ERROR("ISemanticSegmentation::segment - semantic segmentation encountered errors.");
         return FrameworkReturnCode::_ERROR_;
     }
     return FrameworkReturnCode::_SUCCESS;
