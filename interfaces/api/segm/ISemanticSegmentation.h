@@ -23,6 +23,7 @@
 #include "core/Messages.h"
 
 namespace SolAR {
+using namespace datastructure;
 namespace api {
 namespace segm {
 
@@ -46,8 +47,13 @@ public:
     /// @param[in] image The input image.
     /// @param[out] mask The mask has same size as the input image, in which the value of each pixel is corresponding to the class id.
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode segment(const SRef<SolAR::datastructure::Image> image,
-                                        SRef<SolAR::datastructure::Image> &mask) = 0;
+    virtual FrameworkReturnCode segment(const SRef<Image> image, SRef<Image> &mask) = 0;
+
+    /// @brief Perform 2D semantic segmentation
+    /// @param[in] images List of input images.
+    /// @param[out] masks List of output masks (mask has same size as the input image, in which the value of each pixel is corresponding to the class id).
+    /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode segment(const std::vector<SRef<Image>>& images, std::vector<SRef<Image>>& masks);
 };
 
 }
