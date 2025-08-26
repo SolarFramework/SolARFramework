@@ -41,8 +41,8 @@ public:
 
 	///
 	/// @brief PointCloud constructor.
-	///
-	PointCloud() { m_id = 0; };
+    ///
+    PointCloud() { m_id = 0; m_descriptorType = DescriptorType::AKAZE; };
     PointCloud(const PointCloud& other): m_pointCloud(other.m_pointCloud), m_descriptorType(other.m_descriptorType), m_id(other.m_id) {};
     PointCloud& operator=(const PointCloud& /* other */) { return *this; };
 
