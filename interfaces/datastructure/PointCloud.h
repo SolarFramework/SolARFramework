@@ -42,7 +42,7 @@ public:
 	///
 	/// @brief PointCloud constructor.
     ///
-    PointCloud() { m_id = 0; m_descriptorType = DescriptorType::AKAZE; };
+    PointCloud();
     PointCloud(const PointCloud& other): m_pointCloud(other.m_pointCloud), m_descriptorType(other.m_descriptorType), m_id(other.m_id) {};
     PointCloud& operator=(const PointCloud& /* other */) { return *this; };
 
@@ -123,8 +123,8 @@ private:
 	void serialize(Archive &ar, const unsigned int version);
 
     std::map<uint32_t, SRef<SolAR::datastructure::CloudPoint>>	m_pointCloud;
-    SolAR::datastructure::DescriptorType                        m_descriptorType;
-    uint32_t                                                    m_id;
+    SolAR::datastructure::DescriptorType                        m_descriptorType{DescriptorType::AKAZE};
+    uint32_t                                                    m_id{0};
 };
 
 DECLARESERIALIZE(PointCloud);
