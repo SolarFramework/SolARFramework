@@ -43,7 +43,8 @@ enum class GetMapRequestOption {
 ///
 enum class MapProcessingType {
     UNDEFINED = 0,
-    STRUCTURE_FROM_MOTION = 1
+    STRUCTURE_FROM_MOTION = 1,
+    DENSE_MAPPING = 2
 };
 
 /// @brief Return the text definition (string) of a MapProcessingType object
