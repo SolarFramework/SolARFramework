@@ -367,19 +367,28 @@ ATTRIBUTE(maybe_unused) static Rotation rotationVectorToMatrix(const Vector3f& r
  * @brief <B> Compute triangulation angle between two vectors.</B>
  * @param[in] v1 first vector
  * @param[in] v2 second vector
- * @return angle in unit of degrees
+ * @return angle in unit of degrees (-1 when impossible to compute the angle between the two input vectors)
  */
 ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& v1, const Vector3f& v2) {
+    static const float epsilon = 1e-8;
     float norm1 = v1.norm();
     float norm2 = v2.norm();
-    if (norm1 == 0 || norm2 == 0) {
-        return 0.f;
+    if (norm1 < epsilon || norm2 < epsilon) {
+        return -1;
     }
     auto v1n = v1/norm1;
     auto v2n = v2/norm2;
-    float angle = std::acos(v1n.dot(v2n))*SOLAR_RAD2DEG;
+    auto dotp = v1n.dot(v2n);
+    if (dotp > 1 - epsilon) {
+        return 0; // very close to 0 degree
+    }
+    if (dotp < -1 + epsilon) {
+        return 180;
+    }
+    float angle = std::acos(dotp)*SOLAR_RAD2DEG;
     if (std::isnan(angle)) {
-        return 0.f;
+        // acos on values close to 1 or -1 may lead to nan
+        return dotp > 0 ? 0 : 180;
     }
     return angle;
 }
@@ -389,7 +398,7 @@ ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& v1, cons
  * @param[in] x point's spatial coordinates
  * @param[in] p1 first spatial position
  * @param[in] p2 second spatial position
- * @return angle in unit of degrees
+ * @return angle in unit of degrees (-1 when impossible to compute the angle between the two input vectors)
  */
 ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& x, const Vector3f& p1, const Vector3f& p2) {
     Vector3f vec1 = x - p1;
@@ -402,11 +411,11 @@ ATTRIBUTE(maybe_unused) static float triangulationAngle(const Vector3f& x, const
  * @param[in] x point's spatial coordinates
  * @param[in] pose1 first camera pose
  * @param[in] pose2 second camera pose
- * @return angle in unit of degrees
+ * @return angle in unit of degrees (-1 when impossible to compute the angle between the two input vectors)
  */
 ATTRIBUTE(maybe_unused) static float triangulationAngle(Vector3f x, const Transform3Df& pose1, const Transform3Df& pose2) {
     if (pose1.matrix().isZero() || pose2.matrix().isZero()) {
-        return 0.f;
+        return -1;
     }
     return triangulationAngle(x, pose1.translation(), pose2.translation());
 }
