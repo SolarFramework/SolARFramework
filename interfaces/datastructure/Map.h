@@ -17,6 +17,7 @@
 #ifndef SOLAR_MAP_H
 #define SOLAR_MAP_H
 
+#include <core/SolARFramework.h>
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/Trackable.h>
@@ -37,6 +38,20 @@
 
 namespace SolAR {
 namespace datastructure {
+
+/**
+     * @struct MapInfo
+     * @brief <B>Define information on each map.</B>
+     */
+struct MapInfo
+{
+    std::string                             version;
+    datastructure::DescriptorType           descriptorType;
+    datastructure::GlobalDescriptorType     globalDescriptorType;
+    bool                                    hasKeyframeImages;
+
+    MapInfo(): version(getSolARFrameworkVersion()), hasKeyframeImages(false) {}
+};
 
 /**
 * @class Map
@@ -213,6 +228,48 @@ public:
     ///
     TrackableType getType() const override;
 
+    ///
+    /// @brief This method is used to get the map version (framework version)
+    /// @return the map version
+    ///
+    std::string getVersion() const;
+
+    ///
+    /// @brief This method is used to get the descriptor type used for the map
+    /// @return the descriptor type
+    ///
+    datastructure::DescriptorType getDescriptorType() const;
+
+    ///
+    /// @brief This method is used to set the descriptor type used for the map
+    /// @param[in] descriptorType the descriptor type
+    ///
+    void setDescriptorType(const datastructure::DescriptorType & descriptorType);
+
+    ///
+    /// @brief This method is used to get the global descriptor type used for the map
+    /// @return the global descriptor type
+    ///
+    datastructure::GlobalDescriptorType getGlobalDescriptorType() const;
+
+    ///
+    /// @brief This method is used to set the global descriptor type used for the map
+    /// @param[in] globalDescriptorType the global descriptor type
+    ///
+    void setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType);
+
+    ///
+    /// @brief This method is used to find out if the map contains keyframe images
+    /// @return true if keyframe images are embedded, false otherwise
+    ///
+    bool hasKeyframeImages() const;
+
+    ///
+    /// @brief This method is used to indicate if the map contains keyframe images
+    /// @param[in] hasKeyframeImages true: keyframe images stored in map datastructure, false otherwise
+    ///
+    void setHasKeyframeImages(const bool hasKeyframeImages);
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -226,6 +283,7 @@ private:
     SRef<CovisibilityGraph>                             m_covisibilityGraph;
     SRef<KeyframeRetrieval>                             m_keyframeRetrieval;
     SRef<CameraParametersCollection>                    m_cameraParametersCollection;
+    MapInfo                                             m_mapInfo;
 };
 
 
