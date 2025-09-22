@@ -40,20 +40,6 @@ namespace SolAR {
 namespace datastructure {
 
 /**
-     * @struct MapInfo
-     * @brief <B>Define information on each map.</B>
-     */
-struct MapInfo
-{
-    std::string                             version;
-    datastructure::DescriptorType           descriptorType;
-    datastructure::GlobalDescriptorType     globalDescriptorType;
-    bool                                    hasKeyframeImages;
-
-    MapInfo(): version(getSolARFrameworkVersion()), hasKeyframeImages(false) {}
-};
-
-/**
 * @class Map
 * @brief <B>A generic map composed of an identification and a coordinate system.</B>
 * This class provides a generic map.
@@ -71,10 +57,14 @@ public:
 	///
     /// @brief Map constructor.
     ///
-	Map();
+    Map(): Map(getSolARFrameworkVersion(), DescriptorType::AKAZE, GlobalDescriptorType::NETVLAD, false) {};
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
-	Map(MapType type) { m_mapSupportedTypes = type; };
+    Map(MapType type): m_mapSupportedTypes(type), m_embedKeyframeImages(false) {};
+    Map(const std::string & frameworkVersion,
+        const datastructure::DescriptorType & descriptorType,
+        const datastructure::GlobalDescriptorType & globalDescriptorType,
+        bool embedKeyframeImages);
 
 	///
     /// @brief ~Map
@@ -229,16 +219,10 @@ public:
     TrackableType getType() const override;
 
     ///
-    /// @brief This method is used to get the map version (framework version)
-    /// @return the map version
+    /// @brief This method is used to set the framework version used to create the map
+    /// @param[in] frameworkVersion the framework version
     ///
-    std::string getVersion() const;
-
-    ///
-    /// @brief This method is used to get the descriptor type used for the map
-    /// @return the descriptor type
-    ///
-    datastructure::DescriptorType getDescriptorType() const;
+    void setFrameworkVersion(const std::string & frameworkVersion);
 
     ///
     /// @brief This method is used to set the descriptor type used for the map
@@ -247,28 +231,31 @@ public:
     void setDescriptorType(const datastructure::DescriptorType & descriptorType);
 
     ///
-    /// @brief This method is used to get the global descriptor type used for the map
-    /// @return the global descriptor type
-    ///
-    datastructure::GlobalDescriptorType getGlobalDescriptorType() const;
-
-    ///
     /// @brief This method is used to set the global descriptor type used for the map
     /// @param[in] globalDescriptorType the global descriptor type
     ///
     void setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType);
 
     ///
+    /// @brief This method is used to get the map information (framework version and descriptors)
+    /// @param[out] frameworkVersion the version of the framework used to create the map
+    /// @param[out] descriptorType the type of descriptor used for the map
+    /// @param[out] globalDescriptorType the type of global descriptor used for the map
+    ///
+    void getInformation(std::string & frameworkVersion,
+                        datastructure::DescriptorType & descriptorType,
+                        datastructure::GlobalDescriptorType & globalDescriptorType) const;
+
+    ///
+    /// @brief This method is used to indicate that the map must embed keyframe images
+    ///
+    void embedKeyframeImages();
+
+    ///
     /// @brief This method is used to find out if the map contains keyframe images
     /// @return true if keyframe images are embedded, false otherwise
     ///
     bool hasKeyframeImages() const;
-
-    ///
-    /// @brief This method is used to indicate if the map contains keyframe images
-    /// @param[in] hasKeyframeImages true: keyframe images stored in map datastructure, false otherwise
-    ///
-    void setHasKeyframeImages(const bool hasKeyframeImages);
 
 private:
     friend class boost::serialization::access;
@@ -283,7 +270,11 @@ private:
     SRef<CovisibilityGraph>                             m_covisibilityGraph;
     SRef<KeyframeRetrieval>                             m_keyframeRetrieval;
     SRef<CameraParametersCollection>                    m_cameraParametersCollection;
-    MapInfo                                             m_mapInfo;
+
+    std::string                                         m_frameworkVersion;             // Framework version used to create map (for compatibility)
+    datastructure::DescriptorType                       m_descriptorType;               // Type of descriptor used for the map
+    datastructure::GlobalDescriptorType                 m_globalDescriptorType;         // Type of global descriptor used for the map
+    bool                                                m_embedKeyframeImages = false;  // Indicate if keyframe images must be embedded in datastructure
 };
 
 
