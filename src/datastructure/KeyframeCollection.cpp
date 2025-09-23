@@ -84,6 +84,28 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyfram
 	return FrameworkReturnCode::_SUCCESS;
 }
 
+FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector<SRef<Keyframe>>& keyframes) const
+{
+    for (auto [id, kf]: m_keyframes) {
+        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf->getKeypoints(),
+                                                                                 kf->getUndistortedKeypoints(),
+                                                                                 kf->getDescriptors(),
+                                                                                 nullptr, // Image
+                                                                                 kf->getReferenceKeyframe(),
+                                                                                 kf->getCameraID(),
+                                                                                 kf->getPose());
+        keyframeWithoutImage->setMask(kf->getMask());
+        keyframeWithoutImage->setFixedPose(kf->isFixedPose());
+        keyframeWithoutImage->setVisibility(kf->getVisibility());
+        keyframeWithoutImage->setImageName(kf->getImageName());
+        keyframeWithoutImage->setGlobalDescriptor(kf->getGlobalDescriptor());
+        keyframeWithoutImage->setMask(kf->getMask());
+
+        keyframes.push_back(keyframeWithoutImage);
+    }
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 FrameworkReturnCode KeyframeCollection::suppressKeyframe(const uint32_t id)
 {
 	std::map< uint32_t, SRef<Keyframe>>::iterator keyframeIt = m_keyframes.find(id);
