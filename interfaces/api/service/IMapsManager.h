@@ -200,7 +200,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapInfo(const std::string & mapUUID,
                                            std::string & version,
-                                           datastructure::GlobalDescriptorType & globalDescriptorType
+                                           datastructure::GlobalDescriptorType & globalDescriptorType,
                                            datastructure::DescriptorType & descriptorType,
                                            uint32_t & dataSize,
                                            bool & areImageSaved) const = 0;
