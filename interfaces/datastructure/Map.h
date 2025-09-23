@@ -60,7 +60,7 @@ public:
     Map();
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
-    Map(MapType type): m_mapSupportedTypes(type), m_embedKeyframeImages(false) {};
+    Map(MapType type);
 
 	///
     /// @brief ~Map
@@ -258,7 +258,7 @@ private:
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    uint32_t                                            m_mapSupportedTypes;
+    uint32_t                                            m_mapSupportedTypes = 0;
     SRef<Identification>                                m_identification;
     SRef<CoordinateSystem>                              m_coordinateSystem;
     SRef<PointCloud>                                    m_pointCloud;

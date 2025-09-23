@@ -86,7 +86,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyfram
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector<SRef<Keyframe>>& keyframes) const
 {
-    for (auto [id, kf]: m_keyframes) {
+    for (const auto& [id, kf]: m_keyframes) {
         SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf->getKeypoints(),
                                                                                  kf->getUndistortedKeypoints(),
                                                                                  kf->getDescriptors(),

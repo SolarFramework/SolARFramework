@@ -38,6 +38,13 @@ Map::Map()
     m_version= getSolARFrameworkVersion();
 }
 
+Map::Map(MapType type)
+{
+    Map();
+
+    m_mapSupportedTypes = type;
+}
+
 const SRef<Identification>& Map::getConstIdentification() const
 {
 	return m_identification;
@@ -112,7 +119,7 @@ void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollectio
         m_keyframeCollection->setDescriptorType(keyframeCollection->getDescriptorType());
         std::vector<SRef<Keyframe>> keyframesWithoutImages;
         keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
-        for (auto kf: keyframesWithoutImages) {
+        for (const auto& kf: keyframesWithoutImages) {
             m_keyframeCollection->addKeyframe(kf);
         }
     }
