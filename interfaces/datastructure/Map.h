@@ -28,6 +28,7 @@
 #include <datastructure/KeyframeCollection.h>
 #include <datastructure/CovisibilityGraph.h>
 #include <datastructure/KeyframeRetrieval.h>
+#include <Version.h>
 #include <xpcf/core/refs.h>
 #include <vector>
 #include <map>
@@ -56,10 +57,10 @@ public:
 	///
     /// @brief Map constructor.
     ///
-    Map();
+    Map() = default;
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
-    Map(MapType type);
+    Map(MapType type): m_mapSupportedTypes(type) {};
 
 	///
     /// @brief ~Map
@@ -258,15 +259,15 @@ private:
     void serialize(Archive &ar, const unsigned int version);
 
     uint32_t                                            m_mapSupportedTypes = 0;
-    SRef<Identification>                                m_identification;
-    SRef<CoordinateSystem>                              m_coordinateSystem;
-    SRef<PointCloud>                                    m_pointCloud;
-    SRef<KeyframeCollection>                            m_keyframeCollection;
-    SRef<CovisibilityGraph>                             m_covisibilityGraph;
-    SRef<KeyframeRetrieval>                             m_keyframeRetrieval;
-    SRef<CameraParametersCollection>                    m_cameraParametersCollection;
+    SRef<Identification>                                m_identification = org::bcom::xpcf::utils::make_shared<Identification>();
+    SRef<CoordinateSystem>                              m_coordinateSystem = org::bcom::xpcf::utils::make_shared<CoordinateSystem>();
+    SRef<PointCloud>                                    m_pointCloud = org::bcom::xpcf::utils::make_shared<PointCloud>();
+    SRef<KeyframeCollection>                            m_keyframeCollection = org::bcom::xpcf::utils::make_shared<KeyframeCollection>();
+    SRef<CovisibilityGraph>                             m_covisibilityGraph = org::bcom::xpcf::utils::make_shared<CovisibilityGraph>();
+    SRef<KeyframeRetrieval>                             m_keyframeRetrieval = org::bcom::xpcf::utils::make_shared<KeyframeRetrieval>();
+    SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
-    std::string                                         m_version;                                              // Version of the map (for compatibility)
+    std::string                                         m_version = SolAR::VERSION;                             // Version of the map (for compatibility)
     datastructure::DescriptorType                       m_descriptorType = DescriptorType::AKAZE;               // Type of descriptor used for the map
     datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::NETVLAD; // Type of global descriptor used for the map
     bool                                                m_embedKeyframeImages = false;                          // Indicate if keyframe images must be embedded in datastructure
