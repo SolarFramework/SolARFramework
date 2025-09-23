@@ -15,6 +15,7 @@
  */
 
 #include <datastructure/Map.h>
+#include <Version.h>
 #include "xpcf/component/ComponentFactory.h"
 #include <xpcf/core/helpers.h>
 
@@ -35,7 +36,7 @@ Map::Map()
     m_covisibilityGraph = xpcf::utils::make_shared<CovisibilityGraph>();
     m_keyframeRetrieval = xpcf::utils::make_shared<KeyframeRetrieval>();
 
-    m_version= getSolARFrameworkVersion();
+    m_version= SolAR::VERSION;
 }
 
 Map::Map(MapType type)

@@ -17,7 +17,6 @@
 #ifndef SOLAR_MAP_H
 #define SOLAR_MAP_H
 
-#include <core/SolARFramework.h>
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/Trackable.h>
