@@ -185,9 +185,9 @@ void Map::getInformation(std::string & version,
     globalDescriptorType= m_globalDescriptorType;
 }
 
-void Map::setEmbedKeyframeImages(bool embedKeyframeImages)
+void Map::embedKeyframeImages()
 {
-    m_embedKeyframeImages = embedKeyframeImages;
+    m_embedKeyframeImages = true;
 }
 
 bool Map::hasKeyframeImages() const
