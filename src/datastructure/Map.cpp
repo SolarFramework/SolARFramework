@@ -25,17 +25,6 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-Map::Map()
-{	
-	m_identification = xpcf::utils::make_shared<Identification>();
-	m_coordinateSystem = xpcf::utils::make_shared<CoordinateSystem>();
-	m_pointCloud = xpcf::utils::make_shared<PointCloud>();
-	m_keyframeCollection = xpcf::utils::make_shared<KeyframeCollection>();
-    m_cameraParametersCollection = xpcf::utils::make_shared<CameraParametersCollection>();
-	m_covisibilityGraph = xpcf::utils::make_shared<CovisibilityGraph>();
-	m_keyframeRetrieval = xpcf::utils::make_shared<KeyframeRetrieval>();
-}
-
 const SRef<Identification>& Map::getConstIdentification() const
 {
 	return m_identification;
@@ -98,8 +87,22 @@ std::unique_lock<std::mutex> Map::getKeyframeCollection(SRef<KeyframeCollection>
 
 void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection)
 {
-	m_mapSupportedTypes = m_mapSupportedTypes | MapType::_Keyframe;
-	m_keyframeCollection = keyframeCollection;
+    m_mapSupportedTypes = m_mapSupportedTypes | MapType::_Keyframe;
+
+    // Check if keyframe images must be embedded
+    if (m_embedKeyframeImages) {
+        m_keyframeCollection = keyframeCollection;
+    }
+    else {
+        // Remove keyframe images
+        m_keyframeCollection = xpcf::utils::make_shared<KeyframeCollection>();
+        m_keyframeCollection->setDescriptorType(keyframeCollection->getDescriptorType());
+        std::vector<SRef<Keyframe>> keyframesWithoutImages;
+        keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
+        for (const auto& kf: keyframesWithoutImages) {
+            m_keyframeCollection->addKeyframe(kf);
+        }
+    }
 }
 
 const SRef<CovisibilityGraph> Map::getConstCovisibilityGraph() const
@@ -158,6 +161,40 @@ TrackableType Map::getType() const
     return TrackableType::MAP;
 }
 
+void Map::setVersion(const std::string & version)
+{
+    m_version = version;
+}
+
+void Map::setDescriptorType(const datastructure::DescriptorType & descriptorType)
+{
+    m_descriptorType = descriptorType;
+}
+
+void Map::setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType)
+{
+    m_globalDescriptorType = globalDescriptorType;
+}
+
+void Map::getInformation(std::string & version,
+                         datastructure::DescriptorType & descriptorType,
+                         datastructure::GlobalDescriptorType & globalDescriptorType) const
+{
+    version = m_version;
+    descriptorType = m_descriptorType;
+    globalDescriptorType= m_globalDescriptorType;
+}
+
+void Map::embedKeyframeImages()
+{
+    m_embedKeyframeImages = true;
+}
+
+bool Map::hasKeyframeImages() const
+{
+    return m_embedKeyframeImages;
+}
+
 template<typename Archive>
 void Map::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_mapSupportedTypes;
@@ -169,6 +206,10 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_keyframeRetrieval;
     ar & m_cameraParametersCollection;
 	ar & m_transform3D;
+    ar & m_version;
+    ar & m_descriptorType;
+    ar & m_globalDescriptorType;
+    ar & m_embedKeyframeImages;
 }
 
 IMPLEMENTSERIALIZE(Map);

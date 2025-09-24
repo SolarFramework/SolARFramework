@@ -36,6 +36,28 @@ enum class GlobalDescriptorType {
     BOQ, /**< Bag-Of-QUeries image descriptor */
 };
 
+/// @brief Return the text definition (string) of a GlobalDescriptorType object
+/// @param[in] globalDescriptorType the global descriptor type
+/// @return the text definition (string)
+static std::string toString(const GlobalDescriptorType globalDescriptorType)
+{
+    std::string textDefinition = "";
+
+    switch (globalDescriptorType) {
+        case GlobalDescriptorType::NETVLAD:
+            textDefinition = "NETVLAD";
+            break;
+        case GlobalDescriptorType::BOQ:
+            textDefinition = "BOQ";
+            break;
+        default:
+            textDefinition = "Unknown value";
+            break;
+    }
+
+    return textDefinition;
+}
+
 /**
  * @enum data type of the global image descriptor 
 */
@@ -43,6 +65,28 @@ enum class GlobalDescriptorDataType : size_t {
     TYPE_8U = 1,  /**< each global descriptor is stored in one byte. */
     TYPE_32F = 4, /**< each global descriptor is stored in four bytes. */
 };
+
+/// @brief Return the text definition (string) of a GlobalDescriptorDataType object
+/// @param[in] globalDescriptorDataType the global descriptor data type
+/// @return the text definition (string)
+static std::string toString(const GlobalDescriptorDataType globalDescriptorDataType)
+{
+    std::string textDefinition = "";
+
+    switch (globalDescriptorDataType) {
+        case GlobalDescriptorDataType::TYPE_8U:
+                textDefinition = "TYPE_8U";
+                break;
+        case GlobalDescriptorDataType::TYPE_32F:
+                textDefinition = "TYPE_32F";
+                break;
+        default:
+                textDefinition = "Unknown value";
+                break;
+    }
+
+    return textDefinition;
+}
 
 /**
  * @class global image descriptor

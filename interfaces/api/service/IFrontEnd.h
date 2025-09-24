@@ -381,9 +381,9 @@ public:
     /// @brief Request for information on a specific map
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map
+    /// @param[out] version the version of the framework used to create the map
+    /// @param[out] globalDescriptorType the global descriptor type used for the map
     /// @param[out] descriptorType the descriptor type used to extract descriptor for each keyframe
-    /// @param[out] mapSupportedTypes the types of available data
-    /// *           (_PointCloud = 0x01, _Keyframe = 0x02, _CovisibilityGraph = 0x04, _KFRetriever = 0x08, _CameraParameters = 0x10)
     /// @param[out] dataSize global size of the data structure of the map (in bytes)
     /// @param[out] areImageSaved true if images are saved with keyframes, false otherwise
     /// @return
@@ -392,8 +392,9 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapInfo(const std::string & accessToken,
                                            const std::string & mapUUID,
+                                           std::string & version,
+                                           SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
                                            SolAR::datastructure::DescriptorType & descriptorType,
-                                           uint32_t & mapSupportedTypes,
                                            uint32_t & dataSize,
                                            bool & areImageSaved) const = 0;
 

@@ -64,7 +64,12 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode getAllKeyframes(std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes) const;
 
-	/// @brief This method allow to suppress a keyframe by its id
+    /// @brief This method allows to get all keyframes but without images (if embedded)
+    /// @param[out] the set of keyframes
+    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode getAllKeyframesWithoutImages(std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes) const;
+
+    /// @brief This method allow to suppress a keyframe by its id
 	/// @param[in] id of the keyframe to suppress
 	/// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
 	FrameworkReturnCode suppressKeyframe(const uint32_t id);
