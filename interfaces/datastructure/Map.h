@@ -243,9 +243,10 @@ public:
                         datastructure::GlobalDescriptorType & globalDescriptorType) const;
 
     ///
-    /// @brief This method is used to indicate that the map must embed keyframe images
+    /// @brief This method is used to indicate if the map must embed keyframe images
+    /// @param[in] embedKeyframeImages true if images must be embedded, false otherwise
     ///
-    void embedKeyframeImages();
+    void setEmbedKeyframeImages(bool embedKeyframeImages);
 
     ///
     /// @brief This method is used to find out if the map contains keyframe images
