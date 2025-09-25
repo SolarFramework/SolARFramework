@@ -1,5 +1,4 @@
 SolArModulePipeline {
     moduleName="SolARFramework"
     dirName="SolARBuild"
-    gitlabProjectUrl: "https://gitlab.b-com.lan/api/v4/projects/bcom%2Foverview%2Fcore%2Fsolarframework" 
 }
