@@ -46,6 +46,7 @@ enum class FrameworkReturnCode:long{
     _MAP_MISSING_INFORMATION_FILE = -6,
     _MAP_UNSUPPORTED_VERSION = -7,
     _MAP_UNSUPPORTED_DESCRIPTOR = -8,
+    _MAP_NO_DATA = -9,
 
     // for Image
     /** Cannot load Image */
@@ -128,6 +129,9 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             break;
         case FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR:
             txt_definition = "Unsupported map descriptors";
+            break;
+        case FrameworkReturnCode::_MAP_NO_DATA:
+            txt_definition = "No data for map (new map?)";
             break;
         case FrameworkReturnCode::_ERROR_LOAD_IMAGE:
             txt_definition = "Error while loading an image";
