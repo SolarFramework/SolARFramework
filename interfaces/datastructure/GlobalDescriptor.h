@@ -34,6 +34,7 @@ namespace datastructure {
 enum class GlobalDescriptorType {
     NETVLAD, /**< NetVLAD image descriptor */
     BOQ, /**< Bag-Of-QUeries image descriptor */
+    UNDEFINED,
 };
 
 /// @brief Return the text definition (string) of a GlobalDescriptorType object
@@ -49,6 +50,9 @@ static std::string toString(const GlobalDescriptorType globalDescriptorType)
             break;
         case GlobalDescriptorType::BOQ:
             textDefinition = "BOQ";
+            break;
+        case GlobalDescriptorType::UNDEFINED:
+            textDefinition = "UNDEFINED";
             break;
         default:
             textDefinition = "Unknown value";
