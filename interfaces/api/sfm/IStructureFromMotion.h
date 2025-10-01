@@ -89,6 +89,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
 
+    /// @brief Set information for the map created for SfM processing
+    /// @param[in] descriptorType descriptor type used for the map
+    /// @param[in] globalDescriptorType global descriptor type used for the map
+    /// @param[in] embedKeyframeImages true if images are embedded with keyframes, false otherwise
+    /// @return FrameworkReturnCode::_SUCCESS if information are set successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setMapInfo(const DescriptorType descriptorType, const GlobalDescriptorType globalDescriptorType, const bool embedKeyframeImages) = 0;
+
     /// @brief Get output map
     /// @param[out] map the output SfM map
     /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
