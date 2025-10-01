@@ -79,7 +79,7 @@ FrameworkReturnCode KeyframeCollection::getKeyframes(const std::vector<uint32_t>
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyframe>>& keyframes) const
 {
-	for (auto keyframeIt = m_keyframes.begin(); keyframeIt != m_keyframes.end(); keyframeIt++)
+    for (auto keyframeIt = m_keyframes.begin(); keyframeIt != m_keyframes.end(); keyframeIt++)
 		keyframes.push_back(keyframeIt->second);
 	return FrameworkReturnCode::_SUCCESS;
 }
@@ -94,6 +94,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
                                                                                  kf->getReferenceKeyframe(),
                                                                                  kf->getCameraID(),
                                                                                  kf->getPose());
+        keyframeWithoutImage->setId(kf->getId());
         keyframeWithoutImage->setMask(kf->getMask());
         keyframeWithoutImage->setFixedPose(kf->isFixedPose());
         keyframeWithoutImage->setVisibility(kf->getVisibility());

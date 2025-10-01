@@ -100,7 +100,7 @@ void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollectio
         std::vector<SRef<Keyframe>> keyframesWithoutImages;
         keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
         for (const auto& kf: keyframesWithoutImages) {
-            m_keyframeCollection->addKeyframe(kf);
+            m_keyframeCollection->addKeyframe(kf, false);
         }
     }
 }
