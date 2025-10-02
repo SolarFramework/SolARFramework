@@ -95,7 +95,6 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
                                                                                  kf->getCameraID(),
                                                                                  kf->getPose());
         keyframeWithoutImage->setId(kf->getId());
-        keyframeWithoutImage->setMask(kf->getMask());
         keyframeWithoutImage->setFixedPose(kf->isFixedPose());
         keyframeWithoutImage->setVisibility(kf->getVisibility());
         keyframeWithoutImage->setImageName(kf->getImageName());
