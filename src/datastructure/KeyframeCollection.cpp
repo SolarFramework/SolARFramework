@@ -79,30 +79,38 @@ FrameworkReturnCode KeyframeCollection::getKeyframes(const std::vector<uint32_t>
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyframe>>& keyframes) const
 {
-    for (auto keyframeIt = m_keyframes.begin(); keyframeIt != m_keyframes.end(); keyframeIt++)
-		keyframes.push_back(keyframeIt->second);
+    for (auto keyframeIt = m_keyframes.begin(); keyframeIt != m_keyframes.end(); keyframeIt++) {
+        keyframes.push_back(keyframeIt->second);
+    }
 	return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector<SRef<Keyframe>>& keyframes) const
 {
+    std::map<uint32_t, SRef<Keyframe>> newKeyframesMap;
     for (const auto& [id, kf]: m_keyframes) {
-        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf->getKeypoints(),
-                                                                                 kf->getUndistortedKeypoints(),
-                                                                                 kf->getDescriptors(),
-                                                                                 nullptr, // Image
-                                                                                 kf->getReferenceKeyframe(),
-                                                                                 kf->getCameraID(),
-                                                                                 kf->getPose());
+        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf);
         keyframeWithoutImage->setId(kf->getId());
-        keyframeWithoutImage->setFixedPose(kf->isFixedPose());
-        keyframeWithoutImage->setVisibility(kf->getVisibility());
-        keyframeWithoutImage->setImageName(kf->getImageName());
-        keyframeWithoutImage->setGlobalDescriptor(kf->getGlobalDescriptor());
         keyframeWithoutImage->setMask(kf->getMask());
-
-        keyframes.push_back(keyframeWithoutImage);
+        // Remove image
+        keyframeWithoutImage->setView(nullptr);
+        newKeyframesMap[id] = keyframeWithoutImage;
     }
+    // Update the reference keyframe for each keyframe
+    for (const auto& [id, kf]: newKeyframesMap) {
+        // Retrieve reference keyframe in new keyframe map
+        if (kf->getReferenceKeyframe()) {
+            std::map<uint32_t, SRef<Keyframe>>::const_iterator keyframeIt = newKeyframesMap.find(kf->getReferenceKeyframe()->getId());
+            if (keyframeIt == newKeyframesMap.end()) {
+                LOG_DEBUG("Cannot find reference keyframe for keyframe id: {}", id);
+                return FrameworkReturnCode::_ERROR_;
+            }
+            kf->setReferenceKeyframe(keyframeIt->second);
+        }
+        // Add keyframe in result vector
+        keyframes.push_back(kf);
+    }
+
     return FrameworkReturnCode::_SUCCESS;
 }
 
