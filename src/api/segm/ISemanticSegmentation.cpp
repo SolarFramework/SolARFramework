@@ -22,7 +22,7 @@ using namespace datastructure;
 namespace api {
 namespace segm {
 
-FrameworkReturnCode ISemanticSegmentation::segment(const std::vector<SRef<Image>>& images, std::vector<SRef<Image>>& masks)
+FrameworkReturnCode ISemanticSegmentation::segment(const std::vector<SRef<const Image>>& images, std::vector<SRef<Image>>& masks)
 {
     masks.resize(images.size());
     for (size_t i = 0; i < images.size(); ++i) {

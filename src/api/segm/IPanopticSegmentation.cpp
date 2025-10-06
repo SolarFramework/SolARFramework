@@ -22,7 +22,7 @@ using namespace datastructure;
 namespace api {
 namespace segm {
 
-FrameworkReturnCode IPanopticSegmentation::segment(const std::vector<SRef<Image>>& images,
+FrameworkReturnCode IPanopticSegmentation::segment(const std::vector<SRef<const Image>>& images,
                     std::vector<SRef<Image>>& labelMaps,
                     std::vector<std::vector<Rectanglei>>& boxes,
                     std::vector<std::vector<std::pair<uint32_t, uint32_t>>>& classObjectIds,
