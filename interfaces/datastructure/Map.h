@@ -237,8 +237,9 @@ public:
     /// @param[out] version the version of the map
     /// @param[out] descriptorType the type of descriptor used for the map
     /// @param[out] globalDescriptorType the type of global descriptor used for the map
+    /// @return true if the information is available, false otherwise
     ///
-    void getInformation(std::string & version,
+    bool getInformation(std::string & version,
                         datastructure::DescriptorType & descriptorType,
                         datastructure::GlobalDescriptorType & globalDescriptorType) const;
 

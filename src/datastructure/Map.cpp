@@ -176,13 +176,17 @@ void Map::setGlobalDescriptorType(const datastructure::GlobalDescriptorType & gl
     m_globalDescriptorType = globalDescriptorType;
 }
 
-void Map::getInformation(std::string & version,
+bool Map::getInformation(std::string & version,
                          datastructure::DescriptorType & descriptorType,
                          datastructure::GlobalDescriptorType & globalDescriptorType) const
 {
+    if (m_version.empty()) {
+        return false;
+    }
     version = m_version;
     descriptorType = m_descriptorType;
     globalDescriptorType= m_globalDescriptorType;
+    return true;
 }
 
 void Map::embedKeyframeImages()
