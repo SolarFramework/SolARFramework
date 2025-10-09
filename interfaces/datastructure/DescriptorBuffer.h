@@ -20,6 +20,7 @@
 #include <utility>
 #include <map>
 #include <cstdint>
+#include <optional>
 
 #include <xpcf/core/refs.h>
 #include <xpcf/core/helpers.h>
@@ -59,28 +60,28 @@ static std::string toString(const DescriptorType descriptorType)
     std::string textDefinition = "";
 
     switch (descriptorType) {
-        case AKAZE:
+        case DescriptorType::AKAZE:
             textDefinition = "AKAZE";
             break;
-        case SIFT:
+        case DescriptorType::SIFT:
             textDefinition = "SIFT";
             break;
-        case SIFT_UINT8:
+        case DescriptorType::SIFT_UINT8:
             textDefinition = "SIFT_UINT8";
             break;
-        case SURF_64:
+        case DescriptorType::SURF_64:
             textDefinition = "SURF_64";
             break;
-        case SURF_128:
+        case DescriptorType::SURF_128:
             textDefinition = "SURF_128";
             break;
-        case ORB:
+        case DescriptorType::ORB:
             textDefinition = "ORB";
             break;
-        case SBPATTERN:
+        case DescriptorType::SBPATTERN:
             textDefinition = "SBPATTERN";
             break;
-        case DISK:
+        case DescriptorType::DISK:
             textDefinition = "DISK";
             break;
         default:
@@ -89,6 +90,23 @@ static std::string toString(const DescriptorType descriptorType)
     }
 
     return textDefinition;
+}
+
+/// @brief Return the DescriptorType object from a text definition (string)
+/// @param[in] textDefinition the text definition (string)
+/// @return the descriptor type
+static std::optional<DescriptorType> parseDescriptorType(const std::string textDefinition)
+{
+    if (textDefinition == "AKAZE") return DescriptorType::AKAZE;
+    if (textDefinition == "SIFT") return DescriptorType::SIFT;
+    if (textDefinition == "SIFT_UINT8") return DescriptorType::SIFT_UINT8;
+    if (textDefinition == "SURF_64") return DescriptorType::SURF_64;
+    if (textDefinition == "SURF_128") return DescriptorType::SURF_128;
+    if (textDefinition == "ORB") return DescriptorType::ORB;
+    if (textDefinition == "SBPATTERN") return DescriptorType::SBPATTERN;
+    if (textDefinition == "DISK") return DescriptorType::DISK;
+
+    return {};
 }
 
 template <class T> inline static constexpr DescriptorDataType inferDescriptorDataType();

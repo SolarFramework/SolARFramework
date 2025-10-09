@@ -62,6 +62,19 @@ static std::string toString(const GlobalDescriptorType globalDescriptorType)
     return textDefinition;
 }
 
+/// @brief Return the GlobalDescriptorType object from a text definition (string)
+/// @param[in] textDefinition the text definition (string)
+/// @return the global descriptor type
+static std::optional<GlobalDescriptorType> parseGlobalDescriptorType(const std::string textDefinition)
+{
+    if (textDefinition == "NETVLAD") return GlobalDescriptorType::NETVLAD;
+    if (textDefinition == "BOQ") return GlobalDescriptorType::BOQ;
+    if (textDefinition == "UNDEFINED") return GlobalDescriptorType::UNDEFINED;
+
+    return {};
+}
+
+
 /**
  * @enum data type of the global image descriptor 
 */
