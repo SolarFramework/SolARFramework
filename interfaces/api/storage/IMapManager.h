@@ -154,6 +154,18 @@ public:
     /// @brief Delete the map in external file
     /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode deleteFile() = 0;
+
+    /// @brief Test the compatibility of a map (version and descriptor types)
+    /// @param[in] descriptorType the descriptor type reference value
+    /// @param[in] globalDescriptorType the global descriptor type reference value
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS_ if the map is compatible with running services
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_VERSION if the map version is not compatible with the service version
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR if the descriptor types are not compatible with the running services
+    /// * else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode testMapCompatibility(SolAR::datastructure::DescriptorType descriptorType,
+                                                     SolAR::datastructure::GlobalDescriptorType globalDescriptorType) const = 0;
 };
 
 }

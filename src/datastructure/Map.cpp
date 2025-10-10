@@ -199,6 +199,36 @@ bool Map::hasKeyframeImages() const
     return m_embedKeyframeImages;
 }
 
+bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
+                          datastructure::GlobalDescriptorType globalDescriptorType) const
+{
+    LOG_DEBUG("Get map information");
+    std::string mapVersion;
+    datastructure::DescriptorType mapDescriptorType;
+    datastructure::GlobalDescriptorType mapGlobalDescriptorType;
+    if (!getInformation(mapVersion, mapDescriptorType, mapGlobalDescriptorType)) {
+        LOG_ERROR("Cannot get map information");
+        return false;
+    }
+
+    LOG_DEBUG("Test map compatibility");
+    if (mapVersion != SolAR::VERSION) {
+        LOG_WARNING("The version of the map ({}) is not compatible with the framework version ({})", mapVersion, SolAR::VERSION);
+        return false;
+    }
+    if (mapDescriptorType != descriptorType) {
+        LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapDescriptorType), toString(descriptorType));
+        return false;
+    }
+    if (mapGlobalDescriptorType != globalDescriptorType) {
+        LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapGlobalDescriptorType), toString(globalDescriptorType));
+        return false;
+    }
+
+    return true;
+}
+
+
 template<typename Archive>
 void Map::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_mapSupportedTypes;

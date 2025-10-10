@@ -254,6 +254,13 @@ public:
     ///
     bool hasKeyframeImages() const;
 
+    /// @brief Test the compatibility of a map (version and descriptor types)
+    /// @param[in] descriptorType the descriptor type reference value
+    /// @param[in] globalDescriptorType the global descriptor type reference value
+    /// @return true if the map is compatible with service version and descriptor types, false otherwise
+    bool isMapCompatible(datastructure::DescriptorType descriptorType,
+                         datastructure::GlobalDescriptorType globalDescriptorType) const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
