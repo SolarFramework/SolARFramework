@@ -27,6 +27,7 @@
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/BufferInternal.hpp>
+#include <core/Log.h>
 
 #include <type_traits>
 
@@ -105,6 +106,8 @@ static std::optional<DescriptorType> parseDescriptorType(const std::string textD
     if (textDefinition == "ORB") return DescriptorType::ORB;
     if (textDefinition == "SBPATTERN") return DescriptorType::SBPATTERN;
     if (textDefinition == "DISK") return DescriptorType::DISK;
+
+    LOG_ERROR("Unknown descriptor type: {}", textDefinition);
 
     return {};
 }

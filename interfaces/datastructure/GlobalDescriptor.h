@@ -71,6 +71,8 @@ static std::optional<GlobalDescriptorType> parseGlobalDescriptorType(const std::
     if (textDefinition == "BOQ") return GlobalDescriptorType::BOQ;
     if (textDefinition == "UNDEFINED") return GlobalDescriptorType::UNDEFINED;
 
+    LOG_ERROR("Unknown global descriptor type: {}", textDefinition);
+
     return {};
 }
 
