@@ -155,6 +155,21 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode deleteFile() = 0;
 
+    /// @brief Load the map information from the dedicated file
+    /// @param[in] filePath the file path of the information file
+    /// @param[out] version the version of the framework used to create the map
+    /// @param[out] descriptorType the descriptor type value
+    /// @param[out] globalDescriptorType the global descriptor type value
+    /// @param[out] embedKeyframeImages indicate if keyframe images are embedded or not in the map datastructure
+    /// @return
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadInformationFromFile(const std::string & filePath,
+                                                        std::string & version,
+                                                        SolAR::datastructure::DescriptorType & descriptorType,
+                                                        SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
+                                                        bool & embedKeyframeImages) = 0;
+
     /// @brief Test the compatibility of a map (version and descriptor types)
     /// @param[in] descriptorType the descriptor type reference value
     /// @param[in] globalDescriptorType the global descriptor type reference value
