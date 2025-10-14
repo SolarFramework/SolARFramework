@@ -22,7 +22,7 @@ using namespace datastructure;
 namespace api {
 namespace segm {
 
-FrameworkReturnCode IInstanceSegmentation::segment(const std::vector<SRef<const Image>>& images,
+FrameworkReturnCode IInstanceSegmentation::segment(const std::vector<SRef<Image>>& images,
                     std::vector<std::vector<Rectanglei>>& boxes,
                     std::vector<std::vector<SRef<Image>>>& masks,
                     std::vector<std::vector<uint32_t>>& classIds,

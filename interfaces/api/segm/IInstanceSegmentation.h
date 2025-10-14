@@ -62,7 +62,7 @@ public:
     /// @param[out] classIds The id of each object in the bounding box of each input image.
     /// @param[out] scores The corresponding confidence scores of each input image.
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode segment(const std::vector<SRef<const SolAR::datastructure::Image>>& images,
+    virtual FrameworkReturnCode segment(const std::vector<SRef<SolAR::datastructure::Image>>& images,
                                         std::vector<std::vector<SolAR::datastructure::Rectanglei>>& boxes,
                                         std::vector<std::vector<SRef<SolAR::datastructure::Image>>>& masks,
                                         std::vector<std::vector<uint32_t>>& classIds,

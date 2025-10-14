@@ -53,7 +53,7 @@ public:
     /// @param[in] images List of input images.
     /// @param[out] masks List of output masks (mask has same size as the input image, in which the value of each pixel is corresponding to the class id).
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode segment(const std::vector<SRef<const Image>>& images, std::vector<SRef<Image>>& masks);
+    virtual FrameworkReturnCode segment(const std::vector<SRef<Image>>& images, std::vector<SRef<Image>>& masks);
 };
 
 }
