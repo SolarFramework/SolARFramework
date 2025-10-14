@@ -148,8 +148,11 @@ public:
 	virtual FrameworkReturnCode saveToFile() const = 0;
 
 	/// @brief Load the map from the external file
-    /// @return FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode loadFromFile() = 0;
+    /// @return
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_MAP_MISSING_BINARY_FILE if a binary file is missing
+    /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadFromFile() = 0;
 
     /// @brief Delete the map in external file
     /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
@@ -180,7 +183,7 @@ public:
     /// * FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR if the descriptor types are not compatible with the running services
     /// * else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode testMapCompatibility(SolAR::datastructure::DescriptorType descriptorType,
-                                                     SolAR::datastructure::GlobalDescriptorType globalDescriptorType) const = 0;
+                                                     SolAR::datastructure::GlobalDescriptorType globalDescriptorType) = 0;
 };
 
 }
