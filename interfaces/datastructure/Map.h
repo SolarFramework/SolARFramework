@@ -60,7 +60,6 @@ public:
     Map() = default;
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
-    Map(MapType type): m_mapSupportedTypes(type) {};
 
 	///
     /// @brief ~Map
