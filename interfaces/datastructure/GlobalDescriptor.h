@@ -42,24 +42,16 @@ enum class GlobalDescriptorType {
 /// @return the text definition (string)
 static std::string toString(const GlobalDescriptorType globalDescriptorType)
 {
-    std::string textDefinition = "";
-
     switch (globalDescriptorType) {
         case GlobalDescriptorType::NETVLAD:
-            textDefinition = "NETVLAD";
-            break;
+            return "NETVLAD";
         case GlobalDescriptorType::BOQ:
-            textDefinition = "BOQ";
-            break;
+            return "BOQ";
         case GlobalDescriptorType::UNDEFINED:
-            textDefinition = "UNDEFINED";
-            break;
+            return "UNDEFINED";
         default:
-            textDefinition = "Unknown value";
-            break;
+            return "Unknown value";
     }
-
-    return textDefinition;
 }
 
 /// @brief Return the GlobalDescriptorType object from a text definition (string)

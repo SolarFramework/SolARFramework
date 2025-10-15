@@ -58,45 +58,32 @@ enum DescriptorType{
 /// @return the text definition (string)
 static std::string toString(const DescriptorType descriptorType)
 {
-    std::string textDefinition = "";
-
     switch (descriptorType) {
         case DescriptorType::AKAZE:
-            textDefinition = "AKAZE";
-            break;
+            return "AKAZE";
         case DescriptorType::SIFT:
-            textDefinition = "SIFT";
-            break;
+            return "SIFT";
         case DescriptorType::SIFT_UINT8:
-            textDefinition = "SIFT_UINT8";
-            break;
+            return "SIFT_UINT8";
         case DescriptorType::SURF_64:
-            textDefinition = "SURF_64";
-            break;
+            return "SURF_64";
         case DescriptorType::SURF_128:
-            textDefinition = "SURF_128";
-            break;
+            return "SURF_128";
         case DescriptorType::ORB:
-            textDefinition = "ORB";
-            break;
+            return "ORB";
         case DescriptorType::SBPATTERN:
-            textDefinition = "SBPATTERN";
-            break;
+            return "SBPATTERN";
         case DescriptorType::DISK:
-            textDefinition = "DISK";
-            break;
+            return "DISK";
         default:
-            textDefinition = "Unknown value";
-            break;
+            return "Unknown value";
     }
-
-    return textDefinition;
 }
 
 /// @brief Return the DescriptorType object from a text definition (string)
 /// @param[in] textDefinition the text definition (string)
 /// @return the descriptor type
-static std::optional<DescriptorType> parseDescriptorType(const std::string textDefinition)
+static std::optional<DescriptorType> parseDescriptorType(const std::string & textDefinition)
 {
     if (textDefinition == "AKAZE") return DescriptorType::AKAZE;
     if (textDefinition == "SIFT") return DescriptorType::SIFT;

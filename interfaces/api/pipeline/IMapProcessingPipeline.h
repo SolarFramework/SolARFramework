@@ -42,30 +42,20 @@ enum class MapProcessingStatus {
 /// @return the text value of the map processing status (string)
 static std::string toString(const MapProcessingStatus mapProcessingStatus)
 {
-    std::string mapProcessingStatusTxt = "";
-
     switch(mapProcessingStatus) {
-    case MapProcessingStatus::NOT_INITIALIZED:
-        mapProcessingStatusTxt = "NOT_INITIALIZED";
-        break;
-    case MapProcessingStatus::INITIALIZED:
-        mapProcessingStatusTxt = "INITIALIZED";
-        break;
-    case MapProcessingStatus::IN_PROGRESS:
-        mapProcessingStatusTxt = "IN_PROGRESS";
-        break;
-    case MapProcessingStatus::COMPLETED:
-        mapProcessingStatusTxt = "COMPLETED";
-        break;
-    case MapProcessingStatus::ABORTED:
-        mapProcessingStatusTxt = "ABORTED";
-        break;
-    default:
-        mapProcessingStatusTxt = "UNKNOWN";
-        break;
+        case MapProcessingStatus::NOT_INITIALIZED:
+            return "NOT_INITIALIZED";
+        case MapProcessingStatus::INITIALIZED:
+            return "INITIALIZED";
+        case MapProcessingStatus::IN_PROGRESS:
+            return "IN_PROGRESS";
+        case MapProcessingStatus::COMPLETED:
+            return "COMPLETED";
+        case MapProcessingStatus::ABORTED:
+            return "ABORTED";
+        default:
+            return "UNKNOWN";
     }
-
-    return mapProcessingStatusTxt;
 }
 
 /**
