@@ -43,17 +43,30 @@ public:
     virtual ~IInstanceSegmentation() = default;
 
     /// @brief Perform 2D instance segmentation
-    /// @param[in] image The input image.
+    /// @param[in] image The input image (SRef<const Image> is not used here in order to give more freedom to the implementations, e.g. torch::from_blob only accepts a non-const data buffer as input).
     /// @param[out] boxes The bounding boxes of each detected object.
     /// @param[out] masks The binary masks corresponding to the bounding boxes. For each mask, regions with a value of 1 correspond to the object, otherwise the background.
     /// @param[out] classIds The id of each object in the bounding box.
     /// @param[out] scores The corresponding confidence scores.
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode segment(const SRef<SolAR::datastructure::Image> image,
-                                        std::vector<SolAR::datastructure::Rectanglei> &boxes,
-                                        std::vector<SRef<SolAR::datastructure::Image>> &masks,
-                                        std::vector<uint32_t> &classIds,
-                                        std::vector<float> &scores) = 0;
+    virtual FrameworkReturnCode segment(SRef<const SolAR::datastructure::Image> image,
+                                        std::vector<SolAR::datastructure::Rectanglei>& boxes,
+                                        std::vector<SRef<SolAR::datastructure::Image>>& masks,
+                                        std::vector<uint32_t>& classIds,
+                                        std::vector<float>& scores) = 0;
+
+    /// @brief Perform 2D instance segmentation
+    /// @param[in] images List of input images (SRef<const Image> is not used here in order to give more freedom to the implementations, e.g. torch::from_blob only accepts a non-const data buffer as input).
+    /// @param[out] boxes The bounding boxes of each detected object of each input image.
+    /// @param[out] masks The binary masks corresponding to the bounding boxes of each input image. For each mask, regions with a value of 1 correspond to the object, otherwise the background.
+    /// @param[out] classIds The id of each object in the bounding box of each input image.
+    /// @param[out] scores The corresponding confidence scores of each input image.
+    /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode segment(const std::vector<SRef<SolAR::datastructure::Image>>& images,
+                                        std::vector<std::vector<SolAR::datastructure::Rectanglei>>& boxes,
+                                        std::vector<std::vector<SRef<SolAR::datastructure::Image>>>& masks,
+                                        std::vector<std::vector<uint32_t>>& classIds,
+                                        std::vector<std::vector<float>>& scores);
 };
 
 }

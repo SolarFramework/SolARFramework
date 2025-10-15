@@ -169,7 +169,9 @@ interfaces/api/display/IMaskOverlay.h\
 interfaces/Version.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
+src/api/segm/IInstanceSegmentation.cpp \
 src/api/segm/ISemanticSegmentation.cpp \
+src/api/segm/IPanopticSegmentation.cpp \
 src/api/sfm/IStructureFromMotion.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \

@@ -44,10 +44,10 @@ public:
     virtual ~ISemanticSegmentation() = default;
 
     /// @brief Perform 2D semantic segmentation
-    /// @param[in] image The input image.
+    /// @param[in] image The input image (SRef<const Image> is not used here in order to give more freedom to the implementations, e.g. torch::from_blob only accepts a non-const data buffer as input).
     /// @param[out] mask The mask has same size as the input image, in which the value of each pixel is corresponding to the class id.
     /// @return FrameworkReturnCode::_SUCCESS if the segmentation succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode segment(const SRef<Image> image, SRef<Image> &mask) = 0;
+    virtual FrameworkReturnCode segment(SRef<const Image> image, SRef<Image> &mask) = 0;
 
     /// @brief Perform 2D semantic segmentation
     /// @param[in] images List of input images.
