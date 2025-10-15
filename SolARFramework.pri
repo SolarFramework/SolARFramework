@@ -62,6 +62,7 @@ interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/output/files/IMapExporter.h \
 interfaces/api/pipeline/IDenseMappingPipeline.h \
+interfaces/api/pipeline/IImageSegmentationPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
