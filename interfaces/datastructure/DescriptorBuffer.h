@@ -20,12 +20,14 @@
 #include <utility>
 #include <map>
 #include <cstdint>
+#include <optional>
 
 #include <xpcf/core/refs.h>
 #include <xpcf/core/helpers.h>
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/BufferInternal.hpp>
+#include <core/Log.h>
 
 #include <type_traits>
 
@@ -56,39 +58,45 @@ enum DescriptorType{
 /// @return the text definition (string)
 static std::string toString(const DescriptorType descriptorType)
 {
-    std::string textDefinition = "";
-
     switch (descriptorType) {
-        case AKAZE:
-            textDefinition = "AKAZE";
-            break;
-        case SIFT:
-            textDefinition = "SIFT";
-            break;
-        case SIFT_UINT8:
-            textDefinition = "SIFT_UINT8";
-            break;
-        case SURF_64:
-            textDefinition = "SURF_64";
-            break;
-        case SURF_128:
-            textDefinition = "SURF_128";
-            break;
-        case ORB:
-            textDefinition = "ORB";
-            break;
-        case SBPATTERN:
-            textDefinition = "SBPATTERN";
-            break;
-        case DISK:
-            textDefinition = "DISK";
-            break;
+        case DescriptorType::AKAZE:
+            return "AKAZE";
+        case DescriptorType::SIFT:
+            return "SIFT";
+        case DescriptorType::SIFT_UINT8:
+            return "SIFT_UINT8";
+        case DescriptorType::SURF_64:
+            return "SURF_64";
+        case DescriptorType::SURF_128:
+            return "SURF_128";
+        case DescriptorType::ORB:
+            return "ORB";
+        case DescriptorType::SBPATTERN:
+            return "SBPATTERN";
+        case DescriptorType::DISK:
+            return "DISK";
         default:
-            textDefinition = "Unknown value";
-            break;
+            return "Unknown value";
     }
+}
 
-    return textDefinition;
+/// @brief Return the DescriptorType object from a text definition (string)
+/// @param[in] textDefinition the text definition (string)
+/// @return the descriptor type
+static std::optional<DescriptorType> parseDescriptorType(const std::string & textDefinition)
+{
+    if (textDefinition == "AKAZE") return DescriptorType::AKAZE;
+    if (textDefinition == "SIFT") return DescriptorType::SIFT;
+    if (textDefinition == "SIFT_UINT8") return DescriptorType::SIFT_UINT8;
+    if (textDefinition == "SURF_64") return DescriptorType::SURF_64;
+    if (textDefinition == "SURF_128") return DescriptorType::SURF_128;
+    if (textDefinition == "ORB") return DescriptorType::ORB;
+    if (textDefinition == "SBPATTERN") return DescriptorType::SBPATTERN;
+    if (textDefinition == "DISK") return DescriptorType::DISK;
+
+    LOG_ERROR("Unknown descriptor type: {}", textDefinition);
+
+    return {};
 }
 
 template <class T> inline static constexpr DescriptorDataType inferDescriptorDataType();

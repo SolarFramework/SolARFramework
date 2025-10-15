@@ -41,7 +41,14 @@ enum class FrameworkReturnCode:long{
     // Resource already exists
     _ALREADY_EXIST = -4,
 
-    // for IImage
+    // for Map
+    _MAP_MISSING_BINARY_FILE = -5,
+    _MAP_MISSING_INFORMATION_FILE = -6,
+    _MAP_UNSUPPORTED_VERSION = -7,
+    _MAP_UNSUPPORTED_DESCRIPTOR = -8,
+    _MAP_NO_DATA = -9,
+
+    // for Image
     /** Cannot load Image */
     _ERROR_LOAD_IMAGE = -10,
     /** Cannot acces Image */
@@ -110,6 +117,21 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             break;
         case FrameworkReturnCode::_ALREADY_EXIST:
             txt_definition = "Resource already exists";
+            break;
+        case FrameworkReturnCode::_MAP_MISSING_BINARY_FILE:
+            txt_definition = "Missing some binary file for map";
+            break;
+        case FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE:
+            txt_definition = "Missing information file for map";
+            break;
+        case FrameworkReturnCode::_MAP_UNSUPPORTED_VERSION:
+            txt_definition = "Unsupported version of map";
+            break;
+        case FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR:
+            txt_definition = "Unsupported map descriptors";
+            break;
+        case FrameworkReturnCode::_MAP_NO_DATA:
+            txt_definition = "No data for map (new map?)";
             break;
         case FrameworkReturnCode::_ERROR_LOAD_IMAGE:
             txt_definition = "Error while loading an image";
