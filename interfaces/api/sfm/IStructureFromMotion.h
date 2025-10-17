@@ -89,6 +89,13 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
 
+    /// @brief Create map from a set of keyframes, camera parameters and covisibility graph
+    /// @param[in] keyframes list of keyframes
+    /// @param[in] cameraParameters list of camera parameters
+    /// @param[in] covGraph covisibility graph
+    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, SRef<const CovisibilityGraph> covGraph) = 0;
+
     /// @brief Get output map
     /// @param[out] map the output SfM map
     /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
