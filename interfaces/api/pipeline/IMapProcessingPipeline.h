@@ -37,6 +37,27 @@ enum class MapProcessingStatus {
     ABORTED = 4           // Map Processing aborted before completion
 };
 
+/// @brief Return the text value (string) of a map processing status
+/// @param[in] mapProcessingStatus the map processing status
+/// @return the text value of the map processing status (string)
+static std::string toString(const MapProcessingStatus mapProcessingStatus)
+{
+    switch(mapProcessingStatus) {
+        case MapProcessingStatus::NOT_INITIALIZED:
+            return "NOT_INITIALIZED";
+        case MapProcessingStatus::INITIALIZED:
+            return "INITIALIZED";
+        case MapProcessingStatus::IN_PROGRESS:
+            return "IN_PROGRESS";
+        case MapProcessingStatus::COMPLETED:
+            return "COMPLETED";
+        case MapProcessingStatus::ABORTED:
+            return "ABORTED";
+        default:
+            return "UNKNOWN";
+    }
+}
+
 /**
  * @class IMapProcessingPipeline
  * @brief <B>Defines a map processing pipeline.</B>

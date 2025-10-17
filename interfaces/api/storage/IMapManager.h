@@ -148,12 +148,42 @@ public:
 	virtual FrameworkReturnCode saveToFile() const = 0;
 
 	/// @brief Load the map from the external file
-    /// @return FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
-	virtual FrameworkReturnCode loadFromFile() = 0;
+    /// @return
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_MAP_MISSING_BINARY_FILE if a binary file is missing
+    /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadFromFile() = 0;
 
     /// @brief Delete the map in external file
     /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode deleteFile() = 0;
+
+    /// @brief Load the map information from the dedicated file
+    /// @param[in] filePath the file path of the information file
+    /// @param[out] version the version of the framework used to create the map
+    /// @param[out] descriptorType the descriptor type value
+    /// @param[out] globalDescriptorType the global descriptor type value
+    /// @param[out] embedKeyframeImages indicate if keyframe images are embedded or not in the map datastructure
+    /// @return
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode loadInformationFromFile(const std::string & filePath,
+                                                        std::string & version,
+                                                        SolAR::datastructure::DescriptorType & descriptorType,
+                                                        SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
+                                                        bool & embedKeyframeImages) = 0;
+
+    /// @brief Test the compatibility of a map (version and descriptor types)
+    /// @param[in] descriptorType the descriptor type reference value
+    /// @param[in] globalDescriptorType the global descriptor type reference value
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS_ if the map is compatible with running services
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_VERSION if the map version is not compatible with the service version
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR if the descriptor types are not compatible with the running services
+    /// * else FrameworkReturnCode::_ERROR.
+    virtual FrameworkReturnCode testMapCompatibility(SolAR::datastructure::DescriptorType descriptorType,
+                                                     SolAR::datastructure::GlobalDescriptorType globalDescriptorType) = 0;
 };
 
 }

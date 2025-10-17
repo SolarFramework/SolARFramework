@@ -28,6 +28,7 @@
 #include <datastructure/KeyframeCollection.h>
 #include <datastructure/CovisibilityGraph.h>
 #include <datastructure/KeyframeRetrieval.h>
+#include <Version.h>
 #include <xpcf/core/refs.h>
 #include <vector>
 #include <map>
@@ -56,10 +57,9 @@ public:
 	///
     /// @brief Map constructor.
     ///
-	Map();
+    Map() = default;
     Map(const Map& other) = default;
     Map& operator=(const Map& other) = default;
-	Map(MapType type) { m_mapSupportedTypes = type; };
 
 	///
     /// @brief ~Map
@@ -213,21 +213,72 @@ public:
     ///
     TrackableType getType() const override;
 
+    ///
+    /// @brief This method is used to set the version of the map
+    /// @param[in] version the version of the map
+    ///
+    void setVersion(const std::string & version);
+
+    ///
+    /// @brief This method is used to set the descriptor type used for the map
+    /// @param[in] descriptorType the descriptor type
+    ///
+    void setDescriptorType(const datastructure::DescriptorType & descriptorType);
+
+    ///
+    /// @brief This method is used to set the global descriptor type used for the map
+    /// @param[in] globalDescriptorType the global descriptor type
+    ///
+    void setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType);
+
+    ///
+    /// @brief This method is used to get the map information (version and descriptors)
+    /// @param[out] version the version of the map
+    /// @param[out] descriptorType the type of descriptor used for the map
+    /// @param[out] globalDescriptorType the type of global descriptor used for the map
+    /// @return true if the information is available, false otherwise
+    ///
+    bool getInformation(std::string & version,
+                        datastructure::DescriptorType & descriptorType,
+                        datastructure::GlobalDescriptorType & globalDescriptorType) const;
+
+    ///
+    /// @brief This method is used to indicate that the map must embed keyframe images
+    ///
+    void embedKeyframeImages();
+
+    ///
+    /// @brief This method is used to find out if the map contains keyframe images
+    /// @return true if keyframe images are embedded, false otherwise
+    ///
+    bool hasKeyframeImages() const;
+
+    /// @brief Test the compatibility of a map (version and descriptor types)
+    /// @param[in] descriptorType the descriptor type reference value
+    /// @param[in] globalDescriptorType the global descriptor type reference value
+    /// @return true if the map is compatible with service version and descriptor types, false otherwise
+    bool isMapCompatible(datastructure::DescriptorType descriptorType,
+                         datastructure::GlobalDescriptorType globalDescriptorType) const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    uint32_t                                            m_mapSupportedTypes;
-    SRef<Identification>                                m_identification;
-    SRef<CoordinateSystem>                              m_coordinateSystem;
-    SRef<PointCloud>                                    m_pointCloud;
-    SRef<KeyframeCollection>                            m_keyframeCollection;
-    SRef<CovisibilityGraph>                             m_covisibilityGraph;
-    SRef<KeyframeRetrieval>                             m_keyframeRetrieval;
-    SRef<CameraParametersCollection>                    m_cameraParametersCollection;
-};
+    uint32_t                                            m_mapSupportedTypes = 0;
+    SRef<Identification>                                m_identification = org::bcom::xpcf::utils::make_shared<Identification>();
+    SRef<CoordinateSystem>                              m_coordinateSystem = org::bcom::xpcf::utils::make_shared<CoordinateSystem>();
+    SRef<PointCloud>                                    m_pointCloud = org::bcom::xpcf::utils::make_shared<PointCloud>();
+    SRef<KeyframeCollection>                            m_keyframeCollection = org::bcom::xpcf::utils::make_shared<KeyframeCollection>();
+    SRef<CovisibilityGraph>                             m_covisibilityGraph = org::bcom::xpcf::utils::make_shared<CovisibilityGraph>();
+    SRef<KeyframeRetrieval>                             m_keyframeRetrieval = org::bcom::xpcf::utils::make_shared<KeyframeRetrieval>();
+    SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
+    std::string                                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
+    datastructure::DescriptorType                       m_descriptorType = DescriptorType::AKAZE;                 // Type of descriptor used for the map
+    datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
+    bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+};
 
 DECLARESERIALIZE(Map);
 }
