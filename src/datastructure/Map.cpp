@@ -199,35 +199,84 @@ bool Map::hasKeyframeImages() const
     return m_embedKeyframeImages;
 }
 
-SRef<Map> Map::removeKeyframeImages() const
+SRef<Map> Map::copyWithoutKeyframeImages() const
 {
     SRef<Map> mapWithoutKeyframeImages = xpcf::utils::make_shared<Map>();
 
     mapWithoutKeyframeImages->setTransform3D(m_transform3D);
-    mapWithoutKeyframeImages->setIdentification(m_identification);
-    mapWithoutKeyframeImages->setCoordinateSystem(m_coordinateSystem);
-    mapWithoutKeyframeImages->setPointCloud(m_pointCloud);
-    mapWithoutKeyframeImages->setCovisibilityGraph(m_covisibilityGraph);
-    mapWithoutKeyframeImages->setKeyframeRetrieval(m_keyframeRetrieval);
-    mapWithoutKeyframeImages->setCameraParametersCollection(m_cameraParametersCollection);
+
+    SRef<Identification> copyIdentification = mapWithoutKeyframeImages->getConstIdentification();
+    copyIdentification->setUUID(m_identification->getUUID());
+    copyIdentification->setName(m_identification->getName());
+    copyIdentification->setAuthor(m_identification->getAuthor());
+    copyIdentification->setCreatedTime(m_identification->getCreatedTime());
+    copyIdentification->setLastUpdateTime(m_identification->getLastUpdateTime());
+    copyIdentification->setBBox3D(m_identification->getBBox3D());
+
+    SRef<CoordinateSystem> copyCoordinateSystem = mapWithoutKeyframeImages->getConstCoordinateSystem();
+    copyCoordinateSystem->setAbsolutePosition(m_coordinateSystem->getAbsolutePosition());
+    copyCoordinateSystem->setAbsoluteRotation(m_coordinateSystem->getAbsoluteRotation());
+    copyCoordinateSystem->setParentId(m_coordinateSystem->getParentId());
+    copyCoordinateSystem->setParentTransform(m_coordinateSystem->getParentTransform());
+
+    SRef<PointCloud> copyPointCloud = mapWithoutKeyframeImages->getConstPointCloud();
+    copyPointCloud->setDescriptorType(m_pointCloud->getDescriptorType());
+    std::vector<SRef<CloudPoint>> srefPoints;
+    m_pointCloud->getAllPoints(srefPoints);
+    std::vector<CloudPoint> points;
+    for (const auto & pt: srefPoints) {
+        points.push_back(*pt);
+    }
+    copyPointCloud->addPoints(points, false);
+
+    SRef<KeyframeCollection> copyKeyframeCollection = mapWithoutKeyframeImages->getConstKeyframeCollection();
+    SRef<KeyframeRetrieval> copyKeyframeRetrieval = mapWithoutKeyframeImages->getConstKeyframeRetrieval();
+    copyKeyframeCollection->setDescriptorType(m_keyframeCollection->getDescriptorType());
+    std::vector<SRef<Keyframe>> keyframesWithoutImages;
+    m_keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
+    for (const auto & kf: keyframesWithoutImages) {
+        copyKeyframeCollection->addKeyframe(kf, false);
+        uint32_t kfID = kf->getId();
+        BoWFeature bowDesc;
+        m_keyframeRetrieval->getBoWFeature(kfID, bowDesc);
+        BoWLevelFeature bowLevelDesc;
+        m_keyframeRetrieval->getBoWLevelFeature(kfID, bowLevelDesc);
+        copyKeyframeRetrieval->addDescriptor(kfID, bowDesc, bowLevelDesc);
+    }
+
+    SRef<CovisibilityGraph> copyCovisibilityGraph = mapWithoutKeyframeImages->getConstCovisibilityGraph();
+    std::set<uint32_t> nodesID;
+    m_covisibilityGraph->getAllNodes(nodesID);
+    for (const auto & nID: nodesID) {
+        std::vector<uint32_t> neighbors;
+        m_covisibilityGraph->getNeighbors(nID, 0, neighbors);
+        for (const auto & nb: neighbors) {
+            float weight;
+            m_covisibilityGraph->getEdge(nID, nb, weight);
+            copyCovisibilityGraph->increaseEdge(nID, nb, weight);
+        }
+    }
+
+    SRef<CameraParametersCollection> copyCameraParametersCollection = mapWithoutKeyframeImages->getConstCameraParametersCollection();
+    std::vector<SRef<CameraParameters>> cameraParameters;
+    m_cameraParametersCollection->getAllCameraParameters(cameraParameters);
+    for (const auto & camParam: cameraParameters) {
+        CameraParameters copyCamParam;
+        copyCamParam.name = camParam->name;
+        copyCamParam.id = camParam->id;
+        copyCamParam.type = camParam->type;
+        copyCamParam.resolution = camParam->resolution;
+        copyCamParam.intrinsic = camParam->intrinsic;
+        copyCamParam.distortion = camParam->distortion;
+        copyCamParam.extrinsics = camParam->extrinsics;
+        copyCameraParametersCollection->addCameraParameters(copyCamParam, false);
+    }
+
     mapWithoutKeyframeImages->setVersion(m_version);
     mapWithoutKeyframeImages->setDescriptorType(m_descriptorType);
     mapWithoutKeyframeImages->setGlobalDescriptorType(m_globalDescriptorType);
-
-    // Check if keyframe images are embedded in current map
     if (m_embedKeyframeImages) {
-        // Remove keyframe images
-        SRef<KeyframeCollection> keyframeCollectionWithoutImages = xpcf::utils::make_shared<KeyframeCollection>();
-        keyframeCollectionWithoutImages->setDescriptorType(m_keyframeCollection->getDescriptorType());
-        std::vector<SRef<Keyframe>> keyframesWithoutImages;
-        m_keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
-        for (const auto& kf: keyframesWithoutImages) {
-            keyframeCollectionWithoutImages->addKeyframe(kf, false);
-        }
-        mapWithoutKeyframeImages->setKeyframeCollection(keyframeCollectionWithoutImages);
-    }
-    else {
-        mapWithoutKeyframeImages->setKeyframeCollection(m_keyframeCollection);
+        mapWithoutKeyframeImages->embedKeyframeImages();
     }
 
     return mapWithoutKeyframeImages;
