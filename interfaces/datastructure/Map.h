@@ -253,6 +253,12 @@ public:
     ///
     bool hasKeyframeImages() const;
 
+    ///
+    /// @brief This method is used to get a copy of a map object, but without the keyframe images
+    /// @return the copy of the original map object without the keyframe images
+    ///
+    SRef<Map> removeKeyframeImages() const;
+
     /// @brief Test the compatibility of a map (version and descriptor types)
     /// @param[in] descriptorType the descriptor type reference value
     /// @param[in] globalDescriptorType the global descriptor type reference value

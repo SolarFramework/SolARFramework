@@ -199,6 +199,40 @@ bool Map::hasKeyframeImages() const
     return m_embedKeyframeImages;
 }
 
+SRef<Map> Map::removeKeyframeImages() const
+{
+    SRef<Map> mapWithoutKeyframeImages = xpcf::utils::make_shared<Map>();
+
+    mapWithoutKeyframeImages->setTransform3D(m_transform3D);
+    mapWithoutKeyframeImages->setIdentification(m_identification);
+    mapWithoutKeyframeImages->setCoordinateSystem(m_coordinateSystem);
+    mapWithoutKeyframeImages->setPointCloud(m_pointCloud);
+    mapWithoutKeyframeImages->setCovisibilityGraph(m_covisibilityGraph);
+    mapWithoutKeyframeImages->setKeyframeRetrieval(m_keyframeRetrieval);
+    mapWithoutKeyframeImages->setCameraParametersCollection(m_cameraParametersCollection);
+    mapWithoutKeyframeImages->setVersion(m_version);
+    mapWithoutKeyframeImages->setDescriptorType(m_descriptorType);
+    mapWithoutKeyframeImages->setGlobalDescriptorType(m_globalDescriptorType);
+
+    // Check if keyframe images are embedded in current map
+    if (m_embedKeyframeImages) {
+        // Remove keyframe images
+        SRef<KeyframeCollection> keyframeCollectionWithoutImages = xpcf::utils::make_shared<KeyframeCollection>();
+        keyframeCollectionWithoutImages->setDescriptorType(m_keyframeCollection->getDescriptorType());
+        std::vector<SRef<Keyframe>> keyframesWithoutImages;
+        m_keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
+        for (const auto& kf: keyframesWithoutImages) {
+            keyframeCollectionWithoutImages->addKeyframe(kf, false);
+        }
+        mapWithoutKeyframeImages->setKeyframeCollection(keyframeCollectionWithoutImages);
+    }
+    else {
+        mapWithoutKeyframeImages->setKeyframeCollection(m_keyframeCollection);
+    }
+
+    return mapWithoutKeyframeImages;
+}
+
 bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
                           datastructure::GlobalDescriptorType globalDescriptorType) const
 {
