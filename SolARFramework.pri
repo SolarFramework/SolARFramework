@@ -1,4 +1,5 @@
 HEADERS += interfaces/api/display/I2DOverlay.h \
+    $$PWD/interfaces/api/3dgs/I3DGSTrainer.h \
 interfaces/api/service/IGenericService.h \
 interfaces/datastructure/RelocalizationInformation.h \
 interfaces/datastructure/StorageCapabilities.h \
@@ -165,6 +166,7 @@ interfaces/base/pipeline/AMappingPipeline.h \
 interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
 interfaces/api/segm/IPanopticSegmentation.h \
+interfaces/api/3dgs/I3DGSTrainer.h \
 interfaces/api/display/IMaskOverlay.h\
 interfaces/Version.h
 

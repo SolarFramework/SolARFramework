@@ -74,6 +74,8 @@ win32 {
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
 
+header_interfaces_3dgs.path = $${PROJECTDEPLOYDIR}/interfaces/api/3dgs/
+header_interfaces_3dgs.files = $$files($${PWD}/interfaces/api/3dgs/*.h*)/
 header_interfaces_display.path  = $${PROJECTDEPLOYDIR}/interfaces/api/display/
 header_interfaces_display.files = $$files($${PWD}/interfaces/api/display/*.h*)
 header_interfaces_features.path = $${PROJECTDEPLOYDIR}/interfaces/api/features/
@@ -127,13 +129,15 @@ header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
 header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
-header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
+header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)/
 header_interfaces_service.path = $${PROJECTDEPLOYDIR}/interfaces/api/service/
 header_interfaces_service.files += $$files($${PWD}/interfaces/api/service/*.h*)
+
 
 INCLUDEPATH += $${PWD}/interfaces
 
 INSTALLS += header_interfaces
+INSTALLS += header_interfaces_3dgs
 INSTALLS += header_interfaces_display
 INSTALLS += header_interfaces_features
 INSTALLS += header_interfaces_fusion
