@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2025 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,19 +24,30 @@
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
+using namespace datastructure;
 namespace api {
 namespace pipeline {
 
 /**
- * @struct MaskValueInterpretation
- * @brief struct used to interpret pixel value in the segmentation mask
- * if classId < 0, it means that the current pixel is unsegmented
- * if instanceId < 0, it means that the current pixel belongs to a "stuff" class which is uncountable
- * if instanceId >= 0, it means that the current pixel belongs to a "thing" class
- * confidence is the confidence score of the pixel's segmentation (usually it has value between 0 and 1)
- * if confidence < 0, it simply means that the confidence score is not available for this pixel
+ * @enum class ImageSegType
  */
-struct MaskValueInterpretation {
+enum class ImageSegType {
+    INSTANCE,
+    PANOPTIC,
+    SEMANTIC,
+    UNDEFINED
+};
+
+/**
+ * @struct SegInfo
+ * @brief this struct SegInfo is used to interpret pixel value in the segmentation mask
+ * classId, the Id of the class, if classId < 0, it means that the current pixel is unsegmented (e.g. background)
+ * instanceId, the instance Id of the detected object, if instanceId < 0, it means that the current pixel belongs to a "stuff" class which is uncountable, otherwise it belongs to a "thing" class
+ * confidence, confidence score between 0 and 1, the confidence score of the segmentation, if confidence < 0, it means that the confidence score is not available
+ */
+struct SegInfo {
+    SegInfo() = default;
+    SegInfo(int16_t c, int16_t i, float cf) : classId(c), instanceId(i), confidence(cf) {}
     int16_t classId = -1;
     int16_t instanceId = -1;
     float confidence = -1.f;
@@ -60,24 +71,27 @@ public:
     /// @brief default destructor
     virtual ~IImageSegmentationPipeline() = default;
 
-    /// @brief segmentation request
+    /// @brief segmentation request for a single image
     /// @param[in] image pointer to image data to be segmented
     /// @param[out] mask output mask (pixel value of type uint8_t)
-    /// @param[out] maskInterpretation mapping from mask pixel value to the MaskValueInterpretation
+    /// @param[out] maskInfo mapping from mask pixel value to the SegInfo
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
-    virtual FrameworkReturnCode segmentationRequest(SRef<const SolAR::datastructure::Image> image, 
-                                                    SRef<SolAR::datastructure::Image>& mask, 
-                                                    std::map<uint8_t, MaskValueInterpretation>& maskInterpretation) = 0;
+    virtual FrameworkReturnCode segmentationRequest(SRef<const Image> image, 
+                                                    SRef<Image>& mask, 
+                                                    std::map<uint8_t, SegInfo>& maskInfo) = 0;
     
-    /// @brief segmentation request
+    /// @brief segmentation request for a list of input images
     /// @param[in] images list of pointers to images to be segmented
+    /// @param[in] temporalConsistency boolean value indicating if the images are temporally consistent (true) or not (false) 
     /// @param[out] masks list of output masks (pixel value of type uint8_t)
-    /// @param[out] masksInterpretations list of mappings from mask pixel value to the MaskValueInterpretation
+    /// @param[out] masksInfos list of mappings from mask pixel value to the SegInfo
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
-    virtual FrameworkReturnCode segmentationRequest(const std::vector<SRef<SolAR::datastructure::Image>>& images, 
-                                                    std::vector<SRef<SolAR::datastructure::Image>>& masks, 
-                                                    std::vector<std::map<uint8_t, MaskValueInterpretation>>& masksInterpretations) = 0;
+    virtual FrameworkReturnCode segmentationRequest(const std::vector<SRef<Image>>& images,
+                                                    bool temporalConsistency,
+                                                    std::vector<SRef<Image>>& masks, 
+                                                    std::vector<std::map<uint8_t, SegInfo>>& masksInfos) = 0;
 };
+
 } // namespace pipeline
 } // namespace api
 } // namespace SolAR
