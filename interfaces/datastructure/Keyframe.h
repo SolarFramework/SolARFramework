@@ -101,7 +101,7 @@ private:
 	void serialize(Archive &ar, const unsigned int version);
 
 private:
-    uint32_t	m_id{0};
+    uint32_t	m_id{0}; // TODO: remove valid value for init: std::optional or force id to be passed in ctors,...?
     std::vector<bool> m_isKeypointMatched;  // boolean map true or false indicating if keypoint matched to other keyframes during mapping
     bool m_isKeypointMatchedStatusFrozen = false; // boolean true or false indicating if modifications on m_isKeypointMatched are forbidden or not
 };
