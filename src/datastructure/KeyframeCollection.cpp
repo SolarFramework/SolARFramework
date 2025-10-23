@@ -155,6 +155,13 @@ int KeyframeCollection::getNbKeyframes() const
 	return static_cast<int>(m_keyframes.size());
 }
 
+void KeyframeCollection::nextSerializationWithoutKeyframeImages()
+{
+    for (const auto& [id, kf]: m_keyframes) {
+        kf->nextSerializationWithoutImage();
+    }
+}
+
 template <typename Archive>
 void KeyframeCollection::serialize(Archive &ar, const unsigned int /* version */)
 {

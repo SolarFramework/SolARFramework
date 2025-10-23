@@ -94,8 +94,14 @@ public:
 
 private:
 	friend class boost::serialization::access;
+    friend class Map;
 	template <typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
+
+    ///
+    /// @brief Indicate that the next serialization of the KeyframeCollection object should not involve the keyframe images (applies only on the next serialization)
+    ///
+    void nextSerializationWithoutKeyframeImages();
 
     std::map<uint32_t, SRef<SolAR::datastructure::Keyframe>>m_keyframes;
     SolAR::datastructure::DescriptorType                    m_descriptorType;

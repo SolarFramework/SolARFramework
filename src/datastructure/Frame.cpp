@@ -229,14 +229,15 @@ void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
     if (m_serializeImage) {
         ar & m_view;
+        ar & m_mask;
     }
     else {
         // Do not serialize Image object, but only for this time
-        SRef<Image> emptyImage = nullptr;
+        SRef<Image> emptyImage;
+        ar & emptyImage;
         ar & emptyImage;
         m_serializeImage = true;
     }
-	ar & m_mask;
 	ar & m_descriptors;
 	ar & m_keypoints;
 	ar & m_keypointsUndistort;	

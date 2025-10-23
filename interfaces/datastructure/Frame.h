@@ -185,15 +185,16 @@ public:
     ///
     const SRef<GlobalDescriptor> getGlobalDescriptor() const;
 
+private:
+	friend class boost::serialization::access;
+    friend class KeyframeCollection;
+    template<typename Archive>
+	void serialize(Archive &ar, const unsigned int version);
+
     ///
     /// @brief Indicate that the next serialization of the Frame object should not involve the Image member (applies only on the next serialization)
     ///
     void nextSerializationWithoutImage();
-
-private:
-	friend class boost::serialization::access;
-	template<typename Archive>
-	void serialize(Archive &ar, const unsigned int version);
 
 protected:
     Transform3Df                    m_pose;    
@@ -207,7 +208,7 @@ protected:
     std::string                     m_imageName;
     uint32_t                        m_camID;
     bool							m_isFixedPose = false;
-    bool                            m_serializeImage = true; // Indicate if the Image object must be serialized
+    bool                            m_serializeImage = true;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;

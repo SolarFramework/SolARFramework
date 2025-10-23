@@ -202,11 +202,8 @@ bool Map::hasKeyframeImages() const
 void Map::nextSerializationWithoutKeyframeImages()
 {
     if (m_embedKeyframeImages) {
-        std::vector<SRef<Keyframe>> keyframes;
-        m_keyframeCollection->getAllKeyframes(keyframes);
-        for (const auto & kf: keyframes) {
-            kf->nextSerializationWithoutImage();
-        }
+        m_keyframeCollection->nextSerializationWithoutKeyframeImages();
+        m_serializeImage = false;
     }
 }
 
@@ -254,7 +251,14 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_version;
     ar & m_descriptorType;
     ar & m_globalDescriptorType;
-    ar & m_embedKeyframeImages;
+    if (m_serializeImage) {
+        ar & m_embedKeyframeImages;
+    }
+    else {
+        // Do not serialize Image object, but only for this time
+        ar & m_serializeImage;
+        m_serializeImage = true;
+    }
 }
 
 IMPLEMENTSERIALIZE(Map);
