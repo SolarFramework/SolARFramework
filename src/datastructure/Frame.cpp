@@ -219,11 +219,25 @@ const SRef<GlobalDescriptor> Frame::getGlobalDescriptor() const
     return m_globalDescriptor;
 }
 
+void Frame::nextSerializationWithoutImage()
+{
+    m_serializeImage = false;
+}
+
 template<typename Archive>
 void Frame::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
-	ar & m_view;
-	ar & m_mask;
+    if (m_serializeImage) {
+        ar & m_view;
+        ar & m_mask;
+    }
+    else {
+        // Do not serialize Image object, but only for this time
+        SRef<Image> emptyImage;
+        ar & emptyImage; // view
+        ar & emptyImage; // mask
+        m_serializeImage = true;
+    }
 	ar & m_descriptors;
 	ar & m_keypoints;
 	ar & m_keypointsUndistort;	

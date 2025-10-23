@@ -89,6 +89,8 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyfram
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector<SRef<Keyframe>>& keyframes) const
 {
+    keyframes.clear();
+    keyframes.reserve(m_keyframes.size());
     std::map<uint32_t, SRef<Keyframe>> newKeyframesMap;
     for (const auto& [id, kf]: m_keyframes) {
         SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf);
@@ -151,6 +153,13 @@ bool KeyframeCollection::isExistKeyframe(const uint32_t id) const
 int KeyframeCollection::getNbKeyframes() const
 {
 	return static_cast<int>(m_keyframes.size());
+}
+
+void KeyframeCollection::nextSerializationWithoutKeyframeImages()
+{
+    for (const auto& [id, kf]: m_keyframes) {
+        kf->nextSerializationWithoutImage();
+    }
 }
 
 template <typename Archive>
