@@ -34,8 +34,6 @@ namespace datastructure {
 
 Frame::Frame(const SRef<Frame> frame) : m_pose(frame->getPose()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_descriptors(frame->getDescriptors()), m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()), m_mapVisibility(frame->getVisibility()), m_globalDescriptor(frame->getGlobalDescriptor()) {}
 
-Frame::Frame(const SRef<Keyframe> keyframe) : m_pose(keyframe->getPose()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_descriptors(keyframe->getDescriptors()), m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()), m_mapVisibility(keyframe->getVisibility()), m_globalDescriptor(keyframe->getGlobalDescriptor()) {}
-
 Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose) : m_pose(pose), m_view(view), m_descriptors(descriptors), m_keypoints(keypoints), m_camID(camID) {}
 
 Frame::Frame(const std::vector<Keypoint> & keypoints, const std::vector<Keypoint> & undistortedKeypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, SRef<Keyframe> refKeyframe, const uint32_t camID, const Transform3Df pose): m_pose(pose), m_view(view), m_referenceKeyFrame(refKeyframe), m_descriptors(descriptors), m_keypoints(keypoints), m_keypointsUndistort(undistortedKeypoints), m_camID(camID){}
