@@ -203,7 +203,6 @@ void Map::nextSerializationWithoutKeyframeImages()
 {
     if (m_embedKeyframeImages) {
         m_keyframeCollection->nextSerializationWithoutKeyframeImages();
-        m_serializeImage = false;
     }
 }
 
@@ -251,14 +250,7 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_version;
     ar & m_descriptorType;
     ar & m_globalDescriptorType;
-    if (m_serializeImage) {
-        ar & m_embedKeyframeImages;
-    }
-    else {
-        // Do not serialize Image object, but only for this time
-        ar & m_serializeImage;
-        m_serializeImage = true;
-    }
+    ar & m_embedKeyframeImages;
 }
 
 IMPLEMENTSERIALIZE(Map);

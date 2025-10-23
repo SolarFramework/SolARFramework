@@ -283,7 +283,6 @@ private:
     datastructure::DescriptorType                       m_descriptorType = DescriptorType::AKAZE;                 // Type of descriptor used for the map
     datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
-    bool                                                m_serializeImage = true;
 };
 
 DECLARESERIALIZE(Map);
