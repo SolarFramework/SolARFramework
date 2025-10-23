@@ -234,8 +234,8 @@ void Frame::serialize(Archive &ar, const unsigned int /* version */) {
     else {
         // Do not serialize Image object, but only for this time
         SRef<Image> emptyImage;
-        ar & emptyImage;
-        ar & emptyImage;
+        ar & emptyImage; // view
+        ar & emptyImage; // mask
         m_serializeImage = true;
     }
 	ar & m_descriptors;
