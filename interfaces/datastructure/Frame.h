@@ -26,9 +26,8 @@ class Keyframe;
 class SOLARFRAMEWORK_API Frame {
 public:
 	Frame() = default;
-    Frame(const SRef<Frame> frame);
-	
-    Frame(const SRef<Keyframe> keyframe);
+
+    explicit Frame(const SRef<Frame> frame);
 
 	explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const SRef<DescriptorBuffer> descriptors,
