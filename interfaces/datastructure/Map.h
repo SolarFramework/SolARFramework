@@ -28,6 +28,7 @@
 #include <datastructure/KeyframeCollection.h>
 #include <datastructure/CovisibilityGraph.h>
 #include <datastructure/KeyframeRetrieval.h>
+#include <datastructure/Mask2DCollection.h>
 #include <Version.h>
 #include <xpcf/core/refs.h>
 #include <vector>
@@ -150,6 +151,19 @@ public:
 	///
 	void setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection);
 
+    /// @brief This method returns the 2D mask collection
+    /// @return the mask collection
+    SRef<const Mask2DCollection> getConstMask2DCollection() const;
+
+    /// @brief This method returns the 2D mask collection
+    /// @param[out] maskCollection the mask collection of map
+    /// @return the mask collection
+    std::unique_lock<std::mutex> getMask2DCollection(SRef<Mask2DCollection>& maskCollection);
+
+    /// @brief This method is to set the 2D mask collection
+    /// @param[in] maskCollection the 2D mask collection of map
+    void setMask2DCollection(SRef<Mask2DCollection> maskCollection);
+
     ///
     /// @brief This method returns the camera parameters collection
     /// @return the camera parameters collection
@@ -270,6 +284,7 @@ private:
     SRef<CoordinateSystem>                              m_coordinateSystem = org::bcom::xpcf::utils::make_shared<CoordinateSystem>();
     SRef<PointCloud>                                    m_pointCloud = org::bcom::xpcf::utils::make_shared<PointCloud>();
     SRef<KeyframeCollection>                            m_keyframeCollection = org::bcom::xpcf::utils::make_shared<KeyframeCollection>();
+	SRef<Mask2DCollection>                              m_mask2DCollection = org::bcom::xpcf::utils::make_shared<Mask2DCollection>();
     SRef<CovisibilityGraph>                             m_covisibilityGraph = org::bcom::xpcf::utils::make_shared<CovisibilityGraph>();
     SRef<KeyframeRetrieval>                             m_keyframeRetrieval = org::bcom::xpcf::utils::make_shared<KeyframeRetrieval>();
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();

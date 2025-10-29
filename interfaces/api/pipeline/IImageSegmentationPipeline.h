@@ -19,39 +19,13 @@
 
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/Image.h"
-#include <map>
-#include <vector>
+#include "datastructure/Mask2DCollection.h"
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace pipeline {
-
-/**
- * @enum class ImageSegType
- */
-enum class ImageSegType {
-    INSTANCE,
-    PANOPTIC,
-    SEMANTIC,
-    UNDEFINED
-};
-
-/**
- * @struct SegInfo
- * @brief this struct SegInfo is used to interpret pixel value in the segmentation mask
- * classId, the Id of the class, if classId < 0, it means that the current pixel is unsegmented (e.g. background)
- * instanceId, the instance Id of the detected object, if instanceId < 0, it means that the current pixel belongs to a "stuff" class which is uncountable, otherwise it belongs to a "thing" class
- * confidence, confidence score between 0 and 1, the confidence score of the segmentation, if confidence < 0, it means that the confidence score is not available
- */
-struct SegInfo {
-    SegInfo() = default;
-    SegInfo(int16_t c, int16_t i, float cf) : classId(c), instanceId(i), confidence(cf) {}
-    int16_t classId = -1;
-    int16_t instanceId = -1;
-    float confidence = -1.f;
-};
 
 /**
  * @class IImageSegmentationPipeline
@@ -73,23 +47,20 @@ public:
 
     /// @brief segmentation request for a single image
     /// @param[in] image pointer to image data to be segmented
-    /// @param[out] mask output mask (pixel value of type uint8_t)
-    /// @param[out] maskInfo mapping from mask pixel value to the SegInfo
+    /// @param[out] mask output mask2D object
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
     virtual FrameworkReturnCode segmentationRequest(SRef<const Image> image, 
-                                                    SRef<Image>& mask, 
-                                                    std::map<uint8_t, SegInfo>& maskInfo) = 0;
+                                                    SRef<Mask2D>& mask) = 0;
     
     /// @brief segmentation request for a list of input images
-    /// @param[in] images list of pointers to images to be segmented
-    /// @param[in] temporalConsistency boolean value indicating if the images are temporally consistent (true) or not (false) 
-    /// @param[out] masks list of output masks (pixel value of type uint8_t)
-    /// @param[out] masksInfos list of mappings from mask pixel value to the SegInfo
+    /// @param[in] images list of pointers to images to be segmented 
+    /// @param[out] maskCollection list of output masks
+    /// @param[in] temporalConsistency boolean value indicating if the images are temporally consistent (true) or not (false)
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
     virtual FrameworkReturnCode segmentationRequest(const std::vector<SRef<Image>>& images,
-                                                    bool temporalConsistency,
-                                                    std::vector<SRef<Image>>& masks, 
-                                                    std::vector<std::map<uint8_t, SegInfo>>& masksInfos) = 0;
+                                                    SRef<Mask2DCollection>& maskCollection,
+                                                    bool temporalConsistency = false) = 0;
+
 };
 
 } // namespace pipeline

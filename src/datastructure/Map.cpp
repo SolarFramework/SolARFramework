@@ -228,6 +228,21 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
+SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
+{
+    return m_mask2DCollection;
+}
+
+std::unique_lock<std::mutex> Map::getMask2DCollection(SRef<Mask2DCollection>& maskCollection)
+{
+    maskCollection = m_mask2DCollection;
+    return m_mask2DCollection->acquireLock();
+}
+
+void Map::setMask2DCollection(SRef<Mask2DCollection> maskCollection)
+{
+    m_mask2DCollection = maskCollection;
+}
 
 template<typename Archive>
 void Map::serialize(Archive &ar, const unsigned int /* version */) {
@@ -236,6 +251,7 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
 	ar & m_coordinateSystem;
 	ar & m_pointCloud;
 	ar & m_keyframeCollection;
+    ar & m_mask2DCollection;
 	ar & m_covisibilityGraph;
 	ar & m_keyframeRetrieval;
     ar & m_cameraParametersCollection;

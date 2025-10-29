@@ -139,6 +139,8 @@ interfaces/datastructure/Image.h \
 interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
+interfaces/datastructure/Mask2D.h \
+interfaces/datastructure/Mask2DCollection.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/Mesh.h \
 interfaces/datastructure/PointCloud.h \
@@ -201,6 +203,8 @@ src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
+src/datastructure/Mask2D.cpp \
+src/datastructure/Mask2DCollection.cpp \
 src/datastructure/Mesh.cpp \
 src/datastructure/StorageTrackable.cpp \
 src/datastructure/StorageWorldAnchor.cpp \
