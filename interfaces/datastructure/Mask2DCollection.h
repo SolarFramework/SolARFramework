@@ -86,6 +86,9 @@ public:
     /// @return the number of Mask2Ds
     size_t getNbMasks() const;
 
+    /// @brief This method allows to clear the contents of current Mask2DCollection
+    void clear();
+
 private:
     /// @brief serialize
     friend class boost::serialization::access;

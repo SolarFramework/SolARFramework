@@ -106,6 +106,12 @@ size_t Mask2DCollection::getNbMasks() const
 	return m_masks.size();
 }
 
+void Mask2DCollection::clear()
+{
+    m_masks.clear();
+    m_currentId = 0;
+}
+
 template <typename Archive>
 void Mask2DCollection::serialize(Archive &ar, const unsigned int /* version */)
 {
