@@ -68,7 +68,7 @@ public:
     /// @brief segmentation request for a single image
     /// @param[in] image pointer to image data to be segmented
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
-    virtual FrameworkReturnCode segmentationRequest(SRef<const Image> image) = 0;
+    virtual FrameworkReturnCode segmentationRequest(SRef<Image> image) = 0;
     
     /// @brief segmentation request for a list of input images
     /// @param[in] images list of pointers to images to be segmented 
