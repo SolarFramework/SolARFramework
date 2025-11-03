@@ -38,6 +38,11 @@ public:
 
     explicit Keyframe(SRef<Frame> frame) : Frame(frame) {};
 
+    explicit Keyframe(SRef<Keyframe> frame) : Frame(frame),
+                                              m_id{frame->m_id},
+                                              m_isKeypointMatched{frame->m_isKeypointMatched},
+                                              m_isKeypointMatchedStatusFrozen{frame->m_isKeypointMatchedStatusFrozen} {};
+
 	explicit Keyframe(const std::vector<Keypoint> & keypoints,
 					  SRef<DescriptorBuffer> descriptors,
 					  SRef<Image> view,
