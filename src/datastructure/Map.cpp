@@ -199,6 +199,13 @@ bool Map::hasKeyframeImages() const
     return m_embedKeyframeImages;
 }
 
+void Map::nextSerializationWithoutKeyframeImages()
+{
+    if (m_embedKeyframeImages) {
+        m_keyframeCollection->nextSerializationWithoutKeyframeImages();
+    }
+}
+
 bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
                           datastructure::GlobalDescriptorType globalDescriptorType) const
 {

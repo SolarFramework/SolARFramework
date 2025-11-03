@@ -271,6 +271,11 @@ public:
     ///
     bool hasKeyframeImages() const;
 
+    ///
+    /// @brief Indicate that the next serialization of the Map object should not involve the keyframe images (applies only on the next serialization)
+    ///
+    void nextSerializationWithoutKeyframeImages();
+
     /// @brief Test the compatibility of a map (version and descriptor types)
     /// @param[in] descriptorType the descriptor type reference value
     /// @param[in] globalDescriptorType the global descriptor type reference value
