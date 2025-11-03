@@ -32,6 +32,7 @@
 #include "api/storage/ICameraParametersManager.h"
 #include "api/storage/ICovisibilityGraphManager.h"
 #include "api/storage/IKeyframesManager.h"
+#include "api/storage/IMasks2DManager.h"
 #include "api/storage/IPointCloudManager.h"
 #include "api/reloc/IKeyframeRetriever.h"
 
@@ -108,6 +109,17 @@ public:
 	/// @param[in] keyframe the keyframe to remove from the map manager
 	/// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode removeKeyframe(const SRef<SolAR::datastructure::Keyframe> keyframe) = 0;
+
+    /// @brief Add a 2d mask to map manager
+    /// @param[in] mask 2D mask to be added to map manager
+    /// @param[in] defineId if true an id will be set for the added mask, if false the id of the mask will be used
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode addMask2D(SRef<SolAR::datastructure::Mask2D> mask, bool defineId = true) = 0;
+
+    /// @brief remove mask
+    /// @param[in] id mask ID
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode removeMask2D(uint32_t id) = 0;
 
     /// @brief Add camera parameters to map manager
     /// @param[in] cameraParameters the camera paramaters to add to the map manager

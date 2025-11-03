@@ -233,6 +233,11 @@ SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
     return m_mask2DCollection;
 }
 
+SRef<Mask2DCollection> Map::getMask2DCollection() const
+{
+    return m_mask2DCollection;
+}
+
 std::unique_lock<std::mutex> Map::getMask2DCollection(SRef<Mask2DCollection>& maskCollection)
 {
     maskCollection = m_mask2DCollection;

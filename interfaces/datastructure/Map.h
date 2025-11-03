@@ -151,9 +151,13 @@ public:
 	///
 	void setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection);
 
-    /// @brief This method returns the 2D mask collection
+    /// @brief This method returns the const 2D mask collection
     /// @return the mask collection
     SRef<const Mask2DCollection> getConstMask2DCollection() const;
+
+	/// @brief This method returns the 2D mask collection
+    /// @return the mask collection
+    SRef<Mask2DCollection> getMask2DCollection() const;
 
     /// @brief This method returns the 2D mask collection
     /// @param[out] maskCollection the mask collection of map

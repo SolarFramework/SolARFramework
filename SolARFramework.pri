@@ -115,6 +115,7 @@ interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IWorldGraphManager.h \
 interfaces/api/storage/IMapManager.h \
+interfaces/api/storage/IMasks2DManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Timer.h \
