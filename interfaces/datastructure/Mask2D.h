@@ -27,6 +27,22 @@ namespace SolAR {
 namespace datastructure {
 
 /**
+ * @enum class Segmentation2DType
+ */
+enum class Segmentation2DType {
+    INSTANCE,
+    PANOPTIC,
+    SEMANTIC,
+    UNDEFINED
+};
+static const std::map<Segmentation2DType, std::string> segmentation2DTypeToStr {
+    {Segmentation2DType::INSTANCE, "INSTANCE"},
+    {Segmentation2DType::PANOPTIC, "PANOPTIC"},
+    {Segmentation2DType::SEMANTIC, "SEMANTIC"},
+    {Segmentation2DType::UNDEFINED, "UNDEFINED"}
+};
+
+/**
  * @class Mask2D
  * @brief <B>A 2D mask.</B>
  *
@@ -34,16 +50,6 @@ namespace datastructure {
  */
 class SOLARFRAMEWORK_API Mask2D {
 public:
-    /**
-     * @enum class Segmentation2DType
-     */
-    enum class Segmentation2DType {
-        INSTANCE,
-        PANOPTIC,
-        SEMANTIC,
-        UNDEFINED
-    };
-
     /**
      * @struct SegInfo
      * @brief this struct SegInfo is used to interpret pixel value in the segmentation mask
@@ -66,6 +72,8 @@ public:
             ar& confidence;
         }
     };
+    using MaskInfoType = std::map<uint8_t, SegInfo>;
+    using ClassLabelType = std::map<int16_t, std::string>;
 
     /// @brief default constructor
     Mask2D() = default;
@@ -76,7 +84,7 @@ public:
     /// @param[in] mask mask
     /// @param[in] info mask info
     /// @param[in] label mapping from class ID to label
-    Mask2D(uint32_t id, Segmentation2DType type, SRef<Image> mask, const std::map<uint8_t, SegInfo>& info, const std::map<int16_t, std::string>& label);
+    Mask2D(uint32_t id, Segmentation2DType type, SRef<Image> mask, const MaskInfoType& info, const ClassLabelType& label);
 
     /// @brief default destructor
     ~Mask2D() = default;
@@ -91,11 +99,11 @@ public:
 
     /// @brief set mask info
     /// @param[in] maskInfo mask info used to interpret the mask
-    void setMaskInfo(const std::map<uint8_t, SegInfo>& maskInfo);
+    void setMaskInfo(const MaskInfoType& maskInfo);
 
     /// @brief set mapping from class ID to label (string)
     /// @param[in] classIdToLabel mapping from class ID to label
-    void setClassLabels(const std::map<int16_t, std::string>& classIdToLabel);
+    void setClassLabels(const ClassLabelType& classIdToLabel);
 
     /// @brief set segmentation type
     /// @param[in] type segmentation type
@@ -115,15 +123,18 @@ public:
 
     /// @brief get mask info
     /// @return mask info
-    const std::map<uint8_t, SegInfo>& getMaskInfo() const;
+    const MaskInfoType& getMaskInfo() const;
 
     /// @brief get labels of classes
     /// @return labels of classes
-    const std::map<int16_t, std::string>& getClassLabels() const;
+    const ClassLabelType& getClassLabels() const;
 
     /// @brief get segmentation type
     /// @return segmentation type
     Segmentation2DType getSegmentationType() const;
+
+    /// @brief print info
+    void print() const;
 
 private:
     /// @brief serialize
@@ -133,8 +144,8 @@ private:
 
     uint32_t m_id = 0;
     SRef<Image> m_mask;
-    std::map<uint8_t, SegInfo> m_maskInfo;
-    std::map<int16_t, std::string> m_classIdToLabel;
+    MaskInfoType m_maskInfo;
+    ClassLabelType m_classIdToLabel;
     Segmentation2DType m_segmentationType = Segmentation2DType::UNDEFINED;
 };
 

@@ -15,13 +15,14 @@
  */
 
 #include "datastructure/Mask2D.h"
+#include "core/Log.h"
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Mask2D);
 
 namespace SolAR {
 namespace datastructure {
 
-Mask2D::Mask2D(uint32_t id, Mask2D::Segmentation2DType type, SRef<Image> mask, const std::map<uint8_t, Mask2D::SegInfo>& info, const std::map<int16_t, std::string>& label)
+Mask2D::Mask2D(uint32_t id, Segmentation2DType type, SRef<Image> mask, const Mask2D::MaskInfoType& info, const Mask2D::ClassLabelType& label)
 {
     m_id = id;
     m_segmentationType = type;
@@ -40,12 +41,12 @@ void Mask2D::setMask(SRef<Image> mask)
     m_mask = mask;
 }
 
-void Mask2D::setMaskInfo(const std::map<uint8_t, SegInfo>& maskInfo)
+void Mask2D::setMaskInfo(const Mask2D::MaskInfoType& maskInfo)
 {
     m_maskInfo = maskInfo;
 }
 
-void Mask2D::setClassLabels(const std::map<int16_t, std::string>& classIdToLabel)
+void Mask2D::setClassLabels(const Mask2D::ClassLabelType& classIdToLabel)
 {
     m_classIdToLabel = classIdToLabel;
 }
@@ -65,12 +66,12 @@ SRef<const Image> Mask2D::getConstMask() const
     return m_mask;
 }
 
-const std::map<uint8_t, Mask2D::SegInfo>& Mask2D::getMaskInfo() const
+const Mask2D::MaskInfoType& Mask2D::getMaskInfo() const
 {
     return m_maskInfo;
 }
 
-const std::map<int16_t, std::string>& Mask2D::getClassLabels() const
+const Mask2D::ClassLabelType& Mask2D::getClassLabels() const
 {
     return m_classIdToLabel;
 }
@@ -80,9 +81,22 @@ void Mask2D::setSegmentationType(Segmentation2DType type)
     m_segmentationType = type;
 }
 
-Mask2D::Segmentation2DType Mask2D::getSegmentationType() const
+Segmentation2DType Mask2D::getSegmentationType() const
 {
     return m_segmentationType;
+}
+
+void Mask2D::print() const
+{
+    LOG_INFO("ID: {}", m_id);
+    LOG_INFO("SegmentationType: {}", segmentation2DTypeToStr.at(m_segmentationType));
+    LOG_INFO("has valid mask image: {}", m_mask ? "true" : "false");
+    for (const auto& [v, info]: m_maskInfo) {
+        LOG_INFO("[Mask info] pixel_value {}: class_id {}, instance_id {}, confidence {:.2f}", v, info.classId, info.instanceId, info.confidence);
+    }
+    for (const auto& [classId, label]: m_classIdToLabel) {
+        LOG_INFO("[Class label] class_id {}: label {}", classId, label);
+    }
 }
 
 template<typename Archive>
