@@ -1,7 +1,6 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/GeometryDefinitions.h>
@@ -11,8 +10,8 @@
 #include <datastructure/CloudPoint.h>
 #include <datastructure/CameraDefinitions.h>
 #include <datastructure/GlobalDescriptor.h>
-
 #include <memory>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -219,5 +218,6 @@ DECLARESERIALIZE(Frame);
 }
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Frame);
+BOOST_CLASS_VERSION(SolAR::datastructure::Frame, 1);
 
 #endif // FRAME_H
