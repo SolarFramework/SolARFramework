@@ -136,6 +136,12 @@ public:
     /// @brief print info
     void print() const;
 
+    /// @brief save to PNG and json
+    /// @param[in] filePng filename PNG used to save mask image
+    /// @param[in] fileJson filename json used to save other information of the mask
+    /// @return boolean true (success) or false (failure)
+    bool save(const std::string& filePng, const std::string& fileJson) const;
+
 private:
     /// @brief serialize
     friend class boost::serialization::access;

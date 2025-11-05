@@ -16,6 +16,7 @@
 
 #include "datastructure/Mask2DCollection.h"
 #include "core/Log.h"
+#include <filesystem>
 #include <xpcf/core/helpers.h>
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Mask2DCollection);
@@ -110,6 +111,36 @@ void Mask2DCollection::clear()
 {
     m_masks.clear();
     m_currentId = 0;
+}
+
+FrameworkReturnCode Mask2DCollection::save(const std::string& pathToFolder) const
+{
+    if (m_masks.empty()) {
+        LOG_ERROR("Mask2DCollection::save - empty mask list.");
+        return FrameworkReturnCode::_ERROR_;
+    }
+    if (!std::filesystem::exists(pathToFolder)) {
+        std::filesystem::create_directory(pathToFolder);
+    }
+    for (const auto& [id, mask] : m_masks) {
+        std::string filenamePng = pathToFolder + "/" + std::to_string(id) + ".png";
+        std::string filenameJson = pathToFolder + "/" + std::to_string(id) + ".json";
+        if (!mask->save(filenamePng, filenameJson)) {
+            LOG_ERROR("Mask2DCollection::save - failed to save mask {}", id);
+            return FrameworkReturnCode::_ERROR_;
+        }
+    }
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+void Mask2DCollection::print() const
+{
+    LOG_INFO("Current ID: {}", m_currentId);
+    LOG_INFO("Number of masks: {}", m_masks.size());
+    for (const auto& [id, mask] : m_masks) {
+        LOG_INFO("Mask ID: {}", id);
+        mask->print();
+    }
 }
 
 template <typename Archive>

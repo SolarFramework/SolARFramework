@@ -89,6 +89,14 @@ public:
     /// @brief This method allows to clear the contents of current Mask2DCollection
     void clear();
 
+    /// @brief save list of Mask2Ds to folder (each mask corresponds to a PNG file and a json file)
+    /// @param[in] pathToFolder path to folder
+    /// @return FrameworkReturnCode::_SUCCESS (saved successfully) or FrameworkReturnCode::_ERROR_ (failed to save)
+    FrameworkReturnCode save(const std::string& pathToFolder) const;
+
+    /// @brief print info
+    void print() const;
+
 private:
     /// @brief serialize
     friend class boost::serialization::access;

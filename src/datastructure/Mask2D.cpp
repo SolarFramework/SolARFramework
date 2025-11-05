@@ -16,8 +16,11 @@
 
 #include "datastructure/Mask2D.h"
 #include "core/Log.h"
+#include <nlohmann/json.hpp>
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Mask2D);
+
+using json = nlohmann::json;
 
 namespace SolAR {
 namespace datastructure {
@@ -97,6 +100,37 @@ void Mask2D::print() const
     for (const auto& [classId, label]: m_classIdToLabel) {
         LOG_INFO("[Class label] class_id {}: label {}", classId, label);
     }
+}
+
+bool Mask2D::save(const std::string& filePng, const std::string& fileJson) const
+{
+    if (m_mask->getImageEncoding() != Image::ENCODING_PNG) {
+        m_mask->setImageEncoding(Image::ENCODING_PNG);
+    }
+    m_mask->setImageEncodingQuality(100);
+    if (m_mask->save(filePng) != FrameworkReturnCode::_SUCCESS) {
+        LOG_ERROR("Mask2D::save - failed to save mask image to {}", filePng);
+        return false;
+    }
+    json j;
+    j["id"] = m_id;
+    j["segmentation_type"] = segmentation2DTypeToStr.at(m_segmentationType);
+    auto maskInfo = json::array();
+    for (const auto& [v, info] : m_maskInfo) {
+        maskInfo.push_back({ {"pixel_value", v},
+                             {"class", info.classId},
+                             {"instance", info.instanceId},
+                             {"confidence_score", info.confidence} });
+    }
+    j["mask_pixel_info"] = maskInfo;
+    auto classLabel = json::array();
+    for (const auto& [classId, label] : m_classIdToLabel) {
+        classLabel.push_back({{"class", classId}, {"label", label}});
+    }
+    j["class_label_info"] = classLabel;
+    std::ofstream o(fileJson);
+    o << j.dump(0) << std::endl;
+    return true;
 }
 
 template<typename Archive>
