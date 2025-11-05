@@ -82,27 +82,27 @@ public:
     /// @param[in] maskCollection the mask collection of map
     virtual void setMaskCollection(SRef<Mask2DCollection> maskCollection) = 0;
 
-    /// @brief This method returns the const mask collection
+    /// @brief This method returns a pointer to the const mask collection
     /// @return the mask collection
     virtual SRef<const Mask2DCollection> getConstMaskCollection() const = 0;
 
-    /// @brief This method returns the mask collection
+    /// @brief This method returns a pointer to the mask collection
     /// @return the mask collection
     virtual SRef<Mask2DCollection> getMaskCollection() const = 0;
 
     /// @brief This method returns the mask collection
     /// @param[out] maskCollection the mask collection of map
-    /// @return the mask collection
+    /// @return std::unique_lock<std::mutex> which can be used to lock the access to data
     virtual std::unique_lock<std::mutex> getMaskCollection(SRef<Mask2DCollection>& maskCollection) = 0;
 
     /// @brief This method allows to save the masks to the external file
     /// @param[in] file the file name
-    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+    /// @return FrameworkReturnCode::_SUCCESS_ if the save succeeded, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode saveToFile(const std::string& file) const = 0;
 
     /// @brief This method allows to load the masks from the external file
     /// @param[in] file the file name
-    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+    /// @return FrameworkReturnCode::_SUCCESS_ if the load succeeded, else FrameworkReturnCode::_ERROR.
     virtual FrameworkReturnCode loadFromFile(const std::string& file) = 0;
 };
 

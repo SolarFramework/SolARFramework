@@ -109,7 +109,7 @@ private:
 
 DECLARESERIALIZE(Mask2DCollection);
 
-} // datastructure 
+} // datastructure
 } // SolAR
 
 #endif // MASK2DCOLLECTION_H

@@ -112,13 +112,13 @@ public:
 
     /// @brief Add a 2d mask to map manager
     /// @param[in] mask 2D mask to be added to map manager
-    /// @param[in] defineId if true an id will be set for the added mask, if false the id of the mask will be used
+    /// @param[in] defineId if true an id will be set for the added mask, if false the id of the input mask will be used
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode addMask2D(SRef<SolAR::datastructure::Mask2D> mask, bool defineId = true) = 0;
 
     /// @brief remove mask
     /// @param[in] id mask ID
-    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if mask removed successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode removeMask2D(uint32_t id) = 0;
 
     /// @brief Add camera parameters to map manager

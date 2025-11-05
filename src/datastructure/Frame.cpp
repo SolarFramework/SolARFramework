@@ -58,7 +58,7 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
-const std::vector<uint32_t>& Frame::getMaskIDs() const 
+const std::vector<uint32_t>& Frame::getMaskIDs() const
 {
 	return m_maskIDs;
 }
@@ -243,7 +243,7 @@ void Frame::serialize(Archive &ar, const unsigned int version) {
     }
     if (m_serializeImage) {
         ar & m_view;
-        if (version == 0) { // old version should serialize mask (SRef<Image>) 
+        if (version == 0) { // old version should serialize mask (SRef<Image>)
             SRef<Image> emptyImage;
             ar & emptyImage;
         }
@@ -252,7 +252,7 @@ void Frame::serialize(Archive &ar, const unsigned int version) {
         // Do not serialize Image object, but only for this time
         SRef<Image> emptyImage;
         ar & emptyImage; // view
-        if (version == 0) { // mask (old version)
+        if (version == 0) { // old version should serialize mask (SRef<Image>)
             ar & emptyImage;
         }
         m_serializeImage = true;

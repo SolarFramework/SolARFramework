@@ -151,17 +151,17 @@ public:
 	///
 	void setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection);
 
-    /// @brief This method returns the const 2D mask collection
-    /// @return the mask collection
+    /// @brief This method returns a pointer to the const 2D mask collection
+    /// @return pointer to const mask collection
     SRef<const Mask2DCollection> getConstMask2DCollection() const;
 
-	/// @brief This method returns the 2D mask collection
-    /// @return the mask collection
+	/// @brief This method returns a pointer to the 2D mask collection
+    /// @return pointer to the mask collection
     SRef<Mask2DCollection> getMask2DCollection() const;
 
     /// @brief This method returns the 2D mask collection
     /// @param[out] maskCollection the mask collection of map
-    /// @return the mask collection
+    /// @return std::unique_lock<std::mutex> which can be used to lock the access to data
     std::unique_lock<std::mutex> getMask2DCollection(SRef<Mask2DCollection>& maskCollection);
 
     /// @brief This method is to set the 2D mask collection
@@ -293,7 +293,7 @@ private:
     SRef<CoordinateSystem>                              m_coordinateSystem = org::bcom::xpcf::utils::make_shared<CoordinateSystem>();
     SRef<PointCloud>                                    m_pointCloud = org::bcom::xpcf::utils::make_shared<PointCloud>();
     SRef<KeyframeCollection>                            m_keyframeCollection = org::bcom::xpcf::utils::make_shared<KeyframeCollection>();
-	SRef<Mask2DCollection>                              m_mask2DCollection = org::bcom::xpcf::utils::make_shared<Mask2DCollection>();
+    SRef<Mask2DCollection>                              m_mask2DCollection = org::bcom::xpcf::utils::make_shared<Mask2DCollection>();
     SRef<CovisibilityGraph>                             m_covisibilityGraph = org::bcom::xpcf::utils::make_shared<CovisibilityGraph>();
     SRef<KeyframeRetrieval>                             m_keyframeRetrieval = org::bcom::xpcf::utils::make_shared<KeyframeRetrieval>();
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
@@ -307,4 +307,7 @@ private:
 DECLARESERIALIZE(Map);
 }
 }  // end of namespace SolAR
+
+BOOST_CLASS_VERSION(SolAR::datastructure::Map, 1);
+
 #endif // SOLAR_MAP_H

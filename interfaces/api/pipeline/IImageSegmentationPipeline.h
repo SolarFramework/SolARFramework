@@ -31,15 +31,15 @@ namespace pipeline {
  * @enum class ImageSegmentationStatus
  */
 enum class ImageSegmentationStatus {
-    UNINITIALIZED = 0,  // processing not initialized
+    UNINITIALIZED = 0,    // processing not initialized
     INITIALIZED = 1,      // processing correctly initialized, but not started
     IN_PROGRESS = 2,      // processing in progress
     COMPLETED = 3,        // processing completed
     ABORTED = 4           // processing aborted before completion
 };
 
-/// @brief mapping status to string
-const static std::map<ImageSegmentationStatus, std::string> imageSegmentationStatusToString = {
+/// @brief image segmentation status to string
+static const std::map<ImageSegmentationStatus, std::string> imageSegmentationStatusToString = {
     {ImageSegmentationStatus::UNINITIALIZED, "UNINITIALIZED"},
     {ImageSegmentationStatus::INITIALIZED, "INITIALIZED"},
     {ImageSegmentationStatus::IN_PROGRESS, "IN_PROGRESS"},
@@ -65,24 +65,24 @@ public:
     /// @brief default destructor
     virtual ~IImageSegmentationPipeline() = default;
 
-    /// @brief segmentation request for a single image
-    /// @param[in] image pointer to image data to be segmented
+    /// @brief segmentation request from an input image
+    /// @param[in] image pointer to image
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
     virtual FrameworkReturnCode segmentationRequest(SRef<Image> image) = 0;
-    
-    /// @brief segmentation request for a list of input images
-    /// @param[in] images list of pointers to images to be segmented 
-    /// @param[in] temporalConsistency boolean value indicating if the images are temporally consistent (true) or not (false)
+
+    /// @brief segmentation request from a number of input images
+    /// @param[in] images list of pointers to images to be segmented
+    /// @param[in] temporalConsistency flag indicating whether the images are temporally consistent (true) or not (false)
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
     virtual FrameworkReturnCode segmentationRequest(const std::vector<SRef<Image>>& images, bool temporalConsistency = false) = 0;
 
     /// @brief get status and progress percentage
     /// @param[out] status the current image segmentation processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
-    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are available, otherwise FrameworkReturnCode::_ERROR_
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getStatus(ImageSegmentationStatus& status, float& progress) const = 0;
 
-    /// @brief get output mask
+    /// @brief get output masks
     /// @param[out] mask output mask collection
     /// @return FrameworkReturnCode::_SUCCESS (get output mask succeeded) or FrameworkReturnCode::_ERROR_ (get output mask failed)
     virtual FrameworkReturnCode getOutputMask(SRef<Mask2DCollection>& mask) const = 0;

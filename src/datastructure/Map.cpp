@@ -257,13 +257,12 @@ void Map::setMask2DCollection(SRef<Mask2DCollection> maskCollection)
 }
 
 template<typename Archive>
-void Map::serialize(Archive &ar, const unsigned int /* version */) {
+void Map::serialize(Archive &ar, const unsigned int version) {
 	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;
 	ar & m_pointCloud;
 	ar & m_keyframeCollection;
-    ar & m_mask2DCollection;
 	ar & m_covisibilityGraph;
 	ar & m_keyframeRetrieval;
     ar & m_cameraParametersCollection;
@@ -272,6 +271,9 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_descriptorType;
     ar & m_globalDescriptorType;
     ar & m_embedKeyframeImages;
+    if (version > 0) {
+        ar & m_mask2DCollection;
+    }
 }
 
 IMPLEMENTSERIALIZE(Map);
