@@ -62,6 +62,7 @@ interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/output/files/IMapExporter.h \
 interfaces/api/pipeline/IDenseMappingPipeline.h \
+interfaces/api/pipeline/IImageSegmentationPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
@@ -114,6 +115,7 @@ interfaces/api/storage/ICameraParametersManager.h \
 interfaces/api/storage/IPointCloudManager.h \
 interfaces/api/storage/IWorldGraphManager.h \
 interfaces/api/storage/IMapManager.h \
+interfaces/api/storage/IMasks2DManager.h \
 interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Timer.h \
@@ -138,6 +140,8 @@ interfaces/datastructure/Image.h \
 interfaces/datastructure/ImageMarker.h \
 interfaces/datastructure/Keyframe.h \
 interfaces/datastructure/Keypoint.h \
+interfaces/datastructure/Mask2D.h \
+interfaces/datastructure/Mask2DCollection.h \
 interfaces/datastructure/MathDefinitions.h \
 interfaces/datastructure/Mesh.h \
 interfaces/datastructure/PointCloud.h \
@@ -200,6 +204,8 @@ src/datastructure/CovisibilityGraph.cpp \
 src/datastructure/KeyframeRetrieval.cpp \
 src/datastructure/KeyframeCollection.cpp \
 src/datastructure/Map.cpp \
+src/datastructure/Mask2D.cpp \
+src/datastructure/Mask2DCollection.cpp \
 src/datastructure/Mesh.cpp \
 src/datastructure/StorageTrackable.cpp \
 src/datastructure/StorageWorldAnchor.cpp \

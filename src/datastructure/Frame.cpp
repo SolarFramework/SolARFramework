@@ -35,7 +35,7 @@ namespace datastructure {
 Frame::Frame(const SRef<Frame> frame) :
                 m_pose(frame->m_pose),
                 m_view(frame->m_view),
-                m_mask(frame->m_mask),
+                m_maskIDs(frame->m_maskIDs),
                 m_referenceKeyFrame(frame->m_referenceKeyFrame),
                 m_descriptors(frame->m_descriptors),
                 m_globalDescriptor(frame->m_globalDescriptor),
@@ -58,9 +58,9 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
-const SRef<Image> Frame::getMask() const 
+const std::vector<uint32_t>& Frame::getMaskIDs() const
 {
-	return m_mask;
+	return m_maskIDs;
 }
 
 void Frame::setView(const SRef<Image>& view)
@@ -68,9 +68,9 @@ void Frame::setView(const SRef<Image>& view)
 	m_view = view;
 }
 
-void Frame::setMask(const SRef<Image> mask)
+void Frame::setMaskIDs(const std::vector<uint32_t>& maskIDs)
 {
-	m_mask = mask;
+	m_maskIDs = maskIDs;
 }
 
 const Transform3Df& Frame::getPose() const
@@ -236,18 +236,23 @@ void Frame::nextSerializationWithoutImage()
 }
 
 template<typename Archive>
-void Frame::serialize(Archive &ar, const unsigned int /* version */) {
+void Frame::serialize(Archive &ar, const unsigned int version) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
     if (m_serializeImage) {
         ar & m_view;
-        ar & m_mask;
     }
     else {
         // Do not serialize Image object, but only for this time
         SRef<Image> emptyImage;
         ar & emptyImage; // view
-        ar & emptyImage; // mask
         m_serializeImage = true;
+    }
+    if (version == 0) { // old version should serialize mask (SRef<Image>)
+        SRef<Image> emptyImage;
+        ar & emptyImage;
+    }
+    else {
+        ar & m_maskIDs;
     }
 	ar & m_descriptors;
 	ar & m_keypoints;
