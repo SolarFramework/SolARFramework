@@ -28,7 +28,7 @@ namespace datastructure {
 FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
     if (defineKeyframeId) {
-        keyframe->setId(++m_id);
+        keyframe->setId(m_id++);
     }
     m_keyframes[keyframe->getId()] = keyframe;
 	return FrameworkReturnCode::_SUCCESS;
