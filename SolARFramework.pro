@@ -72,7 +72,7 @@ win32 {
 }
 
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
-header_interfaces.files  = $$files($${PWD}/interfaces/*.h*)
+header_interfaces.files  = $$files($${PWD}/interfaces/*.h*) $${PWD}/interfaces/Version.h
 
 header_interfaces_display.path  = $${PROJECTDEPLOYDIR}/interfaces/api/display/
 header_interfaces_display.files = $$files($${PWD}/interfaces/api/display/*.h*)
