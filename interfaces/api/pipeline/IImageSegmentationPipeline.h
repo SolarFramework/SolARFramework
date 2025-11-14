@@ -28,26 +28,6 @@ namespace api {
 namespace pipeline {
 
 /**
- * @enum class ImageSegmentationStatus
- */
-enum class ImageSegmentationStatus {
-    UNINITIALIZED = 0,    // processing not initialized
-    INITIALIZED = 1,      // processing correctly initialized, but not started
-    IN_PROGRESS = 2,      // processing in progress
-    COMPLETED = 3,        // processing completed
-    ABORTED = 4           // processing aborted before completion
-};
-
-/// @brief image segmentation status to string
-static const std::map<ImageSegmentationStatus, std::string> imageSegmentationStatusToString = {
-    {ImageSegmentationStatus::UNINITIALIZED, "UNINITIALIZED"},
-    {ImageSegmentationStatus::INITIALIZED, "INITIALIZED"},
-    {ImageSegmentationStatus::IN_PROGRESS, "IN_PROGRESS"},
-    {ImageSegmentationStatus::COMPLETED, "COMPLETED"},
-    {ImageSegmentationStatus::ABORTED, "ABORTED"}
-};
-
-/**
  * @class IImageSegmentationPipeline
  * @brief <B>Defines an image segmentation pipeline.</B>
  * <TT>UUID: 0a897dee-74f1-42de-a6c1-f7855e0f0bbb</TT>
@@ -59,6 +39,25 @@ class XPCF_CLIENTUUID("2215b6ef-e6fa-455c-84c6-820d95630eb5") XPCF_SERVERUUID("4
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
     IImageSegmentationPipeline : virtual public IPipeline {
 public:
+
+    /// Status of image segmentation processing
+    enum class Status {
+        UNINITIALIZED,    ///< processing not initialized
+        INITIALIZED,      ///< processing correctly initialized, but not started
+        IN_PROGRESS,      ///< processing in progress
+        COMPLETED,        ///< processing completed
+        ABORTED           ///< processing aborted before completion
+    };
+
+    /// @brief image segmentation status to string
+    static const std::map<Status, std::string> statusToString = {
+        {Status::UNINITIALIZED, "UNINITIALIZED"},
+        {Status::INITIALIZED, "INITIALIZED"},
+        {Status::IN_PROGRESS, "IN_PROGRESS"},
+        {Status::COMPLETED, "COMPLETED"},
+        {Status::ABORTED, "ABORTED"}
+    };
+
     /// @brief default constructor
     IImageSegmentationPipeline() = default;
 
@@ -68,19 +67,19 @@ public:
     /// @brief segmentation request from an input image
     /// @param[in] image pointer to image
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
-    virtual FrameworkReturnCode segmentationRequest(SRef<Image> image) = 0;
+    virtual FrameworkReturnCode segment(SRef<Image> image) = 0;
 
     /// @brief segmentation request from a number of input images
     /// @param[in] images list of pointers to images to be segmented
     /// @param[in] temporalConsistency flag indicating whether the images are temporally consistent (true) or not (false)
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
-    virtual FrameworkReturnCode segmentationRequest(const std::vector<SRef<Image>>& images, bool temporalConsistency = false) = 0;
+    virtual FrameworkReturnCode segment(const std::vector<SRef<Image>>& images, bool temporalConsistency = false) = 0;
 
     /// @brief get status and progress percentage
     /// @param[out] status the current image segmentation processing status
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
     /// @return FrameworkReturnCode::_SUCCESS if the status and progress are successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getStatus(ImageSegmentationStatus& status, float& progress) const = 0;
+    virtual FrameworkReturnCode getStatus(Status& status, float& progress) const = 0;
 
     /// @brief get output masks
     /// @param[out] mask output mask collection

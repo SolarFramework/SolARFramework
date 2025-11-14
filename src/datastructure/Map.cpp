@@ -235,9 +235,9 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
-SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
+const Mask2DCollection& Map::getConstMask2DCollection() const
 {
-    return m_mask2DCollection;
+    return *m_mask2DCollection;
 }
 
 SRef<Mask2DCollection> Map::getMask2DCollection() const

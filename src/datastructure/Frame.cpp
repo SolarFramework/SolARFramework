@@ -238,24 +238,21 @@ void Frame::nextSerializationWithoutImage()
 template<typename Archive>
 void Frame::serialize(Archive &ar, const unsigned int version) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
-    if (version > 0) {
-        ar & m_maskIDs;
-    }
     if (m_serializeImage) {
         ar & m_view;
-        if (version == 0) { // old version should serialize mask (SRef<Image>)
-            SRef<Image> emptyImage;
-            ar & emptyImage;
-        }
     }
     else {
         // Do not serialize Image object, but only for this time
         SRef<Image> emptyImage;
         ar & emptyImage; // view
-        if (version == 0) { // old version should serialize mask (SRef<Image>)
-            ar & emptyImage;
-        }
         m_serializeImage = true;
+    }
+    if (version == 0) { // old version should serialize mask (SRef<Image>)
+        SRef<Image> emptyImage;
+        ar & emptyImage;
+    }
+    else {
+        ar & m_maskIDs;
     }
 	ar & m_descriptors;
 	ar & m_keypoints;

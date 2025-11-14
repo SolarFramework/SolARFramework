@@ -27,22 +27,6 @@ namespace SolAR {
 namespace datastructure {
 
 /**
- * @enum class Segmentation2DType
- */
-enum class Segmentation2DType {
-    INSTANCE,
-    PANOPTIC,
-    SEMANTIC,
-    UNDEFINED
-};
-static const std::map<Segmentation2DType, std::string> segmentation2DTypeToStr {
-    {Segmentation2DType::INSTANCE, "INSTANCE"},
-    {Segmentation2DType::PANOPTIC, "PANOPTIC"},
-    {Segmentation2DType::SEMANTIC, "SEMANTIC"},
-    {Segmentation2DType::UNDEFINED, "UNDEFINED"}
-};
-
-/**
  * @class Mask2D
  * @brief <B>A 2D mask.</B>
  *
@@ -53,9 +37,9 @@ public:
     /**
      * @struct SegInfo
      * @brief this struct SegInfo is used to interpret pixel value in the segmentation mask
-     * classId, the Id of the class, if classId < 0, it means that the current pixel is unsegmented (e.g. background)
-     * instanceId, the instance Id of the detected object, if instanceId < 0, it means that the current pixel belongs to a "stuff" class which is uncountable, otherwise it belongs to a "thing" class
-     * confidence, confidence score between 0 and 1, the confidence score of the segmentation, if confidence < 0, it means that the confidence score is not available
+     * * classId, the Id of the class, if classId < 0, it means that the current pixel is unsegmented (e.g. background)
+     * * instanceId, the instance Id of the detected object, if instanceId < 0, it means that the current pixel belongs to a "stuff" class which is uncountable, otherwise it belongs to a "thing" class
+     * * confidence, confidence score between 0 and 1, the confidence score of the segmentation, if confidence < 0, it means that the confidence score is not available
      */
     struct SegInfo {
         SegInfo() = default;
@@ -73,18 +57,15 @@ public:
         }
     };
     using MaskInfoType = std::map<uint8_t, SegInfo>;
-    using ClassLabelType = std::map<int16_t, std::string>;
 
     /// @brief default constructor
     Mask2D() = default;
 
     /// @brief constructor with args
     /// @param[in] id ID of the Mask2D
-    /// @param[in] type segmentation type
     /// @param[in] mask mask
     /// @param[in] info mask info
-    /// @param[in] label mapping from class ID to label
-    Mask2D(uint32_t id, Segmentation2DType type, SRef<Image> mask, const MaskInfoType& info, const ClassLabelType& label);
+    Mask2D(uint32_t id, SRef<Image> mask, const MaskInfoType& info);
 
     /// @brief default destructor
     ~Mask2D() = default;
@@ -101,14 +82,6 @@ public:
     /// @param[in] maskInfo mask info used to interpret the mask
     void setMaskInfo(const MaskInfoType& maskInfo);
 
-    /// @brief set mapping from class ID to label (string)
-    /// @param[in] classIdToLabel mapping from class ID to label
-    void setClassLabels(const ClassLabelType& classIdToLabel);
-
-    /// @brief set segmentation type
-    /// @param[in] type segmentation type
-    void setSegmentationType(Segmentation2DType type);
-
     /// @brief get Id
     /// @return ID of the Mask2D object
     uint32_t getId() const;
@@ -124,14 +97,6 @@ public:
     /// @brief get mask info
     /// @return mask info
     const MaskInfoType& getMaskInfo() const;
-
-    /// @brief get labels of classes
-    /// @return labels of classes
-    const ClassLabelType& getClassLabels() const;
-
-    /// @brief get segmentation type
-    /// @return segmentation type
-    Segmentation2DType getSegmentationType() const;
 
     /// @brief print info
     void print() const;
@@ -151,8 +116,6 @@ private:
     uint32_t m_id = 0;
     SRef<Image> m_mask;
     MaskInfoType m_maskInfo;
-    ClassLabelType m_classIdToLabel;
-    Segmentation2DType m_segmentationType = Segmentation2DType::UNDEFINED;
 };
 
 DECLARESERIALIZE(Mask2D);

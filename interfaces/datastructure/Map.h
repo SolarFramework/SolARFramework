@@ -153,7 +153,7 @@ public:
 
     /// @brief This method returns a pointer to the const 2D mask collection
     /// @return pointer to const mask collection
-    SRef<const Mask2DCollection> getConstMask2DCollection() const;
+    const Mask2DCollection& getConstMask2DCollection() const;
 
 	/// @brief This method returns a pointer to the 2D mask collection
     /// @return pointer to the mask collection
