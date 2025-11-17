@@ -20,8 +20,6 @@
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Mask2D);
 
-using json = nlohmann::json;
-
 namespace SolAR {
 namespace datastructure {
 
@@ -67,13 +65,25 @@ const Mask2D::MaskInfoType& Mask2D::getMaskInfo() const
     return m_maskInfo;
 }
 
+std::string Mask2D::toString() const
+{
+    nlohmann::json j;
+    j["id"] = m_id;
+    j["has_valid_mask_image"] = m_mask ? true : false;
+    auto maskInfo = nlohmann::json::array();
+    for (const auto& [v, info] : m_maskInfo) {
+        maskInfo.push_back({ {"pixel_value", v},
+                             {"class", info.classId},
+                             {"instance", info.instanceId},
+                             {"confidence_score", info.confidence} });
+    }
+    j["mask_pixel_info"] = maskInfo;
+    return j.dump(0);
+}
+
 void Mask2D::print() const
 {
-    LOG_INFO("ID: {}", m_id);
-    LOG_INFO("has valid mask image: {}", m_mask ? "true" : "false");
-    for (const auto& [v, info]: m_maskInfo) {
-        LOG_INFO("[Mask info] pixel_value {}: class_id {}, instance_id {}, confidence {:.2f}", v, info.classId, info.instanceId, info.confidence);
-    }
+    LOG_INFO("Mask2D::print - {}", toString());
 }
 
 bool Mask2D::save(const std::string& filePng, const std::string& fileJson) const
@@ -86,18 +96,8 @@ bool Mask2D::save(const std::string& filePng, const std::string& fileJson) const
         LOG_ERROR("Mask2D::save - failed to save mask image to {}", filePng);
         return false;
     }
-    json j;
-    j["id"] = m_id;
-    auto maskInfo = json::array();
-    for (const auto& [v, info] : m_maskInfo) {
-        maskInfo.push_back({ {"pixel_value", v},
-                             {"class", info.classId},
-                             {"instance", info.instanceId},
-                             {"confidence_score", info.confidence} });
-    }
-    j["mask_pixel_info"] = maskInfo;
     std::ofstream o(fileJson);
-    o << j.dump(0) << std::endl;
+    o << toString() << std::endl;
     return true;
 }
 

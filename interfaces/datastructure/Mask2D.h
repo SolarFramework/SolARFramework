@@ -108,6 +108,10 @@ public:
     bool save(const std::string& filePng, const std::string& fileJson) const;
 
 private:
+    /// @brief to string
+    /// @return string describing the current Mask2D object
+    std::string toString() const;
+
     /// @brief serialize
     friend class boost::serialization::access;
     template<typename Archive>

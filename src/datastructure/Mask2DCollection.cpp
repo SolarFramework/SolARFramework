@@ -190,7 +190,7 @@ FrameworkReturnCode Mask2DCollection::getMinMaxMaskIds(uint32_t& minId, uint32_t
         return FrameworkReturnCode::_ERROR_;
     }
     minId = m_masks.begin()->first;
-    maxId = (--m_masks.end())->first;
+    maxId = m_masks.rbegin()->first;
     return FrameworkReturnCode::_SUCCESS;
 }
 
