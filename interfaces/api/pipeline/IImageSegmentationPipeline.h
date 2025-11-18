@@ -49,14 +49,26 @@ public:
         ABORTED           ///< processing aborted before completion
     };
 
-    /// @brief image segmentation status to string
-    static const std::map<Status, std::string> statusToString = {
-        {Status::UNINITIALIZED, "UNINITIALIZED"},
-        {Status::INITIALIZED, "INITIALIZED"},
-        {Status::IN_PROGRESS, "IN_PROGRESS"},
-        {Status::COMPLETED, "COMPLETED"},
-        {Status::ABORTED, "ABORTED"}
-    };
+    /// @brief Return the text definition (string) of a Status object
+    /// @param[in] status the Status type
+    /// @return the text definition (string)
+    static std::string toString(Status status)
+    {
+        switch (status) {
+            case Status::UNINITIALIZED:
+                return "UNINITIALIZED";
+            case Status::INITIALIZED:
+                return "INITIALIZED";
+            case Status::IN_PROGRESS:
+                return "IN_PROGRESS";
+            case Status::COMPLETED:
+                return "COMPLETED";
+            case Status::ABORTED:
+                return "ABORTED";
+            default:
+                return "Unknown value";
+        }
+    }
 
     /// @brief default constructor
     IImageSegmentationPipeline() = default;

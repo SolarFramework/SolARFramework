@@ -28,23 +28,27 @@ using json = nlohmann::json;
 namespace SolAR {
 namespace datastructure {
 
-FrameworkReturnCode Mask2DCollection::addMask(SRef<Mask2D> mask)
+FrameworkReturnCode Mask2DCollection::addMask(SRef<Mask2D> mask, uint32_t& maskId)
 {
     if (!mask) {
         LOG_ERROR("Mask2DCollection::addMask - invalid input mask pointer.");
         return FrameworkReturnCode::_ERROR_;
     }
-    if (m_masks.find(mask->getId()) != m_masks.end()) {
-        LOG_ERROR("Mask2DCollection::addMask - mask with id {} already exists in mask collection.", mask->getId());
-        return FrameworkReturnCode::_ERROR_;
+    for (auto& [existingId, existingMask] : m_masks) {
+        if (mask->equals(existingMask)) {
+            LOG_WARNING("Mask2DCollection::addMask - may need some further checks, the same mask exists in mask collection (id {}).", existingId);
+            break;
+        }
     }
-    m_masks[mask->getId()] = mask;
+    m_masks[m_currentId] = mask;
+    maskId = m_currentId;
+    m_currentId++;
     return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode Mask2DCollection::addMask(const Mask2D& mask)
+FrameworkReturnCode Mask2DCollection::addMask(const Mask2D& mask, uint32_t& maskId)
 {
-    return addMask(xpcf::utils::make_shared<Mask2D>(mask));
+    return addMask(xpcf::utils::make_shared<Mask2D>(mask), maskId);
 }
 
 FrameworkReturnCode Mask2DCollection::getMask(uint32_t id, SRef<Mask2D>& mask) const
@@ -89,6 +93,19 @@ FrameworkReturnCode Mask2DCollection::getAllMasks(std::vector<SRef<Mask2D>>& mas
     return FrameworkReturnCode::_SUCCESS;
 }
 
+FrameworkReturnCode Mask2DCollection::getAllMasks(std::vector<SRef<Mask2D>>& masks, std::vector<uint32_t>& maskIds) const
+{
+    masks.clear();
+    masks.reserve(m_masks.size());
+    maskIds.clear();
+    maskIds.reserve(m_masks.size());
+    for (const auto& [id, mask] : m_masks) {
+        masks.push_back(mask);
+        maskIds.push_back(id);
+    }
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 FrameworkReturnCode Mask2DCollection::suppressMask(uint32_t id)
 {
     auto maskIt = m_masks.find(id);
@@ -115,6 +132,7 @@ void Mask2DCollection::clear()
     m_masks.clear();
     m_classIdToLabel.clear();
     m_segmentationType = Segmentation2DType::UNDEFINED;
+    m_currentId = 0;
 }
 
 FrameworkReturnCode Mask2DCollection::save(const std::string& pathToFolder) const
@@ -129,7 +147,7 @@ FrameworkReturnCode Mask2DCollection::save(const std::string& pathToFolder) cons
     // mask collection info
     std::string fileJson = pathToFolder + "/mask_collection_info.json";
     json j;
-    j["segmentation_type"] = segmentation2DTypeToStr.at(m_segmentationType);
+    j["segmentation_type"] = toString(m_segmentationType);
     auto classLabel = json::array();
     for (const auto& [classId, label] : m_classIdToLabel) {
         classLabel.push_back({{"class", classId}, {"label", label}});
@@ -151,7 +169,7 @@ FrameworkReturnCode Mask2DCollection::save(const std::string& pathToFolder) cons
 
 void Mask2DCollection::print() const
 {
-    LOG_INFO("Segmentation type: {}", segmentation2DTypeToStr.at(m_segmentationType));
+    LOG_INFO("Segmentation type: {}", toString(m_segmentationType));
     LOG_INFO("Number of classes: {}", m_classIdToLabel.size());
     for (const auto& [classId, label]: m_classIdToLabel) {
         LOG_INFO("Class ID {}: {}", classId, label);
@@ -199,6 +217,7 @@ void Mask2DCollection::serialize(Archive &ar, const unsigned int /* version */)
 {
     ar & m_segmentationType;
     ar & m_classIdToLabel;
+    ar & m_currentId;
     ar & m_masks;
 }
 

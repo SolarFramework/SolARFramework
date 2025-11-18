@@ -62,17 +62,12 @@ public:
     Mask2D() = default;
 
     /// @brief constructor with args
-    /// @param[in] id ID of the Mask2D
     /// @param[in] mask mask
     /// @param[in] info mask info
-    Mask2D(uint32_t id, SRef<Image> mask, const MaskInfoType& info);
+    Mask2D(SRef<Image> mask, const MaskInfoType& info);
 
     /// @brief default destructor
     ~Mask2D() = default;
-
-    /// @brief set Id
-    /// @param[in] id Mask2D ID
-    void setId(uint32_t id);
 
     /// @brief set mask
     /// @param[in] mask pointer to mask buffer
@@ -81,10 +76,6 @@ public:
     /// @brief set mask info
     /// @param[in] maskInfo mask info used to interpret the mask
     void setMaskInfo(const MaskInfoType& maskInfo);
-
-    /// @brief get Id
-    /// @return ID of the Mask2D object
-    uint32_t getId() const;
 
     /// @brief get mask
     /// @return pointer to mask
@@ -107,6 +98,11 @@ public:
     /// @return boolean true (success) or false (failure)
     bool save(const std::string& filePng, const std::string& fileJson) const;
 
+    /// @brief check if mask is the same as the input
+    /// @param[in] inputMask input mask
+    /// @return true (the content of current mask object is the same as that of inputMask) or false (otherwise)
+    bool equals(SRef<Mask2D> inputMask) const;
+
 private:
     /// @brief to string
     /// @return string describing the current Mask2D object
@@ -117,7 +113,6 @@ private:
     template<typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
-    uint32_t m_id = 0;
     SRef<Image> m_mask;
     MaskInfoType m_maskInfo;
 };

@@ -112,9 +112,9 @@ public:
 
     /// @brief Add a 2d mask to map manager
     /// @param[in] mask 2D mask to be added to map manager
-    /// @param[in] defineId if true an id will be set for the added mask, if false the id of the input mask will be used
+    /// @param[out] maskId id of the added mask in mask collection
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode addMask2D(SRef<SolAR::datastructure::Mask2D> mask, bool defineId = true) = 0;
+    virtual FrameworkReturnCode addMask2D(SRef<SolAR::datastructure::Mask2D> mask, uint32_t& maskId) = 0;
 
     /// @brief remove mask
     /// @param[in] id mask ID

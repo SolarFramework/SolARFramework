@@ -23,16 +23,10 @@ BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::Mask2D);
 namespace SolAR {
 namespace datastructure {
 
-Mask2D::Mask2D(uint32_t id, SRef<Image> mask, const Mask2D::MaskInfoType& info)
+Mask2D::Mask2D(SRef<Image> mask, const Mask2D::MaskInfoType& info)
 {
-    m_id = id;
     m_mask = mask;
     m_maskInfo = info;
-}
-
-void Mask2D::setId(uint32_t id)
-{
-    m_id = id;
 }
 
 void Mask2D::setMask(SRef<Image> mask)
@@ -43,11 +37,6 @@ void Mask2D::setMask(SRef<Image> mask)
 void Mask2D::setMaskInfo(const Mask2D::MaskInfoType& maskInfo)
 {
     m_maskInfo = maskInfo;
-}
-
-uint32_t Mask2D::getId() const
-{
-    return m_id;
 }
 
 SRef<Image> Mask2D::getMask() const
@@ -68,7 +57,6 @@ const Mask2D::MaskInfoType& Mask2D::getMaskInfo() const
 std::string Mask2D::toString() const
 {
     nlohmann::json j;
-    j["id"] = m_id;
     j["has_valid_mask_image"] = m_mask ? true : false;
     auto maskInfo = nlohmann::json::array();
     for (const auto& [v, info] : m_maskInfo) {
@@ -101,9 +89,51 @@ bool Mask2D::save(const std::string& filePng, const std::string& fileJson) const
     return true;
 }
 
+bool Mask2D::equals(SRef<Mask2D> inputMask) const
+{
+    if (!inputMask) {
+        return false;
+    }
+    const auto& inputMaskInfo = inputMask->getMaskInfo();
+    if (m_maskInfo.size() != inputMaskInfo.size()) {
+        return false;
+    }
+    auto it = m_maskInfo.begin();
+    auto itInput = inputMaskInfo.begin();
+    while (it != m_maskInfo.end()) {
+        if (it->first != itInput->first) {
+            return false;
+        }
+        auto segInfo = it->second;
+        auto segInfoInput = itInput->second;
+        if (segInfo.classId != segInfoInput.classId || segInfo.instanceId != segInfoInput.instanceId || segInfo.confidence != segInfoInput.confidence) {
+            return false;
+        }
+        ++it;
+        ++itInput;
+    }
+    if (!m_mask && !inputMask->getMask()) {
+        return true;
+    }
+    if (m_mask && inputMask->getMask()) {
+        uint32_t bufSize = m_mask->getBufferSize();
+        if (inputMask->getMask()->getBufferSize() != bufSize) {
+            return false;
+        }
+        const uint8_t* buffer = static_cast<const uint8_t*>(m_mask->data());
+        const uint8_t* bufferInput = static_cast<const uint8_t*>(inputMask->getMask()->data());
+        for (uint32_t i = 0; i < bufSize; ++i) {
+            if (buffer[i] != bufferInput[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
 template<typename Archive>
 void Mask2D::serialize(Archive &ar, const unsigned int /* version */) {
-    ar& m_id;
     ar& m_mask;
     ar& m_maskInfo;
 }

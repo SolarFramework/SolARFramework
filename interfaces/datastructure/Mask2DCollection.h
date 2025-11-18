@@ -17,9 +17,11 @@
 #ifndef MASK2DCOLLECTION_H
 #define MASK2DCOLLECTION_H
 
+#include "core/Log.h"
 #include "core/SolARFrameworkDefinitions.h"
 #include "datastructure/Lockable.h"
 #include "datastructure/Mask2D.h"
+#include <optional>
 
 namespace SolAR {
 namespace datastructure {
@@ -32,13 +34,39 @@ enum class Segmentation2DType {
     UNDEFINED   ///< undefined
 };
 
-/// Segmentation2DType to string
-static const std::map<Segmentation2DType, std::string> segmentation2DTypeToStr {
-    {Segmentation2DType::INSTANCE, "INSTANCE"},
-    {Segmentation2DType::PANOPTIC, "PANOPTIC"},
-    {Segmentation2DType::SEMANTIC, "SEMANTIC"},
-    {Segmentation2DType::UNDEFINED, "UNDEFINED"}
-};
+/// @brief Return the text definition (string) of a Segmentation2DType object
+/// @param[in] Segmentation2DType the 2D segmentation type
+/// @return the text definition (string)
+static std::string toString(Segmentation2DType segmentation2DType)
+{
+    switch (segmentation2DType) {
+        case Segmentation2DType::INSTANCE:
+            return "INSTANCE";
+        case Segmentation2DType::PANOPTIC:
+            return "PANOPTIC";
+        case Segmentation2DType::SEMANTIC:
+            return "SEMANTIC";
+        case Segmentation2DType::UNDEFINED:
+            return "UNDEFINED";
+        default:
+            return "Unknown value";
+    }
+}
+
+/// @brief Return the Segmentation2DType object from a text definition (string)
+/// @param[in] textDefinition the text definition (string)
+/// @return the 2D segmentation type
+static std::optional<Segmentation2DType> parseSegmentation2DType(const std::string textDefinition)
+{
+    if (textDefinition == "INSTANCE") return Segmentation2DType::INSTANCE;
+    if (textDefinition == "PANOPTIC") return Segmentation2DType::PANOPTIC;
+    if (textDefinition == "SEMANTIC") return Segmentation2DType::SEMANTIC;
+    if (textDefinition == "UNDEFINED") return Segmentation2DType::UNDEFINED;
+
+    LOG_ERROR("Unknown 2D segmentation type: {}", textDefinition);
+
+    return {};
+}
 
 /**
 * @class Mask2DCollection
@@ -64,13 +92,15 @@ public:
 
     /// @brief This method allow to add a Mask2D to the Mask2D manager component
     /// @param[in] mask the Mask2D to add to the set of persistent Mask2Ds
+    /// @param[out] maskId the Id of the added mask in the mask collection
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addMask(SRef<Mask2D> mask);
+    FrameworkReturnCode addMask(SRef<Mask2D> mask, uint32_t& maskId);
 
     /// @brief This method allow to add a Mask2D to the key Mask2D manager component
     /// @param[in] mask the Mask2D to add to the set of persistent Mask2Ds
+    /// @param[out] maskId the Id of the added mask in the mask collection
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addMask(const Mask2D& mask);
+    FrameworkReturnCode addMask(const Mask2D& mask, uint32_t& maskId);
 
     /// @brief This method allows to get a Mask2D by its id
     /// @param[in] id of the Mask2D to get
@@ -88,6 +118,12 @@ public:
     /// @param[out] masks set of Mask2Ds
     /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode getAllMasks(std::vector<SRef<Mask2D>>& masks) const;
+
+    /// @brief This method allows to get all Mask2Ds as well as their IDs
+    /// @param[out] masks set of Mask2Ds
+    /// @param[out] maskIds set of mask Ids
+    /// @return FrameworkReturnCode::_SUCCESS_ if succeed, else FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode getAllMasks(std::vector<SRef<Mask2D>>& masks, std::vector<uint32_t>& maskIds) const;
 
     /// @brief This method allow to suppress a Mask2D by its id
     /// @param[in] id of the Mask2D to suppress
@@ -139,6 +175,7 @@ private:
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version);
 
+    uint32_t m_currentId = 0;
     std::map<uint32_t, SRef<Mask2D>> m_masks;
     ClassLabelType m_classIdToLabel;
     Segmentation2DType m_segmentationType = Segmentation2DType::UNDEFINED;

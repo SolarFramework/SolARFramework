@@ -43,9 +43,9 @@ public:
 
     /// @brief This method allows to add a mask to the 2D mask manager component
     /// @param[in] mask the mask to add to the set of persistent masks
-    /// @param[in] defineMaskId if true an id will be set for the added mask, if false the id of the mask will be used
+    /// @param[out] maskId id of the added mask in mask collection 
     /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode addMask(SRef<Mask2D> mask, bool defineMaskId = true) = 0;
+    virtual FrameworkReturnCode addMask(SRef<Mask2D> mask, uint32_t& maskId) = 0;
 
     /// @brief This method allows to get a mask by its id
     /// @param[in] id id of the mask to get
@@ -67,7 +67,7 @@ public:
     /// @brief This method allows to know if a mask is already stored in the component
     /// @param[in] id id of this mask
     /// @return true if exist, else false
-    virtual bool isExistMask(uint32_t id) const = 0;
+    virtual bool hasMask(uint32_t id) const = 0;
 
     /// @brief This method allows to get the number of masks stored in the component
     /// @return The number of masks
@@ -85,10 +85,6 @@ public:
     /// @brief This method returns a pointer to the const mask collection
     /// @return the mask collection
     virtual SRef<const Mask2DCollection> getConstMaskCollection() const = 0;
-
-    /// @brief This method returns a pointer to the mask collection
-    /// @return the mask collection
-    virtual SRef<Mask2DCollection> getMaskCollection() const = 0;
 
     /// @brief This method returns the mask collection
     /// @param[out] maskCollection the mask collection of map
