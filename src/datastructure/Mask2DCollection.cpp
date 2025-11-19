@@ -36,7 +36,7 @@ FrameworkReturnCode Mask2DCollection::addMask(SRef<Mask2D> mask, uint32_t& maskI
     }
     for (auto& [existingId, existingMask] : m_masks) {
         if (mask->equals(existingMask)) {
-            LOG_WARNING("Mask2DCollection::addMask - may need some further checks, the same mask exists in mask collection (id {}).", existingId);
+            LOG_WARNING("Mask2DCollection::addMask - mask to add is the same as an existing mask (id {}).", existingId);
             break;
         }
     }

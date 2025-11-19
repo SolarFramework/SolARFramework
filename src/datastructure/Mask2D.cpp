@@ -94,6 +94,7 @@ bool Mask2D::equals(SRef<Mask2D> inputMask) const
     if (!inputMask) {
         return false;
     }
+    // first, compare the two mask infos
     const auto& inputMaskInfo = inputMask->getMaskInfo();
     if (m_maskInfo.size() != inputMaskInfo.size()) {
         return false;
@@ -112,24 +113,26 @@ bool Mask2D::equals(SRef<Mask2D> inputMask) const
         ++it;
         ++itInput;
     }
-    if (!m_mask && !inputMask->getMask()) {
-        return true;
+    // second, compare the two masks
+    if ( (!m_mask && inputMask->getMask()) ||
+         (m_mask && !inputMask->getMask()) ) {
+        return false;
     }
-    if (m_mask && inputMask->getMask()) {
-        uint32_t bufSize = m_mask->getBufferSize();
-        if (inputMask->getMask()->getBufferSize() != bufSize) {
+    if (!m_mask && !inputMask->getMask()) {
+        return true; // the same both are invalid
+    }   
+    uint32_t bufSize = m_mask->getBufferSize();
+    if (inputMask->getMask()->getBufferSize() != bufSize) {
+        return false;
+    }
+    const uint8_t* buffer = static_cast<const uint8_t*>(m_mask->data());
+    const uint8_t* bufferInput = static_cast<const uint8_t*>(inputMask->getMask()->data());
+    for (uint32_t i = 0; i < bufSize; ++i) {
+        if (buffer[i] != bufferInput[i]) {
             return false;
         }
-        const uint8_t* buffer = static_cast<const uint8_t*>(m_mask->data());
-        const uint8_t* bufferInput = static_cast<const uint8_t*>(inputMask->getMask()->data());
-        for (uint32_t i = 0; i < bufSize; ++i) {
-            if (buffer[i] != bufferInput[i]) {
-                return false;
-            }
-        }
-        return true;
     }
-    return false;
+    return true;
 }
 
 template<typename Archive>
