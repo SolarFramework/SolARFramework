@@ -44,6 +44,13 @@ public:
     struct SegInfo {
         SegInfo() = default;
         SegInfo(int16_t c, int16_t i, float cf) : classId(c), instanceId(i), confidence(cf) {}
+        bool operator==(const SegInfo& other) const {
+            return classId == other.classId && instanceId == other.instanceId && confidence == other.confidence;
+        }
+        bool operator!=(const SegInfo& other) const {
+            return !(*this == other);
+        }
+
         int16_t classId = -1;
         int16_t instanceId = -1;
         float confidence = -1.f;
@@ -98,10 +105,15 @@ public:
     /// @return boolean true (success) or false (failure)
     bool save(const std::string& filePng, const std::string& fileJson) const;
 
-    /// @brief check if mask is the same as the input
-    /// @param[in] inputMask input mask
-    /// @return true (the content of current mask object is the same as that of inputMask) or false (otherwise)
-    bool equals(SRef<Mask2D> inputMask) const;
+    /// @brief overload operator == 
+    /// @param[in] other other mask
+    /// @return true (the content of current mask object is the same as that of other) or false (otherwise)
+    bool operator==(const Mask2D& other) const;
+
+    /// @brief overload operator != 
+    /// @param[in] other other mask
+    /// @return false (the content of current mask object is the same as that of other) or true (otherwise)
+    bool operator!=(const Mask2D& other) const;
 
 private:
     /// @brief to string

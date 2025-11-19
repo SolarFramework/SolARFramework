@@ -89,13 +89,10 @@ bool Mask2D::save(const std::string& filePng, const std::string& fileJson) const
     return true;
 }
 
-bool Mask2D::equals(SRef<Mask2D> inputMask) const
+bool Mask2D::operator==(const Mask2D& other) const
 {
-    if (!inputMask) {
-        return false;
-    }
     // first, compare the two mask infos
-    const auto& inputMaskInfo = inputMask->getMaskInfo();
+    const auto& inputMaskInfo = other.getMaskInfo();
     if (m_maskInfo.size() != inputMaskInfo.size()) {
         return false;
     }
@@ -105,34 +102,37 @@ bool Mask2D::equals(SRef<Mask2D> inputMask) const
         if (it->first != itInput->first) {
             return false;
         }
-        auto segInfo = it->second;
-        auto segInfoInput = itInput->second;
-        if (segInfo.classId != segInfoInput.classId || segInfo.instanceId != segInfoInput.instanceId || segInfo.confidence != segInfoInput.confidence) {
+        if (it->second != itInput->second) {
             return false;
         }
         ++it;
         ++itInput;
     }
     // second, compare the two masks
-    if ( (!m_mask && inputMask->getMask()) ||
-         (m_mask && !inputMask->getMask()) ) {
+    if ( (!m_mask && other.getMask()) ||
+         (m_mask && !other.getMask()) ) {
         return false;
     }
-    if (!m_mask && !inputMask->getMask()) {
+    if (!m_mask && !other.getMask()) {
         return true; // the same both are invalid
     }   
     uint32_t bufSize = m_mask->getBufferSize();
-    if (inputMask->getMask()->getBufferSize() != bufSize) {
+    if (other.getMask()->getBufferSize() != bufSize) {
         return false;
     }
     const uint8_t* buffer = static_cast<const uint8_t*>(m_mask->data());
-    const uint8_t* bufferInput = static_cast<const uint8_t*>(inputMask->getMask()->data());
+    const uint8_t* bufferInput = static_cast<const uint8_t*>(other.getMask()->data());
     for (uint32_t i = 0; i < bufSize; ++i) {
         if (buffer[i] != bufferInput[i]) {
             return false;
         }
     }
     return true;
+}
+
+bool Mask2D::operator!=(const Mask2D& other) const
+{
+    return !(*this == other);
 }
 
 template<typename Archive>
