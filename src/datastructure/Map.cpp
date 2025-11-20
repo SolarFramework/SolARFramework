@@ -199,6 +199,13 @@ bool Map::hasKeyframeImages() const
     return m_embedKeyframeImages;
 }
 
+void Map::nextSerializationWithoutKeyframeImages()
+{
+    if (m_embedKeyframeImages) {
+        m_keyframeCollection->nextSerializationWithoutKeyframeImages();
+    }
+}
+
 bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
                           datastructure::GlobalDescriptorType globalDescriptorType) const
 {
@@ -228,9 +235,29 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
+SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
+{
+    return m_mask2DCollection;
+}
+
+SRef<Mask2DCollection> Map::getMask2DCollection() const
+{
+    return m_mask2DCollection;
+}
+
+std::unique_lock<std::mutex> Map::getMask2DCollection(SRef<Mask2DCollection>& maskCollection)
+{
+    maskCollection = m_mask2DCollection;
+    return m_mask2DCollection->acquireLock();
+}
+
+void Map::setMask2DCollection(SRef<Mask2DCollection> maskCollection)
+{
+    m_mask2DCollection = maskCollection;
+}
 
 template<typename Archive>
-void Map::serialize(Archive &ar, const unsigned int /* version */) {
+void Map::serialize(Archive &ar, const unsigned int version) {
 	ar & m_mapSupportedTypes;
 	ar & m_identification;
 	ar & m_coordinateSystem;
@@ -244,6 +271,9 @@ void Map::serialize(Archive &ar, const unsigned int /* version */) {
     ar & m_descriptorType;
     ar & m_globalDescriptorType;
     ar & m_embedKeyframeImages;
+    if (version > 0) {
+        ar & m_mask2DCollection;
+    }
 }
 
 IMPLEMENTSERIALIZE(Map);

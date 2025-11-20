@@ -27,28 +27,17 @@ namespace datastructure {
 
 FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
-    uint32_t id;
-    if (defineKeyframeId==true)
-        id = m_id++;
-    else
-        id = keyframe->getId();
-    keyframe->setId(id);
-    m_keyframes[id] = keyframe;
+    if (defineKeyframeId) {
+        keyframe->setId(m_id++);
+    }
+    m_keyframes[keyframe->getId()] = keyframe;
 	return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe, bool defineKeyframeId)
 {
 	SRef<Keyframe> keyframe_ptr = xpcf::utils::make_shared<Keyframe>(keyframe);
-    uint32_t id;
-    if (defineKeyframeId==true)
-        id = m_id++;
-    else
-        id = keyframe.getId();
-
-    keyframe_ptr->setId(id);
-    m_keyframes[id] = keyframe_ptr;
-	return FrameworkReturnCode::_SUCCESS;
+    return addKeyframe(keyframe_ptr, defineKeyframeId);
 }
 
 FrameworkReturnCode KeyframeCollection::getKeyframe(const uint32_t id, SRef<Keyframe> & keyframe) const
@@ -89,11 +78,11 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframes(std::vector<SRef<Keyfram
 
 FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector<SRef<Keyframe>>& keyframes) const
 {
+    keyframes.clear();
+    keyframes.reserve(m_keyframes.size());
     std::map<uint32_t, SRef<Keyframe>> newKeyframesMap;
     for (const auto& [id, kf]: m_keyframes) {
         SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf);
-        keyframeWithoutImage->setId(kf->getId());
-        keyframeWithoutImage->setMask(kf->getMask());
         // Remove image
         keyframeWithoutImage->setView(nullptr);
         newKeyframesMap[id] = keyframeWithoutImage;
@@ -151,6 +140,13 @@ bool KeyframeCollection::isExistKeyframe(const uint32_t id) const
 int KeyframeCollection::getNbKeyframes() const
 {
 	return static_cast<int>(m_keyframes.size());
+}
+
+void KeyframeCollection::nextSerializationWithoutKeyframeImages()
+{
+    for (const auto& [id, kf]: m_keyframes) {
+        kf->nextSerializationWithoutImage();
+    }
 }
 
 template <typename Archive>

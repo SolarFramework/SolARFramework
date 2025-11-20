@@ -32,9 +32,20 @@ namespace xpcf  = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-Frame::Frame(const SRef<Frame> frame) : m_pose(frame->getPose()), m_view(frame->getView()), m_referenceKeyFrame(frame->getReferenceKeyframe()), m_descriptors(frame->getDescriptors()), m_keypoints(frame->getKeypoints()), m_keypointsUndistort(frame->getUndistortedKeypoints()), m_imageName(frame->getImageName()), m_camID(frame->getCameraID()), m_isFixedPose(frame->isFixedPose()), m_mapVisibility(frame->getVisibility()), m_globalDescriptor(frame->getGlobalDescriptor()) {}
-
-Frame::Frame(const SRef<Keyframe> keyframe) : m_pose(keyframe->getPose()), m_view(keyframe->getView()), m_referenceKeyFrame(keyframe->getReferenceKeyframe()), m_descriptors(keyframe->getDescriptors()), m_keypoints(keyframe->getKeypoints()), m_keypointsUndistort(keyframe->getUndistortedKeypoints()), m_imageName(keyframe->getImageName()), m_camID(keyframe->getCameraID()), m_isFixedPose(keyframe->isFixedPose()), m_mapVisibility(keyframe->getVisibility()), m_globalDescriptor(keyframe->getGlobalDescriptor()) {}
+Frame::Frame(const SRef<Frame> frame) :
+                m_pose(frame->m_pose),
+                m_view(frame->m_view),
+                m_maskIDs(frame->m_maskIDs),
+                m_referenceKeyFrame(frame->m_referenceKeyFrame),
+                m_descriptors(frame->m_descriptors),
+                m_globalDescriptor(frame->m_globalDescriptor),
+                m_keypoints(frame->m_keypoints),
+                m_keypointsUndistort(frame->m_keypointsUndistort),
+                m_imageName(frame->m_imageName),
+                m_camID(frame->m_camID),
+                m_isFixedPose(frame->m_isFixedPose),
+                m_serializeImage(frame->m_serializeImage),
+                m_mapVisibility(frame->m_mapVisibility){}
 
 Frame::Frame(const std::vector<Keypoint>& keypoints, const SRef<DescriptorBuffer> descriptors, const SRef<Image> view, const uint32_t camID, const Transform3Df pose) : m_pose(pose), m_view(view), m_descriptors(descriptors), m_keypoints(keypoints), m_camID(camID) {}
 
@@ -47,9 +58,9 @@ const SRef<Image>& Frame::getView() const
     return m_view;
 }
 
-const SRef<Image> Frame::getMask() const 
+const std::vector<uint32_t>& Frame::getMaskIDs() const
 {
-	return m_mask;
+	return m_maskIDs;
 }
 
 void Frame::setView(const SRef<Image>& view)
@@ -57,9 +68,9 @@ void Frame::setView(const SRef<Image>& view)
 	m_view = view;
 }
 
-void Frame::setMask(const SRef<Image> mask)
+void Frame::setMaskIDs(const std::vector<uint32_t>& maskIDs)
 {
-	m_mask = mask;
+	m_maskIDs = maskIDs;
 }
 
 const Transform3Df& Frame::getPose() const
@@ -219,11 +230,30 @@ const SRef<GlobalDescriptor> Frame::getGlobalDescriptor() const
     return m_globalDescriptor;
 }
 
+void Frame::nextSerializationWithoutImage()
+{
+    m_serializeImage = false;
+}
+
 template<typename Archive>
-void Frame::serialize(Archive &ar, const unsigned int /* version */) {
+void Frame::serialize(Archive &ar, const unsigned int version) {
 	ar & boost::serialization::make_array(m_pose.data(), 12);
-	ar & m_view;
-	ar & m_mask;
+    if (m_serializeImage) {
+        ar & m_view;
+    }
+    else {
+        // Do not serialize Image object, but only for this time
+        SRef<Image> emptyImage;
+        ar & emptyImage; // view
+        m_serializeImage = true;
+    }
+    if (version == 0) { // old version should serialize mask (SRef<Image>)
+        SRef<Image> emptyImage;
+        ar & emptyImage;
+    }
+    else {
+        ar & m_maskIDs;
+    }
 	ar & m_descriptors;
 	ar & m_keypoints;
 	ar & m_keypointsUndistort;	

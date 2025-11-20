@@ -1,7 +1,6 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 #include <datastructure/GeometryDefinitions.h>
@@ -11,8 +10,8 @@
 #include <datastructure/CloudPoint.h>
 #include <datastructure/CameraDefinitions.h>
 #include <datastructure/GlobalDescriptor.h>
-
 #include <memory>
+
 namespace SolAR {
 namespace datastructure {
 
@@ -26,9 +25,8 @@ class Keyframe;
 class SOLARFRAMEWORK_API Frame {
 public:
 	Frame() = default;
-    Frame(const SRef<Frame> frame);
-	
-    Frame(const SRef<Keyframe> keyframe);
+
+    explicit Frame(const SRef<Frame> frame);
 
 	explicit Frame(const std::vector<Keypoint> & keypoints,
 				   const SRef<DescriptorBuffer> descriptors,
@@ -58,17 +56,17 @@ public:
 	/// @return view image
     const SRef<Image>& getView() const;
 
-    /// @brief get mask
-    /// @return mask
-    const SRef<Image> getMask() const;
+    /// @brief get mask IDs
+    /// @return vector of mask IDs
+    const std::vector<uint32_t>& getMaskIDs() const;
 
 	/// @brief set view image
 	/// @param[in] view: view image
 	void setView(const SRef<Image> &view);
 
-    /// @brief set mask
-    /// @param[in] mask semantic segmentation mask
-    void setMask(const SRef<Image> mask);
+    /// @brief set mask IDs
+    /// @param[in] maskIDs mask IDs
+    void setMaskIDs(const std::vector<uint32_t>& maskIDs);
 
 	/// @brief get camera pose
 	/// @return camera pose
@@ -187,13 +185,19 @@ public:
 
 private:
 	friend class boost::serialization::access;
-	template<typename Archive>
+    friend class KeyframeCollection;
+    template<typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
+
+    ///
+    /// @brief Indicate that the next serialization of the Frame object should not involve the Image member (applies only on the next serialization)
+    ///
+    void nextSerializationWithoutImage();
 
 protected:
     Transform3Df                    m_pose;    
     SRef<Image>                     m_view;
-    SRef<Image>                     m_mask; // to store 2D image segmentation result
+    std::vector<uint32_t>           m_maskIDs;
     SRef<Keyframe>                  m_referenceKeyFrame ;
     SRef<DescriptorBuffer>          m_descriptors;
     SRef<GlobalDescriptor>          m_globalDescriptor;
@@ -202,6 +206,7 @@ protected:
     std::string                     m_imageName;
     uint32_t                        m_camID;
     bool							m_isFixedPose = false;
+    bool                            m_serializeImage = true;
 
 	//A map storing the 3D points visibility, where the first element corresponds to the index of the keypoint of the frame, and the second element to the index of the corresponding cloudPoint.
 	std::map<uint32_t, uint32_t>	m_mapVisibility;
@@ -213,5 +218,6 @@ DECLARESERIALIZE(Frame);
 }
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::Frame);
+BOOST_CLASS_VERSION(SolAR::datastructure::Frame, 1);
 
 #endif // FRAME_H
