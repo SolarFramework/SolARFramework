@@ -84,12 +84,13 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED = -47,
     _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48,
     _LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED = -49,
+    _LICENSE_MAX_CLIENTS_IMAGE_SEGMENTATION_EXCEEDED = -50,
 
     // for authentication requests
-    _AUTHENT_SERVICE_UNAVAILABLE = -50,
-    _AUTHENT_REQUEST_FAILURE = -51,
-    _AUTHENT_INVALID_TOKEN = -52,
-    _AUTHENT_RESOURCE_NOT_FOUND = -53
+    _AUTHENT_SERVICE_UNAVAILABLE = -60,
+    _AUTHENT_REQUEST_FAILURE = -61,
+    _AUTHENT_INVALID_TOKEN = -62,
+    _AUTHENT_RESOURCE_NOT_FOUND = -63
 };
 
 /// @brief Return the text definition (string) of a return code
@@ -201,6 +202,9 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED:
             txt_definition = "Maximum of clients for Structure From Motion reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_IMAGE_SEGMENTATION_EXCEEDED:
+            txt_definition = "Maximum of clients for Image Segmentation reached according to license file";
             break;
         case FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE:
             txt_definition = "Authentication service unavailable";
