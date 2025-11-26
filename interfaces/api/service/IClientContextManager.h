@@ -19,6 +19,7 @@
 
 
 #include "api/pipeline/IMappingPipeline.h"
+#include "api/pipeline/IImageSegmentationPipeline.h"
 #include "datastructure/CameraDefinitions.h"
 #include "datastructure/Image.h"
 #include "datastructure/MathDefinitions.h"
@@ -137,7 +138,8 @@ static std::string toString(const TransformStatus transformStatus)
 enum class PipelineMode {
     RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
     RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
-    RELOCALIZATION_ONLY = 2                 // Only relocalization
+    RELOCALIZATION_ONLY = 2,                // Only relocalization
+    IMAGE_SEGMENTATION = 3                  // Image segmentation
 };
 
 /// @brief Return the text definition (string) of a PipelineMode object
@@ -156,6 +158,9 @@ static std::string toString(const PipelineMode pipelineMode)
             break;
         case PipelineMode::RELOCALIZATION_ONLY:
             textDefinition = "RELOCALIZATION_ONLY";
+            break;
+        case PipelineMode::IMAGE_SEGMENTATION:
+            textDefinition = "IMAGE_SEGMENTATION";
             break;
         default:
             textDefinition = "Unknown value";
@@ -425,13 +430,45 @@ public:
                                             SolAR::datastructure::Transform3Df & pose,
                                             const PoseType poseType = PoseType::SOLAR_POSE) const = 0;
 
-
     /// @brief Return the map UUID used by a client specified by its UUID
     /// @param[in] clientUUID UUID of the client
     /// @param[out] mapUUID: UUID of the map used by the client
     /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getClientMapUUID(const std::string & clientUUID,
                                                  std::string & mapUUID) const = 0;
+
+    /// @brief Request for a segmentation processing for one input image
+    /// @param[in] clientUUID UUID of the client
+    /// @param[in] image pointer to image
+    /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
+    virtual FrameworkReturnCode imageSegmentationProcessRequest(const std::string & clientUUID,
+                                                                SRef<SolAR::datastructure::Image> image) = 0;
+
+    /// @brief Request for a segmentation processing for a list of images
+    /// @param[in] clientUUID UUID of the client
+    /// @param[in] images list of pointers to images to be segmented
+    /// @param[in] temporalConsistency flag indicating whether the images are temporally consistent (true) or not (false)
+    /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
+    virtual FrameworkReturnCode imageSegmentationProcessRequest(const std::string & clientUUID,
+                                                                const std::vector<SRef<Image>>& images,
+                                                                bool temporalConsistency = false) = 0;
+
+    /// @brief Get the status and the progress percentage of a current image segmentation processing
+    /// @param[in] clientUUID UUID of the client
+    /// @param[out] status the current image segmentation processing status
+    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getImageSegmentationProcessStatus(const std::string & clientUUID,
+                                                                  SolAR::api::pipeline::IImageSegmentationPipeline::Status & status,
+                                                                  float & progress) const = 0;
+
+    /// @brief Get the output masks resulting from an image segmentation processing
+    /// @param[in] clientUUID UUID of the client
+    /// @param[out] mask output mask collection
+    /// @return FrameworkReturnCode::_SUCCESS (get output mask succeeded) or FrameworkReturnCode::_ERROR_ (get output mask failed)
+    virtual FrameworkReturnCode getImageSegmentationProcessOutputMasks(const std::string & clientUUID,
+                                                                       SRef<SolAR::datastructure::Mask2DCollection> & mask) const = 0;
+
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)

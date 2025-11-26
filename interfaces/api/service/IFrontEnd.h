@@ -19,6 +19,7 @@
 
 
 #include "api/pipeline/IMappingPipeline.h"
+#include "api/pipeline/IImageSegmentationPipeline.h"
 #include "api/service/IClientContextManager.h"
 #include "api/service/IMapsManager.h"
 #include "datastructure/CameraDefinitions.h"
@@ -263,6 +264,46 @@ public:
                                               float_t & confidence,
                                               SolAR::datastructure::Transform3Df & pose,
                                               const PoseType poseType = PoseType::SOLAR_POSE) = 0;
+
+    /// @brief Request for a segmentation processing for one input image
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] clientUUID UUID of the client
+    /// @param[in] image pointer to image
+    /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
+    virtual FrameworkReturnCode imageSegmentationProcessRequest(const std::string & accessToken,
+                                                                const std::string & clientUUID,
+                                                                SRef<SolAR::datastructure::Image> image) = 0;
+
+    /// @brief Request for a segmentation processing for a list of images
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] clientUUID UUID of the client
+    /// @param[in] images list of pointers to images to be segmented
+    /// @param[in] temporalConsistency flag indicating whether the images are temporally consistent (true) or not (false)
+    /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
+    virtual FrameworkReturnCode imageSegmentationProcessRequest(const std::string & accessToken,
+                                                                const std::string & clientUUID,
+                                                                const std::vector<SRef<Image>>& images,
+                                                                bool temporalConsistency = false) = 0;
+
+    /// @brief Get the status and the progress percentage of a current image segmentation processing
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] clientUUID UUID of the client
+    /// @param[out] status the current image segmentation processing status
+    /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
+    /// @return FrameworkReturnCode::_SUCCESS if the status and progress are successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getImageSegmentationProcessStatus(const std::string & accessToken,
+                                                                  const std::string & clientUUID,
+                                                                  SolAR::api::pipeline::IImageSegmentationPipeline::Status & status,
+                                                                  float & progress) const = 0;
+
+    /// @brief Get the output masks resulting from an image segmentation processing
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] clientUUID UUID of the client
+    /// @param[out] mask output mask collection
+    /// @return FrameworkReturnCode::_SUCCESS (get output mask succeeded) or FrameworkReturnCode::_ERROR_ (get output mask failed)
+    virtual FrameworkReturnCode getImageSegmentationProcessOutputMasks(const std::string & accessToken,
+                                                                       const std::string & clientUUID,
+                                                                       SRef<SolAR::datastructure::Mask2DCollection> & mask) const = 0;
 
     /// @brief Create a new map specified by its UUID
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
