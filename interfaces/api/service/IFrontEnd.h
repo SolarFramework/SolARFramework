@@ -282,7 +282,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS (segmentation succeeded) or FrameworkReturnCode::_ERROR_ (segmentation failed)
     virtual FrameworkReturnCode imageSegmentationProcessRequest(const std::string & accessToken,
                                                                 const std::string & clientUUID,
-                                                                const std::vector<SRef<Image>>& images,
+                                                                const std::vector<SRef<SolAR::datastructure::Image>>& images,
                                                                 bool temporalConsistency = false) = 0;
 
     /// @brief Get the status and the progress percentage of a current image segmentation processing
