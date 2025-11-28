@@ -82,7 +82,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
     keyframes.reserve(m_keyframes.size());
     std::map<uint32_t, SRef<Keyframe>> newKeyframesMap;
     for (const auto& [id, kf]: m_keyframes) {
-        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf);
+        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(*kf);
         // Remove image
         keyframeWithoutImage->setView(nullptr);
         newKeyframesMap[id] = keyframeWithoutImage;
@@ -93,10 +93,12 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
         if (kf->getReferenceKeyframe()) {
             auto keyframeIt = newKeyframesMap.find(kf->getReferenceKeyframe()->getId());
             if (keyframeIt == newKeyframesMap.end()) {
-                LOG_DEBUG("Cannot find reference keyframe for keyframe id: {}", id);
-                return FrameworkReturnCode::_ERROR_;
+                LOG_DEBUG("KeyframeCollection::getAllKeyframesWithoutImages - cannot find reference keyframe ({}) for keyframe id: {}", kf->getReferenceKeyframe()->getId(), id);
+                kf->setReferenceKeyframe(nullptr);
             }
-            kf->setReferenceKeyframe(keyframeIt->second);
+            else {
+            	kf->setReferenceKeyframe(keyframeIt->second);
+            }
         }
         // Add keyframe in result vector
         keyframes.push_back(kf);

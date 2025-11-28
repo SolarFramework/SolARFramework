@@ -88,21 +88,13 @@ std::unique_lock<std::mutex> Map::getKeyframeCollection(SRef<KeyframeCollection>
 void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection)
 {
     m_mapSupportedTypes = m_mapSupportedTypes | MapType::_Keyframe;
-
-    // Check if keyframe images must be embedded
-    if (m_embedKeyframeImages) {
-        m_keyframeCollection = keyframeCollection;
-    }
-    else {
-        // Remove keyframe images
-        m_keyframeCollection = xpcf::utils::make_shared<KeyframeCollection>();
-        m_keyframeCollection->setDescriptorType(keyframeCollection->getDescriptorType());
-        std::vector<SRef<Keyframe>> keyframesWithoutImages;
-        keyframeCollection->getAllKeyframesWithoutImages(keyframesWithoutImages);
-        for (const auto& kf: keyframesWithoutImages) {
-            m_keyframeCollection->addKeyframe(kf, false);
-        }
-    }
+    // m_keyframeCollection and keyframeCollection should point to the same adress, otherwise will have unexpected behavior
+    // in SolARMapManager::onConfigured
+    // m_map->setKeyframeCollection(m_keyframesManager->getConstKeyframeCollection());
+    // m_keyframesManager and m_map should point to the same keyframe collection
+    // otherwise, for example, in g2o, we use m_keyframesManager to access the keyframes and optimize their poses
+    // the modifs on keyframes' poses will not be applied to m_map's keyframe collection
+    m_keyframeCollection = keyframeCollection;
 }
 
 const SRef<CovisibilityGraph> Map::getConstCovisibilityGraph() const
