@@ -82,7 +82,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
     keyframes.reserve(m_keyframes.size());
     std::map<uint32_t, SRef<Keyframe>> newKeyframesMap;
     for (const auto& [id, kf]: m_keyframes) {
-        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(*kf);
+        SRef<Keyframe> keyframeWithoutImage = xpcf::utils::make_shared<Keyframe>(kf);
         // Remove image
         keyframeWithoutImage->setView(nullptr);
         newKeyframesMap[id] = keyframeWithoutImage;

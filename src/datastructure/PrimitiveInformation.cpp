@@ -30,6 +30,13 @@ PrimitiveInformation::PrimitiveInformation() {
 	m_semanticId = -1;
 }
 
+PrimitiveInformation::PrimitiveInformation(SRef<PrimitiveInformation> primitiveInfo) : 
+    m_confidence(primitiveInfo->m_confidence),
+    m_usedTimes(primitiveInfo->m_usedTimes),
+    m_lastUpdateTime(primitiveInfo->m_lastUpdateTime),
+    m_semanticId(primitiveInfo->m_semanticId),
+    m_isValid(primitiveInfo->m_isValid) {}
+
 bool PrimitiveInformation::isValid() const
 {
 	return m_isValid;

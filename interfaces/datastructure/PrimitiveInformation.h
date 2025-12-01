@@ -22,6 +22,7 @@
 #include <mutex>
 
 #include <core/SerializationDefinitions.h>
+#include <xpcf/core/refs.h>
 
 
 namespace SolAR {
@@ -39,6 +40,10 @@ public:
 
 	/// @brief PrimitiveInformation deconstruction
 	~PrimitiveInformation() = default;
+
+    /// @brief Copy constructor taking a SRef object as input
+    /// @param[in] primitiveInfo shared pointer to PrimitiveInformation object to copy
+    PrimitiveInformation(SRef<PrimitiveInformation> primitiveInfo);
 
 	/// @brief This method is to known an element being valid or not
 	/// @return isValid value
