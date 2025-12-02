@@ -117,6 +117,13 @@ FrameworkReturnCode Mask2DCollection::suppressMask(uint32_t id)
     return FrameworkReturnCode::_SUCCESS;
 }
 
+FrameworkReturnCode Mask2DCollection::suppressAllMasks()
+{
+    m_masks.clear();
+    m_currentId = 0;
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 bool Mask2DCollection::contains(uint32_t id) const
 {
     return m_masks.find(id) != m_masks.end();
