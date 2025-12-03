@@ -88,12 +88,15 @@ std::unique_lock<std::mutex> Map::getKeyframeCollection(SRef<KeyframeCollection>
 void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollection)
 {
     m_mapSupportedTypes = m_mapSupportedTypes | MapType::_Keyframe;
-    // m_keyframeCollection and keyframeCollection should point to the same adress, otherwise will have unexpected behavior
-    // in SolARMapManager::onConfigured
+    // m_embedKeyframeImages is only used in serialization to decide if we serialize images
+    // when m_embedKeyframeImages = false, no need to remove images here
+    // the main reason is that in SolARMapManager::onConfigured
+    // we do
     // m_map->setKeyframeCollection(m_keyframesManager->getConstKeyframeCollection());
-    // m_keyframesManager and m_map should point to the same keyframe collection
-    // otherwise, for example, in g2o, we use m_keyframesManager to access the keyframes and optimize their poses
-    // the modifs on keyframes' poses will not be applied to m_map's keyframe collection
+    // m_keyframesManager and m_map should point to the same address (keyframe collection)
+    // otherwise will have unexpected behavior for example in module g2o
+    // we use m_keyframesManager to access the keyframes and optimize their poses
+    // the modifs on keyframes' poses will not be applied to the keyframe collection of m_map
     m_keyframeCollection = keyframeCollection;
 }
 

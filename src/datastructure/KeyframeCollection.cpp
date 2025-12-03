@@ -94,7 +94,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
             auto keyframeIt = newKeyframesMap.find(kf->getReferenceKeyframe()->getId());
             if (keyframeIt == newKeyframesMap.end()) {
                 LOG_DEBUG("KeyframeCollection::getAllKeyframesWithoutImages - cannot find reference keyframe ({}) for keyframe id: {}", kf->getReferenceKeyframe()->getId(), id);
-                kf->setReferenceKeyframe(nullptr);
+                kf->setReferenceKeyframe(nullptr); // reference keyframe does not exist any more (maybe being removed previously)
             }
             else {
             	kf->setReferenceKeyframe(keyframeIt->second);

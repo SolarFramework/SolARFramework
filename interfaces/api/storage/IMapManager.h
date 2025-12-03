@@ -153,7 +153,7 @@ public:
     virtual int keyframePruning(const std::vector<SRef<SolAR::datastructure::Keyframe>> &keyframes = {}) = 0;
 
     /// @brief Prune visibilities of a map 
-    /// @param[in] maxReprojectionErr max reprojection error above which the visibility will be pruned
+    /// @param[in] maxReprojectionErr threshold on reprojection error used to decide whether a visibility will be pruned or not
     virtual FrameworkReturnCode visibilityPruning(float maxReprojectionErr = 0) = 0;   
 
 	/// @brief Save the map to the external file
