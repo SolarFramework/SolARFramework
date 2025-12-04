@@ -28,6 +28,9 @@
 #include <Eigen/Eigen>
 #include <math.h>
 
+// #include <fmt/ostream.h>
+#include <spdlog/fmt/ostr.h>
+
 #define SOLAR_PI           3.14159265358979323846
 #define SOLAR_RAD2DEG      57.29577951308233
 #define SOLAR_DEG2RAD      0.0174532925199433
@@ -461,5 +464,8 @@ inline void serialize(Archive & ar,
   serialize(ar, transform.matrix(), version);
 }
 }} // namespace boost::serialization
+
+template <> struct fmt::formatter<SolAR::datastructure::Transform3Df> : ostream_formatter {};
+
 
 #endif // SOLAR_MATHSDEFINITIONS_H

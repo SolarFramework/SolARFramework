@@ -25,6 +25,10 @@
 #include <core/SolARFrameworkDefinitions.h>
 #include <core/SerializationDefinitions.h>
 
+// #include <fmt/ostream.h>
+#include <spdlog/fmt/ostr.h>
+
+
 namespace SolAR {
 namespace datastructure {
 
@@ -87,6 +91,7 @@ private:
 DECLARESERIALIZE(Point3Df);
 IMPLEMENTSERIALIZE(Point3Df);
 
+ 
 /**
  * @class Point2Di
  * @brief <B>A 2D point with coordinates defined with integers.</B>
@@ -306,5 +311,7 @@ inline void serialize(Archive & ar,
 }
 
 }} // namespace boost::serialization
+
+template <> struct fmt::formatter<SolAR::datastructure::Point3Df> : ostream_formatter {};
 
 #endif // SOLAR_GEOMETRYDEFINITIONS_H
