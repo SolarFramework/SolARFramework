@@ -4,14 +4,38 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "spdlog.h"
-#include "sinks/dist_sink.h"
-#include "sinks/file_sinks.h"
-#include "sinks/ostream_sink.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/dist_sink.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/sinks/ostream_sink.h"
+#include <spdlog/sinks/stdout_sinks.h>
 #include "SolARFrameworkDefinitions.h"
 #include <fstream>
-#include <fmt/ostr.h>
+#include <spdlog/fmt/ostr.h>
 #include <vector>
+
+#include <opentelemetry/instrumentation/spdlog/sink.h>
+
+// // Un petit wrapper qui capture une référence vers n'importe quel objet
+// template <typename T>
+// struct Streamable {
+//     const T& value;
+
+//     friend std::ostream& operator<<(std::ostream& os, const Streamable& s)
+//     {
+//         return os << s.value;
+//     }
+
+// };
+
+// // Le formatter générique pour le wrapper (Défini UNE SEULE FOIS pour tout le projet)
+// template <typename T>
+// struct fmt::formatter<Streamable<T>> : fmt::ostream_formatter {};
+
+
+// // Fonction helper pour déduire le type automatiquement (CTAD)
+// template <typename T>
+// Streamable<T> as_log(const T& t) { return Streamable<T>{t}; }
 
 namespace SolAR {
 
@@ -80,6 +104,11 @@ namespace SolAR {
 ///
 
 #define LOG_ADD_LOG_TO_CONSOLE() \
+{ \
+    Log::add_sink_console();\
+}
+
+#define LOG_ADD_LOG_TO_OTEL() \
 { \
     Log::add_sink_console();\
 }
@@ -242,7 +271,7 @@ public:
             else
                 LOG_INFO( "{} is open ", fileName.c_str() );
 
-            sink()->add_sink( std::make_shared< spdlog::sinks::simple_file_sink_st >( fileName.c_str() ) );
+            sink()->add_sink( std::make_shared< spdlog::sinks::basic_file_sink_st >( fileName.c_str() ) );
         }
         else{
               LOG_WARNING( "{} is not a directory\n", pathname.c_str() );
@@ -252,6 +281,8 @@ public:
     }
 
     static SOLARFRAMEWORK_API void add_sink_console();
+
+    static SOLARFRAMEWORK_API void add_sink_otel();
 };
 
 }
