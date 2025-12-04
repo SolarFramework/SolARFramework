@@ -21,6 +21,7 @@
 #include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/Mask2DCollection.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -61,6 +62,16 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the draw succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode draw(SRef<SolAR::datastructure::Image> & image,
                                      const SRef<SolAR::datastructure::Image> mask) = 0;
+
+    /// @brief Draw Mask2DCollection on a list of images
+    /// @param[in] images input image list
+    /// @param[in] maskCollection the collection of masks
+    /// @param[out] imagesOut output images on which the masks will be drawn
+    /// @return FrameworkReturnCode::_SUCCESS if drawn successfully, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode draw(const std::vector<SRef<SolAR::datastructure::Image>>& images, 
+                                     SRef<const SolAR::datastructure::Mask2DCollection> maskCollection,
+                                     std::vector<SRef<SolAR::datastructure::Image>>& imagesOut) = 0;
+                                
 };
 }
 }
