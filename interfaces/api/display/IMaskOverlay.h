@@ -69,7 +69,7 @@ public:
     /// @param[out] imagesOut output images on which the masks will be drawn
     /// @return FrameworkReturnCode::_SUCCESS if drawn successfully, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode draw(const std::vector<SRef<SolAR::datastructure::Image>>& images, 
-                                     SRef<const SolAR::datastructure::Mask2DCollection> maskCollection,
+                                     const SolAR::datastructure::Mask2DCollection& maskCollection,
                                      std::vector<SRef<SolAR::datastructure::Image>>& imagesOut) = 0;
                                 
 };
