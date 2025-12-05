@@ -130,6 +130,10 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode suppressMask(uint32_t id);
 
+    /// @brief This method allows to suppress all masks
+    /// @return FrameworkReturnCode::_SUCCESS_ if the suppression succeed, else FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode suppressAllMasks();
+
     /// @brief This method allows to know if a Mask2D is already stored in the component
     /// @param[in] id ID of this Mask2D
     /// @return true if exist, else false
