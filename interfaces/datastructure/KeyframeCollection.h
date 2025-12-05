@@ -8,6 +8,7 @@
 #include <core/Messages.h>
 #include <xpcf/core/refs.h>
 #include <map>
+#include <set>
 
 // Definition of SparsePointCloud Class //
 // part of SolAR namespace //
@@ -92,6 +93,10 @@ public:
 	/// @return The number of keyframes
 	int getNbKeyframes() const;
 
+    /// @brief This method allows to make reference keyframes consistent 
+    /// (e.g. this method can be called after having loaded a keyframe collection which may contain inconsistent ref keyframes)
+    void regularizeReferenceKeyframes();
+
 private:
 	friend class boost::serialization::access;
     friend class Map;
@@ -106,11 +111,14 @@ private:
     std::map<uint32_t, SRef<SolAR::datastructure::Keyframe>>m_keyframes;
     SolAR::datastructure::DescriptorType                    m_descriptorType;
     uint32_t                                                m_id = 0;
+    std::map<uint32_t, std::set<uint32_t>>                  m_refKeyframeToKeyframes; // map from ref keyframe id to IDs of keyframes inside which it is referenced
 };
 
 DECLARESERIALIZE(KeyframeCollection);
 
 }
 }  // end of namespace SolAR
+
+BOOST_CLASS_VERSION(SolAR::datastructure::KeyframeCollection, 1);
 
 #endif // KEYFRAMECOLLECTION_H
