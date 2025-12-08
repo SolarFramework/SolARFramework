@@ -21,6 +21,7 @@
 #include <xpcf/core/helpers.h>
 #include "datastructure/Image.h"
 #include "datastructure/GeometryDefinitions.h"
+#include "datastructure/Mask2D.h"
 #include "core/Messages.h"
 
 namespace SolAR {
@@ -61,6 +62,29 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the draw succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode draw(SRef<SolAR::datastructure::Image> & image,
                                      const SRef<SolAR::datastructure::Image> mask) = 0;
+
+    /// @brief Draw Mask2D on image
+    /// @param[in] image input image
+    /// @param[in] mask 2D mask
+    /// @param[in] classLabels class labels
+    /// @param[out] outImage output image (mask overlayed on image)
+    /// @return FrameworkReturnCode::_SUCCESS if drawn successfully, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode draw(SRef<SolAR::datastructure::Image> image, 
+                                     SRef<SolAR::datastructure::Mask2D> mask,
+                                     const std::map<int16_t, std::string>& classLabels, 
+                                     SRef<SolAR::datastructure::Image>& outImage) = 0;
+    
+    /// @brief Draw masks on a list of images
+    /// @param[in] images input image list
+    /// @param[in] masks input mask list
+    /// @param[in] classLabels map from class id to label
+    /// @param[out] imagesOut output images on which the masks will be drawn
+    /// @return FrameworkReturnCode::_SUCCESS if drawn successfully, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode draw(const std::vector<SRef<SolAR::datastructure::Image>>& images, 
+                                     const std::vector<SRef<SolAR::datastructure::Mask2D>>& masks,
+                                     const std::map<int16_t, std::string>& classLabels,
+                                     std::vector<SRef<SolAR::datastructure::Image>>& imagesOut) = 0;
+                                
 };
 }
 }
