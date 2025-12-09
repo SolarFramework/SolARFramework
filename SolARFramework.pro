@@ -164,7 +164,6 @@ INSTALLS += header_interfaces_service
 
 OTHER_FILES += \
     packagedependencies.txt \
-    packagedependencies-win.txt \
     packagedependencies-linux.txt \
     extra-packages.txt \
     extra-packages-linux.txt
