@@ -1,2 +1,2 @@
-openimageio|2.5.13.1|OpenImageIO|conan|conan-center|static|with_ffmpeg=False#with_freetype=False#with_giflib=False#with_hdf5=False#with_libheif=False#with_opencolorio=False#with_opencv=False#with_ptex=False#with_openjpeg=False
+openimageio|3.1.7.0|OpenImageIO|conan|conan-center|static|with_ffmpeg=False#with_freetype=False#with_giflib=False#with_openvdb=False#with_libheif=False#with_libjxl=False#with_opencv=False#with_ptex=False#with_openjpeg=False#with_libwebp=False#with_libultrahdr=False#with_openjph=False
 xpcf_static_deps|2.10.0|xpcf_static_deps|github|https://github.com/b-com-software-basis/xpcf/releases/download
