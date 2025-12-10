@@ -105,32 +105,27 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
 
 FrameworkReturnCode KeyframeCollection::suppressKeyframe(const uint32_t id)
 {
-	std::map< uint32_t, SRef<Keyframe>>::iterator keyframeIt = m_keyframes.find(id);
-	if (keyframeIt != m_keyframes.end()) {
-        auto it = m_refKeyframeToKeyframes.find(id);
-        if (it != m_refKeyframeToKeyframes.end()) {
-            for (const auto& kfId : it->second) {
-                auto itKf = m_keyframes.find(kfId);
-                if (itKf == m_keyframes.end()) {
-                    LOG_ERROR("KeyframeCollection::suppressKeyframe - keyframe {} (whose ref keyframe is {}) does not exist.", kfId, id);
-                    return FrameworkReturnCode::_ERROR_;
-                }
-                itKf->second->setReferenceKeyframe(nullptr);
-            }
-            m_refKeyframeToKeyframes.erase(id);
-            for (auto& [refKfId, kfIdList] : m_refKeyframeToKeyframes) {
-                if (kfIdList.find(id) != kfIdList.end()) {
-                    kfIdList.erase(id);
-                }
-            }
+    std::map<uint32_t, SRef<Keyframe>>::iterator keyframeIt = m_keyframes.find(id);
+    if (keyframeIt == m_keyframes.end()) {
+        LOG_DEBUG("KeyframeCollection::suppressKeyframe - cannot find keyframe with id {} to suppress", id);
+        return FrameworkReturnCode::_ERROR_;
+    }
+    // id is the reference keyframe of other keyframes
+    auto refKeyframeIt = m_refKeyframeToKeyframes.find(id);
+    if (refKeyframeIt != m_refKeyframeToKeyframes.end()) { 
+        for (const auto& kfId : refKeyframeIt->second) {
+            m_keyframes.at(kfId)->setReferenceKeyframe(nullptr);
         }
-		m_keyframes.erase(keyframeIt);
-		return FrameworkReturnCode::_SUCCESS;
-	}
-	else {
-		LOG_DEBUG("Cannot find keyframe with id {} to suppress", id);
-		return FrameworkReturnCode::_ERROR_;
-	}
+        m_refKeyframeToKeyframes.erase(refKeyframeIt);
+    }
+    // other_keyframe is the reference keyframe of id
+    auto refKeyframeOfKfId = keyframeIt->second->getReferenceKeyframe();
+    if (refKeyframeOfKfId) {
+        m_refKeyframeToKeyframes.at(refKeyframeOfKfId->getId()).erase(id);
+    }
+    // remove keyframe_id
+    m_keyframes.erase(keyframeIt);
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 DescriptorType KeyframeCollection::getDescriptorType() const
@@ -187,7 +182,10 @@ void KeyframeCollection::serialize(Archive &ar, const unsigned int version)
 	ar & m_id;
 	ar & m_descriptorType;
 	ar & m_keyframes;
-    if (version > 0) {
+    if (version == 0) { // load an old keyframeCollection (version == 0)
+        regularizeReferenceKeyframes(); // fill m_refKeyframeToKeyframes
+    }
+    else {
         ar & m_refKeyframeToKeyframes;
     }
 }
