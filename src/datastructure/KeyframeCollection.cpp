@@ -114,14 +114,23 @@ FrameworkReturnCode KeyframeCollection::suppressKeyframe(const uint32_t id)
     auto refKeyframeIt = m_refKeyframeToKeyframes.find(id);
     if (refKeyframeIt != m_refKeyframeToKeyframes.end()) { 
         for (const auto& kfId : refKeyframeIt->second) {
-            m_keyframes.at(kfId)->setReferenceKeyframe(nullptr);
+            auto iterTmp = m_keyframes.find(kfId);
+            if (iterTmp == m_keyframes.end()) {
+                throw std::logic_error("KeyframeCollection::suppressKeyframe - keyframe (whose reference keyframe is " + std::to_string(id) + ") not found in keyframe list.");
+            }
+            iterTmp->second->setReferenceKeyframe(nullptr);
         }
         m_refKeyframeToKeyframes.erase(refKeyframeIt);
     }
     // other_keyframe is the reference keyframe of id
-    auto refKeyframeOfKfId = keyframeIt->second->getReferenceKeyframe();
-    if (refKeyframeOfKfId) {
-        m_refKeyframeToKeyframes.at(refKeyframeOfKfId->getId()).erase(id);
+    if (auto refKeyframeOfKfId = keyframeIt->second->getReferenceKeyframe(); refKeyframeOfKfId != nullptr) {
+        auto iterTmp = m_refKeyframeToKeyframes.find(refKeyframeOfKfId->getId());
+        if (iterTmp == m_refKeyframeToKeyframes.end()) {
+            throw std::logic_error("KeyframeCollection::suppressKeyframe - reference keyframe of keyframe " + std::to_string(id) + " not found in reference keyframe lookup table.");
+        }
+        if (iterTmp->second.erase(id) != 1) {
+            throw std::logic_error("KeyframeCollection::suppressKeyframe - keyframe " + std::to_string(id) + " not found in list of keyframe associated with its reference keyframe.");
+        }
     }
     // remove keyframe_id
     m_keyframes.erase(keyframeIt);
