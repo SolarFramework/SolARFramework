@@ -51,6 +51,7 @@ enum DescriptorType{
     ORB, /**<ORB descriptor, assumes 32 elements per descriptor stores as one byte per element */
     SBPATTERN, /**<Squared Binary Pattern descriptor, assumes nxn elements per descriptor stores as one byte per element, n is the size of the pattern */
     DISK, /**<DISK descriptor, assumes 128 elements per descriptor stores as one byte per element */
+    UNDEFINED = 1000,
 };
 
 /// @brief Return the text definition (string) of a DescriptorType object
@@ -75,6 +76,8 @@ static std::string toString(const DescriptorType descriptorType)
             return "SBPATTERN";
         case DescriptorType::DISK:
             return "DISK";
+        case DescriptorType::UNDEFINED:
+            return "UNDEFINED";
         default:
             return "Unknown value";
     }
@@ -93,6 +96,7 @@ static std::optional<DescriptorType> parseDescriptorType(const std::string & tex
     if (textDefinition == "ORB") return DescriptorType::ORB;
     if (textDefinition == "SBPATTERN") return DescriptorType::SBPATTERN;
     if (textDefinition == "DISK") return DescriptorType::DISK;
+    if (textDefinition == "UNDEFINED") return DescriptorType::UNDEFINED;
 
     LOG_ERROR("Unknown descriptor type: {}", textDefinition);
 
