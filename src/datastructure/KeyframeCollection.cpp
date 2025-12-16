@@ -31,6 +31,9 @@ FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyfram
         keyframe->setId(m_id++);
     }
     m_keyframes[keyframe->getId()] = keyframe;
+    if (keyframe->getReferenceKeyframe()) {
+        m_refKeyframeToKeyframes[keyframe->getReferenceKeyframe()->getId()].insert(keyframe->getId());
+    }
 	return FrameworkReturnCode::_SUCCESS;
 }
 
@@ -91,12 +94,7 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
     for (const auto& [id, kf]: newKeyframesMap) {
         // Retrieve reference keyframe in new keyframe map
         if (kf->getReferenceKeyframe()) {
-            auto keyframeIt = newKeyframesMap.find(kf->getReferenceKeyframe()->getId());
-            if (keyframeIt == newKeyframesMap.end()) {
-                LOG_DEBUG("Cannot find reference keyframe for keyframe id: {}", id);
-                return FrameworkReturnCode::_ERROR_;
-            }
-            kf->setReferenceKeyframe(keyframeIt->second);
+            kf->setReferenceKeyframe(newKeyframesMap.at(kf->getReferenceKeyframe()->getId()));
         }
         // Add keyframe in result vector
         keyframes.push_back(kf);
@@ -107,15 +105,36 @@ FrameworkReturnCode KeyframeCollection::getAllKeyframesWithoutImages(std::vector
 
 FrameworkReturnCode KeyframeCollection::suppressKeyframe(const uint32_t id)
 {
-	std::map< uint32_t, SRef<Keyframe>>::iterator keyframeIt = m_keyframes.find(id);
-	if (keyframeIt != m_keyframes.end()) {
-		m_keyframes.erase(keyframeIt);
-		return FrameworkReturnCode::_SUCCESS;
-	}
-	else {
-		LOG_DEBUG("Cannot find keyframe with id {} to suppress", id);
-		return FrameworkReturnCode::_ERROR_;
-	}
+    std::map<uint32_t, SRef<Keyframe>>::iterator keyframeIt = m_keyframes.find(id);
+    if (keyframeIt == m_keyframes.end()) {
+        LOG_DEBUG("KeyframeCollection::suppressKeyframe - cannot find keyframe with id {} to suppress", id);
+        return FrameworkReturnCode::_ERROR_;
+    }
+    // id is the reference keyframe of other keyframes
+    auto refKeyframeIt = m_refKeyframeToKeyframes.find(id);
+    if (refKeyframeIt != m_refKeyframeToKeyframes.end()) { 
+        for (const auto& kfId : refKeyframeIt->second) {
+            auto iterTmp = m_keyframes.find(kfId);
+            if (iterTmp == m_keyframes.end()) {
+                throw std::logic_error("KeyframeCollection::suppressKeyframe - keyframe (whose reference keyframe is " + std::to_string(id) + ") not found in keyframe list.");
+            }
+            iterTmp->second->setReferenceKeyframe(nullptr);
+        }
+        m_refKeyframeToKeyframes.erase(refKeyframeIt);
+    }
+    // other_keyframe is the reference keyframe of id
+    if (auto refKeyframeOfKfId = keyframeIt->second->getReferenceKeyframe(); refKeyframeOfKfId != nullptr) {
+        auto iterTmp = m_refKeyframeToKeyframes.find(refKeyframeOfKfId->getId());
+        if (iterTmp == m_refKeyframeToKeyframes.end()) {
+            throw std::logic_error("KeyframeCollection::suppressKeyframe - reference keyframe of keyframe " + std::to_string(id) + " not found in reference keyframe lookup table.");
+        }
+        if (iterTmp->second.erase(id) != 1) {
+            throw std::logic_error("KeyframeCollection::suppressKeyframe - keyframe " + std::to_string(id) + " not found in list of keyframe associated with its reference keyframe.");
+        }
+    }
+    // remove keyframe_id
+    m_keyframes.erase(keyframeIt);
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 DescriptorType KeyframeCollection::getDescriptorType() const
@@ -149,12 +168,35 @@ void KeyframeCollection::nextSerializationWithoutKeyframeImages()
     }
 }
 
+void KeyframeCollection::regularizeReferenceKeyframes()
+{
+    m_refKeyframeToKeyframes.clear();
+    for (auto& [id, kf] : m_keyframes) {
+        auto refKf = kf->getReferenceKeyframe();
+        if (!refKf) {
+            continue;
+        }
+        if (m_keyframes.find(refKf->getId()) == m_keyframes.end()) {
+            kf->setReferenceKeyframe(nullptr);
+        }
+        else {
+            m_refKeyframeToKeyframes[refKf->getId()].insert(id);
+        }
+    }
+}
+
 template <typename Archive>
-void KeyframeCollection::serialize(Archive &ar, const unsigned int /* version */)
+void KeyframeCollection::serialize(Archive &ar, const unsigned int version)
 {
 	ar & m_id;
 	ar & m_descriptorType;
 	ar & m_keyframes;
+    if (version == 0) { // load an old keyframeCollection (version == 0)
+        regularizeReferenceKeyframes(); // fill m_refKeyframeToKeyframes
+    }
+    else {
+        ar & m_refKeyframeToKeyframes;
+    }
 }
 
 IMPLEMENTSERIALIZE(KeyframeCollection);

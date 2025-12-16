@@ -1,4 +1,5 @@
 SolArModulePipeline {
     moduleName="SolARFramework"
     dirName="SolARBuild"
+    buildDir="."
 }
