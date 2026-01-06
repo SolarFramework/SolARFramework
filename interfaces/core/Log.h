@@ -110,7 +110,7 @@ namespace SolAR {
 
 #define LOG_ADD_LOG_TO_OTEL() \
 { \
-    Log::add_sink_console();\
+    Log::add_sink_otel();\
 }
 
 /*! @} */
