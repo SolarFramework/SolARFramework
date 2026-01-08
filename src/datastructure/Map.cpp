@@ -218,11 +218,11 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
         LOG_WARNING("The version of the map ({}) is not compatible with the framework version ({})", mapVersion, SolAR::VERSION);
         return false;
     }
-    if (mapDescriptorType != descriptorType) {
+    if ((mapDescriptorType != datastructure::DescriptorType::UNDEFINED) && (mapDescriptorType != descriptorType)) {
         LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapDescriptorType), toString(descriptorType));
         return false;
     }
-    if (mapGlobalDescriptorType != globalDescriptorType) {
+    if ((mapGlobalDescriptorType != datastructure::GlobalDescriptorType::UNDEFINED) && (mapGlobalDescriptorType != globalDescriptorType)) {
         LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapGlobalDescriptorType), toString(globalDescriptorType));
         return false;
     }
