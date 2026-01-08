@@ -27,6 +27,48 @@ namespace datastructure {
 
 FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
+    auto returnCode = addKeyframeInternal(keyframe, defineKeyframeId);
+    if (returnCode != FrameworkReturnCode::_SUCCESS) {
+        LOG_ERROR("KeyframeCollection::addKeyframe - failed to add keyframe.");
+        return returnCode;
+    }
+    regularizeReferenceKeyframes();
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe, bool defineKeyframeId)
+{
+	SRef<Keyframe> keyframe_ptr = xpcf::utils::make_shared<Keyframe>(keyframe);
+    return addKeyframe(keyframe_ptr, defineKeyframeId);
+}
+
+FrameworkReturnCode KeyframeCollection::addKeyframes(const std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes, bool defineKeyframeId)
+{
+    for (const auto& keyframe : keyframes) {
+        auto returnCode = addKeyframeInternal(keyframe, defineKeyframeId);
+        if (returnCode != FrameworkReturnCode::_SUCCESS) {
+            LOG_ERROR("KeyframeCollection::addKeyframes - failed to add keyframe.");
+            return returnCode;
+        }
+    }
+    if (!keyframes.empty()) {
+        regularizeReferenceKeyframes();
+    }
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+FrameworkReturnCode KeyframeCollection::addKeyframes(const std::vector<SolAR::datastructure::Keyframe>& keyframes, bool defineKeyframeId)
+{
+    std::vector<SRef<SolAR::datastructure::Keyframe>> keyframesPtrs;
+    keyframesPtrs.reserve(keyframes.size());
+    for (const auto& keyframe : keyframes) {
+        keyframesPtrs.push_back(xpcf::utils::make_shared<Keyframe>(keyframe));
+    }
+    return addKeyframes(keyframesPtrs, defineKeyframeId);
+}
+
+FrameworkReturnCode KeyframeCollection::addKeyframeInternal(const SRef<Keyframe> keyframe, bool defineKeyframeId)
+{
     if (defineKeyframeId) {
         keyframe->setId(m_id++);
     }
@@ -34,13 +76,7 @@ FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyfram
     if (keyframe->getReferenceKeyframe()) {
         m_refKeyframeToKeyframes[keyframe->getReferenceKeyframe()->getId()].insert(keyframe->getId());
     }
-	return FrameworkReturnCode::_SUCCESS;
-}
-
-FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe, bool defineKeyframeId)
-{
-	SRef<Keyframe> keyframe_ptr = xpcf::utils::make_shared<Keyframe>(keyframe);
-    return addKeyframe(keyframe_ptr, defineKeyframeId);
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode KeyframeCollection::getKeyframe(const uint32_t id, SRef<Keyframe> & keyframe) const

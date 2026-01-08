@@ -48,6 +48,18 @@ public:
 	/// @return FrameworkReturnCode::_SUCCESS_ if the addition succeed, else FrameworkReturnCode::_ERROR.
     FrameworkReturnCode addKeyframe(const SolAR::datastructure::Keyframe & keyframe, bool defineKeyframeId = true);
 
+    /// @brief This method allows to add a list of keyframes
+    /// @param[in] keyframes list of keyframes to add
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
+    /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeeds, otherwise return FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode addKeyframes(const std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes, bool defineKeyframeId = true);
+
+	/// @brief This method allows to add a list of keyframes
+    /// @param[in] keyframes list of keyframes to add
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
+    /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeeds, otherwise return FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode addKeyframes(const std::vector<SolAR::datastructure::Keyframe>& keyframes, bool defineKeyframeId = true);
+
 	/// @brief This method allows to get a keyframe by its id
 	/// @param[in] id of the keyframe to get
 	/// @param[out] a keyframe stored in the keyframes manager
@@ -93,11 +105,17 @@ public:
 	/// @return The number of keyframes
 	int getNbKeyframes() const;
 
+private:
     /// @brief This method allows to make reference keyframes consistent 
     /// (e.g. this method can be called after having loaded a keyframe collection which may contain inconsistent ref keyframes)
     void regularizeReferenceKeyframes();
 
-private:
+    /// @brief internal function for adding a keyframe
+    /// @param[in] keyframe the keyframe to be added to collection
+    /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
+    /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeeds, otherwise FrameworkReturnCode::_ERROR.
+    FrameworkReturnCode addKeyframeInternal(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true);
+
 	friend class boost::serialization::access;
     friend class Map;
 	template <typename Archive>
