@@ -27,11 +27,7 @@ namespace datastructure {
 
 FrameworkReturnCode KeyframeCollection::addKeyframe(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
-    auto returnCode = addKeyframeInternal(keyframe, defineKeyframeId);
-    if (returnCode != FrameworkReturnCode::_SUCCESS) {
-        LOG_ERROR("KeyframeCollection::addKeyframe - failed to add keyframe.");
-        return returnCode;
-    }
+    addKeyframeInternal(keyframe, defineKeyframeId);
     regularizeReferenceKeyframes();
     return FrameworkReturnCode::_SUCCESS;
 }
@@ -45,11 +41,7 @@ FrameworkReturnCode KeyframeCollection::addKeyframe(const Keyframe & keyframe, b
 FrameworkReturnCode KeyframeCollection::addKeyframes(const std::vector<SRef<SolAR::datastructure::Keyframe>>& keyframes, bool defineKeyframeId)
 {
     for (const auto& keyframe : keyframes) {
-        auto returnCode = addKeyframeInternal(keyframe, defineKeyframeId);
-        if (returnCode != FrameworkReturnCode::_SUCCESS) {
-            LOG_ERROR("KeyframeCollection::addKeyframes - failed to add keyframe.");
-            return returnCode;
-        }
+        addKeyframeInternal(keyframe, defineKeyframeId);
     }
     if (!keyframes.empty()) {
         regularizeReferenceKeyframes();
@@ -67,7 +59,7 @@ FrameworkReturnCode KeyframeCollection::addKeyframes(const std::vector<SolAR::da
     return addKeyframes(keyframesPtrs, defineKeyframeId);
 }
 
-FrameworkReturnCode KeyframeCollection::addKeyframeInternal(const SRef<Keyframe> keyframe, bool defineKeyframeId)
+void KeyframeCollection::addKeyframeInternal(const SRef<Keyframe> keyframe, bool defineKeyframeId)
 {
     if (defineKeyframeId) {
         keyframe->setId(m_id++);
@@ -76,7 +68,6 @@ FrameworkReturnCode KeyframeCollection::addKeyframeInternal(const SRef<Keyframe>
     if (keyframe->getReferenceKeyframe()) {
         m_refKeyframeToKeyframes[keyframe->getReferenceKeyframe()->getId()].insert(keyframe->getId());
     }
-    return FrameworkReturnCode::_SUCCESS;
 }
 
 FrameworkReturnCode KeyframeCollection::getKeyframe(const uint32_t id, SRef<Keyframe> & keyframe) const

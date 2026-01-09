@@ -113,8 +113,7 @@ private:
     /// @brief internal function for adding a keyframe
     /// @param[in] keyframe the keyframe to be added to collection
     /// @param[in] defineKeyframeId if true an id will be set for the added keyframe, if false the id of the keyframe will be used
-    /// @return FrameworkReturnCode::_SUCCESS_ if the addition succeeds, otherwise FrameworkReturnCode::_ERROR.
-    FrameworkReturnCode addKeyframeInternal(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true);
+    void addKeyframeInternal(const SRef<SolAR::datastructure::Keyframe> keyframe, bool defineKeyframeId = true);
 
 	friend class boost::serialization::access;
     friend class Map;
