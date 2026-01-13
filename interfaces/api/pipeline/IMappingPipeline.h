@@ -41,6 +41,38 @@ enum class MappingStatus {
     LOOP_CLOSURE = 3    // loop closure optimization
 } ;
 
+/// @brief Parse an MappingStatus value from its string representation
+/// @param[in] status string representation of a value of MappingStatus
+/// @return the MappingStatus value represented by status
+static MappingStatus parseMappingStatus(const std::string& status) {
+    if (status == "BOOTSTRAP") {
+        return MappingStatus::BOOTSTRAP;
+    }
+    if (status == "MAPPING") {
+        return MappingStatus::MAPPING;
+    }
+    if (status == "TRACKING_LOST") {
+        return MappingStatus::TRACKING_LOST;
+    }
+    if (status == "LOOP_CLOSURE") {
+        return MappingStatus::LOOP_CLOSURE;
+    }
+    throw std::invalid_argument("Status '" + status + "' is not a valid MappingStatus value");
+}
+
+/// @brief Return the text definition (string) of a MappingStatus object
+/// @param[in] mappingStatus the mapping status
+/// @return the text definition (string)
+static std::string toString(const MappingStatus mappingStatus) {
+    switch (mappingStatus) {
+        case MappingStatus::BOOTSTRAP: return "BOOTSTRAP";
+        case MappingStatus::MAPPING: return "MAPPING";
+        case MappingStatus::TRACKING_LOST: return "TRACKING_LOST";
+        case MappingStatus::LOOP_CLOSURE: return "LOOP_CLOSURE";
+        default: throw std::invalid_argument("MappingStatus value is unknown");
+    }
+}
+
 /**
  * @class IMappingPipeline
  * @brief <B>Defines a mapping pipeline.</B>
