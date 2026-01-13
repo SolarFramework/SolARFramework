@@ -105,29 +105,33 @@ enum class TransformStatus {
     NEW_3DTRANSFORM = 2       // New 3D transform given by the relocalization service
 };
 
+/// @brief Parse an TransformStatus value from its string representation
+/// @param[in] status string representation of a value of TransformStatus
+/// @return the TransformStatus value represented by status
+static TransformStatus parseTransformStatus(const std::string& status) {
+    if (status == "NO_3DTRANSFORM") {
+        return TransformStatus::NO_3DTRANSFORM;
+    }
+    if (status == "PREVIOUS_3DTRANSFORM") {
+        return TransformStatus::PREVIOUS_3DTRANSFORM;
+    }
+    if (status == "NEW_3DTRANSFORM") {
+        return TransformStatus::NEW_3DTRANSFORM;
+    }
+    throw std::invalid_argument("Status '" + status + "' is not a valid TransformStatus value");
+}
+
 /// @brief Return the text definition (string) of a TransformStatus object
 /// @param[in] transformStatus the transformation status
 /// @return the text definition (string)
 static std::string toString(const TransformStatus transformStatus)
 {
-    std::string textDefinition = "";
-
-    switch (transformStatus) {
-        case TransformStatus::NO_3DTRANSFORM:
-            textDefinition = "NO_3DTRANSFORM";
-            break;
-        case TransformStatus::PREVIOUS_3DTRANSFORM:
-            textDefinition = "PREVIOUS_3DTRANSFORM";
-            break;
-        case TransformStatus::NEW_3DTRANSFORM:
-            textDefinition = "NEW_3DTRANSFORM";
-            break;
-        default:
-            textDefinition = "Unknown value";
-            break;
+   switch (transformStatus) {
+        case TransformStatus::NO_3DTRANSFORM: return "NO_3DTRANSFORM";
+        case TransformStatus::PREVIOUS_3DTRANSFORM: return "PREVIOUS_3DTRANSFORM";
+        case TransformStatus::NEW_3DTRANSFORM: return"NEW_3DTRANSFORM";
+        default: throw std::invalid_argument("TransformStatus value is unknown");
     }
-
-    return textDefinition;
 }
 
 ///
