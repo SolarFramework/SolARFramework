@@ -220,6 +220,7 @@ public:
     ///        If status = COMPLETED then give the map UUID of the new resulting map
     /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] status the current map processing status
+    /// @param[out] processingType the current map processing type
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
@@ -227,6 +228,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapProcessingStatus(const std::string & resultMapUUID,
                                                        MapProcessingStatus & status,
+                                                       MapProcessingType & processingType,
                                                        float & progress) = 0;
 
     /// @brief Provide the current data from a map processing for visualization
