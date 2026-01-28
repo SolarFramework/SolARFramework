@@ -299,7 +299,7 @@ private:
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
     std::string                                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
-    datastructure::DescriptorType                       m_descriptorType = DescriptorType::AKAZE;                 // Type of descriptor used for the map
+    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;                 // Type of descriptor used for the map
     datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
 };
