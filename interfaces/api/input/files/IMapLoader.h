@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_IPOINTCLOUDLOADER_H
-#define SOLAR_IPOINTCLOUDLOADER_H
+#ifndef SOLAR_IMAPLOADER_H
+#define SOLAR_IMAPLOADER_H
 
 #include <xpcf/api/IComponentIntrospect.h>
 #include <xpcf/core/helpers.h>
@@ -55,4 +55,4 @@ XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::input::files::IMapLoader,
                              "Load a map from a file");
 
 
-#endif // SOLAR_IPOINTCLOUDLOADER_H
+#endif // SOLAR_IMAPLOADER_H

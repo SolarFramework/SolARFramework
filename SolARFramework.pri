@@ -50,7 +50,7 @@ interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
-interfaces/api/input/files/IMapLoader.h \
+interfaces/api/input/files/IKeyframeLoader.h \
 interfaces/api/input/files/IMeshLoader.h \
 interfaces/api/input/files/IPointCloudLoader.h \
 interfaces/api/input/files/ITrackableLoader.h \

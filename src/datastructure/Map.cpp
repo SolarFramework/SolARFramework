@@ -98,6 +98,12 @@ void Map::setKeyframeCollection(const SRef<KeyframeCollection> keyframeCollectio
     // we use m_keyframesManager to access the keyframes and optimize their poses
     // the modifs on keyframes' poses will not be applied to the keyframe collection of m_map
     m_keyframeCollection = keyframeCollection;
+    if (!m_keyframeCollection) {
+        m_embedKeyframeImages = false;
+    }
+    else {
+        m_embedKeyframeImages = m_keyframeCollection->getNbKeyframesHavingImage() > 0;
+    }
 }
 
 const SRef<CovisibilityGraph> Map::getConstCovisibilityGraph() const

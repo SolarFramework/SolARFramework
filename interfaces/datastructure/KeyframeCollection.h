@@ -105,6 +105,10 @@ public:
 	/// @return The number of keyframes
 	int getNbKeyframes() const;
 
+    /// @brief This method allows to get the number of keyframes having image data
+    /// @return The number of keyframes having image data
+    uint32_t getNbKeyframesHavingImage() const;
+
 private:
     /// @brief This method allows to make reference keyframes consistent 
     /// (e.g. this method can be called after having loaded a keyframe collection which may contain inconsistent ref keyframes)
