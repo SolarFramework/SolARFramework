@@ -48,6 +48,7 @@ public:
    /// @param[in] keyframeCollection input list of keyframes
    /// @param[in] cameraParametersCollection input list of camera parameters
    /// @param[in] maskCollection input list of masks
+   /// @return FrameworkReturnCode::_SUCCESS (semantic id estimated successfully) otherwise FrameworkReturnCode::_ERROR_ (failure)
    virtual FrameworkReturnCode estimate(SRef<SolAR::datastructure::PointCloud> pointCloud,
                                         SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection,
                                         SRef<SolAR::datastructure::CameraParametersCollection> cameraParametersCollection,
