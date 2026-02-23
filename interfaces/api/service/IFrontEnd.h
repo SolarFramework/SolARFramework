@@ -422,6 +422,7 @@ public:
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] resultMapUUID the UUID of the map resulting from the processing
     /// @param[out] status the current map processing status
+    /// @param[out] processingType the current map processing type
     /// @param[out] progress the current progress percentage (valid value should be between 0 and 1)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
@@ -434,6 +435,7 @@ public:
     virtual FrameworkReturnCode getMapProcessingStatus(const std::string & accessToken,
                                                        const std::string & resultMapUUID,
                                                        MapProcessingStatus & status,
+                                                       MapProcessingType & processingType,
                                                        float & progress) const = 0;
 
     /// @brief Provide the current data from a map processing
