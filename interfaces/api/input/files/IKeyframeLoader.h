@@ -28,42 +28,6 @@ namespace input {
 namespace files {
 
 /**
- * @enum keyframe file type
-*/
-enum class KeyframeFileType {
-    TDF, /**< TDF format */
-    UNDEFINED = 1000,
-};
-
-/// @brief Return the text definition (string) of a KeyframeFileType object
-/// @param[in] keyframeFileType the keyframe file type
-/// @return the text definition (string)
-static std::string toString(const KeyframeFileType& keyframeFileType)
-{
-    switch (keyframeFileType) {
-        case KeyframeFileType::TDF:
-            return "TDF";
-        case KeyframeFileType::UNDEFINED:
-            return "UNDEFINED";
-        default:
-            return "Unknown value";
-    }
-}
-
-/// @brief Return the KeyframeFileType object from a text definition (string)
-/// @param[in] textDefinition the text definition (string)
-/// @return the keyframe file type
-static std::optional<KeyframeFileType> parseKeyframeFileType(const std::string& textDefinition)
-{
-    if (textDefinition == "TDF") 
-        return KeyframeFileType::TDF;
-    if (textDefinition == "UNDEFINED") 
-        return KeyframeFileType::UNDEFINED;
-    LOG_ERROR("Unknown keyframe file type: {}", textDefinition);
-    return {};
-}
-
-/**
  * @class IKeyframeLoader
  * @brief <B>Load a keyframe collection from file.</B>
  * <TT>UUID: 2d1d125c-6bd2-4e2c-af76-f58910cb7791</TT>
