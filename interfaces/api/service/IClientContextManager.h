@@ -231,7 +231,9 @@ public:
 
     /// @brief Unregister a client using its UUID
     /// @param[in] clientUUID the UUID of the client to unregister
-    /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_UNKNOWN_CLIENT_UUID if the client UUID is not currently registered
+    /// * else FrameworkReturnCode::_SUCCESS (client unregistered)
     virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
