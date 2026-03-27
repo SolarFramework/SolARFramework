@@ -140,8 +140,7 @@ static std::string toString(const TransformStatus transformStatus)
 ///
 enum class PipelineMode {
     RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
-    RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
-    RELOCALIZATION_ONLY = 2                 // Only relocalization
+    RELOCALIZATION_ONLY = 1                 // Only relocalization
 };
 
 /// @brief Return the text definition (string) of a PipelineMode object
@@ -154,9 +153,6 @@ static std::string toString(const PipelineMode pipelineMode)
     switch (pipelineMode) {
         case PipelineMode::RELOCALIZATION_AND_MAPPING:
             textDefinition = "RELOCALIZATION_AND_MAPPING";
-            break;
-        case PipelineMode::RELOCALIZATION_AND_STEREO_MAPPING:
-            textDefinition = "RELOCALIZATION_AND_STEREO_MAPPING";
             break;
         case PipelineMode::RELOCALIZATION_ONLY:
             textDefinition = "RELOCALIZATION_ONLY";
