@@ -50,6 +50,7 @@ interfaces/api/input/devices/IDevice.h \
 interfaces/api/input/devices/IIMU.h \
 interfaces/api/input/devices/IRGBDCamera.h \
 interfaces/api/input/devices/IStereoCameraCalibration.h \
+interfaces/api/input/files/IKeyframeLoader.h \
 interfaces/api/input/files/IMapLoader.h \
 interfaces/api/input/files/IMeshLoader.h \
 interfaces/api/input/files/IPointCloudLoader.h \
@@ -71,6 +72,8 @@ interfaces/api/pipeline/IMapProcessingPipeline.h \
 interfaces/api/pipeline/IRelocalizationTrackablePipeline.h \
 interfaces/api/pointCloud/IPCFilter.h \
 interfaces/api/pointCloud/IPCFilterCentroid.h \
+interfaces/api/pointCloud/IPCProjectOntoImage.h \
+interfaces/api/pointCloud/IPCSemanticFrom2D.h \
 interfaces/api/reloc/IKeyframeRetriever.h \
 interfaces/api/reloc/IRelocalizer.h \
 interfaces/api/reloc/IRegression.h \

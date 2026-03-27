@@ -188,6 +188,17 @@ int KeyframeCollection::getNbKeyframes() const
 	return static_cast<int>(m_keyframes.size());
 }
 
+uint32_t KeyframeCollection::getNbKeyframesHavingImage() const
+{
+    uint32_t n = 0;
+    for (const auto& [id, keyframe] : m_keyframes) {
+        if (keyframe && keyframe->getView()) {
+            n++;
+        }
+    }
+    return n;
+}
+
 void KeyframeCollection::nextSerializationWithoutKeyframeImages()
 {
     for (const auto& [id, kf]: m_keyframes) {
