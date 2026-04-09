@@ -35,9 +35,8 @@ enum class ServiceType {
     RELOCALIZATION_SERVICE = 1,
     RELOCALIZATION_MARKERS_SERVICE = 2,
     MAPPING_SERVICE = 3,
-    MAPPING_STEREO_SERVICE = 4,
-    MAP_PROCESSING_SFM_SERVICE = 5,
-    MAP_PROCESSING_DENSE_MAPPING_SERVICE = 6
+    MAP_PROCESSING_SFM_SERVICE = 4,
+    MAP_PROCESSING_DENSE_MAPPING_SERVICE = 5
 };
 
 /// @brief Return the name (string) of a service according to its type
@@ -59,9 +58,6 @@ static std::string getServiceName(const ServiceType serviceType)
         break;
     case ServiceType::MAPPING_SERVICE:
         serviceName = "Mapping Service";
-        break;
-    case ServiceType::MAPPING_STEREO_SERVICE:
-        serviceName = "Stereo Mapping Service";
         break;
     case ServiceType::MAP_PROCESSING_SFM_SERVICE:
         serviceName = "Map Processing Structure From Motion Service";

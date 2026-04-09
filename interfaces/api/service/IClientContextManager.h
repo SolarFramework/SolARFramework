@@ -140,8 +140,7 @@ static std::string toString(const TransformStatus transformStatus)
 ///
 enum class PipelineMode {
     RELOCALIZATION_AND_MAPPING = 0,         // Relocalization and mapping
-    RELOCALIZATION_AND_STEREO_MAPPING = 1,  // Relocalization and stereo mapping
-    RELOCALIZATION_ONLY = 2                 // Only relocalization
+    RELOCALIZATION_ONLY = 1                 // Only relocalization
 };
 
 /// @brief Return the text definition (string) of a PipelineMode object
@@ -154,9 +153,6 @@ static std::string toString(const PipelineMode pipelineMode)
     switch (pipelineMode) {
         case PipelineMode::RELOCALIZATION_AND_MAPPING:
             textDefinition = "RELOCALIZATION_AND_MAPPING";
-            break;
-        case PipelineMode::RELOCALIZATION_AND_STEREO_MAPPING:
-            textDefinition = "RELOCALIZATION_AND_STEREO_MAPPING";
             break;
         case PipelineMode::RELOCALIZATION_ONLY:
             textDefinition = "RELOCALIZATION_ONLY";
@@ -231,7 +227,9 @@ public:
 
     /// @brief Unregister a client using its UUID
     /// @param[in] clientUUID the UUID of the client to unregister
-    /// @return FrameworkReturnCode::_SUCCESS if the client is unregistered, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_UNKNOWN_CLIENT_UUID if the client UUID is not currently registered
+    /// * else FrameworkReturnCode::_SUCCESS (client unregistered)
     virtual FrameworkReturnCode unregisterClient(const std::string & clientUUID) = 0;
 
     /// @brief Return all current clients UUID
