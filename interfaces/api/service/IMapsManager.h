@@ -220,14 +220,14 @@ public:
     /// * FrameworkReturnCode::_MAP_NO_DATA if no data is available on storage for mapUUID
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
-        const std::string & mapUUID,
-        char *map_information,
-        char *cameraParameters,
-        char *coordinate,
-        char *covisibility_graph,
-        char *identification,
-        char *keyframes,
-        char *pointcloud) const = 0;
+                                                    const std::string & mapUUID,
+                                                    std::vector<unsigned char> map_information,
+                                                    std::vector<unsigned char> cameraParameters,
+                                                    std::vector<unsigned char> coordinate,
+                                                    std::vector<unsigned char> covisibility_graph,
+                                                    std::vector<unsigned char> identification,
+                                                    std::vector<unsigned char> keyframes,
+                                                    std::vector<unsigned char> pointcloud) const = 0;
 
     /// @brief Give json/binary data file contents for a specific map to restore it
     /// @param[in] mapUUID UUID of the map
@@ -242,14 +242,14 @@ public:
     /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
-        const std::string & mapUUID,
-        const char *map_information,
-        const char *cameraParameters,
-        const char *coordinate,
-        const char *covisibility_graph,
-        const char *identification,
-        const char *keyframes,
-        const char *pointcloud) = 0;
+                                                    const std::string & mapUUID,
+                                                    const std::vector<unsigned char> map_information,
+                                                    const std::vector<unsigned char> cameraParameters,
+                                                    const std::vector<unsigned char> coordinate,
+                                                    const std::vector<unsigned char> covisibility_graph,
+                                                    const std::vector<unsigned char> identification,
+                                                    const std::vector<unsigned char> keyframes,
+                                                    const std::vector<unsigned char> pointcloud) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
