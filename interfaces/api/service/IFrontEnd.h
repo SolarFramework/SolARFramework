@@ -399,6 +399,66 @@ public:
                                            bool & areImageSaved) const = 0;
 
 
+    /// @brief Get json/binary data file contents for a specific map to make a backup
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] map_information the map_information.json file content
+    /// @param[out] cameraParameters the cameraParameters.bin file content
+    /// @param[out] coordinate the coordinate.bin file content
+    /// @param[out] covisibility_graph the covisibility_graph.bin file content
+    /// @param[out] identification the identification.bin file content
+    /// @param[out] keyframes the keyframes.bin file content
+    /// @param[out] pointcloud the pointcloud.bin file content
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map data is available
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
+                                            const std::string & accessToken,
+                                            const std::string & mapUUID,
+                                            char *map_information,
+                                            char *cameraParameters,
+                                            char *coordinate,
+                                            char *covisibility_graph,
+                                            char *identification,
+                                            char *keyframes,
+                                            char *pointcloud) const = 0;
+
+    /// @brief Give json/binary data file contents for a specific map to restore it
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] map_information the map_information.json file content
+    /// @param[in] cameraParameters the cameraParameters.bin file content
+    /// @param[in] coordinate the coordinate.bin file content
+    /// @param[in] covisibility_graph the covisibility_graph.bin file content
+    /// @param[in] identification the identification.bin file content
+    /// @param[in] keyframes the keyframes.bin file content
+    /// @param[in] pointcloud the pointcloud.bin file content
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
+    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
+                                            const std::string & accessToken,
+                                            const std::string & mapUUID,
+                                            const char *map_information,
+                                            const char *cameraParameters,
+                                            const char *coordinate,
+                                            const char *covisibility_graph,
+                                            const char *identification,
+                                            const char *keyframes,
+                                            const char *pointcloud) = 0;
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to process
