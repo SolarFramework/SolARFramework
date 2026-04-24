@@ -216,7 +216,8 @@ public:
     /// @param[out] pointcloud the pointcloud.bin file content
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map data is available
-    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if no data is available on storage for mapUUID
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
         const std::string & mapUUID,
@@ -239,7 +240,6 @@ public:
     /// @param[in] pointcloud the pointcloud.bin file content
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
-    /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
         const std::string & mapUUID,
