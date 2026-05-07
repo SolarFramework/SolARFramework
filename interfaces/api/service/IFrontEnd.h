@@ -399,16 +399,10 @@ public:
                                            bool & areImageSaved) const = 0;
 
 
-    /// @brief Get json/binary data file contents for a specific map to make a backup
+    /// @brief Get data file contents for a specific map in a compressed buffer (ZIP format), to make a backup locally
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map
-    /// @param[out] map_information the map_information.json file content
-    /// @param[out] cameraParameters the cameraParameters.bin file content
-    /// @param[out] coordinate the coordinate.bin file content
-    /// @param[out] covisibility_graph the covisibility_graph.bin file content
-    /// @param[out] identification the identification.bin file content
-    /// @param[out] keyframes the keyframes.bin file content
-    /// @param[out] pointcloud the pointcloud.bin file content
+    /// @param[out] compressed_zip_data the data structure files of the map in a compressed buffer (ZIP format)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map data is available
     /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
@@ -422,24 +416,12 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
                                             const std::string & accessToken,
                                             const std::string & mapUUID,
-                                            std::vector<unsigned char> & map_information,
-                                            std::vector<unsigned char> & cameraParameters,
-                                            std::vector<unsigned char> & coordinate,
-                                            std::vector<unsigned char> & covisibility_graph,
-                                            std::vector<unsigned char> & identification,
-                                            std::vector<unsigned char> & keyframes,
-                                            std::vector<unsigned char> & pointcloud) const = 0;
+                                            std::vector<unsigned char> & compressed_zip_data) const = 0;
 
-    /// @brief Give json/binary data file contents for a specific map to restore it
+    /// @brief Give data file contents for a specific map in a compressed buffer (ZIP format), to restore it on the remote server
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map
-    /// @param[in] map_information the map_information.json file content
-    /// @param[in] cameraParameters the cameraParameters.bin file content
-    /// @param[in] coordinate the coordinate.bin file content
-    /// @param[in] covisibility_graph the covisibility_graph.bin file content
-    /// @param[in] identification the identification.bin file content
-    /// @param[in] keyframes the keyframes.bin file content
-    /// @param[in] pointcloud the pointcloud.bin file content
+    /// @param[in] compressed_zip_data the data structure files of the map in a compressed buffer (ZIP format)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
@@ -451,13 +433,7 @@ public:
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
                                             const std::string & accessToken,
                                             const std::string & mapUUID,
-                                            const std::vector<unsigned char> & map_information,
-                                            const std::vector<unsigned char> & cameraParameters,
-                                            const std::vector<unsigned char> & coordinate,
-                                            const std::vector<unsigned char> & covisibility_graph,
-                                            const std::vector<unsigned char> & identification,
-                                            const std::vector<unsigned char> & keyframes,
-                                            const std::vector<unsigned char> & pointcloud) = 0;
+                                            const std::vector<unsigned char> & compressed_zip_data) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
