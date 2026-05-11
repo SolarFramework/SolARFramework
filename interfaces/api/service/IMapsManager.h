@@ -61,6 +61,9 @@ static std::string toString(const MapProcessingType mapProcessingType)
         case MapProcessingType::STRUCTURE_FROM_MOTION:
             textDefinition = "STRUCTURE_FROM_MOTION";
             break;
+        case MapProcessingType::DENSE_MAPPING:
+            textDefinition = "DENSE_MAPPING";
+            break;
         default:
             textDefinition = "Unknown value";
             break;
