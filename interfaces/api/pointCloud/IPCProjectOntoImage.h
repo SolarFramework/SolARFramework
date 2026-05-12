@@ -52,6 +52,17 @@ public:
                                        const SolAR::datastructure::Transform3Df& pose,
                                        SRef<SolAR::datastructure::Image>& image) const = 0;
 
+   /// @brief Project a list of cloud points onto an image plane
+   /// @param[in] points the list of cloud points
+   /// @param[in] cameraParameters the camera parameters
+   /// @param[in] pose the camera pose
+   /// @param[out] image output image created from the point cloud
+   /// @return FrameworkReturnCode::_SUCCESS (pointcloud projected onto image successfully) otherwise FrameworkReturnCode::_ERROR_ (failure)
+   virtual FrameworkReturnCode project(const std::vector<SRef<SolAR::datastructure::CloudPoint>>& points,
+                                       SRef<SolAR::datastructure::CameraParameters> cameraParameters,
+                                       const SolAR::datastructure::Transform3Df& pose,
+                                       SRef<SolAR::datastructure::Image>& image) const = 0;
+
 };
 }
 }
