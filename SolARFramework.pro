@@ -94,6 +94,10 @@ header_interfaces_pointCloud.path  = $${PROJECTDEPLOYDIR}/interfaces/api/pointCl
 header_interfaces_pointCloud.files = $$files($${PWD}/interfaces/api/pointCloud/*.h*)
 header_interfaces_reloc.path = $${PROJECTDEPLOYDIR}/interfaces/api/reloc/
 header_interfaces_reloc.files = $$files($${PWD}/interfaces/api/reloc/*.h*)
+
+header_interfaces_gs.path = $${PROJECTDEPLOYDIR}/interfaces/api/gs/
+header_interfaces_gs.files = $$files($${PWD}/interfaces/api/gs/*.h*)
+
 header_interfaces_sink.path = $${PROJECTDEPLOYDIR}/interfaces/api/sink
 header_interfaces_sink.files = $$files($${PWD}/interfaces/api/sink/*.h*)
 header_interfaces_source.path = $${PROJECTDEPLOYDIR}/interfaces/api/source
@@ -143,6 +147,7 @@ INSTALLS += header_interfaces_input_devices header_interfaces_input_files
 INSTALLS += header_interfaces_output_files
 INSTALLS += header_interfaces_pointCloud
 INSTALLS += header_interfaces_reloc
+INSTALLS += header_interfaces_gs
 INSTALLS += header_interfaces_sink
 INSTALLS += header_interfaces_source
 INSTALLS += header_interfaces_tracking
