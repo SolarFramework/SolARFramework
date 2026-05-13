@@ -402,7 +402,7 @@ public:
     /// @brief Get data file contents for a specific map in a compressed buffer (ZIP format), to make a backup locally
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map
-    /// @param[out] compressed_zip_data the data structure files of the map in a compressed buffer (ZIP format)
+    /// @param[out] compressedZipData the data structure files of the map in a compressed buffer (ZIP format)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map data is available
     /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
@@ -416,12 +416,12 @@ public:
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
                                             const std::string & accessToken,
                                             const std::string & mapUUID,
-                                            std::vector<unsigned char> & compressed_zip_data) const = 0;
+                                            std::vector<std::byte> & compressedZipData) const = 0;
 
     /// @brief Give data file contents for a specific map in a compressed buffer (ZIP format), to restore it on the remote server
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID UUID of the map
-    /// @param[in] compressed_zip_data the data structure files of the map in a compressed buffer (ZIP format)
+    /// @param[in] compressedZipData the data structure files of the map in a compressed buffer (ZIP format)
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
     /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
@@ -433,7 +433,7 @@ public:
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
                                             const std::string & accessToken,
                                             const std::string & mapUUID,
-                                            const std::vector<unsigned char> & compressed_zip_data) = 0;
+                                            const std::vector<std::byte> & compressedZipData) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
