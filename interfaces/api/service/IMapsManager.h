@@ -218,7 +218,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
                                                     const std::string & mapUUID,
-                                                    std::vector<std::byte> & compressedZipData) const = 0;
+                                                    std::vector<unsigned char> & compressedZipData) const = 0;
 
     /// @brief Give data file contents for a specific map in a compressed buffer (ZIP format), to restore it on the remote server
     /// @param[in] mapUUID UUID of the map
@@ -228,7 +228,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
                                                     const std::string & mapUUID,
-                                                    const std::vector<std::byte> & compressedZipData) = 0;
+                                                    const std::vector<unsigned char> & compressedZipData) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
