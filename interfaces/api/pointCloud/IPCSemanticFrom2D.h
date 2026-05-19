@@ -53,6 +53,19 @@ public:
                                         SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection,
                                         SRef<SolAR::datastructure::CameraParametersCollection> cameraParametersCollection,
                                         SRef<SolAR::datastructure::Mask2DCollection> maskCollection) const = 0;
+  
+   /// @brief Estimate point cloud semantic Ids from a keyframe collection and a mask collection
+   /// @param[in] points list of cloud points
+   /// @param[in] keyframeCollection input list of keyframes
+   /// @param[in] cameraParametersCollection input list of camera parameters
+   /// @param[in] maskCollection input list of masks
+   /// @param[out] semanticIds estimated semantic ids and probabilities for each input cloud point
+   /// @return FrameworkReturnCode::_SUCCESS (semantic id estimated successfully) otherwise FrameworkReturnCode::_ERROR_ (failure)
+   virtual FrameworkReturnCode estimate(const std::vector<SRef<SolAR::datastructure::CloudPoint>>& points,
+                                        SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection,
+                                        SRef<SolAR::datastructure::CameraParametersCollection> cameraParametersCollection,
+                                        SRef<SolAR::datastructure::Mask2DCollection> maskCollection,
+                                        std::vector<std::vector<std::pair<int16_t, float>>>& semanticIds) const = 0;
 
 };
 }
