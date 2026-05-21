@@ -230,6 +230,16 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
+void Map::addMapProcessingStep(const Map::MapProcessingStep & mapProcessingStep)
+{
+    m_mapProcessingHistory.push_back(mapProcessingStep);
+}
+
+std::vector<Map::MapProcessingStep> Map::getMapProcessingHistory() const
+{
+    return m_mapProcessingHistory;
+}
+
 SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
 {
     return m_mask2DCollection;

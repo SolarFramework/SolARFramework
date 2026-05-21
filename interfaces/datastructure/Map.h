@@ -55,7 +55,26 @@ public:
         _CameraParameters = 0x10
 	} MapType;
 
-	///
+    /**
+     * @brief List of all processing types that can be applied to a map datastructure
+     */
+    enum MapProcessingType {
+        SPARSE_MAPPING=0,
+        DENSE_MAPPING,
+        STRUCTURE_FROM_MOTION,
+        GAUSSIAN_SPLATTING
+    };
+
+    /**
+     * @brief Definition of a map processing step
+     */
+    struct MapProcessingStep {
+        MapProcessingType processingType; // Type of processing applied to obtain the map
+        std::string originalMapUUID;      // Original map processed to obtain the current map (can be empty if no previous map)
+        std::chrono::system_clock::time_point processingTimestamp; // Timestamp of the processing
+    };
+
+    ///
     /// @brief Map constructor.
     ///
     Map() = default;
@@ -283,6 +302,14 @@ public:
     bool isMapCompatible(datastructure::DescriptorType descriptorType,
                          datastructure::GlobalDescriptorType globalDescriptorType) const;
 
+    /// @brief Add a processing step to the map information
+    /// @param[in] mapProcessingStep the new step of processing applied to the map
+    void addMapProcessingStep(const MapProcessingStep & mapProcessingStep);
+
+    /// @brief Get the list of all processing steps previously applied to obtain the current map
+    /// @return the list of processing steps
+    std::vector<MapProcessingStep> getMapProcessingHistory() const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -299,9 +326,12 @@ private:
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
     std::string                                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
-    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;                 // Type of descriptor used for the map
+    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
     datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+
+    // List of all processing steps previously applied to obtain the map datastructure
+    std::vector<MapProcessingStep> m_mapProcessingHistory;
 };
 
 DECLARESERIALIZE(Map);
