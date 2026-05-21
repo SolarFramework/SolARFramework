@@ -61,6 +61,9 @@ static std::string toString(const MapProcessingType mapProcessingType)
         case MapProcessingType::STRUCTURE_FROM_MOTION:
             textDefinition = "STRUCTURE_FROM_MOTION";
             break;
+        case MapProcessingType::DENSE_MAPPING:
+            textDefinition = "DENSE_MAPPING";
+            break;
         default:
             textDefinition = "Unknown value";
             break;
@@ -204,6 +207,28 @@ public:
                                            SolAR::datastructure::DescriptorType & descriptorType,
                                            uint32_t & dataSize,
                                            bool & areImageSaved) const = 0;
+
+    /// @brief Get data file contents for a specific map in a compressed buffer (ZIP format), to make a backup locally
+    /// @param[in] mapUUID UUID of the map
+    /// @param[out] compressedZipData the data structure files of the map in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map data is available
+    /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if no data is available on storage for mapUUID
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode backupMap(
+                                                    const std::string & mapUUID,
+                                                    std::vector<unsigned char> & compressedZipData) const = 0;
+
+    /// @brief Give data file contents for a specific map in a compressed buffer (ZIP format), to restore it on the remote server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] compressedZipData the data structure files of the map in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map restoration was successful
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
+                                                    const std::string & mapUUID,
+                                                    const std::vector<unsigned char> & compressedZipData) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
