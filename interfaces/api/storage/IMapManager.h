@@ -186,7 +186,7 @@ public:
                                                         SolAR::datastructure::DescriptorType & descriptorType,
                                                         SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
                                                         bool & embedKeyframeImages,
-                                                        std::vector<Map::MapProcessingStep> mapProcessingHistory) = 0;
+                                                        std::vector<Map::MapProcessingStep> & mapProcessingHistory) = 0;
 
     /// @brief Test the compatibility of a map (version and descriptor types)
     /// @param[in] descriptorType the descriptor type reference value
