@@ -219,11 +219,11 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
         return false;
     }
     if ((mapDescriptorType != datastructure::DescriptorType::UNDEFINED) && (mapDescriptorType != descriptorType)) {
-        LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapDescriptorType), toString(descriptorType));
+        LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapDescriptorType), datastructure::toString(descriptorType));
         return false;
     }
     if ((mapGlobalDescriptorType != datastructure::GlobalDescriptorType::UNDEFINED) && (mapGlobalDescriptorType != globalDescriptorType)) {
-        LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapGlobalDescriptorType), toString(globalDescriptorType));
+        LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapGlobalDescriptorType), datastructure::toString(globalDescriptorType));
         return false;
     }
 

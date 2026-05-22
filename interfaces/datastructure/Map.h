@@ -74,6 +74,25 @@ public:
         std::chrono::system_clock::time_point processingTimestamp; // Timestamp of the processing
     };
 
+    /// @brief Return the text definition (string) of a processing type
+    /// @param[in] MapProcessingType the map processing type
+    /// @return the text definition (string)
+    static std::string toString(MapProcessingType processingType)
+    {
+        switch (processingType) {
+            case MapProcessingType::SPARSE_MAPPING:
+                return "SPARSE MAPPING";
+            case MapProcessingType::DENSE_MAPPING:
+                return "DENSE MAPPING";
+            case MapProcessingType::STRUCTURE_FROM_MOTION:
+                return "STRUCTURE FROM MOTION";
+            case MapProcessingType::GAUSSIAN_SPLATTING:
+                return "GAUSSIAN SPLATTING";
+            default:
+                return "Unknown value";
+        }
+    }
+
     ///
     /// @brief Map constructor.
     ///
