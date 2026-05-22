@@ -177,6 +177,7 @@ public:
     /// @param[out] descriptorType the descriptor type value
     /// @param[out] globalDescriptorType the global descriptor type value
     /// @param[out] embedKeyframeImages indicate if keyframe images are embedded or not in the map datastructure
+    /// @param[out] mapProcessingHistory list of processing steps previously applied to the map
     /// @return
     /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
     /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
@@ -184,7 +185,8 @@ public:
                                                         std::string & version,
                                                         SolAR::datastructure::DescriptorType & descriptorType,
                                                         SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
-                                                        bool & embedKeyframeImages) = 0;
+                                                        bool & embedKeyframeImages,
+                                                        std::vector<Map::MapProcessingStep> mapProcessingHistory) = 0;
 
     /// @brief Test the compatibility of a map (version and descriptor types)
     /// @param[in] descriptorType the descriptor type reference value
