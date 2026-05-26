@@ -80,7 +80,8 @@ public:
             ar & processingType;
             ar & originalMapUUID;
             ar & processingDateTime;
-        }    };
+        }
+    };
 
     /// @brief Return the text definition (string) of a processing type
     /// @param[in] MapProcessingType the map processing type
