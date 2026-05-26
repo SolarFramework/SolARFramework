@@ -72,8 +72,15 @@ public:
     struct MapProcessingStep {
         MapProcessingType processingType; // Type of processing applied to obtain the map
         std::string originalMapUUID;      // Original map processed to obtain the current map (can be empty if no previous map)
-        std::chrono::system_clock::time_point processingTimestamp; // Timestamp of the processing
-    };
+        std::string processingDateTime;   // Date and time of the processing
+
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int  /* version */)
+        {
+            ar & processingType;
+            ar & originalMapUUID;
+            ar & processingDateTime;
+        }    };
 
     /// @brief Return the text definition (string) of a processing type
     /// @param[in] MapProcessingType the map processing type

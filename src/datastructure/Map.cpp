@@ -279,6 +279,7 @@ void Map::serialize(Archive &ar, const unsigned int version) {
     if (version > 0) {
         ar & m_mask2DCollection;
     }
+    ar & m_mapProcessingHistory;
 }
 
 IMPLEMENTSERIALIZE(Map);
