@@ -110,7 +110,7 @@ public:
         if (processingType == "INIT MAPPING") {
             return MapProcessingType::INIT_MAPPING;
         }
-        if (processingType == "EXTENDMAPPING") {
+        if (processingType == "EXTEND MAPPING") {
             return MapProcessingType::EXTEND_MAPPING;
         }
         if (processingType == "DENSE MAPPING") {
