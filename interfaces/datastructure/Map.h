@@ -71,7 +71,7 @@ public:
      */
     struct MapProcessingStep {
         MapProcessingType processingType; // Type of processing applied to obtain the map
-        std::string originalMapUUID;      // Original map processed to obtain the current map (can be empty if no previous map)
+        std::string originalMapUUID;      // Original map processed to obtain the current map
         std::string processingDateTime;   // Date and time of the processing
 
         template <typename Archive>
