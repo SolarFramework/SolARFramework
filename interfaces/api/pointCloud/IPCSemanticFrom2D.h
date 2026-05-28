@@ -30,6 +30,16 @@ namespace api {
 namespace pointCloud {
 
 /**
+ * @struct SemanticId
+ * @brief struct used to represent semantic Id of a cloud point
+ */
+struct SemanticId {
+    SemanticId(int16_t i, float conf) : id(i), confidence(conf) {}
+    int16_t id;
+    float confidence;
+};
+
+/**
   * @class IPCSemanticFrom2D
   * @brief <B>Estimate semantic Ids of cloud points from 2D information.</B>
   * <TT>UUId: e7f67167-1512-4c1c-808a-adcfb606030e</TT>
@@ -59,13 +69,13 @@ public:
    /// @param[in] keyframeCollection input list of keyframes
    /// @param[in] cameraParametersCollection input list of camera parameters
    /// @param[in] maskCollection input list of masks
-   /// @param[out] semanticIds estimated semantic ids and probabilities for each input cloud point
+   /// @param[out] semanticIds the estimated possible semantic ids for each input cloud point
    /// @return FrameworkReturnCode::_SUCCESS (semantic id estimated successfully) otherwise FrameworkReturnCode::_ERROR_ (failure)
    virtual FrameworkReturnCode estimate(const std::vector<SRef<SolAR::datastructure::CloudPoint>>& points,
                                         SRef<SolAR::datastructure::KeyframeCollection> keyframeCollection,
                                         SRef<SolAR::datastructure::CameraParametersCollection> cameraParametersCollection,
                                         SRef<SolAR::datastructure::Mask2DCollection> maskCollection,
-                                        std::vector<std::vector<std::pair<int16_t, float>>>& semanticIds) const = 0;
+                                        std::vector<std::vector<SemanticId>>& semanticIds) const = 0;
 
 };
 }
