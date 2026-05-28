@@ -41,9 +41,9 @@ namespace SolAR {
 namespace datastructure {
 
 /**
-     * @brief List of all processing types that can be applied to a map datastructure
+     * @brief List of all processing that can be applied to a map datastructure
      */
-enum class MapProcessingType: std::uint8_t {
+enum class MapProcessingApplied: std::uint8_t {
     INIT_MAPPING,            ///< First mapping (new sparse map)
     EXTEND_MAPPING,          ///< Extension mapping (fusion of sparse maps)
     DENSE_MAPPING,           ///< Dense mapping processing
@@ -55,28 +55,28 @@ enum class MapProcessingType: std::uint8_t {
      * @brief Definition of a map processing step
      */
 struct MapProcessingStep {
-    MapProcessingType processingType; // Type of processing applied to obtain the map
-    std::string originalMapUUID;      // Original map processed to obtain the current map
-    std::string processingDateTime;   // Date and time of the processing
+    MapProcessingApplied processingApplied; // Processing applied to obtain the map
+    std::string originalMapUUID;            // Original map processed to obtain the current map
+    std::string processingDateTime;         // Date and time of the processing
 
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int  /* version */)
     {
-        ar & processingType;
+        ar & processingApplied;
         ar & originalMapUUID;
         ar & processingDateTime;
     }
 };
 
-/// @brief Return the text definition (string) of a processing type
-/// @param[in] MapProcessingType the map processing type
+/// @brief Return the text definition (string) of a processing applied
+/// @param[in] processingApplied the map processing
 /// @return the text definition (string)
-std::string toString(MapProcessingType processingType);
+std::string toString(MapProcessingApplied processingApplied);
 
-/// @brief Parse a MapProcessingType value from its string representation
-/// @param[in] status string representation of a value of MapProcessingType
-/// @return the MapProcessingType value
-MapProcessingType parseMapProcessingType(const std::string& processingType);
+/// @brief Parse a MapProcessingApplied value from its string representation
+/// @param[in] status string representation of a value of MapProcessingApplied
+/// @return the MapProcessingApplied value
+MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied);
 
 /**
 * @class Map

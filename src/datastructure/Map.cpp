@@ -25,41 +25,41 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
-std::string toString(MapProcessingType processingType)
+std::string toString(MapProcessingApplied processingApplied)
 {
-    switch (processingType) {
-        case MapProcessingType::INIT_MAPPING:
+    switch (processingApplied) {
+        case MapProcessingApplied::INIT_MAPPING:
             return "INIT MAPPING";
-        case MapProcessingType::EXTEND_MAPPING:
+        case MapProcessingApplied::EXTEND_MAPPING:
             return "EXTEND MAPPING";
-        case MapProcessingType::DENSE_MAPPING:
+        case MapProcessingApplied::DENSE_MAPPING:
             return "DENSE MAPPING";
-        case MapProcessingType::STRUCTURE_FROM_MOTION:
+        case MapProcessingApplied::STRUCTURE_FROM_MOTION:
             return "STRUCTURE FROM MOTION";
-        case MapProcessingType::GAUSSIAN_SPLATTING:
+        case MapProcessingApplied::GAUSSIAN_SPLATTING:
             return "GAUSSIAN SPLATTING";
         default:
-            throw std::invalid_argument("The given parameter is not a valid MapProcessingType value");
+            throw std::invalid_argument("The given parameter is not a valid MapProcessingApplied value");
     }
 }
 
-MapProcessingType parseMapProcessingType(const std::string& processingType) {
-    if (processingType == "INIT MAPPING") {
-        return MapProcessingType::INIT_MAPPING;
+MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied) {
+    if (processingApplied == "INIT MAPPING") {
+        return MapProcessingApplied::INIT_MAPPING;
     }
-    if (processingType == "EXTEND MAPPING") {
-        return MapProcessingType::EXTEND_MAPPING;
+    if (processingApplied == "EXTEND MAPPING") {
+        return MapProcessingApplied::EXTEND_MAPPING;
     }
-    if (processingType == "DENSE MAPPING") {
-        return MapProcessingType::DENSE_MAPPING;
+    if (processingApplied == "DENSE MAPPING") {
+        return MapProcessingApplied::DENSE_MAPPING;
     }
-    if (processingType == "STRUCTURE FROM MOTION") {
-        return MapProcessingType::STRUCTURE_FROM_MOTION;
+    if (processingApplied == "STRUCTURE FROM MOTION") {
+        return MapProcessingApplied::STRUCTURE_FROM_MOTION;
     }
-    if (processingType == "GAUSSIAN SPLATTING") {
-        return MapProcessingType::GAUSSIAN_SPLATTING;
+    if (processingApplied == "GAUSSIAN SPLATTING") {
+        return MapProcessingApplied::GAUSSIAN_SPLATTING;
     }
-    throw std::invalid_argument("Map processing type '" + processingType + "' is not a valid MapProcessingType value");
+    throw std::invalid_argument("Map processing applied '" + processingApplied + "' is not a valid MapProcessingApplied value");
 }
 
 const SRef<Identification>& Map::getConstIdentification() const
