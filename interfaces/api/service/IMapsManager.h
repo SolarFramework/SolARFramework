@@ -208,7 +208,7 @@ public:
                                            SolAR::datastructure::DescriptorType & descriptorType,
                                            uint32_t & dataSize,
                                            bool & areImageSaved,
-                                           std::vector<SolAR::datastructure::Map::MapProcessingStep> & mapProcessingHistory) const = 0;
+                                           std::vector<SolAR::datastructure::MapProcessingStep> & mapProcessingHistory) const = 0;
 
     /// @brief Get data file contents for a specific map in a compressed buffer (ZIP format), to make a backup locally
     /// @param[in] mapUUID UUID of the map
