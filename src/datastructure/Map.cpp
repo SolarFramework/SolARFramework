@@ -230,12 +230,12 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
-void Map::addMapProcessingStep(const Map::MapProcessingStep & mapProcessingStep)
+void Map::addMapProcessingStep(const MapProcessingStep & mapProcessingStep)
 {
     m_mapProcessingHistory.push_back(mapProcessingStep);
 }
 
-std::vector<Map::MapProcessingStep> Map::getMapProcessingHistory() const
+const std::vector<MapProcessingStep> & Map::getMapProcessingHistory() const
 {
     return m_mapProcessingHistory;
 }
