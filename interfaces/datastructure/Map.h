@@ -44,11 +44,11 @@ namespace datastructure {
      * @brief List of all processing types that can be applied to a map datastructure
      */
 enum class MapProcessingType: std::uint8_t {
-    INIT_MAPPING,            // First mapping (new sparse map)
-    EXTEND_MAPPING,          // Extension mapping (fusion of sparse maps)
-    DENSE_MAPPING,           // Dense mapping processing
-    STRUCTURE_FROM_MOTION,   // Structure from motion processing
-    GAUSSIAN_SPLATTING       // Gaussian Splatting processing
+    INIT_MAPPING,            ///< First mapping (new sparse map)
+    EXTEND_MAPPING,          ///< Extension mapping (fusion of sparse maps)
+    DENSE_MAPPING,           ///< Dense mapping processing
+    STRUCTURE_FROM_MOTION,   ///< Structure from motion processing
+    GAUSSIAN_SPLATTING       ///< Gaussian Splatting processing
 };
 
 /**
@@ -71,45 +71,12 @@ struct MapProcessingStep {
 /// @brief Return the text definition (string) of a processing type
 /// @param[in] MapProcessingType the map processing type
 /// @return the text definition (string)
-static std::string toString(MapProcessingType processingType)
-{
-    switch (processingType) {
-    case MapProcessingType::INIT_MAPPING:
-        return "INIT MAPPING";
-    case MapProcessingType::EXTEND_MAPPING:
-        return "EXTEND MAPPING";
-    case MapProcessingType::DENSE_MAPPING:
-        return "DENSE MAPPING";
-    case MapProcessingType::STRUCTURE_FROM_MOTION:
-        return "STRUCTURE FROM MOTION";
-    case MapProcessingType::GAUSSIAN_SPLATTING:
-        return "GAUSSIAN SPLATTING";
-    default:
-        throw std::invalid_argument("The given parameter is not a valid MapProcessingType value");
-    }
-}
+std::string toString(MapProcessingType processingType);
 
 /// @brief Parse a MapProcessingType value from its string representation
 /// @param[in] status string representation of a value of MapProcessingType
 /// @return the MapProcessingType value
-static MapProcessingType parseMapProcessingType(const std::string& processingType) {
-    if (processingType == "INIT MAPPING") {
-        return MapProcessingType::INIT_MAPPING;
-    }
-    if (processingType == "EXTEND MAPPING") {
-        return MapProcessingType::EXTEND_MAPPING;
-    }
-    if (processingType == "DENSE MAPPING") {
-        return MapProcessingType::DENSE_MAPPING;
-    }
-    if (processingType == "STRUCTURE FROM MOTION") {
-        return MapProcessingType::STRUCTURE_FROM_MOTION;
-    }
-    if (processingType == "GAUSSIAN SPLATTING") {
-        return MapProcessingType::GAUSSIAN_SPLATTING;
-    }
-    throw std::invalid_argument("Map processing type '" + processingType + "' is not a valid MapProcessingType value");
-}
+MapProcessingType parseMapProcessingType(const std::string& processingType);
 
 /**
 * @class Map
