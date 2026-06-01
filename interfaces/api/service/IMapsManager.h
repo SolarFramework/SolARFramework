@@ -197,6 +197,7 @@ public:
     /// @param[out] descriptorType the descriptor type used to extract descriptor for each keyframe
     /// @param[out] dataSize global size of the data structure of the map (in bytes)
     /// @param[out] areImageSaved true if images are saved with keyframes, false otherwise
+    /// @param[out] mapProcessingHistory list of processing steps previously applied to the map
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map information is available
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
@@ -206,7 +207,8 @@ public:
                                            SolAR::datastructure::GlobalDescriptorType & globalDescriptorType,
                                            SolAR::datastructure::DescriptorType & descriptorType,
                                            uint32_t & dataSize,
-                                           bool & areImageSaved) const = 0;
+                                           bool & areImageSaved,
+                                           std::vector<SolAR::datastructure::MapProcessingStep> & mapProcessingHistory) const = 0;
 
     /// @brief Get data file contents for a specific map in a compressed buffer (ZIP format), to make a backup locally
     /// @param[in] mapUUID UUID of the map

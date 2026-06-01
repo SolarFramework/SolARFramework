@@ -25,6 +25,43 @@ namespace xpcf = org::bcom::xpcf;
 namespace SolAR {
 namespace datastructure {
 
+std::string toString(MapProcessingApplied processingApplied)
+{
+    switch (processingApplied) {
+        case MapProcessingApplied::INIT_MAPPING:
+            return "INIT MAPPING";
+        case MapProcessingApplied::EXTEND_MAPPING:
+            return "EXTEND MAPPING";
+        case MapProcessingApplied::DENSE_MAPPING:
+            return "DENSE MAPPING";
+        case MapProcessingApplied::STRUCTURE_FROM_MOTION:
+            return "STRUCTURE FROM MOTION";
+        case MapProcessingApplied::GAUSSIAN_SPLATTING:
+            return "GAUSSIAN SPLATTING";
+        default:
+            throw std::invalid_argument("The given parameter is not a valid MapProcessingApplied value");
+    }
+}
+
+MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied) {
+    if (processingApplied == "INIT MAPPING") {
+        return MapProcessingApplied::INIT_MAPPING;
+    }
+    if (processingApplied == "EXTEND MAPPING") {
+        return MapProcessingApplied::EXTEND_MAPPING;
+    }
+    if (processingApplied == "DENSE MAPPING") {
+        return MapProcessingApplied::DENSE_MAPPING;
+    }
+    if (processingApplied == "STRUCTURE FROM MOTION") {
+        return MapProcessingApplied::STRUCTURE_FROM_MOTION;
+    }
+    if (processingApplied == "GAUSSIAN SPLATTING") {
+        return MapProcessingApplied::GAUSSIAN_SPLATTING;
+    }
+    throw std::invalid_argument("Map processing applied '" + processingApplied + "' is not a valid MapProcessingApplied value");
+}
+
 const SRef<Identification>& Map::getConstIdentification() const
 {
 	return m_identification;
@@ -219,15 +256,25 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
         return false;
     }
     if ((mapDescriptorType != datastructure::DescriptorType::UNDEFINED) && (mapDescriptorType != descriptorType)) {
-        LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapDescriptorType), toString(descriptorType));
+        LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapDescriptorType), datastructure::toString(descriptorType));
         return false;
     }
     if ((mapGlobalDescriptorType != datastructure::GlobalDescriptorType::UNDEFINED) && (mapGlobalDescriptorType != globalDescriptorType)) {
-        LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", toString(mapGlobalDescriptorType), toString(globalDescriptorType));
+        LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapGlobalDescriptorType), datastructure::toString(globalDescriptorType));
         return false;
     }
 
     return true;
+}
+
+void Map::addMapProcessingStep(const MapProcessingStep & mapProcessingStep)
+{
+    m_mapProcessingHistory.push_back(mapProcessingStep);
+}
+
+const std::vector<MapProcessingStep> & Map::getMapProcessingHistory() const
+{
+    return m_mapProcessingHistory;
 }
 
 SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
@@ -269,6 +316,7 @@ void Map::serialize(Archive &ar, const unsigned int version) {
     if (version > 0) {
         ar & m_mask2DCollection;
     }
+    ar & m_mapProcessingHistory;
 }
 
 IMPLEMENTSERIALIZE(Map);

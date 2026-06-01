@@ -41,6 +41,70 @@ namespace SolAR {
 namespace datastructure {
 
 /**
+     * @brief List of all processing that can be applied to a map datastructure
+     */
+enum class MapProcessingApplied: std::uint8_t {
+    INIT_MAPPING,            ///< First mapping (new sparse map)
+    EXTEND_MAPPING,          ///< Extension mapping (fusion of sparse maps)
+    DENSE_MAPPING,           ///< Dense mapping processing
+    STRUCTURE_FROM_MOTION,   ///< Structure from motion processing
+    GAUSSIAN_SPLATTING       ///< Gaussian Splatting processing
+};
+
+/**
+ * @class MapProcessingStep
+ * @brief Definition of a map processing step
+ */
+class MapProcessingStep {
+public:
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID):
+        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID} {
+        const std::time_t t_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::string dateTime = std::ctime(&t_c);
+        m_processingDateTime = dateTime.substr(0, dateTime.size() - 1);
+    }
+
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID, const std::string& processingDateTime):
+        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID}, m_processingDateTime{processingDateTime} {
+    }
+
+    ~MapProcessingStep() = default;
+
+    MapProcessingApplied getProcessingApplied() const { return m_processingApplied; }
+    std::string getOriginalMapUUID() const { return m_originalMapUUID; }
+    std::string getTimestamp() const { return m_processingDateTime; }
+
+private:
+    ///
+    /// @brief MapProcessingStep constructors.
+    ///
+    MapProcessingStep() = default;
+
+    MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
+    std::string m_originalMapUUID;            // Original map processed to obtain the current map
+    std::string m_processingDateTime;         // Date and time of the processing
+
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int  /* version */)
+    {
+        ar & m_processingApplied;
+        ar & m_originalMapUUID;
+        ar & m_processingDateTime;
+    }
+};
+
+/// @brief Return the text definition (string) of a processing applied
+/// @param[in] processingApplied the map processing
+/// @return the text definition (string)
+std::string toString(MapProcessingApplied processingApplied);
+
+/// @brief Parse a MapProcessingApplied value from its string representation
+/// @param[in] status string representation of a value of MapProcessingApplied
+/// @return the MapProcessingApplied value
+MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied);
+
+/**
 * @class Map
 * @brief <B>A generic map composed of an identification and a coordinate system.</B>
 * This class provides a generic map.
@@ -55,7 +119,7 @@ public:
         _CameraParameters = 0x10
 	} MapType;
 
-	///
+    ///
     /// @brief Map constructor.
     ///
     Map() = default;
@@ -283,6 +347,14 @@ public:
     bool isMapCompatible(datastructure::DescriptorType descriptorType,
                          datastructure::GlobalDescriptorType globalDescriptorType) const;
 
+    /// @brief Add a processing step to the map information
+    /// @param[in] mapProcessingStep the new step of processing applied to the map
+    void addMapProcessingStep(const MapProcessingStep & mapProcessingStep);
+
+    /// @brief Get the list of all processing steps previously applied to obtain the current map
+    /// @return the list of processing steps
+    const std::vector<MapProcessingStep> & getMapProcessingHistory() const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -299,9 +371,12 @@ private:
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
     std::string                                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
-    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;                 // Type of descriptor used for the map
+    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
     datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+
+    // List of all processing steps previously applied to obtain the map datastructure
+    std::vector<MapProcessingStep> m_mapProcessingHistory;
 };
 
 DECLARESERIALIZE(Map);
