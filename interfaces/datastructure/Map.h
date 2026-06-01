@@ -57,11 +57,6 @@ enum class MapProcessingApplied: std::uint8_t {
  */
 class MapProcessingStep {
 public:
-    ///
-    /// @brief MapProcessingStep constructors.
-    ///
-    MapProcessingStep() = default;
-
     MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID):
         m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID} {
         const std::time_t t_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -80,6 +75,11 @@ public:
     std::string getTimestamp() const { return m_processingDateTime; }
 
 private:
+    ///
+    /// @brief MapProcessingStep constructors.
+    ///
+    MapProcessingStep() = default;
+
     MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
     std::string m_originalMapUUID;            // Original map processed to obtain the current map
     std::string m_processingDateTime;         // Date and time of the processing
