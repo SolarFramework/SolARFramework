@@ -52,19 +52,45 @@ enum class MapProcessingApplied: std::uint8_t {
 };
 
 /**
-     * @brief Definition of a map processing step
-     */
-struct MapProcessingStep {
-    MapProcessingApplied processingApplied; // Processing applied to obtain the map
-    std::string originalMapUUID;            // Original map processed to obtain the current map
-    std::string processingDateTime;         // Date and time of the processing
+ * @class MapProcessingStep
+ * @brief Definition of a map processing step
+ */
+class MapProcessingStep {
+public:
+    ///
+    /// @brief MapProcessingStep constructors.
+    ///
+    MapProcessingStep() = default;
 
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID):
+        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID} {
+        const std::time_t t_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::string dateTime = std::ctime(&t_c);
+        m_processingDateTime = dateTime.substr(0, dateTime.size() - 1);
+    }
+
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID, const std::string& processingDateTime):
+        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID}, m_processingDateTime{processingDateTime} {
+    }
+
+    ~MapProcessingStep() = default;
+
+    MapProcessingApplied getType() { return m_processingApplied; }
+    std::string getOriginalMapUUID() { return m_originalMapUUID; }
+    std::string getTimestamp() { return m_processingDateTime; }
+
+private:
+    MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
+    std::string m_originalMapUUID;            // Original map processed to obtain the current map
+    std::string m_processingDateTime;         // Date and time of the processing
+
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int  /* version */)
     {
-        ar & processingApplied;
-        ar & originalMapUUID;
-        ar & processingDateTime;
+        ar & m_processingApplied;
+        ar & m_originalMapUUID;
+        ar & m_processingDateTime;
     }
 };
 
