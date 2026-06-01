@@ -75,9 +75,9 @@ public:
 
     ~MapProcessingStep() = default;
 
-    MapProcessingApplied getProcessingApplied() { return m_processingApplied; }
-    std::string getOriginalMapUUID() { return m_originalMapUUID; }
-    std::string getTimestamp() { return m_processingDateTime; }
+    MapProcessingApplied getProcessingApplied() const { return m_processingApplied; }
+    std::string getOriginalMapUUID() const { return m_originalMapUUID; }
+    std::string getTimestamp() const { return m_processingDateTime; }
 
 private:
     MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
