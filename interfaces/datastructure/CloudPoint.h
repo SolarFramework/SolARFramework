@@ -32,18 +32,59 @@
 // part of SolAR namespace //
 namespace SolAR {
 namespace datastructure {
+
 /**
  * @class CloudPoint
  * @brief <B>A 3D point stored in a cloud of points.</B>
  */
 class  SOLARFRAMEWORK_API CloudPoint : public Point3Df, public PrimitiveInformation {
+
+private:
+    /**
+ * @class GaussianSplattingData (nested class)
+ * @brief Definition of data used for Gaussian Splatting rendering
+ */
+    class GaussianSplattingData {
+    public:
+        GaussianSplattingData(const Vector3f normals, const std::array<float, 45> featuresRest, const float opacities, const Vector3f scales, const Vector4f quats):
+            m_normals{normals}, m_featuresRest{featuresRest}, m_opacities{opacities}, m_scales{scales}, m_quats{quats} {};
+
+        GaussianSplattingData() = default;
+        ~GaussianSplattingData() = default;
+
+        const Vector3f& get3DGSnormals() const { return m_normals; }
+        const std::array<float, 45>& get3DGSfeaturesRest() const { return m_featuresRest; }
+        const float& get3DGSopacities() const { return m_opacities; }
+        const Vector3f& get3DGSscales() const { return m_scales; }
+        const Vector4f& get3DGSquats() const { return m_quats; }
+
+    private:
+        Vector3f               m_normals = {0.0, 0.0, 0.0};
+        std::array<float, 45>  m_featuresRest;
+        float                  m_opacities = 0.0;
+        Vector3f               m_scales = {0.0, 0.0, 0.0};
+        Vector4f               m_quats = {0.0, 0.0, 0.0, 0.0};
+
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int  /* version */)
+        {
+            ar & m_normals;
+            ar & m_featuresRest;
+            ar & m_opacities;
+            ar & m_scales;
+            ar & m_quats;
+        }
+    };
+
 public:
     typedef enum {
         Color = 0x01,
         ViewDirection = 0x02,
         ReprojectionError = 0x04,
         Visibility = 0x08,
-        Descriptor = 0x10
+        Descriptor = 0x10,
+        GaussianSplatting = 0x20
     } CloudPointType;
 
     CloudPoint() = default;
@@ -175,6 +216,45 @@ public:
                          const std::map<unsigned int, unsigned int> & visibility,
                          SRef<DescriptorBuffer> descriptor);
 
+    /// @brief Cloudpoint constructor with Gaussian Splatting data.
+    /// @param[in] means_x means x value
+    /// @param[in] means_y means y value
+    /// @param[in] means_z means z value
+    /// @param[in] featuresDc_r featuresDc r value
+    /// @param[in] featuresDc_g featuresDc g value
+    /// @param[in] featuresDc_b featuresDc b value
+    /// @param[in] normals_1 normals 1 value
+    /// @param[in] normals_2 normals 2 value
+    /// @param[in] normals_3 normals 3 value
+    /// @param[in] featuresRest array of 45 values for featuresRest
+    /// @param[in] opacities opacities value
+    /// @param[in] scales_1 scales 1 value
+    /// @param[in] scales_2 scales 2 value
+    /// @param[in] scales_3 scales 3 value
+    /// @param[in] quats_1 quats 1 value
+    /// @param[in] quats_2 quats 2 value
+    /// @param[in] quats_3 quats 3 value
+    /// @param[in] quats_4 quats 4 value
+    ///
+    explicit CloudPoint(float means_x,
+                        float means_y,
+                        float means_z,
+                        float featuresDc_r,
+                        float featuresDc_g,
+                        float featuresDc_b,
+                        float normals_1,
+                        float normals_2,
+                        float normals_3,
+                        std::array<float, 45>& featuresRest,
+                        float opacities,
+                        float scales_1,
+                        float scales_2,
+                        float scales_3,
+                        float quats_1,
+                        float quats_2,
+                        float quats_3,
+                        float quats_4);
+
     ///
     /// \brief ~CloudPoint
     ///
@@ -283,6 +363,45 @@ public:
     /// @return boolean, true if has fixed spatial position, false if not 
     bool isPositionFixed() const;
 
+    // Methods used for Gaussian Splatting rendering
+
+    ///
+    /// @brief This method returns the data used for Gaussian Splatting rendering
+    /// @param[out] means the means data (x,y,z)
+    /// @param[out] featuresDc the featuresDc data (r,g,b)
+    /// @param[out] normals the normals data (float x 3)
+    /// @param[out] featuresRest the featuresRest data (float x 45)
+    /// @param[out] opacities the opacities data (float)
+    /// @param[out] scales the scales data (float x 3)
+    /// @param[out] quats the quats data (float x 4)
+    /// @return true if Gaussian Splatting data is available
+    ///
+    bool getGaussianSplattingData(Point3Df& means,
+                                  Vector3f& featuresDc,
+                                  Vector3f& normals,
+                                  std::array<float, 45>& featuresRest,
+                                  float& opacities,
+                                  Vector3f& scales,
+                                  Vector4f& quats) const;
+
+    ///
+    /// @brief This method sets the data needed for Gaussian Splatting rendering
+    /// @param[in] means the means data (x,y,z)
+    /// @param[in] featuresDc the featuresDc data (r,g,b)
+    /// @param[in] normals the normals data (float x 3)
+    /// @param[in] featuresRest the featuresRest data (float x 45)
+    /// @param[in] opacities the opacities data (float)
+    /// @param[in] scales the scales data (float x 3)
+    /// @param[in] quats the quats data (float x 4)
+    ///
+    void setGaussianSplattingData(const Point3Df& means,
+                                  const Vector3f& featuresDc,
+                                  const Vector3f& normals,
+                                  const std::array<float, 45>& featuresRest,
+                                  const float& opacities,
+                                  const Vector3f& scales,
+                                  const Vector4f& quats);
+
 private:
 	friend class boost::serialization::access;
     template <typename Archive>
@@ -297,6 +416,12 @@ private:
     Vector3f								m_viewDirection = {0.0, 0.0, 0.0};
     double                                  m_reproj_error = 0.0;
     bool                                    m_isPositionFixed = false; // fixed spatial position (fixed spatial coordinates x y z)
+
+    // Data used for Gaussian Splatting rendering
+    // Rem:
+    //   - means data is stored in x,y,z attributes (Point3Df)
+    //   - featuresDc data is stored in rgb attribute
+    SRef<GaussianSplattingData>             m_gaussianSplattingData = nullptr;
 };
 
 DECLARESERIALIZE(CloudPoint);
