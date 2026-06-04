@@ -126,10 +126,12 @@ header_base_pipeline.path = $${PROJECTDEPLOYDIR}/interfaces/base/pipeline/
 header_base_pipeline.files += $$files($${PWD}/interfaces/base/pipeline/*.h*)
 header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
-header_interfaces_sfm.path = $${PROJECTDEPLOYDIR}/interfaces/api/sfm/
-header_interfaces_sfm.files += $$files($${PWD}/interfaces/api/sfm/*.h*)
+header_interfaces_mapprocessing.path = $${PROJECTDEPLOYDIR}/interfaces/api/mapprocessing/
+header_interfaces_mapprocessing.files += $$files($${PWD}/interfaces/api/mapprocessing/*.h*)
 header_interfaces_service.path = $${PROJECTDEPLOYDIR}/interfaces/api/service/
 header_interfaces_service.files += $$files($${PWD}/interfaces/api/service/*.h*)
+header_interfaces_gs.path = $${PROJECTDEPLOYDIR}/interfaces/api/gs/
+header_interfaces_gs.files += $$files($${PWD}/interfaces/api/gs/*.h*)
 
 INCLUDEPATH += $${PWD}/interfaces
 
@@ -155,11 +157,12 @@ INSTALLS += header_interfaces_pipeline
 INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
-INSTALLS += header_interfaces_sfm
+INSTALLS += header_interfaces_mapprocessing
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
 INSTALLS += header_interfaces_service
+INSTALLS += header_interfaces_gs
 
 
 OTHER_FILES += \

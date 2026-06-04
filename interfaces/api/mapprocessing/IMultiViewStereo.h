@@ -12,7 +12,7 @@
 
 namespace SolAR {
 namespace api {
-namespace sfm {
+namespace mapprocessing {
 
 ///@enum class MvsStatus
 enum class MvsStatus {
@@ -93,11 +93,11 @@ public:
 };
 
 
-} // namespace mvs
+} // namespace mapprocessing
 } // namespace api
 } // namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IMultiViewStereo,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::mapprocessing::IMultiViewStereo,
                              "d73ae23f-e1ce-4abe-91cd-9aa2f34c8dff",
                              "IMultiViewStereo",
                              "IMultiViewStereo interface description");

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "api/sfm/IStructureFromMotion.h"
+#include "api/mapprocessing/IStructureFromMotion.h"
 
 namespace SolAR {
 using namespace datastructure;
 namespace api {
-namespace sfm {
+namespace mapprocessing {
 
 FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters)
 {
@@ -77,6 +77,6 @@ FrameworkReturnCode IStructureFromMotion::createMap(const std::vector<std::pair<
     return createMap(imageCamIds, listCameraParameters);
 }
 
-} // end of namespace reloc 
+} // end of namespace mapprocessing
 } // end of namespace api 
 } // end of namespace SolAR

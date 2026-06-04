@@ -24,7 +24,7 @@
 
 namespace SolAR {
 namespace api {
-namespace sfm {
+namespace mapprocessing {
 
 /**
  * @class IMeshing
@@ -50,11 +50,11 @@ public:
 };
 
 
-} // namespace sfm
+} // namespace mapprocessing
 } // namespace api
 } // namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IMeshing,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::mapprocessing::IMeshing,
                              "7d810e96-fd9d-4029-a102-61fe3883a633",
                              "IMeshing",
                              "IMeshing interface description");
