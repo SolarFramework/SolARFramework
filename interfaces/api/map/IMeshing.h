@@ -70,6 +70,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
+    /// @brief Get current keyframe poses
+    /// @param[out] keyframePoses current keyframes' poses
+    /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
     /// @brief force stop
     void forceStop() override { }
 
@@ -80,9 +85,8 @@ public:
     /// @param[in] densePointCloud: the dense point cloud to mesh with triangles
     /// @param[out] mesh: the resulting meshes
     /// @return FrameworkReturnCode::_SUCCESS if the meshing succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
-                                          SRef<SolAR::datastructure::Mesh>& mesh) = 0;
-
+    virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
+                                           SRef<SolAR::datastructure::Mesh>& mesh) = 0;
 };
 
 

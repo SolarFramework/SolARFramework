@@ -79,6 +79,11 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) = 0;
 
+    /// @brief Get current keyframe poses
+    /// @param[out] keyframePoses current keyframes' poses
+    /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) = 0;
+
     /// @brief force stop
     virtual void forceStop() = 0;
 

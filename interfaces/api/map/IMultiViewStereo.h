@@ -74,6 +74,10 @@ public:
     ///@brief IStructureFromMotion default destructor.
     virtual ~IMultiViewStereo() override = default;
 
+    /// @brief Get current keyframe poses
+    /// @param[out] keyframePoses current keyframes' poses
+    /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 };
 
 

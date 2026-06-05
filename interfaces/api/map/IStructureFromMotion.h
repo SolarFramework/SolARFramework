@@ -85,13 +85,13 @@ public:
     /// @param[in] images list of images
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<SRef<Image>>& images) = 0;
-    
+
     /// @brief Create map from a set of images with provided camera parameters
     /// @param[in] imageCamIds list of pairs of image and camera ID
     /// @param[in] cameraParameters list of camera parameters
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
-    
+
     /// @brief Create map from a set of keyframes and camera parameters
     /// @param[in] keyframes list of keyframes
     /// @param[in] cameraParameters list of camera parameters
