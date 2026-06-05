@@ -82,9 +82,9 @@ interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/service/IAuthorizationChecker.h \
 interfaces/api/service/IClientContextManager.h \
-interfaces/api/mapprocessing/IMeshing.h \
-interfaces/api/mapprocessing/IMultiViewStereo.h \
-interfaces/api/mapprocessing/IStructureFromMotion.h \
+interfaces/api/map/IMeshing.h \
+interfaces/api/map/IMultiViewStereo.h \
+interfaces/api/map/IStructureFromMotion.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -180,7 +180,7 @@ SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
 src/api/segm/IInstanceSegmentation.cpp \
 src/api/segm/ISemanticSegmentation.cpp \
 src/api/segm/IPanopticSegmentation.cpp \
-src/api/mapprocessing/IStructureFromMotion.cpp \
+src/api/map/IStructureFromMotion.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \

@@ -24,7 +24,7 @@
 namespace SolAR {
 using namespace datastructure;
 namespace api {
-namespace mapprocessing {
+namespace map {
 
 ///@enum class SfmStatus
 enum class SfmStatus {
@@ -151,11 +151,11 @@ public:
 
 };
 
-} // namespace mapprocessing
+} // namespace map
 } // namespace api
 } // namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::mapprocessing::IStructureFromMotion,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IStructureFromMotion,
                              "3681e09b-1704-4a08-b1cd-42d5a7c961b4",
                              "IStructureFromMotion",
                              "IStructureFromMotion interface description");
