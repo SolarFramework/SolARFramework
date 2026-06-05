@@ -82,6 +82,7 @@ interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/service/IAuthorizationChecker.h \
 interfaces/api/service/IClientContextManager.h \
+interfaces/api/map/IProcessMap.h \
 interfaces/api/map/IMeshing.h \
 interfaces/api/map/IMultiViewStereo.h \
 interfaces/api/map/IStructureFromMotion.h \

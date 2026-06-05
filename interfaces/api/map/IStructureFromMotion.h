@@ -19,42 +19,12 @@
 
 #include "core/Messages.h"
 #include "datastructure/Map.h"
-#include <xpcf/api/IComponentIntrospect.h>
+#include "api/map/IProcessMap.h"
 
 namespace SolAR {
 using namespace datastructure;
 namespace api {
 namespace map {
-
-///@enum class SfmStatus
-enum class SfmStatus {
-    NOT_INITIALIZED,
-    IDLE_INITIALIZED,
-    RUNNING_DESCRIPTOR_MATCHING,
-    IDLE_DESCRIPTOR_MATCHING_FINISHED,
-    RUNNING_INITIAL_MAPPING,
-    IDLE_INITIAL_MAPPING_FINISHED,
-    RUNNING_INCREMENTAL_MAPPING,
-    IDLE_INCREMENTAL_MAPPING_FINISHED,
-    RUNNING_POST_PROCESSING,
-    IDLE_COMPLETED,
-    IDLE_ABORTED,
-};
-
-/// @brief map from SfmStatus to string
-const static std::map<SfmStatus, std::string> mapSfmStatusToStr = {
-    {SfmStatus::NOT_INITIALIZED, "NOT_INITIALIZED"},
-    {SfmStatus::IDLE_INITIALIZED, "IDLE_INITIALIZED"},
-    {SfmStatus::RUNNING_DESCRIPTOR_MATCHING, "RUNNING_DESCRIPTOR_MATCHING"},
-    {SfmStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED, "IDLE_DESCRIPTOR_MATCHING_FINISHED"},
-    {SfmStatus::RUNNING_INITIAL_MAPPING, "RUNNING_INITIAL_MAPPING"},
-    {SfmStatus::IDLE_INITIAL_MAPPING_FINISHED, "IDLE_INITIAL_MAPPING_FINISHED"},
-    {SfmStatus::RUNNING_INCREMENTAL_MAPPING, "RUNNING_INCREMENTAL_MAPPING"},
-    {SfmStatus::IDLE_INCREMENTAL_MAPPING_FINISHED, "IDLE_INCREMENTAL_MAPPING_FINISHED"},
-    {SfmStatus::RUNNING_POST_PROCESSING, "RUNNING_POST_PROCESSING"},
-    {SfmStatus::IDLE_COMPLETED, "IDLE_COMPLETED"},
-    {SfmStatus::IDLE_ABORTED, "IDLE_ABORTED"}
-};
 
 /**
  * @class IStructureFromMotion
@@ -63,14 +33,53 @@ const static std::map<SfmStatus, std::string> mapSfmStatusToStr = {
  *
  */
 
-class XPCF_IGNORE IStructureFromMotion : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IStructureFromMotion : virtual public IProcessMap
 {
 public:
+
+    /// @enum class SfmProcessingStatus
+    /// @brief define the different status of processing
+    enum class SfmProcessingStatus: std::underlying_type_t<ProcessingStatus> {
+        RUNNING_DESCRIPTOR_MATCHING = 5,
+        IDLE_DESCRIPTOR_MATCHING_FINISHED,
+        RUNNING_INITIAL_MAPPING,
+        IDLE_INITIAL_MAPPING_FINISHED,
+        RUNNING_INCREMENTAL_MAPPING,
+        IDLE_INCREMENTAL_MAPPING_FINISHED,
+        RUNNING_POST_PROCESSING,
+    };
+
+    /// @brief return a string value of a ProcessingStatus value
+    std::string toString(ProcessingStatus status) override {
+        switch ((ProcessingStatus)status) {
+        case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
+        case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
+        case ProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
+        case ProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
+        case ProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
+        case (ProcessingStatus)SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
+        case (ProcessingStatus)SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
+        case (ProcessingStatus)SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
+        case (ProcessingStatus)SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
+        case (ProcessingStatus)SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
+        case (ProcessingStatus)SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
+        case (ProcessingStatus)SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
+        default: return "NOT_DEFINED";
+        }
+    }
+
+public:
+
     ///@brief IStructureFromMotion default constructor.
     IStructureFromMotion() = default;
 
     ///@brief IStructureFromMotion default destructor.
     virtual ~IStructureFromMotion() override = default;
+
+    /// @brief Create a new map resulting from the processing of the original map
+    /// @param[in] map the original map
+    /// @return FrameworkReturnCode::_SUCCESS if the processing succeed, else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 
     /// @brief Create map from a set of images while camera parameters are not provided
     /// @param[in] images list of images
@@ -95,35 +104,6 @@ public:
     /// @param[in] covGraph covisibility graph
     /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, const CovisibilityGraph& covGraph) = 0;
-
-    /// @brief Get output map
-    /// @param[out] map the output SfM map
-    /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getOutputMap(SRef<Map>& map) = 0;
-
-    /// @brief Get SfM status
-    /// @return status the current SfM status
-    virtual SfmStatus getStatus() = 0;
-
-    /// @brief Get SfM progress percentage
-    /// @return progress percentage between 0 and 1
-    virtual float getProgress() = 0;
-
-    /// @brief Get current cloud points
-    /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
-    /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<CloudPoint>>& cloudPoints) = 0;
-
-    /// @brief Get current keyframe poses
-    /// @param[out] keyframePoses current keyframes' poses
-    /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<Transform3Df>& keyframePoses) = 0;
-
-    /// @brief force stop
-    virtual void forceStop() = 0;
-
-    /// @brief release memory usage
-    virtual void releaseMemoryUsage() = 0;
 
     /// @brief Create map from a set of images with provided camera parameters
     /// @param[in] imageCamIds list of pairs of image and camera ID

@@ -18,7 +18,7 @@
 #define IMESHING_H
 
 
-#include <xpcf/api/IComponentIntrospect.h>
+#include "api/map/IProcessMap.h"
 #include "datastructure/Map.h"
 #include "datastructure/Mesh.h"
 
@@ -32,21 +32,57 @@ namespace map {
  * <TT>UUID: 7d810e96-fd9d-4029-a102-61fe3883a633</TT>
  */
 
-class XPCF_IGNORE IMeshing : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IMeshing : virtual public IProcessMap
 {
 public:
-    ///@brief IStructureFromMotion default constructor.
+
+    /// @brief return a string value of a ProcessingStatus value
+    std::string toString(ProcessingStatus status) override { return "NOT_DEFINED"; }
+
+public:
+
+    ///@brief IMeshing default constructor.
     IMeshing() = default;
 
     ///@brief IMeshing default destructor.
     virtual ~IMeshing() override = default;
 
+    /// @brief Create a new map resulting from the processing of the original map
+    /// @param[in] map the original map
+    /// @return FrameworkReturnCode::_SUCCESS if the processing succeed, else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
+    /// @brief Get output map resulting from processing
+    /// @param[out] map the output map
+    /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode getOutputMap(SRef<SolAR::datastructure::Map>& map) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
+    /// @brief Get current processing status
+    /// @return status the current status
+    ProcessingStatus getStatus() override { return ProcessingStatus::NOT_DEFINED; }
+
+    /// @brief Get current processing progress percentage
+    /// @return progress percentage between 0 and 1
+    float getProgress() override { return 0.0; }
+
+    /// @brief Get current cloud points
+    /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
+    /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+
+    /// @brief force stop
+    void forceStop() override { }
+
+    /// @brief release memory usage
+    void releaseMemoryUsage() override { }
+
     /// @brief Create mesh from a dense 3D point cloud
-    /// @param[in] densePointCloud: the dense poitn cloud to mesh with triangles
+    /// @param[in] densePointCloud: the dense point cloud to mesh with triangles
     /// @param[out] mesh: the resulting meshes
     /// @return FrameworkReturnCode::_SUCCESS if the meshing succeed, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
-                                           SRef<SolAR::datastructure::Mesh>& mesh) = 0;
+    virtual FrameworkReturnCode createMap(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
+                                          SRef<SolAR::datastructure::Mesh>& mesh) = 0;
+
 };
 
 
