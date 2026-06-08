@@ -86,6 +86,7 @@ interfaces/api/map/IProcessMap.h \
 interfaces/api/map/IMeshing.h \
 interfaces/api/map/IMultiViewStereo.h \
 interfaces/api/map/IStructureFromMotion.h \
+interfaces/api/map/I3DGaussianSplatting.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
