@@ -1,5 +1,5 @@
 eigen|3.4.0|eigen3|conan|conan-center|na|MPL2_only=True
-spdlog|1.14.1|spdlog|conan|conancenter|static|
+spdlog|1.17.0|spdlog|conan|conancenter|static|
 nlohmann_json|3.11.3|nlohmann_json|conan|conan-center|na|
 boost#stable|1.84.0|boost|conan|conan-center|static|
 opentelemetry_spdlog_sink|1.0.0|opentelemetry_spdlog_sink|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download|static|
