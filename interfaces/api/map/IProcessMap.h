@@ -49,7 +49,16 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    virtual std::string toString(ProcessingStatus status) = 0;
+    std::string toString(ProcessingStatus status) {
+        switch (status) {
+            case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
+            case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
+            case ProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
+            case ProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
+            case ProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
+            default: throw std::invalid_argument("ProcessingStatus value is unknown");
+        }
+    }
 
 public:
 

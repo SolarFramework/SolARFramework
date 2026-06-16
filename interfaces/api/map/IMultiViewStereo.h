@@ -48,13 +48,8 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) override {
-        switch ((ProcessingStatus)status) {
-            case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
-            case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
-            case ProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
-            case ProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
-            case ProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
+    std::string toString(ProcessingStatus status) {
+        switch (status) {
             case (ProcessingStatus)MVSProcessingStatus::RUNNING_IMAGE_UNDISTORTION: return "RUNNING_IMAGE_UNDISTORTION";
             case (ProcessingStatus)MVSProcessingStatus::IDLE_IMAGE_UNDISTORTION_FINISHED: return "IDLE_IMAGE_UNDISTORTION_FINISHED";
             case (ProcessingStatus)MVSProcessingStatus::RUNNING_STEREO: return "RUNNING_STEREO";
@@ -63,7 +58,12 @@ public:
             case (ProcessingStatus)MVSProcessingStatus::IDLE_FUSION_FINISHED: return "IDLE_FUSION_FINISHED";
             case (ProcessingStatus)MVSProcessingStatus::RUNNING_MESHING: return "RUNNING_MESHING";
             case (ProcessingStatus)MVSProcessingStatus::IDLE_MESHING_FINISHED: return "IDLE_MESHING_FINISHED";
-            default: return "NOT_DEFINED";
+            case ProcessingStatus::NOT_DEFINED:
+            case ProcessingStatus::NOT_INITIALIZED:
+            case ProcessingStatus::IDLE_INITIALIZED:
+            case ProcessingStatus::IDLE_COMPLETED:
+            case ProcessingStatus::IDLE_ABORTED:
+            default: return IProcessMap::toString(status);
         }
     }
 

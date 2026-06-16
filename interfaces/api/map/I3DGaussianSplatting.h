@@ -40,14 +40,14 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) override {
-        switch ((ProcessingStatus)status) {
-        case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
-        case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
-        case ProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
-        case ProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
-        case ProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
-        default: return "NOT_DEFINED";
+    std::string toString(ProcessingStatus status) {
+        switch (status) {
+            case ProcessingStatus::NOT_DEFINED:
+            case ProcessingStatus::NOT_INITIALIZED:
+            case ProcessingStatus::IDLE_INITIALIZED:
+            case ProcessingStatus::IDLE_COMPLETED:
+            case ProcessingStatus::IDLE_ABORTED:
+            default: return IProcessMap::toString(status);
         }
     }
 

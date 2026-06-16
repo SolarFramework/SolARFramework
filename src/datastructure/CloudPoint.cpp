@@ -68,13 +68,9 @@ CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, flo
         m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::Descriptor;
 }
 
-CloudPoint::CloudPoint(float mean_x, float mean_y, float mean_z, float featuresDc_r, float featuresDc_g, float featuresDc_b, float normal_1, float normal_2, float normal_3,
-                       std::array<float, 45>& featuresRest, float opacity, float scale_1, float scale_2, float scale_3, float quat_1, float quat_2, float quat_3, float quat_4):
-    Point3Df(mean_x, mean_y, mean_z), m_rgb(featuresDc_r, featuresDc_g, featuresDc_b)
+CloudPoint::CloudPoint(Point3Df & means, Vector3f & featuresDc, Vector3f & normals, std::array<float, 45> & featuresRest, float opacity, Vector3f & scales, Vector4f & quats):
+    Point3Df(means), m_rgb(featuresDc)
 {
-    Vector3f normals(normal_1, normal_2, normal_3);
-    Vector3f scales(scale_1, scale_2, scale_3);
-    Vector4f quats(quat_1, quat_2, quat_3, quat_4);
     m_gaussianSplattingData = xpcf::utils::make_shared<GaussianSplattingData>(normals, featuresRest, opacity, scales, quats);
 
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::GaussianSplatting;
@@ -189,12 +185,12 @@ bool CloudPoint::isPositionFixed() const
 
 // Methods used for Gaussian Splatting rendering
 
-const SRef<CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingData() const
+SRef<const CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingData() const
 {
     return m_gaussianSplattingData;
 }
 
-void CloudPoint::setGaussianSplattingData (const SRef<GaussianSplattingData> gaussianSplattingData)
+void CloudPoint::setGaussianSplattingData (SRef<GaussianSplattingData> gaussianSplattingData)
 {
     m_gaussianSplattingData = gaussianSplattingData;
 }

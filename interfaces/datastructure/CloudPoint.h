@@ -43,6 +43,8 @@ public:
     /**
  * @class GaussianSplattingData (nested class)
  * @brief Definition of data used for Gaussian Splatting rendering
+ * @note The "means" and "featuresDC" data used for Gaussian Splatting are not stored in this class.
+ *       They are stored respectively in the Point3Df (x,y,z) and Vector3f (r,g,b) members of the CloudPoint class.
  */
     class GaussianSplattingData {
     public:
@@ -217,43 +219,21 @@ public:
                          SRef<DescriptorBuffer> descriptor);
 
     /// @brief Cloudpoint constructor with Gaussian Splatting data.
-    /// @param[in] means_x mean x value
-    /// @param[in] means_y mean y value
-    /// @param[in] means_z mean z value
-    /// @param[in] featuresDc_r featuresDc r value
-    /// @param[in] featuresDc_g featuresDc g value
-    /// @param[in] featuresDc_b featuresDc b value
-    /// @param[in] normals_1 normal 1 value
-    /// @param[in] normals_2 normal 2 value
-    /// @param[in] normals_3 normal 3 value
+    /// @param[in] means mean x,y,z values
+    /// @param[in] featuresDc featuresDc r,g,b values
+    /// @param[in] normals normal 1,2,3 values
     /// @param[in] featuresRest array of 45 values for featuresRest
     /// @param[in] opacity opacity value
-    /// @param[in] scales_1 scale 1 value
-    /// @param[in] scales_2 scale 2 value
-    /// @param[in] scales_3 scale 3 value
-    /// @param[in] quats_1 quat 1 value
-    /// @param[in] quats_2 quat 2 value
-    /// @param[in] quats_3 quat 3 value
-    /// @param[in] quats_4 quat 4 value
+    /// @param[in] scales scale 1,2,3 values
+    /// @param[in] quats quat 1,2,3,4 values
     ///
-    explicit CloudPoint(float mean_x,
-                        float mean_y,
-                        float mean_z,
-                        float featuresDc_r,
-                        float featuresDc_g,
-                        float featuresDc_b,
-                        float normal_1,
-                        float normal_2,
-                        float normal_3,
-                        std::array<float, 45>& featuresRest,
+    explicit CloudPoint(Point3Df & means,
+                        Vector3f & featuresDc,
+                        Vector3f & normals,
+                        std::array<float, 45> & featuresRest,
                         float opacity,
-                        float scale_1,
-                        float scale_2,
-                        float scale_3,
-                        float quat_1,
-                        float quat_2,
-                        float quat_3,
-                        float quat_4);
+                        Vector3f & scales,
+                        Vector4f & quats);
 
     ///
     /// \brief ~CloudPoint
@@ -368,11 +348,11 @@ public:
     /// @brief This method returns the Gaussian Splatting data of the cloud point
     /// @return the Gaussian Splatting data, nullptr if not defined.
     ///
-    const SRef<GaussianSplattingData> getGaussianSplattingData() const;
+    SRef<const GaussianSplattingData> getGaussianSplattingData() const;
 
     /// @brief This method sets the Gaussian Splatting data of the cloud point
     ///
-    void setGaussianSplattingData (const SRef<GaussianSplattingData> gaussianSplattingData);
+    void setGaussianSplattingData (SRef<GaussianSplattingData> gaussianSplattingData);
 
 private:
 	friend class boost::serialization::access;

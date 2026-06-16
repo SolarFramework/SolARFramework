@@ -50,21 +50,21 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) override {
-        switch ((ProcessingStatus)status) {
-        case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
-        case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
-        case ProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
-        case ProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
-        case ProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
-        case (ProcessingStatus)SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
-        case (ProcessingStatus)SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
-        case (ProcessingStatus)SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
-        case (ProcessingStatus)SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
-        case (ProcessingStatus)SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
-        case (ProcessingStatus)SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
-        case (ProcessingStatus)SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
-        default: return "NOT_DEFINED";
+    std::string toString(ProcessingStatus status) {
+        switch (status) {
+            case (ProcessingStatus)SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
+            case (ProcessingStatus)SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
+            case (ProcessingStatus)SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
+            case (ProcessingStatus)SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
+            case (ProcessingStatus)SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
+            case (ProcessingStatus)SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
+            case (ProcessingStatus)SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
+            case ProcessingStatus::NOT_DEFINED:
+            case ProcessingStatus::NOT_INITIALIZED:
+            case ProcessingStatus::IDLE_INITIALIZED:
+            case ProcessingStatus::IDLE_COMPLETED:
+            case ProcessingStatus::IDLE_ABORTED:
+            default: return IProcessMap::toString(status);
         }
     }
 
