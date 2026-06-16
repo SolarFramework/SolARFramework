@@ -68,14 +68,14 @@ CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, flo
         m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::Descriptor;
 }
 
-CloudPoint::CloudPoint(float means_x, float means_y, float means_z, float featuresDc_r, float featuresDc_g, float featuresDc_b, float normals_1, float normals_2, float normals_3,
-                       std::array<float, 45>& featuresRest, float opacities, float scales_1, float scales_2, float scales_3, float quats_1, float quats_2, float quats_3, float quats_4):
-    Point3Df(means_x, means_y, means_z), m_rgb(featuresDc_r, featuresDc_g, featuresDc_b)
+CloudPoint::CloudPoint(float mean_x, float mean_y, float mean_z, float featuresDc_r, float featuresDc_g, float featuresDc_b, float normal_1, float normal_2, float normal_3,
+                       std::array<float, 45>& featuresRest, float opacity, float scale_1, float scale_2, float scale_3, float quat_1, float quat_2, float quat_3, float quat_4):
+    Point3Df(mean_x, mean_y, mean_z), m_rgb(featuresDc_r, featuresDc_g, featuresDc_b)
 {
-    Vector3f normals(normals_1, normals_2, normals_3);
-    Vector3f scales(scales_1, scales_2, scales_3);
-    Vector4f quats(quats_1, quats_2, quats_3, quats_4);
-    m_gaussianSplattingData = xpcf::utils::make_shared<GaussianSplattingData>(normals, featuresRest, opacities, scales, quats);
+    Vector3f normals(normal_1, normal_2, normal_3);
+    Vector3f scales(scale_1, scale_2, scale_3);
+    Vector4f quats(quat_1, quat_2, quat_3, quat_4);
+    m_gaussianSplattingData = xpcf::utils::make_shared<GaussianSplattingData>(normals, featuresRest, opacity, scales, quats);
 
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::GaussianSplatting;
 }
@@ -189,45 +189,14 @@ bool CloudPoint::isPositionFixed() const
 
 // Methods used for Gaussian Splatting rendering
 
-bool CloudPoint::getGaussianSplattingData(Point3Df& means,
-                                          Vector3f& featuresDc,
-                                          Vector3f& normals,
-                                          std::array<float, 45>& featuresRest,
-                                          float& opacities,
-                                          Vector3f& scales,
-                                          Vector4f& quats) const
+const SRef<CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingData() const
 {
-    if (!m_gaussianSplattingData)
-        return false;
-
-    means.setX(getX());
-    means.setY(getY());
-    means.setZ(getZ());
-    featuresDc = getRGB();
-    normals = m_gaussianSplattingData->get3DGSnormals();
-    featuresRest = m_gaussianSplattingData->get3DGSfeaturesRest();
-    opacities = m_gaussianSplattingData->get3DGSopacities();
-    scales = m_gaussianSplattingData->get3DGSscales();
-    quats = m_gaussianSplattingData->get3DGSquats();
-
-    return true;
+    return m_gaussianSplattingData;
 }
 
-void CloudPoint::setGaussianSplattingData(const Point3Df& means,
-                                          const Vector3f& featuresDc,
-                                          const Vector3f& normals,
-                                          const std::array<float, 45>& featuresRest,
-                                          const float& opacities,
-                                          const Vector3f& scales,
-                                          const Vector4f& quats)
+void CloudPoint::setGaussianSplattingData (const SRef<GaussianSplattingData> gaussianSplattingData)
 {
-    setX(means.getX());
-    setY(means.getY());
-    setZ(means.getZ());
-    setRGB(featuresDc);
-    m_gaussianSplattingData = xpcf::utils::make_shared<GaussianSplattingData>(normals, featuresRest, opacities, scales, quats);
-
-    m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::GaussianSplatting;
+    m_gaussianSplattingData = gaussianSplattingData;
 }
 
 template <typename Archive>
