@@ -50,7 +50,7 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
+    std::string toString(ProcessingStatus status) final {
         switch (static_cast<SfmProcessingStatus>(status)) {
             case SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
             case SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";

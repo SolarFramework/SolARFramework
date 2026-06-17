@@ -48,7 +48,7 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
+    std::string toString(ProcessingStatus status) final {
         switch (static_cast<MVSProcessingStatus>(status)) {
             case MVSProcessingStatus::RUNNING_IMAGE_UNDISTORTION: return "RUNNING_IMAGE_UNDISTORTION";
             case MVSProcessingStatus::IDLE_IMAGE_UNDISTORTION_FINISHED: return "IDLE_IMAGE_UNDISTORTION_FINISHED";

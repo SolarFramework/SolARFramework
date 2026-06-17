@@ -40,7 +40,7 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
+    std::string toString(ProcessingStatus status) final {
         switch (static_cast<GSProcessingStatus>(status)) {
             default: return IProcessMap::toString(status);
         }

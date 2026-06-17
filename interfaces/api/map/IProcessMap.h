@@ -49,7 +49,7 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
+    virtual std::string toString(ProcessingStatus status) {
         switch (status) {
             case ProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
             case ProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";

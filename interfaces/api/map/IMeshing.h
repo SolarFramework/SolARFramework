@@ -34,10 +34,6 @@ namespace map {
 
 class XPCF_IGNORE IMeshing : virtual public IProcessMap
 {
-public:
-
-    /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) { return IProcessMap::toString(status); }
 
 public:
 
