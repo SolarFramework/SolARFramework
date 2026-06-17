@@ -98,6 +98,27 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode buffer(const SRef<SolAR::datastructure::PointCloud> pointCloud,
                                        const SRef<SolAR::datastructure::PointCloud> pointCloud2 = nullptr) = 0;
+
+    /// @brief Display a set of 3D Gaussians rendered as ellipsoid splats in a window.
+    /// The data is passed as flat, contiguous, libtorch-free float buffers so that
+    /// implementers (e.g. an OpenGL viewer) need no tensor library dependency.
+    /// The viewer is expected to own its interactive (orbit) camera, hence no pose is required.
+    /// @param[in] centers flat array of Gaussian centers, size 3*N (x,y,z per Gaussian).
+    /// @param[in] scales flat array of per-axis scales, size 3*N (sx,sy,sz per Gaussian).
+    /// @param[in] quaternions flat array of rotation quaternions, size 4*N (w,x,y,z per Gaussian).
+    /// @param[in] colors flat array of RGB colors in [0,1], size 3*N (r,g,b per Gaussian).
+    /// @param[in] opacities array of opacities in [0,1], size N.
+    /// @return FrameworkReturnCode::_SUCCESS if displayed, FrameworkReturnCode::_NOT_IMPLEMENTED
+    /// if the implementer does not support Gaussian display, else FrameworkReturnCode::_ERROR_.
+    virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
+                                                 const std::vector<float> & scales,
+                                                 const std::vector<float> & quaternions,
+                                                 const std::vector<float> & colors,
+                                                 const std::vector<float> & opacities)
+    {
+        (void)centers; (void)scales; (void)quaternions; (void)colors; (void)opacities;
+        return FrameworkReturnCode::_NOT_IMPLEMENTED;
+    }
 };
 }
 }
