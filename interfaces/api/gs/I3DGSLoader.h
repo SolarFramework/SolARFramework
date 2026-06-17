@@ -28,10 +28,10 @@ namespace gs {
 
 /**
  * @class I3DGSLOADER
- * @brief <B>Returns a camera pose giving a frame.</B>
+ * @brief <B>Returns formatted training data for 3DGS model training.</B>
  * <TT>UUID: bc05f240-4d34-11f1-acbe-325096b39f47</TT>
  *
- * This class provides a solution to get the pose given a frame.
+ * This class provides a solution to load training input data for 3DGS model.
  */
 
 class XPCF_IGNORE I3DGSLoader :
@@ -43,10 +43,8 @@ public:
     ///@brief I3DGSLoader default destructor.
     virtual ~I3DGSLoader() = default;
 
-    /// @brief Get the pose of the camera corresponding to the frame.
-    /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] pose: the pose of the camera corresponding to the frame
-    /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+    /// @brief Get 3DGS training data as a posed images (images +poses).
+    /// @return FrameworkReturnCode::_SUCCESS if the loading succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode loadData() = 0;
 };
 

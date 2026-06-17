@@ -28,10 +28,10 @@ namespace gs {
 
 /**
  * @class I3DGSTrainer
- * @brief <B>Returns a camera pose giving a frame.</B>
+ * @brief <B>Returns trained 3DGS model from poses images.</B>
  * <TT>UUID: c4bed096-4d34-11f1-aa46-325096b39f47</TT>
  *
- * This class provides a solution to get the pose given a frame.
+ * This class provides a solution to train 3DGS model.
  */
 
 class XPCF_IGNORE I3DGSTrainer :
@@ -43,10 +43,8 @@ public:
     ///@brief I3DGSTrainer default destructor.
     virtual ~I3DGSTrainer() = default;
 
-    /// @brief Get the pose of the camera corresponding to the frame.
-    /// @param[in] frame: the frame for which we want to retrieve close keyframes.
-    /// @param[out] pose: the pose of the camera corresponding to the frame
-    /// @return FrameworkReturnCode::_SUCCESS if the retrieve succeed, else FrameworkReturnCode::_ERROR_
+    /// @brief train 3DGS model after loading input data.
+    /// @return FrameworkReturnCode::_SUCCESS if the training succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode train() = 0;
 };
 
