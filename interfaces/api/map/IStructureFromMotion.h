@@ -75,7 +75,7 @@ public:
     /// @param[in] map the original map
     /// @return FrameworkReturnCode::_SUCCESS if the processing succeed, else FrameworkReturnCode::_ERROR_
     /// @note This method is not applicable for this interface
-    virtual FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) final;
+    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) final;
 
     /// @brief Create map from a set of images while camera parameters are not provided
     /// @param[in] images list of images

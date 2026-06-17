@@ -21,6 +21,11 @@ using namespace datastructure;
 namespace api {
 namespace map {
 
+FrameworkReturnCode IStructureFromMotion::createMap(const SRef<SolAR::datastructure::Map>& map)
+{
+    return FrameworkReturnCode::_NOT_IMPLEMENTED;
+}
+
 FrameworkReturnCode IStructureFromMotion::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters)
 {
     if (!cameraParameters) {

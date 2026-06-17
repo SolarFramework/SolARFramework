@@ -73,7 +73,7 @@ public:
     /// @param[out] keyframePoses current keyframes' poses
     /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     /// @note This method is not applicable for this interface
-    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) final;
+    FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) final { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
 };
 
 
