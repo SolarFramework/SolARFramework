@@ -41,12 +41,7 @@ public:
 
     /// @brief return a string value of a ProcessingStatus value
     std::string toString(ProcessingStatus status) {
-        switch (status) {
-            case ProcessingStatus::NOT_DEFINED:
-            case ProcessingStatus::NOT_INITIALIZED:
-            case ProcessingStatus::IDLE_INITIALIZED:
-            case ProcessingStatus::IDLE_COMPLETED:
-            case ProcessingStatus::IDLE_ABORTED:
+        switch (static_cast<GSProcessingStatus>(status)) {
             default: return IProcessMap::toString(status);
         }
     }
