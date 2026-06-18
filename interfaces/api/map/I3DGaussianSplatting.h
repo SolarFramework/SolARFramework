@@ -35,18 +35,25 @@ class XPCF_IGNORE I3DGaussianSplatting : virtual public IProcessMap
 public:
 
     /// @enum class GSProcessingStatus
-    /// @brief define the different status of processing
+    /// @brief define the different status of 3D Gaussian Splatting processing.
+    /// Values chain on after the base IProcessMap::ProcessingStatus (which ends at 4),
+    /// starting at 5, mirroring SfmProcessingStatus.
     enum class GSProcessingStatus: std::underlying_type_t<ProcessingStatus> {
+        RUNNING_INITIALIZATION = 5,     ///< seeding the Gaussian model from the input map
+        IDLE_INITIALIZATION_FINISHED,   ///< Gaussian model initialized
+        RUNNING_TRAINING,               ///< optimizing the Gaussians (forward/backward/densify)
+        IDLE_TRAINING_FINISHED,         ///< optimization finished
+        RUNNING_EXPORT,                 ///< building the output map from the trained Gaussians
     };
 
     /// @brief return a string value of a ProcessingStatus value
     std::string toString(ProcessingStatus status) {
-        switch (status) {
-            case ProcessingStatus::NOT_DEFINED:
-            case ProcessingStatus::NOT_INITIALIZED:
-            case ProcessingStatus::IDLE_INITIALIZED:
-            case ProcessingStatus::IDLE_COMPLETED:
-            case ProcessingStatus::IDLE_ABORTED:
+        switch (static_cast<GSProcessingStatus>(status)) {
+            case GSProcessingStatus::RUNNING_INITIALIZATION:   return "RUNNING_INITIALIZATION";
+            case GSProcessingStatus::IDLE_INITIALIZATION_FINISHED: return "IDLE_INITIALIZATION_FINISHED";
+            case GSProcessingStatus::RUNNING_TRAINING:         return "RUNNING_TRAINING";
+            case GSProcessingStatus::IDLE_TRAINING_FINISHED:   return "IDLE_TRAINING_FINISHED";
+            case GSProcessingStatus::RUNNING_EXPORT:           return "RUNNING_EXPORT";
             default: return IProcessMap::toString(status);
         }
     }
