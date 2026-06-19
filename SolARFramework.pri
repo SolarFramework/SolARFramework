@@ -5,6 +5,7 @@ interfaces/datastructure/StorageCapabilities.h \
 interfaces/datastructure/DetectedObject.h \
 interfaces/api/solver/pose/ITrackablePose.h \
 interfaces/api/input/devices/IDepthCamera.h \
+interfaces/api/display/I3DMeshViewer.h \
 interfaces/api/display/I3DOverlay.h \
 interfaces/api/display/I3DPointsViewer.h \
 interfaces/api/display/IImageViewer.h \
