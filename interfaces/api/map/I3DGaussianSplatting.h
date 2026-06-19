@@ -47,7 +47,7 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
+    std::string toString(ProcessingStatus status) final {
         switch (static_cast<GSProcessingStatus>(status)) {
             case GSProcessingStatus::RUNNING_INITIALIZATION:   return "RUNNING_INITIALIZATION";
             case GSProcessingStatus::IDLE_INITIALIZATION_FINISHED: return "IDLE_INITIALIZATION_FINISHED";

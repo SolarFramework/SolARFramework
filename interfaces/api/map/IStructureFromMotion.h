@@ -50,20 +50,15 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
-        switch (status) {
-            case (ProcessingStatus)SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
-            case (ProcessingStatus)SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
-            case (ProcessingStatus)SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
-            case (ProcessingStatus)SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
-            case (ProcessingStatus)SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
-            case (ProcessingStatus)SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
-            case (ProcessingStatus)SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
-            case ProcessingStatus::NOT_DEFINED:
-            case ProcessingStatus::NOT_INITIALIZED:
-            case ProcessingStatus::IDLE_INITIALIZED:
-            case ProcessingStatus::IDLE_COMPLETED:
-            case ProcessingStatus::IDLE_ABORTED:
+    std::string toString(ProcessingStatus status) final {
+        switch (static_cast<SfmProcessingStatus>(status)) {
+            case SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
+            case SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
+            case SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
+            case SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
+            case SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
+            case SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
+            case SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
             default: return IProcessMap::toString(status);
         }
     }
@@ -79,7 +74,8 @@ public:
     /// @brief Create a new map resulting from the processing of the original map
     /// @param[in] map the original map
     /// @return FrameworkReturnCode::_SUCCESS if the processing succeed, else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) override { return FrameworkReturnCode::_NOT_IMPLEMENTED; }
+    /// @note This method is not applicable for this interface
+    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) final;
 
     /// @brief Create map from a set of images while camera parameters are not provided
     /// @param[in] images list of images
