@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2017 B-com http://www.b-com.com/
+ * @copyright Copyright (c) 2026 B-com http://www.b-com.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@
 #define IMESHING_H
 
 
-#include <xpcf/api/IComponentIntrospect.h>
+#include "api/map/IProcessMap.h"
 #include "datastructure/Map.h"
 #include "datastructure/Mesh.h"
 
 namespace SolAR {
 namespace api {
-namespace sfm {
+namespace map {
 
 /**
  * @class IMeshing
@@ -32,17 +32,19 @@ namespace sfm {
  * <TT>UUID: 7d810e96-fd9d-4029-a102-61fe3883a633</TT>
  */
 
-class XPCF_IGNORE IMeshing : virtual public org::bcom::xpcf::IComponentIntrospect
+class XPCF_IGNORE IMeshing : virtual public IProcessMap
 {
+
 public:
-    ///@brief IStructureFromMotion default constructor.
+
+    ///@brief IMeshing default constructor.
     IMeshing() = default;
 
     ///@brief IMeshing default destructor.
     virtual ~IMeshing() override = default;
 
     /// @brief Create mesh from a dense 3D point cloud
-    /// @param[in] densePointCloud: the dense poitn cloud to mesh with triangles
+    /// @param[in] densePointCloud: the dense point cloud to mesh with triangles
     /// @param[out] mesh: the resulting meshes
     /// @return FrameworkReturnCode::_SUCCESS if the meshing succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode createMesh(const SRef<SolAR::datastructure::PointCloud>& densePointCloud,
@@ -50,11 +52,11 @@ public:
 };
 
 
-} // namespace sfm
+} // namespace map
 } // namespace api
 } // namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::sfm::IMeshing,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IMeshing,
                              "7d810e96-fd9d-4029-a102-61fe3883a633",
                              "IMeshing",
                              "IMeshing interface description");

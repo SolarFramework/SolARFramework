@@ -82,9 +82,11 @@ interfaces/api/service/IMapsManager.h \
 interfaces/api/service/IServiceManager.h \
 interfaces/api/service/IAuthorizationChecker.h \
 interfaces/api/service/IClientContextManager.h \
-interfaces/api/sfm/IMeshing.h \
-interfaces/api/sfm/IMultiViewStereo.h \
-interfaces/api/sfm/IStructureFromMotion.h \
+interfaces/api/map/I3DGaussianSplatting.h \
+interfaces/api/map/IMeshing.h \
+interfaces/api/map/IMultiViewStereo.h \
+interfaces/api/map/IProcessMap.h \
+interfaces/api/map/IStructureFromMotion.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -172,13 +174,16 @@ interfaces/api/segm/IInstanceSegmentation.h \
 interfaces/api/segm/ISemanticSegmentation.h \
 interfaces/api/segm/IPanopticSegmentation.h \
 interfaces/api/display/IMaskOverlay.h\
+interfaces/api/gs/I3DGSLoader.h \
+interfaces/api/gs/I3DGSTrainer.h \
 interfaces/Version.h
 
 SOURCES += src/api/reloc/IKeyframeRetriever.cpp \
 src/api/segm/IInstanceSegmentation.cpp \
 src/api/segm/ISemanticSegmentation.cpp \
 src/api/segm/IPanopticSegmentation.cpp \
-src/api/sfm/IStructureFromMotion.cpp \
+src/api/map/IMultiViewStereo.cpp \
+src/api/map/IStructureFromMotion.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \

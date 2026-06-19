@@ -19,6 +19,8 @@
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::CloudPoint);
 
+namespace xpcf = org::bcom::xpcf;
+
 namespace SolAR {
 namespace datastructure {
 
@@ -64,6 +66,14 @@ CloudPoint::CloudPoint(float x, float y, float z, float r, float g, float b, flo
     m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::ViewDirection | CloudPointType::ReprojectionError | CloudPointType::Visibility;
     if (descriptor != nullptr)
         m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::Descriptor;
+}
+
+CloudPoint::CloudPoint(Point3Df & means, Vector3f & featuresDc, Vector3f & normals, std::array<float, 45> & featuresRest, float opacity, Vector3f & scales, Vector4f & quats):
+    Point3Df(means), m_rgb(featuresDc)
+{
+    m_gaussianSplattingData = xpcf::utils::make_shared<GaussianSplattingData>(normals, featuresRest, opacity, scales, quats);
+
+    m_cloudPointSupportedTypes = CloudPointType::Color | CloudPointType::GaussianSplatting;
 }
 
 const uint32_t& CloudPoint::getId() const{
@@ -173,6 +183,18 @@ bool CloudPoint::isPositionFixed() const
     return m_isPositionFixed;
 }
 
+// Methods used for Gaussian Splatting rendering
+
+SRef<const CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingData() const
+{
+    return m_gaussianSplattingData;
+}
+
+void CloudPoint::setGaussianSplattingData (SRef<GaussianSplattingData> gaussianSplattingData)
+{
+    m_gaussianSplattingData = gaussianSplattingData;
+}
+
 template <typename Archive>
 void CloudPoint::serialize(Archive &ar, const unsigned int /* version */)
 {
@@ -193,6 +215,8 @@ void CloudPoint::serialize(Archive &ar, const unsigned int /* version */)
         ar & boost::serialization::make_array(m_viewDirection.data(), 3);
     if (m_cloudPointSupportedTypes & CloudPointType::ReprojectionError)
         ar & m_reproj_error;
+    if (m_cloudPointSupportedTypes & CloudPointType::GaussianSplatting)
+        ar & m_gaussianSplattingData;
 }
 
 IMPLEMENTSERIALIZE(CloudPoint);

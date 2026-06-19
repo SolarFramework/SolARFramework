@@ -44,7 +44,8 @@ enum class GetMapRequestOption {
 enum class MapProcessingType {
     UNDEFINED = 0,
     STRUCTURE_FROM_MOTION = 1,
-    DENSE_MAPPING = 2
+    DENSE_MAPPING = 2,
+    GAUSSIAN_SPLATTING = 3
 };
 
 /// @brief Return the text definition (string) of a MapProcessingType object
@@ -63,6 +64,9 @@ static std::string toString(const MapProcessingType mapProcessingType)
             break;
         case MapProcessingType::DENSE_MAPPING:
             textDefinition = "DENSE_MAPPING";
+            break;
+        case MapProcessingType::GAUSSIAN_SPLATTING:
+            textDefinition = "GAUSSIAN_SPLATTING";
             break;
         default:
             textDefinition = "Unknown value";
