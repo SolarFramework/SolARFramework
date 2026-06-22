@@ -267,6 +267,12 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
     return true;
 }
 
+void Map::resetMapProcessingHistory()
+{
+    m_mapProcessingHistory.clear();
+}
+
+
 void Map::addMapProcessingStep(const MapProcessingStep & mapProcessingStep)
 {
     m_mapProcessingHistory.push_back(mapProcessingStep);

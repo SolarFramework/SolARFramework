@@ -347,6 +347,9 @@ public:
     bool isMapCompatible(datastructure::DescriptorType descriptorType,
                          datastructure::GlobalDescriptorType globalDescriptorType) const;
 
+    /// @brief Reset all processing steps of the map history
+    void resetMapProcessingHistory();
+
     /// @brief Add a processing step to the map information
     /// @param[in] mapProcessingStep the new step of processing applied to the map
     void addMapProcessingStep(const MapProcessingStep & mapProcessingStep);
