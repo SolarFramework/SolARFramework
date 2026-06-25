@@ -57,21 +57,22 @@ enum class MapProcessingApplied: std::uint8_t {
  */
 class MapProcessingStep {
 public:
-    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID):
-        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID} {
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& sourceMapUUID, const std::string& targetMapUUID):
+        m_processingApplied{processingApplied}, m_sourceMapUUID{sourceMapUUID}, m_targetMapUUID{targetMapUUID} {
         const std::time_t t_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         std::string dateTime = std::ctime(&t_c);
         m_processingDateTime = dateTime.substr(0, dateTime.size() - 1);
     }
 
-    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& originalMapUUID, const std::string& processingDateTime):
-        m_processingApplied{processingApplied}, m_originalMapUUID{originalMapUUID}, m_processingDateTime{processingDateTime} {
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& sourceMapUUID, const std::string& targetMapUUID, const std::string& processingDateTime):
+        m_processingApplied{processingApplied}, m_sourceMapUUID{sourceMapUUID}, m_targetMapUUID{targetMapUUID}, m_processingDateTime{processingDateTime} {
     }
 
     ~MapProcessingStep() = default;
 
     MapProcessingApplied getProcessingApplied() const { return m_processingApplied; }
-    std::string getOriginalMapUUID() const { return m_originalMapUUID; }
+    std::string getSourceMapUUID() const { return m_sourceMapUUID; }
+    std::string getTargetMapUUID() const { return m_targetMapUUID; }
     std::string getTimestamp() const { return m_processingDateTime; }
 
 private:
@@ -81,7 +82,8 @@ private:
     MapProcessingStep() = default;
 
     MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
-    std::string m_originalMapUUID;            // Original map processed to obtain the current map
+    std::string m_sourceMapUUID;              // Source map to which the processing is applied
+    std::string m_targetMapUUID;              // Target map resulting from processing (may be identical to the source map)
     std::string m_processingDateTime;         // Date and time of the processing
 
     friend class boost::serialization::access;
@@ -89,7 +91,8 @@ private:
     void serialize(Archive &ar, const unsigned int  /* version */)
     {
         ar & m_processingApplied;
-        ar & m_originalMapUUID;
+        ar & m_sourceMapUUID;
+        ar & m_targetMapUUID;
         ar & m_processingDateTime;
     }
 };
