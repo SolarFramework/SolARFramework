@@ -59,13 +59,15 @@ class MapProcessingStep {
 public:
     MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& sourceMapUUID, const std::string& targetMapUUID):
         m_processingApplied{processingApplied}, m_sourceMapUUID{sourceMapUUID}, m_targetMapUUID{targetMapUUID} {
-        const std::time_t t_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        const auto now = std::chrono::system_clock::now();
+        m_processingTimestamp = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+        const std::time_t t_c = std::chrono::system_clock::to_time_t(now);
         std::string dateTime = std::ctime(&t_c);
         m_processingDateTime = dateTime.substr(0, dateTime.size() - 1);
     }
 
-    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& sourceMapUUID, const std::string& targetMapUUID, const std::string& processingDateTime):
-        m_processingApplied{processingApplied}, m_sourceMapUUID{sourceMapUUID}, m_targetMapUUID{targetMapUUID}, m_processingDateTime{processingDateTime} {
+    MapProcessingStep(const MapProcessingApplied& processingApplied, const std::string& sourceMapUUID, const std::string& targetMapUUID, const uint64_t processingTimestamp, const std::string& processingDateTime):
+        m_processingApplied{processingApplied}, m_sourceMapUUID{sourceMapUUID}, m_targetMapUUID{targetMapUUID}, m_processingTimestamp(processingTimestamp), m_processingDateTime{processingDateTime} {
     }
 
     ~MapProcessingStep() = default;
@@ -73,7 +75,8 @@ public:
     MapProcessingApplied getProcessingApplied() const { return m_processingApplied; }
     std::string getSourceMapUUID() const { return m_sourceMapUUID; }
     std::string getTargetMapUUID() const { return m_targetMapUUID; }
-    std::string getTimestamp() const { return m_processingDateTime; }
+    uint64_t getTimestamp() const { return m_processingTimestamp; }
+    std::string getDateTime() const { return m_processingDateTime; }
 
 private:
     ///
@@ -84,6 +87,7 @@ private:
     MapProcessingApplied m_processingApplied; // Processing applied to obtain the map
     std::string m_sourceMapUUID;              // Source map to which the processing is applied
     std::string m_targetMapUUID;              // Target map resulting from processing (may be identical to the source map)
+    uint64_t m_processingTimestamp;           // Timestamp of processing in seconds since epoch
     std::string m_processingDateTime;         // Date and time of the processing
 
     friend class boost::serialization::access;
