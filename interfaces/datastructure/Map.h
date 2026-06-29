@@ -88,7 +88,7 @@ private:
     std::string m_sourceMapUUID;              // Source map to which the processing is applied
     std::string m_targetMapUUID;              // Target map resulting from processing (may be identical to the source map)
     uint64_t m_processingTimestamp;           // Timestamp of processing in seconds since epoch
-    std::string m_processingDateTime;         // Date and time of the processing
+    std::string m_processingDateTime;         // Date and time of the processing in a string format
 
     friend class boost::serialization::access;
     template <typename Archive>
@@ -97,6 +97,7 @@ private:
         ar & m_processingApplied;
         ar & m_sourceMapUUID;
         ar & m_targetMapUUID;
+        ar & m_processingTimestamp;
         ar & m_processingDateTime;
     }
 };
