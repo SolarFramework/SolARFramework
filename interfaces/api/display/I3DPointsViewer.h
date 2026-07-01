@@ -119,6 +119,28 @@ public:
         (void)centers; (void)scales; (void)quaternions; (void)colors; (void)opacities;
         return FrameworkReturnCode::_NOT_IMPLEMENTED;
     }
+
+    /// @brief Display 3D Gaussians with view-dependent colour (spherical harmonics).
+    /// Same as displayGaussians() above, plus the higher-order SH coefficients so the
+    /// viewer can evaluate view-dependent colour per frame (degree 0 = DC is in @p colors).
+    /// @param[in] centers size 3*N. @param[in] scales size 3*N. @param[in] quaternions size 4*N.
+    /// @param[in] colors DC RGB base in [0,1], size 3*N.  @param[in] opacities size N.
+    /// @param[in] shCoeffsRest higher-order SH coefficients, size N*3*K with K = coeffs per
+    /// channel for the degree (deg1=3, deg2=8, deg3=15); per Gaussian channel-major
+    /// [R(K) G(K) B(K)] (Inria/PLY f_rest order).
+    /// @param[in] shDegree SH degree of the rest coefficients (1, 2 or 3).
+    /// @return _SUCCESS, _NOT_IMPLEMENTED, or _ERROR_.
+    virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
+                                                 const std::vector<float> & scales,
+                                                 const std::vector<float> & quaternions,
+                                                 const std::vector<float> & colors,
+                                                 const std::vector<float> & opacities,
+                                                 const std::vector<float> & shCoeffsRest,
+                                                 int shDegree)
+    {
+        (void)shCoeffsRest; (void)shDegree;
+        return displayGaussians(centers, scales, quaternions, colors, opacities);
+    }
 };
 }
 }
