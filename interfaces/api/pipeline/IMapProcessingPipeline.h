@@ -19,6 +19,8 @@
 
 #include "api/pipeline/IPipeline.h"
 #include "datastructure/Map.h"
+#include <api/storage/IMapManager.h>
+
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
@@ -79,7 +81,14 @@ public:
     /// @brief Set map to process
     /// @param[in] map input map to be processed (datastructure)
     /// @return FrameworkReturnCode::_SUCCESS if the map datastructure is correctly set, else FrameworkReturnCode::_ERROR_
+    [[deprecated("use setMapToProcess(mapUUID, resultMapUUID) to set the map to process")]]
     virtual FrameworkReturnCode setMapToProcess(const SRef<SolAR::datastructure::Map> map) = 0;
+
+    /// @brief Set map to process
+    /// @param[in] mapUUID input map to be processed (will be retrieved from the persistent volume)
+    /// @param[in] resultMapUUID UUID of the map resulting from the processing
+    /// @return FrameworkReturnCode::_SUCCESS if the map UUID is correctly set, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setMapToProcess(const std::string & mapUUID, const std::string & resultMapUUID) = 0;
 
     /// @brief Get status and progress percentage
     /// @param[out] status the current map processing status
@@ -107,7 +116,42 @@ public:
     /// * FrameworkReturnCode::_SUCCESS if output map is available
     /// * FrameworkReturnCode::_NOT_FOUND if data is not available
     /// * else FrameworkReturnCode::_ERROR_
+    [[deprecated("the output map is directly saved by the map processing service on the persistent volume and can be retrieved via its UUID")]]
     virtual FrameworkReturnCode getProcessedMap(SRef<SolAR::datastructure::Map> & map) const = 0;
+
+protected:
+
+    /// @brief Load the processed map datastructure from file system
+    /// @param[out] mapDatastructure the map datastructure read from file
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if map datastructure is available
+    /// * FrameworkReturnCode::_MAP_NO_DATA if map datastructure is not available
+    /// * else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode loadMapFromFile(SRef<SolAR::datastructure::Map>& mapDatastructure) const;
+
+    /// @brief Save the map datastructure of the rsulting map to file system
+    /// @param[in] mapDatastructure the map datastructure to save to file system
+    /// @param[in] mapProcessingApplied the type of processing applied on initial map
+    /// @param[in] mapProcessingHistory the processing history of initial map
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if map is saved to file system
+    /// * else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode saveMapToFile(SRef<SolAR::datastructure::Map>& mapDatastructure,
+                                      SolAR::datastructure::MapProcessingApplied mapProcessingApplied,
+                                      std::vector<SolAR::datastructure::MapProcessingStep> mapProcessingHistory) const;
+
+protected:
+
+    // Injected components
+    SRef<SolAR::api::storage::IMapManager> m_mapManager; // Map Manager used to load and save map datastructure
+    mutable std::mutex m_mutexMapManager; // Mutex to protect map datastructure access on file system
+
+    // Path to directory where map data structures are stored
+    std::string m_mapDirectory = "";
+
+    std::string m_processedMapUUID; // UUID of map being processed
+    std::string m_resultingMapUUID; // UUID of the map obtained through processing
+
 };
 }
 }
