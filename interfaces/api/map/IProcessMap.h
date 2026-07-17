@@ -73,25 +73,25 @@ public:
     /// @brief Get output map resulting from processing
     /// @param[out] map the output map
     /// @return FrameworkReturnCode::_SUCCESS if map was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getOutputMap(SRef<SolAR::datastructure::Map>& map) = 0;
+    virtual FrameworkReturnCode getOutputMap(SRef<SolAR::datastructure::Map>& map) const = 0;
 
     /// @brief Get current processing status
     /// @return status the current status
-    virtual ProcessingStatus getStatus() = 0;
+    virtual ProcessingStatus getStatus() const = 0;
 
     /// @brief Get current processing progress percentage
     /// @return progress percentage between 0 and 1
-    virtual float getProgress() = 0;
+    virtual float getProgress() const = 0;
 
     /// @brief Get current cloud points
     /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
     /// @return FrameworkReturnCode::_SUCCESS if points was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) = 0;
+    virtual FrameworkReturnCode getCurrentCloudPoints(std::vector<SRef<SolAR::datastructure::CloudPoint>>& cloudPoints) const = 0;
 
     /// @brief Get current keyframe poses
     /// @param[out] keyframePoses current keyframes' poses
     /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) = 0;
+    virtual FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) const = 0;
 
     /// @brief force stop
     virtual void forceStop() = 0;
