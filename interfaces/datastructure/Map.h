@@ -32,7 +32,6 @@
 #include <Version.h>
 #include <xpcf/core/refs.h>
 #include <vector>
-#include <map>
 
 // Definition of Map Class //
 // part of SolAR namespace //
@@ -61,18 +60,12 @@ public:
     datastructure::GlobalDescriptorType getGlobalDescriptorType() const { return m_globalDescriptorType; }
     void setEmbedKeyframeImages(bool embedKeyframeImages) { m_embedKeyframeImages = embedKeyframeImages; };
     bool getEmbedKeyframeImages() const { return m_embedKeyframeImages; }
-    void setDataSize(uint32_t dataSize) { m_dataSize = dataSize; };
-    uint32_t getDataSize() const { return m_dataSize.value_or(0); }
 
     std::string toString() const {
         std::string result = "Map information:\n";
         result += "- version: " + m_version + "\n";
         result += "- type of descriptor: " + SolAR::datastructure::toString(m_descriptorType) + "\n";
         result += "- type of global descriptor: " + SolAR::datastructure::toString(m_globalDescriptorType) + "\n";
-        if (m_dataSize.has_value())
-            result += "- map datastructure size: " + std::to_string(m_dataSize.value()) + "\n";
-        else
-            result += "Unknown map datastructure size\n";
         if (m_embedKeyframeImages)
             result += "Map embeds keyframe images\n";
         else
@@ -85,7 +78,6 @@ private:
     datastructure::DescriptorType       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
     datastructure::GlobalDescriptorType m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
-    std::optional<uint32_t>             m_dataSize = std::nullopt;                                // Size of the map data structure
 
     friend class boost::serialization::access;
     template <typename Archive>
@@ -95,8 +87,6 @@ private:
         ar & m_descriptorType;
         ar & m_globalDescriptorType;
         ar & m_embedKeyframeImages;
-        if (m_dataSize.has_value())
-            ar & m_dataSize.value();
     }
 };
 
