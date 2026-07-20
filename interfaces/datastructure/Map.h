@@ -41,6 +41,67 @@ namespace SolAR {
 namespace datastructure {
 
 /**
+ * @class MapInformation
+ * @brief Definition of a map information
+ */
+class MapInformation {
+public:
+    ///
+    /// @brief MapProcessingStep constructors and destructors.
+    ///
+    MapInformation() = default;
+    ~MapInformation() = default;
+
+    // getters and setters
+    void setVersion(std::string version) { m_version = version; };
+    std::string getVersion() const { return m_version; }
+    void setDescriptorType(datastructure::DescriptorType descriptorType) { m_descriptorType = descriptorType; };
+    datastructure::DescriptorType getDescriptorType() const { return m_descriptorType; }
+    void setGlobalDescriptorType(datastructure::GlobalDescriptorType globalDescriptorType) { m_globalDescriptorType = globalDescriptorType; };
+    datastructure::GlobalDescriptorType getGlobalDescriptorType() const { return m_globalDescriptorType; }
+    void setEmbedKeyframeImages(bool embedKeyframeImages) { m_embedKeyframeImages = embedKeyframeImages; };
+    bool getEmbedKeyframeImages() const { return m_embedKeyframeImages; }
+    void setDataSize(uint32_t dataSize) { m_dataSize = dataSize; };
+    uint32_t getDataSize() const { return m_dataSize.value_or(0); }
+
+    std::string toString() const {
+        std::string result = "Map information:\n";
+        result += "- version: " + m_version + "\n";
+        result += "- type of descriptor: " + SolAR::datastructure::toString(m_descriptorType) + "\n";
+        result += "- type of global descriptor: " + SolAR::datastructure::toString(m_globalDescriptorType) + "\n";
+        if (m_dataSize.has_value())
+            result += "- map datastructure size: " + std::to_string(m_dataSize.value()) + "\n";
+        else
+            result += "Unknown map datastructure size\n";
+        if (m_embedKeyframeImages)
+            result += "Map embeds keyframe images\n";
+        else
+            result += "No keyframe images in map\n";
+        return result;
+    }
+
+private:
+    std::string                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
+    datastructure::DescriptorType       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
+    datastructure::GlobalDescriptorType m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
+    bool                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+    std::optional<uint32_t>             m_dataSize = std::nullopt;                                // Size of the map data structure
+
+    friend class boost::serialization::access;
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int  /* version */)
+    {
+        ar & m_version;
+        ar & m_descriptorType;
+        ar & m_globalDescriptorType;
+        ar & m_embedKeyframeImages;
+        if (m_dataSize.has_value())
+            ar & m_dataSize.value();
+    }
+};
+
+
+/**
      * @brief List of all processing that can be applied to a map datastructure
      */
 enum class MapProcessingApplied: std::uint8_t {
@@ -50,6 +111,17 @@ enum class MapProcessingApplied: std::uint8_t {
     STRUCTURE_FROM_MOTION,   ///< Structure from motion processing
     GAUSSIAN_SPLATTING       ///< Gaussian Splatting processing
 };
+
+/// @brief Return the text definition (string) of a processing applied
+/// @param[in] processingApplied the map processing
+/// @return the text definition (string)
+std::string toString(MapProcessingApplied processingApplied);
+
+/// @brief Parse a MapProcessingApplied value from its string representation
+/// @param[in] status string representation of a value of MapProcessingApplied
+/// @return the MapProcessingApplied value
+MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied);
+
 
 /**
  * @class MapProcessingStep
@@ -78,6 +150,16 @@ public:
     uint64_t getTimestamp() const { return m_processingTimestamp; }
     std::string getDateTime() const { return m_processingDateTime; }
 
+    std::string toString() const {
+        std::string result = "Processing step:\n";
+        result += "- processing applied: " + SolAR::datastructure::toString(m_processingApplied) + "\n";
+        result += "- source map UUID: " + m_sourceMapUUID + "\n";
+        result += "- target map UUID: " + m_targetMapUUID + "\n";
+        result += "- timestamp: " + std::to_string(m_processingTimestamp) + "\n";
+        result += "- date/time: " + m_processingDateTime + "\n";
+        return result;
+    }
+
 private:
     ///
     /// @brief MapProcessingStep constructors.
@@ -102,15 +184,6 @@ private:
     }
 };
 
-/// @brief Return the text definition (string) of a processing applied
-/// @param[in] processingApplied the map processing
-/// @return the text definition (string)
-std::string toString(MapProcessingApplied processingApplied);
-
-/// @brief Parse a MapProcessingApplied value from its string representation
-/// @param[in] status string representation of a value of MapProcessingApplied
-/// @return the MapProcessingApplied value
-MapProcessingApplied parseMapProcessingApplied(const std::string& processingApplied);
 
 /**
 * @class Map
@@ -322,15 +395,10 @@ public:
     void setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType);
 
     ///
-    /// @brief This method is used to get the map information (version and descriptors)
-    /// @param[out] version the version of the map
-    /// @param[out] descriptorType the type of descriptor used for the map
-    /// @param[out] globalDescriptorType the type of global descriptor used for the map
-    /// @return true if the information is available, false otherwise
+    /// @brief This method is used to get the map information (version, descriptors, embeded keyframe images, datastructure size)
+    /// @return a MapInformation structure
     ///
-    bool getInformation(std::string & version,
-                        datastructure::DescriptorType & descriptorType,
-                        datastructure::GlobalDescriptorType & globalDescriptorType) const;
+    MapInformation getInformation() const;
 
     ///
     /// @brief This method is used to indicate that the map must embed keyframe images
@@ -381,10 +449,7 @@ private:
     SRef<KeyframeRetrieval>                             m_keyframeRetrieval = org::bcom::xpcf::utils::make_shared<KeyframeRetrieval>();
     SRef<CameraParametersCollection>                    m_cameraParametersCollection = org::bcom::xpcf::utils::make_shared<CameraParametersCollection>();
 
-    std::string                                         m_version = SolAR::VERSION;                               // Version of the map (for compatibility)
-    datastructure::DescriptorType                       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
-    datastructure::GlobalDescriptorType                 m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
-    bool                                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+    MapInformation                                      m_mapInformation; // Information on map (version, descriptor types, keyframe images, datastructure size)
 
     // List of all processing steps previously applied to obtain the map datastructure
     std::vector<MapProcessingStep> m_mapProcessingHistory;
