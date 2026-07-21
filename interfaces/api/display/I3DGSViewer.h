@@ -49,8 +49,7 @@ public:
     /// @param[in] quaternions flat array of rotation quaternions, size 4*N (w,x,y,z per Gaussian).
     /// @param[in] colors flat array of RGB colors in [0,1], size 3*N (r,g,b per Gaussian).
     /// @param[in] opacities array of opacities in [0,1], size N.
-    /// @return FrameworkReturnCode::_SUCCESS if displayed, FrameworkReturnCode::_NOT_IMPLEMENTED
-    /// if the implementer does not support Gaussian display, else FrameworkReturnCode::_ERROR_.
+    /// @return FrameworkReturnCode::_SUCCESS if displayed else FrameworkReturnCode::_ERROR_.
     virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
                                                  const std::vector<float> & scales,
                                                  const std::vector<float> & quaternions,
@@ -69,7 +68,7 @@ public:
     /// channel for the degree (deg1=3, deg2=8, deg3=15); per Gaussian channel-major
     /// [R(K) G(K) B(K)] (Inria/PLY f_rest order).
     /// @param[in] shDegree SH degree of the rest coefficients (1, 2 or 3).
-    /// @return _SUCCESS, _NOT_IMPLEMENTED, or _ERROR_.
+    /// @return _SUCCESS or _ERROR_.
     virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
                                                  const std::vector<float> & scales,
                                                  const std::vector<float> & quaternions,
