@@ -114,10 +114,9 @@ public:
                                                  const std::vector<float> & scales,
                                                  const std::vector<float> & quaternions,
                                                  const std::vector<float> & colors,
-                                                 const std::vector<float> & opacities)
+                                                 const std::vector<float> & opacities) final
     {
-        (void)centers; (void)scales; (void)quaternions; (void)colors; (void)opacities;
-        return FrameworkReturnCode::_NOT_IMPLEMENTED;
+        return displayGaussians(centers, scales, quaternions, colors, opacities, {}, 0);
     }
 
     /// @brief Display 3D Gaussians with view-dependent colour (spherical harmonics).
@@ -136,11 +135,7 @@ public:
                                                  const std::vector<float> & colors,
                                                  const std::vector<float> & opacities,
                                                  const std::vector<float> & shCoeffsRest,
-                                                 int shDegree)
-    {
-        (void)shCoeffsRest; (void)shDegree;
-        return displayGaussians(centers, scales, quaternions, colors, opacities);
-    }
+                                                 int shDegree) = 0;
 };
 }
 }

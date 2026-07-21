@@ -82,19 +82,14 @@ public:
     /// @param[in,out] displayImage The image on which the squared binary pattern will be drawn (on the whole image).
     virtual void drawSBPattern (const SolAR::datastructure::SquaredBinaryPattern & pattern, SRef<SolAR::datastructure::Image> displayImage) = 0;
 
-    /// @brief Draw a loss/metric curve plot onto an image.
+    /// @brief Draw a metric curve plot onto an image.
     /// The whole image is used as the plotting canvas: axes, grid, the polyline of values
     /// and numeric labels are rendered with drawing parameters taken from the configuration file.
     /// Non-pure so existing I2DOverlay implementers remain valid; the default does nothing.
     /// @param[in] values the ordered sequence of values to plot (e.g. per-iteration loss).
     /// @param[in,out] displayImage the image used as the plot canvas.
     /// @param[in] title (optional) a title label drawn on the plot.
-    virtual void drawLossCurve(const std::vector<float> & values,
-                               SRef<SolAR::datastructure::Image> displayImage,
-                               const std::string & title = "Loss")
-    {
-        (void)values; (void)displayImage; (void)title;
-    }
+    virtual void drawValues(const std::vector<float> & values, SRef<SolAR::datastructure::Image> displayImage, const std::string & title) = 0;
 
 };
 }
