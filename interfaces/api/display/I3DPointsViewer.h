@@ -99,43 +99,6 @@ public:
     virtual FrameworkReturnCode buffer(const SRef<SolAR::datastructure::PointCloud> pointCloud,
                                        const SRef<SolAR::datastructure::PointCloud> pointCloud2 = nullptr) = 0;
 
-    /// @brief Display a set of 3D Gaussians rendered as ellipsoid splats in a window.
-    /// The data is passed as flat, contiguous, libtorch-free float buffers so that
-    /// implementers (e.g. an OpenGL viewer) need no tensor library dependency.
-    /// The viewer is expected to own its interactive (orbit) camera, hence no pose is required.
-    /// @param[in] centers flat array of Gaussian centers, size 3*N (x,y,z per Gaussian).
-    /// @param[in] scales flat array of per-axis scales, size 3*N (sx,sy,sz per Gaussian).
-    /// @param[in] quaternions flat array of rotation quaternions, size 4*N (w,x,y,z per Gaussian).
-    /// @param[in] colors flat array of RGB colors in [0,1], size 3*N (r,g,b per Gaussian).
-    /// @param[in] opacities array of opacities in [0,1], size N.
-    /// @return FrameworkReturnCode::_SUCCESS if displayed, FrameworkReturnCode::_NOT_IMPLEMENTED
-    /// if the implementer does not support Gaussian display, else FrameworkReturnCode::_ERROR_.
-    virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
-                                                 const std::vector<float> & scales,
-                                                 const std::vector<float> & quaternions,
-                                                 const std::vector<float> & colors,
-                                                 const std::vector<float> & opacities) final
-    {
-        return displayGaussians(centers, scales, quaternions, colors, opacities, {}, 0);
-    }
-
-    /// @brief Display 3D Gaussians with view-dependent colour (spherical harmonics).
-    /// Same as displayGaussians() above, plus the higher-order SH coefficients so the
-    /// viewer can evaluate view-dependent colour per frame (degree 0 = DC is in @p colors).
-    /// @param[in] centers size 3*N. @param[in] scales size 3*N. @param[in] quaternions size 4*N.
-    /// @param[in] colors DC RGB base in [0,1], size 3*N.  @param[in] opacities size N.
-    /// @param[in] shCoeffsRest higher-order SH coefficients, size N*3*K with K = coeffs per
-    /// channel for the degree (deg1=3, deg2=8, deg3=15); per Gaussian channel-major
-    /// [R(K) G(K) B(K)] (Inria/PLY f_rest order).
-    /// @param[in] shDegree SH degree of the rest coefficients (1, 2 or 3).
-    /// @return _SUCCESS, _NOT_IMPLEMENTED, or _ERROR_.
-    virtual FrameworkReturnCode displayGaussians(const std::vector<float> & centers,
-                                                 const std::vector<float> & scales,
-                                                 const std::vector<float> & quaternions,
-                                                 const std::vector<float> & colors,
-                                                 const std::vector<float> & opacities,
-                                                 const std::vector<float> & shCoeffsRest,
-                                                 int shDegree) = 0;
 };
 }
 }
