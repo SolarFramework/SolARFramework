@@ -20,7 +20,7 @@ namespace SolAR {
 namespace api {
 namespace map {
 
-FrameworkReturnCode IMultiViewStereo::getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses)
+FrameworkReturnCode IMultiViewStereo::getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) const
 {
     return FrameworkReturnCode::_NOT_IMPLEMENTED;
 }
