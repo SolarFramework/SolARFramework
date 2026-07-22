@@ -98,6 +98,7 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if the window is created, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode buffer(const SRef<SolAR::datastructure::PointCloud> pointCloud,
                                        const SRef<SolAR::datastructure::PointCloud> pointCloud2 = nullptr) = 0;
+
 };
 }
 }

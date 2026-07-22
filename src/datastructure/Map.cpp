@@ -195,45 +195,37 @@ TrackableType Map::getType() const
 
 void Map::setVersion(const std::string & version)
 {
-    m_version = version;
+    m_mapInformation.setVersion(version);
 }
 
 void Map::setDescriptorType(const datastructure::DescriptorType & descriptorType)
 {
-    m_descriptorType = descriptorType;
+    m_mapInformation.setDescriptorType(descriptorType);
 }
 
 void Map::setGlobalDescriptorType(const datastructure::GlobalDescriptorType & globalDescriptorType)
 {
-    m_globalDescriptorType = globalDescriptorType;
+    m_mapInformation.setGlobalDescriptorType(globalDescriptorType);
 }
 
-bool Map::getInformation(std::string & version,
-                         datastructure::DescriptorType & descriptorType,
-                         datastructure::GlobalDescriptorType & globalDescriptorType) const
+MapInformation Map::getInformation() const
 {
-    if (m_version.empty()) {
-        return false;
-    }
-    version = m_version;
-    descriptorType = m_descriptorType;
-    globalDescriptorType= m_globalDescriptorType;
-    return true;
+    return m_mapInformation;
 }
 
 void Map::embedKeyframeImages()
 {
-    m_embedKeyframeImages = true;
+    m_mapInformation.setEmbedKeyframeImages(true);
 }
 
 bool Map::hasKeyframeImages() const
 {
-    return m_embedKeyframeImages;
+    return m_mapInformation.getEmbedKeyframeImages();
 }
 
 void Map::nextSerializationWithoutKeyframeImages()
 {
-    if (m_embedKeyframeImages) {
+    if (hasKeyframeImages()) {
         m_keyframeCollection->nextSerializationWithoutKeyframeImages();
     }
 }
@@ -242,23 +234,19 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
                           datastructure::GlobalDescriptorType globalDescriptorType) const
 {
     LOG_DEBUG("Get map information");
-    std::string mapVersion;
-    datastructure::DescriptorType mapDescriptorType;
-    datastructure::GlobalDescriptorType mapGlobalDescriptorType;
-    if (!getInformation(mapVersion, mapDescriptorType, mapGlobalDescriptorType)) {
-        LOG_ERROR("Cannot get map information");
-        return false;
-    }
+    datastructure::MapInformation mapInformation = getInformation();
 
     LOG_DEBUG("Test map compatibility");
-    if (mapVersion != SolAR::VERSION) {
-        LOG_WARNING("The version of the map ({}) is not compatible with the framework version ({})", mapVersion, SolAR::VERSION);
+    if (mapInformation.getVersion() != SolAR::VERSION) {
+        LOG_WARNING("The version of the map ({}) is not compatible with the framework version ({})", mapInformation.getVersion(), SolAR::VERSION);
         return false;
     }
+    datastructure::DescriptorType mapDescriptorType = mapInformation.getDescriptorType();
     if ((mapDescriptorType != datastructure::DescriptorType::UNDEFINED) && (mapDescriptorType != descriptorType)) {
         LOG_WARNING("The descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapDescriptorType), datastructure::toString(descriptorType));
         return false;
     }
+    datastructure::GlobalDescriptorType mapGlobalDescriptorType = mapInformation.getGlobalDescriptorType();
     if ((mapGlobalDescriptorType != datastructure::GlobalDescriptorType::UNDEFINED) && (mapGlobalDescriptorType != globalDescriptorType)) {
         LOG_WARNING("The global descriptor type used for the map ({}) is not compatible with the service configuration ({})", datastructure::toString(mapGlobalDescriptorType), datastructure::toString(globalDescriptorType));
         return false;
@@ -266,6 +254,12 @@ bool Map::isMapCompatible(datastructure::DescriptorType descriptorType,
 
     return true;
 }
+
+void Map::resetMapProcessingHistory()
+{
+    m_mapProcessingHistory.clear();
+}
+
 
 void Map::addMapProcessingStep(const MapProcessingStep & mapProcessingStep)
 {
@@ -309,10 +303,7 @@ void Map::serialize(Archive &ar, const unsigned int version) {
 	ar & m_keyframeRetrieval;
     ar & m_cameraParametersCollection;
 	ar & m_transform3D;
-    ar & m_version;
-    ar & m_descriptorType;
-    ar & m_globalDescriptorType;
-    ar & m_embedKeyframeImages;
+    ar & m_mapInformation;
     if (version > 0) {
         ar & m_mask2DCollection;
     }

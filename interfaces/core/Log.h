@@ -12,6 +12,7 @@
 #include "SolARFrameworkDefinitions.h"
 #include <fstream>
 #include <spdlog/fmt/ostr.h>
+#include <fmt/std.h>   // external-fmt formatters for std::filesystem::path, std::thread::id, etc.
 #include <vector>
 
 #include <opentelemetry/instrumentation/spdlog/sink.h>

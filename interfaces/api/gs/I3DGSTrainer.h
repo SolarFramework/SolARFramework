@@ -28,7 +28,7 @@ namespace gs {
 
 /**
  * @class I3DGSTrainer
- * @brief <B>Returns trained 3DGS model from poses images.</B>
+ * @brief <B>Returns trained 3DGS model from posed images.</B>
  * <TT>UUID: c4bed096-4d34-11f1-aa46-325096b39f47</TT>
  *
  * This class provides a solution to train 3DGS model.
