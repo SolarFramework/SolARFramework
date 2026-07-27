@@ -87,7 +87,10 @@ public:
     /// @brief Set map to process
     /// @param[in] mapUUID input map to be processed (will be retrieved from the persistent volume)
     /// @param[in] resultMapUUID UUID of the map resulting from the processing
-    /// @return FrameworkReturnCode::_SUCCESS if the map UUID is correctly set, else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map UUID is correctly set
+    /// * FrameworkReturnCode::_MAP_NO_DATA if map datastructure is not available for the given input map UUID
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode setMapToProcess(const std::string & mapUUID, const std::string & resultMapUUID) = 0;
 
     /// @brief Get status and progress percentage
@@ -131,14 +134,10 @@ protected:
 
     /// @brief Save the map datastructure of the rsulting map to file system
     /// @param[in] mapDatastructure the map datastructure to save to file system
-    /// @param[in] mapProcessingApplied the type of processing applied on initial map
-    /// @param[in] mapProcessingHistory the processing history of initial map
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if map is saved to file system
     /// * else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode saveMapToFile(SRef<SolAR::datastructure::Map>& mapDatastructure,
-                                      SolAR::datastructure::MapProcessingApplied mapProcessingApplied,
-                                      std::vector<SolAR::datastructure::MapProcessingStep> mapProcessingHistory) const;
+    FrameworkReturnCode saveMapToFile(SRef<SolAR::datastructure::Map>& mapDatastructure) const;
 
 protected:
 

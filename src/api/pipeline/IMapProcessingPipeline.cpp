@@ -64,9 +64,7 @@ FrameworkReturnCode IMapProcessingPipeline::loadMapFromFile(SRef<SolAR::datastru
 
 }
 
-FrameworkReturnCode IMapProcessingPipeline::saveMapToFile(SRef<SolAR::datastructure::Map>& mapDatastructure,
-                                                          SolAR::datastructure::MapProcessingApplied mapProcessingApplied,
-                                                          std::vector<SolAR::datastructure::MapProcessingStep> mapProcessingHistory) const
+FrameworkReturnCode IMapProcessingPipeline::saveMapToFile(SRef<SolAR::datastructure::Map>& mapDatastructure) const
 {
     if (m_processedMapUUID.empty()) {
         LOG_ERROR("IMapProcessingPipeline::saveMapToFile - processed map UUID not defined.");
@@ -93,19 +91,6 @@ FrameworkReturnCode IMapProcessingPipeline::saveMapToFile(SRef<SolAR::datastruct
         LOG_ERROR("Exception while creating the datastructure directory: {}", e.what());
         return FrameworkReturnCode::_ERROR_;
     }
-
-    // Reset the map history
-    mapDatastructure->resetMapProcessingHistory();
-    for (auto const& processingStep: mapProcessingHistory) {
-        mapDatastructure->addMapProcessingStep(processingStep);
-        LOG_DEBUG("Add a processing step to map: {} / {} / {} / {}",
-                  toString(processingStep.getProcessingApplied()), processingStep.getSourceMapUUID(), processingStep.getTargetMapUUID(), processingStep.getDateTime());
-    }
-    // Add the new processing step
-    MapProcessingStep newProcessingStep{mapProcessingApplied, m_processedMapUUID, m_resultingMapUUID};
-    mapDatastructure->addMapProcessingStep(newProcessingStep);
-    LOG_DEBUG("Add a new processing step to map: {} / {} / {} / {}",
-              toString(newProcessingStep.getProcessingApplied()), newProcessingStep.getSourceMapUUID(), newProcessingStep.getTargetMapUUID(), newProcessingStep.getDateTime())
 
     // Set file path for map datastructure using map UUID
     std::string map_folder = m_mapDirectory + "/" + m_resultingMapUUID;
