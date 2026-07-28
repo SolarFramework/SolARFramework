@@ -186,7 +186,6 @@ src/api/segm/ISemanticSegmentation.cpp \
 src/api/segm/IPanopticSegmentation.cpp \
 src/api/map/IMultiViewStereo.cpp \
 src/api/map/IStructureFromMotion.cpp \
-src/api/pipeline/IMapProcessingPipeline.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
