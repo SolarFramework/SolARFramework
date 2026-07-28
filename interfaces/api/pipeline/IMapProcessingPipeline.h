@@ -18,7 +18,8 @@
 #define SOLAR_MAPPROCESSINGPIPELINE_H
 
 #include "api/pipeline/IPipeline.h"
-#include "datastructure/Map.h"
+#include <api/storage/IMapManager.h>
+
 #include <xpcf/core/helpers.h>
 
 namespace SolAR {
@@ -77,9 +78,13 @@ public:
     virtual ~IMapProcessingPipeline() = default;
 
     /// @brief Set map to process
-    /// @param[in] map input map to be processed (datastructure)
-    /// @return FrameworkReturnCode::_SUCCESS if the map datastructure is correctly set, else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode setMapToProcess(const SRef<SolAR::datastructure::Map> map) = 0;
+    /// @param[in] mapUUID input map to be processed
+    /// @param[in] resultMapUUID UUID of the map resulting from the processing
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map UUID is correctly set
+    /// * FrameworkReturnCode::_MAP_NO_DATA if map datastructure is not available for the given input map UUID
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode setMapToProcess(const std::string & mapUUID, const std::string & resultMapUUID) = 0;
 
     /// @brief Get status and progress percentage
     /// @param[out] status the current map processing status
@@ -101,13 +106,11 @@ public:
     virtual FrameworkReturnCode getProcessingData(std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                   std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
 
-    /// @brief Get processed map (if processing is completed)
-    /// @param[out] map the output map (datastructure)
-    /// @return
-    /// * FrameworkReturnCode::_SUCCESS if output map is available
-    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
-    /// * else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode getProcessedMap(SRef<SolAR::datastructure::Map> & map) const = 0;
+protected:
+
+    std::string m_processedMapUUID; // UUID of map being processed
+    std::string m_resultingMapUUID; // UUID of the map obtained through processing
+
 };
 }
 }
