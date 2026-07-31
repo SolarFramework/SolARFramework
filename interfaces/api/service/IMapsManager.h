@@ -115,6 +115,42 @@ static std::string toString(const MapProcessingStatus mapProcessingStatus)
     return textDefinition;
 }
 
+///
+/// @typedef MapExportImportFormat
+/// @brief <B>Define the available formats for map export/import</B>
+///
+enum class MapExportImportFormat {
+    UNDEFINED = 0,
+    PLY_FORMAT = 1,
+    COLMAP_FORMAT = 2
+};
+
+/// @brief Return the text definition (string) of a MapExportImportFormat object
+/// @param[in] mapExportImportFormat the export format
+/// @return the text definition (string)
+static std::string toString(const MapExportImportFormat mapExportImportFormat)
+{
+    std::string textDefinition = "";
+
+    switch (mapExportImportFormat) {
+    case MapExportImportFormat::UNDEFINED:
+        textDefinition = "UNDEFINED";
+        break;
+    case MapExportImportFormat::PLY_FORMAT:
+        textDefinition = "PLY_FORMAT";
+        break;
+    case MapExportImportFormat::COLMAP_FORMAT:
+        textDefinition = "COLMAP_FORMAT";
+        break;
+    default:
+        textDefinition = "Unknown value";
+        break;
+    }
+
+    return textDefinition;
+}
+
+
 /**
  * @class IMapsManager
  * @brief <B>Defines the maps manager interface.</B>
@@ -172,6 +208,11 @@ public:
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map is available
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * FrameworkReturnCode::_NOT_FOUND if no datastructure files are found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if the storage space dedicated to the map is empty (new map?)
+    /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_VERSION if the map version is not compatible with the service version
+    /// * FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR if the descriptor types are not compatible with the running services
     /// * else FrameworkReturnCode::_ERROR_
     [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode getMapRequest(
         const std::string & mapUUID,
@@ -205,6 +246,8 @@ public:
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the map information is available
     /// * FrameworkReturnCode::_UNKNOWN_MAP_UUID if mapUUID is unkown
+    /// * FrameworkReturnCode::_NOT_FOUND if no datastructure files are found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if the storage space dedicated to the map is empty (new map?)
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getMapInfo(const std::string & mapUUID,
                                            std::string & version,
@@ -235,6 +278,12 @@ public:
     [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode restoreMap(
                                                     const std::string & mapUUID,
                                                     const std::vector<unsigned char> & compressedZipData) = 0;
+
+    /// @brief Return the list of available map processing types (i.e. available Map Processing services)
+    /// @param[out] availableTypes list of available types
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAvailableMapProcessingTypes(std::vector<MapProcessingType> & availableTypes) const = 0;
+
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapUUID the UUID of the map to process
@@ -273,6 +322,40 @@ public:
     virtual FrameworkReturnCode getMapProcessingData(const std::string & resultMapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) = 0;
+
+    /// @brief Return the list of available map export/import formats (i.e. available Map Import Export services)
+    /// @param[out] availableFormats list of available formats
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAvailableMapExportImportFormats(std::vector<MapExportImportFormat> & availableFormats) const = 0;
+
+    /// @brief Export the data structure of a map to a specific format
+    /// @brief and return the result in a compressed buffer (ZIP format)
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] exportFormat the export format to apply
+    /// @param[out] compressedZipExport the exported files of the map in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the exported map data is available
+    /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if no data is available on storage for mapUUID
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode exportMapToFormat(
+        const std::string & mapUUID,
+        const MapExportImportFormat & exportFormat,
+        std::vector<unsigned char> & compressedZipExport) const = 0;
+
+    /// @brief Import the data structure of a map in a specific format from a compressed buffer (ZIP format)
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] importFormat the import format to use
+    /// @param[in] compressedZipImport the map imported files in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map has been successfully imported
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode importMapFromFormat(
+        const std::string & mapUUID,
+        const MapExportImportFormat & importFormat,
+        const std::vector<unsigned char> & compressedZipImport) const = 0;
 
 };
 
