@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_MAPIMPORTEXPORTPIPELINE_H
-#define SOLAR_MAPIMPORTEXPORTPIPELINE_H
+#ifndef SOLAR_MAPEXPORTIMPORTPIPELINE_H
+#define SOLAR_MAPEXPORTIMPORTPIPELINE_H
 
 #include "api/pipeline/IPipeline.h"
 
@@ -26,22 +26,22 @@ namespace api {
 namespace pipeline {
 
 /**
- * @class IMapImportExportPipeline
- * @brief <B>Defines a map import/export pipeline.</B>
+ * @class IMapExportImportPipeline
+ * @brief <B>Defines a map export/import pipeline.</B>
  * <TT>UUID: 6fed31af-2b41-4a49-ba3c-1b382229b0f9</TT>
  *
- * This class provides the interface to define a map processing pipeline.
+ * This class provides the interface to define a map export/import pipeline.
  */
 
 class XPCF_CLIENTUUID("59bed21a-caeb-4144-86b0-a006f2e4ff01") XPCF_SERVERUUID("a72a8498-eaf8-483a-9c6f-423faaefb047")
     XPCF_GRPC_CLIENT_RECV_SIZE("-1") XPCF_GRPC_CLIENT_SEND_SIZE("-1")
-    IMapImportExportPipeline : virtual public IPipeline {
+    IMapExportImportPipeline : virtual public IPipeline {
 public:
-    /// @brief IMapImportExportPipeline default constructor
-    IMapImportExportPipeline() = default;
+    /// @brief IMapExportImportPipeline default constructor
+    IMapExportImportPipeline() = default;
 
-    /// @brief IMapImportExportPipeline default destructor
-    virtual ~IMapImportExportPipeline() = default;
+    /// @brief IMapExportImportPipeline default destructor
+    virtual ~IMapExportImportPipeline() = default;
 
     /// @brief Export a map to the format managed by the service
     /// @param[in] mapUUID map to export
@@ -66,9 +66,9 @@ public:
 }
 }
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IMapImportExportPipeline,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::pipeline::IMapExportImportPipeline,
                              "6fed31af-2b41-4a49-ba3c-1b382229b0f9",
-                             "IMapImportExportPipeline",
-                             "The interface to define a map import/export pipeline")
+                             "IMapExportImportPipeline",
+                             "The interface to define a map export/import pipeline")
 
-#endif // SOLAR_MAPIMPORTEXPORTPIPELINE_H
+#endif // SOLAR_MAPEXPORTIMPORTPIPELINE_H
