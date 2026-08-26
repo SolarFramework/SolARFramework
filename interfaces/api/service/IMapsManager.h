@@ -130,24 +130,12 @@ enum class MapExportImportFormat {
 /// @return the text definition (string)
 static std::string toString(const MapExportImportFormat mapExportImportFormat)
 {
-    std::string textDefinition = "";
-
     switch (mapExportImportFormat) {
-    case MapExportImportFormat::UNDEFINED:
-        textDefinition = "UNDEFINED";
-        break;
-    case MapExportImportFormat::PLY_FORMAT:
-        textDefinition = "PLY_FORMAT";
-        break;
-    case MapExportImportFormat::COLMAP_FORMAT:
-        textDefinition = "COLMAP_FORMAT";
-        break;
-    default:
-        textDefinition = "Unknown value";
-        break;
+        case MapExportImportFormat::UNDEFINED: return "UNDEFINED";
+        case MapExportImportFormat::PLY_FORMAT: return "PLY_FORMAT";
+        case MapExportImportFormat::COLMAP_FORMAT: return "COLMAP_FORMAT";
+        default: throw std::invalid_argument("Map export/import format is unknown");
     }
-
-    return textDefinition;
 }
 
 
