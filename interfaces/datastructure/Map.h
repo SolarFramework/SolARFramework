@@ -98,7 +98,7 @@ enum class MapProcessingApplied: std::uint8_t {
     INIT_MAPPING,            ///< First mapping (new sparse map)
     EXTEND_MAPPING,          ///< Extension mapping (fusion of sparse maps)
     DENSE_MAPPING,           ///< Dense mapping processing
-    STRUCTURE_FROM_MOTION,   ///< Structure from motion processing
+    RECTIFY_MAP,             ///< Rectify map processing
     GAUSSIAN_SPLATTING       ///< Gaussian Splatting processing
 };
 
