@@ -436,6 +436,13 @@ public:
                                             const std::string & mapUUID,
                                             const std::vector<unsigned char> & compressedZipData) = 0;
 
+    /// @brief Return the list of available map processing types (i.e. available Map Processing services)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[out] availableTypes list of available types
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAvailableMapProcessingTypes(const std::string & accessToken,
+                                                               std::vector<MapProcessingType> & availableTypes) const = 0;
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] mapUUID the UUID of the map to process
@@ -493,6 +500,54 @@ public:
                                                      const std::string & resultMapUUID,
                                                      std::vector<SRef<SolAR::datastructure::CloudPoint>> & pointCloud,
                                                      std::vector<SolAR::datastructure::Transform3Df> & keyframePoses) const = 0;
+
+    /// @brief Return the list of available map export/import formats (i.e. available Map Import Export services)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[out] availableFormats list of available formats
+    /// @return FrameworkReturnCode::_SUCCESS if the method succeeds, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getAvailableMapExportImportFormats(const std::string & accessToken,
+                                                                   std::vector<MapExportImportFormat> & availableFormats) const = 0;
+
+    /// @brief Export the data structure of a map to a specific format
+    /// @brief and return the result in a compressed buffer (ZIP format)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] exportFormat the export format to apply
+    /// @param[out] compressedZipExport the exported files of the map in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the exported map data is available
+    /// * FrameworkReturnCode::_NOT_FOUND if mapUUID is not found on storage
+    /// * FrameworkReturnCode::_MAP_NO_DATA if no data is available on storage for mapUUID
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_receiveSize("-1")]] virtual FrameworkReturnCode exportMapToFormat(
+                                            const std::string & accessToken,
+                                            const std::string & mapUUID,
+                                            const MapExportImportFormat & exportFormat,
+                                            std::vector<unsigned char> & compressedZipExport) const = 0;
+
+    /// @brief Import the data structure of a map in a specific format from a compressed buffer (ZIP format)
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] mapUUID UUID of the map
+    /// @param[in] importFormat the import format to use
+    /// @param[in] compressedZipImport the map imported files in a compressed buffer (ZIP format)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the map has been successfully imported
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * else FrameworkReturnCode::_ERROR_
+    [[grpc::client_sendSize("-1")]] virtual FrameworkReturnCode importMapFromFormat(
+                                            const std::string & accessToken,
+                                            const std::string & mapUUID,
+                                            const MapExportImportFormat & importFormat,
+                                            const std::vector<unsigned char> & compressedZipImport) const = 0;
 
 protected:
     /// @brief Mode to use for the pipeline processing (Relocalization and Mapping by default)
