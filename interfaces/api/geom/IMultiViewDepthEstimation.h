@@ -60,6 +60,10 @@ public:
                                          SRef<SolAR::datastructure::Image>& depthMap,
                                          SRef<SolAR::datastructure::Image>& confidenceMap,
                                          uint32_t& viewGroupId) = 0;
+
+    /// @brief Release device resources, estimate() is invalid until the next setViews().
+    /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode releaseDeviceResources() { return FrameworkReturnCode::_SUCCESS; }
 };
 
 }
