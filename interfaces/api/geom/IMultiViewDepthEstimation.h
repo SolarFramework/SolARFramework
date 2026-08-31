@@ -92,6 +92,16 @@ public:
                                          SRef<SolAR::datastructure::Image>& depthMap,
                                          SRef<SolAR::datastructure::Image>& confidenceMap,
                                          uint32_t& viewGroupId) = 0;
+
+    /// @brief Release the device resources held for the current view set.
+    /// A caller that fuses the estimated depth into a large device-side volume needs the memory
+    /// back before it allocates: an estimator holding a model on the GPU can be the difference
+    /// between a volume that fits and one that does not. After this call estimate() is invalid
+    /// until setViews() is called again, so a caller must have kept whatever depth it still needs.
+    /// The default is a no-op, for implementations that hold nothing worth releasing.
+    /// @return FrameworkReturnCode::_SUCCESS if the resources were released or there were none,
+    /// else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode releaseDeviceResources() { return FrameworkReturnCode::_SUCCESS; }
 };
 
 }
