@@ -63,10 +63,10 @@ public:
     }
 
 public:
-    ///@brief IStructureFromMotion default constructor.
+    ///@brief IMultiViewStereo default constructor.
     IMultiViewStereo() = default;
 
-    ///@brief IStructureFromMotion default destructor.
+    ///@brief IMultiViewStereo default destructor.
     virtual ~IMultiViewStereo() override = default;
 
     /// @brief Get current keyframe poses

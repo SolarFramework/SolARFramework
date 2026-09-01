@@ -37,7 +37,7 @@ public:
     /// @enum class GSProcessingStatus
     /// @brief define the different status of 3D Gaussian Splatting processing.
     /// Values chain on after the base IProcessMap::ProcessingStatus (which ends at 4),
-    /// starting at 5, mirroring SfmProcessingStatus.
+    /// starting at 5, mirroring RectifyMapProcessingStatus.
     enum class GSProcessingStatus: std::underlying_type_t<ProcessingStatus> {
         RUNNING_INITIALIZATION = 5,     ///< seeding the Gaussian model from the input map
         IDLE_INITIALIZATION_FINISHED,   ///< Gaussian model initialized

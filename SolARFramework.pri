@@ -89,7 +89,7 @@ interfaces/api/map/I3DGaussianSplattingDensifier.h \
 interfaces/api/map/IMeshing.h \
 interfaces/api/map/IMultiViewStereo.h \
 interfaces/api/map/IProcessMap.h \
-interfaces/api/map/IStructureFromMotion.h \
+interfaces/api/map/IRectifyMap.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -186,7 +186,7 @@ src/api/segm/IInstanceSegmentation.cpp \
 src/api/segm/ISemanticSegmentation.cpp \
 src/api/segm/IPanopticSegmentation.cpp \
 src/api/map/IMultiViewStereo.cpp \
-src/api/map/IStructureFromMotion.cpp \
+src/api/map/IRectifyMap.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \

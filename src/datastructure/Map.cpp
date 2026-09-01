@@ -34,8 +34,8 @@ std::string toString(MapProcessingApplied processingApplied)
             return "EXTEND MAPPING";
         case MapProcessingApplied::DENSE_MAPPING:
             return "DENSE MAPPING";
-        case MapProcessingApplied::STRUCTURE_FROM_MOTION:
-            return "STRUCTURE FROM MOTION";
+        case MapProcessingApplied::RECTIFY_MAP:
+            return "RECTIFY MAP";
         case MapProcessingApplied::GAUSSIAN_SPLATTING:
             return "GAUSSIAN SPLATTING";
         default:
@@ -53,8 +53,8 @@ MapProcessingApplied parseMapProcessingApplied(const std::string& processingAppl
     if (processingApplied == "DENSE MAPPING") {
         return MapProcessingApplied::DENSE_MAPPING;
     }
-    if (processingApplied == "STRUCTURE FROM MOTION") {
-        return MapProcessingApplied::STRUCTURE_FROM_MOTION;
+    if (processingApplied == "RECTIFY MAP") {
+        return MapProcessingApplied::RECTIFY_MAP;
     }
     if (processingApplied == "GAUSSIAN SPLATTING") {
         return MapProcessingApplied::GAUSSIAN_SPLATTING;
