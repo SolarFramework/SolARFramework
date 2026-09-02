@@ -34,26 +34,26 @@ ZipBuffer::~ZipBuffer()
     }
 }
 
-bool ZipBuffer::zipToBuffer(const std::string & originalPath,
-                            std::vector<unsigned char> & compressedZipBuffer)
+FrameworkReturnCode ZipBuffer::zipToBuffer(const std::string & originalPath,
+                                           std::vector<unsigned char> & compressedZipBuffer)
 {
     try {
         // Check working directory
         fs::path wp(m_workingPath);
         if (!fs::is_directory(wp)) {
             LOG_ERROR("Can not find the working directory: {}", m_workingPath);
-            return false;
+            FrameworkReturnCode::_ERROR_;
         }
 
         // Check original path
         fs::path op(originalPath);
         if (!fs::is_directory(op)) {
             LOG_ERROR("The original path is not a directory: {}", originalPath);
-            return false;
+            return FrameworkReturnCode::_NOT_FOUND;
         }
         if (fs::is_empty(op)) {
             LOG_ERROR("The original path is empty: {}", originalPath);
-            return false;
+            return FrameworkReturnCode::_NOT_FOUND;
         }
 
         // Copy data to zip in the working directory
@@ -63,15 +63,15 @@ bool ZipBuffer::zipToBuffer(const std::string & originalPath,
     catch (const fs::filesystem_error & e) {
         LOG_ERROR("The following exception has been caught {}", e.what());
         cleanWorkingDirectory();
-        return false;
+        return FrameworkReturnCode::_ERROR_;
     }
 
-    bool result = [&]() {
+    FrameworkReturnCode result = [&]() {
         // Try to zip the working directory content
         std::string command = "cd " + m_workingPath + ";zip -r data.zip .";
         if  (std::system(command.c_str()) != 0) {
             LOG_ERROR("Error occured while trying to zip the working directory content: {}", m_workingPath);
-            return false;
+            return FrameworkReturnCode::_ERROR_;
         }
 
         // Open the resulting zip file
@@ -79,7 +79,7 @@ bool ZipBuffer::zipToBuffer(const std::string & originalPath,
         std::ifstream file(zipFile, std::ios::binary);
         if (!file.is_open()) {
             LOG_ERROR("Cannot open the zip binary file: {}", zipFile);
-            return false;
+            return FrameworkReturnCode::_ERROR_;
         }
 
         // Get its size
@@ -88,7 +88,7 @@ bool ZipBuffer::zipToBuffer(const std::string & originalPath,
         file.seekg(0, std::ios::beg);
         if (fileSize == 0) {
             LOG_ERROR("Empty zip binary file: {}", zipFile);
-            return false;
+            return FrameworkReturnCode::_ERROR_;
         }
         LOG_DEBUG("Zip file size ({}): {}", zipFile, fmt::streamed(fileSize));
 
@@ -96,7 +96,7 @@ bool ZipBuffer::zipToBuffer(const std::string & originalPath,
         compressedZipBuffer.resize(fileSize);
         file.read(reinterpret_cast<char*>(compressedZipBuffer.data()), compressedZipBuffer.size());
 
-        return true;
+        return FrameworkReturnCode::_SUCCESS;
     }();
 
     cleanWorkingDirectory();
@@ -104,12 +104,12 @@ bool ZipBuffer::zipToBuffer(const std::string & originalPath,
     return result;
 }
 
-bool ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBuffer,
-                              std::string & destinationPath)
+FrameworkReturnCode ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBuffer,
+                                             std::string & destinationPath)
 {
     if (compressedZipBuffer.empty()) {
         LOG_ERROR("Empty input buffer");
-        return false;
+        return FrameworkReturnCode::_ERROR_;
     }
 
     try {
@@ -119,22 +119,22 @@ bool ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBu
         // Check working directory
         if (!fs::is_directory(wp)) {
             LOG_ERROR("Can not find the working directory: {}", m_workingPath);
-            return false;
+            return FrameworkReturnCode::_ERROR_;
         }
 
         // Check destination path
         if (!fs::is_directory(dp)) {
             LOG_ERROR("The destination path is not a directory: {}", destinationPath);
-            return false;
+            return FrameworkReturnCode::_ERROR_;
         }
 
-        bool result = [&]() {
+        FrameworkReturnCode result = [&]() {
             // Create the zip file from the input buffer
             std::string zipFile = m_workingPath + "/data.zip";
             std::ofstream file(zipFile, std::ios::out | std::ios::binary);
             if (!file.is_open()) {
                 LOG_ERROR("Cannot create/open zip file: {}", zipFile);
-                return false;
+                return FrameworkReturnCode::_ERROR_;
             }
 
             // Write the compressed data
@@ -145,7 +145,7 @@ bool ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBu
             std::string command = "cd " + m_workingPath + "; unzip data.zip";
             if  (std::system(command.c_str()) != 0) {
                 LOG_ERROR("Error occured while trying to unzip the compressed data file: {}", zipFile);
-                return false;
+                return FrameworkReturnCode::_ERROR_;
             }
 
             // Delete the zip file
@@ -155,7 +155,7 @@ bool ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBu
             const auto copyOptions = fs::copy_options::recursive;
             fs::copy(wp, dp, copyOptions);
 
-            return true;
+            return FrameworkReturnCode::_SUCCESS;
         } ();
 
         cleanWorkingDirectory();
@@ -165,7 +165,7 @@ bool ZipBuffer::bufferToUnzip(const std::vector<unsigned char> & compressedZipBu
     catch (const fs::filesystem_error & e) {
         LOG_ERROR("The following exception has been caught {}", e.what());
         cleanWorkingDirectory();
-        return false;
+        return FrameworkReturnCode::_ERROR_;
     }
 }
 

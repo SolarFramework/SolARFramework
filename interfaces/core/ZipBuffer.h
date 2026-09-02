@@ -17,6 +17,7 @@
 #ifndef SOLAR_ZIPBUFFER_H
 #define SOLAR_ZIPBUFFER_H
 
+#include "core/Messages.h"
 #include <string>
 #include <vector>
 
@@ -41,16 +42,21 @@ public:
     /// @brief zip the content of the original path and store the binary result in the output buffer
     /// @param[in] originalPath path to data to zip
     /// @param[out] compressedZipBuffer output buffer containing the zip data
-    /// return true if processing succeeds, else false
-    bool zipToBuffer(const std::string & originalPath,
-                     std::vector<unsigned char> & compressedZipBuffer);
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the process succeeds
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not found in original path
+    /// * else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode zipToBuffer(const std::string & originalPath,
+                                    std::vector<unsigned char> & compressedZipBuffer);
 
     /// @brief unzip the content of the input buffer and store the result in the destination path
     /// @param[in] compressedZipBuffer input buffer containing the zip data
     /// @param[out] destinationPath path for unzipped data
-    /// return true if processing succeeds, else false
-    bool bufferToUnzip(const std::vector<unsigned char> & compressedZipBuffer,
-                     std::string & destinationPath);
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the process succeeds
+    /// * else FrameworkReturnCode::_ERROR_
+    FrameworkReturnCode bufferToUnzip(const std::vector<unsigned char> & compressedZipBuffer,
+                                      std::string & destinationPath);
 
 private:
 
