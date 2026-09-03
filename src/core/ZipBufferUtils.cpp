@@ -1,7 +1,41 @@
 #include "core/ZipBufferUtils.h"
 #include "core/Log.h"
 
+namespace fs = std::filesystem;
+
 using namespace SolAR;
+
+/**
+     * @class ScopedTempDir
+     * @brief <B>Create a temporary directory</B>
+     *
+     */
+class ScopedTempDir {
+public:
+    ScopedTempDir()
+    {
+        m_tempPath = fs::temp_directory_path();
+        m_tempPath /= "solar";
+        // Create the working directory
+        std::error_code ec;
+        fs::create_directories(m_tempPath, ec);
+    }
+
+    ~ScopedTempDir() { std::error_code ec; fs::remove_all(m_tempPath, ec); }
+
+    // Delete copy operations to prevent double deletion
+    ScopedTempDir(const ScopedTempDir&) = delete;
+    ScopedTempDir& operator=(const ScopedTempDir&) = delete;
+    ScopedTempDir(ScopedTempDir&&) = delete;
+    ScopedTempDir& operator=(ScopedTempDir&&) = delete;
+
+    const fs::path getPath() const { return m_tempPath; }
+    const std::string getStringPath() const { return m_tempPath.string(); }
+
+private:
+    fs::path m_tempPath; // Temporary working directory used to copy, zip or unzip data
+};
+
 
 FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
                                              std::vector<unsigned char> & compressedZipBuffer)
@@ -11,13 +45,14 @@ FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
     compressedZipBuffer.clear();
 
     // Get a temporary working directory
-    ScopedWorkingDir workingDir;
+    ScopedTempDir workingDir;
 
     LOG_DEBUG("ZipBufferUtils::compress - Working temporary path: {}", workingDir.getStringPath());
 
+    fs::path op(originalPath);
+
     try {
         // Check original path
-        fs::path op(originalPath);
         if (!fs::is_directory(op)) {
             LOG_ERROR("ZipBufferUtils::compress - The original path is not a directory: {}", originalPath);
             return FrameworkReturnCode::_ERROR_;
@@ -26,18 +61,14 @@ FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
             LOG_WARNING("ZipBufferUtils::compress - The original path is empty: {}", originalPath);
             return FrameworkReturnCode::_SUCCESS;
         }
-
-        // Copy data to zip in the working directory
-        const auto copyOptions = fs::copy_options::recursive;
-        fs::copy(op, workingDir.getPath(), copyOptions);
     }
     catch (const fs::filesystem_error & e) {
         LOG_ERROR("ZipBufferUtils::compress - The following exception has been caught {}", e.what());
         return FrameworkReturnCode::_ERROR_;
     }
 
-    // Try to zip the working directory content
-    std::string command = "cd " + workingDir.getStringPath() + ";zip -r data.zip .";
+    // Try to zip the original path content
+    std::string command = "cd " + originalPath +"; zip -r " + workingDir.getStringPath() + "/data.zip .";
     if  (std::system(command.c_str()) != 0) {
         LOG_ERROR("ZipBufferUtils::compress - Error occured while trying to zip the working directory content: {}", workingDir.getStringPath());
         return FrameworkReturnCode::_ERROR_;
@@ -88,7 +119,7 @@ FrameworkReturnCode ZipBufferUtils::extract(const std::vector<unsigned char> & c
         }
 
         // Get a temporary working directory
-        ScopedWorkingDir workingDir;
+        ScopedTempDir workingDir;
 
         LOG_DEBUG("ZipBufferUtils::extract - Working temporary path: {}", workingDir.getStringPath());
 
@@ -113,18 +144,11 @@ FrameworkReturnCode ZipBufferUtils::extract(const std::vector<unsigned char> & c
         file.close();
 
         // Try to unzip the file content
-        std::string command = "cd " + workingDir.getStringPath() + "; unzip data.zip";
+        std::string command = "unzip " + workingDir.getStringPath() + "/data.zip -d " + destinationPath;
         if  (std::system(command.c_str()) != 0) {
             LOG_ERROR("ZipBufferUtils::extract - Error occured while trying to unzip the compressed data file: {}", zipFile);
             return FrameworkReturnCode::_ERROR_;
         }
-
-        // Delete the zip file
-        fs::remove(zipFile);
-
-        // Copy unzipped data in the destination directory
-        const auto copyOptions = fs::copy_options::recursive;
-        fs::copy(workingDir.getPath(), dp, copyOptions);
 
         return FrameworkReturnCode::_SUCCESS;
     }

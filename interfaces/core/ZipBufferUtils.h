@@ -22,8 +22,6 @@
 #include <vector>
 #include <filesystem>
 
-namespace fs = std::filesystem;
-
 namespace SolAR {
 
 /**
@@ -35,21 +33,6 @@ namespace SolAR {
 class ZipBufferUtils {
 
 public:
-
-    /**
-     * @class ScopedWorkingDir
-     * @brief <B>Create a temporary working directory</B>
-     *
-     */
-    class ScopedWorkingDir {
-    public:
-        ScopedWorkingDir() { m_workingPath = fs::temp_directory_path(); m_workingPath += "/solar"; }
-        ~ScopedWorkingDir() { fs::remove_all(m_workingPath); }
-        fs::path getPath() { return m_workingPath; }
-        std::string getStringPath() { return m_workingPath.string(); }
-    private:
-        fs::path m_workingPath; // Temporary working directory used to copy, zip or unzip data
-    };
 
     /// @brief zip the content of the original path and store the binary result in the output buffer
     /// @param[in] originalPath path to data to zip
