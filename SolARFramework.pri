@@ -130,7 +130,7 @@ interfaces/core/Messages.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
-interfaces/core/ZipBuffer.h \
+interfaces/core/ZipBufferUtils.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CameraParametersCollection.h \
@@ -192,7 +192,7 @@ src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
 src/core/SolARFramework.cpp \
-src/core/ZipBuffer.cpp \
+src/core/ZipBufferUtils.cpp \
 src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \

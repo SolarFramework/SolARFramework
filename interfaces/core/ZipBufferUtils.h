@@ -14,40 +14,51 @@
  * limitations under the License.
  */
 
-#ifndef SOLAR_ZIPBUFFER_H
-#define SOLAR_ZIPBUFFER_H
+#ifndef SOLAR_ZIPBUFFERUTILS_H
+#define SOLAR_ZIPBUFFERUTILS_H
 
 #include "core/Messages.h"
 #include <string>
 #include <vector>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 namespace SolAR {
 
 /**
- * @class ZipBuffer
+ * @class ZipBufferUtils
  * @brief <B>Defines methods to zip/unzip data to/from a binary buffer </B>
  *
  */
 
-class ZipBuffer {
+class ZipBufferUtils {
 
 public:
 
-    /// @brief Class constructor
-    ZipBuffer();
-
-    /// @brief Class destructor
-    ~ZipBuffer();
+    /**
+     * @class ScopedWorkingDir
+     * @brief <B>Create a temporary working directory</B>
+     *
+     */
+    class ScopedWorkingDir {
+    public:
+        ScopedWorkingDir() { m_workingPath = fs::temp_directory_path(); m_workingPath += "/solar"; }
+        ~ScopedWorkingDir() { fs::remove_all(m_workingPath); }
+        fs::path getPath() { return m_workingPath; }
+        std::string getStringPath() { return m_workingPath.string(); }
+    private:
+        fs::path m_workingPath; // Temporary working directory used to copy, zip or unzip data
+    };
 
     /// @brief zip the content of the original path and store the binary result in the output buffer
     /// @param[in] originalPath path to data to zip
     /// @param[out] compressedZipBuffer output buffer containing the zip data
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the process succeeds
-    /// * FrameworkReturnCode::_NOT_FOUND if data is not found in original path
     /// * else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode zipToBuffer(const std::string & originalPath,
-                                    std::vector<unsigned char> & compressedZipBuffer);
+    static FrameworkReturnCode compress(const std::string & originalPath,
+                                        std::vector<unsigned char> & compressedZipBuffer);
 
     /// @brief unzip the content of the input buffer and store the result in the destination path
     /// @param[in] compressedZipBuffer input buffer containing the zip data
@@ -55,17 +66,11 @@ public:
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the process succeeds
     /// * else FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode bufferToUnzip(const std::vector<unsigned char> & compressedZipBuffer,
-                                      std::string & destinationPath);
+    static FrameworkReturnCode extract(const std::vector<unsigned char> & compressedZipBuffer,
+                                       std::string & destinationPath);
 
-private:
-
-    /// @brief Delete the content of the working directory
-    void cleanWorkingDirectory();
-
-    std::string m_workingPath = "./working_dir"; // Working directory used to copy, zip or unzip data
 };
 
 }  // end of namespace SolAR
 
-#endif // SOLAR_ZIPBUFFER_H
+#endif // SOLAR_ZIPBUFFERUTILS_H
