@@ -218,6 +218,11 @@ void Map::embedKeyframeImages()
     m_mapInformation.setEmbedKeyframeImages(true);
 }
 
+void Map::keyframeImagesReleased()
+{
+    m_mapInformation.setEmbedKeyframeImages(false);
+}
+
 bool Map::hasKeyframeImages() const
 {
     return m_mapInformation.getEmbedKeyframeImages();

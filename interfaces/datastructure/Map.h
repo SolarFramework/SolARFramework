@@ -396,6 +396,11 @@ public:
     void embedKeyframeImages();
 
     ///
+    /// @brief This method is used to indicate that the keyframe images have been released
+    ///
+    void keyframeImagesReleased();
+
+    ///
     /// @brief This method is used to find out if the map contains keyframe images
     /// @return true if keyframe images are embedded, false otherwise
     ///
