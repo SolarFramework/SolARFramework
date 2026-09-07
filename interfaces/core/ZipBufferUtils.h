@@ -33,7 +33,8 @@ class ScopedTempDir {
 
 public:
 
-    ScopedTempDir();
+    ScopedTempDir() = delete;
+    ScopedTempDir(const std::string & subdirectory);
 
     ~ScopedTempDir();
 
@@ -73,13 +74,13 @@ public:
                                         std::vector<unsigned char> & compressedZipBuffer);
 
     /// @brief unzip the content of the input buffer and store the result in the destination path
+    /// @param[in] destinationPath path for unzipped data
     /// @param[in] compressedZipBuffer input buffer containing the zip data
-    /// @param[out] destinationPath path for unzipped data
     /// @return
     /// * FrameworkReturnCode::_SUCCESS if the process succeeds
     /// * else FrameworkReturnCode::_ERROR_
-    static FrameworkReturnCode extract(const std::vector<unsigned char> & compressedZipBuffer,
-                                       std::string & destinationPath);
+    static FrameworkReturnCode extract(const std::string & destinationPath,
+                                       const std::vector<unsigned char> & compressedZipBuffer);
 
 };
 

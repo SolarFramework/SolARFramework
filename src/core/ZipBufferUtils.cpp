@@ -6,10 +6,10 @@ namespace fs = std::filesystem;
 using namespace SolAR;
 
 
-ScopedTempDir::ScopedTempDir()
+ScopedTempDir::ScopedTempDir(const std::string &subdirectory)
 {
     m_tempPath = fs::temp_directory_path();
-    m_tempPath /= "solar";
+    m_tempPath /= subdirectory;
     // Create the temporary directory
     std::error_code ec;
     fs::create_directories(m_tempPath, ec);
@@ -40,7 +40,7 @@ FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
     compressedZipBuffer.clear();
 
     // Get a temporary working directory
-    ScopedTempDir workingDir;
+    ScopedTempDir workingDir("compress");
 
     LOG_DEBUG("ZipBufferUtils::compress - Working temporary path: {}", workingDir.getStringPath());
 
@@ -94,8 +94,8 @@ FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
     return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode ZipBufferUtils::extract(const std::vector<unsigned char> & compressedZipBuffer,
-                                            std::string & destinationPath)
+FrameworkReturnCode ZipBufferUtils::extract(const std::string & destinationPath,
+                                            const std::vector<unsigned char> & compressedZipBuffer)
 {
     LOG_DEBUG("ZipBufferUtils::extract - Destination path: {}", destinationPath);
 
@@ -114,7 +114,7 @@ FrameworkReturnCode ZipBufferUtils::extract(const std::vector<unsigned char> & c
         }
 
         // Get a temporary working directory
-        ScopedTempDir workingDir;
+        ScopedTempDir workingDir("extract");
 
         LOG_DEBUG("ZipBufferUtils::extract - Working temporary path: {}", workingDir.getStringPath());
 
