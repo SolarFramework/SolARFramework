@@ -5,36 +5,31 @@ namespace fs = std::filesystem;
 
 using namespace SolAR;
 
-/**
-     * @class ScopedTempDir
-     * @brief <B>Create a temporary directory</B>
-     *
-     */
-class ScopedTempDir {
-public:
-    ScopedTempDir()
-    {
-        m_tempPath = fs::temp_directory_path();
-        m_tempPath /= "solar";
-        // Create the working directory
-        std::error_code ec;
-        fs::create_directories(m_tempPath, ec);
-    }
 
-    ~ScopedTempDir() { std::error_code ec; fs::remove_all(m_tempPath, ec); }
+ScopedTempDir::ScopedTempDir()
+{
+    m_tempPath = fs::temp_directory_path();
+    m_tempPath /= "solar";
+    // Create the temporary directory
+    std::error_code ec;
+    fs::create_directories(m_tempPath, ec);
+}
 
-    // Delete copy operations to prevent double deletion
-    ScopedTempDir(const ScopedTempDir&) = delete;
-    ScopedTempDir& operator=(const ScopedTempDir&) = delete;
-    ScopedTempDir(ScopedTempDir&&) = delete;
-    ScopedTempDir& operator=(ScopedTempDir&&) = delete;
+ScopedTempDir::~ScopedTempDir()
+{
+    // Delete the temporary directory (and its contents)
+    std::error_code ec; fs::remove_all(m_tempPath, ec);
+}
 
-    const fs::path getPath() const { return m_tempPath; }
-    const std::string getStringPath() const { return m_tempPath.string(); }
+const fs::path ScopedTempDir::getPath() const
+{
+    return m_tempPath;
+}
 
-private:
-    fs::path m_tempPath; // Temporary working directory used to copy, zip or unzip data
-};
+const std::string ScopedTempDir::getStringPath() const
+{
+    return m_tempPath.string();
+}
 
 
 FrameworkReturnCode ZipBufferUtils::compress(const std::string & originalPath,
@@ -122,14 +117,6 @@ FrameworkReturnCode ZipBufferUtils::extract(const std::vector<unsigned char> & c
         ScopedTempDir workingDir;
 
         LOG_DEBUG("ZipBufferUtils::extract - Working temporary path: {}", workingDir.getStringPath());
-
-        // Check/create the working directory
-        if (!fs::exists(workingDir.getPath())) {
-            if (!fs::create_directories(workingDir.getPath())) {
-                LOG_ERROR("Error while creating the working directory for zip/unzip features: {}", workingDir.getStringPath());
-            }
-            LOG_DEBUG("Working directory created for zip/unzip features: {}", workingDir.getStringPath());
-        }
 
         // Create the zip file from the input buffer
         std::string zipFile = workingDir.getStringPath() + "/data.zip";
