@@ -127,6 +127,7 @@ interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Timer.h \
 interfaces/core/Messages.h \
+interfaces/core/ScopedTempDir.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
@@ -191,6 +192,7 @@ src/api/map/IRectifyMap.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
+src/core/ScopedTempDir.cpp \
 src/core/SolARFramework.cpp \
 src/core/ZipBufferUtils.cpp \
 src/datastructure/CameraParametersCollection.cpp \

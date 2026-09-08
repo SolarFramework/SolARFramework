@@ -20,38 +20,9 @@
 #include "core/Messages.h"
 #include <string>
 #include <vector>
-#include <filesystem>
 
 namespace SolAR {
-
-/**
-     * @class ScopedTempDir
-     * @brief <B>Create a temporary directory</B>
-     *
-     */
-class ScopedTempDir {
-
-public:
-
-    ScopedTempDir();
-
-    ~ScopedTempDir();
-
-    // Delete copy operations to prevent double deletion
-    ScopedTempDir(const ScopedTempDir&) = delete;
-    ScopedTempDir& operator=(const ScopedTempDir&) = delete;
-    ScopedTempDir(ScopedTempDir&&) = delete;
-    ScopedTempDir& operator=(ScopedTempDir&&) = delete;
-
-    const std::filesystem::path& getPath() const;
-    const std::string getStringPath() const;
-
-private:
-
-    std::filesystem::path m_tempPath; // Temporary working directory used to copy, zip or unzip data
-
-};
-
+namespace util {
 
 /**
  * @class ZipBufferUtils
@@ -83,6 +54,7 @@ public:
 
 };
 
+}  // end of namespace util
 }  // end of namespace SolAR
 
 #endif // SOLAR_ZIPBUFFERUTILS_H
