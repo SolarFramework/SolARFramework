@@ -193,6 +193,7 @@ SRef<const CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingDa
 void CloudPoint::setGaussianSplattingData (SRef<GaussianSplattingData> gaussianSplattingData)
 {
     m_gaussianSplattingData = gaussianSplattingData;
+    m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::GaussianSplatting;
 }
 
 template <typename Archive>
