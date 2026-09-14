@@ -192,8 +192,13 @@ SRef<const CloudPoint::GaussianSplattingData> CloudPoint::getGaussianSplattingDa
 
 void CloudPoint::setGaussianSplattingData (SRef<GaussianSplattingData> gaussianSplattingData)
 {
-    m_gaussianSplattingData = gaussianSplattingData;
-    m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::GaussianSplatting;
+    if (gaussianSplattingData != nullptr)
+    {
+        m_gaussianSplattingData = gaussianSplattingData;
+        m_cloudPointSupportedTypes = m_cloudPointSupportedTypes | CloudPointType::GaussianSplatting;
+    }
+    else
+        LOG_ERROR("Try to add a null gaussianSplattingData to a CLoud Point");
 }
 
 template <typename Archive>
