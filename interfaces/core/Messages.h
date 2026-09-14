@@ -83,7 +83,7 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_RELOC_EXCEEDED = -46,
     _LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED = -47,
     _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48,
-    _LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED = -49,
+    _LICENSE_MAX_CLIENTS_RECTIFY_MAP_EXCEEDED = -49,
     _LICENSE_MAX_CLIENTS_GAUSSIAN_SPLATTING_EXCEEDED = -50,
 
     // for authentication requests
@@ -200,8 +200,8 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED:
             txt_definition = "Maximum of clients for Dense Mapping reached according to license file";
             break;
-        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED:
-            txt_definition = "Maximum of clients for Structure From Motion reached according to license file";
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_RECTIFY_MAP_EXCEEDED:
+            txt_definition = "Maximum of clients for Rectify Map reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_GAUSSIAN_SPLATTING_EXCEEDED:
             txt_definition = "Maximum of clients for Gaussian Splatting reached according to license file";

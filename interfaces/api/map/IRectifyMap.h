@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef ISTRUCTUREFROMMOTION_H
-#define ISTRUCTUREFROMMOTION_H
+#ifndef IRECTIFYMAP_H
+#define IRECTIFYMAP_H
 
 #include "core/Messages.h"
 #include "datastructure/Map.h"
@@ -27,19 +27,19 @@ namespace api {
 namespace map {
 
 /**
- * @class IStructureFromMotion
+ * @class IRectifyMap
  * @brief <B>Create a sparse point cloud and estimate camera poses from a set of images or a set of descriptors stored inside the keyframes.</B>
  * <TT>UUID: 3681e09b-1704-4a08-b1cd-42d5a7c961b4</TT>
  *
  */
 
-class XPCF_IGNORE IStructureFromMotion : virtual public IProcessMap
+class XPCF_IGNORE IRectifyMap : virtual public IProcessMap
 {
 public:
 
-    /// @enum class SfmProcessingStatus
+    /// @enum class RectifyMapProcessingStatus
     /// @brief define the different status of processing
-    enum class SfmProcessingStatus: std::underlying_type_t<ProcessingStatus> {
+    enum class RectifyMapProcessingStatus: std::underlying_type_t<ProcessingStatus> {
         RUNNING_DESCRIPTOR_MATCHING = 5,
         IDLE_DESCRIPTOR_MATCHING_FINISHED,
         RUNNING_INITIAL_MAPPING,
@@ -51,25 +51,25 @@ public:
 
     /// @brief return a string value of a ProcessingStatus value
     std::string toString(ProcessingStatus status) final {
-        switch (static_cast<SfmProcessingStatus>(status)) {
-            case SfmProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
-            case SfmProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
-            case SfmProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
-            case SfmProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
-            case SfmProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
-            case SfmProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
-            case SfmProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
+        switch (static_cast<RectifyMapProcessingStatus>(status)) {
+            case RectifyMapProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
+            case RectifyMapProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
+            case RectifyMapProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
+            case RectifyMapProcessingStatus::IDLE_INITIAL_MAPPING_FINISHED: return "IDLE_INITIAL_MAPPING_FINISHED";
+            case RectifyMapProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
+            case RectifyMapProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
+            case RectifyMapProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
             default: return IProcessMap::toString(status);
         }
     }
 
 public:
 
-    ///@brief IStructureFromMotion default constructor.
-    IStructureFromMotion() = default;
+    ///@brief IRectifyMap default constructor.
+    IRectifyMap() = default;
 
-    ///@brief IStructureFromMotion default destructor.
-    virtual ~IStructureFromMotion() override = default;
+    ///@brief IRectifyMap default destructor.
+    virtual ~IRectifyMap() override = default;
 
     /// @brief Create a new map resulting from the processing of the original map
     /// @param[in] map the original map
@@ -131,9 +131,9 @@ public:
 } // namespace api
 } // namespace SolAR
 
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IStructureFromMotion,
+XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IRectifyMap,
                              "3681e09b-1704-4a08-b1cd-42d5a7c961b4",
-                             "IStructureFromMotion",
-                             "IStructureFromMotion interface description");
+                             "IRectifyMap",
+                             "IRectifyMap interface description");
 
-#endif // ISTRUCTUREFROMMOTION_H
+#endif // IRECTIFYMAP_H

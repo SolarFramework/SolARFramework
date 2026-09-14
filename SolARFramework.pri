@@ -64,6 +64,7 @@ interfaces/api/output/files/IMeshExporter.h \
 interfaces/api/output/files/IPointCloudExporter.h \
 interfaces/api/output/files/IMapExporter.h \
 interfaces/api/pipeline/IImageSegmentationPipeline.h \
+interfaces/api/pipeline/IMapExportImportPipeline.h \
 interfaces/api/pipeline/IMappingPipeline.h \
 interfaces/api/pipeline/IMapUpdatePipeline.h \
 interfaces/api/pipeline/IPipeline.h \
@@ -88,7 +89,7 @@ interfaces/api/map/I3DGaussianSplattingDensifier.h \
 interfaces/api/map/IMeshing.h \
 interfaces/api/map/IMultiViewStereo.h \
 interfaces/api/map/IProcessMap.h \
-interfaces/api/map/IStructureFromMotion.h \
+interfaces/api/map/IRectifyMap.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
@@ -126,9 +127,11 @@ interfaces/api/tracking/IOpticalFlowEstimator.h \
 interfaces/core/Log.h \
 interfaces/core/Timer.h \
 interfaces/core/Messages.h \
+interfaces/core/ScopedTempDir.h \
 interfaces/core/SerializationDefinitions.h \
 interfaces/core/SolARFramework.h \
 interfaces/core/SolARFrameworkDefinitions.h \
+interfaces/core/ZipBufferUtils.h \
 interfaces/datastructure/BufferInternal.hpp \
 interfaces/datastructure/CameraDefinitions.h \
 interfaces/datastructure/CameraParametersCollection.h \
@@ -185,11 +188,13 @@ src/api/segm/IInstanceSegmentation.cpp \
 src/api/segm/ISemanticSegmentation.cpp \
 src/api/segm/IPanopticSegmentation.cpp \
 src/api/map/IMultiViewStereo.cpp \
-src/api/map/IStructureFromMotion.cpp \
+src/api/map/IRectifyMap.cpp \
 src/datastructure/RelocalizationInformation.cpp \
 src/datastructure/StorageCapabilities.cpp \
 src/core/Log.cpp \
+src/core/ScopedTempDir.cpp \
 src/core/SolARFramework.cpp \
+src/core/ZipBufferUtils.cpp \
 src/datastructure/CameraParametersCollection.cpp \
 src/datastructure/CloudPoint.cpp \
 src/datastructure/CoordinateSystem.cpp \

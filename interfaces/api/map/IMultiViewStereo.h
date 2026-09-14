@@ -63,17 +63,17 @@ public:
     }
 
 public:
-    ///@brief IStructureFromMotion default constructor.
+    ///@brief IMultiViewStereo default constructor.
     IMultiViewStereo() = default;
 
-    ///@brief IStructureFromMotion default destructor.
+    ///@brief IMultiViewStereo default destructor.
     virtual ~IMultiViewStereo() override = default;
 
     /// @brief Get current keyframe poses
     /// @param[out] keyframePoses current keyframes' poses
     /// @return FrameworkReturnCode::_SUCCESS if keyframe was successfully retrieved, otherwise FrameworkReturnCode::_ERROR_
     /// @note This method is not applicable for this interface
-    FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) final;
+    FrameworkReturnCode getCurrentKeyframePoses(std::vector<SolAR::datastructure::Transform3Df>& keyframePoses) const final;
 };
 
 
