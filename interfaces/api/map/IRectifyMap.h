@@ -19,7 +19,7 @@
 
 #include "core/Messages.h"
 #include "datastructure/Map.h"
-#include "api/map/IProcessMap.h"
+#include "api/map/IMapFromMapProcessing.h"
 
 namespace SolAR {
 using namespace datastructure;
@@ -33,14 +33,19 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE IRectifyMap : virtual public IProcessMap
+class XPCF_IGNORE IRectifyMap : virtual public IMapFromMapProcessing
 {
 public:
 
     /// @enum class RectifyMapProcessingStatus
     /// @brief define the different status of processing
-    enum class RectifyMapProcessingStatus: std::underlying_type_t<ProcessingStatus> {
-        RUNNING_DESCRIPTOR_MATCHING = 5,
+    enum class RectifyMapProcessingStatus {
+        NOT_DEFINED = 0,
+        NOT_INITIALIZED,
+        IDLE_INITIALIZED,
+        IDLE_COMPLETED,
+        IDLE_ABORTED,
+        RUNNING_DESCRIPTOR_MATCHING,
         IDLE_DESCRIPTOR_MATCHING_FINISHED,
         RUNNING_INITIAL_MAPPING,
         IDLE_INITIAL_MAPPING_FINISHED,
@@ -49,9 +54,14 @@ public:
         RUNNING_POST_PROCESSING,
     };
 
-    /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) final {
-        switch (static_cast<RectifyMapProcessingStatus>(status)) {
+    /// @brief return a string value of a RectifyMapProcessingStatus value
+    std::string toString(RectifyMapProcessingStatus status) {
+        switch (status) {
+            case RectifyMapProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
+            case RectifyMapProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
+            case RectifyMapProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
+            case RectifyMapProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
+            case RectifyMapProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
             case RectifyMapProcessingStatus::RUNNING_DESCRIPTOR_MATCHING: return "RUNNING_DESCRIPTOR_MATCHING";
             case RectifyMapProcessingStatus::IDLE_DESCRIPTOR_MATCHING_FINISHED: return "IDLE_DESCRIPTOR_MATCHING_FINISHED";
             case RectifyMapProcessingStatus::RUNNING_INITIAL_MAPPING: return "RUNNING_INITIAL_MAPPING";
@@ -59,7 +69,7 @@ public:
             case RectifyMapProcessingStatus::RUNNING_INCREMENTAL_MAPPING: return "RUNNING_INCREMENTAL_MAPPINGRUNNING_INCREMENTAL_MAPPING";
             case RectifyMapProcessingStatus::IDLE_INCREMENTAL_MAPPING_FINISHED: return "IDLE_INCREMENTAL_MAPPING_FINISHED";
             case RectifyMapProcessingStatus::RUNNING_POST_PROCESSING: return "RUNNING_POST_PROCESSING";
-            default: return IProcessMap::toString(status);
+            default: throw std::invalid_argument("DensifyProcessingStatus value is unknown");
         }
     }
 
@@ -70,6 +80,10 @@ public:
 
     ///@brief IRectifyMap default destructor.
     virtual ~IRectifyMap() override = default;
+
+    /// @brief Get current processing status
+    /// @return status the current status
+    virtual RectifyMapProcessingStatus getStatus() const = 0;
 
     /// @brief Create a new map resulting from the processing of the original map
     /// @param[in] map the original map

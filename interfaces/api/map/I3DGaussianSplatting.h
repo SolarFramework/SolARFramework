@@ -17,7 +17,7 @@
 #ifndef I3DGAUSSIANSPLATTING_H
 #define I3DGAUSSIANSPLATTING_H
 
-#include <api/map/IProcessMap.h>
+#include <api/map/IMapFromMapProcessing.h>
 
 namespace SolAR {
 namespace api {
@@ -30,40 +30,53 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE I3DGaussianSplatting : virtual public IProcessMap
+class XPCF_IGNORE I3DGaussianSplatting : virtual public IMapFromMapProcessing
 {
 public:
 
     /// @enum class GSProcessingStatus
     /// @brief define the different status of 3D Gaussian Splatting processing.
-    /// Values chain on after the base IProcessMap::ProcessingStatus (which ends at 4),
-    /// starting at 5, mirroring RectifyMapProcessingStatus.
-    enum class GSProcessingStatus: std::underlying_type_t<ProcessingStatus> {
-        RUNNING_INITIALIZATION = 5,     ///< seeding the Gaussian model from the input map
+    enum class GSProcessingStatus {
+        NOT_DEFINED = 0,
+        NOT_INITIALIZED,
+        IDLE_INITIALIZED,
+        IDLE_COMPLETED,
+        IDLE_ABORTED,
+        RUNNING_INITIALIZATION,     ///< seeding the Gaussian model from the input map
         IDLE_INITIALIZATION_FINISHED,   ///< Gaussian model initialized
         RUNNING_TRAINING,               ///< optimizing the Gaussians (forward/backward/densify)
         IDLE_TRAINING_FINISHED,         ///< optimization finished
         RUNNING_EXPORT,                 ///< building the output map from the trained Gaussians
     };
 
-    /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) final {
-        switch (static_cast<GSProcessingStatus>(status)) {
-            case GSProcessingStatus::RUNNING_INITIALIZATION:   return "RUNNING_INITIALIZATION";
+    /// @brief return a string value of a GSProcessingStatus value
+    std::string toString(GSProcessingStatus status) {
+        switch (status) {
+            case GSProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
+            case GSProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
+            case GSProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
+            case GSProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
+            case GSProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
+            case GSProcessingStatus::RUNNING_INITIALIZATION: return "RUNNING_INITIALIZATION";
             case GSProcessingStatus::IDLE_INITIALIZATION_FINISHED: return "IDLE_INITIALIZATION_FINISHED";
-            case GSProcessingStatus::RUNNING_TRAINING:         return "RUNNING_TRAINING";
-            case GSProcessingStatus::IDLE_TRAINING_FINISHED:   return "IDLE_TRAINING_FINISHED";
-            case GSProcessingStatus::RUNNING_EXPORT:           return "RUNNING_EXPORT";
-            default: return IProcessMap::toString(status);
+            case GSProcessingStatus::RUNNING_TRAINING: return "RUNNING_TRAINING";
+            case GSProcessingStatus::IDLE_TRAINING_FINISHED: return "IDLE_TRAINING_FINISHED";
+            case GSProcessingStatus::RUNNING_EXPORT: return "RUNNING_EXPORT";
+            default: throw std::invalid_argument("GSProcessingStatus value is unknown");
         }
     }
 
 public:
+
     ///@brief I3DGaussianSplatting default constructor.
     I3DGaussianSplatting() = default;
 
     ///@brief I3DGaussianSplatting default destructor.
     virtual ~I3DGaussianSplatting() override = default;
+
+    /// @brief Get current processing status
+    /// @return status the current status
+    virtual GSProcessingStatus getStatus() const = 0;
 
 };
 

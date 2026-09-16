@@ -17,7 +17,7 @@
 #ifndef I3DGAUSSIANSPLATTINGDENSIFIER_H
 #define I3DGAUSSIANSPLATTINGDENSIFIER_H
 
-#include <api/map/IProcessMap.h>
+#include <api/map/IMapFromMapProcessing.h>
 
 namespace SolAR {
 namespace api {
@@ -35,16 +35,19 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE I3DGaussianSplattingDensifier : virtual public IProcessMap
+class XPCF_IGNORE I3DGaussianSplattingDensifier : virtual public IMapFromMapProcessing
 {
 public:
 
     /// @enum class DensifyProcessingStatus
     /// @brief define the different status of 3DGS-to-point-cloud densification.
-    /// Values chain on after the base IProcessMap::ProcessingStatus (which ends at 4),
-    /// starting at 5, mirroring GSProcessingStatus.
-    enum class DensifyProcessingStatus: std::underlying_type_t<ProcessingStatus> {
-        RUNNING_LOAD = 5,           ///< reading the Gaussian model from the input map
+    enum class DensifyProcessingStatus {
+        NOT_DEFINED = 0,
+        NOT_INITIALIZED,
+        IDLE_INITIALIZED,
+        IDLE_COMPLETED,
+        IDLE_ABORTED,
+        RUNNING_LOAD,               ///< reading the Gaussian model from the input map
         IDLE_LOAD_FINISHED,         ///< Gaussian model loaded
         RUNNING_SAMPLING,           ///< sampling dense points from the Gaussians
         IDLE_SAMPLING_FINISHED,     ///< sampling finished
@@ -52,14 +55,19 @@ public:
     };
 
     /// @brief return a string value of a ProcessingStatus value
-    std::string toString(ProcessingStatus status) {
-        switch (static_cast<DensifyProcessingStatus>(status)) {
-            case DensifyProcessingStatus::RUNNING_LOAD:            return "RUNNING_LOAD";
-            case DensifyProcessingStatus::IDLE_LOAD_FINISHED:      return "IDLE_LOAD_FINISHED";
-            case DensifyProcessingStatus::RUNNING_SAMPLING:        return "RUNNING_SAMPLING";
-            case DensifyProcessingStatus::IDLE_SAMPLING_FINISHED:  return "IDLE_SAMPLING_FINISHED";
-            case DensifyProcessingStatus::RUNNING_EXPORT:          return "RUNNING_EXPORT";
-            default: return IProcessMap::toString(status);
+    std::string toString(DensifyProcessingStatus status) {
+        switch (status) {
+            case DensifyProcessingStatus::NOT_DEFINED: return "NOT_DEFINED";
+            case DensifyProcessingStatus::NOT_INITIALIZED: return "NOT_INITIALIZED";
+            case DensifyProcessingStatus::IDLE_INITIALIZED: return "IDLE_INITIALIZED";
+            case DensifyProcessingStatus::IDLE_COMPLETED: return "IDLE_COMPLETED";
+            case DensifyProcessingStatus::IDLE_ABORTED: return "IDLE_ABORTED";
+            case DensifyProcessingStatus::RUNNING_LOAD: return "RUNNING_LOAD";
+            case DensifyProcessingStatus::IDLE_LOAD_FINISHED: return "IDLE_LOAD_FINISHED";
+            case DensifyProcessingStatus::RUNNING_SAMPLING: return "RUNNING_SAMPLING";
+            case DensifyProcessingStatus::IDLE_SAMPLING_FINISHED: return "IDLE_SAMPLING_FINISHED";
+            case DensifyProcessingStatus::RUNNING_EXPORT: return "RUNNING_EXPORT";
+            default: throw std::invalid_argument("DensifyProcessingStatus value is unknown");
         }
     }
 
@@ -69,6 +77,10 @@ public:
 
     ///@brief I3DGaussianSplattingDensifier default destructor.
     virtual ~I3DGaussianSplattingDensifier() override = default;
+
+    /// @brief Get current processing status
+    /// @return status the current status
+    virtual DensifyProcessingStatus getStatus() const = 0;
 
 };
 
