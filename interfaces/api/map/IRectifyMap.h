@@ -85,60 +85,15 @@ public:
     /// @return status the current status
     virtual RectifyMapProcessingStatus getStatus() const = 0;
 
-    /// @brief Create a new map resulting from the processing of the original map
-    /// @param[in] map the original map
-    /// @return FrameworkReturnCode::_SUCCESS if the processing succeed, else FrameworkReturnCode::_ERROR_
-    /// @note This method is not applicable for this interface
-    FrameworkReturnCode createMap(const SRef<SolAR::datastructure::Map>& map) final;
+    /// @brief use the covisibility graph of input map during the map rectification
+    void useCovisibilityGraphOn();
 
-    /// @brief Create map from a set of images while camera parameters are not provided
-    /// @param[in] images list of images
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<SRef<Image>>& images) = 0;
+    /// @brief do not use the covisibility graph of input map during the map rectification
+    void useCovisibilityGraphOff();
 
-    /// @brief Create map from a set of images with provided camera parameters
-    /// @param[in] imageCamIds list of pairs of image and camera ID
-    /// @param[in] cameraParameters list of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
+protected:
 
-    /// @brief Create map from a set of keyframes and camera parameters
-    /// @param[in] keyframes list of keyframes
-    /// @param[in] cameraParameters list of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters) = 0;
-
-    /// @brief Create map from a set of keyframes, camera parameters and covisibility graph
-    /// @param[in] keyframes list of keyframes
-    /// @param[in] cameraParameters list of camera parameters
-    /// @param[in] covGraph covisibility graph
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters, const CovisibilityGraph& covGraph) = 0;
-
-    /// @brief Create map from a set of images with provided camera parameters
-    /// @param[in] imageCamIds list of pairs of image and camera ID
-    /// @param[in] cameraParameters collection of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters);
-
-    /// @brief Create map from a set of keyframes and camera parameters
-    /// @param[in] keyframes collection of keyframes
-    /// @param[in] cameraParameters collection of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters);
-
-    /// @brief Create map from a set of keyframes and camera parameters
-    /// @param[in] keyframes list of keyframes
-    /// @param[in] cameraParameters collection of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters);
-
-    /// @brief Create map from a set of keyframes and camera parameters
-    /// @param[in] keyframes collection of keyframes
-    /// @param[in] cameraParameters list of camera parameters
-    /// @return FrameworkReturnCode::_SUCCESS if map is created successfully, otherwise FrameworkReturnCode::_ERROR_
-    FrameworkReturnCode createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters);
-
+    bool m_useCovisibilityGraph = false;
 };
 
 } // namespace map

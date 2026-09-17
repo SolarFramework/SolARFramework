@@ -21,65 +21,14 @@ using namespace datastructure;
 namespace api {
 namespace map {
 
-FrameworkReturnCode IRectifyMap::createMap(const SRef<SolAR::datastructure::Map>& map)
+void IRectifyMap::useCovisibilityGraphOn()
 {
-    return FrameworkReturnCode::_NOT_IMPLEMENTED;
+    m_useCovisibilityGraph = true;
 }
 
-FrameworkReturnCode IRectifyMap::createMap(const SRef<KeyframeCollection> keyframes, const SRef<CameraParametersCollection> cameraParameters)
+void IRectifyMap::useCovisibilityGraphOff()
 {
-    if (!cameraParameters) {
-        LOG_ERROR("IRectifyMap::createMap - invalid camera parameter collection.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    std::vector<SRef<CameraParameters>> listCameraParameters;
-    if (cameraParameters->getAllCameraParameters(listCameraParameters) != FrameworkReturnCode::_SUCCESS) {
-        LOG_ERROR("IRectifyMap::createMap - failed to get all camera parameters.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    return createMap(keyframes, listCameraParameters);
-}
-
-FrameworkReturnCode IRectifyMap::createMap(const SRef<KeyframeCollection> keyframes, const std::vector<SRef<CameraParameters>>& cameraParameters)
-{
-    if (!keyframes) {
-        LOG_ERROR("IRectifyMap::createMap - invalid keyframes collection.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    std::vector<SRef<Keyframe>> listKeyframes;
-    if (keyframes->getAllKeyframes(listKeyframes) != FrameworkReturnCode::_SUCCESS) {
-        LOG_ERROR("IRectifyMap::createMap - failed to get all keyframes.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    return createMap(listKeyframes, cameraParameters);
-}
-
-FrameworkReturnCode IRectifyMap::createMap(const std::vector<SRef<Keyframe>>& keyframes, const SRef<CameraParametersCollection> cameraParameters)
-{
-    if (!cameraParameters) {
-        LOG_ERROR("IRectifyMap::createMap - invalid camera parameter collection.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    std::vector<SRef<CameraParameters>> listCameraParameters;
-    if (cameraParameters->getAllCameraParameters(listCameraParameters) != FrameworkReturnCode::_SUCCESS) {
-        LOG_ERROR("IRectifyMap::createMap - failed to get all camera parameters.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    return createMap(keyframes, listCameraParameters);
-}
-
-FrameworkReturnCode IRectifyMap::createMap(const std::vector<std::pair<SRef<Image>, uint32_t>>& imageCamIds, const SRef<CameraParametersCollection> cameraParameters)
-{
-    if (!cameraParameters) {
-        LOG_ERROR("IRectifyMap::createMap - invalid camera parameter collection.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    std::vector<SRef<CameraParameters>> listCameraParameters;
-    if (cameraParameters->getAllCameraParameters(listCameraParameters) != FrameworkReturnCode::_SUCCESS) {
-        LOG_ERROR("IRectifyMap::createMap - failed to get all camera parameters.");
-        return FrameworkReturnCode::_ERROR_;
-    }
-    return createMap(imageCamIds, listCameraParameters);
+    m_useCovisibilityGraph = false;
 }
 
 } // end of namespace map
