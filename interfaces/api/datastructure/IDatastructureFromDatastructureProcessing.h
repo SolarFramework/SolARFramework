@@ -17,9 +17,6 @@
 #ifndef IDATASTRUCTUREFROMDATASTRUCTUREPROCESSING_H
 #define IDATASTRUCTUREFROMDATASTRUCTUREPROCESSING_H
 
-#include <xpcf/api/IComponentIntrospect.h>
-#include <xpcf/core/helpers.h>
-
 namespace SolAR {
 namespace api {
 namespace datastructure {
@@ -31,13 +28,10 @@ namespace datastructure {
  *
  */
 
-class XPCF_IGNORE IDatastructureFromDatastructureProcessing : virtual public org::bcom::xpcf::IComponentIntrospect
+class IDatastructureFromDatastructureProcessing
 {
 
 public:
-
-    ///@brief IDatastructureFromDatastructureProcessing default destructor.
-    virtual ~IDatastructureFromDatastructureProcessing() override = default;
 
     /// @brief Get current processing progress percentage
     /// @return progress percentage between 0 and 1
@@ -54,10 +48,5 @@ public:
 } // namespace datastructure
 } // namespace api
 } // namespace SolAR
-
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::datastructure::IDatastructureFromDatastructureProcessing,
-                             "08aaa0d1-ec0d-4564-aa0e-5bf6211931cc",
-                             "IDatastructureFromDatastructureProcessing",
-                             "IDatastructureFromDatastructureProcessing interface description");
 
 #endif // IDATASTRUCTUREFROMDATASTRUCTUREPROCESSING_H

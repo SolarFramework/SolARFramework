@@ -17,7 +17,10 @@
 #ifndef IMULTIVIEWSTEREO_H
 #define IMULTIVIEWSTEREO_H
 
-#include <api/map/IMapFromMapProcessing.h>
+#include "api/map/IMapFromMapProcessing.h"
+
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
@@ -30,7 +33,7 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE IMultiViewStereo : virtual public IMapFromMapProcessing
+class XPCF_IGNORE IMultiViewStereo : virtual public IMapFromMapProcessing, virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
 

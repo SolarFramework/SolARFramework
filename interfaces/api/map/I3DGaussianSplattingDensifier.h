@@ -17,7 +17,10 @@
 #ifndef I3DGAUSSIANSPLATTINGDENSIFIER_H
 #define I3DGAUSSIANSPLATTINGDENSIFIER_H
 
-#include <api/map/IMapFromMapProcessing.h>
+#include "api/map/IMapFromMapProcessing.h"
+
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/core/helpers.h>
 
 namespace SolAR {
 namespace api {
@@ -35,7 +38,7 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE I3DGaussianSplattingDensifier : virtual public IMapFromMapProcessing
+class XPCF_IGNORE I3DGaussianSplattingDensifier : virtual public IMapFromMapProcessing, virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
 

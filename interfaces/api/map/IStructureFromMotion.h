@@ -19,6 +19,9 @@
 
 #include "api/map/IMapFromImageProcessing.h"
 
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/core/helpers.h>
+
 namespace SolAR {
 namespace api {
 namespace map {
@@ -30,7 +33,7 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE IStructureFromMotion : virtual public IMapFromImageProcessing
+class XPCF_IGNORE IStructureFromMotion : virtual public IMapFromImageProcessing, virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
 

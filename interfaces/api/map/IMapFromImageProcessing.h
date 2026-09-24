@@ -31,13 +31,10 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE IMapFromImageProcessing : virtual public IMapFromDatastructureProcessing
+class IMapFromImageProcessing : virtual public IMapFromDatastructureProcessing
 {
 
 public:
-
-    ///@brief IMapFromImageProcessing default destructor.
-    virtual ~IMapFromImageProcessing() override = default;
 
     /// @brief Create a new map resulting from the processing of a set of images
     /// @param[in] images the set of images to process
@@ -50,10 +47,5 @@ public:
 } // namespace map
 } // namespace api
 } // namespace SolAR
-
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IMapFromImageProcessing,
-                             "0a0c8c19-67f9-498d-b581-82d574afd20b",
-                             "IMapFromImageProcessing",
-                             "IMapFromImageProcessing interface description");
 
 #endif // IMAPFROMIMAGEPROCESSING_H

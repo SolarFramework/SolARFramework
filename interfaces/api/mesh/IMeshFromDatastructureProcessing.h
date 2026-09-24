@@ -32,13 +32,10 @@ namespace mesh {
  *
  */
 
-class XPCF_IGNORE IMeshFromDatastructureProcessing : virtual public SolAR::api::datastructure::IDatastructureFromDatastructureProcessing
+class IMeshFromDatastructureProcessing : virtual public SolAR::api::datastructure::IDatastructureFromDatastructureProcessing
 {
 
 public:
-
-    ///@brief IMeshFromDatastructureProcessing default destructor.
-    virtual ~IMeshFromDatastructureProcessing() override = default;
 
     /// @brief Get output mesh resulting from processing
     /// @param[out] mesh the output mesh
@@ -50,10 +47,5 @@ public:
 } // namespace mesh
 } // namespace api
 } // namespace SolAR
-
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::mesh::IMeshFromDatastructureProcessing,
-                             "09186a13-ba08-4a93-9e79-2c9116fb2377",
-                             "IMeshFromDatastructureProcessing",
-                             "IMeshFromDatastructureProcessing interface description");
 
 #endif // IMESHFROMDATASTRUCTUREPROCESSING_H

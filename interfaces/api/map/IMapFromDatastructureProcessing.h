@@ -31,13 +31,10 @@ namespace map {
  *
  */
 
-class XPCF_IGNORE IMapFromDatastructureProcessing : virtual public SolAR::api::datastructure::IDatastructureFromDatastructureProcessing
+class IMapFromDatastructureProcessing : virtual public SolAR::api::datastructure::IDatastructureFromDatastructureProcessing
 {
 
 public:
-
-    ///@brief IMapFromDatastructureProcessing default destructor.
-    virtual ~IMapFromDatastructureProcessing() override = default;
 
     /// @brief Get current cloud points
     /// @param[out] cloudPoints current point cloud consisting of a number of 3D points
@@ -59,10 +56,5 @@ public:
 } // namespace map
 } // namespace api
 } // namespace SolAR
-
-XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::IMapFromDatastructureProcessing,
-                             "09186a13-ba08-4a93-9e79-2c9116fb2377",
-                             "IMapFromDatastructureProcessing",
-                             "IMapFromDatastructureProcessing interface description");
 
 #endif // IMAPFROMDATASTRUCTUREPROCESSING_H

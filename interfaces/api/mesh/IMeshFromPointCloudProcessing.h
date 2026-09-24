@@ -20,6 +20,9 @@
 #include "api/mesh/IMeshFromDatastructureProcessing.h"
 #include "datastructure/PointCloud.h"
 
+#include <xpcf/api/IComponentIntrospect.h>
+#include <xpcf/core/helpers.h>
+
 namespace SolAR {
 namespace api {
 namespace mesh {
@@ -31,7 +34,7 @@ namespace mesh {
  *
  */
 
-class XPCF_IGNORE IMeshFromPointCloudProcessing : virtual public IMeshFromDatastructureProcessing
+class XPCF_IGNORE IMeshFromPointCloudProcessing : virtual public IMeshFromDatastructureProcessing, virtual public org::bcom::xpcf::IComponentIntrospect
 {
 public:
 
