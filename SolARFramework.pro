@@ -74,6 +74,8 @@ win32 {
 header_interfaces.path  = $${PROJECTDEPLOYDIR}/interfaces/
 header_interfaces.files  = $$files($${PWD}/interfaces/*.h*) $${PWD}/interfaces/Version.h
 
+header_interfaces_api_datastructure.path  = $${PROJECTDEPLOYDIR}/interfaces/api/datastructure/
+header_interfaces_api_datastructure.files = $$files($${PWD}/interfaces/api/datastructure/*.h*)
 header_interfaces_display.path  = $${PROJECTDEPLOYDIR}/interfaces/api/display/
 header_interfaces_display.files = $$files($${PWD}/interfaces/api/display/*.h*)
 header_interfaces_features.path = $${PROJECTDEPLOYDIR}/interfaces/api/features/
@@ -128,6 +130,8 @@ header_interfaces_segm.path = $${PROJECTDEPLOYDIR}/interfaces/api/segm/
 header_interfaces_segm.files = $$files($${PWD}/interfaces/api/segm/*.h*)
 header_interfaces_map.path = $${PROJECTDEPLOYDIR}/interfaces/api/map/
 header_interfaces_map.files += $$files($${PWD}/interfaces/api/map/*.h*)
+header_interfaces_mesh.path = $${PROJECTDEPLOYDIR}/interfaces/api/mesh/
+header_interfaces_mesh.files += $$files($${PWD}/interfaces/api/mesh/*.h*)
 header_interfaces_service.path = $${PROJECTDEPLOYDIR}/interfaces/api/service/
 header_interfaces_service.files += $$files($${PWD}/interfaces/api/service/*.h*)
 header_interfaces_gs.path = $${PROJECTDEPLOYDIR}/interfaces/api/gs/
@@ -136,6 +140,7 @@ header_interfaces_gs.files += $$files($${PWD}/interfaces/api/gs/*.h*)
 INCLUDEPATH += $${PWD}/interfaces
 
 INSTALLS += header_interfaces
+INSTALLS += header_interfaces_api_datastructure
 INSTALLS += header_interfaces_display
 INSTALLS += header_interfaces_features
 INSTALLS += header_interfaces_fusion
@@ -158,6 +163,7 @@ INSTALLS += header_interfaces_loop
 INSTALLS += header_interfaces_segm
 INSTALLS += header_interfaces_slam
 INSTALLS += header_interfaces_map
+INSTALLS += header_interfaces_mesh
 INSTALLS += header_base_features
 INSTALLS += header_base_geom
 INSTALLS += header_base_pipeline
