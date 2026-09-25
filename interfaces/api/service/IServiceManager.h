@@ -76,7 +76,7 @@ static std::string getServiceName(const ServiceType serviceType)
     case ServiceType::MAP_PROCESSING_STRUCTURE_FROM_MOTION_SERVICE:
         serviceName = "Map Processing Structure From Motion Service";
         break;
-    case ServiceType::MAP_PROCESSING_SEGMENTATION_2D_SERVICE:
+    case ServiceType::MAP_PROCESSING_2D_SEGMENTATION_SERVICE:
         serviceName = "Map Processing 2D Segmentation Service";
         break;
     case ServiceType::MAP_EXPORT_IMPORT_PLY_SERVICE:
