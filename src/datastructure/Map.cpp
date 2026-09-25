@@ -38,6 +38,10 @@ std::string toString(MapProcessingApplied processingApplied)
             return "RECTIFY MAP";
         case MapProcessingApplied::GAUSSIAN_SPLATTING:
             return "GAUSSIAN SPLATTING";
+        case MapProcessingApplied::STRUCTURE_FROM_MOTION:
+            return "STRUCTURE FROM MOTION";
+        case MapProcessingApplied::SEGMENTATION_2D:
+            return "2D SEGMENTATION";
         default:
             throw std::invalid_argument("The given parameter is not a valid MapProcessingApplied value");
     }
@@ -58,6 +62,12 @@ MapProcessingApplied parseMapProcessingApplied(const std::string& processingAppl
     }
     if (processingApplied == "GAUSSIAN SPLATTING") {
         return MapProcessingApplied::GAUSSIAN_SPLATTING;
+    }
+    if (processingApplied == "STRUCTURE FROM MOTION") {
+        return MapProcessingApplied::STRUCTURE_FROM_MOTION;
+    }
+    if (processingApplied == "2D SEGMENTATION") {
+        return MapProcessingApplied::SEGMENTATION_2D;
     }
     throw std::invalid_argument("Map processing applied '" + processingApplied + "' is not a valid MapProcessingApplied value");
 }
