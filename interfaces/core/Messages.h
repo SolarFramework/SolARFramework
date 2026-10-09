@@ -85,6 +85,8 @@ enum class FrameworkReturnCode:long{
     _LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED = -48,
     _LICENSE_MAX_CLIENTS_RECTIFY_MAP_EXCEEDED = -49,
     _LICENSE_MAX_CLIENTS_GAUSSIAN_SPLATTING_EXCEEDED = -50,
+    _LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED = -51,
+    _LICENSE_MAX_CLIENTS_2D_SEGMENTATION_EXCEEDED = -52,
 
     // for authentication requests
     _AUTHENT_SERVICE_UNAVAILABLE = -60,
@@ -205,6 +207,12 @@ static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_GAUSSIAN_SPLATTING_EXCEEDED:
             txt_definition = "Maximum of clients for Gaussian Splatting reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED:
+            txt_definition = "Maximum of clients for Structure From Motion reached according to license file";
+            break;
+        case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_2D_SEGMENTATION_EXCEEDED:
+            txt_definition = "Maximum of clients for 2D Segmentation reached according to license file";
             break;
         case FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE:
             txt_definition = "Authentication service unavailable";
