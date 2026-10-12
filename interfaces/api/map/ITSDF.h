@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef ITSDF_H
-#define ITSDF_H
+#ifndef SOLAR_ITSDF_H
+#define SOLAR_ITSDF_H
 
 #include "api/map/IMapFromMapProcessing.h"
 #include <xpcf/api/IComponentIntrospect.h>
@@ -91,6 +91,6 @@ public:
 XPCF_DEFINE_INTERFACE_TRAITS(SolAR::api::map::ITSDF,
                              "50ff3d84-a327-49da-8a8f-8fcedfe67db9",
                              "ITSDF",
-                             "ITSDF interface description");
+                             "SolAR::api::map::ITSDF interface");
 
-#endif // ITSDF_H
+#endif // SOLAR_ITSDF_H
