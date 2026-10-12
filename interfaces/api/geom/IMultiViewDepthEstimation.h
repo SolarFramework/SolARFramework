@@ -62,6 +62,7 @@ public:
                                          uint32_t& viewGroupId) = 0;
 
     /// @brief Release device resources, estimate() is invalid until the next setViews().
+    /// The default implementation is a no-op returning _SUCCESS.
     /// @return FrameworkReturnCode::_SUCCESS if succeed, else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode releaseDeviceResources() { return FrameworkReturnCode::_SUCCESS; }
 };

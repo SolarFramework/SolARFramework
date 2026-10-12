@@ -398,7 +398,8 @@ public:
     void embedKeyframeImages();
 
     ///
-    /// @brief This method is used to indicate that the keyframe images have been released
+    /// @brief Setter: marks the keyframe images as released by clearing the embed flag,
+    /// so they are no longer serialized with the map
     ///
     void keyframeImagesReleased();
 
