@@ -38,8 +38,10 @@ enum class ServiceType {
     MAP_PROCESSING_RECTIFY_MAP_SERVICE = 4,
     MAP_PROCESSING_DENSE_MAPPING_SERVICE = 5,
     MAP_PROCESSING_GAUSSIAN_SPLATTING_SERVICE = 6,
-    MAP_EXPORT_IMPORT_PLY_SERVICE = 7,
-    MAP_EXPORT_IMPORT_COLMAP_SERVICE = 8
+    MAP_PROCESSING_STRUCTURE_FROM_MOTION_SERVICE = 7,
+    MAP_PROCESSING_2D_SEGMENTATION_SERVICE = 8,
+    MAP_EXPORT_IMPORT_PLY_SERVICE = 9,
+    MAP_EXPORT_IMPORT_COLMAP_SERVICE = 10
 };
 
 /// @brief Return the name (string) of a service according to its type
@@ -70,6 +72,12 @@ static std::string getServiceName(const ServiceType serviceType)
         break;
     case ServiceType::MAP_PROCESSING_GAUSSIAN_SPLATTING_SERVICE:
         serviceName = "Map Processing Gaussian Splatting Service";
+        break;
+    case ServiceType::MAP_PROCESSING_STRUCTURE_FROM_MOTION_SERVICE:
+        serviceName = "Map Processing Structure From Motion Service";
+        break;
+    case ServiceType::MAP_PROCESSING_2D_SEGMENTATION_SERVICE:
+        serviceName = "Map Processing 2D Segmentation Service";
         break;
     case ServiceType::MAP_EXPORT_IMPORT_PLY_SERVICE:
         serviceName = "Map Export Import PLY Service";

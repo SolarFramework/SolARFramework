@@ -99,7 +99,9 @@ enum class MapProcessingApplied: std::uint8_t {
     EXTEND_MAPPING,          ///< Extension mapping (fusion of sparse maps)
     DENSE_MAPPING,           ///< Dense mapping processing
     RECTIFY_MAP,             ///< Rectify map processing
-    GAUSSIAN_SPLATTING       ///< Gaussian Splatting processing
+    GAUSSIAN_SPLATTING,      ///< Gaussian Splatting processing
+    STRUCTURE_FROM_MOTION,   ///< Structure From Motion processing
+    SEGMENTATION_2D          ///< 2D Segmentation processing
 };
 
 /// @brief Return the text definition (string) of a processing applied

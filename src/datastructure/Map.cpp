@@ -38,6 +38,10 @@ std::string toString(MapProcessingApplied processingApplied)
             return "RECTIFY MAP";
         case MapProcessingApplied::GAUSSIAN_SPLATTING:
             return "GAUSSIAN SPLATTING";
+        case MapProcessingApplied::STRUCTURE_FROM_MOTION:
+            return "STRUCTURE FROM MOTION";
+        case MapProcessingApplied::SEGMENTATION_2D:
+            return "2D SEGMENTATION";
         default:
             throw std::invalid_argument("The given parameter is not a valid MapProcessingApplied value");
     }
@@ -58,6 +62,12 @@ MapProcessingApplied parseMapProcessingApplied(const std::string& processingAppl
     }
     if (processingApplied == "GAUSSIAN SPLATTING") {
         return MapProcessingApplied::GAUSSIAN_SPLATTING;
+    }
+    if (processingApplied == "STRUCTURE FROM MOTION") {
+        return MapProcessingApplied::STRUCTURE_FROM_MOTION;
+    }
+    if (processingApplied == "2D SEGMENTATION") {
+        return MapProcessingApplied::SEGMENTATION_2D;
     }
     throw std::invalid_argument("Map processing applied '" + processingApplied + "' is not a valid MapProcessingApplied value");
 }
@@ -290,6 +300,18 @@ std::unique_lock<std::mutex> Map::getMask2DCollection(SRef<Mask2DCollection>& ma
 void Map::setMask2DCollection(SRef<Mask2DCollection> maskCollection)
 {
     m_mask2DCollection = maskCollection;
+
+    // Update keyframe mask IDs too
+    std::vector<SRef<Mask2D>> allMasks;
+    std::vector<uint32_t> allMasksIds;
+    m_mask2DCollection->getAllMasks(allMasks, allMasksIds);
+    std::vector<SRef<Keyframe>> allKeyframes;
+    m_keyframeCollection->getAllKeyframes(allKeyframes);
+    for (size_t i = 0; i < allMasks.size(); ++i) {
+        if (allKeyframes[i]) {
+            allKeyframes[i]->setMaskIDs({allMasksIds[i]});
+        }
+    }
 }
 
 template<typename Archive>
