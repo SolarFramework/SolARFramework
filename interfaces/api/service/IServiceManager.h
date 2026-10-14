@@ -31,6 +31,7 @@ namespace service {
 /// @brief <B>Indicate the type of the service</B>
 ///
 enum class ServiceType {
+    UNDEFINED = -1,
     MAP_UPDATE_SERVICE = 0,
     RELOCALIZATION_SERVICE = 1,
     RELOCALIZATION_MARKERS_SERVICE = 2,
@@ -52,6 +53,9 @@ static std::string getServiceName(const ServiceType serviceType)
     std::string serviceName = "";
 
     switch(serviceType) {
+    case ServiceType::UNDEFINED:
+        serviceName = "Undefined";
+        break;
     case ServiceType::MAP_UPDATE_SERVICE:
         serviceName = "Map Update Service";
         break;
