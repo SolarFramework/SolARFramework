@@ -100,138 +100,138 @@ enum class FrameworkReturnCode:long{
 /// @return the text definition (string)
 static std::string getReturnCodeDefinition(const FrameworkReturnCode returnCode)
 {
-    std::string txt_definition = "";
+    std::string txtDefinition = "";
 
     switch (returnCode) {
         case FrameworkReturnCode::_SUCCESS:
-            txt_definition = "Success";
+            txtDefinition = "Success";
             break;
         case FrameworkReturnCode::_STOP:
-            txt_definition = "Process is stopped";
+            txtDefinition = "Process is stopped";
         break;
         case FrameworkReturnCode::_ERROR_:
-            txt_definition = "Generic error code";
+            txtDefinition = "Generic error code";
             break;
         case FrameworkReturnCode::_NOT_IMPLEMENTED:
-            txt_definition = "Method not implemented";
+            txtDefinition = "Method not implemented";
             break;
         case FrameworkReturnCode::_NOT_FOUND:
-            txt_definition = "Requested resource has not been found";
+            txtDefinition = "Requested resource has not been found";
             break;
         case FrameworkReturnCode::_ALREADY_EXIST:
-            txt_definition = "Resource already exists";
+            txtDefinition = "Resource already exists";
             break;
         case FrameworkReturnCode::_MAP_MISSING_BINARY_FILE:
-            txt_definition = "Missing some binary file for map";
+            txtDefinition = "Missing some binary file for map";
             break;
         case FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE:
-            txt_definition = "Missing information file for map";
+            txtDefinition = "Missing information file for map";
             break;
         case FrameworkReturnCode::_MAP_UNSUPPORTED_VERSION:
-            txt_definition = "Unsupported version of map";
+            txtDefinition = "Unsupported version of map";
             break;
         case FrameworkReturnCode::_MAP_UNSUPPORTED_DESCRIPTOR:
-            txt_definition = "Unsupported map descriptors";
+            txtDefinition = "Unsupported map descriptors";
             break;
         case FrameworkReturnCode::_MAP_NO_DATA:
-            txt_definition = "No data for map (new map?)";
+            txtDefinition = "No data for map (new map?)";
             break;
         case FrameworkReturnCode::_ERROR_LOAD_IMAGE:
-            txt_definition = "Error while loading an image";
+            txtDefinition = "Error while loading an image";
             break;
         case FrameworkReturnCode::_ERROR_ACCESS_IMAGE:
-            txt_definition = "Error while accessing an image";
+            txtDefinition = "Error while accessing an image";
             break;
         case FrameworkReturnCode::_BUSY:
-            txt_definition = "Service busy";
+            txtDefinition = "Service busy";
             break;
         case FrameworkReturnCode::_NO_SERVICE_REGISTERED:
-            txt_definition = "No service registered for this kind of processing";
+            txtDefinition = "No service registered for this kind of processing";
             break;
         case FrameworkReturnCode::_NO_SERVICE_AVAILABLE:
-            txt_definition = "No service available for this kind of processing";
+            txtDefinition = "No service available for this kind of processing";
             break;
         case FrameworkReturnCode::_NO_SERVICE_LOCKED:
-            txt_definition = "No service locked for client for this kind of processing";
+            txtDefinition = "No service locked for client for this kind of processing";
             break;
         case FrameworkReturnCode::_UNKNOWN_MAP_UUID:
-            txt_definition = "Unknown map UUID";
+            txtDefinition = "Unknown map UUID";
             break;
         case FrameworkReturnCode::_UNKNOWN_CLIENT_UUID:
-            txt_definition = "Unknown client UUID";
+            txtDefinition = "Unknown client UUID";
             break;
         case FrameworkReturnCode::_REQUEST_SERVICE_FAILURE:
-            txt_definition = "Request to service failed";
+            txtDefinition = "Request to service failed";
             break;
         case FrameworkReturnCode::_INIT_SERVICE_FAILURE:
-            txt_definition = "Service initialization failed";
+            txtDefinition = "Service initialization failed";
             break;
         case FrameworkReturnCode::_SERVICE_NOT_INITIALIZED:
-            txt_definition = "Service not initialized";
+            txtDefinition = "Service not initialized";
             break;
         case FrameworkReturnCode::_CAMERA_PARAMETERS_NOT_SET:
-            txt_definition = "Camera parameters not set";
+            txtDefinition = "Camera parameters not set";
             break;
         case FrameworkReturnCode::_SERVICE_NOT_STARTED:
-            txt_definition = "Service not started";
+            txtDefinition = "Service not started";
             break;
         case FrameworkReturnCode::_LICENSE_SERVER_UNKNOWN_ERROR:
-            txt_definition = "License server unknown error";
+            txtDefinition = "License server unknown error";
             break;
         case FrameworkReturnCode::_LICENSE_SERVER_NOT_REACHABLE:
-            txt_definition = "License server not reachable";
+            txtDefinition = "License server not reachable";
             break;
         case FrameworkReturnCode::_LICENSE_NOT_VALID:
-            txt_definition = "Invalid license";
+            txtDefinition = "Invalid license";
             break;
         case FrameworkReturnCode::_LICENSE_UNAVAILABLE_PARAMETER:
-            txt_definition = "Unavailable parameter in license file";
+            txtDefinition = "Unavailable parameter in license file";
             break;
         case FrameworkReturnCode::_LICENSE_INCORRECT_SERVICE_VERSION:
-            txt_definition = "Incorrect version of services according to license file";
+            txtDefinition = "Incorrect version of services according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for Mapping reached according to license file";
+            txtDefinition = "Maximum of clients for Mapping reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_RELOC_EXCEEDED:
-            txt_definition = "Maximum of clients for Relocalization reached according to license file";
+            txtDefinition = "Maximum of clients for Relocalization reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STEREO_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for Stereo Mapping reached according to license file";
+            txtDefinition = "Maximum of clients for Stereo Mapping reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_DENSE_MAPPING_EXCEEDED:
-            txt_definition = "Maximum of clients for Dense Mapping reached according to license file";
+            txtDefinition = "Maximum of clients for Dense Mapping reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_RECTIFY_MAP_EXCEEDED:
-            txt_definition = "Maximum of clients for Rectify Map reached according to license file";
+            txtDefinition = "Maximum of clients for Rectify Map reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_GAUSSIAN_SPLATTING_EXCEEDED:
-            txt_definition = "Maximum of clients for Gaussian Splatting reached according to license file";
+            txtDefinition = "Maximum of clients for Gaussian Splatting reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_STRUCTURE_FROM_MOTION_EXCEEDED:
-            txt_definition = "Maximum of clients for Structure From Motion reached according to license file";
+            txtDefinition = "Maximum of clients for Structure From Motion reached according to license file";
             break;
         case FrameworkReturnCode::_LICENSE_MAX_CLIENTS_2D_SEGMENTATION_EXCEEDED:
-            txt_definition = "Maximum of clients for 2D Segmentation reached according to license file";
+            txtDefinition = "Maximum of clients for 2D Segmentation reached according to license file";
             break;
         case FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE:
-            txt_definition = "Authentication service unavailable";
+            txtDefinition = "Authentication service unavailable";
             break;
         case FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE:
-            txt_definition = "Authentication request failure";
+            txtDefinition = "Authentication request failure";
             break;
         case FrameworkReturnCode::_AUTHENT_INVALID_TOKEN:
-            txt_definition = "Authentication invalid token";
+            txtDefinition = "Authentication invalid token";
             break;
         case FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND:
-            txt_definition = "Authentication resource not found";
+            txtDefinition = "Authentication resource not found";
             break;
         default:
-            txt_definition = "Unknown error code";
+            txtDefinition = "Unknown error code";
             break;
     }
 
-    return txt_definition;
+    return txtDefinition;
 }
 
 }  // end of namespace SolAR
