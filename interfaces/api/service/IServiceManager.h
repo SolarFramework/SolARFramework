@@ -31,15 +31,18 @@ namespace service {
 /// @brief <B>Indicate the type of the service</B>
 ///
 enum class ServiceType {
-    MAP_UPDATE_SERVICE = 0,
-    RELOCALIZATION_SERVICE = 1,
-    RELOCALIZATION_MARKERS_SERVICE = 2,
-    MAPPING_SERVICE = 3,
-    MAP_PROCESSING_RECTIFY_MAP_SERVICE = 4,
-    MAP_PROCESSING_DENSE_MAPPING_SERVICE = 5,
-    MAP_PROCESSING_GAUSSIAN_SPLATTING_SERVICE = 6,
-    MAP_EXPORT_IMPORT_PLY_SERVICE = 7,
-    MAP_EXPORT_IMPORT_COLMAP_SERVICE = 8
+    UNDEFINED = 0,
+    MAP_UPDATE_SERVICE = 1,
+    RELOCALIZATION_SERVICE = 2,
+    RELOCALIZATION_MARKERS_SERVICE = 3,
+    MAPPING_SERVICE = 4,
+    MAP_PROCESSING_RECTIFY_MAP_SERVICE = 5,
+    MAP_PROCESSING_DENSE_MAPPING_SERVICE = 6,
+    MAP_PROCESSING_GAUSSIAN_SPLATTING_SERVICE = 7,
+    MAP_PROCESSING_STRUCTURE_FROM_MOTION_SERVICE = 8,
+    MAP_PROCESSING_2D_SEGMENTATION_SERVICE = 9,
+    MAP_EXPORT_IMPORT_PLY_SERVICE = 10,
+    MAP_EXPORT_IMPORT_COLMAP_SERVICE = 11
 };
 
 /// @brief Return the name (string) of a service according to its type
@@ -50,6 +53,9 @@ static std::string getServiceName(const ServiceType serviceType)
     std::string serviceName = "";
 
     switch(serviceType) {
+    case ServiceType::UNDEFINED:
+        serviceName = "Undefined";
+        break;
     case ServiceType::MAP_UPDATE_SERVICE:
         serviceName = "Map Update Service";
         break;
@@ -70,6 +76,12 @@ static std::string getServiceName(const ServiceType serviceType)
         break;
     case ServiceType::MAP_PROCESSING_GAUSSIAN_SPLATTING_SERVICE:
         serviceName = "Map Processing Gaussian Splatting Service";
+        break;
+    case ServiceType::MAP_PROCESSING_STRUCTURE_FROM_MOTION_SERVICE:
+        serviceName = "Map Processing Structure From Motion Service";
+        break;
+    case ServiceType::MAP_PROCESSING_2D_SEGMENTATION_SERVICE:
+        serviceName = "Map Processing 2D Segmentation Service";
         break;
     case ServiceType::MAP_EXPORT_IMPORT_PLY_SERVICE:
         serviceName = "Map Export Import PLY Service";

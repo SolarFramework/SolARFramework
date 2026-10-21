@@ -305,6 +305,18 @@ std::unique_lock<std::mutex> Map::getMask2DCollection(SRef<Mask2DCollection>& ma
 void Map::setMask2DCollection(SRef<Mask2DCollection> maskCollection)
 {
     m_mask2DCollection = maskCollection;
+
+    // Update keyframe mask IDs too
+    std::vector<SRef<Mask2D>> allMasks;
+    std::vector<uint32_t> allMasksIds;
+    m_mask2DCollection->getAllMasks(allMasks, allMasksIds);
+    std::vector<SRef<Keyframe>> allKeyframes;
+    m_keyframeCollection->getAllKeyframes(allKeyframes);
+    for (size_t i = 0; i < allMasks.size(); ++i) {
+        if (allKeyframes[i]) {
+            allKeyframes[i]->setMaskIDs({allMasksIds[i]});
+        }
+    }
 }
 
 template<typename Archive>

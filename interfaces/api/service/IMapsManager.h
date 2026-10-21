@@ -45,7 +45,9 @@ enum class MapProcessingType {
     UNDEFINED = 0,
     RECTIFY_MAP = 1,
     DENSE_MAPPING = 2,
-    GAUSSIAN_SPLATTING = 3
+    GAUSSIAN_SPLATTING = 3,
+    STRUCTURE_FROM_MOTION = 4,
+    SEGMENTATION_2D = 5
 };
 
 /// @brief Return the text definition (string) of a MapProcessingType object
@@ -67,6 +69,12 @@ static std::string toString(const MapProcessingType mapProcessingType)
             break;
         case MapProcessingType::GAUSSIAN_SPLATTING:
             textDefinition = "GAUSSIAN_SPLATTING";
+            break;
+        case MapProcessingType::STRUCTURE_FROM_MOTION:
+            textDefinition = "STRUCTURE_FROM_MOTION";
+            break;
+        case MapProcessingType::SEGMENTATION_2D:
+            textDefinition = "SEGMENTATION_2D";
             break;
         default:
             textDefinition = "Unknown value";
