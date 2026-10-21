@@ -37,6 +37,8 @@ interfaces/api/geom/IProject.h \
 interfaces/api/geom/IUndistortPoints.h \
 interfaces/api/geom/IUnproject.h \
 interfaces/api/geom/IDepthEstimation.h \
+interfaces/api/geom/IMonocularDepthEstimation.h \
+interfaces/api/geom/IMultiViewDepthEstimation.h \
 interfaces/api/geom/IReprojectionStereo.h \
 interfaces/api/image/IImageConvertor.h \
 interfaces/api/image/IImageFilter.h \
@@ -95,6 +97,7 @@ interfaces/api/map/I3DGaussianSplattingDensifier.h \
 interfaces/api/map/IMultiViewStereo.h \
 interfaces/api/map/IRectifyMap.h \
 interfaces/api/map/IStructureFromMotion.h \
+interfaces/api/map/ITSDF.h \
 interfaces/api/sink/ISinkPoseImage.h \
 interfaces/api/sink/ISinkPoseTextureBuffer.h \
 interfaces/api/sink/ISinkReturnCode.h \
