@@ -22,6 +22,8 @@
 #include <core/Messages.h>
 #include <datastructure/GeometryDefinitions.h>
 #include <memory>
+#include <mutex>
+#include <vector>
 #include <core/SerializationDefinitions.h>
 #include <boost/serialization/export.hpp>
 
@@ -46,6 +48,7 @@ public:
 	inline const void* data() const { return m_storageData.data(); }
 
 private:
+	friend class Image;
 	friend class boost::serialization::access;
 	template<typename Archive>
 	void serialize(Archive &ar, const unsigned int version);
@@ -53,6 +56,10 @@ private:
 private:
 	std::vector<uint8_t> m_storageData;
 	uint32_t m_bufferSize = 0;
+	// compressed bytes the pixels are decoded from on first access (empty once the pixels may differ from them)
+	std::vector<uint8_t> m_encoded;
+	int m_encodedFormat = 0;   // Image::ImageEncoding of m_encoded
+	std::mutex m_decodeMutex;
 };
 DECLARESERIALIZE(ImageInternal);
 
@@ -265,6 +272,17 @@ public:
     /// @return _SUCCESS if the image is saved, _ERROR_ otherwise.
     FrameworkReturnCode load(std::string imagePath);
 
+    /// @brief Load an image file without decoding it: the compressed bytes are kept and decoded on the first pixel access.
+    /// Read the pixels through a const image to keep the compressed bytes (save and serialization then write them unchanged);
+    /// non-const access decodes and drops them, as the pixels may then be modified.
+    /// @param[in] imagePath path to a .jpg, .jpeg or .png file.
+    /// @return _SUCCESS if the header is read, _ERROR_ otherwise.
+    FrameworkReturnCode loadEncoded(const std::string& imagePath);
+
+    /// @brief Free the decoded pixels of an image that still holds its compressed bytes (decoded again on the next access).
+    /// @return true if the pixels were freed.
+    bool releasePixels();
+
     /// @brief Rotate image 90 degrees
     /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
     FrameworkReturnCode rotate90();
@@ -299,6 +317,8 @@ private:
     uint32_t computeImageBufferSize();
 
     FrameworkReturnCode rotate(RotateQuantity);
+    void decodePixels() const;      // decode the compressed bytes when the pixels are not there
+    void* writablePixels();         // decoded pixels the caller may modify: the compressed bytes are dropped
     Sizei m_size;
     enum ImageLayout m_layout;
     enum PixelOrder m_pixOrder;
@@ -316,14 +336,14 @@ template<typename T>
 inline T & Image::getPixel(int row, int col)
 {
 	assert((sizeof(T) == m_nbChannels * (m_nbBitsPerComponent / 8)) && "type not allowed to get pixel value");
-	return ((T*)((uint8_t*)m_internalImpl->data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
+	return ((T*)((uint8_t*)data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
 }
 
 template<typename T>
 inline const T & Image::getPixel(int row, int col) const
 {
 	assert((sizeof(T) == m_nbChannels * (m_nbBitsPerComponent / 8)) && "type not allowed to get pixel value");
-	return ((const T*)((uint8_t*)m_internalImpl->data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
+	return ((const T*)((const uint8_t*)data() + (row * m_size.width + col) * m_nbChannels * (m_nbBitsPerComponent / 8)))[0];
 }
 
 //image creation from opencv conversion ... : howto handle memory allocation locality : factory ?
