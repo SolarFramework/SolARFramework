@@ -281,14 +281,25 @@ public:
     virtual FrameworkReturnCode getAvailableMapProcessingTypes(std::vector<MapProcessingType> & availableTypes) const = 0;
 
 
+    /// @brief Extract images from a video (provided via its URL), for example to use in Structure from Motion processing
+    ///        First, retrieve the video from a URL and save it locally
+    ///        Then, extract images from this video and store them in a persistent and shared location
+    ///        Finally, generate a new UUID for this set of images and delete the video file, which is no longer needed
+    /// @param[in] videoURL the URL of the video
+    /// @param[out] imageUUID the UUID of the newly created set of images
+    /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
+    ///         else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode extractImagesFromVideo(const std::string & videoURL, std::string imageUUID) = 0;
+
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
-    /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] mapOrImageUUID the UUID of the map or images (SfM) to process
     /// @param[in] resultMapUUID the UUID of the new map resulting from the processing
     /// @param[in] processingType the type of process to apply on the map
     /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
     ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
     ///         else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode requestMapProcessing(const std::string & mapUUID,
+    virtual FrameworkReturnCode requestMapProcessing(const std::string & mapOrImageUUID,
                                                      const std::string & resultMapUUID,
                                                      const MapProcessingType processingType) = 0;
 
