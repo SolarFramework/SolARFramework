@@ -286,10 +286,13 @@ public:
     ///        Then, extract images from this video and store them in a persistent and shared location
     ///        Finally, generate a new UUID for this set of images and delete the video file, which is no longer needed
     /// @param[in] videoURL the URL of the video
+    /// @param[in] headers optional headers for the video request (a token for example)
     /// @param[out] imageUUID the UUID of the newly created set of images
     /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
     ///         else FrameworkReturnCode::_ERROR_
-    virtual FrameworkReturnCode extractImagesFromVideo(const std::string & videoURL, std::string imageUUID) = 0;
+    virtual FrameworkReturnCode extractImagesFromVideo(const std::string & videoURL,
+                                                       std::string headers,
+                                                       std::string imageUUID) = 0;
 
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
