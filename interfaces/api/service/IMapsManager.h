@@ -291,8 +291,8 @@ public:
     /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
     ///         else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode extractImagesFromVideo(const std::string & videoURL,
-                                                       std::string headers,
-                                                       std::string imageUUID) = 0;
+                                                       const std::string & headers,
+                                                       std::string & imageUUID) = 0;
 
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
