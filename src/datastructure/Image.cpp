@@ -17,6 +17,8 @@
 #include "datastructure/Image.h"
 #include <vector>
 #include <map>
+#include <fstream>
+#include <iterator>
 
 #include <xpcf/core/helpers.h>
 
@@ -53,6 +55,8 @@ ImageInternal::~ImageInternal()
 void ImageInternal::setBufferSize(uint32_t size)
 {
     m_bufferSize = size;
+    m_encoded.clear();
+    m_encoded.shrink_to_fit();
     if (m_bufferSize == 0) { // invalid size
         return;
     }
@@ -64,6 +68,8 @@ void ImageInternal::setData(void * data, uint32_t size)
 {
     setBufferSize(size);
 
+    m_encoded.clear();
+    m_encoded.shrink_to_fit();
     m_storageData.clear();
     m_storageData.insert(m_storageData.begin(), static_cast<uint8_t *>(data), static_cast<uint8_t *>(data) + m_bufferSize);
 }
@@ -155,6 +161,7 @@ Image::Image(void* imageData, uint32_t width, uint32_t height, enum ImageLayout 
 SRef<Image> Image::copy() const
 {
     // NB : maybe we should consider redefining the image copy constructor
+    decodePixels();
     return xpcf::utils::make_shared<Image>(m_internalImpl->data(), m_size.width, m_size.height, m_layout, m_pixOrder, m_type);
 }
 
@@ -184,13 +191,53 @@ uint32_t Image::getBufferSize()
 
 void* Image::data()
 {
-    return m_internalImpl->data();
+    return writablePixels();
 }
 
 
 const void* Image::data() const
 {
+    decodePixels();
     return m_internalImpl->data();
+}
+
+void Image::decodePixels() const
+{
+    if (!m_internalImpl || m_internalImpl->m_encoded.empty())
+        return;
+    ImageInternal& internal = *m_internalImpl;
+    std::lock_guard<std::mutex> lock(internal.m_decodeMutex);
+    if (!internal.m_storageData.empty())
+        return;
+    OIIO::Filesystem::IOMemReader memreader(internal.m_encoded.data(), internal.m_encoded.size());
+    auto in = OIIO::ImageInput::open(internal.m_encodedFormat == ENCODING_PNG ? "in.png" : "in.jpg", nullptr, &memreader);
+    if (!in) {
+        std::cerr << "Cannot decode the image: " << OIIO::geterror() << std::endl;
+        return;
+    }
+    internal.m_storageData.resize(internal.m_bufferSize);
+    in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, internal.m_storageData.data());
+    in->close();
+}
+
+void* Image::writablePixels()
+{
+    if (!m_internalImpl)
+        return nullptr;
+    decodePixels();
+    m_internalImpl->m_encoded.clear();
+    m_internalImpl->m_encoded.shrink_to_fit();
+    return m_internalImpl->data();
+}
+
+bool Image::releasePixels()
+{
+    if (!m_internalImpl || m_internalImpl->m_encoded.empty())
+        return false;
+    std::lock_guard<std::mutex> lock(m_internalImpl->m_decodeMutex);
+    m_internalImpl->m_storageData.clear();
+    m_internalImpl->m_storageData.shrink_to_fit();
+    return true;
 }
 
 void Image::setImageEncoding(enum ImageEncoding encoding)
@@ -288,6 +335,7 @@ FrameworkReturnCode Image::save(std::string imagePath) const
             break;
     }
 
+    decodePixels();
     OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, m_internalImpl->data());
 
     // Convert to BGR or GRB to RGB channel format
@@ -312,6 +360,11 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
     ar & m_imageEncodingQuality;
     ar & m_imageEncoding;
 
+    if (m_internalImpl && !m_internalImpl->m_encoded.empty() && m_internalImpl->m_encodedFormat == m_imageEncoding) {
+        ar & m_internalImpl->m_encoded;
+        return;
+    }
+    decodePixels();
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
 
         // ImageSpec describing the image we want to write.
@@ -379,6 +432,46 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
     }
 }
 
+// data type, layout and channels of a decoded file
+static FrameworkReturnCode formatFromSpec(const OIIO::ImageSpec& spec, Image::DataType& type, uint32_t& bitsPerComponent,
+                                          Image::ImageLayout& layout, uint32_t& channels)
+{
+    if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
+    {
+       type = OIIO2SolARType.at(spec.format);
+       bitsPerComponent = typeSizeMapInfos.at(type);
+    }
+    else
+    {
+        std::cerr << "Format " << spec.format << "is not supported when loading an image from a file" << std::endl;
+        return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+    }
+
+    switch (spec.nchannels)
+    {
+        case 1:
+            layout = Image::LAYOUT_GREY;
+            channels = 1;
+            break;
+        case 3:
+        case 4:
+            if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
+                layout = OIIO2SolARLayout.at(spec.channelnames);
+            else
+            {
+                std::cerr << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
+                return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+            }
+            channels = (unsigned int)spec.nchannels;
+            break;
+        default:
+           std::cerr << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
+           return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
+    }
+
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 FrameworkReturnCode Image::load(std::string imagePath)
 {
     auto in = OIIO::ImageInput::open(imagePath);
@@ -397,43 +490,52 @@ FrameworkReturnCode Image::load(std::string imagePath)
     auto pixels = std::make_unique<unsigned char[]>(buffersize);
     in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, pixels.get());
 
-    if (OIIO2SolARType.find(spec.format) != OIIO2SolARType.end())
-    {
-       m_type = OIIO2SolARType.at(spec.format);
-       m_nbBitsPerComponent = typeSizeMapInfos.at(m_type);
-    }
-    else
-    {
-        std::cerr << "Format " << spec.format << "is not supported when loading an image from a file" << std::endl;
-        return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
-    }
+    const FrameworkReturnCode format = formatFromSpec(spec, m_type, m_nbBitsPerComponent, m_layout, m_nbChannels);
+    if (format != FrameworkReturnCode::_SUCCESS)
+        return format;
     m_nbPlanes = 1;
-
-    switch (spec.nchannels)
-    {
-        case 1:
-            m_layout = Image::LAYOUT_GREY;
-            m_nbChannels = 1;
-            break;
-        case 3:
-        case 4:
-            if (OIIO2SolARLayout.find(spec.channelnames) != OIIO2SolARLayout.end())
-                m_layout = OIIO2SolARLayout.at(spec.channelnames);
-            else
-            {
-                std::cerr << "Try to decode an image with unsupported channels. Only RGB, GRB, BGR, RGBA and Grey are supported";
-                return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
-            }
-            m_nbChannels = (unsigned int)spec.nchannels;
-            break;
-        default:
-           std::cerr << "Error: Try to decode an image with " << spec.nchannels << " channels. Only 1, 3 or 4 channels are supported";
-           return FrameworkReturnCode::_ERROR_LOAD_IMAGE;
-    }
 
     m_internalImpl = utils::make_shared<ImageInternal>();
     m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
     in->close();
+
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+FrameworkReturnCode Image::loadEncoded(const std::string& imagePath)
+{
+    std::ifstream file(imagePath, std::ios::binary);
+    std::vector<uint8_t> bytes((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    const bool png = bytes.size() >= 4 && bytes[0] == 0x89 && bytes[1] == 'P' && bytes[2] == 'N' && bytes[3] == 'G';
+    const bool jpeg = bytes.size() >= 2 && bytes[0] == 0xFF && bytes[1] == 0xD8;
+    if (!png && !jpeg) {
+        std::cerr << "Cannot load the image " << imagePath << ": only JPEG and PNG files are supported" << std::endl;
+        return FrameworkReturnCode::_ERROR_;
+    }
+    OIIO::Filesystem::IOMemReader memreader(bytes.data(), bytes.size());
+    auto in = OIIO::ImageInput::open(png ? "in.png" : "in.jpg", nullptr, &memreader);
+    if (!in)
+    {
+        std::cerr << "Cannot load the image " << imagePath << " due to the following error: " << OIIO::geterror() << std::endl;
+        return FrameworkReturnCode::_ERROR_;
+    }
+
+    const OIIO::ImageSpec spec = in->spec();
+    m_size.width = spec.width;
+    m_size.height = spec.height;
+    m_nbChannels = spec.nchannels;
+
+    const FrameworkReturnCode format = formatFromSpec(spec, m_type, m_nbBitsPerComponent, m_layout, m_nbChannels);
+    if (format != FrameworkReturnCode::_SUCCESS)
+        return format;
+    m_nbPlanes = 1;
+
+    in->close();
+    m_internalImpl = utils::make_shared<ImageInternal>();
+    m_internalImpl->m_bufferSize = uint32_t(spec.image_bytes(true));
+    m_internalImpl->m_encoded = std::move(bytes);
+    m_internalImpl->m_encodedFormat = png ? ENCODING_PNG : ENCODING_JPEG;
+    m_imageEncoding = png ? ENCODING_PNG : ENCODING_JPEG;
 
     return FrameworkReturnCode::_SUCCESS;
 }
@@ -452,39 +554,11 @@ void Image::load(Archive & ar, const unsigned int /* version */)
      ar & m_imageEncoding;
 
      if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
-         // JPEG or PNG decoding
-         std::vector<unsigned char> decodingBuffer;
-         ar & decodingBuffer;
-
-         OIIO::Filesystem::IOMemReader memreader(decodingBuffer.data(), decodingBuffer.size());
-
-         std::string filename;
-         switch (m_imageEncoding)
-         {
-             case ENCODING_JPEG:
-                 filename="in.jpg";
-                 break;
-             case ENCODING_PNG:
-                 filename = "in.png";
-                 break;
-             case ENCODING_NONE:
-             default:
-                 filename="in.jpg";
-                 break;
-         }
-
-         auto in = OIIO::ImageInput::open (filename, nullptr, &memreader);
-         const OIIO::ImageSpec & spec = in->spec();
-
-         OIIO::imagesize_t buffersize = spec.image_bytes(true);
-         auto pixels = std::make_unique<unsigned char[]>(buffersize);
-         in->read_image(0, 0, 0, m_nbChannels, OIIO::TypeDesc::UNKNOWN, pixels.get());
-
+         // compressed bytes kept, decoded on the first pixel access
          m_internalImpl = utils::make_shared<ImageInternal>();
-         m_internalImpl->setData(pixels.get(), spec.image_bytes(true));
-         in->close();
-         decodingBuffer.clear();
-         memreader.close();
+         ar & m_internalImpl->m_encoded;
+         m_internalImpl->m_encodedFormat = m_imageEncoding;
+         m_internalImpl->m_bufferSize = computeImageBufferSize();
      }
      else {
          ar & m_internalImpl;
@@ -507,7 +581,7 @@ FrameworkReturnCode Image::rotate(RotateQuantity degrees)
 
     spec.attribute ("oiio:ColorSpace", "sRGB");
 
-    OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, m_internalImpl->data());
+    OIIO::ImageBuf sourceBuf = OIIO::ImageBuf(spec, writablePixels());
 
     // Convert to BGR or GRB to RGB channel format
     if (m_layout == Image::ImageLayout::LAYOUT_BGR)
