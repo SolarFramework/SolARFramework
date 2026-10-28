@@ -443,9 +443,24 @@ public:
     virtual FrameworkReturnCode getAvailableMapProcessingTypes(const std::string & accessToken,
                                                                std::vector<MapProcessingType> & availableTypes) const = 0;
 
+    /// @brief Extract images from a video (provided via its URL), for example to use in Structure from Motion processing
+    ///        First, retrieve the video from a URL and save it locally
+    ///        Then, extract images from this video and store them in a persistent and shared location
+    ///        Finally, generate a new UUID for this set of images and delete the video file, which is no longer needed
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] videoURL the URL of the video
+    /// @param[in] headers optional headers for the video request (a token for example)
+    /// @param[out] imageUUID the UUID of the newly created set of images
+    /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
+    ///         else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode extractImagesFromVideo(const std::string & accessToken,
+                                                       const std::string & videoURL,
+                                                       const std::string & headers,
+                                                       std::string & imageUUID) = 0;
+
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
-    /// @param[in] mapUUID the UUID of the map to process
+    /// @param[in] mapOrImageUUID the UUID of the map or images (SfM) to process
     /// @param[in] resultMapUUID the UUID of the new map resulting from the processing
     /// @param[in] processingType the type of process to apply on the map
     /// @return
@@ -457,7 +472,7 @@ public:
     /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestMapProcessing(const std::string & accessToken,
-                                                     const std::string & mapUUID,
+                                                     const std::string & mapOrImageUUID,
                                                      const std::string & resultMapUUID,
                                                      const MapProcessingType processingType) = 0;
 
