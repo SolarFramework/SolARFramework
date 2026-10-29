@@ -281,27 +281,43 @@ public:
     virtual FrameworkReturnCode getAvailableMapProcessingTypes(std::vector<MapProcessingType> & availableTypes) const = 0;
 
 
-    /// @brief Extract images from a video (provided via its URL), for example to use in Structure from Motion processing
-    ///        First, retrieve the video from a URL and save it locally
-    ///        Then, extract images from this video and store them in a persistent and shared location
-    ///        Finally, generate a new UUID for this set of images and delete the video file, which is no longer needed
+    /// @brief Extract images from a video (provided via its URL) asynchronously - for instance to be used in Structure from Motion processing
+    ///        First, generate a new UUID for this set of images that then can be used to get extraction status
+    ///        Then, start an asynchronous task to retrieve the video from its URL, save it locally,
+    ///        extract images from this video and store them in a persistent and shared location
+    ///        Finaly, delete the video file, which is no longer needed
     /// @param[in] videoURL the URL of the video
     /// @param[in] headers optional headers for the video request (a token for example)
-    /// @param[out] imageUUID the UUID of the newly created set of images
-    /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
-    ///         else FrameworkReturnCode::_ERROR_
+    /// @param[out] imageUUID the UUID of the new set of images that will result from the extraction process
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if image extraction process is started
+    /// * FrameworkReturnCode::_BUSY if an image extraction is alreday running
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode extractImagesFromVideo(const std::string & videoURL,
                                                        const std::string & headers,
                                                        std::string & imageUUID) = 0;
 
+    /// @brief Get status and progress percentage concerning an image extraction from video
+    /// @brief If status = COMPLETED then the image UUID can be used for a Structure From Motion processing
+    /// @param[in] imageUUID the UUID of the set of images given by 'extractImagesFromVideo' method
+    /// @param[out] status the current image extraction status
+    /// @param[out] progress the current image extraction progress percentage (valid value should be between 0 and 1)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getExtractImagesFromVideoStatus(const std::string & imageUUID,
+                                                                MapProcessingStatus & status,
+                                                                float & progress) const = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapOrImageUUID the UUID of the map or images (SfM) to process
     /// @param[in] resultMapUUID the UUID of the new map resulting from the processing
     /// @param[in] processingType the type of process to apply on the map
-    /// @return FrameworkReturnCode::_SUCCESS if processing is able to proceed
-    ///         FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
-    ///         else FrameworkReturnCode::_ERROR_
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if processing is able to proceed
+    /// * FrameworkReturnCode::_NO_SERVICE_AVAILABLE if a necessary service is not available
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode requestMapProcessing(const std::string & mapOrImageUUID,
                                                      const std::string & resultMapUUID,
                                                      const MapProcessingType processingType) = 0;

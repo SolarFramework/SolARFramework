@@ -443,20 +443,46 @@ public:
     virtual FrameworkReturnCode getAvailableMapProcessingTypes(const std::string & accessToken,
                                                                std::vector<MapProcessingType> & availableTypes) const = 0;
 
-    /// @brief Extract images from a video (provided via its URL), for example to use in Structure from Motion processing
-    ///        First, retrieve the video from a URL and save it locally
-    ///        Then, extract images from this video and store them in a persistent and shared location
-    ///        Finally, generate a new UUID for this set of images and delete the video file, which is no longer needed
+    /// @brief Extract images from a video (provided via its URL) asynchronously - for instance to be used in Structure from Motion processing
+    ///        First, generate a new UUID for this set of images that then can be used to get extraction status
+    ///        Then, start an asynchronous task to retrieve the video from its URL, save it locally,
+    ///        extract images from this video and store them in a persistent and shared location
+    ///        Finaly, delete the video file, which is no longer needed
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
     /// @param[in] videoURL the URL of the video
     /// @param[in] headers optional headers for the video request (a token for example)
-    /// @param[out] imageUUID the UUID of the newly created set of images
-    /// @return FrameworkReturnCode::_SUCCESS if images have been extracted and are available for processing
-    ///         else FrameworkReturnCode::_ERROR_
+    /// @param[out] imageUUID the UUID of the new set of images that will result from the extraction process
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if image extraction process is started
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * FrameworkReturnCode::_BUSY if an image extraction is alreday running
+    /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode extractImagesFromVideo(const std::string & accessToken,
                                                        const std::string & videoURL,
                                                        const std::string & headers,
                                                        std::string & imageUUID) = 0;
+
+    /// @brief Get status and progress percentage concerning an image extraction from video
+    /// @brief If status = COMPLETED then the image UUID can be used for a Structure From Motion processing
+    /// @param[in] accessToken a valid Token collected by client after login to the authentication server
+    /// @param[in] imageUUID the UUID of the set of images given by 'extractImagesFromVideo' method
+    /// @param[out] status the current image extraction status
+    /// @param[out] progress the current image extraction progress percentage (valid value should be between 0 and 1)
+    /// @return
+    /// * FrameworkReturnCode::_SUCCESS if the status and progress are available
+    /// * FrameworkReturnCode::_NOT_FOUND if data is not available
+    /// * FrameworkReturnCode::_AUTHENT_SERVICE_UNAVAILABLE if authentication server is unavailable
+    /// * FrameworkReturnCode::_AUTHENT_REQUEST_FAILURE if the request to the authentication server failed
+    /// * FrameworkReturnCode::_AUTHENT_INVALID_TOKEN if the authentication token is invalid
+    /// * FrameworkReturnCode::_AUTHENT_RESOURCE_NOT_FOUND if the requested resource was not found on the authentication server
+    /// * else FrameworkReturnCode::_ERROR_
+    virtual FrameworkReturnCode getExtractImagesFromVideoStatus(const std::string & accessToken,
+                                                                const std::string & imageUUID,
+                                                                MapProcessingStatus & status,
+                                                                float & progress) const = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
