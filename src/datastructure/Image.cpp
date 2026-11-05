@@ -347,6 +347,94 @@ FrameworkReturnCode Image::save(std::string imagePath) const
     return FrameworkReturnCode::_SUCCESS;
 }
 
+bool Image::encodePixels(std::vector<unsigned char>& file_buffer) const
+{
+    if (!m_internalImpl || (m_imageEncoding != ENCODING_JPEG && m_imageEncoding != ENCODING_PNG))
+        return false;
+    // ImageSpec describing the image we want to write.
+    OIIO::ImageSpec spec;
+    if (SolAR2OIIOType.find(m_type) == SolAR2OIIOType.end())
+        spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels);
+    else
+        spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
+
+    if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
+        spec.channelnames=SolAR2OIIOLayout.at(m_layout);
+
+    OIIO::Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object;
+
+    std::string filename;
+    switch (m_imageEncoding)
+    {
+        case ENCODING_JPEG:
+            filename="out.jpeg";
+            spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
+            break;
+        case ENCODING_PNG:
+            filename = "out.png";
+            if (m_imageEncodingQuality==0)
+                spec.attribute ("png:compressionLevel", 0);
+            else if (m_imageEncodingQuality>=100)
+                spec.attribute ("png:compressionLevel", 9);
+            else
+            {
+                // PNG encoding quality should be defined between 0 and 9.
+                spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
+            }
+            break;
+        case ENCODING_NONE:
+        default:
+            filename = "out";
+    }
+
+    auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
+    if (!out) {
+        std::cerr << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+        return false;
+    }
+
+    if (!out->supports("ioproxy"))
+    {
+        std::cout << "Decoding image to a buffer based on OIIO::ioporxy is not supported for this image format. Save image in raw format.)";
+        return false;
+    }
+    out->open (filename, spec);
+
+    if (!out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data()))
+    {
+        std::cerr << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
+        return false;
+    }
+    out->close ();
+
+    return true;
+}
+
+FrameworkReturnCode Image::encode(ImageEncoding encoding, uint8_t quality)
+{
+    if (!m_internalImpl || (encoding != ENCODING_JPEG && encoding != ENCODING_PNG))
+        return FrameworkReturnCode::_ERROR_;
+    decodePixels();
+    if (m_internalImpl->m_storageData.empty())
+        return FrameworkReturnCode::_ERROR_;
+    const ImageEncoding previous = m_imageEncoding;
+    const uint8_t previousQuality = m_imageEncodingQuality;
+    m_imageEncoding = encoding;
+    setImageEncodingQuality(quality);
+    std::vector<unsigned char> bytes;
+    if (!encodePixels(bytes)) {
+        m_imageEncoding = previous;
+        m_imageEncodingQuality = previousQuality;
+        return FrameworkReturnCode::_ERROR_;
+    }
+    std::lock_guard<std::mutex> lock(m_internalImpl->m_decodeMutex);
+    m_internalImpl->m_encoded.assign(bytes.begin(), bytes.end());
+    m_internalImpl->m_encodedFormat = encoding;
+    m_internalImpl->m_storageData.clear();
+    m_internalImpl->m_storageData.shrink_to_fit();
+    return FrameworkReturnCode::_SUCCESS;
+}
+
 template<class Archive>
 void Image::save(Archive & ar, const unsigned int /* version */) const
 {
@@ -367,64 +455,12 @@ void Image::save(Archive & ar, const unsigned int /* version */) const
     decodePixels();
     if ((m_imageEncoding == ENCODING_JPEG) || (m_imageEncoding == ENCODING_PNG)) {
 
-        // ImageSpec describing the image we want to write.
-        OIIO::ImageSpec spec;
-        if (SolAR2OIIOType.find(m_type) == SolAR2OIIOType.end())
-            spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels);
-        else
-            spec = OIIO::ImageSpec(m_size.width, m_size.height, m_nbChannels, SolAR2OIIOType.at(m_type));
-
-        if (SolAR2OIIOLayout.find(m_layout) != SolAR2OIIOLayout.end())
-            spec.channelnames=SolAR2OIIOLayout.at(m_layout);
-
-        std::vector<unsigned char> file_buffer;  // bytes will go here
-        OIIO::Filesystem::IOVecOutput encodingBuffer (file_buffer);  // I/O proxy object;
-
-        std::string filename;
-        switch (m_imageEncoding)
-        {
-            case ENCODING_JPEG:
-                filename="out.jpeg";
-                spec.attribute ("Compression","jpeg:" + std::to_string(m_imageEncodingQuality));
-                break;
-            case ENCODING_PNG:
-                filename = "out.png";
-                if (m_imageEncodingQuality==0)
-                    spec.attribute ("png:compressionLevel", 0);
-                else if (m_imageEncodingQuality>=100)
-                    spec.attribute ("png:compressionLevel", 9);
-                else
-                {
-                    // PNG encoding quality should be defined between 0 and 9.
-                    spec.attribute ("png:compressionLevel", (int)floor(m_imageEncodingQuality/10.0f));
-                }
-                break;
-            case ENCODING_NONE:
-            default:
-                filename = "out";
-        }
-
-        auto out = OIIO::ImageOutput::create (filename, &encodingBuffer);
-        if (!out) {
-            std::cerr << "ImageOutput::create : " << OIIO::geterror() << std::endl;
+        std::vector<unsigned char> file_buffer;
+        if (!encodePixels(file_buffer)) {
+            if (m_internalImpl && !m_internalImpl->m_storageData.empty())
+                ar & m_internalImpl;   // encoder unavailable for this format: raw pixels, as before
             return;
         }
-
-        if (!out->supports("ioproxy"))
-        {
-            std::cout << "Decoding image to a buffer based on OIIO::ioporxy is not supported for this image format. Save image in raw format.)";
-            ar & m_internalImpl;
-            return;
-        }
-        out->open (filename, spec);
-
-        if (!out->write_image (SolAR2OIIOType[m_type], m_internalImpl->data()))
-        {
-            std::cerr << "Error while writing the " << filename << " image to the serialization buffer. " << std::endl << OIIO::geterror() << std::endl;
-            return;
-        }
-        out->close ();
-
         ar & file_buffer;
     }
     else {
