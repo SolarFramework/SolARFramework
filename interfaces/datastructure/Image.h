@@ -283,6 +283,11 @@ public:
     /// @return true if the pixels were freed.
     bool releasePixels();
 
+    /// @brief Compress the pixels in memory (JPEG with quality 1-100, or PNG) and free them: the image then holds only these bytes,
+    /// decoded again on the next pixel access, and saved unchanged by the serialization (a view re-encoded without keeping every view decoded).
+    /// @return _SUCCESS if the image is encoded, _ERROR_ otherwise (no pixels, unsupported encoding or encoder error).
+    FrameworkReturnCode encode(ImageEncoding encoding, uint8_t quality);
+
     /// @brief Rotate image 90 degrees
     /// @return _SUCCESS if the image is rotated, _ERROR_ otherwise.
     FrameworkReturnCode rotate90();
@@ -318,6 +323,7 @@ private:
 
     FrameworkReturnCode rotate(RotateQuantity);
     void decodePixels() const;      // decode the compressed bytes when the pixels are not there
+    bool encodePixels(std::vector<unsigned char>& bytes) const;   // pixels -> m_imageEncoding bytes at m_imageEncodingQuality
     void* writablePixels();         // decoded pixels the caller may modify: the compressed bytes are dropped
     Sizei m_size;
     enum ImageLayout m_layout;
