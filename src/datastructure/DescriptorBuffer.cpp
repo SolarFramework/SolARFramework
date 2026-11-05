@@ -16,6 +16,11 @@
 
 #include <vector>
 #include <map>
+#include <atomic>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <stdexcept>
 
 #include "datastructure/DescriptorBuffer.h"
 
@@ -221,13 +226,138 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
 	m_nb_descriptors++;
 }
 
+namespace {
+
+std::atomic<uint8_t> g_storage{static_cast<uint8_t>(DescriptorBuffer::Storage::FLOAT32)};
+
+// IEEE 754 binary16, round to nearest even
+uint16_t toHalfImpl(float value)
+{
+    uint32_t f;
+    std::memcpy(&f, &value, 4);
+    const uint32_t sign = (f >> 16) & 0x8000u;
+    const uint32_t absf = f & 0x7FFFFFFFu;
+    if (absf >= 0x7F800000u)                                   // inf, nan
+        return uint16_t(sign | 0x7C00u | (absf > 0x7F800000u ? 0x200u : 0u));
+    if (absf >= 0x477FF000u)                                   // overflow to inf
+        return uint16_t(sign | 0x7C00u);
+    if (absf < 0x38800000u) {                                  // subnormal or zero
+        if (absf < 0x33000000u) return uint16_t(sign);
+        const uint32_t mant = (absf & 0x7FFFFFu) | 0x800000u;
+        const int shift = 126 - int(absf >> 23);
+        const uint32_t half = mant >> shift, rest = mant & ((1u << shift) - 1u), mid = 1u << (shift - 1);
+        return uint16_t(sign | (half + (rest > mid || (rest == mid && (half & 1u)))));
+    }
+    const uint32_t half = ((absf - 0x38000000u) >> 13), rest = absf & 0x1FFFu;
+    return uint16_t(sign | (half + (rest > 0x1000u || (rest == 0x1000u && (half & 1u)))));
+}
+
+float fromHalfImpl(uint16_t h)
+{
+    const uint32_t sign = uint32_t(h & 0x8000u) << 16, exp = (h >> 10) & 0x1Fu, mant = h & 0x3FFu;
+    uint32_t f;
+    if (exp == 0) {
+        if (mant == 0) f = sign;
+        else {                                                 // subnormal
+            int e = -1;
+            uint32_t m = mant;
+            do { m <<= 1; ++e; } while (!(m & 0x400u));
+            f = sign | (uint32_t(112 - e) << 23) | ((m & 0x3FFu) << 13);
+        }
+    }
+    else if (exp == 0x1F) f = sign | 0x7F800000u | (mant << 13);
+    else f = sign | ((exp + 112) << 23) | (mant << 13);
+    float value;
+    std::memcpy(&value, &f, 4);
+    return value;
+}
+
+} // namespace
+
+uint16_t DescriptorBuffer::floatToHalf(float value) { return toHalfImpl(value); }
+float DescriptorBuffer::halfToFloat(uint16_t half) { return fromHalfImpl(half); }
+
+void DescriptorBuffer::setStorage(Storage storage)
+{
+    g_storage.store(static_cast<uint8_t>(storage));
+}
+
+DescriptorBuffer::Storage DescriptorBuffer::getStorage()
+{
+    return static_cast<Storage>(g_storage.load());
+}
+
 template<typename Archive>
-void DescriptorBuffer::serialize(Archive &ar, const unsigned int /* version */) {
-	ar & m_buffer;
-	ar & m_nb_descriptors;
-	ar & m_data_type;
-	ar & m_nb_elements;
-	ar & m_descriptor_type;
+void DescriptorBuffer::serialize(Archive &ar, const unsigned int version) {
+    uint8_t storage = static_cast<uint8_t>(Storage::FLOAT32);
+    const size_t count = size_t(m_nb_descriptors) * m_nb_elements;
+    if constexpr (Archive::is_saving::value) {
+        // only float buffers holding their descriptors are encoded
+        if (m_data_type == DescriptorDataType::TYPE_32F && m_buffer && count > 0 && m_buffer->getSize() >= count * sizeof(float))
+            storage = g_storage.load();
+    }
+    if (version >= 1)
+        ar & storage;
+    if (storage == static_cast<uint8_t>(Storage::FLOAT32)) {
+        ar & m_buffer;
+        ar & m_nb_descriptors;
+        ar & m_data_type;
+        ar & m_nb_elements;
+        ar & m_descriptor_type;
+        return;
+    }
+    ar & m_nb_descriptors;
+    ar & m_data_type;
+    ar & m_nb_elements;
+    ar & m_descriptor_type;
+    const size_t n = size_t(m_nb_descriptors) * m_nb_elements;
+    if constexpr (Archive::is_saving::value) {
+        const float* values = static_cast<const float*>(m_buffer->data());
+        if (storage == static_cast<uint8_t>(Storage::FLOAT16)) {
+            std::vector<uint16_t> halves(n);
+            for (size_t i = 0; i < n; ++i) halves[i] = toHalfImpl(values[i]);
+            ar & halves;
+        }
+        else {
+            // one scale per descriptor: largest magnitude maps to 127
+            std::vector<float> scales(m_nb_descriptors);
+            std::vector<int8_t> codes(n);
+            for (uint32_t d = 0; d < m_nb_descriptors; ++d) {
+                const float* x = values + size_t(d) * m_nb_elements;
+                float peak = 0.f;
+                for (uint32_t e = 0; e < m_nb_elements; ++e) peak = std::max(peak, std::fabs(x[e]));
+                scales[d] = peak / 127.f;
+                const float inv = peak > 0.f ? 127.f / peak : 0.f;
+                for (uint32_t e = 0; e < m_nb_elements; ++e)
+                    codes[size_t(d) * m_nb_elements + e] = int8_t(std::lround(std::clamp(x[e] * inv, -127.f, 127.f)));
+            }
+            ar & scales;
+            ar & codes;
+        }
+    }
+    else {
+        m_buffer = org::bcom::xpcf::utils::make_shared<BufferInternal>(uint32_t(n * sizeof(float)));
+        float* values = static_cast<float*>(m_buffer->data());
+        if (storage == static_cast<uint8_t>(Storage::FLOAT16)) {
+            std::vector<uint16_t> halves;
+            ar & halves;
+            if (halves.size() != n)
+                throw std::runtime_error("DescriptorBuffer: FLOAT16 payload size does not match the descriptor count");
+            for (size_t i = 0; i < n; ++i) values[i] = fromHalfImpl(halves[i]);
+        }
+        else if (storage == static_cast<uint8_t>(Storage::INT8)) {
+            std::vector<float> scales;
+            std::vector<int8_t> codes;
+            ar & scales;
+            ar & codes;
+            if (scales.size() != m_nb_descriptors || codes.size() != n)
+                throw std::runtime_error("DescriptorBuffer: INT8 payload size does not match the descriptor count");
+            for (size_t i = 0; i < n; ++i) values[i] = float(codes[i]) * scales[i / m_nb_elements];
+        }
+        else
+            throw std::runtime_error("DescriptorBuffer: unknown descriptor storage in the archive");
+        m_data_type = DescriptorDataType::TYPE_32F;
+    }
 }
 
 DescriptorBufferIterator::DescriptorBufferIterator(const SRef<DescriptorBuffer> & desc):m_buffer(desc),m_nbDescriptors(desc->getNbDescriptors())

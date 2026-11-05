@@ -16,6 +16,8 @@
 
 #include "core/Log.h"
 #include "datastructure/GlobalDescriptor.h"
+#include <stdexcept>
+#include <vector>
 #include <xpcf/core/helpers.h>
 
 BOOST_CLASS_EXPORT_IMPLEMENT(SolAR::datastructure::GlobalDescriptor);
@@ -120,11 +122,37 @@ bool GlobalDescriptor::isValid()
 }
 
 template<typename Archive>
-void GlobalDescriptor::serialize(Archive &ar, const unsigned int /* version */) {
+void GlobalDescriptor::serialize(Archive &ar, const unsigned int version) {
+    // float descriptors are written as FLOAT16 when the map descriptors are not stored as float32 (L2-normalised: no range issue)
+    uint8_t half = 0;
+    if constexpr (Archive::is_saving::value)
+        half = (DescriptorBuffer::getStorage() != DescriptorBuffer::Storage::FLOAT32 && m_dataType == GlobalDescriptorDataType::TYPE_32F
+                && m_buffer && m_length > 0 && m_buffer->getSize() >= m_length * sizeof(float)) ? 1 : 0;
+    if (version >= 1)
+        ar & half;
     ar & m_type;
     ar & m_dataType;
-    ar & m_buffer;
+    if (!half) {
+        ar & m_buffer;
+        ar & m_length;
+        return;
+    }
     ar & m_length;
+    if constexpr (Archive::is_saving::value) {
+        const float* values = static_cast<const float*>(m_buffer->data());
+        std::vector<uint16_t> halves(m_length);
+        for (size_t i = 0; i < m_length; ++i) halves[i] = DescriptorBuffer::floatToHalf(values[i]);
+        ar & halves;
+    }
+    else {
+        std::vector<uint16_t> halves;
+        ar & halves;
+        if (halves.size() != m_length)
+            throw std::runtime_error("GlobalDescriptor: FLOAT16 payload size does not match its length");
+        m_buffer = org::bcom::xpcf::utils::make_shared<BufferInternal>(uint32_t(m_length * sizeof(float)));
+        float* values = static_cast<float*>(m_buffer->data());
+        for (size_t i = 0; i < m_length; ++i) values[i] = DescriptorBuffer::halfToFloat(halves[i]);
+    }
 }
 
 IMPLEMENTSERIALIZE(GlobalDescriptor);
