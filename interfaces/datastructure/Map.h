@@ -29,6 +29,7 @@
 #include <datastructure/CovisibilityGraph.h>
 #include <datastructure/KeyframeRetrieval.h>
 #include <datastructure/Mask2DCollection.h>
+#include <datastructure/GeoReference.h>
 #include <Version.h>
 #include <xpcf/core/refs.h>
 #include <vector>
@@ -426,6 +427,18 @@ public:
     /// @return the list of processing steps
     const std::vector<MapProcessingStep> & getMapProcessingHistory() const;
 
+    /// @brief Indicate if the map is georeferenced
+    /// @return true if the map has a georeference
+    bool isGeoreferenced() const;
+
+    /// @brief Get the georeference of the map
+    /// @return the georeference, or nullptr if the map is not georeferenced
+    const SRef<GeoReference> & getConstGeoReference() const;
+
+    /// @brief Set the georeference of the map
+    /// @param[in] geoReference the georeference, or nullptr to mark the map as not georeferenced
+    void setGeoReference(const SRef<GeoReference> geoReference);
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -445,12 +458,15 @@ private:
 
     // List of all processing steps previously applied to obtain the map datastructure
     std::vector<MapProcessingStep> m_mapProcessingHistory;
+
+    // Georeference of the map (nullptr if the map is not georeferenced)
+    SRef<GeoReference>                                  m_geoReference;
 };
 
 DECLARESERIALIZE(Map);
 }
 }  // end of namespace SolAR
 
-BOOST_CLASS_VERSION(SolAR::datastructure::Map, 1);
+BOOST_CLASS_VERSION(SolAR::datastructure::Map, 2);
 
 #endif // SOLAR_MAP_H

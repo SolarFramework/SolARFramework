@@ -281,6 +281,21 @@ const std::vector<MapProcessingStep> & Map::getMapProcessingHistory() const
     return m_mapProcessingHistory;
 }
 
+bool Map::isGeoreferenced() const
+{
+    return m_geoReference != nullptr;
+}
+
+const SRef<GeoReference> & Map::getConstGeoReference() const
+{
+    return m_geoReference;
+}
+
+void Map::setGeoReference(const SRef<GeoReference> geoReference)
+{
+    m_geoReference = geoReference;
+}
+
 SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
 {
     return m_mask2DCollection;
@@ -330,6 +345,9 @@ void Map::serialize(Archive &ar, const unsigned int version) {
         ar & m_mask2DCollection;
     }
     ar & m_mapProcessingHistory;
+    if (version > 1) {
+        ar & m_geoReference;
+    }
 }
 
 IMPLEMENTSERIALIZE(Map);
