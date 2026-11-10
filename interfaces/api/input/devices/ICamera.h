@@ -81,9 +81,9 @@ public:
     /// @return SolAR::datastructure::CamDistortion the distortion camera lens parameters
     virtual const SolAR::datastructure::CamDistortion & getDistortionParameters() const = 0;
 
-    /// @brief Get the number of frames of the video
-    /// @return the number of frames
-    virtual double getNbFrames() const = 0;
+    /// @brief Get the current number of frames already loaded/played for the video
+    /// @return the current number of frames
+    virtual double getCurrentFrameNumber() const = 0;
 
     /// @brief Get the frame rate of the video (fps)
     /// @return the number of frames per second
