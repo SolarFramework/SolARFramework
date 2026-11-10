@@ -296,6 +296,13 @@ public:
     GeoPose mapPoseToGeoPose(const Transform3Df& mapPose) const;
 
     /**
+     * @brief Convert a geopose to a pose in the map frame (inverse of mapPoseToGeoPose)
+     * @param[in] geoPose the geopose, whose orientation is relative to the local East-North-Up frame at its position
+     * @return the pose in the map frame (pose frame to map frame), in metres
+     */
+    Transform3Df geoPoseToMapPose(const GeoPose& geoPose) const;
+
+    /**
      * @brief Serialize to the "georef" JSON object
      * @return the JSON object
      */

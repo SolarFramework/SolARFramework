@@ -220,7 +220,9 @@ void Map::setGlobalDescriptorType(const datastructure::GlobalDescriptorType & gl
 
 MapInformation Map::getInformation() const
 {
-    return m_mapInformation;
+    MapInformation mapInformation = m_mapInformation;
+    mapInformation.setGeoreferenced(isGeoreferenced());
+    return mapInformation;
 }
 
 void Map::embedKeyframeImages()
@@ -294,6 +296,21 @@ const SRef<GeoReference> & Map::getConstGeoReference() const
 void Map::setGeoReference(const SRef<GeoReference> geoReference)
 {
     m_geoReference = geoReference;
+    m_mapInformation.setGeoreferenced(geoReference != nullptr);
+}
+
+std::optional<GeoPose> Map::mapPoseToGeoPose(const Transform3Df & mapPose) const
+{
+    if (!m_geoReference)
+        return std::nullopt;
+    return m_geoReference->mapPoseToGeoPose(mapPose);
+}
+
+std::optional<Transform3Df> Map::geoPoseToMapPose(const GeoPose & geoPose) const
+{
+    if (!m_geoReference)
+        return std::nullopt;
+    return m_geoReference->geoPoseToMapPose(geoPose);
 }
 
 SRef<const Mask2DCollection> Map::getConstMask2DCollection() const

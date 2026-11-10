@@ -303,6 +303,20 @@ GeoPose GeoReference::mapPoseToGeoPose(const Transform3Df& mapPose) const
     return result;
 }
 
+Transform3Df GeoReference::geoPoseToMapPose(const GeoPose& geoPose) const
+{
+    const GeoPosition& origin = m_originGeoPose.position;
+    // ENU at the pose position -> ECEF -> ENU at origin -> map (inverse of mapPoseToGeoPose)
+    const Maths::Matrix3d poseToMap = m_originGeoPose.quaternion.normalized().toRotationMatrix().transpose()
+                                      * enuToEcefRotation(origin.lat, origin.lon).transpose()
+                                      * enuToEcefRotation(geoPose.position.lat, geoPose.position.lon)
+                                      * geoPose.quaternion.normalized().toRotationMatrix();
+    Transform3Df result = Transform3Df::Identity();
+    result.linear() = poseToMap.cast<float>();
+    result.translation() = geodeticToMapPoint(geoPose.position).cast<float>();
+    return result;
+}
+
 nlohmann::json GeoReference::toJson() const
 {
     const GeoPosition& pos = m_originGeoPose.position;

@@ -32,6 +32,7 @@
 #include <datastructure/GeoReference.h>
 #include <Version.h>
 #include <xpcf/core/refs.h>
+#include <optional>
 #include <vector>
 
 // Definition of Map Class //
@@ -61,6 +62,8 @@ public:
     datastructure::GlobalDescriptorType getGlobalDescriptorType() const { return m_globalDescriptorType; }
     void setEmbedKeyframeImages(bool embedKeyframeImages) { m_embedKeyframeImages = embedKeyframeImages; };
     bool getEmbedKeyframeImages() const { return m_embedKeyframeImages; }
+    void setGeoreferenced(bool isGeoreferenced) { m_isGeoreferenced = isGeoreferenced; };
+    bool isGeoreferenced() const { return m_isGeoreferenced; }
 
     std::string toString() const {
         std::string result = "Map information:\n";
@@ -71,6 +74,10 @@ public:
             result += "Map embeds keyframe images\n";
         else
             result += "No keyframe images in map\n";
+        if (m_isGeoreferenced)
+            result += "Map is georeferenced\n";
+        else
+            result += "Map is not georeferenced\n";
         return result;
     }
 
@@ -79,15 +86,19 @@ private:
     datastructure::DescriptorType       m_descriptorType = DescriptorType::UNDEFINED;             // Type of descriptor used for the map
     datastructure::GlobalDescriptorType m_globalDescriptorType = GlobalDescriptorType::UNDEFINED; // Type of global descriptor used for the map
     bool                                m_embedKeyframeImages = false;                            // Indicate if keyframe images must be embedded in datastructure
+    bool                                m_isGeoreferenced = false;                                // Indicate if the map has a georeference
 
     friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int  /* version */)
+    void serialize(Archive &ar, const unsigned int version)
     {
         ar & m_version;
         ar & m_descriptorType;
         ar & m_globalDescriptorType;
         ar & m_embedKeyframeImages;
+        if (version > 0) {
+            ar & m_isGeoreferenced;
+        }
     }
 };
 
@@ -439,6 +450,17 @@ public:
     /// @param[in] geoReference the georeference, or nullptr to mark the map as not georeferenced
     void setGeoReference(const SRef<GeoReference> geoReference);
 
+    /// @brief Convert a pose in the map coordinate system (e.g. a keyframe pose) to a geopose
+    /// @param[in] mapPose the pose in the map coordinate system (pose frame to map frame)
+    /// @return the geopose, whose orientation is relative to the local East-North-Up frame at the pose position,
+    /// or std::nullopt if the map is not georeferenced
+    std::optional<GeoPose> mapPoseToGeoPose(const Transform3Df & mapPose) const;
+
+    /// @brief Convert a geopose to a pose in the map coordinate system (inverse of mapPoseToGeoPose)
+    /// @param[in] geoPose the geopose, whose orientation is relative to the local East-North-Up frame at its position
+    /// @return the pose in the map coordinate system (pose frame to map frame), or std::nullopt if the map is not georeferenced
+    std::optional<Transform3Df> geoPoseToMapPose(const GeoPose & geoPose) const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -467,6 +489,7 @@ DECLARESERIALIZE(Map);
 }
 }  // end of namespace SolAR
 
+BOOST_CLASS_VERSION(SolAR::datastructure::MapInformation, 1);
 BOOST_CLASS_VERSION(SolAR::datastructure::Map, 2);
 
 #endif // SOLAR_MAP_H
