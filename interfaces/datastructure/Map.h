@@ -398,6 +398,12 @@ public:
     void embedKeyframeImages();
 
     ///
+    /// @brief Setter: marks the keyframe images as released by clearing the embed flag,
+    /// so they are no longer serialized with the map
+    ///
+    void keyframeImagesReleased();
+
+    ///
     /// @brief This method is used to find out if the map contains keyframe images
     /// @return true if keyframe images are embedded, false otherwise
     ///

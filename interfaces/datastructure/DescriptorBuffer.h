@@ -336,6 +336,15 @@ public :
 
     const void* data() const;
 
+    /// @brief Element storage of the TYPE_32F descriptor buffers when maps are saved (process wide, FLOAT32 by default):
+    /// FLOAT16 halves the files, INT8 quarters them (one scale per descriptor); buffers are back in TYPE_32F once loaded
+    enum class Storage : uint8_t { FLOAT32 = 0, FLOAT16 = 1, INT8 = 2 };
+    static void setStorage(Storage storage);
+    static Storage getStorage();
+    /// @brief IEEE 754 binary16 conversions of the FLOAT16 storage (round to nearest even), shared with the global descriptors
+    static uint16_t floatToHalf(float value);
+    static float halfToFloat(uint16_t half);
+
 private:
     bool deduceProperties(const DescriptorType & type);
 
@@ -387,5 +396,7 @@ DescriptorViewTemplate<T> getDescriptor(const SRef<DescriptorBuffer> buffer, uin
 } // namespace SolAR
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::DescriptorBuffer);
+// version 1: storage byte, then the version 0 fields (FLOAT32) or the descriptors as FLOAT16 / INT8 elements
+BOOST_CLASS_VERSION(SolAR::datastructure::DescriptorBuffer, 1);
 
 #endif //SOLAR_DESCRIPTORS_H
