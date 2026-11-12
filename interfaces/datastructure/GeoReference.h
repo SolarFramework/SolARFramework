@@ -28,6 +28,84 @@ namespace SolAR {
 namespace datastructure {
 
 /**
+ * @enum GeoReferenceMethod
+ * @brief <B>How the georeference was obtained.</B>
+ */
+enum class GeoReferenceMethod : std::uint8_t {
+    GNSS_FIT,           ///< fitted from GNSS readings
+    MARKER_MEASURED,    ///< from markers with surveyed positions
+    DEVICE_ALIGNMENT,   ///< from the capture device's own geo alignment
+    FROM_MAP            ///< inherited from another georeferenced map
+};
+
+/**
+ * @enum HeightSource
+ * @brief <B>Where the height value came from.</B>
+ */
+enum class HeightSource : std::uint8_t {
+    GNSS,               ///< "GNSS"
+    MAPS,               ///< "MAPS"
+    BUILDING_PLANS,     ///< "BUILDING_PLANS"
+    UNKNOWN             ///< "UNKNOWN"
+};
+
+/**
+ * @enum GeoidModel
+ * @brief <B>Geoid model used to convert a non-ellipsoidal altitude into an ellipsoidal height.</B>
+ */
+enum class GeoidModel : std::uint8_t {
+    RAF20,              ///< "RAF20 French maps or plans in NGF-IGN69"
+    EGM2008,            ///< "EGM2008 Copernicus DEM, or other data using EGM2008"
+    EGM96,              ///< "EGM96 SRTM, or other data using EGM96"
+    DEVICE_UNSPECIFIED  ///< "DEVICE_UNSPECIFIED Device altitude"
+};
+
+/**
+ * @brief GeoReferenceMethod to string
+ * @param[in] method the GeoReferenceMethod to convert
+ * @return the schema string: "GNSS_FIT", "MARKER_MEASURED", "DEVICE_ALIGNMENT" or "FROM_MAP"
+ * @throws std::invalid_argument if the value is not a valid GeoReferenceMethod
+ */
+std::string toString(GeoReferenceMethod method);
+
+/**
+ * @brief String to GeoReferenceMethod
+ * @param[in] method the schema string to parse, e.g. "GNSS_FIT" (case-insensitive)
+ * @return the parsed value, or std::nullopt if the string is not a known value
+ */
+std::optional<GeoReferenceMethod> parseGeoReferenceMethod(const std::string& method);
+
+/**
+ * @brief HeightSource to string
+ * @param[in] source the HeightSource to convert
+ * @return the schema string: "GNSS", "MAPS", "BUILDING_PLANS" or "UNKNOWN"
+ * @throws std::invalid_argument if the value is not a valid HeightSource
+ */
+std::string toString(HeightSource source);
+
+/**
+ * @brief String to HeightSource
+ * @param[in] source the schema string to parse, e.g. "MAPS" (case-insensitive)
+ * @return the parsed value, or std::nullopt if the string is not a known value
+ */
+std::optional<HeightSource> parseHeightSource(const std::string& source);
+
+/**
+ * @brief GeoidModel to string
+ * @param[in] model the GeoidModel to convert
+ * @return the schema string: "RAF20", "EGM2008", "EGM96" or "DEVICE_UNSPECIFIED"
+ * @throws std::invalid_argument if the value is not a valid GeoidModel
+ */
+std::string toString(GeoidModel model);
+
+/**
+ * @brief String to GeoidModel
+ * @param[in] model the schema string to parse, e.g. "RAF20" (case-insensitive)
+ * @return the parsed value, or std::nullopt if the string is not a known value
+ */
+std::optional<GeoidModel> parseGeoidModel(const std::string& model);
+
+/**
  * @struct GeoPosition
  * @brief <B>A position on the WGS-84 ellipsoid.</B>
  */
@@ -53,85 +131,20 @@ struct GeoPosition {
 struct GeoPose {
     GeoPosition position;                                               ///< WGS-84 position
     Maths::Quaterniond quaternion = Maths::Quaterniond::Identity();     ///< orientation relative to the local East-North-Up frame
+
+    /**
+     * @brief Boost serialization of the geopose
+     * @param[in,out] ar the archive to save to or load from
+     * @param[in] version the version of the archive (unused)
+     */
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & position;
+        // Eigen types have no Boost serialization: the quaternion is stored as its 4 coefficients (x, y, z, w)
+        ar & boost::serialization::make_array(quaternion.coeffs().data(), 4);
+    }
 };
-
-/**
- * @enum GeoReferenceMethod
- * @brief <B>How the georeference was obtained.</B>
- */
-enum class GeoReferenceMethod : std::uint8_t {
-    GNSS_FIT,           ///< fitted from GNSS readings ("gnss_fit")
-    MARKER_MEASURED,    ///< from markers with surveyed positions ("marker_measured")
-    DEVICE_ALIGNMENT,   ///< from the capture device's own geo alignment ("device_alignment")
-    FROM_MAP            ///< inherited from another georeferenced map ("from_map")
-};
-
-/**
- * @brief GeoReferenceMethod to string
- * @param[in] method the GeoReferenceMethod to convert
- * @return the schema string: "gnss_fit", "marker_measured", "device_alignment" or "from_map"
- * @throws std::invalid_argument if the value is not a valid GeoReferenceMethod
- */
-std::string toString(GeoReferenceMethod method);
-
-/**
- * @brief String to GeoReferenceMethod
- * @param[in] method the schema string to parse, e.g. "gnss_fit"
- * @return the parsed value, or std::nullopt if the string is not a known value
- */
-std::optional<GeoReferenceMethod> parseGeoReferenceMethod(const std::string& method);
-
-/**
- * @enum HeightSource
- * @brief <B>Where the height value came from.</B>
- */
-enum class HeightSource : std::uint8_t {
-    GNSS,               ///< "gnss"
-    MAPS,               ///< "maps"
-    BUILDING_PLANS,     ///< "building_plans"
-    UNKNOWN             ///< "unknown"
-};
-
-/**
- * @brief HeightSource to string
- * @param[in] source the HeightSource to convert
- * @return the schema string: "gnss", "maps", "building_plans" or "unknown"
- * @throws std::invalid_argument if the value is not a valid HeightSource
- */
-std::string toString(HeightSource source);
-
-/**
- * @brief String to HeightSource
- * @param[in] source the schema string to parse, e.g. "maps"
- * @return the parsed value, or std::nullopt if the string is not a known value
- */
-std::optional<HeightSource> parseHeightSource(const std::string& source);
-
-/**
- * @enum GeoidModel
- * @brief <B>Geoid model used to convert a non-ellipsoidal altitude into an ellipsoidal height.</B>
- */
-enum class GeoidModel : std::uint8_t {
-    RAF20,              ///< "RAF20"
-    EGM2008,            ///< "EGM2008"
-    EGM96,              ///< "EGM96"
-    DEVICE_UNSPECIFIED  ///< "device_unspecified"
-};
-
-/**
- * @brief GeoidModel to string
- * @param[in] model the GeoidModel to convert
- * @return the schema string: "RAF20", "EGM2008", "EGM96" or "device_unspecified"
- * @throws std::invalid_argument if the value is not a valid GeoidModel
- */
-std::string toString(GeoidModel model);
-
-/**
- * @brief String to GeoidModel
- * @param[in] model the schema string to parse, e.g. "RAF20"
- * @return the parsed value, or std::nullopt if the string is not a known value
- */
-std::optional<GeoidModel> parseGeoidModel(const std::string& model);
 
 /**
  * @struct GeoAccuracy
@@ -208,9 +221,9 @@ public:
 
     /**
      * @brief Set the geopose of the map origin
-     * @param[in] originGeoPose the origin position and the map_to_enu rotation
+     * @param[in] originGeoPose the origin position and the map_to_enu rotation (the quaternion is normalized)
      */
-    void setOriginGeoPose(const GeoPose& originGeoPose) { m_originGeoPose = originGeoPose; }
+    void setOriginGeoPose(const GeoPose& originGeoPose);
 
     /**
      * @brief Get the method used to obtain the georeference

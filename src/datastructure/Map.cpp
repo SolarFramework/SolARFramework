@@ -220,9 +220,7 @@ void Map::setGlobalDescriptorType(const datastructure::GlobalDescriptorType & gl
 
 MapInformation Map::getInformation() const
 {
-    MapInformation mapInformation = m_mapInformation;
-    mapInformation.setGeoreferenced(isGeoreferenced());
-    return mapInformation;
+    return m_mapInformation;
 }
 
 void Map::embedKeyframeImages()
@@ -288,15 +286,22 @@ bool Map::isGeoreferenced() const
     return m_geoReference != nullptr;
 }
 
-const SRef<GeoReference> & Map::getConstGeoReference() const
+const SRef<const GeoReference> & Map::getConstGeoReference() const
 {
     return m_geoReference;
 }
 
-void Map::setGeoReference(const SRef<GeoReference> geoReference)
+FrameworkReturnCode Map::setGeoReference(const SRef<const GeoReference> & geoReference)
 {
+    if (geoReference) {
+        std::string error;
+        if (!geoReference->isValid(error)) {
+            LOG_ERROR("Map::setGeoReference - invalid georeference: {}", error);
+            return FrameworkReturnCode::_ERROR_;
+        }
+    }
     m_geoReference = geoReference;
-    m_mapInformation.setGeoreferenced(geoReference != nullptr);
+    return FrameworkReturnCode::_SUCCESS;
 }
 
 std::optional<GeoPose> Map::mapPoseToGeoPose(const Transform3Df & mapPose) const
@@ -363,7 +368,10 @@ void Map::serialize(Archive &ar, const unsigned int version) {
     }
     ar & m_mapProcessingHistory;
     if (version > 1) {
-        ar & m_geoReference;
+        // Boost cannot load into a pointer to const: go through a non-const pointer to the same object
+        SRef<GeoReference> geoReference = org::bcom::xpcf::utils::const_pointer_cast<GeoReference>(m_geoReference);
+        ar & geoReference;
+        m_geoReference = geoReference;
     }
 }
 
