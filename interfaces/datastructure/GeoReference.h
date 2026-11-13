@@ -32,6 +32,7 @@ namespace datastructure {
  * @brief <B>How the georeference was obtained.</B>
  */
 enum class GeoReferenceMethod : std::uint8_t {
+    UNSET,              ///< not set yet: in-memory default only, rejected by GeoReference::isValid and never part of the georef schema
     GNSS_FIT,           ///< fitted from GNSS readings
     MARKER_MEASURED,    ///< from markers with surveyed positions
     DEVICE_ALIGNMENT,   ///< from the capture device's own geo alignment
@@ -41,12 +42,16 @@ enum class GeoReferenceMethod : std::uint8_t {
 /**
  * @enum HeightSource
  * @brief <B>Where the height value came from.</B>
+ *
+ * The height itself is always stored as an ellipsoidal WGS-84 height. MAPS and BUILDING_PLANS give
+ * an altitude above a vertical datum instead, so they require a HeightConversion; the conversion is
+ * optional for GNSS and UNKNOWN.
  */
 enum class HeightSource : std::uint8_t {
-    GNSS,               ///< "GNSS"
-    MAPS,               ///< "MAPS"
-    BUILDING_PLANS,     ///< "BUILDING_PLANS"
-    UNKNOWN             ///< "UNKNOWN"
+    UNKNOWN,            ///< "UNKNOWN" origin of the height value not known (default)
+    GNSS,               ///< "GNSS" height obtained from satellite positioning system (e.g. GPS)
+    MAPS,               ///< "MAPS" altitude read from a map or a digital elevation model (e.g. IGN maps, Copernicus DEM, SRTM)
+    BUILDING_PLANS      ///< "BUILDING_PLANS" level taken from building or survey plans, expressed in a national vertical datum (e.g. NGF-IGN69)
 };
 
 /**
@@ -54,16 +59,16 @@ enum class HeightSource : std::uint8_t {
  * @brief <B>Geoid model used to convert a non-ellipsoidal altitude into an ellipsoidal height.</B>
  */
 enum class GeoidModel : std::uint8_t {
-    RAF20,              ///< "RAF20 French maps or plans in NGF-IGN69"
-    EGM2008,            ///< "EGM2008 Copernicus DEM, or other data using EGM2008"
-    EGM96,              ///< "EGM96 SRTM, or other data using EGM96"
-    DEVICE_UNSPECIFIED  ///< "DEVICE_UNSPECIFIED Device altitude"
+    RAF20,              ///< "RAF20" French geoid grid, for maps or plans in NGF-IGN69
+    EGM2008,            ///< "EGM2008" global geoid, for Copernicus DEM or other data using EGM2008
+    EGM96,              ///< "EGM96" global geoid, for SRTM or other data using EGM96
+    DEVICE_BUILTIN      ///< "DEVICE_BUILTIN" altitude above mean sea level reported by a device (e.g. a smartphone), which applied its own built-in geoid model without saying which one
 };
 
 /**
  * @brief GeoReferenceMethod to string
  * @param[in] method the GeoReferenceMethod to convert
- * @return the schema string: "GNSS_FIT", "MARKER_MEASURED", "DEVICE_ALIGNMENT" or "FROM_MAP"
+ * @return the name of the value, as used in the georef schema (UNSET is not a schema value)
  * @throws std::invalid_argument if the value is not a valid GeoReferenceMethod
  */
 std::string toString(GeoReferenceMethod method);
@@ -71,14 +76,14 @@ std::string toString(GeoReferenceMethod method);
 /**
  * @brief String to GeoReferenceMethod
  * @param[in] method the schema string to parse, e.g. "GNSS_FIT" (case-insensitive)
- * @return the parsed value, or std::nullopt if the string is not a known value
+ * @return the parsed value, or std::nullopt if the string is not a schema value ("UNSET" is not one)
  */
 std::optional<GeoReferenceMethod> parseGeoReferenceMethod(const std::string& method);
 
 /**
  * @brief HeightSource to string
  * @param[in] source the HeightSource to convert
- * @return the schema string: "GNSS", "MAPS", "BUILDING_PLANS" or "UNKNOWN"
+ * @return the name of the value, as used in the georef schema
  * @throws std::invalid_argument if the value is not a valid HeightSource
  */
 std::string toString(HeightSource source);
@@ -93,7 +98,7 @@ std::optional<HeightSource> parseHeightSource(const std::string& source);
 /**
  * @brief GeoidModel to string
  * @param[in] model the GeoidModel to convert
- * @return the schema string: "RAF20", "EGM2008", "EGM96" or "DEVICE_UNSPECIFIED"
+ * @return the name of the value, as used in the georef schema
  * @throws std::invalid_argument if the value is not a valid GeoidModel
  */
 std::string toString(GeoidModel model);
@@ -162,9 +167,23 @@ struct GeoAccuracy {
  */
 struct HeightConversion {
     std::string sourceDatum;                                ///< e.g. "NGF-IGN69", "msl", or another national datum name
-    GeoidModel geoidModel = GeoidModel::DEVICE_UNSPECIFIED; ///< geoid model giving the undulation
+    GeoidModel geoidModel = GeoidModel::DEVICE_BUILTIN;     ///< geoid model giving the undulation
     double undulation_m = 0.0;                              ///< geoid undulation N in metres
     double sourceValue_m = 0.0;                             ///< original altitude in metres
+
+    /**
+     * @brief Boost serialization of the height conversion
+     * @param[in,out] ar the archive to save to or load from
+     * @param[in] version the version of the archive (unused)
+     */
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & sourceDatum;
+        ar & geoidModel;
+        ar & undulation_m;
+        ar & sourceValue_m;
+    }
 };
 
 /**
@@ -174,6 +193,33 @@ struct HeightConversion {
 struct HeightReference {
     HeightSource source = HeightSource::UNKNOWN;    ///< where the height value came from
     std::optional<HeightConversion> conversion;     ///< how the height was converted; required for MAPS and BUILDING_PLANS, optional otherwise
+
+    /**
+     * @brief Boost serialization of the height reference
+     * @param[in,out] ar the archive to save to or load from
+     * @param[in] version the version of the archive (unused)
+     */
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int /* version */)
+    {
+        ar & source;
+        // The optional conversion is stored as a presence flag followed by the conversion. The same code
+        // runs both ways: when saving, the flag is the state of this object and "ar &" writes it;
+        // when loading, "ar &" overwrites the flag with the stored one, and the conversion is then
+        // created (or removed, in the else branch) to match before it is read
+        bool hasConversion = conversion.has_value();
+        ar & hasConversion;
+        if (hasConversion) {
+            if (!conversion) {
+                // only reached when loading
+                conversion = HeightConversion();
+            }
+            ar & *conversion;
+        }
+        else {
+            conversion.reset();
+        }
+    }
 };
 
 /**
@@ -198,7 +244,8 @@ public:
     static constexpr double HEIGHT_CONVERSION_TOLERANCE_M = 0.001;
 
     /**
-     * @brief GeoReference constructor. The creation time is set to now
+     * @brief GeoReference constructor. The creation time is set to now.
+     * The method is UNSET: the georeference is not valid until setMethod is called
      */
     GeoReference();
 
@@ -227,7 +274,7 @@ public:
 
     /**
      * @brief Get the method used to obtain the georeference
-     * @return the method
+     * @return the method, UNSET if it has not been set yet
      */
     GeoReferenceMethod getMethod() const { return m_method; }
 
@@ -324,10 +371,10 @@ public:
     /**
      * @brief Parse a "georef" JSON object and validate it
      * @param[in] json the JSON object
-     * @return the georeference
-     * @throws std::invalid_argument if the object does not follow the schema
+     * @param[out] error description of the first problem found, empty on success
+     * @return the georeference, or std::nullopt if the object does not follow the schema
      */
-    static GeoReference fromJson(const nlohmann::json& json);
+    static std::optional<GeoReference> fromJson(const nlohmann::json& json, std::string& error);
 
     /**
      * @brief Get a human-readable description of the georeference
@@ -342,7 +389,7 @@ private:
 
     std::uint32_t       m_version = SCHEMA_VERSION;
     GeoPose             m_originGeoPose;
-    GeoReferenceMethod  m_method = GeoReferenceMethod::GNSS_FIT;
+    GeoReferenceMethod  m_method = GeoReferenceMethod::UNSET;
     std::string         m_sourceMapId;      // only set when m_method is FROM_MAP
     GeoAccuracy         m_accuracy;
     HeightReference     m_heightReference;

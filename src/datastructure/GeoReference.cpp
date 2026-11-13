@@ -72,6 +72,8 @@ std::string optionalToString(const std::optional<double>& value)
     return value ? std::to_string(*value) : std::string("unknown");
 }
 
+// Boost serialization of an optional value, as a presence flag followed by the value (0 if absent).
+// When loading, "ar &" overwrites both locals with the stored ones and the optional is rebuilt from them
 template <typename Archive>
 void serializeOptional(Archive &ar, std::optional<double>& value)
 {
@@ -104,6 +106,8 @@ std::string toString(GeoReferenceMethod method)
             return "DEVICE_ALIGNMENT";
         case GeoReferenceMethod::FROM_MAP:
             return "FROM_MAP";
+        case GeoReferenceMethod::UNSET:
+            return "UNSET";
     }
     throw std::invalid_argument("Unknown georeference method");
 }
@@ -168,8 +172,8 @@ std::string toString(GeoidModel model)
             return "EGM2008";
         case GeoidModel::EGM96:
             return "EGM96";
-        case GeoidModel::DEVICE_UNSPECIFIED:
-            return "DEVICE_UNSPECIFIED";
+        case GeoidModel::DEVICE_BUILTIN:
+            return "DEVICE_BUILTIN";
     }
     throw std::invalid_argument("Unknown geoid model");
 }
@@ -186,8 +190,8 @@ std::optional<GeoidModel> parseGeoidModel(const std::string& modelText)
     if (model == "EGM96") {
         return GeoidModel::EGM96;
     }
-    if (model == "DEVICE_UNSPECIFIED") {
-        return GeoidModel::DEVICE_UNSPECIFIED;
+    if (model == "DEVICE_BUILTIN") {
+        return GeoidModel::DEVICE_BUILTIN;
     }
     return std::nullopt;
 }
@@ -287,6 +291,10 @@ bool GeoReference::isValid(std::string& error) const
     }
     if (!q.coeffs().allFinite() || std::abs(q.norm() - 1.0) > QUATERNION_NORM_TOLERANCE) {
         error = "origin quaternion must be a unit quaternion";
+        return false;
+    }
+    if (m_method == GeoReferenceMethod::UNSET) {
+        error = "method must be set";
         return false;
     }
     if (m_method == GeoReferenceMethod::FROM_MAP && m_sourceMapId.empty()) {
@@ -419,13 +427,14 @@ nlohmann::json GeoReference::toJson() const
     return json;
 }
 
-GeoReference GeoReference::fromJson(const nlohmann::json& json)
+std::optional<GeoReference> GeoReference::fromJson(const nlohmann::json& json, std::string& error)
 {
     GeoReference result;
     try {
         result.m_version = json.at("version").get<std::uint32_t>();
         if (result.m_version != SCHEMA_VERSION) {
-            throw std::invalid_argument("unsupported georef version " + std::to_string(result.m_version));
+            error = "unsupported georef version " + std::to_string(result.m_version);
+            return std::nullopt;
         }
 
         const nlohmann::json& geopose = json.at("origin_geopose");
@@ -441,13 +450,15 @@ GeoReference GeoReference::fromJson(const nlohmann::json& json)
 
         const std::string rotation = json.at("rotation").get<std::string>();
         if (rotation != ROTATION_CONVENTION) {
-            throw std::invalid_argument("rotation must be \"" + std::string(ROTATION_CONVENTION) + "\", got \"" + rotation + "\"");
+            error = "rotation must be \"" + std::string(ROTATION_CONVENTION) + "\", got \"" + rotation + "\"";
+            return std::nullopt;
         }
 
         const std::string method = json.at("method").get<std::string>();
         const std::optional<GeoReferenceMethod> parsedMethod = parseGeoReferenceMethod(method);
         if (!parsedMethod) {
-            throw std::invalid_argument("unknown method \"" + method + "\"");
+            error = "unknown method \"" + method + "\"";
+            return std::nullopt;
         }
         result.m_method = *parsedMethod;
         if (json.contains("source_map_id") && !json.at("source_map_id").is_null()) {
@@ -462,12 +473,14 @@ GeoReference GeoReference::fromJson(const nlohmann::json& json)
         const nlohmann::json& heightRef = json.at("height_ref");
         const std::string heightType = heightRef.at("h_type").get<std::string>();
         if (heightType != HEIGHT_TYPE) {
-            throw std::invalid_argument("h_type must be \"" + std::string(HEIGHT_TYPE) + "\", got \"" + heightType + "\"");
+            error = "h_type must be \"" + std::string(HEIGHT_TYPE) + "\", got \"" + heightType + "\"";
+            return std::nullopt;
         }
         const std::string source = heightRef.at("source").get<std::string>();
         const std::optional<HeightSource> parsedSource = parseHeightSource(source);
         if (!parsedSource) {
-            throw std::invalid_argument("unknown height source \"" + source + "\"");
+            error = "unknown height source \"" + source + "\"";
+            return std::nullopt;
         }
         result.m_heightReference.source = *parsedSource;
         if (heightRef.contains("conversion") && !heightRef.at("conversion").is_null()) {
@@ -477,7 +490,8 @@ GeoReference GeoReference::fromJson(const nlohmann::json& json)
             const std::string geoidModel = conversion.at("geoid_model").get<std::string>();
             const std::optional<GeoidModel> parsedGeoidModel = parseGeoidModel(geoidModel);
             if (!parsedGeoidModel) {
-                throw std::invalid_argument("unknown geoid model \"" + geoidModel + "\"");
+                error = "unknown geoid model \"" + geoidModel + "\"";
+                return std::nullopt;
             }
             conv.geoidModel = *parsedGeoidModel;
             conv.undulation_m = conversion.at("undulation_m").get<double>();
@@ -488,12 +502,13 @@ GeoReference GeoReference::fromJson(const nlohmann::json& json)
         result.m_createdTime = json.at("created").get<std::string>();
     }
     catch (const nlohmann::json::exception& e) {
-        throw std::invalid_argument(std::string("invalid georef JSON: ") + e.what());
+        error = std::string("invalid georef JSON: ") + e.what();
+        return std::nullopt;
     }
 
-    std::string error;
     if (!result.isValid(error)) {
-        throw std::invalid_argument("invalid georef: " + error);
+        error = "invalid georef: " + error;
+        return std::nullopt;
     }
     return result;
 }
@@ -534,22 +549,7 @@ void GeoReference::serialize(Archive &ar, const unsigned int /* version */)
     serializeOptional(ar, m_accuracy.horizontal_m);
     serializeOptional(ar, m_accuracy.vertical_m);
     serializeOptional(ar, m_accuracy.heading_deg);
-    ar & m_heightReference.source;
-    bool hasConversion = m_heightReference.conversion.has_value();
-    ar & hasConversion;
-    if (hasConversion) {
-        if (!m_heightReference.conversion) {
-            m_heightReference.conversion = HeightConversion();
-        }
-        HeightConversion& conv = *m_heightReference.conversion;
-        ar & conv.sourceDatum;
-        ar & conv.geoidModel;
-        ar & conv.undulation_m;
-        ar & conv.sourceValue_m;
-    }
-    else {
-        m_heightReference.conversion.reset();
-    }
+    ar & m_heightReference;
     ar & m_createdTime;
 }
 
