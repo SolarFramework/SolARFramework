@@ -203,21 +203,24 @@ struct HeightReference {
     void serialize(Archive &ar, const unsigned int /* version */)
     {
         ar & source;
-        // The optional conversion is stored as a presence flag followed by the conversion. The same code
-        // runs both ways: when saving, the flag is the state of this object and "ar &" writes it;
-        // when loading, "ar &" overwrites the flag with the stored one, and the conversion is then
-        // created (or removed, in the else branch) to match before it is read
-        bool hasConversion = conversion.has_value();
-        ar & hasConversion;
-        if (hasConversion) {
-            if (!conversion) {
-                // only reached when loading
-                conversion = HeightConversion();
+        // The optional conversion is stored as a presence flag, followed by the conversion if present
+        if constexpr (Archive::is_saving::value) {
+            bool hasConversion = conversion.has_value();
+            ar & hasConversion;
+            if (hasConversion) {
+                ar & *conversion;
             }
-            ar & *conversion;
         }
         else {
-            conversion.reset();
+            bool hasConversion = false;
+            ar & hasConversion;
+            if (hasConversion) {
+                conversion = HeightConversion();
+                ar & *conversion;
+            }
+            else {
+                conversion.reset();
+            }
         }
     }
 };
