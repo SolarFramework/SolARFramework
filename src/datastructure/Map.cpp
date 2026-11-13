@@ -281,6 +281,43 @@ const std::vector<MapProcessingStep> & Map::getMapProcessingHistory() const
     return m_mapProcessingHistory;
 }
 
+bool Map::isGeoreferenced() const
+{
+    return m_geoReference != nullptr;
+}
+
+const SRef<const GeoReference> & Map::getConstGeoReference() const
+{
+    return m_geoReference;
+}
+
+FrameworkReturnCode Map::setGeoReference(const SRef<const GeoReference> & geoReference)
+{
+    if (geoReference) {
+        std::string error;
+        if (!geoReference->isValid(error)) {
+            LOG_ERROR("Map::setGeoReference - invalid georeference: {}", error);
+            return FrameworkReturnCode::_ERROR_;
+        }
+    }
+    m_geoReference = geoReference;
+    return FrameworkReturnCode::_SUCCESS;
+}
+
+std::optional<GeoPose> Map::mapPoseToGeoPose(const Transform3Df & mapPose) const
+{
+    if (!m_geoReference)
+        return std::nullopt;
+    return m_geoReference->mapPoseToGeoPose(mapPose);
+}
+
+std::optional<Transform3Df> Map::geoPoseToMapPose(const GeoPose & geoPose) const
+{
+    if (!m_geoReference)
+        return std::nullopt;
+    return m_geoReference->geoPoseToMapPose(geoPose);
+}
+
 SRef<const Mask2DCollection> Map::getConstMask2DCollection() const
 {
     return m_mask2DCollection;
@@ -330,6 +367,12 @@ void Map::serialize(Archive &ar, const unsigned int version) {
         ar & m_mask2DCollection;
     }
     ar & m_mapProcessingHistory;
+    if (version > 1) {
+        // Boost cannot load into a pointer to const: go through a non-const pointer to the same object
+        SRef<GeoReference> geoReference = org::bcom::xpcf::utils::const_pointer_cast<GeoReference>(m_geoReference);
+        ar & geoReference;
+        m_geoReference = geoReference;
+    }
 }
 
 IMPLEMENTSERIALIZE(Map);
