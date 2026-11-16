@@ -482,7 +482,7 @@ public:
     virtual FrameworkReturnCode getExtractImagesFromVideoStatus(const std::string & accessToken,
                                                                 const std::string & imageUUID,
                                                                 MapProcessingStatus & status,
-                                                                float & progress) = 0;
+                                                                float & progress) const = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] accessToken a valid Token collected by client after login to the authentication server
