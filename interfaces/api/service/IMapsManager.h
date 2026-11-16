@@ -308,7 +308,7 @@ public:
     /// * else FrameworkReturnCode::_ERROR_
     virtual FrameworkReturnCode getExtractImagesFromVideoStatus(const std::string & imageUUID,
                                                                 MapProcessingStatus & status,
-                                                                float & progress) const = 0;
+                                                                float & progress) = 0;
 
     /// @brief Request for a map processing giving the type of process to apply (asynchronous)
     /// @param[in] mapOrImageUUID the UUID of the map or images (SfM) to process
