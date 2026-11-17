@@ -29,8 +29,10 @@
 #include <datastructure/CovisibilityGraph.h>
 #include <datastructure/KeyframeRetrieval.h>
 #include <datastructure/Mask2DCollection.h>
+#include <datastructure/GeoReference.h>
 #include <Version.h>
 #include <xpcf/core/refs.h>
+#include <optional>
 #include <vector>
 
 // Definition of Map Class //
@@ -81,7 +83,7 @@ private:
 
     friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive &ar, const unsigned int  /* version */)
+    void serialize(Archive &ar, const unsigned int /* version */)
     {
         ar & m_version;
         ar & m_descriptorType;
@@ -426,6 +428,31 @@ public:
     /// @return the list of processing steps
     const std::vector<MapProcessingStep> & getMapProcessingHistory() const;
 
+    /// @brief Indicate if the map is georeferenced
+    /// @return true if the map has a georeference
+    bool isGeoreferenced() const;
+
+    /// @brief Get the georeference of the map
+    /// @return the georeference (read-only, it can be shared between maps), or nullptr if the map is not georeferenced
+    const SRef<const GeoReference> & getConstGeoReference() const;
+
+    /// @brief Set the georeference of the map
+    /// @param[in] geoReference the georeference, or nullptr to mark the map as not georeferenced
+    /// @return FrameworkReturnCode::_SUCCESS if the georeference is set, FrameworkReturnCode::_ERROR_ if it is not valid
+    /// (see GeoReference::isValid), in which case the current georeference of the map is kept
+    FrameworkReturnCode setGeoReference(const SRef<const GeoReference> & geoReference);
+
+    /// @brief Convert a pose in the map coordinate system (e.g. a keyframe pose) to a geopose
+    /// @param[in] mapPose the pose in the map coordinate system (pose frame to map frame)
+    /// @return the geopose, whose orientation is relative to the local East-North-Up frame at the pose position,
+    /// or std::nullopt if the map is not georeferenced
+    std::optional<GeoPose> mapPoseToGeoPose(const Transform3Df & mapPose) const;
+
+    /// @brief Convert a geopose to a pose in the map coordinate system (inverse of mapPoseToGeoPose)
+    /// @param[in] geoPose the geopose, whose orientation is relative to the local East-North-Up frame at its position
+    /// @return the pose in the map coordinate system (pose frame to map frame), or std::nullopt if the map is not georeferenced
+    std::optional<Transform3Df> geoPoseToMapPose(const GeoPose & geoPose) const;
+
 private:
     friend class boost::serialization::access;
     template <typename Archive>
@@ -445,12 +472,15 @@ private:
 
     // List of all processing steps previously applied to obtain the map datastructure
     std::vector<MapProcessingStep> m_mapProcessingHistory;
+
+    // Georeference of the map (nullptr if the map is not georeferenced)
+    SRef<const GeoReference>                            m_geoReference;
 };
 
 DECLARESERIALIZE(Map);
 }
 }  // end of namespace SolAR
 
-BOOST_CLASS_VERSION(SolAR::datastructure::Map, 1);
+BOOST_CLASS_VERSION(SolAR::datastructure::Map, 2);
 
 #endif // SOLAR_MAP_H
