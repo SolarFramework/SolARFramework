@@ -247,8 +247,69 @@ Maths::Matrix3d enuToEcefRotation(double lat_deg, double lon_deg)
     return r;
 }
 
+Maths::Matrix3d mapToEnuRotation(MapUpAxis upAxis, double headingDeg)
+{
+    const double heading = headingDeg * SOLAR_DEG2RAD;
+    const double s = std::sin(heading), c = std::cos(heading);
+    // Map right, forward and up directions expressed in ENU (heading is clockwise from North)
+    const Vector3d right(c, -s, 0.0);
+    const Vector3d forward(s, c, 0.0);
+    const Vector3d up(0.0, 0.0, 1.0);
+    // Columns: map X, Y and Z axes expressed in ENU (see the MapUpAxis table)
+    Maths::Matrix3d r;
+    switch (upAxis) {
+        case MapUpAxis::Z_UP:       r << right, forward, up;    return r;
+        case MapUpAxis::MINUS_Z_UP: r << right, -forward, -up;  return r;
+        case MapUpAxis::Y_UP:       r << right, up, -forward;   return r;
+        case MapUpAxis::MINUS_Y_UP: r << right, -up, forward;   return r;
+        case MapUpAxis::X_UP:       r << up, right, forward;    return r;
+        case MapUpAxis::MINUS_X_UP: r << -up, right, -forward;  return r;
+    }
+    throw std::invalid_argument("invalid MapUpAxis value " + std::to_string(static_cast<int>(upAxis)));
+}
+
 GeoReference::GeoReference() : m_createdTime(nowIso8601Utc())
 {
+}
+
+std::optional<GeoReference> GeoReference::create(double lat, double lon, double h,
+                                                 std::string& error,
+                                                 MapUpAxis upAxis,
+                                                 double headingDeg,
+                                                 GeoReferenceMethod method,
+                                                 const std::string& sourceMapId)
+{
+    if (!std::isfinite(headingDeg)) {
+        error = "heading must be a finite number";
+        return std::nullopt;
+    }
+    Maths::Quaterniond mapToEnu;
+    try {
+        mapToEnu = Maths::Quaterniond(mapToEnuRotation(upAxis, headingDeg));
+    }
+    catch (const std::invalid_argument& e) {
+        error = e.what();
+        return std::nullopt;
+    }
+    return create(lat, lon, h, error, mapToEnu, method, sourceMapId);
+}
+
+std::optional<GeoReference> GeoReference::create(double lat, double lon, double h,
+                                                 std::string& error,
+                                                 const Maths::Quaterniond& mapToEnu,
+                                                 GeoReferenceMethod method,
+                                                 const std::string& sourceMapId)
+{
+    GeoPose originGeoPose;
+    originGeoPose.position = {lat, lon, h};
+    originGeoPose.quaternion = mapToEnu;
+    GeoReference result;
+    result.setOriginGeoPose(originGeoPose);
+    result.setMethod(method, sourceMapId);
+    if (!result.isValid(error)) {
+        return std::nullopt;
+    }
+    return result;
 }
 
 void GeoReference::setOriginGeoPose(const GeoPose& originGeoPose)

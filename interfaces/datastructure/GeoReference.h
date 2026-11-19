@@ -66,6 +66,35 @@ enum class GeoidModel : std::uint8_t {
 };
 
 /**
+ * @enum MapUpAxis
+ * @brief <B>Which axis of a gravity-aligned map points up.</B>
+ *
+ * It also fixes the map "right" and "forward" axes, with right x forward = up.
+ * The heading of the map is the compass bearing of its <B>forward</B> axis.
+ *
+ * | value      | right | forward | example                                                                         |
+ * |------------|-------|---------|---------------------------------------------------------------------------------|
+ * | Z_UP       | +X    | +Y      | geo / robotics convention (ENU itself)                                          |
+ * | MINUS_Z_UP | +X    | -Y      | marker on the floor with Z into the floor                                       |
+ * | Y_UP       | +X    | -Z      | OpenGL convention, wall marker mounted upside down                              |
+ * | MINUS_Y_UP | +X    | +Z      | OpenCV camera convention, wall marker mounted upright (Z points into the wall)  |
+ * | X_UP       | +Y    | +Z      | wall marker rotated by 90 degrees counterclockwise, seen facing it              |
+ * | MINUS_X_UP | +Y    | -Z      | wall marker rotated by 90 degrees clockwise, seen facing it                     |
+ *
+ * The wall marker examples assume the usual marker frame: X right, Y down and Z into the wall when the
+ * marker is upright. The heading of an upright wall marker is then the bearing of the direction into the
+ * wall, opposite to the direction the wall faces: a marker on a wall facing South has a heading of 0.
+ */
+enum class MapUpAxis : std::uint8_t {
+    Z_UP,           ///< +Z up: right +X, forward +Y
+    MINUS_Z_UP,     ///< -Z up: right +X, forward -Y
+    Y_UP,           ///< +Y up: right +X, forward -Z
+    MINUS_Y_UP,     ///< -Y up (Y points down): right +X, forward +Z
+    X_UP,           ///< +X up: right +Y, forward +Z
+    MINUS_X_UP      ///< -X up: right +Y, forward -Z
+};
+
+/**
  * @brief GeoReferenceMethod to string
  * @param[in] method the GeoReferenceMethod to convert
  * @return the name of the value, as used in the georef schema (UNSET is not a schema value)
@@ -253,6 +282,51 @@ public:
     GeoReference();
 
     /**
+     * @brief Create a validated georeference for a gravity-aligned map.
+     * The creation time is set to now, the accuracy is unknown and the height source is UNKNOWN;
+     * use the setters to fill them, then check the result again with isValid.
+     * The map must be gravity-aligned (its up axis vertical): any tilt of the map is not represented
+     * and turns into a position error growing with the distance to the origin.
+     * @param[in] lat latitude of the map origin in degrees, in [-90, 90]
+     * @param[in] lon longitude of the map origin in degrees, in [-180, 180]
+     * @param[in] h height of the map origin in metres above the WGS-84 ellipsoid (not above sea level)
+     * @param[out] error description of the first violated rule, empty on success
+     * @param[in] upAxis which map axis points up
+     * @param[in] headingDeg compass bearing of the map forward axis (see MapUpAxis), in degrees clockwise
+     * from North: 0 = North, 90 = East
+     * @param[in] method how the georeference was obtained (UNSET is rejected)
+     * @param[in] sourceMapId the identifier of the source map: required for FROM_MAP, must be empty otherwise
+     * @return the georeference, or std::nullopt if it is not valid (see isValid)
+     */
+    static std::optional<GeoReference> create(double lat, double lon, double h,
+                                              std::string& error,
+                                              MapUpAxis upAxis = MapUpAxis::MINUS_Y_UP,
+                                              double headingDeg = 0.0,
+                                              GeoReferenceMethod method = GeoReferenceMethod::MARKER_MEASURED,
+                                              const std::string& sourceMapId = "");
+
+    /**
+     * @brief Create a validated georeference from any map orientation, including a tilted map.
+     * The creation time is set to now, the accuracy is unknown and the height source is UNKNOWN;
+     * use the setters to fill them, then check the result again with isValid.
+     * @param[in] lat latitude of the map origin in degrees, in [-90, 90]
+     * @param[in] lon longitude of the map origin in degrees, in [-180, 180]
+     * @param[in] h height of the map origin in metres above the WGS-84 ellipsoid (not above sea level)
+     * @param[out] error description of the first violated rule, empty on success
+     * @param[in] mapToEnu rotation from the map frame to the local East-North-Up frame at the origin: it rotates
+     * map-frame vectors into ENU (the identity means the map X, Y and Z axes point East, North and Up).
+     * It is normalized; a zero or non-finite quaternion is rejected
+     * @param[in] method how the georeference was obtained (UNSET is rejected)
+     * @param[in] sourceMapId the identifier of the source map: required for FROM_MAP, must be empty otherwise
+     * @return the georeference, or std::nullopt if it is not valid (see isValid)
+     */
+    static std::optional<GeoReference> create(double lat, double lon, double h,
+                                              std::string& error,
+                                              const Maths::Quaterniond& mapToEnu,
+                                              GeoReferenceMethod method = GeoReferenceMethod::MARKER_MEASURED,
+                                              const std::string& sourceMapId = "");
+
+    /**
      * @brief GeoReference default destructor
      */
     ~GeoReference() = default;
@@ -420,6 +494,15 @@ GeoPosition ecefToGeodetic(const Vector3d& ecef);
  * @return the rotation, whose columns are the East, North and Up axes expressed in ECEF
  */
 Maths::Matrix3d enuToEcefRotation(double lat_deg, double lon_deg);
+
+/**
+ * @brief Get the rotation from a gravity-aligned map frame to the local East-North-Up frame
+ * @param[in] upAxis which map axis points up
+ * @param[in] headingDeg compass bearing of the map forward axis (see MapUpAxis), in degrees clockwise from North
+ * @return the map_to_enu rotation, whose columns are the map X, Y and Z axes expressed in ENU
+ * @throws std::invalid_argument if upAxis is not a valid MapUpAxis
+ */
+Maths::Matrix3d mapToEnuRotation(MapUpAxis upAxis, double headingDeg);
 
 DECLARESERIALIZE(GeoReference);
 
