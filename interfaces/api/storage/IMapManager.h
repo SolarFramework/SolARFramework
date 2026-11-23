@@ -161,11 +161,12 @@ public:
 	virtual FrameworkReturnCode saveToFile() const = 0;
 
 	/// @brief Load the map from the external file
+    /// @param[in] loadKeyframes indicate if the keyframe binary file must be loaded (true by default)
     /// @return
     /// * FrameworkReturnCode::_MAP_MISSING_INFORMATION_FILE if information file is missing
     /// * FrameworkReturnCode::_MAP_MISSING_BINARY_FILE if a binary file is missing
     /// * FrameworkReturnCode::_SUCCESS_ if the loading succeeds, else FrameworkReturnCode::_ERROR.
-    virtual FrameworkReturnCode loadFromFile() = 0;
+    virtual FrameworkReturnCode loadFromFile(bool loadKeyframes = true) = 0;
 
     /// @brief Delete the map in external file
     /// @return FrameworkReturnCode::_SUCCESS_ if the deletion succeeds, else FrameworkReturnCode::_ERROR.
