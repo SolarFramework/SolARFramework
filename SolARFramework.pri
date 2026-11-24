@@ -150,6 +150,7 @@ interfaces/datastructure/DescriptorMatch.h \
 interfaces/datastructure/FiducialMarker.h \
 interfaces/datastructure/QRCode.h \
 interfaces/datastructure/Frame.h \
+interfaces/datastructure/GeoReference.h \
 interfaces/datastructure/GeometryDefinitions.h \
 interfaces/datastructure/GlobalDescriptor.h \
 interfaces/datastructure/Identification.h \
@@ -209,6 +210,7 @@ src/datastructure/CoordinateSystem.cpp \
 src/datastructure/DescriptorBuffer.cpp \
 src/datastructure/DescriptorMatch.cpp \
 src/datastructure/FiducialMarker.cpp \
+src/datastructure/GeoReference.cpp \
 src/datastructure/GlobalDescriptor.cpp \
 src/datastructure/QRCode.cpp \
 src/datastructure/Frame.cpp \
