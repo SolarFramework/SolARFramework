@@ -228,7 +228,7 @@ void Map::embedKeyframeImages()
     m_mapInformation.setEmbedKeyframeImages(true);
 }
 
-void Map::keyframeImagesReleased()
+void Map::excludeKeyframeImages()
 {
     m_mapInformation.setEmbedKeyframeImages(false);
 }
