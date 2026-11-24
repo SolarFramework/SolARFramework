@@ -228,7 +228,7 @@ void DescriptorBuffer::append(const DescriptorView & descriptor)
 
 namespace {
 
-std::atomic<uint8_t> g_storage{static_cast<uint8_t>(DescriptorBuffer::Storage::FLOAT32)};
+std::atomic<DescriptorBuffer::Storage> g_storage{DescriptorBuffer::Storage::FLOAT32};
 
 // IEEE 754 binary16, round to nearest even
 uint16_t toHalfImpl(float value)
@@ -279,12 +279,12 @@ float DescriptorBuffer::halfToFloat(uint16_t half) { return fromHalfImpl(half); 
 
 void DescriptorBuffer::setStorage(Storage storage)
 {
-    g_storage.store(static_cast<uint8_t>(storage));
+    g_storage.store(storage);
 }
 
 DescriptorBuffer::Storage DescriptorBuffer::getStorage()
 {
-    return static_cast<Storage>(g_storage.load());
+    return g_storage.load();
 }
 
 template<typename Archive>
@@ -294,7 +294,7 @@ void DescriptorBuffer::serialize(Archive &ar, const unsigned int version) {
     if constexpr (Archive::is_saving::value) {
         // only float buffers holding their descriptors are encoded
         if (m_data_type == DescriptorDataType::TYPE_32F && m_buffer && count > 0 && m_buffer->getSize() >= count * sizeof(float))
-            storage = g_storage.load();
+            storage = static_cast<uint8_t>(g_storage.load());
     }
     if (version >= 1)
         ar & storage;
