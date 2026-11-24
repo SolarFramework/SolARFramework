@@ -64,6 +64,10 @@ void KeyframeCollection::addKeyframeInternal(const SRef<Keyframe> keyframe, bool
     if (defineKeyframeId) {
         keyframe->setId(m_id++);
     }
+    else if (m_id <= keyframe->getId()) {
+        // keep the next id past the given ones
+        m_id = keyframe->getId() + 1;
+    }
     m_keyframes[keyframe->getId()] = keyframe;
     if (keyframe->getReferenceKeyframe()) {
         m_refKeyframeToKeyframes[keyframe->getReferenceKeyframe()->getId()].insert(keyframe->getId());
@@ -229,6 +233,9 @@ void KeyframeCollection::serialize(Archive &ar, const unsigned int version)
 	ar & m_id;
 	ar & m_descriptorType;
 	ar & m_keyframes;
+	// maps saved with a stale next id
+	if (!m_keyframes.empty() && m_id <= m_keyframes.rbegin()->first)
+		m_id = m_keyframes.rbegin()->first + 1;
     if (version == 0) { // load an old keyframeCollection (version == 0)
         regularizeReferenceKeyframes(); // fill m_refKeyframeToKeyframes
     }

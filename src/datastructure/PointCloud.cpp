@@ -70,6 +70,9 @@ FrameworkReturnCode PointCloud::addPoints(const std::vector<CloudPoint>& points,
         {
         SRef<CloudPoint> point_ptr = xpcf::utils::make_shared<CloudPoint>(it);
         m_pointCloud[point_ptr->getId()] = point_ptr;
+        // keep the next id past the given ones
+        if (m_id <= point_ptr->getId())
+            m_id = point_ptr->getId() + 1;
         }
     }
 	return FrameworkReturnCode::_SUCCESS;
@@ -164,6 +167,9 @@ void PointCloud::serialize(Archive &ar, const unsigned int /* version */)
 	ar & m_id;
 	ar & m_descriptorType;
 	ar & m_pointCloud;
+	// maps saved with a stale next id
+	if (!m_pointCloud.empty() && m_id <= m_pointCloud.rbegin()->first)
+		m_id = m_pointCloud.rbegin()->first + 1;
 }
 
 IMPLEMENTSERIALIZE(PointCloud);
