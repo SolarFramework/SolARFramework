@@ -189,4 +189,7 @@ DECLARESERIALIZE(GlobalDescriptor);
 
 BOOST_CLASS_EXPORT_KEY(SolAR::datastructure::GlobalDescriptor);
 
+// version 1: storage byte, then the version 0 fields (float32) or FLOAT16 elements (DescriptorBuffer::getStorage() other than FLOAT32)
+BOOST_CLASS_VERSION(SolAR::datastructure::GlobalDescriptor, 1);
+
 #endif // SOLAR_GLOBALDESCRIPTOR_H

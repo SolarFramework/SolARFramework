@@ -400,6 +400,12 @@ public:
     void embedKeyframeImages();
 
     ///
+    /// @brief Setter: clears the embed flag, the keyframe images are no longer serialized with the map
+    /// (counterpart of embedKeyframeImages)
+    ///
+    void excludeKeyframeImages();
+
+    ///
     /// @brief This method is used to find out if the map contains keyframe images
     /// @return true if keyframe images are embedded, false otherwise
     ///
